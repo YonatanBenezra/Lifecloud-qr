@@ -500,3 +500,9 @@ input::placeholder {
 .d-none {
   display: none;
 }
+.birth-date-container {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 17.5%;
+  padding-right: 17.5%;
+}

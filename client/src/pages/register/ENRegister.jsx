@@ -6,6 +6,8 @@ import { useHistory } from 'react-router';
 import Topbar from '../../components/topbar/Topbar';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import Footer from '../../components/footer/Footer';
+import ENTopbar from '../../components/topbar/ENTopBar';
+import ENSocialFooter from '../../components/socialFooter/ENSocialFooter';
 
 export default function ENRegister() {
   const [selectedGender, setSelectedGender] = useState('');
@@ -48,7 +50,7 @@ export default function ENRegister() {
     } else {
       setErro('');
       try {
-        fetch('/api/auth/register', {
+        fetch('https://api.lifecloud-qr.com/api/auth/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -71,7 +73,7 @@ export default function ENRegister() {
   console.log(user, 'user');
   return (
     <>
-      <Topbar />
+      <ENTopbar />
       <div className="register">
         <div className="loginWrapper">
           <div className="loginLeft">
@@ -231,7 +233,7 @@ export default function ENRegister() {
           </div>
         </div>
       </div>
-      <SocialFooter />
+      <ENSocialFooter />
       <Footer />
     </>
   );

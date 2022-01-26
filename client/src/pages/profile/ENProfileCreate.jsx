@@ -8,6 +8,7 @@ import './profile.css';
 import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
+import ENTopbar from '../../components/topbar/ENTopBar';
 export default function ENProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
@@ -159,7 +160,7 @@ export default function ENProfileCreate() {
         formdata.append('multiplefiles', multiFiles[i]);
       }
 
-      fetch('/api/profile/createProfile', {
+      fetch('https://api.lifecloud-qr.com/api/profile/createProfile', {
         method: 'POST',
         body: formdata,
       })
@@ -185,7 +186,7 @@ export default function ENProfileCreate() {
   };
   return (
     <div className="profile-creation-container">
-      <Topbar />
+      <ENTopbar />
       <div className="profile-creation">
         <div className="loginWrapper">
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
@@ -460,14 +461,14 @@ export default function ENProfileCreate() {
             <div className="location-semicontainer">
               <div className="names-container">
                 <input
-                  placeholder="*הוספת מיקום ווייז "
+                  placeholder="*Add waze direction "
                   required
                   ref={wazeLocation}
                   className="nameInput"
                 />
                 <input
-                  placeholder="* הוספת מיקום גוגל"
-                  required
+                  placeholder="* add google direction"
+                  
                   ref={googleLocation}
                   className="nameInput"
                 />
@@ -477,8 +478,8 @@ export default function ENProfileCreate() {
               <img
                 className="profile-image"
                 src={
-                  coverData
-                    ? coverData
+                  graveData
+                    ? graveData
                     : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
                 }
                 alt=""
@@ -487,7 +488,7 @@ export default function ENProfileCreate() {
                 className="custom-file-grave"
                 type="file"
                 onChange={onChangeGrave}
-                name="coverImg"
+                name="graveimage"
               />
             </div>
           </div>

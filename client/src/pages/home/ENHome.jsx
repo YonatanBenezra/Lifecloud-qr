@@ -32,6 +32,7 @@ import Slider from 'react-slick';
 import './home.css';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
+import ENTopbar from '../../components/topbar/ENTopBar';
 
 const ENHome = () => {
   const settings = {
@@ -76,7 +77,7 @@ const ENHome = () => {
   const { searchText, setSearchText } = useSearch();
   return (
     <div>
-      <Topbar />
+      <ENTopbar />
       <div
         className="homeContainer"
         style={{
@@ -84,7 +85,7 @@ const ENHome = () => {
           width: '100%',
           height: '65vh',
           overflow: 'hidden',
-          backgroundPosition: 'right',
+          backgroundPosition: 'center',
         }}
       ></div>
       <div className="search-container">

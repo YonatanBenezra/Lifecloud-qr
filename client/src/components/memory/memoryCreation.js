@@ -16,7 +16,7 @@ const MemoryCreation = () => {
         fetchuserprofiles();
     }, []);
     const fetchuserprofiles = async () => {
-        const res = await axios.get(`/api/profile/getSingleProfileDetails/${id}`);
+        const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`);
         setProfileData(res.data);
     };
     const handleText = (e) => {
@@ -31,7 +31,7 @@ const MemoryCreation = () => {
 
         try {
             const formdata = new FormData();
-            formdata.append('originalUser', profiledata.originalUser[0]._id);
+            formdata.append('originalUser', id);
             formdata.append('firstName', profiledata.originalUser[0].firstName);
             formdata.append('lastName', profiledata.originalUser[0].lastName);
             // for (let i = 0; i < multiFiles.length; i++) {
@@ -39,7 +39,7 @@ const MemoryCreation = () => {
 
             // }
             console.log(formdata, 'formdata')
-            fetch('/api/memory/createMemory', {
+            fetch('https://api.lifecloud-qr.com/api/memory/createMemory', {
                 method: 'POST',
                 body: formdata,
             })

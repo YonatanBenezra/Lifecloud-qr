@@ -14,21 +14,12 @@ const Memory = ({ data, close, handleLike, onhandleChangeComment, handleComment,
     const [language, setLanguage] = useState(LanguageContext.language);
 
     const isUserAdmin = true
-    const comments = [
-        {
-            profileImg: Rectangle6,
-            uploadDate: '12/12/2020',
-            uploadTime: '12:12',
-            uploaderName: 'John Doe',
-            comment: 'time flies...'
-        }]
-    console.log(data, 'data')
     return (
         <div className="memory-page">
             <div className='single-memory-content-container'>
                 <div className='single-memory-subcontainer'>
                     <h1 className='single-memory-title'>Raz Cohen | 12.3.22</h1>  {/* add the title prome profiledata memory with the memory index */}
-                    <img src={`http://localhost:8800/${data.file}`} alt='' className='single-memory-img'></img>
+                    <img src={`https://api.lifecloud-qr.com/${data.file}`} alt='' className='single-memory-img'></img>
                     <div className="icons-container">
                         <div className="memory-heart-container">
                             <div className="heart-div">
@@ -68,7 +59,7 @@ const Memory = ({ data, close, handleLike, onhandleChangeComment, handleComment,
                             return (
                                 <div className='comment-container'>
                                     <span className='comment-subcontainer'>
-                                        <img src={`http://localhost:8800/${data.file}`} alt='' className='comment-img' />
+                                        <img src={`https://api.lifecloud-qr.com/${data.file}`} alt='' className='comment-img' />
                                         <p>{moment(comment.date).utc().format("YYYY-DD-MM")}</p>
                                         |
                                         <p>{`${data.firstName} ${data.lastName}`}</p>

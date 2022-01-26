@@ -26,8 +26,7 @@ import {
 import LanguageContext from './context/LanguageContext';
 function App() {
   const { user } = useContext(AuthContext);
-  const [language, setLanguage] = useState(LanguageContext.language);
-  
+  const [language, setLanguage] = useState(localStorage.getItem('lang') || 'heb');
   return (
     <>
       <Router>

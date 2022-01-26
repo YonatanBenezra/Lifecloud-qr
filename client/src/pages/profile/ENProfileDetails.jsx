@@ -25,6 +25,7 @@ import SnackBar from '../../components/snackbar/SnackBar';
 import ENSocialFooter from '../../components/socialFooter/ENSocialFooter';
 import ENFriendsList from '../../components/friendsList/ENFriendsList';
 import Footer from '../../components/footer/Footer';
+import ENTopbar from '../../components/topbar/ENTopBar';
 
 // import { useParams } from 'react-router-dom';
 export default function ENProfile() {
@@ -40,8 +41,8 @@ export default function ENProfile() {
   const [commenting, setCommenting] = useState(false);
   const [comment, setComment] = useState();
   const [DellComment, setDelComment] = useState('');
-  const [friendFlagReq,setrfriendReq] = useState([])
-  const [adminFlagReq,setAdminres] = useState([])
+  const [friendFlagReq, setrfriendReq] = useState([])
+  const [adminFlagReq, setAdminres] = useState([])
   const id = useParams().id;
   const [memories, setMemories] = useState([]);
   const [next, setnext] = useState(1);
@@ -50,25 +51,32 @@ export default function ENProfile() {
   };
   console.log(id);
   useEffect(() => {
-    fetchuserprofiles();
-    fetchmemories();
+  
     setCommenting('');
     setComment('');
     setLikeMessage('');
-  }, [likeMessage, comment, DellComment,friendFlagReq,adminFlagReq]);
+  }, [likeMessage, comment, DellComment, friendFlagReq, adminFlagReq]);
+  useEffect(()=>{
+    fetchuserprofiles();
+  },[])
+  useEffect(()=>{
+    if (Object.keys(profiledata).length > 0) {
+      fetchmemories();
+    }
+  })
   const fetchuserprofiles = async () => {
-    const res = await axios.get(`/api/profile/getSingleProfileDetails/${id}`);
+    const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`);
     setProfileData(res.data);
-    console.log(res,'res')
+    console.log(res, 'res')
   };
 
   const fetchmemories = async () => {
-    const res = await axios.get(`/api/memory/getallmemory`);
-    console.log(res);
+    const res = await axios.get(`https://api.lifecloud-qr.com/api/memory/getallmemory/${id}`);
+    console.log(res, 'res memory');
     setmemoryData(res.data);
   };
 
-  console.log(memoryData);
+  console.log(memoryData,'get all memory');
   console.log(profiledata);
   let pasrseAxios = Object.keys(profiledata).length
     ? JSON.parse(profiledata.lifeAxis)
@@ -81,7 +89,7 @@ export default function ENProfile() {
       let data = {
         userId: profiledata.originalUser[0]._id,
       };
-      fetch(`/api/memory/like/${e._id}`, {
+      fetch(`https://api.lifecloud-qr.com/api/memory/like/${e._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'Application/json',
@@ -111,7 +119,7 @@ export default function ENProfile() {
   const handleComment = (e) => {
     console.log(e);
     try {
-      fetch(`/api/memory/comment/${e._id}`, {
+      fetch(`https://api.lifecloud-qr.com/api/memory/comment/${e._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'Application/json',
@@ -152,7 +160,7 @@ export default function ENProfile() {
 
   const handleDelete = (e, id) => {
     console.log(e, id);
-    fetch(`/api/memory/commentdell/${id}`, {
+    fetch(`https://api.lifecloud-qr.com/api/memory/commentdell/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'Application/json',
@@ -175,7 +183,7 @@ export default function ENProfile() {
   };
   const handleDellMemory = (e) => {
     console.log(e, 'e');
-    fetch(`/api/memory/commentdellOBJ/${e._id}`, {
+    fetch(`https://api.lifecloud-qr.com/api/memory/commentdellOBJ/${e._id}`, {
       method: 'DELETE',
     })
       .then((res) => {
@@ -197,7 +205,7 @@ export default function ENProfile() {
     setOpen(false);
     setMessage('');
   };
-
+  console.log(memoryData, 'memoryData')
   var options = {
     weekday: 'long', //to display the full name of the day, you can use short to indicate an abbreviation of the day
     day: 'numeric',
@@ -209,15 +217,15 @@ export default function ENProfile() {
   if (Object.keys(profiledata).length > 0) {
     return (
       <div>
-        <TopBar />
+        <ENTopbar />
         <img
-          src={`http://localhost:8800/${profiledata.wallImg}`}
+          src={`https://api.lifecloud-qr.com/${profiledata.wallImg}`}
           alt=""
           className="profile-cover"
         ></img>
         <div className="profile-details">
           <img
-            src={`http://localhost:8800/${profiledata.profileImg}`}
+            src={`https://api.lifecloud-qr.com/${profiledata.profileImg}`}
             alt=""
             className="profile-img"
           ></img>
@@ -309,13 +317,13 @@ export default function ENProfile() {
                       trigger={
                         <div className="memory-container" key={index}>
                           <img
-                            src={`http://localhost:8800/${imgData.file}`}
+                            src={`https://api.lifecloud-qr.com/${imgData.file}`}
                             alt=""
                             className="memory-img"
                           ></img>
                           {/* {imgData.file.map(item => {
                           return <img
-                            src={`http://localhost:8800/${item}`}
+                            src={`https://api.lifecloud-qr.com/${item}`}
                             alt=""
                             className="memory-img"
                           ></img>
@@ -408,16 +416,16 @@ export default function ENProfile() {
           </div>
           <div>
             {pasrseAxios.map((axis) => (
-            <div className="axis-container">
-              <div className="axis-sub-container">
-                <h1 className="axis-title">{axis.axisTitle}</h1>
-                <p className="axis-description2">{axis.axisDescription}</p>
+              <div className="axis-container">
+                <div className="axis-sub-container">
+                  <h1 className="axis-title">{axis.axisTitle}</h1>
+                  <p className="axis-description2">{axis.axisDescription}</p>
+                </div>
+                <div className="axis-bubble">
+                  <span>{axis.axisDate}</span>
+                </div>
               </div>
-              <div className="axis-bubble">
-                <span>{axis.axisDate}</span>
-              </div>
-            </div>
-          ))}
+            ))}
           </div>
         </div>
         <div
@@ -427,7 +435,7 @@ export default function ENProfile() {
             {profiledata.gallery.map((img, index) => (
               <div className="full-gallery-img-container" key={index}>
                 <img
-                  src={`http://localhost:8800/${img}`}
+                  src={`https://api.lifecloud-qr.com/${img}`}
                   alt=""
                   className="full-gallery-img"
                 ></img>

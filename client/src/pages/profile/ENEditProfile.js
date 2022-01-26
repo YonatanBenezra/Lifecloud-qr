@@ -9,6 +9,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import moment from 'moment'
 import SnackBar from '../../components/snackbar/SnackBar'
+import ENTopbar from '../../components/topbar/ENTopBar';
 export default function ENProfileEdit() {
     const { user } = useContext(AuthContext);
     const [image, setImage] = useState(null);
@@ -66,7 +67,7 @@ export default function ENProfileEdit() {
         fetchuserprofiles()
     }, [])
     const fetchuserprofiles = async () => {
-        const res = await axios.get(`/api/profile/getSingleProfileDetails/${id}`);
+        const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`);
         setProfileData(res.data)
     }
     const onChangePicture = (e) => {
@@ -177,7 +178,7 @@ export default function ENProfileEdit() {
             //   }
             // }
             console.log(formdata, 'formdata')
-            fetch('/api/profile/updateProfile', {
+            fetch('https://api.lifecloud-qr.com/api/profile/updateProfile', {
                 method: 'PUT',
                 body: formdata,
             })
@@ -206,7 +207,7 @@ export default function ENProfileEdit() {
     }
     return (
         <div className="profile-creation-container">
-            <Topbar />
+            <ENTopbar />
             <div className="profile-creation">
                 <div className="loginWrapper">
                     <div className="loginLeft">
@@ -227,7 +228,7 @@ export default function ENProfileEdit() {
                         <div className="profile-image-container">
                             <img
                                 className="profile-image"
-                                src={imgData ? imgData : `http://localhost:8800/${wallInformation.profileImg}`
+                                src={imgData ? imgData : `https://api.lifecloud-qr.com/${wallInformation.profileImg}`
                                 }
                                 alt=""
                             ></img>
@@ -241,7 +242,7 @@ export default function ENProfileEdit() {
                         <div className="profile-image-container">
                             <img
                                 className="profile-image"
-                                src={coverData ? coverData : `http://localhost:8800/${wallInformation.wallImg}`}
+                                src={coverData ? coverData : `https://api.lifecloud-qr.com/${wallInformation.wallImg}`}
                                 alt=""
                             ></img>
                             <input

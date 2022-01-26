@@ -11,7 +11,7 @@ var storage = multer.diskStorage({
 });
 let uploadpic = multer({ storage: storage });
 // create profile
-ProfileRouter.post('/createProfile', uploadpic.fields([{ name: 'profileImg', maxCount: 1 }, { name: 'wallImg', maxCount: 1 }, { name: 'multiplefiles', maxCount: 20 }]), async (req, res) => {
+ProfileRouter.post('/createProfile', uploadpic.fields([{ name: 'profileImg', maxCount: 1 }, { name: 'wallImg', maxCount: 1 }, { name: 'multiplefiles', maxCount: 20 },{name: 'graveImg', maxCount:1}]), async (req, res) => {
     try {
         //gen new password
         const url = req.protocol + '://' + req.get('host')
@@ -27,6 +27,7 @@ ProfileRouter.post('/createProfile', uploadpic.fields([{ name: 'profileImg', max
             gallery: multiFiles,
             profileImg: req.files.profileImg[0].path.slice(7),
             wallImg: req.files.wallImg[0].path.slice(7),
+            graveImg: req.files.graveImg[0].path.slice(7),
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             gender: req.body.gender,
@@ -161,7 +162,7 @@ ProfileRouter.get('/getallprofile', (req, res) => {
 
 ProfileRouter.get('/getallprofileofSingleUser/:id', (req, res, next) => {
 
-    profileModel.find({ originalUser: req.params.id })
+    profileModel.find({ $or: [{ originalUser: req.params.id }, { 'addAdmins.user': req.params.id }] })
         .populate("originalUser").populate('').exec() // key to populate
         .then(resonse => {
             if (!resonse) {

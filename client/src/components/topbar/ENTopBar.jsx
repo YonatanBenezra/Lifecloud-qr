@@ -6,15 +6,25 @@ import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useSearch } from '../../context/SearchContext';
 import LanguageContext from '../../context/LanguageContext';
+import axios from 'axios';
 import WithLanguage from '../languageButton/WithLanguage';
 import LanguageButton from '../languageButton/LanguageButton';
-
-const ENTopbar = (props) => {
+const Topbar = (props) => {
   const history = useHistory();
   // const { searchText, setSearchText } = useSearch();
+  const [searchData, setSeachData] = useState([])
+  // console.log(searchText)
   const { user } = useContext(AuthContext);
-  const [searchText,setSeachText] = useState('')
-  console.log(searchText)
+  const handleSearch = async (e) => {
+    const { value } = e.target
+    console.log(value)
+    if (value.length === 0 || value.trim() === '' || value === null) {
+      return false
+    } else {
+      const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/searchProfile/${value}`);
+      setSeachData(res.data);
+    }
+  }
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -26,15 +36,30 @@ const ENTopbar = (props) => {
         </WithLanguage>
       </div>
       <div className="topbarCenter">
-        <input
-          type="text"
-          placeholder="חיפוש..."
-          className="SearchInput top-search"
-          onChange={(e) => setSeachText(e.target.value)}
-        />
+        <div style={{ position: 'relative' }}>
+          <input
+            type="text"
+            placeholder="חיפוש..."
+            className="SearchInput top-search"
+            onChange={handleSearch}
+          />
+          {searchData && searchData.length > 0 ? <div className='ResultBoxMain'>
+            {searchData && searchData.length > 0 ? searchData.map(item => {
+              return <Link to={`profiledetails/${item._id}`}><div className='ResultBox'>
+                <div>
+                  <span><img style={{ width: '30px', height: '30px', borderRadius: '30px' }} src={`https://api.lifecloud-qr.com/${item.profileImg}`} alt="" /></span>
+                </div>
+                <div>
+                  {`${item.firstName} ${item.lastName}`}
+                </div>
+              </div></Link>
+            }) : <div style={{ textAlign: 'center' }}>No Data</div>}
+          </div> : ''}
+
+        </div>
         <div className="topbarRight">
           <div className="topbarLinks">
-            {user && user.length > 0 ? (
+            {user ? (
               <div className="logged-nav">
                 <Link
                   to={`/about`}
@@ -96,4 +121,4 @@ const ENTopbar = (props) => {
   );
 };
 
-export default ENTopbar;
+export default Topbar;

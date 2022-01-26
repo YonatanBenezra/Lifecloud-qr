@@ -5,7 +5,6 @@ import facebook from '../../assets/facebook.png'
 import instagram from '../../assets/instagram.png'
 
 const SocialFooter = ({links, backgroundColor, color}) => {
-    console.log(backgroundColor, color)
     return (
         <div className="social-footer" style={{backgroundColor: backgroundColor, color: color}}>
             <h1>עקבו אחרינו</h1>

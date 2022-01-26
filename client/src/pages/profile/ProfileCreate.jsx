@@ -8,13 +8,18 @@ import './profile.css';
 import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
-export default function ProfileCreate() {
+import ENTopbar from '../../components/topbar/ENTopBar';
+import { Gallery } from '../../components/gallery/gallery';
+
+export default function ENProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [profiledata, setProfileData] = useState({});
+  const [flag, setFlag] = useState(false);
   console.log(imgData, 'imgData');
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
@@ -25,6 +30,18 @@ export default function ProfileCreate() {
         setImgData(reader.result);
       });
       reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+  useEffect(() => {
+    fetchuserprofiles();
+  }, []);
+  const fetchuserprofiles = async () => {
+    const res = await axios.get(
+      `https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`
+    );
+    setProfileData(res.data);
+    if (res) {
+      setFlag((e) => !e);
     }
   };
   const [image, setImage] = useState(null);
@@ -40,6 +57,19 @@ export default function ProfileCreate() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
+  const [graveImage, setGraveImage] = useState(null);
+  const [graveData, setGraveData] = useState(null);
+  const onChangeGrave = (e) => {
+    if (e.target.files[0]) {
+      console.log('picture: ', e.target.files);
+      setGraveImage(e.target.files[0]);
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        setGraveData(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
   const [multiFiles, setMultiFiles] = useState();
   const onChangeMultiplePicture = (e) => {
     setMultiFiles(e.target.files);
@@ -49,6 +79,7 @@ export default function ProfileCreate() {
   ]);
   console.log(multiFiles, 'multiFiles');
   console.log(picture, 'pic');
+  console.log(imgData,'imgData');
   console.log(image, 'image');
   const [selectedGender, setSelectedGender] = useState('');
   const firstName = useRef();
@@ -56,6 +87,9 @@ export default function ProfileCreate() {
   const companyName = useRef();
   const birthDate = useRef();
   const deathDate = useRef();
+  const hebDeathDate = useRef();
+  const city = useRef();
+  const degree = useRef();
   const gender = selectedGender;
   const phone = useRef();
   const email = useRef();
@@ -101,10 +135,14 @@ export default function ProfileCreate() {
     const wallInformation = {
       originalUser: id,
       profileImg: picture,
+      graveImg: graveImage,
       wallImg: image,
       firstName: firstName.current.value,
       lastName: lastName.current.value,
       birthDate: birthDate.current.value,
+      hebDeathDate: hebDeathDate.current.value,
+      city: city.current.value,
+      degree: degree.current.value,
       deathDate: deathDate.current.value,
       gender: selectedGender,
       wazeLocation: wazeLocation.current.value,
@@ -117,11 +155,15 @@ export default function ProfileCreate() {
     try {
       const formdata = new FormData();
       formdata.append('profileImg', picture);
+      formdata.append('graveImg', graveImage);
       formdata.append('wallImg', image);
       formdata.append('firstName', wallInformation.firstName);
       formdata.append('originalUser', wallInformation.originalUser);
       formdata.append('lastName', wallInformation.lastName);
       formdata.append('birthDate', wallInformation.birthDate);
+      formdata.append('hebDeathDate', wallInformation.hebDeathDate);
+      formdata.append('city', wallInformation.city);
+      formdata.append('degree', wallInformation.degree);
       formdata.append('deathDate', wallInformation.deathDate);
       formdata.append('gender', wallInformation.gender);
       formdata.append('wazeLocation', wallInformation.wazeLocation);
@@ -132,7 +174,7 @@ export default function ProfileCreate() {
         formdata.append('multiplefiles', multiFiles[i]);
       }
 
-      fetch('/api/profile/createProfile', {
+      fetch('https://api.lifecloud-qr.com/api/profile/createProfile', {
         method: 'POST',
         body: formdata,
       })
@@ -142,7 +184,7 @@ export default function ProfileCreate() {
         .then((res) => {
           console.log(res);
           if (res) {
-            setMessage('פרופיל נוצר בהצלחה');
+            setMessage('Profile made successfully');
             setOpen(true);
           }
         });
@@ -158,11 +200,12 @@ export default function ProfileCreate() {
   };
   return (
     <div className="profile-creation-container">
-      <Topbar />
+      <ENTopbar />
       <div className="profile-creation">
         <div className="loginWrapper">
-          <div className="loginLeft">
+          <div className="loginLeft" style={{ marginBottom: '3rem' }}>
             <h3 className="profile-creation-title">צור פרופיל</h3>
+            <div className="profile-example-btn">לחץ לצפייה בפרופיל לדוגמה</div>
           </div>
           <div className="profile-images">
             <div className="register_profile_image"></div>
@@ -228,24 +271,50 @@ export default function ProfileCreate() {
                     className="nameInput"
                   />
                 </div>
+                <div className="birth-date-container">
+                  <h1>תאריך לידה</h1>
+                  <h1>תאריך פטירה</h1>
+                </div>
                 <div className="names-container">
                   <input
-                    placeholder="* תאריך לידה"
+                    placeholder="* לועזי"
                     required
                     ref={birthDate}
                     className="nameInput"
-                    type="date"
+                    type="text"
                   />
                   <input
-                    placeholder="* תאריך פטירה"
+                    placeholder="* לועזי"
                     required
                     type="date"
                     ref={deathDate}
                     className="nameInput"
                   />
                 </div>
+                <input
+                  placeholder="* תאריך פטירה עברי"
+                  type="text"
+                  ref={hebDeathDate}
+                  className="nameInput"
+                  style={{padding: 0, width: '99.5%'}}
+                />
+                <div className="names-container" style={{ marginTop: '3rem' }}>
+                  <input
+                    placeholder="* עיר"
+                    required
+                    ref={city}
+                    className="nameInput"
+                    type="date"
+                  />
+                  <input
+                    placeholder="* תואר"
+                    type="date"
+                    ref={degree}
+                    className="nameInput"
+                  />
+                </div>
                 <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>* מין</h3>
+                  <h3 style={{ color: '#6097BF' }}>* מגדר</h3>
                   <div
                     className={`${
                       selectedGender === 'male' && 'register-active'
@@ -280,6 +349,23 @@ export default function ProfileCreate() {
                     />
                     <label for="female">נ</label>
                   </div>
+                  <div
+                    className={`${
+                      selectedGender === 'other' && 'register-active'
+                    } radio-input-container-register`}
+                    onClick={() => setSelectedGender('other')}
+                  >
+                    <input
+                      type="radio"
+                      value="other"
+                      id="other"
+                      onChange={handleChange}
+                      checked={user.gender === 'other'}
+                      name="gender"
+                      className="radio"
+                    />
+                    <label for="other">א</label>
+                  </div>
                 </div>
                 <div
                   className="location-container"
@@ -296,7 +382,6 @@ export default function ProfileCreate() {
                       />
                       <input
                         placeholder="* הוספת מיקום גוגל"
-                        required
                         ref={googleLocation}
                         className="nameInput"
                       />
@@ -307,11 +392,10 @@ export default function ProfileCreate() {
                   className="location-container"
                   style={{ marginTop: '2rem' }}
                 >
-                  <h1>* העלאת תמונות/זכרונות</h1>
+                  <h1>העלאת מדיה</h1>
                   <div>
                     <div className="names-container">
-                      <div className="form-group multi-preview">
-                      </div>
+                      <div className="form-group multi-preview"></div>
                       <div className="register_profile_image">
                         <input
                           id="profilePic"
@@ -338,7 +422,7 @@ export default function ProfileCreate() {
                   className="profile-creation-description"
                 />
                 <div style={{ marginTop: '2rem' }}>
-                  <h1 style={{ textAlign: 'center' }}>ציר חיים</h1>
+                  <h1 style={{ textAlign: 'center' }}>ציר זמן</h1>
                   {inputList.map((x, i) => {
                     return (
                       <div className="box" key={i}>
@@ -370,7 +454,7 @@ export default function ProfileCreate() {
                                 className="delete-btn"
                                 onClick={() => handleRemoveClick(i)}
                               >
-                                -הסר
+                                - הסר
                               </p>
                             )}
                           </div>
@@ -387,12 +471,52 @@ export default function ProfileCreate() {
                     );
                   })}
                 </div>
+                <div className="location-container" style={{ marginTop: '2rem' }}>
+            <h1>* Graves location</h1>
+            <div className="location-semicontainer">
+              <div className="names-container">
+                <input
+                  placeholder="*הוספת מיקום ווייז "
+                  required
+                  ref={wazeLocation}
+                  className="nameInput"
+                />
+                <input
+                  placeholder="* הוספת מיקום גוגל"
+                  required
+                  ref={googleLocation}
+                  className="nameInput"
+                />
+              </div>
+            </div>
+            <div className="profile-image-container">
+              <img
+                className="profile-image"
+                src={
+                  graveData
+                    ? graveData
+                    : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                }
+                alt=""
+              ></img>
+              <input
+                className="custom-file-grave"
+                type="file"
+                onChange={onChangeGrave}
+                name="coverImg"
+              />
+            </div>
+          </div>
+
+
+
                 <button className="create-btn" type="submit">
-                  Save
+                  שמור
                 </button>
               </form>
             </div>
           </div>
+          
         </div>
         <SnackBar open={open} handleClose={handleClose} message={message} />
       </div>

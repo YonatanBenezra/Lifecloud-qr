@@ -5,8 +5,9 @@ import { AuthContext } from '../../context/AuthContext';
 import { CircularProgress } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Topbar from '../../components/topbar/Topbar';
-import SocialFooter from '../../components/socialFooter/socialFooter';
+import ENSocialFooter from '../../components/socialFooter/ENSocialFooter';
 import Footer from '../../components/footer/Footer';
+import ENTopbar from '../../components/topbar/ENTopBar';
 export default function ENLogin() {
   // const email = useRef("Janesss@gamil.com");
   const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ export default function ENLogin() {
 
   return (
     <>
-    <Topbar />
+    <ENTopbar />
       <div className="login">
         <div className="loginWrapper">
           <div className="loginLeft">
@@ -102,7 +103,7 @@ export default function ENLogin() {
           </div>
         </div>
       </div>
-      <SocialFooter backgroundColor='#abc9db' color='#fff'/>
+      <ENSocialFooter backgroundColor='#abc9db' color='#fff'/>
       <Footer />
     </>
   );
