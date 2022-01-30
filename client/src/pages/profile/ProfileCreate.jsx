@@ -18,6 +18,7 @@ export default function ENProfileCreate() {
   const [imgData, setImgData] = useState(null);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [selectedPrivacy, setSelectedPrivacy] = useState('public');
   const [profiledata, setProfileData] = useState({});
   const [flag, setFlag] = useState(false);
   console.log(imgData, 'imgData');
@@ -79,7 +80,7 @@ export default function ENProfileCreate() {
   ]);
   console.log(multiFiles, 'multiFiles');
   console.log(picture, 'pic');
-  console.log(imgData,'imgData');
+  console.log(imgData, 'imgData');
   console.log(image, 'image');
   const [selectedGender, setSelectedGender] = useState('');
   const firstName = useRef();
@@ -104,6 +105,9 @@ export default function ENProfileCreate() {
   const history = useHistory();
   const handleChange = (e) => {
     setSelectedGender(e.target.value);
+  };
+  const handlePrivacyChange = (e) => {
+    setSelectedPrivacy(e.target.value);
   };
 
   // handle input change
@@ -140,7 +144,7 @@ export default function ENProfileCreate() {
       firstName: firstName.current.value,
       lastName: lastName.current.value,
       birthDate: birthDate.current.value,
-      // hebDeathDate: hebDeathDate.current.value,
+      hebDeathDate: hebDeathDate.current.value,
       city: city.current.value,
       degree: degree.current.value,
       deathDate: deathDate.current.value,
@@ -184,13 +188,14 @@ export default function ENProfileCreate() {
         .then((res) => {
           console.log(res);
           if (res) {
-            setMessage('Profile made successfully');
+            setMessage('פרופיל נוצר בהצלחה');
             setOpen(true);
+            // history.push('/profile');
           }
         });
     } catch (err) {
       console.log(err);
-      setMessage('Something went wrong!');
+      setMessage('משהו קרה בדרך!');
       setOpen(true);
     }
   };
@@ -292,11 +297,11 @@ export default function ENProfileCreate() {
                   />
                 </div>
                 <input
-                  placeholder="תאריך פטירה עברי"
+                  placeholder="* תאריך פטירה עברי"
                   type="text"
                   ref={hebDeathDate}
                   className="nameInput"
-                  style={{padding: 0, width: '99.5%'}}
+                  style={{ padding: 0, width: '99.5%' }}
                 />
                 <div className="names-container" style={{ marginTop: '3rem' }}>
                   <input
@@ -304,11 +309,11 @@ export default function ENProfileCreate() {
                     required
                     ref={city}
                     className="nameInput"
-                    type="text"
+                    type="date"
                   />
                   <input
-                    placeholder="תואר"
-                    type="text"
+                    placeholder="* תואר"
+                    type="date"
                     ref={degree}
                     className="nameInput"
                   />
@@ -471,44 +476,96 @@ export default function ENProfileCreate() {
                     );
                   })}
                 </div>
-                <div className="location-container" style={{ marginTop: '2rem' }}>
-            <h1>* Graves location</h1>
-            <div className="location-semicontainer">
-              <div className="names-container">
-                <input
-                  placeholder="*הוספת מיקום ווייז "
-                  required
-                  ref={wazeLocation}
-                  className="nameInput"
-                />
-                <input
-                  placeholder="* הוספת מיקום גוגל"
-                  required
-                  ref={googleLocation}
-                  className="nameInput"
-                />
-              </div>
-            </div>
-            <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  graveData
-                    ? graveData
-                    : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                }
-                alt=""
-              ></img>
-              <input
-                className="custom-file-grave"
-                type="file"
-                onChange={onChangeGrave}
-                name="coverImg"
-              />
-            </div>
-          </div>
+                <div
+                  className="location-container"
+                  style={{ marginTop: '2rem' }}
+                >
+                  <h1>* Graves location</h1>
+                  <div className="location-semicontainer">
+                    <div className="names-container">
+                      <input
+                        placeholder="*הוספת מיקום ווייז "
+                        required
+                        ref={wazeLocation}
+                        className="nameInput"
+                      />
+                      <input
+                        placeholder="* הוספת מיקום גוגל"
+                        required
+                        ref={googleLocation}
+                        className="nameInput"
+                      />
+                    </div>
+                  </div>
+                  <div className="profile-image-container">
+                    <img
+                      className="profile-image"
+                      src={
+                        graveData
+                          ? graveData
+                          : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                      }
+                      alt=""
+                    ></img>
+                    <input
+                      className="custom-file-grave"
+                      type="file"
+                      onChange={onChangeGrave}
+                      name="coverImg"
+                    />
+                  </div>
+                </div>
 
-
+                <div
+                  className="radio-container-register"
+                  style={{ direction: 'ltr' }}
+                >
+                  <h3 style={{ color: '#6097BF' }}>* פרטיות</h3>
+                  <div
+                    style={{
+                      width: 'unset',
+                      paddingRight: '10px',
+                      paddingLeft: '10px',
+                    }}
+                    className={`${
+                      selectedPrivacy === 'private' && 'register-active'
+                    } radio-input-container-register`}
+                    onClick={() => setSelectedPrivacy('private')}
+                  >
+                    <input
+                      type="radio"
+                      value="private"
+                      id="private"
+                      onChange={handlePrivacyChange}
+                      checked={user.privacy === 'private'}
+                      name="privacy"
+                      className="radio"
+                    />
+                    <label for="private">פרטי</label>
+                  </div>
+                  <div
+                    style={{
+                      width: 'unset',
+                      paddingRight: '10px',
+                      paddingLeft: '10px',
+                    }}
+                    className={`${
+                      selectedPrivacy === 'public' && 'register-active'
+                    } radio-input-container-register`}
+                    onClick={() => setSelectedPrivacy('public')}
+                  >
+                    <input
+                      type="radio"
+                      value="public"
+                      id="public"
+                      onChange={handlePrivacyChange}
+                      checked={user.privacy === 'public'}
+                      name="privacy"
+                      className="radio"
+                    />
+                    <label for="public">פומבי</label>
+                  </div>
+                </div>
 
                 <button className="create-btn" type="submit">
                   שמור
@@ -516,7 +573,6 @@ export default function ENProfileCreate() {
               </form>
             </div>
           </div>
-          
         </div>
         <SnackBar open={open} handleClose={handleClose} message={message} />
       </div>
