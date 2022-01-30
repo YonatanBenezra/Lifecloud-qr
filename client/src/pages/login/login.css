@@ -65,9 +65,11 @@
   font-weight: 600;
 }
 .facebook-login {
-  
 }
-
+.social-login-container {
+  display: flex;
+  justify-content: center;
+}
 .loginInput:focus {
   outline: none;
 }

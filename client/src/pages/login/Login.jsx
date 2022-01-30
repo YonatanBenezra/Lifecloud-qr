@@ -7,30 +7,30 @@ import { Link } from 'react-router-dom';
 import Topbar from '../../components/topbar/Topbar';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import Footer from '../../components/footer/Footer';
-import FacebookLogin from 'react-facebook-login';
-import { authentication } from '../../config/firebase';
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  getAuth,
-} from 'firebase/auth';
-import faIcon from '../../assets/faIcon.png';
-import ggIcon from '../../assets/ggIcon.png';
-const responseFacebook = (response) => {
+// import FacebookLogin from 'react-facebook-login';
+// import { authentication } from '../../config/firebase';
+// import {
+//   signInWithPopup,
+//   GoogleAuthProvider,
+//   onAuthStateChanged,
+//   getAuth,
+// } from 'firebase/auth';
+// import faIcon from '../../assets/faIcon.png';
+// import ggIcon from '../../assets/ggIcon.png';
+// const responseFacebook = (response) => {
   //ser information retrieval
-  console.log(response);
-};
-const responseGoogle = () => {
-  let provider = new GoogleAuthProvider();
-  signInWithPopup(authentication, provider)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+  // console.log(response);
+// };
+// const responseGoogle = () => {
+//   let provider = new GoogleAuthProvider();
+//   signInWithPopup(authentication, provider)
+//     .then((res) => {
+//       console.log(res);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// };
 // import TwitterLogin from 'react-twitter-auth';
 // import FacebookLogin from 'react-facebook-login';
 // import { GoogleLogin, GoogleLogout } from 'react-google-login';
@@ -56,24 +56,24 @@ const Login = () => {
     console.warn(data);
   };
   useEffect(() => {
-    checkIfUserLoggedWithGoogle();
+    // checkIfUserLoggedWithGoogle();
   }, []);
 
-  const checkIfUserLoggedWithGoogle = async () => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
+  // const checkIfUserLoggedWithGoogle = async () => {
+  //   const auth = getAuth();
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        console.log(user);
+        // const uid = user.uid;
+        // console.log(user);
         // ...
-      } else {
+      // } else {
         // User is signed out
         // ...
-      }
-    });
-  };
+      // }
+    // });
+  // };
 
   return (
     <>
@@ -112,6 +112,22 @@ const Login = () => {
                   className="login-input"
                   onChange={(e) => setPhone(e.target.value)}
                 />
+                {/* <div className="socialLoginContainer">
+                  <div className="facebook-login" style={{ paddingRight: '40px'}}>
+                    <FacebookLogin
+                      
+                      appId="387118209870956"
+                      autoLoad={false}
+                      fields="name,email,picture"
+                      onClick={componentClicked}
+                      callback={responseFacebook}
+                    />
+                  </div>
+
+                  <div className="google-Login">
+                    <img src={ggIcon} alt="" onClick={responseGoogle}></img>
+                  </div>
+                </div> */}
                 <button
                   className="login-button"
                   type="submit"
@@ -155,28 +171,10 @@ const Login = () => {
                 </p>
               </div>
             </div>
-            <div className="socialLoginContainer">
-              <div
-                className="facebook-login"
-              >
-                <FacebookLogin
-                style={{ backgroundImage: `url(${faIcon})` }}
-                  appId="387118209870956"
-                  autoLoad={false}
-                  fields="name,email,picture"
-                  onClick={componentClicked}
-                  callback={responseFacebook}
-                />
-              </div>
-
-              <div className="google-Login">
-                <img src={ggIcon} alt="" onClick={responseGoogle}></img>
-              </div>
-            </div>
           </div>
         </div>
       </div>
-      <SocialFooter backgroundColor="#abc9db" color="#fff" />
+      <SocialFooter backgroundColor="#6097bf" color="#fff" />
       <Footer />
     </>
   );
