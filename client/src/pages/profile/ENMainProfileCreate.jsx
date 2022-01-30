@@ -68,34 +68,19 @@ export default function ENProfileCreate() {
   const [selectedPrivacy, setSelectedPrivacy] = useState('public');
   const firstName = useRef();
   const lastName = useRef();
-  const companyName = useRef();
-  const birthDate = useRef();
-  // const hebBirthDate = useRef();
-  const deathDate = useRef();
-  // const hebDeathDate = useRef();
   const city = useRef();
   const degree = useRef();
-  const gender = selectedGender;
-  const privacy = selectedPrivacy;
-  const phone = useRef();
-  const email = useRef();
-  const password = useRef();
-  const passwordAgain = useRef();
   const wazeLocation = useRef();
   const googleLocation = useRef();
   const description = useRef();
-  const axisDescription = useRef();
-  const axisTitle = useRef();
-  const axisDate = useRef();
   const history = useHistory();
-  
   const handleChange = (e) => {
     setSelectedGender(e.target.value);
   };
   const handlePrivacyChange = (e) => {
     setSelectedPrivacy(e.target.value);
   };
-// console.log(hebBirthDate,'hebBirthDate')
+
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -129,19 +114,10 @@ export default function ENProfileCreate() {
       wallImg: image,
       firstName: firstName.current.value,
       lastName: lastName.current.value,
-      birthDate: birthDate.current.value,
-      // hebBirthDate: hebBirthDate.current.value,
-      // hebDeathDate: hebDeathDate.current.value,
-      city: city.current.value,
-      degree: degree.current.value,
-      deathDate: deathDate.current.value,
-      gender: selectedGender,
       privacy: selectedPrivacy,
       wazeLocation: wazeLocation.current.value,
       googleLocation: googleLocation.current.value,
       description: description.current.value,
-      lifeAxis: inputList,
-      // gallery: picture,
     };
 
     try {
@@ -149,22 +125,13 @@ export default function ENProfileCreate() {
       formdata.append('profileImg', picture);
       formdata.append('graveImg', graveImage);
       formdata.append('wallImg', image);
-      formdata.append('privacy', privacy);
       formdata.append('firstName', wallInformation.firstName);
       formdata.append('originalUser', wallInformation.originalUser);
       formdata.append('lastName', wallInformation.lastName);
-      formdata.append('birthDate', wallInformation.birthDate);
-      // formdata.append('hebBirthDate', wallInformation.hebBirthDate);
-      // formdata.append('hebDeathDate', wallInformation.hebDeathDate);
-      formdata.append('city', wallInformation.city);
-      formdata.append('degree', wallInformation.degree);
-      formdata.append('deathDate', wallInformation.deathDate);
-      formdata.append('gender', wallInformation.gender);
       formdata.append('privacy', wallInformation.privacy);
       formdata.append('wazeLocation', wallInformation.wazeLocation);
       formdata.append('googleLocation', wallInformation.googleLocation);
       formdata.append('description', wallInformation.description);
-      formdata.append('lifeAxis', JSON.stringify(wallInformation.lifeAxis));
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
@@ -274,99 +241,7 @@ export default function ENProfileCreate() {
                   <h1>Date of birth</h1>
                   <h1>Date of death</h1>
                 </div>
-                <div className="names-container">
-                  <input
-                    placeholder="* English"
-                    required
-                    ref={birthDate}
-                    className="nameInput"
-                    type="date"
-                  />
-                  <input
-                    placeholder="* English"
-                    required
-                    type="date"
-                    ref={deathDate}
-                    className="nameInput"
-                  />
-                </div>
-                <div className="names-container">
-                  {/* <input
-                    placeholder="Hebrew"
-                    type="date"
-                    ref={hebDeathDate}
-                    className="nameInput"
-                  /> */}
-                </div>
-                <div className="names-container" style={{ marginTop: '3rem' }}>
-                  <input
-                    placeholder="* City"
-                    required
-                    ref={city}
-                    className="nameInput"
-                    type="date"
-                  />
-                  <input
-                    placeholder="Degree"
-                    type="date"
-                    ref={degree}
-                    className="nameInput"
-                  />
-                </div>
-                <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>* Gender</h3>
-                  <div
-                    className={`${
-                      selectedGender === 'male' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedGender('male')}
-                  >
-                    <input
-                      type="radio"
-                      value="male"
-                      id="male"
-                      onChange={handleChange}
-                      name="gender"
-                      checked={user.gender === 'male'}
-                      className="radio"
-                    />
-                    <label for="male">ז</label>
-                  </div>
-                  <div
-                    className={`${
-                      selectedGender === 'female' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedGender('female')}
-                  >
-                    <input
-                      type="radio"
-                      value="female"
-                      id="female"
-                      onChange={handleChange}
-                      checked={user.gender === 'female'}
-                      name="gender"
-                      className="radio"
-                    />
-                    <label for="female">נ</label>
-                  </div>
-                  <div
-                    className={`${
-                      selectedGender === 'female' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedGender('female')}
-                  >
-                    <input
-                      type="radio"
-                      value="female"
-                      id="female"
-                      onChange={handleChange}
-                      checked={user.gender === 'female'}
-                      name="gender"
-                      className="radio"
-                    />
-                    <label for="female">א</label>
-                  </div>
-                </div>
+
                 <div
                   className="location-container"
                   style={{ marginTop: '2rem' }}
@@ -395,61 +270,11 @@ export default function ENProfileCreate() {
                   </div>{' '}
                 </div>
                 <input
-                  placeholder="+ על הנפטר"
+                  placeholder="+ Description"
                   required
                   ref={description}
                   className="profile-creation-description"
                 />
-                <div style={{ marginTop: '2rem' }}>
-                  <h1 style={{ textAlign: 'center' }}>Life axis</h1>
-                  {inputList.map((x, i) => {
-                    return (
-                      <div className="box" key={i}>
-                        <div className="inner-box">
-                          <input
-                            name="axisTitle"
-                            placeholder="* כותרת"
-                            value={x.axisTitle}
-                            onChange={(e) => handleInputChange(e, i)}
-                            className="axis-input"
-                          />
-                          <input
-                            name="axisDate"
-                            placeholder="* תאריך"
-                            value={x.axisDate}
-                            onChange={(e) => handleInputChange(e, i)}
-                            className="axis-input"
-                          />
-                          <input
-                            name="axisDescription"
-                            placeholder="* טקסט"
-                            value={x.axisDescription}
-                            onChange={(e) => handleInputChange(e, i)}
-                            className="axis-description"
-                          />
-                          <div className="btn-box">
-                            {inputList.length !== 1 && (
-                              <p
-                                className="delete-btn"
-                                onClick={() => handleRemoveClick(i)}
-                              >
-                                - Remove
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                        {inputList.length - 1 === i && (
-                          <div className="add-btn" onClick={handleAddClick}>
-                            <div className="inner-btn">
-                              <div className="line-1"></div>
-                              <div className="line-2"></div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
                 <div
                   className="location-container"
                   style={{ marginTop: '2rem' }}
@@ -488,56 +313,7 @@ export default function ENProfileCreate() {
                     />
                   </div>
                 </div>
-                <div
-                  className="radio-container-register"
-                  style={{ direction: 'ltr' }}
-                >
-                  <h3 style={{ color: '#6097BF' }}>* Privacy</h3>
-                  <div
-                    style={{
-                      width: 'unset',
-                      paddingRight: '10px',
-                      paddingLeft: '10px',
-                    }}
-                    className={`${
-                      selectedPrivacy === 'private' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedPrivacy('private')}
-                  >
-                    <input
-                      type="radio"
-                      value="private"
-                      id="private"
-                      onChange={handlePrivacyChange}
-                      checked={user.privacy === 'private'}
-                      name="privacy"
-                      className="radio"
-                    />
-                    <label for="private">private</label>
-                  </div>
-                  <div
-                    style={{
-                      width: 'unset',
-                      paddingRight: '10px',
-                      paddingLeft: '10px',
-                    }}
-                    className={`${
-                      selectedPrivacy === 'public' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedPrivacy('public')}
-                  >
-                    <input
-                      type="radio"
-                      value="public"
-                      id="public"
-                      onChange={handlePrivacyChange}
-                      checked={user.privacy === 'public'}
-                      name="privacy"
-                      className="radio"
-                    />
-                    <label for="public">public</label>
-                  </div>
-                </div>
+
                 <button className="create-btn" type="submit">
                   Save
                 </button>

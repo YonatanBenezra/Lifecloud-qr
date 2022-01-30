@@ -11,8 +11,11 @@ import { UserAndprofiles } from './pages/userpage/user-and-profile';
 import ENHome from './pages/home/ENHome';
 import ENLogin from './pages/login/ENLogin';
 import ENRegister from './pages/register/ENRegister';
+import ENOrganisationRegister from './pages/register/ENOrganisationRegister';
+import ENOrganisationDetails from './pages/organisation/ENOrganisationDetails';
 import ENProfileEdit from './pages/profile/ENEditProfile';
 import ENProfileCreate from './pages/profile/ENProfileCreate';
+import ENMainProfileCreate from './pages/profile/ENMainProfileCreate';
 import ENProfileDetails from './pages/profile/ENProfileDetails';
 import { ENUserAndprofiles } from './pages/userpage/ENUser-and-profile';
 import { AuthContext } from './context/AuthContext';
@@ -67,14 +70,23 @@ function App() {
             <Route exact path="/register">
               {user ? <Redirect to="/" /> : <ENRegister />}
             </Route>
+            <Route exact path="/OrganisationRegister">
+              {user ? <Redirect to="/" /> : <ENOrganisationRegister />}
+            </Route>
             <Route exact path="/about" >
               <About />
             </Route>
             <Route exact path="/createprofile/:id" >
               <ENProfileCreate />
             </Route>
+            <Route exact path="/createmainprofile" >
+              <ENMainProfileCreate />
+            </Route>
             <Route exact path="/profiledetails/:id" >
               <ENProfileDetails />
+            </Route>
+            <Route exact path="/organisationdetails" >
+              <ENOrganisationDetails />
             </Route>
             <Route exact path="/userprofiles/:id" >
               <ENUserAndprofiles />

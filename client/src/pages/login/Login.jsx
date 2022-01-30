@@ -3,25 +3,25 @@ import './login.css';
 import { loginCall } from '../../apiCalls';
 import { AuthContext } from '../../context/AuthContext';
 import { CircularProgress } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import Topbar from '../../components/topbar/Topbar';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import Footer from '../../components/footer/Footer';
+// import SocialLogin from './LoginHooks'
 // import TwitterLogin from 'react-twitter-auth';
 // import FacebookLogin from 'react-facebook-login';
 // import { GoogleLogin, GoogleLogout } from 'react-google-login';
-// import { useHistory, useRouteMatch } from 'react-router-dom';
+// import FacebookLogin from 'react-facebook-login';
 // import LoginHooks from './LoginHooks';
 
 const Login = () => {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
-  // const [googleData, setGoogleData] = useState(null);
-  // const history = useHistory();
-  // const [visible, setVisible] = useState('none');
-  // const [isSignedIn, setIsSignedIn] = useState('logoff');
+  const [googleData, setGoogleData] = useState(null);
+  const history = useHistory();
+  const [visible, setVisible] = useState('none');
+  const [isSignedIn, setIsSignedIn] = useState('logoff');
 
   const { isFetching, dispatch } = useContext(AuthContext);
 
@@ -62,18 +62,18 @@ const Login = () => {
     <>
       <Topbar />
       <div className="login">
-        <div className="loginWrapper">
+        <div className="login-wrapper">
           <div className="loginLeft">
-            <span className="loginDesc">התחברות</span>
+            <span className="login-desc">כניסה</span>
           </div>
           <div>
-            {/* <LoginHooks /> */}
-            {/* <GoogleLogin
+            {/* <LoginHooks />
+            <GoogleLogin
               clientId="305504033223-16bn629q68os1b2og9b2jtdqd03pcb2n.apps.googleusercontent.com"
               onSuccess={onLoginSuccess}
               onFailure={onLoginFailure}
               cookiePolicy={'single_host_origin'}
-              // scope='https://www.googleapis.com/auth/drive.file'
+              scope='https://www.googleapis.com/auth/drive.file'
             />
 
             <GoogleLogout
@@ -157,7 +157,8 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <SocialFooter backgroundColor="#abc9db" color="#fff" />
+      {/* <SocialLogin /> */}
+      <SocialFooter backgroundColor="#6097bf" color="#fff" />
       <Footer />
     </>
   );

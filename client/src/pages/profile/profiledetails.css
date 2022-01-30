@@ -447,8 +447,10 @@
 input[type='date']::before {
   color: #abc9db;
   content: attr(placeholder);
+  padding-left: 35%;
 }
 input[type='date'] {
+  text-align: unset;
   color: #ffffff;
 }
 input[type='date']:focus,

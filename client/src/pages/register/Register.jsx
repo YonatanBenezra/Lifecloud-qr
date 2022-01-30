@@ -20,6 +20,7 @@ export default function Register() {
   const history = useHistory();
   const [error, setErro] = useState('');
   const [user, setUser] = useState({
+    isOrganisation: false,
     firstName: '',
     lastName: '',
     dateOfBirth: '',
@@ -71,7 +72,7 @@ export default function Register() {
     <>
       <Topbar />
       <div className="register">
-        <div className="loginWrapper">
+        <div className="register-wrapper">
           <div className="loginLeft">
             <h3 className="register-logo">הרשמה</h3>
           </div>
@@ -89,7 +90,7 @@ export default function Register() {
                     className="name-input"
                   />
                   <input
-                    placeholder="*שם משפחה"
+                    placeholder="* שם משפחה"
                     required
                     onChange={handleChange}
                     ref={lastName}
@@ -99,7 +100,7 @@ export default function Register() {
                   />
                 </div>
                 <input
-                  placeholder="תאריך לידה"
+                  placeholder="תאריך לידה * "
                   required
                   onChange={handleChange}
                   ref={dateOfBirth}
@@ -109,7 +110,16 @@ export default function Register() {
                   type="date"
                 />
                 <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>* מין</h3>
+                  <h3
+                    style={{
+                      color: '#6097BF',
+                      fontSize: '25px',
+                      marginLeft: '15px',
+                    }}
+                  >
+                    {' '}
+                    מין:
+                  </h3>
                   <div
                     className={`${
                       selectedGender === 'male' && 'register-active'
@@ -144,9 +154,26 @@ export default function Register() {
                     />
                     <label for="female">נ</label>
                   </div>
+                  <div
+                    className={`${
+                      selectedGender === 'other' && 'register-active'
+                    } radio-input-container-register`}
+                    onClick={() => setSelectedGender('other')}
+                  >
+                    <input
+                      type="radio"
+                      value="other"
+                      id="other"
+                      onChange={handleChange}
+                      checked={user.gender === 'other'}
+                      name="gender"
+                      className="radio"
+                    />
+                    <label for="other">א</label>
+                  </div>
                 </div>
                 <input
-                  placeholder="*טלפון"
+                  placeholder="* טלפון"
                   required
                   value={user.phone}
                   name="phone"
@@ -156,7 +183,7 @@ export default function Register() {
                   type="phone"
                 />
                 <input
-                  placeholder="*אימייל"
+                  placeholder="* אימייל"
                   required
                   value={user.email}
                   name="email"
@@ -166,7 +193,7 @@ export default function Register() {
                   type="email"
                 />
                 <input
-                  placeholder="בחר סיסמא*"
+                  placeholder="* בחר סיסמא"
                   required
                   value={user.password}
                   name="password"
@@ -177,7 +204,7 @@ export default function Register() {
                   minLength="6"
                 />
                 <input
-                  placeholder="הזן סיסמא שנית*"
+                  placeholder="* הזן סיסמא שנית"
                   required
                   value={user.passwordAgain}
                   name="passwordAgain"
@@ -209,7 +236,20 @@ export default function Register() {
                       <span className="">איבדתי סיסמא </span>
                     </Link>
                   </div>
-                  <span>אני מאשר את תנאי השימוש ופרטיות</span>
+                  <span style={{ marginBottom: '1rem' }}>
+                    אני מאשר את תנאי השימוש ופרטיות{' '}
+                    <input
+                      type="checkbox"
+                      style={{ marginLeft: '15px' }}
+                    ></input>
+                  </span>
+                  <span style={{ display: 'flex', marginBottom: '1rem' }}>
+                    אני מאשר קבלת מיילים <div class="container"></div>
+                    <input
+                      type="checkbox"
+                      style={{ marginLeft: '15px' }}
+                    ></input>
+                  </span>
                 </div>
                 <button className="register-button" type="submit">
                   הרשמה

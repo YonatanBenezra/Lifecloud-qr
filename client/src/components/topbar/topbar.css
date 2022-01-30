@@ -1,5 +1,5 @@
 .topbarContainer {
-  height: 60px;
+  height: 80px;
   width: 100%;
   background-color: #fff;
   display: flex;
@@ -11,6 +11,9 @@
 
 .topbarLeft {
   flex: 3;
+  padding-left: 60px;
+  display: flex;
+  align-items: center;
 }
 .ResultBoxMain {
   width: 120%;
@@ -28,7 +31,7 @@
 }
 
 .logo {
-  height: 40px;
+  height: 35px;
   font-size: 24px;
   margin-left: 20px;
   margin-right: 10px;
@@ -39,8 +42,8 @@
 
 .topbarCenter {
   display: flex;
-  justify-content: flex-end;
-  flex: 5;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .searchbar {
@@ -67,26 +70,23 @@
   transform: rotate(90deg);
 }
 .top-search {
-  width: 100% !important;
-  height: 30px !important;
-  border: 1px solid #abc9db !important;
+  border: 0px;
+  width: 80% !important;
+  height: 35px !important;
   border-radius: 7px !important;
-  display: flex !important;
-  align-items: center !important;
-  padding-right: 35px !important;
-}
-
-.SearchInput {
-  border: none;
-  width: 90%;
-  color: #6097bf;
-  /* direction: rtl; */
+  padding-right: 15px !important;
+  direction: rtl;
+  font-size: 20px;
+  background-color: #dcecf4;
 }
 
 .SearchInput:focus {
   outline: none;
 }
-
+.SearchInput::placeholder {
+  color: #6097bf;
+  font-weight: bolder;
+}
 .topbarRight {
   display: flex;
   align-items: center;
@@ -97,9 +97,10 @@
 }
 
 .topbarLink {
-  margin-right: 10px;
-  font-size: 18px;
+  margin-right: 40px;
+  font-size: 25px;
   cursor: pointer;
+  font-family: 'almoni-regular' !important;
 }
 
 .topbarIcons {

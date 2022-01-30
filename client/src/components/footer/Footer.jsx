@@ -11,13 +11,15 @@ const Footer = () => {
         <span>|</span>
         <span>POLICY</span>
         <span>|</span>
-        <Link to='/about'>
+        <Link to="/about">
           <span>ABOUT</span>
         </Link>
         <span>|</span>
         <span>CONTACT</span>
       </div>
-      <span>(C) all rights reserved to lifecloud-qr.co.il</span>
+      <span style={{ fontSize: '21px', paddingRight: '5%' }}>
+        (C) all rights reserved to lifecloud-qr.co.il
+      </span>
     </div>
   );
 };

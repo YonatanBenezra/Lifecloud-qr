@@ -10,12 +10,7 @@ import ENTopbar from '../../components/topbar/ENTopBar';
 import ENSocialFooter from '../../components/socialFooter/ENSocialFooter';
 
 export default function ENRegister() {
-  const [selectedGender, setSelectedGender] = useState('');
-  const firstName = useRef();
-  const lastName = useRef();
   const companyName = useRef();
-  const dateOfBirth = useRef();
-  const gender = selectedGender;
   const phone = useRef();
   const email = useRef();
   const password = useRef();
@@ -23,11 +18,8 @@ export default function ENRegister() {
   const history = useHistory();
   const [error, setErro] = useState('');
   const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
-    companyName: '',
-    dateOfBirth: '',
-    gender: '',
+    IsOrganisation: true,
+    OrganisationName: '',
     email: '',
     password: '',
     passwordAgain: '',
@@ -35,8 +27,6 @@ export default function ENRegister() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value, 'va');
-    // setSelectedGender(e.target.value);
     setUser({
       ...user,
       [name]: value,
@@ -77,33 +67,14 @@ export default function ENRegister() {
       <div className="register">
         <div className="loginWrapper">
           <div className="loginLeft">
-            <h3 className="register-logo">Register</h3>
+            <h3 className="register-logo">Organisation Register</h3>
           </div>
           <div className="loginRight">
             <div className="RegBox">
               <form className="loginBox" onSubmit={handleClick}>
-                <div className="names-container">
-                  <input
-                    placeholder="* First name"
-                    required
-                    onChange={handleChange}
-                    ref={firstName}
-                    value={user.firstName}
-                    name="firstName"
-                    className="name-input"
-                  />
-                  <input
-                    placeholder="*Last name"
-                    required
-                    onChange={handleChange}
-                    ref={lastName}
-                    value={user.lastName}
-                    name="lastName"
-                    className="name-input"
-                  />
-                </div>
                 <input
-                  placeholder="Company name"
+                  placeholder="Organisation name"
+                  required
                   onChange={handleChange}
                   ref={companyName}
                   value={user.companyName}
@@ -111,52 +82,6 @@ export default function ENRegister() {
                   className="register-input"
                   type="companyName"
                 />
-                <input
-                  placeholder="Date of birth"
-                  onChange={handleChange}
-                  ref={dateOfBirth}
-                  className="register-input"
-                  value={user.dateOfBirth}
-                  name="dateOfBirth"
-                  type="date"
-                />
-                <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>* Gender</h3>
-                  <div
-                    className={`${
-                      selectedGender === 'male' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedGender('male')}
-                  >
-                    <input
-                      type="radio"
-                      value="male"
-                      id="male"
-                      onChange={handleChange}
-                      name="gender"
-                      checked={user.gender === 'male'}
-                      className="radio"
-                    />
-                    <label for="male">M</label>
-                  </div>
-                  <div
-                    className={`${
-                      selectedGender === 'female' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedGender('female')}
-                  >
-                    <input
-                      type="radio"
-                      value="female"
-                      id="female"
-                      onChange={handleChange}
-                      checked={user.gender === 'female'}
-                      name="gender"
-                      className="radio"
-                    />
-                    <label for="female">F</label>
-                  </div>
-                </div>
                 <input
                   placeholder="*Phone"
                   value={user.phone}

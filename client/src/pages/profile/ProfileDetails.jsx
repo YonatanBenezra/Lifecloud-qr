@@ -38,6 +38,7 @@ export default function Profile() {
   const history = useHistory();
   const [likeMessage, setLikeMessage] = useState('');
   const [commenting, setCommenting] = useState(false);
+  const [friendFlagReq, setrfriendReq] = useState([])
   const [comment, setComment] = useState();
   const [DellComment, setDelComment] = useState('');
   const id = useParams().id;
@@ -48,9 +49,7 @@ export default function Profile() {
   };
   console.log(id);
   useEffect(() => {
-    if (Object.keys(profiledata).length > 0) {
-      fetchmemories();
-    }
+  
     setCommenting('');
     setComment('');
     setLikeMessage('');
@@ -59,6 +58,11 @@ export default function Profile() {
   useEffect(()=>{
     fetchuserprofiles();
   },[])
+  useEffect(()=>{
+    if (Object.keys(profiledata).length > 0) {
+      fetchmemories();
+    }
+   })
   const fetchuserprofiles = async () => {
     const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`);
     setProfileData(res.data);

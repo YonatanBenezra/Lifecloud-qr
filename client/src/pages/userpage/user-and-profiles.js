@@ -27,7 +27,7 @@ export const UserAndprofiles = () => {
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
             </div>
             <div>
-                <button>notificaction</button>
+                <button>notification</button>
             </div>
 
         </div>

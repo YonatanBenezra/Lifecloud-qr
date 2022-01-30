@@ -10,6 +10,8 @@ import Rectangle6 from '../../assets/Rectangle6.png';
 import Rectangle7 from '../../assets/Rectangle7.png';
 import Rectangle8 from '../../assets/Rectangle8.png';
 import PlayerImage from '../../assets/PlayerImage.png';
+import leftCloud from '../../assets/light-blue-left-cloud.png';
+import rightCloud from '../../assets/rightCloud.png';
 import Rectangle12 from '../../assets/Rectangle12.png';
 import Rectangle13 from '../../assets/Rectangle13.png';
 import Rectangle14 from '../../assets/Rectangle14.png';
@@ -45,6 +47,7 @@ const Home = () => {
     speed: 750,
     slidesToShow: 1,
     initialSlide: 2,
+    fontSize: '1.5em',
     responsive: [
       {
         breakpoint: 1024,
@@ -75,7 +78,7 @@ const Home = () => {
 
   const { searchText, setSearchText } = useSearch();
   return (
-    <div>
+    <div style={{cursor: 'default'}}>
       <Topbar />
       <div
         className="homeContainer"
@@ -84,17 +87,27 @@ const Home = () => {
           width: '100%',
           height: '65vh',
           overflow: 'hidden',
-          backgroundPosition: 'center',
+          backgroundPosition: 'bottom',
         }}
       ></div>
+      <div className="home-floating-text">
+        <h2>יצירת קהילת הנצחה מותאמת אישית</h2>
+        <div className="home-profile-creation-btn">ליצירת פרופיל ללא עלות</div>
+      </div>
       <div className="search-container">
         <div className="searchbar-container">
           <div className="searchbar searchbar-2">
             <input
               type="text"
-              placeholder="Search for a deceased/organisation"
+              placeholder="חיפוש מנוח/עמותה..."
               className="SearchInput"
               onChange={(e) => setSearchText(e.target.value)}
+              style={{
+                height: '95%',
+                border: 0,
+                direction: 'rtl',
+                fontSize: '200%',
+              }}
             />
             <Search className="searchIcon" />
           </div>
@@ -104,27 +117,32 @@ const Home = () => {
 
       <div className="vid-text-container">
         <div className="vid-text-title">
-          <h1>
-            <strong>כל אדם מיוחד במינו.</strong>
+          <h1 className="flex-column mb-3">
+            <strong>״החיים אינם הימים שחלפו, אלא אלה שזוכרים״</strong>
+            <span style={{ fontSize: '20px' }}> גבריאל גרסיה מרקס - </span>
           </h1>
-          <h2 style={{ marginBottom: '3rem' }}>
-            כל אדם ראוי לכך שסיפור חייו יהיה מונצח ומונגש לעד
+          <h2 style={{ fontSize: '35px' }}>
+            .כל אדם הוא עולם ומלואו שראוי שסיפור חייו ייזכר ויונצח לעד
           </h2>
-          <h2 style={{ color: '#ABC9DB', fontSize: '23px' }}>MOMENTS. LEGACY. COMMUNITY</h2>
+          <h2 style={{ color: '#ABC9DB', fontSize: '30px', marginTop: '1rem' }}>
+            MOMENTS. LEGACY. COMMUNITY
+          </h2>
         </div>
         <div className="text-section-container">
           <div className="top-image-container">
             <div className="top-image">
               <p className="text-container-home">
-                סיפור חייו של אדם הינו פאזל המורכב מחלקים השלובים בחייהם של בני
-                משפחה, חברים ומכרים.<br></br>
-                עם לכתו של אדם מהעולם, סיפור חייו הולך עימו.
+                סיפור חייהם של יקירנו מורכב מחלקים השלובים בחייהם של בני משפחתם,
+                חברים ומכרים. כאשר הם הלכו מן העולם, הסיפורים נעלמים איתם...
               </p>
             </div>
           </div>
-          <div className="bottom-image-container">
-            <p className="text-container-home" style={{color: '#ffff', fontWeight: '900', fontSize: '35px'}}>
-              האם אפשר לחבר את הפאזל בחזרה או להחיות את הסיפור
+          <div className="bottom-image-container" style={{ marginTop: '20px' }}>
+            <p
+              className="text-container-home"
+              style={{ color: '#ffff', fontWeight: '900', fontSize: '50px' }}
+            >
+              איך נוכל לחבר את <br></br>החלקים ולספר מי הם היו?{' '}
             </p>
             <Player
               poster={PlayerImage}
@@ -132,297 +150,172 @@ const Home = () => {
               width="50%"
               height="50%"
               className="react-player"
-              controls={false}
+              controls={true}
+              autoplay
               playing
             />
+            <img
+              alt=""
+              src={rightCloud}
+              style={{ position: 'absolute', right: 0, height: '275px' }}
+            ></img>
           </div>
         </div>
       </div>
 
       <div className="popups-container">
-        <h1 className="text-container-home" style={{width: '100%', textAlign: 'center', margin: '1rem'}}>
-          ספר החיים של Life Cloud מאפשר לנו להרכיב את הפאזל{' '}
-          <strong>באמצעות</strong>
+        <h1
+          className="text-container-home"
+          style={{
+            width: '100%',
+            textAlign: 'center',
+            margin: '1rem',
+            fontSize: '40px',
+          }}
+        >
+          ספר החיים של לייף קלאוד מאפשר לנו
+          <br></br>{' '}
+          <strong style={{ fontSize: '50px' }}>
+            לחבר ולשתף את הסיפורים והחוויות באמצעות
+          </strong>
         </h1>
       </div>
       <div className="imgs-container">
         <div>
-          <Popup
-            trigger={
-              <div>
-                <img className="img-300" src={Rectangle13} alt=""></img>
-                <h1>רשתות חברתיות</h1>
-                <p>+</p>
-                <p className="button"> קרא עוד </p>
+          <div>
+            <div className="img-300 thirteen">
+              <p className="img-300-text">
+                חיבור עמודי המנוח ברשתות החברתיות הקיימות.
+              </p>
+              <div className="read-more-home">
+                <span
+                  style={{
+                    background: '#6097bf',
+                    padding: '1rem',
+                    borderRadius: '15px',
+                  }}
+                >
+                  <p>+</p>
+                  <p>קרא עוד</p>{' '}
+                </span>
               </div>
-            }
-            modal
-            nested
-          >
-            {(close) => (
-              <div className="modal">
-                <button className="close" onClick={close}>
-                  &times;
-                </button>
-                <div className="header"> Social Media </div>
-                <div className="content">
-                  {' '}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Atque, a nostrum. Dolorem, repellat quidem ut, minima sint vel
-                  eveniet quibusdam voluptates delectus doloremque, explicabo
-                  tempore dicta adipisci fugit amet dignissimos?
-                  <br />
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Consequatur sit commodi beatae optio voluptatum sed eius
-                  cumque, delectus saepe repudiandae explicabo nemo nam libero
-                  ad, doloribus, voluptas rem alias. Vitae?
-                </div>
-                <div className="actions">
-                  <button
-                    className="button"
-                    onClick={() => {
-                      console.log('modal closed ');
-                      close();
-                    }}
-                  >
-                    חזור
-                  </button>
-                </div>
-              </div>
-            )}
-          </Popup>
+            </div>
+            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>קישור לרשתות חברתיות</h1>
+          </div>
         </div>
         <div>
-          <Popup
-            trigger={
-              <div>
-                <img className="img-300" src={Rectangle14} alt=""></img>
-                <h1>QR Code</h1>
-                <p>+</p>
-                <p>קרא עוד</p>{' '}
+          <div>
+            <div className="img-300 fourteen">
+              <p className="img-300-text">
+                קוד QR החרוט במקום ייחודי ועמיד שתבחרו, יחבר כל סמארטפון ישירות
+                לספר החיים של המנוח{' '}
+              </p>
+              <div className="read-more-home">
+                <span
+                  style={{
+                    background: '#6097bf',
+                    padding: '1rem',
+                    borderRadius: '15px',
+                  }}
+                >
+                  <p>+</p>
+                  <p>קרא עוד</p>{' '}
+                </span>
               </div>
-            }
-            modal
-            nested
-          >
-            {(close) => (
-              <div className="modal">
-                <button className="close" onClick={close}>
-                  &times;
-                </button>
-                <div className="header"> QR Code </div>
-                <div className="content">
-                  {' '}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Atque, a nostrum. Dolorem, repellat quidem ut, minima sint vel
-                  eveniet quibusdam voluptates delectus doloremque, explicabo
-                  tempore dicta adipisci fugit amet dignissimos?
-                  <br />
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Consequatur sit commodi beatae optio voluptatum sed eius
-                  cumque, delectus saepe repudiandae explicabo nemo nam libero
-                  ad, doloribus, voluptas rem alias. Vitae?
-                </div>
-                <div className="actions">
-                  <button
-                    className="button"
-                    onClick={() => {
-                      console.log('modal closed ');
-                      close();
-                    }}
-                  >
-                    חזרה
-                  </button>
-                </div>
-              </div>
-            )}
-          </Popup>
+            </div>{' '}
+            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>ייחודי QR קוד</h1>
+          </div>
         </div>
         <div>
-          <Popup
-            trigger={
-              <div>
-                <img className="img-300" src={Rectangle12} alt=""></img>
-                <h1>שמירת תמונות וסרטונים</h1>
-                <p>+</p>
-                <p>קרא עוד</p>{' '}
+          <div>
+            <div className="img-300 twelve">
+              <p className="img-300-text">
+                בדרך קלה, ידידותית ויעילה, ניתן להעלות סרטונים ותמונות, ליצור
+                אלבומים, ולשתף חברים, משפחה וקהילה
+              </p>
+              <div className="read-more-home">
+                <span
+                  style={{
+                    background: '#6097bf',
+                    padding: '1rem',
+                    borderRadius: '15px',
+                  }}
+                >
+                  <p>+</p>
+                  <p>קרא עוד</p>{' '}
+                </span>
               </div>
-            }
-            modal
-            nested
-          >
-            {(close) => (
-              <div className="modal">
-                <button className="close" onClick={close}>
-                  &times;
-                </button>
-                <div className="header"> Saving photos&videos </div>
-                <div className="content">
-                  {' '}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Atque, a nostrum. Dolorem, repellat quidem ut, minima sint vel
-                  eveniet quibusdam voluptates delectus doloremque, explicabo
-                  tempore dicta adipisci fugit amet dignissimos?
-                  <br />
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Consequatur sit commodi beatae optio voluptatum sed eius
-                  cumque, delectus saepe repudiandae explicabo nemo nam libero
-                  ad, doloribus, voluptas rem alias. Vitae?
-                </div>
-                <div className="actions">
-                  <button
-                    className="button"
-                    onClick={() => {
-                      console.log('modal closed ');
-                      close();
-                    }}
-                  >
-                    חזרה
-                  </button>
-                </div>
-              </div>
-            )}
-          </Popup>
+            </div>{' '}
+            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>העלאת תמונות וסרטונים</h1>
+          </div>
+          ]
         </div>
       </div>
       <div className="imgs-container">
         <div>
-          <Popup
-            trigger={
-              <div>
-                <img className="img-300" src={Rectangle16} alt=""></img>
-                <h1>ניהול פרופיל</h1>
-                <p>+</p>
-                <p>קרא עוד</p>
+          <div>
+            <div className="img-300 sixteen">
+              <p className="img-300-text">
+                ניתן להוסיף תגובות, לשתף זיכרונות ותמונות עם משפחה, חברים
+                ומכרים.{' '}
+              </p>
+              <div className="read-more-home">
+                <span
+                  style={{
+                    background: '#6097bf',
+                    padding: '1rem',
+                    borderRadius: '15px',
+                  }}
+                >
+                  <p>+</p>
+                  <p>קרא עוד</p>{' '}
+                </span>
               </div>
-            }
-            modal
-            nested
-          >
-            {(close) => (
-              <div className="modal">
-                <button className="close" onClick={close}>
-                  &times;
-                </button>
-                <div className="header"> Wall management </div>
-                <div className="content">
-                  {' '}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Atque, a nostrum. Dolorem, repellat quidem ut, minima sint vel
-                  eveniet quibusdam voluptates delectus doloremque, explicabo
-                  tempore dicta adipisci fugit amet dignissimos?
-                  <br />
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Consequatur sit commodi beatae optio voluptatum sed eius
-                  cumque, delectus saepe repudiandae explicabo nemo nam libero
-                  ad, doloribus, voluptas rem alias. Vitae?
-                </div>
-                <div className="actions">
-                  <button
-                    className="button"
-                    onClick={() => {
-                      console.log('modal closed ');
-                      close();
-                    }}
-                  >
-                    חזרה
-                  </button>
-                </div>
-              </div>
-            )}
-          </Popup>
+            </div>{' '}
+            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>כתיבה ושיתוף זכרונות</h1>
+          </div>
         </div>
         <div>
-          <Popup
-            trigger={
-              <div>
-                <img className="img-300" src={Rectangle17} alt=""></img>
-                <h1>ניהול לוח שנה</h1>
-                <p>+</p>
-                <p>קרא עוד</p>{' '}
+          <div>
+            <div className="img-300 seventeen">
+              <p className="img-300-text">
+                לוח שנה –ציון ימים חשובים, שליחת הזמנות לאירועי אזכרה ומפגשים.{' '}
+              </p>
+              <div className="read-more-home">
+                <span
+                  style={{
+                    background: '#6097bf',
+                    padding: '1rem',
+                    borderRadius: '15px',
+                  }}
+                >
+                  <p>+</p>
+                  <p>קרא עוד</p>{' '}
+                </span>
               </div>
-            }
-            modal
-            nested
-          >
-            {(close) => (
-              <div className="modal">
-                <button className="close" onClick={close}>
-                  &times;
-                </button>
-                <div className="header"> Calendar managemen </div>
-                <div className="content">
-                  {' '}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Atque, a nostrum. Dolorem, repellat quidem ut, minima sint vel
-                  eveniet quibusdam voluptates delectus doloremque, explicabo
-                  tempore dicta adipisci fugit amet dignissimos?
-                  <br />
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Consequatur sit commodi beatae optio voluptatum sed eius
-                  cumque, delectus saepe repudiandae explicabo nemo nam libero
-                  ad, doloribus, voluptas rem alias. Vitae?
-                </div>
-                <div className="actions">
-                  <button
-                    className="button"
-                    onClick={() => {
-                      console.log('modal closed ');
-                      close();
-                    }}
-                  >
-                    חזרה
-                  </button>
-                </div>
-              </div>
-            )}
-          </Popup>
+            </div>{' '}
+            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>ניהול מועדים</h1>
+          </div>
         </div>
         <div>
-          <Popup
-            trigger={
-              <div>
-                <img className="img-300" src={Rectangle15} alt=""></img>
-                <h1>מיקום הקבר</h1>
-                <p>+</p>
-                <p>קרא עוד</p>{' '}
+          <div>
+            <div className="img-300 fifteen">
+              <p className="img-300-text">מיקום הקבר </p>
+              <div className="read-more-home">
+                <span
+                  style={{
+                    background: '#6097bf',
+                    padding: '1rem',
+                    borderRadius: '15px',
+                  }}
+                >
+                  <p>+</p>
+                  <p>קרא עוד</p>{' '}
+                </span>
               </div>
-            }
-            modal
-            nested
-          >
-            {(close) => (
-              <div className="modal">
-                <button className="close" onClick={close}>
-                  &times;
-                </button>
-                <div className="header"> Graves locations </div>
-                <div className="content">
-                  {' '}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Atque, a nostrum. Dolorem, repellat quidem ut, minima sint vel
-                  eveniet quibusdam voluptates delectus doloremque, explicabo
-                  tempore dicta adipisci fugit amet dignissimos?
-                  <br />
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Consequatur sit commodi beatae optio voluptatum sed eius
-                  cumque, delectus saepe repudiandae explicabo nemo nam libero
-                  ad, doloribus, voluptas rem alias. Vitae?
-                </div>
-                <div className="actions">
-                  <button
-                    className="button"
-                    onClick={() => {
-                      console.log('modal closed ');
-                      close();
-                    }}
-                  >
-                    חזרה
-                  </button>
-                </div>
-              </div>
-            )}
-          </Popup>
+            </div>{' '}
+            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>מיקום הקבר</h1>
+          </div>
         </div>
       </div>
 
@@ -470,36 +363,50 @@ const Home = () => {
       <div className="testimonials">
         <Slider {...settings}>
           <div>
-            <h3>
-              לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולורס מודוף
+            <h3 className="pilKahol">
+              "בזכות העלאה ושיתוף תמונות, סיפורים וסרטונים של חברים ומכרים,
+              נחשפתי לצדדים חדשים ומרגשים [של אהובי]{' '}
             </h3>
-            <h5>-עידן מור-</h5>
+            <h5 style={{ marginBottom: '15px' }}>-ס״א-</h5>
           </div>
           <div>
-            <h3>
-              לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולורס מודוף
+            <h3 className="pilKahol">
+              "הבנתי שאם אני לא עושה לייף בוק לאמא שלי, נכדיי לא יכירו אותה"
+              אידית צעירי
             </h3>
-            <h5>-עידן מור-</h5>
+            <h5 style={{ marginBottom: '15px' }}>-עידית צעירי-</h5>
           </div>
           <div>
-            <h3>
-              לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית קולורס מודוף
+            <h3 className="pilKahol">
+              "חיילי גולני הצעירים זכו לראשונה להכיר את בני צחי, בזכות ה-QR שעל
+              המצבה"{' '}
             </h3>
-            <h5>-עידן מור-</h5>
+            <h5 style={{ marginBottom: '15px' }}>-שולה דאלי-</h5>
+          </div>
+          <div>
+            <h3 className="pilKahol">
+              ״הלייף בוק נראה ממש כמו הפרופיל שלעולם לא היה לאמא בפייסבוק.״
+            </h3>
+            <h5 style={{ marginBottom: '15px' }}>-אריאל-</h5>
           </div>
         </Slider>
+        <img
+          alt=""
+          src={leftCloud}
+          style={{ position: 'absolute', left: 0 }}
+        ></img>
       </div>
 
       {/* <div className="plans-section">
         <h1 className="plans-title">Plans and options for purchase</h1>
         <div className="plans-container">
           <div className="plan-container">
-            <img src={basic1} alt=""></img>
-            <h1 className="plan-title">LifePage</h1>
-            <div className="plan-description">
-              <h5>חינם</h5>
-              <a>+ לחץ לפרטים נוספים</a>
-            </div>
+          <img src={basic1} alt=""></img>
+          <h1 className="plan-title">LifePage</h1>
+          <div className="plan-description">
+          <h5>חינם</h5>
+          <a>+ לחץ לפרטים נוספים</a>
+          </div>
           </div>
           <div className="plan-container">
             <img src={basic2} alt=""></img>

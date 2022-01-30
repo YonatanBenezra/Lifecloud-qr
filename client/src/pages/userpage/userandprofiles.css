@@ -82,13 +82,65 @@
     padding: 2px;
   }
 }
-
+.notification-line {
+  padding-left: 30px;
+  padding-right: 30px;
+  direction: rtl;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  width: 50%;
+  margin: auto;
+  align-items: center;
+  border-radius: 15px;
+  height: 75px;
+  margin-bottom: 2rem;
+}
+.notifications-title {
+  display: flex;
+  justify-content: center;
+  padding-top: 75px;
+  margin-bottom: 40px;
+  align-items: center;
+}
+.notifications-container {
+  text-align: center;
+  color: #6097bf;
+  background: #dcecf4;
+}
+.notification-text {
+  font-size: 25px;
+  font-weight: 600;
+  padding-left: 3rem;
+}
+.notification-img {
+  height: 50px;
+  width: 50px;
+  margin-right: 3rem;
+  border-radius: 100%;
+}
 .user-main {
   background-color: #f5fcff;
   color: #6097bf;
-  padding-top: 5rem;
-  padding-left: 10rem;
+  display: flex;
+  flex-direction: column;
   min-height: 25vh;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 75px;
+}
+.notifications-btn {
+  height: 50px;
+  width: 200px;
+  background: #dcecf4;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 600;
+  margin-top: 40px;
+  cursor: pointer;
 }
 
 .user-description {
@@ -98,7 +150,9 @@
   padding-bottom: 5rem;
 }
 .user-name {
-  font-size: 28px;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .profiles-container {
@@ -293,7 +347,12 @@
 input::placeholder {
   color: #abc9db;
 }
-
+.notifications-button {
+  width: 200px;
+  height: 75px;
+  background: #dcecf4;
+  border-radius: 10px;
+}
 .location-container {
   display: flex;
   flex-direction: column;

@@ -1,19 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
-import profile from './dummy-profiles.json';
 import waze from '../../assets/waze.png';
-import wts from '../../assets/wts.png';
 import zoom from '../../assets/zoom.png';
 import google from '../../assets/google.png';
-import map from '../../assets/map.png';
-import share from '../../assets/share.png';
 import heart from '../../assets/heart.png';
 import instagram from '../../assets/instagram.png';
 import facebook from '../../assets/facebook.png';
 import { Link } from 'react-router-dom';
-import './profiledetails.css';
-import TopBar from '../../components/topbar/Topbar';
+import './organisation-details.css';
 import ProgressBar from '../../components/progressbar/progressBar';
 import { ENGallery } from '../../components/gallery/ENGallery';
 // import { AuthContext } from '../../context/AuthContext';
@@ -41,8 +36,8 @@ export default function ENProfile() {
   const [commenting, setCommenting] = useState(false);
   const [comment, setComment] = useState();
   const [DellComment, setDelComment] = useState('');
-  const [friendFlagReq, setrfriendReq] = useState([])
-  const [adminFlagReq, setAdminres] = useState([])
+  const [friendFlagReq, setrfriendReq] = useState([]);
+  const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
   const [memories, setMemories] = useState([]);
   const [next, setnext] = useState(1);
@@ -51,32 +46,35 @@ export default function ENProfile() {
   };
   console.log(id);
   useEffect(() => {
-  
     setCommenting('');
     setComment('');
     setLikeMessage('');
   }, [likeMessage, comment, DellComment, friendFlagReq, adminFlagReq]);
-  useEffect(()=>{
+  useEffect(() => {
     fetchuserprofiles();
-  },[])
- useEffect(()=>{
-  if (Object.keys(profiledata).length > 0) {
-    fetchmemories();
-  }
- })
+  }, []);
+  useEffect(() => {
+    if (Object.keys(profiledata).length > 0) {
+      fetchmemories();
+    }
+  });
   const fetchuserprofiles = async () => {
-    const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`);
+    const res = await axios.get(
+      `https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`
+    );
     setProfileData(res.data);
-    console.log(res, 'res')
+    console.log(res, 'res');
   };
 
   const fetchmemories = async () => {
-    const res = await axios.get(`https://api.lifecloud-qr.com/api/memory/getallmemory/${id}`);
+    const res = await axios.get(
+      `https://api.lifecloud-qr.com/api/memory/getallmemory/${id}`
+    );
     console.log(res, 'res memory');
     setmemoryData(res.data);
   };
 
-  console.log(memoryData,'get all memory');
+  console.log(memoryData, 'get all memory');
   console.log(profiledata);
   let pasrseAxios = Object.keys(profiledata).length
     ? JSON.parse(profiledata.lifeAxis)
@@ -205,7 +203,7 @@ export default function ENProfile() {
     setOpen(false);
     setMessage('');
   };
-  console.log(memoryData, 'memoryData')
+  console.log(memoryData, 'memoryData');
   var options = {
     weekday: 'long', //to display the full name of the day, you can use short to indicate an abbreviation of the day
     day: 'numeric',
@@ -232,7 +230,8 @@ export default function ENProfile() {
           <div className="deceased-details">
             <h1>{`${profiledata.firstName} ${profiledata.lastName}`}</h1>
             <p>
-              {profiledata.birthDate.split('T')[0]} - {profiledata.deathDate.split('T')[0]}
+              {profiledata.birthDate.split('T')[0]} -{' '}
+              {profiledata.deathDate.split('T')[0]}
             </p>
             {/* <p>{profile[0].city}</p> */}
           </div>
@@ -249,12 +248,6 @@ export default function ENProfile() {
           </div>
           <div className="big-btns-container">
             <div
-              onClick={() => setShow('bio')}
-              className={`${show === 'bio' && 'active'} big-btn`}
-            >
-              Biography
-            </div>
-            <div
               onClick={() => setShow('wall')}
               className={`${show === 'wall' && 'active'} big-btn`}
             >
@@ -262,7 +255,11 @@ export default function ENProfile() {
             </div>
           </div>
         </div>
-        <div className={`${show === 'wall' && 'display'} d-none wall-main-container`}>
+        <div
+          className={`${
+            show === 'wall' && 'display'
+          } d-none wall-main-container`}
+        >
           <div className="memorial-container">
             <h1 className="memorial-title">Memorial date</h1>
             <div className="details-and-icons">
@@ -271,20 +268,11 @@ export default function ENProfile() {
                 <h3>| {profiledata.deathDate.split('T')[0]}</h3>
                 <h3>| {profiledata.wazeLocation}</h3>
               </div>
-              <div className="profile-icons-container">
-                <img
-                  src={waze}
-                  alt=""
-                  className="icon"
-                  href={`https://www.waze.com/ul?q=${profiledata.wazeLocation}`}
-                ></img>
-                <img
-                  src={zoom}
-                  alt=""
-                  className={`${!profiledata.zoomLink && 'no-link-icon'} icon`}
-                ></img>
-              </div>
             </div>
+          </div>
+          <div>
+            <h1>About the organisation</h1>
+            <p>{profiledata.description}</p>
           </div>
           <div className="gallery-container">
             <ENGallery profiledata={profiledata} id={id} />
@@ -296,137 +284,20 @@ export default function ENProfile() {
           <div className="grave-location-container">
             <h1 className="grave-location-title">Graves location</h1>
             <div className="grave-imgs-container">
-              <img src={profiledata.graveImage} alt="" className="grave-img"></img>
+              <img
+                src={profiledata.graveImage}
+                alt=""
+                className="grave-img"
+              ></img>
             </div>
             <div className="navigation-btn">
-              <a href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation}`}></a>לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation}`}
+              ></a>
+              לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
             </div>
           </div>
-          <div className="memories-div">
-            <h1 className="memories-title">זכרונות</h1>
-            <div className="memories-container">
-              {/* {memoryData.forEach((data, key) => { */}
-              {/* console.log(data.file[0], '--> data') */}
-              {memoryData.length > 0 ? (
-                memoryData.map(
-                  (
-                    imgData,
-                    index //change to memories
-                  ) => (
-                    <Popup
-                      trigger={
-                        <div className="memory-container" key={index}>
-                          <img
-                            src={`https://api.lifecloud-qr.com/${imgData.file}`}
-                            alt=""
-                            className="memory-img"
-                          ></img>
-                          {/* {imgData.file.map(item => {
-                          return <img
-                            src={`https://api.lifecloud-qr.com/${item}`}
-                            alt=""
-                            className="memory-img"
-                          ></img>
-                        })} */}
-
-                          <div className="icons-container">
-                            <div className="memory-heart-container">
-                              <div className="heart-div">
-                                <img
-                                  style={{ cursor: 'pointer' }}
-                                  className="heart-icon"
-                                  src={heart}
-                                  alt=""
-                                ></img>
-                                <span>{imgData.likes.length}</span>
-                              </div>
-                            </div>
-                            <div className="facebook-container">
-                              <div className="heart-div">
-                                <img
-                                  className="heart-icon"
-                                  src={facebook}
-                                  alt=""
-                                ></img>
-                              </div>
-                            </div>
-                            <div className="instagram-container">
-                              <div className="heart-div">
-                                <img
-                                  className="heart-icon"
-                                  src={instagram}
-                                  alt=""
-                                ></img>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      }
-                      modal
-                      nested
-                    >
-                      {(close, item) => (
-                        <ENMemory
-                          close={close}
-                          data={imgData}
-                          index={index}
-                          handleLike={handleLike}
-                          onhandleChangeComment={onhandleChangeComment}
-                          handleComment={handleComment}
-                          setCommenting={setCommenting}
-                          commenting={commenting}
-                          handleDelete={handleDelete}
-                          handleDellMemory={handleDellMemory}
-                        /> //change to memories
-                      )}
-                    </Popup>
-                  )
-                )
-              ) : (
-                <p style={{ marginBottom: '40px' }}>Here will be the memories of {profiledata.firstName}</p>
-              )}
-
-              {/* })} */}
-            </div>
-            <div className="memory-actions">
-              <div
-                className={
-                  next >= profiledata.gallery.length
-                    ? ' hideBtn '
-                    : ` full-memory-btn`
-                }
-                onClick={handleShowMoreMemories}
-              >
-                + More memories
-              </div>
-              <Link to={`/memorycreation/${id}`}>
-                <div className="full-memory-btn">+ Add memory</div>
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className={`${show === 'bio' && 'display'} d-none`}>
-          <div className="bio-content">
-            <h1 className="bio-name">{profiledata.firstName}.</h1>
-            <p className="bio-bio">{profiledata.description}</p>
-          </div>
-          <div className="life-axis">
-            <h1 className="axis-name">Biography and Timeline</h1>
-            {/* <p className="axis-desc">{profiledata.description}</p> */}
-          </div>
-          <div>
-            {pasrseAxios.map((axis) => (
-              <div className="axis-container">
-                <div className="axis-sub-container">
-                  <h1 className="axis-title">{axis.axisTitle}</h1>
-                  <p className="axis-description2">{axis.axisDescription}</p>
-                </div>
-                <div className="axis-bubble">
-                  <span>{axis.axisDate}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* here will be the list of deceased */}
         </div>
         <div
           className={`${show === 'gallery' && 'display'} full-gallery d-none`}
@@ -451,7 +322,12 @@ export default function ENProfile() {
         <div
           className={`${show === 'friends' && 'display'} friends-list d-none`}
         >
-          <ENFriendsList proid={id} profiledata={profiledata} setAdminres={setAdminres} setrfriendReq={setrfriendReq} />
+          <ENFriendsList
+            proid={id}
+            profiledata={profiledata}
+            setAdminres={setAdminres}
+            setrfriendReq={setrfriendReq}
+          />
         </div>
         <SnackBar open={open} handleClose={handleClose} message={message} />
         <ENSocialFooter />
