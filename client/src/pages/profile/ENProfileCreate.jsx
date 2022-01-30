@@ -461,14 +461,14 @@ export default function ENProfileCreate() {
             <div className="location-semicontainer">
               <div className="names-container">
                 <input
-                  placeholder="*הוספת מיקום ווייז "
+                  placeholder="*Add waze direction "
                   required
                   ref={wazeLocation}
                   className="nameInput"
                 />
                 <input
-                  placeholder="* הוספת מיקום גוגל"
-                  required
+                  placeholder="* add google direction"
+                  
                   ref={googleLocation}
                   className="nameInput"
                 />
@@ -478,8 +478,8 @@ export default function ENProfileCreate() {
               <img
                 className="profile-image"
                 src={
-                  coverData
-                    ? coverData
+                  graveData
+                    ? graveData
                     : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
                 }
                 alt=""
@@ -488,7 +488,7 @@ export default function ENProfileCreate() {
                 className="custom-file-grave"
                 type="file"
                 onChange={onChangeGrave}
-                name="coverImg"
+                name="graveimage"
               />
             </div>
           </div>

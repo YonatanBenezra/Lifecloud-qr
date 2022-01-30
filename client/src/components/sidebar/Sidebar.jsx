@@ -11,27 +11,33 @@ const Sidebar = () => {
   useEffect(() => {
     const getpeople = async () => {
       try {
-        const friendList = await axios.get('/users/all/every');
+        const friendList = await axios.get('https://api.lifecloud-qr.com/api/users/all/every');
         setPeople(friendList.data);
-        setPeople(friendList.data.filter(user => user.username.toLowerCase().includes(searchText.toLowerCase())));
+        setPeople(
+          friendList.data.filter((user) =>
+          searchText && searchText.length !== 0 &&  user.username.toLowerCase().includes(searchText.toLowerCase())
+          )
+        );
       } catch (err) {
         console.log(err);
       }
     };
     getpeople();
-    
-  }, []);
+  }, [searchText]);
   // useEffect(() => {
-   
-    
+
   // }, [searchText])
-  return (
-    <div className={`${!searchText && 'none'} search-results`}>
-        {people.map((u) => (
-          <CloseFriend key={u._id} user={u} />
-        ))}
-    </div>
-  );
+  // if (people) {
+  //   return (
+  //     <div className={`${!searchText && 'none'} search-results`}>
+  //       {people.map((u) => (
+  //         <CloseFriend key={u._id} user={u} />
+  //       ))}
+  //     </div>
+  //   );
+  // } else {
+  return <div className="none" />;
+  // }
 };
 
 export default Sidebar;

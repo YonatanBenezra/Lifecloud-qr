@@ -281,7 +281,7 @@ export default function ENProfileCreate() {
                     required
                     ref={birthDate}
                     className="nameInput"
-                    type="date"
+                    type="text"
                   />
                   <input
                     placeholder="* לועזי"
@@ -293,10 +293,10 @@ export default function ENProfileCreate() {
                 </div>
                 <input
                   placeholder="* תאריך פטירה עברי"
-                  required
-                  type="date"
+                  type="text"
                   ref={hebDeathDate}
                   className="nameInput"
+                  style={{padding: 0, width: '99.5%'}}
                 />
                 <div className="names-container" style={{ marginTop: '3rem' }}>
                   <input
@@ -308,7 +308,6 @@ export default function ENProfileCreate() {
                   />
                   <input
                     placeholder="* תואר"
-                    required
                     type="date"
                     ref={degree}
                     className="nameInput"
@@ -352,27 +351,48 @@ export default function ENProfileCreate() {
                   </div>
                   <div
                     className={`${
-                      selectedGender === 'female' && 'register-active'
+                      selectedGender === 'other' && 'register-active'
                     } radio-input-container-register`}
-                    onClick={() => setSelectedGender('female')}
+                    onClick={() => setSelectedGender('other')}
                   >
                     <input
                       type="radio"
-                      value="female"
-                      id="female"
+                      value="other"
+                      id="other"
                       onChange={handleChange}
-                      checked={user.gender === 'female'}
+                      checked={user.gender === 'other'}
                       name="gender"
                       className="radio"
                     />
-                    <label for="female">א</label>
+                    <label for="other">א</label>
                   </div>
                 </div>
                 <div
                   className="location-container"
                   style={{ marginTop: '2rem' }}
                 >
-                  <h1>* העלאת מדיה</h1>
+                  <h1>* מיקום הקבר</h1>
+                  <div className="location-semicontainer">
+                    <div className="names-container">
+                      <input
+                        placeholder="*הוספת מיקום ווייז "
+                        required
+                        ref={wazeLocation}
+                        className="nameInput"
+                      />
+                      <input
+                        placeholder="* הוספת מיקום גוגל"
+                        ref={googleLocation}
+                        className="nameInput"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="location-container"
+                  style={{ marginTop: '2rem' }}
+                >
+                  <h1>העלאת מדיה</h1>
                   <div>
                     <div className="names-container">
                       <div className="form-group multi-preview"></div>
@@ -451,13 +471,7 @@ export default function ENProfileCreate() {
                     );
                   })}
                 </div>
-                <button className="create-btn" type="submit">
-                  שמור
-                </button>
-              </form>
-            </div>
-          </div>
-          <div className="location-container" style={{ marginTop: '2rem' }}>
+                <div className="location-container" style={{ marginTop: '2rem' }}>
             <h1>* Graves location</h1>
             <div className="location-semicontainer">
               <div className="names-container">
@@ -493,6 +507,16 @@ export default function ENProfileCreate() {
               />
             </div>
           </div>
+
+
+
+                <button className="create-btn" type="submit">
+                  שמור
+                </button>
+              </form>
+            </div>
+          </div>
+          
         </div>
         <SnackBar open={open} handleClose={handleClose} message={message} />
       </div>

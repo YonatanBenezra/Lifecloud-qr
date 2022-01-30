@@ -11,7 +11,6 @@ export default function Register() {
   const [selectedGender, setSelectedGender] = useState('');
   const firstName = useRef();
   const lastName = useRef();
-  const companyName = useRef();
   const dateOfBirth = useRef();
   const gender = selectedGender;
   const phone = useRef();
@@ -23,7 +22,6 @@ export default function Register() {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
-    companyName: '',
     dateOfBirth: '',
     gender: '',
     email: '',
@@ -100,16 +98,6 @@ export default function Register() {
                     className="name-input"
                   />
                 </div>
-                <input
-                  placeholder="שם החברה"
-                  required
-                  onChange={handleChange}
-                  ref={companyName}
-                  value={user.companyName}
-                  name="companyName"
-                  className="register-input"
-                  type="companyName"
-                />
                 <input
                   placeholder="תאריך לידה"
                   required

@@ -41,8 +41,8 @@ export default function ENProfile() {
   const [commenting, setCommenting] = useState(false);
   const [comment, setComment] = useState();
   const [DellComment, setDelComment] = useState('');
-  const [friendFlagReq,setrfriendReq] = useState([])
-  const [adminFlagReq,setAdminres] = useState([])
+  const [friendFlagReq, setrfriendReq] = useState([])
+  const [adminFlagReq, setAdminres] = useState([])
   const id = useParams().id;
   const [memories, setMemories] = useState([]);
   const [next, setnext] = useState(1);
@@ -51,25 +51,32 @@ export default function ENProfile() {
   };
   console.log(id);
   useEffect(() => {
-    fetchuserprofiles();
-    fetchmemories();
+  
     setCommenting('');
     setComment('');
     setLikeMessage('');
-  }, [likeMessage, comment, DellComment,friendFlagReq,adminFlagReq]);
+  }, [likeMessage, comment, DellComment, friendFlagReq, adminFlagReq]);
+  useEffect(()=>{
+    fetchuserprofiles();
+  },[])
+  useEffect(()=>{
+    if (Object.keys(profiledata).length > 0) {
+      fetchmemories();
+    }
+  })
   const fetchuserprofiles = async () => {
     const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`);
     setProfileData(res.data);
-    console.log(res,'res')
+    console.log(res, 'res')
   };
 
   const fetchmemories = async () => {
-    const res = await axios.get(`https://api.lifecloud-qr.com/api/memory/getallmemory`);
-    console.log(res);
+    const res = await axios.get(`https://api.lifecloud-qr.com/api/memory/getallmemory/${id}`);
+    console.log(res, 'res memory');
     setmemoryData(res.data);
   };
 
-  console.log(memoryData);
+  console.log(memoryData,'get all memory');
   console.log(profiledata);
   let pasrseAxios = Object.keys(profiledata).length
     ? JSON.parse(profiledata.lifeAxis)
@@ -198,7 +205,7 @@ export default function ENProfile() {
     setOpen(false);
     setMessage('');
   };
-
+  console.log(memoryData, 'memoryData')
   var options = {
     weekday: 'long', //to display the full name of the day, you can use short to indicate an abbreviation of the day
     day: 'numeric',
@@ -409,16 +416,16 @@ export default function ENProfile() {
           </div>
           <div>
             {pasrseAxios.map((axis) => (
-            <div className="axis-container">
-              <div className="axis-sub-container">
-                <h1 className="axis-title">{axis.axisTitle}</h1>
-                <p className="axis-description2">{axis.axisDescription}</p>
+              <div className="axis-container">
+                <div className="axis-sub-container">
+                  <h1 className="axis-title">{axis.axisTitle}</h1>
+                  <p className="axis-description2">{axis.axisDescription}</p>
+                </div>
+                <div className="axis-bubble">
+                  <span>{axis.axisDate}</span>
+                </div>
               </div>
-              <div className="axis-bubble">
-                <span>{axis.axisDate}</span>
-              </div>
-            </div>
-          ))}
+            ))}
           </div>
         </div>
         <div

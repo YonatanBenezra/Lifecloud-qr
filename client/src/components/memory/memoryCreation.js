@@ -31,7 +31,7 @@ const MemoryCreation = () => {
 
         try {
             const formdata = new FormData();
-            formdata.append('originalUser', profiledata.originalUser[0]._id);
+            formdata.append('originalUser', id);
             formdata.append('firstName', profiledata.originalUser[0].firstName);
             formdata.append('lastName', profiledata.originalUser[0].lastName);
             // for (let i = 0; i < multiFiles.length; i++) {

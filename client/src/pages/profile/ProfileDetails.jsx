@@ -55,6 +55,7 @@ export default function Profile() {
     setComment('');
     setLikeMessage('');
   }, [likeMessage, comment, DellComment,flag]);
+  
   useEffect(()=>{
     fetchuserprofiles();
   },[])
@@ -67,13 +68,12 @@ export default function Profile() {
   };
 
   const fetchmemories = async () => {
-    const res = await axios.get(`https://api.lifecloud-qr.com/api/memory/getallmemory/${profiledata.originalUser[0]._id}`);
+    const res = await axios.get(`/api/memory/getallmemory/${profiledata.originalUser[0]._id}`);
     console.log(res, 'memo');
     setmemoryData(res.data);
   };
 
-  console.log(memoryData);
-  console.log(profiledata, 'prog');
+ 
   let pasrseAxios = Object.keys(profiledata).length
     ? JSON.parse(profiledata.lifeAxis)
     : '';
@@ -216,6 +216,8 @@ export default function Profile() {
   };
   console.log(text, 'setText');
 
+  const loggedUser = JSON.parse(localStorage.getItem('user'));
+
   if (Object.keys(profiledata).length > 0) {
     return (
       <div>
@@ -241,9 +243,11 @@ export default function Profile() {
         </div>
         <div className="btns-container">
           <div>
-            <Link to={`/editprofiles/${id}`}>
+            {(profiledata.originalUser[0]._id === loggedUser._id || profiledata.addAdmins.indexOf()) &&
+              <Link to={`/editprofiles/${id}`}>
               <span className="small-btn">ערוך פרופיל</span>
             </Link>
+            }
             <span className="small-btn">הוסף חבר</span>
             <span className="small-btn" onClick={() => setShow('friends')}>
               רשימת חברים
@@ -289,7 +293,7 @@ export default function Profile() {
             </div>
           </div>
           <div className="gallery-container">
-            <Gallery profiledata={profiledata} id={id} />
+            <Gallery profiledata={profiledata} id={id}/>
             <div onClick={() => setShow('gallery')} className="full-btn">
               {' '}
               + לכל הגלריה

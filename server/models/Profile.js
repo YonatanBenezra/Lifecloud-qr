@@ -25,6 +25,9 @@ const PostSchema = new mongoose.Schema(
         wallImg: {
             type: String
         },
+        graveImg: {
+            type: String,
+        },
         firstName: {
             type: String,
         },
