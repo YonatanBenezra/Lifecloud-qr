@@ -29,7 +29,7 @@ import FriendsList from '../../components/friendsList/friendsList';
 export default function Profile() {
   const { dispatch } = useContext(AuthContext);
   const [profiledata, setProfileData] = useState({});
-  const [flag,setFlag] = useState(false)
+  const [flag, setFlag] = useState(false);
   const [memoryData, setmemoryData] = useState([]);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -38,7 +38,7 @@ export default function Profile() {
   const history = useHistory();
   const [likeMessage, setLikeMessage] = useState('');
   const [commenting, setCommenting] = useState(false);
-  const [friendFlagReq, setrfriendReq] = useState([])
+  const [friendFlagReq, setrfriendReq] = useState([]);
   const [comment, setComment] = useState();
   const [DellComment, setDelComment] = useState('');
   const id = useParams().id;
@@ -49,35 +49,37 @@ export default function Profile() {
   };
   console.log(id);
   useEffect(() => {
-  
     setCommenting('');
     setComment('');
     setLikeMessage('');
-  }, [likeMessage, comment, DellComment,flag]);
-  
-  useEffect(()=>{
+  }, [likeMessage, comment, DellComment, flag]);
+
+  useEffect(() => {
     fetchuserprofiles();
-  },[])
-  useEffect(()=>{
+  }, []);
+  useEffect(() => {
     if (Object.keys(profiledata).length > 0) {
       fetchmemories();
     }
-   })
+  });
   const fetchuserprofiles = async () => {
-    const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`);
+    const res = await axios.get(
+      `https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`
+    );
     setProfileData(res.data);
-    if(res){
-      setFlag(e => !e)
+    if (res) {
+      setFlag((e) => !e);
     }
   };
 
   const fetchmemories = async () => {
-    const res = await axios.get(`/api/memory/getallmemory/${profiledata.originalUser[0]._id}`);
-    console.log(res, 'memo');
+    const res = await axios.get(
+      `https://api.lifecloud-qr.com/api/memory/getallmemory/${id}`
+    );
+    console.log(res, 'res memory');
     setmemoryData(res.data);
   };
 
- 
   let pasrseAxios = Object.keys(profiledata).length
     ? JSON.parse(profiledata.lifeAxis)
     : '';
@@ -86,12 +88,6 @@ export default function Profile() {
   const handleLike = (e) => {
     try {
       const formdata = new FormData();
-      // formdata.append('userId',);
-      // const config = {
-      //   headers: {
-      //     'content-type': 'multipart/form-data'
-      //   }
-      // }
       let data = {
         userId: profiledata.originalUser[0]._id,
       };
@@ -240,18 +236,20 @@ export default function Profile() {
           <div className="deceased-details">
             <h1>{`${profiledata.firstName} ${profiledata.lastName}`}</h1>
             <p>
-              {profiledata.birthDate.split('T')[0]} - {profiledata.deathDate.split('T')[0]}
+              {profiledata.birthDate.split('T')[0]} -{' '}
+              {profiledata.deathDate.split('T')[0]}
             </p>
             {/* <p>{profile[0].city}</p> */}
           </div>
         </div>
         <div className="btns-container">
           <div>
-            {(profiledata.originalUser[0]._id === loggedUser._id || profiledata.addAdmins.indexOf()) &&
+            {(profiledata.originalUser[0]._id === loggedUser._id ||
+              profiledata.addAdmins.indexOf()) && (
               <Link to={`/editprofiles/${id}`}>
-              <span className="small-btn">ערוך פרופיל</span>
-            </Link>
-            }
+                <span className="small-btn">ערוך פרופיל</span>
+              </Link>
+            )}
             <span className="small-btn">הוסף חבר</span>
             <span className="small-btn" onClick={() => setShow('friends')}>
               רשימת חברים
@@ -272,7 +270,11 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <div className={`${show === 'wall' && 'display'} d-none wall-main-container`}>
+        <div
+          className={`${
+            show === 'wall' && 'display'
+          } d-none wall-main-container`}
+        >
           <div className="memorial-container">
             <h1 className="memorial-title">תאריך האזכרה</h1>
             <div className="details-and-icons">
@@ -297,7 +299,7 @@ export default function Profile() {
             </div>
           </div>
           <div className="gallery-container">
-            <Gallery profiledata={profiledata} id={id}/>
+            <Gallery profiledata={profiledata} id={id} />
             <div onClick={() => setShow('gallery')} className="full-btn">
               {' '}
               + לכל הגלריה
@@ -306,10 +308,17 @@ export default function Profile() {
           <div className="grave-location-container">
             <h1 className="grave-location-title">מיקום הקבר</h1>
             <div className="grave-imgs-container">
-              <img src={profiledata.graveImage} alt="" className="grave-img"></img>
+              <img
+                src={profiledata.graveImage}
+                alt=""
+                className="grave-img"
+              ></img>
             </div>
             <div className="navigation-btn">
-              <a href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation}`}></a>לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation}`}
+              ></a>
+              לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
             </div>
           </div>
           <div className="memories-div">
@@ -393,7 +402,9 @@ export default function Profile() {
                   )
                 )
               ) : (
-                <p style={{ marginBottom: '40px' }}>כאן יהיו הזכרונות שלנו מ</p>
+                <p style={{ marginBottom: '40px' }}>
+                  כאן יהיו הזכרונות של {profiledata.firstName}
+                </p>
               )}
 
               {/* })} */}
