@@ -42,10 +42,13 @@ const PostSchema = new mongoose.Schema(
       type: String,
     },
     birthDate: {
-      type: Date,
+      type: String,
     },
     deathDate: {
       type: Date,
+    },
+    hebDeathDate: {
+      type: String,
     },
     gender: {
       type: String,
@@ -65,6 +68,15 @@ const PostSchema = new mongoose.Schema(
     lifeAxis: {
       type: String,
     },
+    privacy: {
+      type: String,
+    },
+    degree: {
+      type: String,
+    },
+    city: {
+      type: String,
+    }
   },
   { timestamps: true }
 );

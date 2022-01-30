@@ -18,9 +18,6 @@ export default function ENProfileCreate() {
   const [imgData, setImgData] = useState(null);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [selectedPrivacy, setSelectedPrivacy] = useState('public');
-  const [profiledata, setProfileData] = useState({});
-  const [flag, setFlag] = useState(false);
   console.log(imgData, 'imgData');
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
@@ -31,18 +28,6 @@ export default function ENProfileCreate() {
         setImgData(reader.result);
       });
       reader.readAsDataURL(e.target.files[0]);
-    }
-  };
-  useEffect(() => {
-    fetchuserprofiles();
-  }, []);
-  const fetchuserprofiles = async () => {
-    const res = await axios.get(
-      `https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`
-    );
-    setProfileData(res.data);
-    if (res) {
-      setFlag((e) => !e);
     }
   };
   const [image, setImage] = useState(null);
@@ -80,18 +65,20 @@ export default function ENProfileCreate() {
   ]);
   console.log(multiFiles, 'multiFiles');
   console.log(picture, 'pic');
-  console.log(imgData, 'imgData');
   console.log(image, 'image');
   const [selectedGender, setSelectedGender] = useState('');
+  const [selectedPrivacy, setSelectedPrivacy] = useState('public');
   const firstName = useRef();
   const lastName = useRef();
   const companyName = useRef();
   const birthDate = useRef();
+  // const hebBirthDate = useRef();
   const deathDate = useRef();
   const hebDeathDate = useRef();
   const city = useRef();
   const degree = useRef();
   const gender = selectedGender;
+  const privacy = selectedPrivacy;
   const phone = useRef();
   const email = useRef();
   const password = useRef();
@@ -103,13 +90,14 @@ export default function ENProfileCreate() {
   const axisTitle = useRef();
   const axisDate = useRef();
   const history = useHistory();
+
   const handleChange = (e) => {
     setSelectedGender(e.target.value);
   };
   const handlePrivacyChange = (e) => {
     setSelectedPrivacy(e.target.value);
   };
-
+  // console.log(hebBirthDate,'hebBirthDate')
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -144,11 +132,13 @@ export default function ENProfileCreate() {
       firstName: firstName.current.value,
       lastName: lastName.current.value,
       birthDate: birthDate.current.value,
+      // hebBirthDate: hebBirthDate.current.value,
       hebDeathDate: hebDeathDate.current.value,
       city: city.current.value,
       degree: degree.current.value,
       deathDate: deathDate.current.value,
       gender: selectedGender,
+      privacy: selectedPrivacy,
       wazeLocation: wazeLocation.current.value,
       googleLocation: googleLocation.current.value,
       description: description.current.value,
@@ -161,15 +151,18 @@ export default function ENProfileCreate() {
       formdata.append('profileImg', picture);
       formdata.append('graveImg', graveImage);
       formdata.append('wallImg', image);
+      formdata.append('privacy', privacy);
       formdata.append('firstName', wallInformation.firstName);
       formdata.append('originalUser', wallInformation.originalUser);
       formdata.append('lastName', wallInformation.lastName);
       formdata.append('birthDate', wallInformation.birthDate);
+      // formdata.append('hebBirthDate', wallInformation.hebBirthDate);
       formdata.append('hebDeathDate', wallInformation.hebDeathDate);
       formdata.append('city', wallInformation.city);
       formdata.append('degree', wallInformation.degree);
       formdata.append('deathDate', wallInformation.deathDate);
       formdata.append('gender', wallInformation.gender);
+      formdata.append('privacy', wallInformation.privacy);
       formdata.append('wazeLocation', wallInformation.wazeLocation);
       formdata.append('googleLocation', wallInformation.googleLocation);
       formdata.append('description', wallInformation.description);
@@ -190,12 +183,12 @@ export default function ENProfileCreate() {
           if (res) {
             setMessage('פרופיל נוצר בהצלחה');
             setOpen(true);
-            // history.push('/profile');
+            history.goBack();
           }
         });
     } catch (err) {
       console.log(err);
-      setMessage('משהו קרה בדרך!');
+      setMessage('Something went wrong!');
       setOpen(true);
     }
   };
@@ -205,7 +198,7 @@ export default function ENProfileCreate() {
   };
   return (
     <div className="profile-creation-container">
-      <ENTopbar />
+      <Topbar />
       <div className="profile-creation">
         <div className="loginWrapper">
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
@@ -265,13 +258,11 @@ export default function ENProfileCreate() {
                 <div className="names-container">
                   <input
                     placeholder="* שם פרטי"
-                    required
                     ref={firstName}
                     className="nameInput"
                   />
                   <input
                     placeholder="* שם משפחה"
-                    required
                     ref={lastName}
                     className="nameInput"
                   />
@@ -283,14 +274,12 @@ export default function ENProfileCreate() {
                 <div className="names-container">
                   <input
                     placeholder="* לועזי"
-                    required
                     ref={birthDate}
                     className="nameInput"
                     type="text"
                   />
                   <input
                     placeholder="* לועזי"
-                    required
                     type="date"
                     ref={deathDate}
                     className="nameInput"
@@ -306,14 +295,13 @@ export default function ENProfileCreate() {
                 <div className="names-container" style={{ marginTop: '3rem' }}>
                   <input
                     placeholder="* עיר"
-                    required
                     ref={city}
                     className="nameInput"
-                    type="date"
+                    type="text"
                   />
                   <input
                     placeholder="* תואר"
-                    type="date"
+                    type="text"
                     ref={degree}
                     className="nameInput"
                   />
@@ -381,7 +369,6 @@ export default function ENProfileCreate() {
                     <div className="names-container">
                       <input
                         placeholder="*הוספת מיקום ווייז "
-                        required
                         ref={wazeLocation}
                         className="nameInput"
                       />
@@ -422,7 +409,6 @@ export default function ENProfileCreate() {
                 </div>
                 <input
                   placeholder="+ על הנפטר"
-                  required
                   ref={description}
                   className="profile-creation-description"
                 />
@@ -485,13 +471,11 @@ export default function ENProfileCreate() {
                     <div className="names-container">
                       <input
                         placeholder="*הוספת מיקום ווייז "
-                        required
                         ref={wazeLocation}
                         className="nameInput"
                       />
                       <input
                         placeholder="* הוספת מיקום גוגל"
-                        required
                         ref={googleLocation}
                         className="nameInput"
                       />
