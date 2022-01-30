@@ -96,3 +96,16 @@
   justify-content: center;
   font-size: 40px;
 }
+.socialLoginContainer {
+  justify-content: center;
+  align-self: center;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.google-Login {
+  padding: 20px;
+  align-self: center;
+  background-color: '#fff';
+  width: '100%';
+}
+

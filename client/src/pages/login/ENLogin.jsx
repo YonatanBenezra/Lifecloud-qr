@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useRef, useState , useEffect} from 'react';
 import './login.css';
 import { loginCall } from '../../apiCalls';
 import { AuthContext } from '../../context/AuthContext';
@@ -8,6 +8,10 @@ import Topbar from '../../components/topbar/Topbar';
 import ENSocialFooter from '../../components/socialFooter/ENSocialFooter';
 import Footer from '../../components/footer/Footer';
 import ENTopbar from '../../components/topbar/ENTopBar';
+import FacebookLogin from 'react-facebook-login'; 
+import { authentication } from '../../config/firebase';
+import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, getAuth } from 'firebase/auth';
+
 export default function ENLogin() {
   // const email = useRef("Janesss@gamil.com");
   const [email, setEmail] = useState('');
@@ -20,10 +24,45 @@ export default function ENLogin() {
     e.preventDefault();
     loginCall({ email: email, password: password }, dispatch);
   };
+  const responseGoogle = () => {
+    let provider = new GoogleAuthProvider()
+    signInWithPopup(authentication, provider).then((res) => {
+      console.log(res)
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+  const componentClicked = (data) => {
+    //you can use this func to make some operation on your side 
+    console.warn(data)
+  }
+  const responseFacebook = (response) => {
+    //user information retrieval
+    console.log(response);
+  }
+  useEffect(() => {
+    checkIfUserLoggedWithGoogle()
+  }, [])
 
+
+  const checkIfUserLoggedWithGoogle = async () => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        console.log(user)
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  }
   return (
     <>
-    <ENTopbar />
+      <ENTopbar />
       <div className="login">
         <div className="loginWrapper">
           <div className="loginLeft">
@@ -100,10 +139,28 @@ export default function ENLogin() {
                 </p>
               </div>
             </div>
+            <div className='socialLoginContainer'>
+              <div>
+                <FacebookLogin
+                  appId="2999264697053915"
+                  autoLoad={false}
+                  fields="name,email,picture"
+                  onClick={componentClicked}
+                  callback={responseFacebook} />
+              </div>
+
+              
+              <div className='google-Login'>
+                <button onClick={responseGoogle}>
+                  Sign in with  google
+                </button>
+              </div>
+              
+            </div>
           </div>
         </div>
       </div>
-      <ENSocialFooter backgroundColor='#abc9db' color='#fff'/>
+      <ENSocialFooter backgroundColor='#abc9db' color='#fff' />
       <Footer />
     </>
   );

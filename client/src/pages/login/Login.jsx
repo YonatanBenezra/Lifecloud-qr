@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 import './login.css';
 import { loginCall } from '../../apiCalls';
 import { AuthContext } from '../../context/AuthContext';
@@ -7,6 +7,22 @@ import { Link } from 'react-router-dom';
 import Topbar from '../../components/topbar/Topbar';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import Footer from '../../components/footer/Footer';
+import FacebookLogin from 'react-facebook-login';
+import { authentication } from '../../config/firebase';
+import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, getAuth } from 'firebase/auth';
+
+const responseFacebook = (response) => {
+  //ser information retrieval
+  console.log(response);
+}
+const responseGoogle = () => {
+  let provider = new GoogleAuthProvider()
+  signInWithPopup(authentication, provider).then((res) => {
+    console.log(res)
+  }).catch((error) => {
+    console.log(error)
+  })
+}
 // import TwitterLogin from 'react-twitter-auth';
 // import FacebookLogin from 'react-facebook-login';
 // import { GoogleLogin, GoogleLogout } from 'react-google-login';
@@ -29,7 +45,9 @@ const Login = () => {
     e.preventDefault();
     loginCall({ email: email, password: password }, dispatch);
   };
-
+  const componentClicked = (data) => {
+    console.warn(data)
+  }
   // const onLoginSuccess = (response) => {
   //   console.log('-->mylog.101-login');
   //   console.log('responseGoogle', response.profileObj);
@@ -58,6 +76,27 @@ const Login = () => {
   //   setVisible('none');
   //   alert('Log out Succuss');
   // };
+  useEffect(() => {
+    checkIfUserLoggedWithGoogle()
+  }, [])
+
+
+  const checkIfUserLoggedWithGoogle = async () => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        console.log(user)
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  }
+
   return (
     <>
       <Topbar />
@@ -152,6 +191,22 @@ const Login = () => {
                     </Link>
                   )}
                 </p>
+              </div>
+            </div>
+            <div className='socialLoginContainer'>
+              <div>
+                <FacebookLogin
+                  appId="2999264697053915"
+                  autoLoad={false}
+                  fields="name,email,picture"
+                  onClick={componentClicked}
+                  callback={responseFacebook} />
+              </div>
+
+              <div className='google-Login'>
+                <button onClick={responseGoogle}>
+                  Sign in with  google
+                </button>
               </div>
             </div>
           </div>
