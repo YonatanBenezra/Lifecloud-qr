@@ -12,7 +12,7 @@ const { NotificationsRouter } = require('./Routes/notifications');
 const { ProfileRouter, uploadpic } = require('./Routes/profile');
 var cors = require('cors');
 dotenv.config();
-mongoose.connect(process.env.MONGO_URLADI, (err, data) => {
+mongoose.connect(process.env.MONGO_URL, (err, data) => {
   console.log(err || data);
   console.log('mongodb  connected');
 });
