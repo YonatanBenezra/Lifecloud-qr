@@ -22,7 +22,7 @@ const Topbar = (props) => {
       return false;
     } else {
       const res = await axios.get(
-        `https://api.lifecloud-qr.com/api/profile/searchProfile/${value}`
+        `/api/profile/searchProfile/${value}`
       );
       setSeachData(res.data);
     }
@@ -60,7 +60,7 @@ const Topbar = (props) => {
                                 height: '30px',
                                 borderRadius: '30px',
                               }}
-                              src={`https://api.lifecloud-qr.com/${item.profileImg}`}
+                              src={`http://localhost:8800/${item.profileImg}`}
                               alt=""
                             />
                           </span>

@@ -10,13 +10,13 @@ export const ENGallery = ({ profiledata, id }) => {
                     <>
                         {index === 3 ?
                             <Link to={`/gallery/${id}`}>
-                                <div className='gallery-img last-image' style={{ backgroundImage: `https://api.lifecloud-qr.com/${img}`, width: '250px', height: '250px' }}>
+                                <div className='gallery-img last-image' style={{ backgroundImage: `http://localhost:8800:/${img}`, width: '250px', height: '250px' }}>
                                     +
                                 </div>
                             </Link>
                             :
                             <div className='gallery-img'>
-                                <img className="image-gallery-section" src={`${img ? `https://api.lifecloud-qr.com/${img}` : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'}`} alt="" />
+                                <img className="image-gallery-section" src={`${img ? `http://localhost:8800:/${img}` : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'}`} alt="" />
                             </div>
                         }
                     </>

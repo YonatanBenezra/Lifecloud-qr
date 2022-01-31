@@ -15,7 +15,7 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
         fetchUsers()
     }, [])
     const fetchUsers = async () => {
-        const res = await axios.get(`https://api.lifecloud-qr.com/api/users/all/every`);
+        const res = await axios.get(`api/users/all/every`);
         setUsers(res.data)
     }
     console.log(users)
@@ -23,7 +23,7 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
     const handleAddFriend = (e) => {
         console.log(e, proid, 'e')
         setuserid(e)
-        fetch(`https://api.lifecloud-qr.com/api/profile/addFriends/${proid}`, {
+        fetch(`api/profile/addFriends/${proid}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'Application/json',
@@ -42,7 +42,7 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
     const handleAddAcceptFrined = (e) => {
         // setuserid(e)
 
-        fetch(`https://api.lifecloud-qr.com/api/profile/addAcceptFriends/${proid}`, {
+        fetch(`api/profile/addAcceptFriends/${proid}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'Application/json',
@@ -62,7 +62,7 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
     const handleAddAdmins = (e) => {
         console.log(e, proid, 'e')
         setuserid(e)
-        fetch(`https://api.lifecloud-qr.com/api/profile/addAdmins/${proid}`, {
+        fetch(`/api/profile/addAdmins/${proid}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'Application/json',

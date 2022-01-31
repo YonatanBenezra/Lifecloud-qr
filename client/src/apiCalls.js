@@ -16,7 +16,7 @@ export const loginCall = async (userCredential, dispatch) => {
 
 export const fetchuserprofiles = async (id, dispatch) => {
   try {
-    const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getallprofileofSingleUser/${id}`);
+    const res = await axios.get(`api/profile/getallprofileofSingleUser/${id}`);
     dispatch({ type: 'USER-PROFILES', payload: res.data });
   } catch (err) {
    console.log(err)

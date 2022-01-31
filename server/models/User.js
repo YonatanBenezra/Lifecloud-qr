@@ -8,9 +8,6 @@ const UserSchema = new mongoose.Schema(
     lastName:{
       type: String,
     },
-    companyName:{
-      type: String,
-    },
     dateOfBirth:{
       type: String,
     },

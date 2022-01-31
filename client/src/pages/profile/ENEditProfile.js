@@ -78,7 +78,7 @@ export default function ENProfileEdit() {
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
-      `https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`
+      `/api/profile/getSingleProfileDetails/${id}`
     );
     setProfileData(res.data);
   };
@@ -246,7 +246,7 @@ export default function ENProfileEdit() {
                 src={
                   imgData
                     ? imgData
-                    : `https://api.lifecloud-qr.com/${wallInformation.profileImg}`
+                    : `http://localhost:8800/${wallInformation.profileImg}`
                 }
                 alt=""
               ></img>
@@ -263,7 +263,7 @@ export default function ENProfileEdit() {
                 src={
                   coverData
                     ? coverData
-                    : `https://api.lifecloud-qr.com/${wallInformation.wallImg}`
+                    : `http://localhost:8800/${wallInformation.wallImg}`
                 }
                 alt=""
               ></img>
