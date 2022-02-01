@@ -66,7 +66,7 @@ export default function ProfileEdit() {
         fetchuserprofiles()
     }, [])
     const fetchuserprofiles = async () => {
-        const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`);
+        const res = await axios.get(`/api/profile/getSingleProfileDetails/${id}`);
         setProfileData(res.data)
     }
     const onChangePicture = (e) => {
@@ -227,7 +227,7 @@ export default function ProfileEdit() {
                         <div className="profile-image-container">
                             <img
                                 className="profile-image"
-                                src={imgData ? imgData : `https://api.lifecloud-qr.com/${wallInformation.profileImg}`
+                                src={imgData ? imgData : `http://localhost:8800/${wallInformation.profileImg}`
                                 }
                                 alt=""
                             ></img>
@@ -241,7 +241,7 @@ export default function ProfileEdit() {
                         <div className="profile-image-container">
                             <img
                                 className="profile-image"
-                                src={coverData ? coverData : `https://api.lifecloud-qr.com/${wallInformation.wallImg}`}
+                                src={coverData ? coverData : `http://localhost:8800/${wallInformation.wallImg}`}
                                 alt=""
                             ></img>
                             <input
