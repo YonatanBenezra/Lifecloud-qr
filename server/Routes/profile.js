@@ -11,7 +11,7 @@ var storage = multer.diskStorage({
 });
 let uploadpic = multer({ storage: storage });
 // create profile
-ProfileRouter.post('/createProfile', uploadpic.fields([{ name: 'profileImg', maxCount: 1 }, { name: 'wallImg', maxCount: 1 }, { name: 'multiplefiles', maxCount: 20 },{name: 'graveImg', maxCount:1}]), async (req, res) => {
+ProfileRouter.use('/createProfile', uploadpic.fields([{ name: 'profileImg', maxCount: 1 }, { name: 'wallImg', maxCount: 1 }, { name: 'multiplefiles', maxCount: 20 },{name: 'graveImg', maxCount:1}]), async (req, res) => {
     try {
         //gen new password
         const url = req.protocol + '://' + req.get('host')
