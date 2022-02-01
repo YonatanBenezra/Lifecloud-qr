@@ -60,7 +60,7 @@ export default function Profile() {
     if (Object.keys(profiledata).length > 0) {
       fetchmemories();
     }
-  });
+  },[]);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `/api/profile/getSingleProfileDetails/${id}`
@@ -215,7 +215,7 @@ export default function Profile() {
   console.log(text, 'setText');
 
   const loggedUser = JSON.parse(localStorage.getItem('user'));
-
+console.log(profiledata)
   if (Object.keys(profiledata).length > 0) {
     return (
       <div>

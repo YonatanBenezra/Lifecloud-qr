@@ -63,7 +63,7 @@ export default function ENProfile() {
   if (Object.keys(profiledata).length > 0) {
     fetchmemories();
   }
- })
+ },[])
   const fetchuserprofiles = async () => {
     const res = await axios.get(`/api/profile/getSingleProfileDetails/${id}`);
     setProfileData(res.data);

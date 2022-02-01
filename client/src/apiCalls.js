@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 export const loginCall = async (userCredential, dispatch) => {
   dispatch({ type: 'LOGIN_START' });
   try {
-    const res = await axios.post('https://api.lifecloud-qr.com/api/auth/login', userCredential);
+    const res = await axios.post('/api/auth/login', userCredential);
     console.log(res, 'res')
     let username = `${res.data.firstName} ${res.data.lastName}`
     dispatch({ type: 'LOGIN_SUCCESS', payload: res.data });

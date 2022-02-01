@@ -159,13 +159,13 @@ export default function ENProfileCreate() {
       formdata.append('profileImg', picture);
       formdata.append('graveImg', graveImage);
       formdata.append('wallImg', image);
-      formdata.append('privacy', privacy);
+      // formdata.append('privacy', wallInformation.privacy);
       formdata.append('firstName', wallInformation.firstName);
       formdata.append('originalUser', wallInformation.originalUser);
       formdata.append('lastName', wallInformation.lastName);
       formdata.append('birthDate', wallInformation.birthDate);
       // formdata.append('hebBirthDate', wallInformation.hebBirthDate);
-      formdata.append('hebDeathDate', wallInformation.hebDeathDate);
+      // formdata.append('hebDeathDate', wallInformation.hebDeathDate);
       formdata.append('city', wallInformation.city);
       formdata.append('degree', wallInformation.degree);
       formdata.append('deathDate', wallInformation.deathDate);
@@ -180,7 +180,7 @@ export default function ENProfileCreate() {
       }
       console.log('there');
 
-      fetch('http://localhost:8800/api/profile/createProfile', {
+      fetch('/api/profile/createProfile', {
         method: 'POST',
         body: formdata,
       })
