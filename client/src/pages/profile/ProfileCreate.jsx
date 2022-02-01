@@ -19,6 +19,7 @@ export default function ENProfileCreate() {
   const [multipleImgData, setMultipleImgData] = useState([]);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
+
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
       setPicture(e.target.files[0]);
@@ -180,7 +181,7 @@ export default function ENProfileCreate() {
       }
       console.log('there');
 
-      fetch('/api/profile/createProfile', {
+      fetch('/api/profile/createProfile' || 'https://api.lifecloud-qr.com/api/profile/createprofile', {
         method: 'POST',
         body: formdata,
       })
