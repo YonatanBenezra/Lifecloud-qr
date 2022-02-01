@@ -32,6 +32,6 @@ app.use('/api/auth', AuthRouter);
 app.use('/api/posts', PostRouter);
 app.use('/api/profile', ProfileRouter);
 app.use(express.static('./server'));
-// app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
