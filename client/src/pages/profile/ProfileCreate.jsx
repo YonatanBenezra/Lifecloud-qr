@@ -16,12 +16,11 @@ export default function ENProfileCreate() {
   const id = useParams().id;
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
+  const [multipleImgData, setMultipleImgData] = useState([]);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
-  console.log(imgData, 'imgData');
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
-      console.log('picture: ', e.target.files);
       setPicture(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener('load', () => {
@@ -40,8 +39,13 @@ export default function ENProfileCreate() {
       reader.addEventListener('load', () => {
         setCoverData(reader.result);
       });
+      console.log(e.target.files[0]);
       reader.readAsDataURL(e.target.files[0]);
     }
+  };
+  const readImage = (e, num) => {
+    const reader = new FileReader();
+    return reader.readAsDataURL(e[num]);
   };
   const [graveImage, setGraveImage] = useState(null);
   const [graveData, setGraveData] = useState(null);
@@ -60,10 +64,13 @@ export default function ENProfileCreate() {
   const onChangeMultiplePicture = (e) => {
     setMultiFiles(e.target.files);
   };
+
   const [inputList, setInputList] = useState([
     { axisTitle: '', axisDate: '', axisDescription: '' },
   ]);
-  console.log(multiFiles, 'multiFiles');
+  if (multiFiles) {
+    console.log(multiFiles[0], 'multiFiles');
+  }
   console.log(picture, 'pic');
   console.log(image, 'image');
   const [selectedGender, setSelectedGender] = useState('');
@@ -147,6 +154,7 @@ export default function ENProfileCreate() {
     };
 
     try {
+      console.log('here');
       const formdata = new FormData();
       formdata.append('profileImg', picture);
       formdata.append('graveImg', graveImage);
@@ -170,6 +178,7 @@ export default function ENProfileCreate() {
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
+      console.log('there');
 
       fetch('http://localhost:8800/api/profile/createProfile', {
         method: 'POST',
@@ -187,10 +196,13 @@ export default function ENProfileCreate() {
           }
         });
     } catch (err) {
+      console.log('midddle');
+
       console.log(err);
       setMessage('Something went wrong!');
       setOpen(true);
     }
+    console.log('end');
   };
   const handleClose = () => {
     setOpen(false);
@@ -203,10 +215,10 @@ export default function ENProfileCreate() {
         <div className="loginWrapper">
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
             <h3 className="profile-creation-title">צור פרופיל</h3>
-            <div className="profile-example-btn">לחץ לצפייה בפרופיל לדוגמה</div>
+            <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div>
           </div>
           <div className="profile-images">
-            <div className="register_profile_image"></div>
+            {/* <div className="register_profile_image"></div> */}
             {/* <div className="profile-image-container">
               <img
                 className="profile-image"
@@ -255,7 +267,10 @@ export default function ENProfileCreate() {
           <div className="loginRight">
             <div className="RegBox">
               <form className="profile-creation-box" onSubmit={handleClick}>
-                <div className="names-container">
+                <div
+                  className="profile-creation-names-container"
+                  style={{ marginBottom: '3rem' }}
+                >
                   <input
                     placeholder="* שם פרטי"
                     ref={firstName}
@@ -271,7 +286,7 @@ export default function ENProfileCreate() {
                   <h1>תאריך לידה</h1>
                   <h1>תאריך פטירה</h1>
                 </div>
-                <div className="names-container">
+                <div className="profile-creation-names-container">
                   <input
                     placeholder="* לועזי"
                     ref={birthDate}
@@ -285,14 +300,24 @@ export default function ENProfileCreate() {
                     className="nameInput"
                   />
                 </div>
-                <input
-                  placeholder="* תאריך פטירה עברי"
-                  type="text"
-                  ref={hebDeathDate}
-                  className="nameInput"
-                  style={{ padding: 0, width: '99.5%' }}
-                />
-                <div className="names-container" style={{ marginTop: '3rem' }}>
+                <div className="profile-creation-names-container">
+                  <input
+                    placeholder="* עברי"
+                    type="text"
+                    ref={hebDeathDate}
+                    className="nameInput"
+                  />
+                  <input
+                    placeholder="* עברי"
+                    type="date"
+                    className="nameInput"
+                  />
+                </div>
+
+                <div
+                  className="profile-creation-names-container"
+                  style={{ marginTop: '3rem' }}
+                >
                   <input
                     placeholder="* עיר"
                     ref={city}
@@ -300,14 +325,16 @@ export default function ENProfileCreate() {
                     type="text"
                   />
                   <input
-                    placeholder="* תואר"
+                    placeholder="תואר"
                     type="text"
                     ref={degree}
                     className="nameInput"
                   />
                 </div>
-                <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>* מגדר</h3>
+                <div
+                  className="radio-container-register"
+                >
+                  <h3 style={{ color: '#6097BF' }}>מין *</h3>
                   <div
                     className={`${
                       selectedGender === 'male' && 'register-active'
@@ -362,11 +389,11 @@ export default function ENProfileCreate() {
                 </div>
                 <div
                   className="location-container"
-                  style={{ marginTop: '2rem' }}
+                  style={{ marginTop: '70px' }}
                 >
                   <h1>* מיקום הקבר</h1>
                   <div className="location-semicontainer">
-                    <div className="names-container">
+                    <div className="profile-creation-names-container">
                       <input
                         placeholder="*הוספת מיקום ווייז "
                         ref={wazeLocation}
@@ -382,11 +409,14 @@ export default function ENProfileCreate() {
                 </div>
                 <div
                   className="location-container"
-                  style={{ marginTop: '2rem' }}
+                  style={{ marginTop: '70px', marginBottom: '70px' }}
                 >
                   <h1>העלאת מדיה</h1>
                   <div>
-                    <div className="names-container">
+                    <div
+                      className="profile-creation-names-container"
+                      style={{ flexDirection: 'column' }}
+                    >
                       <div className="form-group multi-preview"></div>
                       <div className="register_profile_image">
                         <input
@@ -397,23 +427,72 @@ export default function ENProfileCreate() {
                           onChange={onChangeMultiplePicture}
                         />
                       </div>
-                      <div className="previewProfilePic">
-                        {/* <img
+                      <div>
+                        <img
+                          className="profile-creation-gallery-img"
+                          src={
+                            multiFiles && multiFiles.length > 0
+                              ? readImage(multiFiles, 0)
+                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                          }
+                          alt=""
+                        ></img>
+                        <img
+                          className="profile-creation-gallery-img"
+                          src={
+                            multiFiles && multiFiles.length > 1
+                              ? multiFiles[1]
+                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                          }
+                          alt=""
+                        ></img>
+                        <img
+                          className="profile-creation-gallery-img"
+                          src={
+                            multiFiles && multiFiles.length > 2
+                              ? multiFiles[2]
+                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                          }
+                          alt=""
+                        ></img>
+                        <img
+                          className="profile-creation-gallery-img"
+                          src={
+                            multiFiles && multiFiles.length > 3
+                              ? multiFiles[3]
+                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                          }
+                          alt=""
+                        ></img>
+                        <img
+                          className="profile-creation-gallery-img"
+                          src={
+                            multiFiles && multiFiles.length > 4
+                              ? multiFiles[4]
+                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                          }
+                          alt=""
+                        ></img>
+                      </div>
+                      {/* <div className="previewProfilePic"> */}
+                      {/* <img
                           className="playerProfilePic_home_tile"
                           src={imgData}
                           alt=""
                         /> */}
-                      </div>
+                      {/* </div> */}
                     </div>
                   </div>{' '}
                 </div>
-                <input
-                  placeholder="+ על הנפטר"
-                  ref={description}
-                  className="profile-creation-description"
-                />
-                <div style={{ marginTop: '2rem' }}>
-                  <h1 style={{ textAlign: 'center' }}>ציר זמן</h1>
+                <div style={{ textAlign: 'center' }}>
+                  <h1>על הנפטר</h1>
+                  <input
+                    ref={description}
+                    className="profile-creation-description"
+                  />
+                </div>
+                <div style={{ marginTop: '70px' }}>
+                  <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
                   {inputList.map((x, i) => {
                     return (
                       <div className="box" key={i}>
@@ -432,7 +511,7 @@ export default function ENProfileCreate() {
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-input"
                           />
-                          <input
+                          <textarea
                             name="axisDescription"
                             placeholder="* טקסט"
                             value={x.axisDescription}
@@ -464,11 +543,11 @@ export default function ENProfileCreate() {
                 </div>
                 <div
                   className="location-container"
-                  style={{ marginTop: '2rem' }}
+                  style={{ marginTop: '70px' }}
                 >
-                  <h1>* Graves location</h1>
+                  <h1>מיקום הקבר</h1>
                   <div className="location-semicontainer">
-                    <div className="names-container">
+                    <div className="profile-creation-names-container">
                       <input
                         placeholder="*הוספת מיקום ווייז "
                         ref={wazeLocation}
@@ -496,15 +575,13 @@ export default function ENProfileCreate() {
                       type="file"
                       onChange={onChangeGrave}
                       name="coverImg"
+                      style={{ marginRight: '38%' }}
                     />
                   </div>
                 </div>
 
-                <div
-                  className="radio-container-register"
-                  style={{ direction: 'ltr' }}
-                >
-                  <h3 style={{ color: '#6097BF' }}>* פרטיות</h3>
+                <div className="radio-container-register">
+                  <h3 style={{ color: '#6097BF', marginTop: '70px' }}>* פרטיות</h3>
                   <div
                     style={{
                       width: 'unset',
