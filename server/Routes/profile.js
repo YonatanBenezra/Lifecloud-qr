@@ -11,7 +11,7 @@ var storage = multer.diskStorage({
 });
 let uploadpic = multer({ storage: storage });
 // create profile
-ProfileRouter.use('/createProfile', uploadpic.fields([{ name: 'profileImg', maxCount: 1 }, { name: 'wallImg', maxCount: 1 }, { name: 'multiplefiles', maxCount: 20 },{name: 'graveImg', maxCount:1}]), async (req, res) => {
+ProfileRouter.post('/createProfile', uploadpic.fields([{ name: 'profileImg', maxCount: 1 }, { name: 'wallImg', maxCount: 1 }, { name: 'multiplefiles', maxCount: 20 },{name: 'graveImg', maxCount:1}]), async (req, res) => {
     try {
         //gen new password
         const url = req.protocol + '://' + req.get('host')
@@ -30,11 +30,11 @@ ProfileRouter.use('/createProfile', uploadpic.fields([{ name: 'profileImg', maxC
             graveImg: req.files.graveImg[0].path.slice(7),
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            privacy: req.body.privacy,
+            // privacy: req.body.privacy,
             gender: req.body.gender,
             birthDate: req.body.birthDate,
             deathDate: req.body.deathDate,
-            hebDeathDate: req.body.hebDeathDate,
+            // hebDeathDate: req.body.hebDeathDate,
             degree: req.body.degree,
             city: req.body.city,
             wazeLocation: req.body.wazeLocation,

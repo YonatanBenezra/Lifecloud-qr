@@ -11,7 +11,7 @@ const Sidebar = () => {
   useEffect(() => {
     const getpeople = async () => {
       try {
-        const friendList = await axios.get('https://api.lifecloud-qr.com/api/users/all/every');
+        const friendList = await axios.get('/api/users/all/every');
         setPeople(friendList.data);
         setPeople(
           friendList.data.filter((user) =>

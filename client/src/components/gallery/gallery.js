@@ -15,7 +15,7 @@ export const Gallery = ({ profiledata, id }) => {
                             </div>
                             :
                             <div className='gallery-img'>
-                                <img className="image-gallery-section" src={`${img ? `https://api.lifecloud-qr.com/${img}` : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'}`} alt="" />
+                                <img className="image-gallery-section" src={`${img ? `http://localhost:8800/${img}` : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'}`} alt="" />
                             </div>
                         }
                     </>

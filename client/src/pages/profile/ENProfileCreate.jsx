@@ -149,7 +149,7 @@ export default function ENProfileCreate() {
       formdata.append('profileImg', picture);
       formdata.append('graveImg', graveImage);
       formdata.append('wallImg', image);
-      formdata.append('privacy', privacy);
+      // formdata.append('privacy', wallInformation.privacy);
       formdata.append('firstName', wallInformation.firstName);
       formdata.append('originalUser', wallInformation.originalUser);
       formdata.append('lastName', wallInformation.lastName);
@@ -169,7 +169,7 @@ export default function ENProfileCreate() {
         formdata.append('multiplefiles', multiFiles[i]);
       }
 
-      fetch('http://localhost:8800/api/profile/createProfile', {
+      fetch('/api/profile/createProfile', {
         method: 'POST',
         body: formdata,
       })
