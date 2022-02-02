@@ -20,6 +20,7 @@ app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: false,
+    limit: '5mb',
   })
 );
 

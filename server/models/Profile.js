@@ -26,9 +26,12 @@ const PostSchema = new mongoose.Schema(
     profileImg: {
       type: String,
     },
-    // privacy: {
-    //   type: String,
-    // },
+    privacy: {
+      type: String,
+    },
+    hebBirthDate: {
+      type: Date,
+    },
     wallImg: {
       type: String,
     },
