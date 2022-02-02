@@ -1,0 +1,29 @@
+name: App CI/CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: SSH and deploy to Frontend
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+            cd /var/www/lifecloud-qr.com
+            git pull origin master
+            cd /var/www/lifecloud-qr.com/server
+            npm install
+            pm2 restart all
+            cd /var/www/lifecloud-qr.com/client
+            npm install && npm run build
+            chown -R www-data:www-data /var/www/lifecloud-qr.com/client/build
+            service nginx restart
