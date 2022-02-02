@@ -22,7 +22,7 @@ jobs:
             git pull origin master
             cd /var/www/lifecloud-qr.com/server
             npm install
-            pm2 restart all
+            pm2 restart all --update-env
             cd /var/www/lifecloud-qr.com/client
             npm install && npm run build
             chown -R www-data:www-data /var/www/lifecloud-qr.com/client/build
