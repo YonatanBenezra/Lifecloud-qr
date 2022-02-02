@@ -103,7 +103,7 @@ export default function ENLogin() {
           </div>
         </div>
       </div>
-      <ENSocialFooter backgroundColor='#abc9db' color='#fff'/>
+      <ENSocialFooter backgroundColor='#6097bf' color='#fff'/>
       <Footer />
     </>
   );
