@@ -30,7 +30,7 @@ const PostSchema = new mongoose.Schema(
       type: String,
     },
     hebBirthDate: {
-      type: Date,
+      type: String,
     },
     wallImg: {
       type: String,
@@ -50,9 +50,9 @@ const PostSchema = new mongoose.Schema(
     deathDate: {
       type: Date,
     },
-    // hebDeathDate: {
-    //   type: String,
-    // },
+    hebDeathDate: {
+      type: String,
+    },
     gender: {
       type: String,
     },

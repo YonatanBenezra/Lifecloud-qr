@@ -304,7 +304,7 @@ console.log(profiledata)
             </div>
           </div>
           <div className="grave-location-container">
-            <h1 className="grave-location-title">מיקום הקבר</h1>
+            <h1 className="grave-location-title">מיקום ותמונת הקבר</h1>
             <div className="grave-imgs-container">
               <img
                 src={(`http://localhost:8800/${profiledata.graveImg}` || `https://api.lifecloud-qr.com/${profiledata.graveImg}`)}

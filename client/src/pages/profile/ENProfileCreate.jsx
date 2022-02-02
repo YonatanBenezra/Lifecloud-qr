@@ -16,6 +16,7 @@ export default function ENProfileCreate() {
   const [imgData, setImgData] = useState(null);
   const [open, setOpen] = useState(false);
   const [hebBirthDate,sethebBirthDate] = useState('')
+  const [hebDeathDate,sethebDeathDate] = useState('')
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedPrivacy, setSelectedPrivacy] = useState('public');
   const [image, setImage] = useState(null);
@@ -136,6 +137,7 @@ export default function ENProfileCreate() {
       lastName: lastName.current.value,
       birthDate: birthDate.current.value,
       hebBirthDate: hebBirthDate,
+      hebDeathDate: hebDeathDate,
       // hebDeathDate: hebDeathDate.current.value,
       city: city.current.value,
       degree: degree.current.value,
@@ -160,7 +162,7 @@ export default function ENProfileCreate() {
       formdata.append('lastName', wallInformation.lastName);
       formdata.append('birthDate', wallInformation.birthDate);
       formdata.append('hebBirthDate', wallInformation.hebBirthDate);
-      // formdata.append('hebDeathDate', wallInformation.hebDeathDate);
+      formdata.append('hebDeathDate', wallInformation.hebDeathDate);
       formdata.append('city', wallInformation.city);
       formdata.append('degree', wallInformation.degree);
       formdata.append('deathDate', wallInformation.deathDate);
@@ -297,10 +299,18 @@ export default function ENProfileCreate() {
                 <div className="names-container">
                   <input
                     placeholder="Hebrew"
-                    type="date"
+                    type="text"
                     // ref={hebBirthDate}\
                     value={hebBirthDate}
                     onChange={(e)=>sethebBirthDate(e.target.value)}
+                    className="nameInput"
+                  />
+                  <input
+                    placeholder="Hebrew"
+                    type="text"
+                    // ref={hebBirthDate}\
+                    value={hebDeathDate}
+                    onChange={(e)=>sethebDeathDate(e.target.value)}
                     className="nameInput"
                   />
                 </div>
@@ -310,11 +320,11 @@ export default function ENProfileCreate() {
                     required
                     ref={city}
                     className="nameInput"
-                    type="date"
+                    type="text"
                   />
                   <input
                     placeholder="Degree"
-                    type="date"
+                    type="text"
                     ref={degree}
                     className="nameInput"
                   />

@@ -9,19 +9,25 @@ import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
 import ENTopbar from '../../components/topbar/ENTopBar';
-import { Gallery } from '../../components/gallery/gallery';
-
 export default function ENProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
-  const [multipleImgData, setMultipleImgData] = useState([]);
   const [open, setOpen] = useState(false);
+  const [hebBirthDate, sethebBirthDate] = useState('');
+  const [hebDeathDate, sethebDeathDate] = useState('');
+  const [selectedGender, setSelectedGender] = useState('');
+  const [selectedPrivacy, setSelectedPrivacy] = useState('public');
+  const [image, setImage] = useState(null);
+  const [graveImage, setGraveImage] = useState(null);
+  const [graveData, setGraveData] = useState(null);
+  const [coverData, setCoverData] = useState(null);
   const [message, setMessage] = useState('');
-
+  console.log(hebBirthDate, 'imgData');
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
+      console.log('picture: ', e.target.files);
       setPicture(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener('load', () => {
@@ -30,8 +36,11 @@ export default function ENProfileCreate() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-  const [image, setImage] = useState(null);
-  const [coverData, setCoverData] = useState(null);
+  const readImage = (e, num) => {
+    const reader = new FileReader();
+    return reader.readAsDataURL(e[num]);
+  };
+  console.log(selectedPrivacy, 'selectedPrivacy');
   const onChangeCover = (e) => {
     if (e.target.files[0]) {
       console.log('picture: ', e.target.files);
@@ -40,16 +49,10 @@ export default function ENProfileCreate() {
       reader.addEventListener('load', () => {
         setCoverData(reader.result);
       });
-      console.log(e.target.files[0]);
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-  const readImage = (e, num) => {
-    const reader = new FileReader();
-    return reader.readAsDataURL(e[num]);
-  };
-  const [graveImage, setGraveImage] = useState(null);
-  const [graveData, setGraveData] = useState(null);
+
   const onChangeGrave = (e) => {
     if (e.target.files[0]) {
       console.log('picture: ', e.target.files);
@@ -65,28 +68,24 @@ export default function ENProfileCreate() {
   const onChangeMultiplePicture = (e) => {
     setMultiFiles(e.target.files);
   };
-
   const [inputList, setInputList] = useState([
     { axisTitle: '', axisDate: '', axisDescription: '' },
   ]);
-  if (multiFiles) {
-    console.log(multiFiles[0], 'multiFiles');
-  }
+  console.log(multiFiles, 'multiFiles');
   console.log(picture, 'pic');
   console.log(image, 'image');
-  const [selectedGender, setSelectedGender] = useState('');
-  const [selectedPrivacy, setSelectedPrivacy] = useState('public');
+
   const firstName = useRef();
   const lastName = useRef();
   const companyName = useRef();
   const birthDate = useRef();
   // const hebBirthDate = useRef();
   const deathDate = useRef();
-  const hebDeathDate = useRef();
+  // const hebDeathDate = useRef();
   const city = useRef();
   const degree = useRef();
   const gender = selectedGender;
-  const privacy = selectedPrivacy;
+  // const privacy = selectedPrivacy;
   const phone = useRef();
   const email = useRef();
   const password = useRef();
@@ -128,7 +127,7 @@ export default function ENProfileCreate() {
       { axisTitle: '', axisDate: '', axisDescription: '' },
     ]);
   };
-
+  // console.log(hebBirthDate.current.value)
   const handleClick = async (e) => {
     console.log(id, 'id');
     e.preventDefault();
@@ -137,16 +136,18 @@ export default function ENProfileCreate() {
       profileImg: picture,
       graveImg: graveImage,
       wallImg: image,
+      // privacy:privacy,
       firstName: firstName.current.value,
       lastName: lastName.current.value,
       birthDate: birthDate.current.value,
-      // hebBirthDate: hebBirthDate.current.value,
-      hebDeathDate: hebDeathDate.current.value,
+      hebBirthDate: hebBirthDate,
+      hebDeathDate: hebDeathDate,
+      // hebDeathDate: hebDeathDate.current.value,
       city: city.current.value,
       degree: degree.current.value,
       deathDate: deathDate.current.value,
       gender: selectedGender,
-      privacy: selectedPrivacy,
+      // privacy: selectedPrivacy,
       wazeLocation: wazeLocation.current.value,
       googleLocation: googleLocation.current.value,
       description: description.current.value,
@@ -155,23 +156,21 @@ export default function ENProfileCreate() {
     };
 
     try {
-      console.log('here');
       const formdata = new FormData();
       formdata.append('profileImg', picture);
       formdata.append('graveImg', graveImage);
       formdata.append('wallImg', image);
-      // formdata.append('privacy', wallInformation.privacy);
+      formdata.append('privacy', selectedPrivacy);
       formdata.append('firstName', wallInformation.firstName);
       formdata.append('originalUser', wallInformation.originalUser);
       formdata.append('lastName', wallInformation.lastName);
       formdata.append('birthDate', wallInformation.birthDate);
-      // formdata.append('hebBirthDate', wallInformation.hebBirthDate);
-      // formdata.append('hebDeathDate', wallInformation.hebDeathDate);
+      formdata.append('hebBirthDate', wallInformation.hebBirthDate);
+      formdata.append('hebDeathDate', wallInformation.hebDeathDate);
       formdata.append('city', wallInformation.city);
       formdata.append('degree', wallInformation.degree);
       formdata.append('deathDate', wallInformation.deathDate);
       formdata.append('gender', wallInformation.gender);
-      formdata.append('privacy', wallInformation.privacy);
       formdata.append('wazeLocation', wallInformation.wazeLocation);
       formdata.append('googleLocation', wallInformation.googleLocation);
       formdata.append('description', wallInformation.description);
@@ -179,9 +178,8 @@ export default function ENProfileCreate() {
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
-      console.log('there');
 
-      fetch('/api/profile/createProfile' || 'https://api.lifecloud-qr.com/api/profile/createprofile', {
+      fetch('/api/profile/createProfile', {
         method: 'POST',
         body: formdata,
       })
@@ -191,19 +189,15 @@ export default function ENProfileCreate() {
         .then((res) => {
           console.log(res);
           if (res) {
-            setMessage('פרופיל נוצר בהצלחה');
+            setMessage('Profile made successfully');
             setOpen(true);
-            history.goBack();
           }
         });
     } catch (err) {
-      console.log('midddle');
-
       console.log(err);
       setMessage('Something went wrong!');
       setOpen(true);
     }
-    console.log('end');
   };
   const handleClose = () => {
     setOpen(false);
@@ -303,14 +297,19 @@ export default function ENProfileCreate() {
                 </div>
                 <div className="profile-creation-names-container">
                   <input
-                    placeholder="* עברי"
+                    placeholder="Hebrew"
                     type="text"
-                    ref={hebDeathDate}
+                    // ref={hebBirthDate}\
+                    value={hebBirthDate}
+                    onChange={(e) => sethebBirthDate(e.target.value)}
                     className="nameInput"
                   />
                   <input
-                    placeholder="* עברי"
-                    type="date"
+                    placeholder="Hebrew"
+                    type="text"
+                    // ref={hebBirthDate}\
+                    value={hebDeathDate}
+                    onChange={(e) => sethebDeathDate(e.target.value)}
                     className="nameInput"
                   />
                 </div>
@@ -332,9 +331,7 @@ export default function ENProfileCreate() {
                     className="nameInput"
                   />
                 </div>
-                <div
-                  className="radio-container-register"
-                >
+                <div className="radio-container-register">
                   <h3 style={{ color: '#6097BF' }}>מין *</h3>
                   <div
                     className={`${
@@ -582,7 +579,9 @@ export default function ENProfileCreate() {
                 </div>
 
                 <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF', marginTop: '70px' }}>* פרטיות</h3>
+                  <h3 style={{ color: '#6097BF', marginTop: '70px' }}>
+                    * פרטיות
+                  </h3>
                   <div
                     style={{
                       width: 'unset',
