@@ -66,7 +66,7 @@ export default function ProfileEdit() {
         fetchuserprofiles()
     }, [])
     const fetchuserprofiles = async () => {
-        const res = await axios.get(`/api/profile/getSingleProfileDetails/${id}`);
+        const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`);
         setProfileData(res.data)
     }
     const onChangePicture = (e) => {

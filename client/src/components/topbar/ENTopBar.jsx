@@ -21,7 +21,7 @@ const Topbar = (props) => {
     if (value.length === 0 || value.trim() === '' || value === null) {
       return false
     } else {
-      const res = await axios.get(`/api/profile/searchProfile/${value}`);
+      const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/searchProfile/${value}`);
       setSeachData(res.data);
     }
   }

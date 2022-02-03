@@ -9,7 +9,10 @@ import LanguageContext from '../../context/LanguageContext';
 import axios from 'axios';
 import WithLanguage from '../languageButton/WithLanguage';
 import LanguageButton from '../languageButton/LanguageButton';
+import userIcon from '../../assets/userIcon.png';
+
 const Topbar = (props) => {
+  const LoggedUser = useContext(AuthContext);
   const history = useHistory();
   // const { searchText, setSearchText } = useSearch();
   const [searchData, setSeachData] = useState([]);
@@ -22,7 +25,7 @@ const Topbar = (props) => {
       return false;
     } else {
       const res = await axios.get(
-        `/api/profile/searchProfile/${value}`
+        `https://api.lifecloud-qr.com/api/profile/searchProfile/${value}`
       );
       setSeachData(res.data);
     }
@@ -83,21 +86,40 @@ const Topbar = (props) => {
             {user ? (
               <div className="logged-nav">
                 <Link
+                  to={`https://api.lifecloud-qr.com/createprofile/${LoggedUser.user._id}`}
+                  style={{ textDecoration: 'none', color: '#6097BF' }}
+                  className="topbarLink"
+                >
+                  צור פרופיל{' '}
+                </Link>
+                <Link
                   to={`/about`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
+                  className="topbarLink"
                 >
                   אודות
                 </Link>
                 <Link
+                  to={`/contact`}
+                  style={{ textDecoration: 'none', color: '#6097BF' }}
+                  className="topbarLink"
+                >
+                  צור קשר{' '}
+                </Link>
+                <Link
+                  to={`/about`}
+                  style={{ textDecoration: 'none', color: '#6097BF' }}
+                  className="topbarLink"
+                >
+                  התנתק
+                </Link>
+                <Link
                   style={{ marginRight: '15px' }}
                   to={`/userprofiles/${user._id}`}
+                  className="topbarLink"
                 >
                   <img
-                    src={
-                      user.profilePicture
-                        ? user.profilePicture
-                        : 'https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png'
-                    }
+                    src={user.profilePicture ? user.profilePicture : userIcon}
                     alt=""
                     className="topbarImg"
                   />

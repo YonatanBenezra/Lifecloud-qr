@@ -81,7 +81,7 @@ const Login = () => {
       <div className="login">
         <div className="loginWrapper">
           <div className="loginLeft">
-            <span className="loginDesc">התחברות</span>
+            <span className="login-desc">התחברות</span>
           </div>
           <div></div>
           <div className="loginRight">

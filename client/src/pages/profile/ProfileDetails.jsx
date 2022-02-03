@@ -62,8 +62,7 @@ export default function Profile() {
     }
   },[]);
   const fetchuserprofiles = async () => {
-    const res = await axios.get(
-      (`/api/profile/getSingleProfileDetails/${id}` || `https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`)
+    const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`
     );
     setProfileData(res.data);
     console.log(res, 'res');
@@ -71,7 +70,7 @@ export default function Profile() {
 
   const fetchmemories = async () => {
     const res = await axios.get(
-      (`/api/memory/getallmemory/${id}` || `https://api.lifecloud-qr.com/api/memory/getallmemory/${id}`)
+      `https://api.lifecloud-qr.com/api/memory/getallmemory/${id}`
     );
     console.log(res, 'res memory');
     setmemoryData(res.data);
@@ -90,7 +89,7 @@ export default function Profile() {
       let data = {
         userId: profiledata.originalUser[0]._id,
       };
-      fetch((`/api/memory/like/${e._id}` || `https://api.lifecloud-qr.com/api/memory/like/${e._id}`), {
+      fetch(`https://api.lifecloud-qr.com/api/memory/like/${e._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'Application/json',
@@ -120,7 +119,7 @@ export default function Profile() {
   const handleComment = (e) => {
     console.log(e);
     try {
-      fetch((`/api/memory/comment/${e._id}` || `https://api.lifecloud-qr.com/api/memory/comment/${e._id}`), {
+      fetch(`https://api.lifecloud-qr.com/api/memory/comment/${e._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'Application/json',
@@ -161,7 +160,7 @@ export default function Profile() {
 
   const handleDelete = (e, id) => {
     console.log(e, id);
-    fetch((`/api/memory/commentdell/${id}` || `https://api.lifecloud-qr.com/api/memory/commentdell/${id}`), {
+    fetch(`https://api.lifecloud-qr.com/api/memory/commentdell/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'Application/json',
@@ -184,7 +183,7 @@ export default function Profile() {
   };
   const handleDellMemory = (e) => {
     console.log(e, 'e');
-    fetch((`/api/memory/commentdellOBJ/${e._id}` || `https://api.lifecloud-qr.com/api/memory/commentdellOBJ/${e._id}`), {
+    fetch(`https://api.lifecloud-qr.com/api/memory/commentdellOBJ/${e._id}`, {
       method: 'DELETE',
     })
       .then((res) => {
@@ -221,13 +220,13 @@ console.log(profiledata)
       <div>
         <TopBar />
         <img
-          src={(`http://localhost:8800/${profiledata.wallImg}` || `https://api.lifecloud-qr.com/${profiledata.wallImg}`)}
+          src={`https://api.lifecloud-qr.com/${profiledata.wallImg}`}
           alt=""
           className="profile-cover"
         ></img>
         <div className="profile-details">
           <img
-            src={(`http://localhost:8800/${profiledata.profileImg}` || `https://api.lifecloud-qr.com/${profiledata.profileImg}`)}
+            src={`https://api.lifecloud-qr.com/${profiledata.profileImg}`}
             alt=""
             className="profile-img"
           ></img>
@@ -307,7 +306,7 @@ console.log(profiledata)
             <h1 className="grave-location-title">מיקום ותמונת הקבר</h1>
             <div className="grave-imgs-container">
               <img
-                src={(`http://localhost:8800/${profiledata.graveImg}` || `https://api.lifecloud-qr.com/${profiledata.graveImg}`)}
+                src={`https://api.lifecloud-qr.com/${profiledata.graveImg}`}
                 alt=""
                 className="grave-img"
               ></img>
@@ -452,7 +451,7 @@ console.log(profiledata)
             {profiledata.gallery.map((img, index) => (
               <div className="full-gallery-img-container" key={index}>
                 <img
-                  src={(`http://localhost:8800/${img}` || `https://api.lifecloud-qr.com/${img}`)}
+                  src={`https://api.lifecloud-qr.com/${img}`}
                   alt=""
                   className="full-gallery-img"
                 ></img>

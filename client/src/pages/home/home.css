@@ -201,6 +201,9 @@
 .video-react-button {
   display: none !important;
 }
+.video-react .video-react-video {
+  border-radius: 15px;
+}
 .player-wrapper {
   position: relative;
 }
@@ -405,6 +408,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition-duration: 500ms !important;
+  transition: ease-in-out;
+}
+.home-profile-creation-btn:hover {
+  background-color: #fff;
+  color: #6097bf;
 }
 .home-floating-text {
   width: 100%;
@@ -414,5 +424,4 @@
   font-size: 29px;
   color: #6097bf;
   letter-spacing: 1.3px;
-  cursor: pointer;
 }

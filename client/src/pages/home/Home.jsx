@@ -76,9 +76,49 @@ const Home = () => {
     ],
   };
 
+  const testimonialSettings = {
+    dots: true,
+    infinite: true,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    cssEase: 'linear',
+    lazyLoad: true,
+    speed: 750,
+    slidesToShow: 1,
+    initialSlide: 2,
+    fontSize: '1.5em',
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   const { searchText, setSearchText } = useSearch();
   return (
-    <div style={{cursor: 'default'}}>
+    <div style={{ cursor: 'default' }}>
       <Topbar />
       <div
         className="homeContainer"
@@ -119,7 +159,10 @@ const Home = () => {
         <div className="vid-text-title">
           <h1 className="flex-column mb-3">
             <strong>״החיים אינם הימים שחלפו, אלא אלה שזוכרים״</strong>
-            <span style={{ fontSize: '20px' }}> גבריאל גרסיה מרקס - </span>
+            <span style={{ fontSize: '20px', marginTop: '17px' }}>
+              {' '}
+              גבריאל גרסיה מרקס -{' '}
+            </span>
           </h1>
           <h2 style={{ fontSize: '35px' }}>
             .כל אדם הוא עולם ומלואו שראוי שסיפור חייו ייזכר ויונצח לעד
@@ -145,14 +188,11 @@ const Home = () => {
               איך נוכל לחבר את <br></br>החלקים ולספר מי הם היו?{' '}
             </p>
             <Player
-              poster={PlayerImage}
               src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
               width="50%"
               height="50%"
               className="react-player"
               controls={true}
-              autoplay
-              playing
             />
             <img
               alt=""
@@ -200,7 +240,9 @@ const Home = () => {
                 </span>
               </div>
             </div>
-            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>קישור לרשתות חברתיות</h1>
+            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>
+              קישור לרשתות חברתיות
+            </h1>
           </div>
         </div>
         <div>
@@ -223,7 +265,9 @@ const Home = () => {
                 </span>
               </div>
             </div>{' '}
-            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>ייחודי QR קוד</h1>
+            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>
+              ייחודי QR קוד
+            </h1>
           </div>
         </div>
         <div>
@@ -246,7 +290,9 @@ const Home = () => {
                 </span>
               </div>
             </div>{' '}
-            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>העלאת תמונות וסרטונים</h1>
+            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>
+              העלאת תמונות וסרטונים
+            </h1>
           </div>
           ]
         </div>
@@ -272,7 +318,9 @@ const Home = () => {
                 </span>
               </div>
             </div>{' '}
-            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>כתיבה ושיתוף זכרונות</h1>
+            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>
+              כתיבה ושיתוף זכרונות
+            </h1>
           </div>
         </div>
         <div>
@@ -294,7 +342,9 @@ const Home = () => {
                 </span>
               </div>
             </div>{' '}
-            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>ניהול מועדים</h1>
+            <h1 style={{ marginTop: '2rem', fontSize: '35px' }}>
+              ניהול מועדים
+            </h1>
           </div>
         </div>
         <div>
@@ -361,7 +411,7 @@ const Home = () => {
         </div>
       </a>
       <div className="testimonials">
-        <Slider {...settings}>
+        <Slider {...testimonialSettings}>
           <div>
             <h3 className="pilKahol">
               "בזכות העלאה ושיתוף תמונות, סיפורים וסרטונים של חברים ומכרים,

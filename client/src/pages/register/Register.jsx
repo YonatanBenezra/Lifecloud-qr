@@ -47,7 +47,7 @@ export default function Register() {
     } else {
       setErro('');
       try {
-        fetch(('/api/auth/register' || 'https://api.lifecloud-qr.com/api/auth/register'), {
+        fetch((`https://api.lifecloud-qr.com/api/auth/register`), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -81,21 +81,21 @@ export default function Register() {
               <form className="loginBox" onSubmit={handleClick}>
                 <div className="names-container">
                   <input
-                    placeholder="* שם פרטי"
-                    required
-                    onChange={handleChange}
-                    ref={firstName}
-                    value={user.firstName}
-                    name="firstName"
-                    className="name-input"
-                  />
-                  <input
                     placeholder="* שם משפחה"
                     required
                     onChange={handleChange}
                     ref={lastName}
                     value={user.lastName}
                     name="lastName"
+                    className="name-input"
+                  />
+                  <input
+                    placeholder="* שם פרטי"
+                    required
+                    onChange={handleChange}
+                    ref={firstName}
+                    value={user.firstName}
+                    name="firstName"
                     className="name-input"
                   />
                 </div>

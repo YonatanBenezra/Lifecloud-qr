@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+
+ "start:development": "env-cmd -f .env.development nodemon server.js",
+ "build:production": "env-cmd -f .env.production nodemon server.js"
   },
   "author": "",
   "license": "ISC",

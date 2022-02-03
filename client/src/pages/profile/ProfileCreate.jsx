@@ -207,7 +207,7 @@ export default function ENProfileCreate() {
     <div className="profile-creation-container">
       <Topbar />
       <div className="profile-creation">
-        <div className="loginWrapper">
+        <div className="">
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
             <h3 className="profile-creation-title">צור פרופיל</h3>
             <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div>

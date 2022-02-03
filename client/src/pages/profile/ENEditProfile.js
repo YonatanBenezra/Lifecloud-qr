@@ -78,7 +78,7 @@ export default function ENProfileEdit() {
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
-      `/api/profile/getSingleProfileDetails/${id}`
+      `https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`
     );
     setProfileData(res.data);
   };

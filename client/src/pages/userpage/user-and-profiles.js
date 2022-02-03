@@ -38,11 +38,11 @@ export const UserAndprofiles = () => {
                     <p>User:{userProfiles.firstName}</p>
                     profile Image
                     <div>
-                        <img style={{ width: '100px', height: '100px' }} src={`http://localhost:8800/${userProfiles.profileImg}` || `https://api.lifecloud-qr.com/${userProfiles.profileImg}`} alt="" />
+                        <img style={{ width: '100px', height: '100px' }} src={`https://api.lifecloud-qr.com/${userProfiles.profileImg}`} alt="" />
                     </div>
                     Wall Image
                     <div>
-                        <img style={{ width: '100px', height: '100px' }} src={`http://localhost:8800/${userProfiles.wallImg}` || `https://api.lifecloud-qr.com/${userProfiles.wallImg}`} alt="" />
+                        <img style={{ width: '100px', height: '100px' }} src={`https://api.lifecloud-qr.com/${userProfiles.wallImg}`} alt="" />
                     </div>
                     <p>gender: {userProfiles.gender}</p>
                     <p>googleLocation: {userProfiles.googleLocation}</p>

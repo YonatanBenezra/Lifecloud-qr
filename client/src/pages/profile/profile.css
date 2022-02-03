@@ -174,10 +174,6 @@
   justify-content: center;
 }
 
-.loginWrapper {
-  width: 70%;
-  display: flex;
-}
 
 .loginLeft,
 .loginRight {
@@ -274,9 +270,7 @@
   .login {
     flex-direction: row;
   }
-  .loginWrapper {
-    flex-direction: column;
-  }
+
   .loginLeft,
   .loginRight {
     align-items: center;

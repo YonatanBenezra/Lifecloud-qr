@@ -23,7 +23,7 @@ export const UserAndprofiles = () => {
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
-      (`/api/profile/getallprofileofSingleUser/${id}` || `https://api.lifecloud-qr.com/api/profile/getallprofileofSingleUser/${id}`)
+      `https://api.lifecloud-qr.com/api/profile/getallprofileofSingleUser/${id}`
     );
     setData(res.data);
   };
@@ -64,16 +64,7 @@ export const UserAndprofiles = () => {
                 className="user-name"
                 style={{ direction: 'rtl', flexDirection: 'column' }}
               >
-                <img
-                  alt=""
-                  src={userImg}
-                  style={{
-                    height: '150px',
-                    width: '150px',
-                    borderRadius: '100%',
-                    marginBottom: '20px',
-                  }}
-                />
+                <img alt="" src={userImg} className="user-img" />
                 שלום {LoggedUser.user.firstName}!
               </h1>
               <div className="notifications-btn" onClick={() => setShow(true)}>
@@ -88,7 +79,8 @@ export const UserAndprofiles = () => {
             <div className="profiles-container">
               <h1 className="profile-title">הפרופילים שלי</h1>
               <div className="profiles">
-                {data && data.length > 0 ? (
+                {data &&
+                  data.length > 0 &&
                   data.map((userProfiles, i) => {
                     return (
                       <Link
@@ -98,11 +90,13 @@ export const UserAndprofiles = () => {
                         style={{ cursor: 'hover' }}
                       >
                         <div className="profile-container" key={i}>
-                          <img
-                            className="profile-image"
-                            src={`http://localhost:8800/${userProfiles.profileImg}` || `https://api.lifecloud-qr.com/${userProfiles.profileImg}`}
-                            alt=""
-                          />
+                          <div className="profile-image-div">
+                            <img
+                              className="profile-image"
+                              src={`https://api.lifecloud-qr.com/${userProfiles.profileImg}`}
+                              alt=""
+                            />
+                          </div>
                           <div className="profile-name">
                             {userProfiles.firstName} {userProfiles.lastName}
                           </div>
@@ -115,22 +109,19 @@ export const UserAndprofiles = () => {
                         </div>
                       </Link>
                     );
-                  })
-                ) : (
-                  <div
-                    style={{
-                      paddingTop: '8%',
-                      paddingLeft: '29%',
-                    }}
-                  >
-                    {' '}
-                    <ProgressBar />
-                  </div>
-                )}
-                <Link to={`/createprofile/${LoggedUser.user._id}` || `https://api.lifecloud-qr.com/createprofile/${LoggedUser.user._id}`}>
+                  })}
+                <Link
+                  to={
+                    `/createprofile/${LoggedUser.user._id}` ||
+                    `https://api.lifecloud-qr.com/createprofile/${LoggedUser.user._id}`
+                  }
+                >
                   <div className="profile-container">
                     <div className="profile-image create-profile-container">
-                      +
+                      <div className="inner-btn">
+                        <div className="line-1 user-line"></div>
+                        <div className="line-2 user-line"></div>
+                      </div>
                     </div>
                     <div className="profile-name"> צור פרופיל חדש</div>
                   </div>

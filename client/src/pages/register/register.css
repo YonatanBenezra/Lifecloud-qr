@@ -11,6 +11,7 @@
 
 .loginWrapper {
   display: flex;
+  width: 35%;
 }
 .register-wrapper {
   width: 35%;
@@ -26,15 +27,13 @@
 }
 
 .register-logo {
-  font-family: Alef !important;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 75px !important;
-  margin-top: 5rem;
+  padding-bottom: 30px;
+  font-size: 70px !important;
+  margin-top: 75px;
   display: flex;
   align-items: center;
   text-align: center;
-
+  letter-spacing: 3px;
   color: #6097bf !important;
 }
 
@@ -145,9 +144,7 @@
   .login {
     flex-direction: row;
   }
-  .loginWrapper {
-    flex-direction: column;
-  }
+ 
   .loginLeft,
   .loginRight {
     align-items: center;
