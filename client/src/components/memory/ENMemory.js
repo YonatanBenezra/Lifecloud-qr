@@ -54,7 +54,7 @@ const Memory = ({ data, close, handleLike, onhandleChangeComment, handleComment,
                     </div>
                     <p className='single-memory-text'>{Memory.text || 'lorem ipsum'}</p>
                     <div className='comments-container'>
-                        <h2>תגובות</h2>
+                        <h2>Comments</h2>
                         {data.comments.map((comment, index) => {
                             return (
                                 <div className='comment-container'>
@@ -67,12 +67,12 @@ const Memory = ({ data, close, handleLike, onhandleChangeComment, handleComment,
                                         {/* <p>{comment.uploaderName}:</p> */}
                                         <p>{comment.text}</p>
                                     </span>
-                                    <span style={{ cursor: 'pointer' }} onClick={() => handleDelete(comment, data._id)}>מחר -</span>
+                                    <span style={{ cursor: 'pointer' }} onClick={() => handleDelete(comment, data._id)}>delete -</span>
                                 </div>
                             )
                         })}
                         <div className='action-btns-container'>
-                            <div onClick={() => setCommenting(!commenting)} style={{ cursor: 'pointer' }} className={!commenting && 'comment-btn'}> הגב... </div>
+                            <div onClick={() => setCommenting(!commenting)} style={{ cursor: 'pointer' }} className={!commenting && 'comment-btn'}> Comment... </div>
                             {commenting ?
                                 <input onChange={onhandleChangeComment} placeholder='write comment' style={{
                                     width: '99%',
@@ -85,11 +85,11 @@ const Memory = ({ data, close, handleLike, onhandleChangeComment, handleComment,
                             }
 
                             <div className='action-btns'>
-                                <div className='action-btn' onClick={() => handleComment(data)} style={{ cursor: 'pointer' }}>פרסם</div>
-                                <div className='action-btn' onClick={() => setCommenting(!commenting)} style={{ cursor: 'pointer' }}>ביטול</div>
+                                <div className='action-btn' onClick={() => handleComment(data)} style={{ cursor: 'pointer' }}>Publish</div>
+                                <div className='action-btn' onClick={() => setCommenting(!commenting)} style={{ cursor: 'pointer' }}>Cancel</div>
                             </div>
                             {isUserAdmin &&
-                                <div className='dlt-comment-btn' onClick={() => handleDellMemory(data)} style={{ cursor: 'pointer' }}>מחק זיכרון</div>
+                                <div className='dlt-comment-btn' onClick={() => handleDellMemory(data)} style={{ cursor: 'pointer' }}>Delete Memory</div>
                             }
                         </div>
                     </div>

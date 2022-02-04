@@ -70,7 +70,7 @@ export default function Profile() {
 
   const fetchmemories = async () => {
     const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`
+      `${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${profiledata.originalUser[0]._id}`
     );
     console.log(res, 'res memory');
     setmemoryData(res.data);
@@ -407,7 +407,7 @@ console.log(profiledata)
             <div className="memory-actions">
               <div
                 className={
-                  next >= profiledata.gallery.length
+                  next > profiledata.gallery.length
                     ? ' hideBtn '
                     : ` full-memory-btn`
                 }

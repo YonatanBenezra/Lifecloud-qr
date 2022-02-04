@@ -111,7 +111,7 @@ export const UserAndprofiles = () => {
                     );
                   })}
                 <Link
-                  to={`${process.env.REACT_APP_API_URL}}/createprofile/${LoggedUser.user._id}`}
+                  to={`/createprofile/${LoggedUser.user._id}`}
                 >
                   <div className="profile-container">
                     <div className="profile-image create-profile-container">

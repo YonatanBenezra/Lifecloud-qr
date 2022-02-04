@@ -73,7 +73,7 @@ const MemoryCreation = () => {
             setOpen(true);
           }
         });
-      // history.goBack()
+      history.goBack()
       // let res = await axios.post('api/profile/createProfile', formdata);
       // console.log('res', res)
       // history.push('/login');
@@ -93,7 +93,7 @@ const MemoryCreation = () => {
       <Topbar />
       <div className="memory-creation-container">
         <div className="memory-creation-title">
-          <h1>יציאת זיכרון</h1>
+          <h1>Memory Creation</h1>
         </div>
         <div className="memory-creation-content">
           <input
@@ -105,7 +105,7 @@ const MemoryCreation = () => {
             <div className="white-circle share-icon">
               <image alt="" className="share-icon" src={share}></image>
             </div>
-            <span>שיתוף</span>
+            <span>share</span>
           </div>
           <div className="action-container">
             {/* <div className='white-circle add-icon'>+</div> */}
@@ -117,18 +117,18 @@ const MemoryCreation = () => {
               // multiple
               onChange={onChangeMultiplePicture}
             />
-            <span>הוסך תמונה</span>
+            <span>Add image</span>
           </div>
           <div className="action-container">
             <div className="white-circle add-icon">+</div>
-            <span>הוסף סרטון</span>
+            <span>Add video</span>
           </div>
         </div>
         <div className="memory-creation-bottom-actions">
           <div className="publish-btn" onClick={handleClick}>
-            פרסם
+            Publish
           </div>
-          <div className="dlt-btn">מחר</div>
+          <div className="dlt-btn">Delete</div>
         </div>
       </div>
       <SnackBar open={open} handleClose={handleClose} message={message} />
