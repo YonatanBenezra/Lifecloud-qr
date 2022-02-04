@@ -41,7 +41,7 @@ const MemoryCreation = () => {
 
       // }
       console.log(formdata, 'formdata');
-      fetch('/api/memory/createMemory', {
+      fetch(`${process.env.REACT_APP_API_URL}/api/memory/createMemory`, {
         method: 'POST',
         body: formdata,
       })

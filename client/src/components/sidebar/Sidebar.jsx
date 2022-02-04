@@ -11,7 +11,7 @@ const Sidebar = () => {
   useEffect(() => {
     const getpeople = async () => {
       try {
-        const friendList = await axios.get('/api/users/all/every');
+        const friendList = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/all/every`);
         setPeople(friendList.data);
         setPeople(
           friendList.data.filter((user) =>
