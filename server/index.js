@@ -26,12 +26,12 @@ app.use(
 
 app.use(bodyParser.json());
 
-app.use(`${process.env.REACT_APP_API_URL}/api/users`, UserRouter);
-app.use(`${process.env.REACT_APP_API_URL}/api/memory`, MemoryRouter);
-app.use(`${process.env.REACT_APP_API_URL}/api/notification`, NotificationsRouter);
-app.use(`${process.env.REACT_APP_API_URL}/api/auth`, AuthRouter);
-app.use(`${process.env.REACT_APP_API_URL}/api/posts`, PostRouter);
-app.use(`${process.env.REACT_APP_API_URL}/api/profile`, ProfileRouter);
+app.use('/api/users', UserRouter);
+app.use('/api/memory', MemoryRouter);
+app.use('/api/notification', NotificationsRouter);
+app.use('/api/auth', AuthRouter);
+app.use('/api/posts', PostRouter);
+app.use('/api/profile', ProfileRouter);
 app.use(express.static('./server'));
 app.use(express.static(path.join(__dirname, 'client/build')));
 const PORT = process.env.PORT || 8000;
