@@ -23,7 +23,7 @@ export const UserAndprofiles = () => {
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
-      `https://api.lifecloud-qr.com/api/profile/getallprofileofSingleUser/${id}`
+      `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${id}`
     );
     setData(res.data);
   };
@@ -93,7 +93,7 @@ export const UserAndprofiles = () => {
                           <div className="profile-image-div">
                             <img
                               className="profile-image"
-                              src={`https://api.lifecloud-qr.com/${userProfiles.profileImg}`}
+                              src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
                               alt=""
                             />
                           </div>
@@ -111,10 +111,7 @@ export const UserAndprofiles = () => {
                     );
                   })}
                 <Link
-                  to={
-                    `/createprofile/${LoggedUser.user._id}` ||
-                    `https://api.lifecloud-qr.com/createprofile/${LoggedUser.user._id}`
-                  }
+                  to={`${process.env.REACT_APP_API_URL}}/createprofile/${LoggedUser.user._id}`}
                 >
                   <div className="profile-container">
                     <div className="profile-image create-profile-container">

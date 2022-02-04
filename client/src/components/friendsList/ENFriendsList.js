@@ -62,7 +62,7 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
     const handleAddAdmins = (e) => {
         console.log(e, proid, 'e')
         setuserid(e)
-        fetch(`https://api.lifecloud-qr.com/api/profile/addAdmins/${proid}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/profile/addAdmins/${proid}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'Application/json',

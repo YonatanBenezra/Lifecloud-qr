@@ -25,7 +25,7 @@ const Topbar = (props) => {
       return false;
     } else {
       const res = await axios.get(
-        `https://api.lifecloud-qr.com/api/profile/searchProfile/${value}`
+        `${process.env.REACT_APP_API_URL}/api/profile/searchProfile/${value}`
       );
       setSeachData(res.data);
     }
@@ -86,7 +86,7 @@ const Topbar = (props) => {
             {user ? (
               <div className="logged-nav">
                 <Link
-                  to={`https://api.lifecloud-qr.com/createprofile/${LoggedUser.user._id}`}
+                  to={`${process.env.REACT_APP_API_URL}/createprofile/${LoggedUser.user._id}`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className="topbarLink"
                 >

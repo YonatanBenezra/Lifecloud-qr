@@ -10,12 +10,12 @@ export const Gallery = ({ profiledata, id }) => {
                     <>
                         {index === 3 ?
                     
-                            <div  className='gallery-img last-image' style={{ backgroundImage: `http://localhost:8800/${img}`, width: '250px', height: '250px' }}>
+                            <div  className='gallery-img last-image' style={{ backgroundImage: `${process.env.REACT_APP_API_URL}/${img}`, width: '250px', height: '250px' }}>
                                 +
                             </div>
                             :
                             <div className='gallery-img'>
-                                <img className="image-gallery-section" src={`${img ? `http://localhost:8800/${img}` : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'}`} alt="" />
+                                <img className="image-gallery-section" src={`${img ? `${process.env.REACT_APP_API_URL}/${img}` : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'}`} alt="" />
                             </div>
                         }
                     </>

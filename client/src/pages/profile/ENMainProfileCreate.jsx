@@ -136,7 +136,7 @@ export default function ENProfileCreate() {
         formdata.append('multiplefiles', multiFiles[i]);
       }
 
-      fetch('https://api.lifecloud-qr.com/api/profile/createProfile', {
+      fetch(`${process.env.REACT_APP_API_URL}/api/profile/createProfile`, {
         method: 'POST',
         body: formdata,
       })

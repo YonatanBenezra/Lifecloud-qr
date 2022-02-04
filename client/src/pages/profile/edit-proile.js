@@ -66,7 +66,7 @@ export default function ProfileEdit() {
         fetchuserprofiles()
     }, [])
     const fetchuserprofiles = async () => {
-        const res = await axios.get(`https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`);
         setProfileData(res.data)
     }
     const onChangePicture = (e) => {
@@ -177,7 +177,7 @@ export default function ProfileEdit() {
             //   }
             // }
             console.log(formdata, 'formdata')
-            fetch('https://api.lifecloud-qr.com/api/profile/updateProfile', {
+            fetch(`${process.env.REACT_APP_API_URL}/api/profile/updateProfile`, {
                 method: 'PUT',
                 body: formdata,
             })

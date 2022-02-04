@@ -49,7 +49,7 @@ const MemoryCreation = () => {
           return res.json();
         })
         .then((res) => {
-          fetch(`https://api.lifecloud-qr.com/api/notification/addnotifications`, {
+          fetch(`${process.env.REACT_APP_API_URL}/api/notification/addnotifications`, {
             method: 'POST',
             headers: {
               'Content-Type': 'Application/json',

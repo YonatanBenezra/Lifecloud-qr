@@ -78,7 +78,7 @@ export default function ENProfileEdit() {
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
-      `https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`
+      `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
     );
     setProfileData(res.data);
   };
@@ -193,7 +193,7 @@ export default function ENProfileEdit() {
       //   }
       // }
       console.log(formdata, 'formdata');
-      fetch('https://api.lifecloud-qr.com/api/profile/updateProfile', {
+      fetch(`${process.env.REACT_APP_API_URL}/api/profile/updateProfile`, {
         method: 'PUT',
         body: formdata,
       })

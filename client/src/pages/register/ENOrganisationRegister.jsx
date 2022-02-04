@@ -40,7 +40,7 @@ export default function ENRegister() {
     } else {
       setErro('');
       try {
-        fetch('https://api.lifecloud-qr.com/api/auth/register', {
+        fetch(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -60,7 +60,7 @@ export default function ENProfile() {
   });
   const fetchuserprofiles = async () => {
     const res = await axios.get(
-      `https://api.lifecloud-qr.com/api/profile/getSingleProfileDetails/${id}`
+      `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
     );
     setProfileData(res.data);
     console.log(res, 'res');
@@ -68,7 +68,7 @@ export default function ENProfile() {
 
   const fetchmemories = async () => {
     const res = await axios.get(
-      `https://api.lifecloud-qr.com/api/memory/getallmemory/${id}`
+      `${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`
     );
     console.log(res, 'res memory');
     setmemoryData(res.data);
@@ -87,7 +87,7 @@ export default function ENProfile() {
       let data = {
         userId: profiledata.originalUser[0]._id,
       };
-      fetch(`https://api.lifecloud-qr.com/api/memory/like/${e._id}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/api/memory/like/${e._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'Application/json',
@@ -117,7 +117,7 @@ export default function ENProfile() {
   const handleComment = (e) => {
     console.log(e);
     try {
-      fetch(`https://api.lifecloud-qr.com/api/memory/comment/${e._id}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/api/memory/comment/${e._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'Application/json',
@@ -158,7 +158,7 @@ export default function ENProfile() {
 
   const handleDelete = (e, id) => {
     console.log(e, id);
-    fetch(`https://api.lifecloud-qr.com/api/memory/commentdell/${id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/memory/commentdell/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'Application/json',
@@ -181,7 +181,7 @@ export default function ENProfile() {
   };
   const handleDellMemory = (e) => {
     console.log(e, 'e');
-    fetch(`https://api.lifecloud-qr.com/api/memory/commentdellOBJ/${e._id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/memory/commentdellOBJ/${e._id}`, {
       method: 'DELETE',
     })
       .then((res) => {
