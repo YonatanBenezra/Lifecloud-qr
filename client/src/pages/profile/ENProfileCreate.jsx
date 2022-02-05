@@ -36,7 +36,7 @@ export default function ENProfileCreate() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
- console.log(selectedPrivacy,'selectedPrivacy')
+
   const onChangeCover = (e) => {
     if (e.target.files[0]) {
       console.log('picture: ', e.target.files);
@@ -67,9 +67,7 @@ export default function ENProfileCreate() {
   const [inputList, setInputList] = useState([
     { axisTitle: '', axisDate: '', axisDescription: '' },
   ]);
-  console.log(multiFiles, 'multiFiles');
-  console.log(picture, 'pic');
-  console.log(image, 'image');
+  
  
   const firstName = useRef();
   const lastName = useRef();

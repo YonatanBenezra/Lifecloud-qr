@@ -60,9 +60,9 @@ export default function ENProfile() {
     fetchuserprofiles();
   },[])
  useEffect(()=>{
-  if (Object.keys(profiledata).length > 0) {
+  // if (Object.keys(profiledata).length > 0) {
     fetchmemories();
-  }
+  // }
  },[])
   const fetchuserprofiles = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`);
