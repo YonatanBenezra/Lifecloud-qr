@@ -128,6 +128,8 @@ const Home = () => {
           height: '65vh',
           overflow: 'hidden',
           backgroundPosition: 'bottom',
+          backgroundRepeat: 'noRepeat',
+          backgroundSize: 'cover'
         }}
       ></div>
       <div className="home-floating-text">
