@@ -19,7 +19,7 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         script: |
             cd /var/www/lifecloud-qr.com
-            git pull origin master
+            git pull origin master --allow-unrelated-histories
             cd /var/www/lifecloud-qr.com/server
             npm install
             pm2 restart all --update-env
