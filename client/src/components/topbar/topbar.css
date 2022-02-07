@@ -1,5 +1,5 @@
 .topbarContainer {
-  height: 80px;
+  height: 60px;
   width: 100%;
   background-color: #fff;
   display: flex;
@@ -99,7 +99,7 @@
 
 .topbarLink {
   margin-right: 40px;
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
   font-family: 'almoni-regular' !important;
 }

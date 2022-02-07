@@ -31,7 +31,7 @@ const useFirebase = (dispatch) => {
   };
   //Save user to the DB
   const saveUser = async (user, method) => {
-    const res = await fetch('/insertOrUpdate', {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/insertOrUpdate`, {
       method: method,
       headers: {
         'content-type': 'application/json',
