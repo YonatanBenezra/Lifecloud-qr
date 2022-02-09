@@ -21,7 +21,7 @@ const MemoryCreation = () => {
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
-      `http://localhost:8800/api/profile/getSingleProfileDetails/${id}`
+      `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
     );
     setProfileData(res.data);
   };

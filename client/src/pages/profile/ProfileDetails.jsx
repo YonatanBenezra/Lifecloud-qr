@@ -329,7 +329,7 @@ export default function Profile() {
                           ></img>
                           {/* {imgData.file.map(item => {
                           return <img
-                            src={`http://localhost:8800/${item}`}
+                            src={`${process.env.REACT_APP_API_URL}/${item}`}
                             alt=""
                             className="memory-img"
                           ></img>

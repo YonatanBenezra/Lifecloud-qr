@@ -63,7 +63,7 @@ const Topbar = (props) => {
                                 height: '30px',
                                 borderRadius: '30px',
                               }}
-                              src={`http://localhost:8800/${item.profileImg}`}
+                              src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
                               alt=""
                             />
                           </span>

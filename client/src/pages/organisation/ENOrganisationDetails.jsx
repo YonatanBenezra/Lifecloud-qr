@@ -217,13 +217,13 @@ export default function ENProfile() {
       <div>
         <ENTopbar />
         <img
-          src={`http://localhost:8800/${profiledata.wallImg}`}
+          src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
           alt=""
           className="profile-cover"
         ></img>
         <div className="profile-details">
           <img
-            src={`http://localhost:8800/${profiledata.profileImg}`}
+            src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
             alt=""
             className="profile-img"
           ></img>
@@ -306,7 +306,7 @@ export default function ENProfile() {
             {profiledata.gallery.map((img, index) => (
               <div className="full-gallery-img-container" key={index}>
                 <img
-                  src={`http://localhost:8800/${img}`}
+                  src={`${process.env.REACT_APP_API_URL}/${img}`}
                   alt=""
                   className="full-gallery-img"
                 ></img>
