@@ -13,6 +13,7 @@ import instagram from '../../assets/instagram.png';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import userImg from '../../assets/PlayerImage.png';
+import { useRef } from 'react';
 export const UserAndprofiles = () => {
   const LoggedUser = useContext(AuthContext);
   const [show, setShow] = useState(false);
@@ -53,6 +54,21 @@ export const UserAndprofiles = () => {
       profileImg: 'https://picsum.photos/200/300',
     },
   ];
+  const profileImageRef = useRef(null);
+  const onChangePicture = async (event) => {
+    const src = URL.createObjectURL(event.target.files[0]);
+    profileImageRef.current.src = src;
+    const formData = new FormData();
+    formData.append('mainProfilePicture', event.target.files[0]);
+    formData.append('_id', LoggedUser.user._id);
+    await axios.patch('/updateUserProfilePicture', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    // LoggedUser.dispatch({ type: 'FIREBASE_LOGIN', payload: loggedUser });
+  };
+
   return (
     <>
       <Topbar />
@@ -64,7 +80,22 @@ export const UserAndprofiles = () => {
                 className="user-name"
                 style={{ direction: 'rtl', flexDirection: 'column' }}
               >
-                <img alt="" src={userImg} className="user-img" />
+                <img
+                  alt=""
+                  src={
+                    LoggedUser.user.mainProfilePicture
+                      ? `${process.env.REACT_APP_API_URL}/picUploader/${LoggedUser.user.mainProfilePicture}`
+                      : LoggedUser.user.profilePicture
+                  }
+                  className="user-img"
+                  ref={profileImageRef}
+                />
+                <input
+                  type="file"
+                  name="profileImg"
+                  onChange={onChangePicture}
+                  className="user-img-input"
+                />
                 שלום {LoggedUser.user.firstName}
               </h1>
               <div className="notifications-btn" onClick={() => setShow(true)}>
@@ -82,6 +113,7 @@ export const UserAndprofiles = () => {
                 {data &&
                   data.length > 0 &&
                   data.map((userProfiles, i) => {
+                    console.log(userProfiles);
                     return (
                       <Link
                         to={`/profiledetails/${userProfiles._id}`}
@@ -102,7 +134,7 @@ export const UserAndprofiles = () => {
                           </div>
                           <ul className="admins-list">
                             {userProfiles.admins &&
-                              userProfiles.admins.map((admin) => (
+                              userProfiles.addAdmins.map((admin) => (
                                 <li key={admin._id}>{admin}</li>
                               ))}
                           </ul>
@@ -110,9 +142,7 @@ export const UserAndprofiles = () => {
                       </Link>
                     );
                   })}
-                <Link
-                  to={`/createprofile/${LoggedUser.user._id}`}
-                >
+                <Link to={`/createprofile/${LoggedUser.user._id}`}>
                   <div className="profile-container">
                     <div className="profile-image create-profile-container">
                       <div className="inner-btn">

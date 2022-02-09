@@ -438,22 +438,3 @@
   .memories-div {
     padding-bottom: 3rem;
   }
-  input[type='date']::before {
-    color: #abc9db;
-    content: attr(placeholder);
-    padding-left: 44%;
-    direction: rtl;
-  }
-  input[type='date'] {
-    text-align: unset;
-    color: #ffffff;
-  }
-  input[type='date']:focus,
-  input[type='date']:valid {
-    color: #abc9db;
-  }
-  input[type='date']:focus::before,
-  input[type='date']:valid::before {
-    content: '' !important;
-  }
-  

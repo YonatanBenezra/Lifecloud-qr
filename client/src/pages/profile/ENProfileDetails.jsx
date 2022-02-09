@@ -219,13 +219,13 @@ export default function ENProfile() {
       <div>
         <ENTopbar />
         <img
-          src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
+          src={`http://localhost:8800/${profiledata.wallImg}`}
           alt=""
           className="profile-cover"
         ></img>
         <div className="profile-details">
           <img
-            src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
+            src={`http://localhost:8800/${profiledata.profileImg}`}
             alt=""
             className="profile-img"
           ></img>
@@ -317,13 +317,13 @@ export default function ENProfile() {
                       trigger={
                         <div className="memory-container" key={index}>
                           <img
-                            src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
+                            src={`http://localhost:8800/${imgData.file}`}
                             alt=""
                             className="memory-img"
                           ></img>
                           {/* {imgData.file.map(item => {
                           return <img
-                            src={`${process.env.REACT_APP_API_URL}/${item}`}
+                            src={`http://localhost:8800/${item}`}
                             alt=""
                             className="memory-img"
                           ></img>
@@ -435,7 +435,7 @@ export default function ENProfile() {
             {profiledata.gallery.map((img, index) => (
               <div className="full-gallery-img-container" key={index}>
                 <img
-                  src={`${process.env.REACT_APP_API_URL}/${img}`}
+                  src={`http://localhost:8800/${img}`}
                   alt=""
                   className="full-gallery-img"
                 ></img>

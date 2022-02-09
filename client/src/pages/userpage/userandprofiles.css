@@ -581,3 +581,21 @@ a {
 .create-profile-container:hover .user-line {
   width: 65px;
 }
+.user-img-input {
+  height: 200px;
+  width: 200px;
+  border-radius: 100%;
+  margin-top: -219px;
+  cursor: pointer;
+}
+.user-img-input::-webkit-file-upload-button {
+  visibility: hidden;
+  user-select: none;
+}
+.user-img-input::-webkit-file-upload {
+  visibility: hidden;
+  user-select: none;
+}
+.user-img-input::before {
+  content: "";
+}

@@ -64,10 +64,14 @@ export default function ENProfileCreate() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-  const [multiFiles, setMultiFiles] = useState();
+
+  const [multiFiles, setMultiFiles] = useState([]);
   const onChangeMultiplePicture = (e) => {
-    setMultiFiles(e.target.files);
+    const files = [...e.target.files];
+    files.forEach((file) => (file.imagePreview = URL.createObjectURL(file)));
+    setMultiFiles((prev) => [...prev, ...files]);
   };
+
   const [inputList, setInputList] = useState([
     { axisTitle: '', axisDate: '', axisDescription: '' },
   ]);
@@ -178,7 +182,7 @@ export default function ENProfileCreate() {
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
-
+      console.log(formdata, 'formdata');
       fetch(`${process.env.REACT_APP_API_URL}/api/profile/createProfile`, {
         method: 'POST',
         body: formdata,
@@ -208,8 +212,8 @@ export default function ENProfileCreate() {
       <Topbar />
       <div className="profile-creation">
         <div className="">
-          <div className="loginLeft" style={{ marginBottom: '2rem' }}>
-            <h3 className="profile-creation-title">יצירת פרופיל</h3>
+          <div className="loginLeft" style={{ marginBottom: '3rem' }}>
+            <h3 className="profile-creation-title">צור פרופיל</h3>
             <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div>
           </div>
           <div className="profile-images">
@@ -264,19 +268,17 @@ export default function ENProfileCreate() {
               <form className="profile-creation-box" onSubmit={handleClick}>
                 <div
                   className="profile-creation-names-container"
-                  style={{ marginBottom: '1.5rem' }}
+                  style={{ marginBottom: '3rem' }}
                 >
                   <input
                     placeholder="* שם פרטי"
                     ref={firstName}
                     className="nameInput"
-                    required
                   />
                   <input
                     placeholder="* שם משפחה"
                     ref={lastName}
                     className="nameInput"
-                    required
                   />
                 </div>
                 <div className="birth-date-container">
@@ -289,19 +291,17 @@ export default function ENProfileCreate() {
                     ref={birthDate}
                     className="nameInput"
                     type="text"
-                    required
                   />
                   <input
                     placeholder="* לועזי"
                     type="date"
                     ref={deathDate}
                     className="nameInput"
-                    required
                   />
                 </div>
-                <div className="profile-creation-names-container" style={{marginTop: '0.5rem'}}>
+                <div className="profile-creation-names-container">
                   <input
-                    placeholder="ת.עברי"
+                    placeholder="Hebrew"
                     type="text"
                     // ref={hebBirthDate}\
                     value={hebBirthDate}
@@ -309,7 +309,7 @@ export default function ENProfileCreate() {
                     className="nameInput"
                   />
                   <input
-                    placeholder="ת.עברי"
+                    placeholder="Hebrew"
                     type="text"
                     // ref={hebBirthDate}\
                     value={hebDeathDate}
@@ -320,10 +320,10 @@ export default function ENProfileCreate() {
 
                 <div
                   className="profile-creation-names-container"
-                  style={{ marginTop: '1.5rem' }}
+                  style={{ marginTop: '3rem' }}
                 >
                   <input
-                    placeholder="עיר"
+                    placeholder="* עיר"
                     ref={city}
                     className="nameInput"
                     type="text"
@@ -376,7 +376,6 @@ export default function ENProfileCreate() {
                       selectedGender === 'other' && 'register-active'
                     } radio-input-container-register`}
                     onClick={() => setSelectedGender('other')}
-                    style={{width: '60px'}}
                   >
                     <input
                       type="radio"
@@ -387,7 +386,27 @@ export default function ENProfileCreate() {
                       name="gender"
                       className="radio"
                     />
-                    <label for="other">אחר</label>
+                    <label for="other">א</label>
+                  </div>
+                </div>
+                <div
+                  className="location-container"
+                  style={{ marginTop: '70px' }}
+                >
+                  <h1>* מיקום הקבר</h1>
+                  <div className="location-semicontainer">
+                    <div className="profile-creation-names-container">
+                      <input
+                        placeholder="*הוספת מיקום ווייז "
+                        ref={wazeLocation}
+                        className="nameInput"
+                      />
+                      <input
+                        placeholder="* הוספת מיקום גוגל"
+                        ref={googleLocation}
+                        className="nameInput"
+                      />
+                    </div>
                   </div>
                 </div>
                 <div
@@ -415,7 +434,7 @@ export default function ENProfileCreate() {
                           className="profile-creation-gallery-img"
                           src={
                             multiFiles && multiFiles.length > 0
-                              ? readImage(multiFiles, 0)
+                              ? multiFiles[0].imagePreview
                               : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
                           }
                           alt=""
@@ -424,7 +443,7 @@ export default function ENProfileCreate() {
                           className="profile-creation-gallery-img"
                           src={
                             multiFiles && multiFiles.length > 1
-                              ? multiFiles[1]
+                              ? multiFiles[1].name
                               : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
                           }
                           alt=""
@@ -433,7 +452,7 @@ export default function ENProfileCreate() {
                           className="profile-creation-gallery-img"
                           src={
                             multiFiles && multiFiles.length > 2
-                              ? multiFiles[2]
+                              ? multiFiles[2].name
                               : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
                           }
                           alt=""
@@ -442,7 +461,7 @@ export default function ENProfileCreate() {
                           className="profile-creation-gallery-img"
                           src={
                             multiFiles && multiFiles.length > 3
-                              ? multiFiles[3]
+                              ? multiFiles[3].name
                               : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
                           }
                           alt=""
@@ -451,7 +470,7 @@ export default function ENProfileCreate() {
                           className="profile-creation-gallery-img"
                           src={
                             multiFiles && multiFiles.length > 4
-                              ? multiFiles[4]
+                              ? multiFiles[4].name
                               : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
                           }
                           alt=""
@@ -469,7 +488,7 @@ export default function ENProfileCreate() {
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <h1>על הנפטר</h1>
-                  <textarea
+                  <input
                     ref={description}
                     className="profile-creation-description"
                   />
@@ -482,25 +501,24 @@ export default function ENProfileCreate() {
                         <div className="inner-box">
                           <input
                             name="axisTitle"
-                            placeholder="כותרת"
+                            placeholder="* כותרת"
                             value={x.axisTitle}
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-input"
                           />
                           <input
                             name="axisDate"
-                            placeholder="תאריך"
+                            placeholder="* תאריך"
                             value={x.axisDate}
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-input"
                           />
                           <textarea
                             name="axisDescription"
-                            placeholder="טקסט"
+                            placeholder="* טקסט"
                             value={x.axisDescription}
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-description"
-                            resize="none"
                           />
                           <div className="btn-box">
                             {inputList.length !== 1 && (
@@ -533,12 +551,12 @@ export default function ENProfileCreate() {
                   <div className="location-semicontainer">
                     <div className="profile-creation-names-container">
                       <input
-                        placeholder="הוספת מיקום ווייז "
+                        placeholder="*הוספת מיקום ווייז "
                         ref={wazeLocation}
                         className="nameInput"
                       />
                       <input
-                        placeholder="הוספת מיקום גוגל"
+                        placeholder="* הוספת מיקום גוגל"
                         ref={googleLocation}
                         className="nameInput"
                       />
@@ -565,8 +583,8 @@ export default function ENProfileCreate() {
                 </div>
 
                 <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>
-                     פרטיות
+                  <h3 style={{ color: '#6097BF', marginTop: '70px' }}>
+                    * פרטיות
                   </h3>
                   <div
                     style={{

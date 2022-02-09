@@ -246,7 +246,7 @@ export default function ENProfileEdit() {
                 src={
                   imgData
                     ? imgData
-                    : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
+                    : `http://localhost:8800/${wallInformation.profileImg}`
                 }
                 alt=""
               ></img>
@@ -263,7 +263,7 @@ export default function ENProfileEdit() {
                 src={
                   coverData
                     ? coverData
-                    : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
+                    : `http://localhost:8800/${wallInformation.wallImg}`
                 }
                 alt=""
               ></img>

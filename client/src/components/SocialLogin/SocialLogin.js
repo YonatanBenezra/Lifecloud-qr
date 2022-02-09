@@ -12,6 +12,7 @@ const SocialLogin = ({ user_type }) => {
         email: user.email,
         firstName,
         lastName,
+        profilePicture: user.photoURL,
         user_type,
       };
       myFirebase.saveUser(loggedUser, 'PUT');
@@ -25,6 +26,7 @@ const SocialLogin = ({ user_type }) => {
         email: user.email,
         firstName,
         lastName,
+        profilePicture: user.photoURL,
         user_type,
       };
       myFirebase.saveUser(loggedUser, 'PUT');
@@ -41,7 +43,7 @@ const SocialLogin = ({ user_type }) => {
           className={classes.button}
           style={{ marginRight: '28px' }}
           onClick={handleGoogleLogin}
-        >
+        > 
           <div className={classes.icon}>
             <i className="fab fa-google"></i>
           </div>

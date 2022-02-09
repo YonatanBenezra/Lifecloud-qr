@@ -271,12 +271,13 @@ export default function Profile() {
                 <h3>| {profiledata.wazeLocation}</h3>
               </div>
               <div className="profile-icons-container">
+                <a href={`https://www.waze.com/ul?q=${profiledata.wazeLocation}`}>
                 <img
                   src={waze}
                   alt=""
                   className="icon"
-                  href={`https://www.waze.com/ul?q=${profiledata.wazeLocation}`}
-                ></img>
+                  ></img>
+                  </a>
                 <img
                   src={zoom}
                   alt=""
@@ -329,11 +330,11 @@ export default function Profile() {
                           ></img>
                           {/* {imgData.file.map(item => {
                           return <img
-                            src={`${process.env.REACT_APP_API_URL}/${item}`}
+                            src={`http://localhost:8800/${item}`}
                             alt=""
                             className="memory-img"
                           ></img>
-                        })} */}
+                         })} */}
 
                           <div className="icons-container">
                             <div className="memory-heart-container">
@@ -421,8 +422,8 @@ export default function Profile() {
             {/* <p className="axis-desc">{profiledata.description}</p> */}
           </div>
           <div>
-            {pasrseAxios.map((axis) => (
-              <div className="axis-container">
+            {pasrseAxios.map((axis, index) => (
+              <div className="axis-container" key={index}>
                 <div className="axis-sub-container">
                   <h1 className="axis-title">{axis.axisTitle}</h1>
                   <p className="axis-description2">{axis.axisDescription}</p>
