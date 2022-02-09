@@ -493,7 +493,7 @@ export default function ENProfileCreate() {
                     className="profile-creation-description"
                   />
                 </div>
-                <div style={{ marginTop: '70px' }}>
+                <div >
                   <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
                   {inputList.map((x, i) => {
                     return (
