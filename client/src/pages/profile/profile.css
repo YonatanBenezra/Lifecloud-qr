@@ -3,12 +3,13 @@
   font-family: 'Roboto', sans-serif;
 }
 .profile-creation-box input {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 600;
   text-align: center;
 }
 .profile-creation-box h1 {
   font-size: 28px;
+  margin-bottom: 1.5rem;
 }
 .profile {
   display: flex;
@@ -195,9 +196,6 @@
   color: #6097bf !important;
 }
 
-.loginDesc {
-  font-size: 24px;
-}
 
 .RegBox {
   border-radius: 10px;
@@ -221,9 +219,20 @@
   border-radius: 10px;
   border: 1px solid #fff;
   font-size: 18px;
-  width: 45%;
-  margin-top: 2rem;
-  margin-top: 40px;
+  width: 90%;
+  margin-top: 0.5rem;
+  border: none;
+  overflow: auto;
+  outline: none;
+  color: #abc9db;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+padding: 1%;
+  resize: none; /*remove the resize handle on the bottom right*/
+}
+.profile-creation-description::placeholder{
+  color: #abc9db;
 }
 .loginInput:focus {
   outline: none;
@@ -260,11 +269,17 @@
 .profile-example-btn {
   background: #fff;
   /* padding-top: 0.5rem; */
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 2rem;
   border-radius: 5px;
   font-size: 16px;
   font-size: 18px;
   font-weight: 600;
+  transition: all 500ms ease-in-out;
+  cursor: pointer;
+}
+.profile-example-btn:hover {
+  background: #6097bf;
+  color: #fff;
 }
 @media only screen and (max-width: 600px) {
   .login {
@@ -376,8 +391,11 @@ input::placeholder {
   background: #abc9db;
   color: #ffffff;
 }
-.add-btn:hover .inner-btn .line1.line2 {
-  border: 1px solid #fff;
+.add-btn:hover .inner-btn .line-1 {
+  border: 1px solid #fff !important;
+}
+.add-btn:hover .inner-btn .line-2 {
+  border: 1px solid #fff !important;
 }
 .inner-btn {
   display: flex;
@@ -465,7 +483,8 @@ input::placeholder {
   cursor: pointer;
   text-shadow: 1px 1px #fff;
   font-weight: 700;
-  font-size: 30px;
+  font-size: 25px;
+  margin-top: 10px;
 }
 .custom-file-grave::-webkit-file-upload-button {
   visibility: hidden;
@@ -519,10 +538,11 @@ input::placeholder {
   cursor: pointer;
   text-shadow: 1px 1px #fff;
   font-weight: 700;
-  font-size: 30px;
+  font-size: 25px;
+  margin-top: 10px;
 }
 .custom-file-input-cover {
-  width: 250px;
+  width: 200px;
 }
 .custom-file-input:hover::before {
   border-color: black;
@@ -531,7 +551,7 @@ input::placeholder {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 .custom-file-input {
-  width: 250px;
+  width: 200px;
 }
 .d-none {
   display: none;
@@ -541,4 +561,5 @@ input::placeholder {
   justify-content: space-between;
   padding-left: 20%;
   padding-right: 20%;
+  padding-bottom: 0.5rem;
 }

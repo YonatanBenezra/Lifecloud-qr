@@ -72,12 +72,12 @@
 }
 .top-search {
   border: 0px;
-  width: 80% !important;
-  height: 35px !important;
+  width: 100% !important;
+  height: 30px !important;
   border-radius: 7px !important;
   padding-right: 15px !important;
   direction: rtl;
-  font-size: 20px;
+  font-size: 15px;
   background-color: #dcecf4;
 }
 

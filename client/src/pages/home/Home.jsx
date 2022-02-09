@@ -141,14 +141,14 @@ const Home = () => {
           <div className="searchbar searchbar-2">
             <input
               type="text"
-              placeholder="חיפוש מנוח/עמותה..."
+              placeholder="חיפוש שם \ ארגון"
               className="SearchInput"
               onChange={(e) => setSearchText(e.target.value)}
               style={{
                 height: '95%',
                 border: 0,
                 direction: 'rtl',
-                fontSize: '200%',
+                fontSize: '20px',
               }}
             />
             <Search className="searchIcon" />

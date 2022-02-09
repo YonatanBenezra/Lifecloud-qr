@@ -439,10 +439,14 @@
   padding-bottom: 3rem;
 }
 .profile-creation-title {
-  font-size: 50px;
-  margin-bottom: 2rem;
-  padding-top: 2rem;
-  color: #6097bf;
+  padding-bottom: 30px;
+  font-size: 70px !important;
+  margin-top: 75px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 3px;
+  color: #6097bf !important;
 }
 input[type='date']::before {
   color: #abc9db;

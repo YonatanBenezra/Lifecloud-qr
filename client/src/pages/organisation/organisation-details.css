@@ -438,16 +438,11 @@
   .memories-div {
     padding-bottom: 3rem;
   }
-  .profile-creation-title {
-    font-size: 50px;
-    margin-bottom: 2rem;
-    padding-top: 2rem;
-    color: #6097bf;
-  }
   input[type='date']::before {
     color: #abc9db;
     content: attr(placeholder);
-    padding-left: 35%;
+    padding-left: 44%;
+    direction: rtl;
   }
   input[type='date'] {
     text-align: unset;

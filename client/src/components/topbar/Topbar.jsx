@@ -86,12 +86,22 @@ const Topbar = (props) => {
             {user ? (
               <div className="logged-nav">
                 <Link
-                  to={`${process.env.REACT_APP_API_URL}/createprofile/${LoggedUser.user._id}`}
+                  to={`/`}  
+                  style={{ textDecoration: 'none', color: '#6097BF' }}
+                  className="topbarLink"
+                >
+                  התנתק{' '}
+                </Link>
+
+                <Link
+                to={`/createprofile/${LoggedUser.user._id}`}
+                  onClick={() => {window.reload()}}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className="topbarLink"
                 >
                   צור פרופיל{' '}
                 </Link>
+
                 <Link
                   to={`/about`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
@@ -99,6 +109,7 @@ const Topbar = (props) => {
                 >
                   אודות
                 </Link>
+
                 <Link
                   to={`/contact`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
@@ -106,11 +117,7 @@ const Topbar = (props) => {
                 >
                   צור קשר{' '}
                 </Link>
-                <Link
-                  to={`/about`}
-                  style={{ textDecoration: 'none', color: '#6097BF' }}
-                  className="topbarLink"
-                >
+
                   <Link
                   to={`/plans`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
@@ -118,8 +125,7 @@ const Topbar = (props) => {
                 >
                   תוכניות{' '}
                 </Link>
-                  התנתק
-                </Link>
+
                 <Link
                   style={{ marginRight: '15px' }}
                   to={`/userprofiles/${user._id}`}

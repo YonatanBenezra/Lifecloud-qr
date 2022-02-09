@@ -65,7 +65,7 @@ export const UserAndprofiles = () => {
                 style={{ direction: 'rtl', flexDirection: 'column' }}
               >
                 <img alt="" src={userImg} className="user-img" />
-                שלום {LoggedUser.user.firstName}!
+                שלום {LoggedUser.user.firstName}
               </h1>
               <div className="notifications-btn" onClick={() => setShow(true)}>
                 התראות

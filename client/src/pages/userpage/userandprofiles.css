@@ -218,6 +218,7 @@
   display: flex;
   width: 100%;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .profile-creation {
@@ -246,10 +247,6 @@
   color: #6097bf !important;
 }
 
-.loginDesc {
-  font-size: 24px;
-}
-
 .RegBox {
   border-radius: 10px;
   display: flex;
@@ -267,13 +264,13 @@
   margin-top: 4%;
 }
 .nameInput {
-  height: 50px;
+  height: 40px;
   border-radius: 10px;
   border: 1px solid #fff;
   font-size: 18px;
   padding-left: 20px;
   margin: 2px;
-  width: 45%;
+  width: 41%;
 }
 .loginInput:focus {
   outline: none;
@@ -342,8 +339,8 @@
 .profile-images {
   display: flex;
   justify-content: space-between;
-  padding-right: 15%;
-  padding-left: 15%;
+  padding-right: 16%;
+  padding-left: 17%;
 }
 .profile-image-container {
   display: flex;
@@ -452,6 +449,16 @@ input::placeholder {
   padding-left: 20px;
   margin: 2px;
   width: 200px;
+  color: #abc9db; 
+  border: none;
+  overflow: auto;
+  outline: none;
+  font-weight: 600;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+
+  resize: none; /*remove the resize handle on the bottom right*/
 }
 .axis-description::placeholder {
   padding-top: 30px;
@@ -460,6 +467,7 @@ input::placeholder {
   align-items: center;
   margin: auto;
   text-align: center;
+    color: #abc9db;  
 }
 
 .custom-file-input::-webkit-file-upload-button {
@@ -474,6 +482,7 @@ input::placeholder {
 .d-none {
   display: none;
 }
+
 .create-profile-container {
   background: #abc9db;
   display: flex;
