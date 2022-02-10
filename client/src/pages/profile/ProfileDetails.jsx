@@ -26,6 +26,8 @@ import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import FriendsList from '../../components/friendsList/friendsList';
 // import { useParams } from 'react-router-dom';
+import { SRLWrapper } from 'simple-react-lightbox';
+
 export default function Profile() {
   const { dispatch } = useContext(AuthContext);
   const [profiledata, setProfileData] = useState([]);
@@ -223,8 +225,8 @@ export default function Profile() {
           <div className="deceased-details">
             <h1>{`${profiledata.firstName} ${profiledata.lastName}`}</h1>
             <p>
-              {profiledata.birthDate && profiledata.birthDate.split('T')[0]} -{' '}
-              {profiledata.deathDate !== null ? profiledata.deathDate.split('T')[0] : ''}
+              {profiledata?.birthDate?.split('T')[0]} -{' '}
+              {profiledata?.deathDate?.split('T')[0]}
             </p>
             {/* <p>{profile[0].city}</p> */}
           </div>
@@ -266,8 +268,8 @@ export default function Profile() {
             <h1 className="memorial-title">תאריך האזכרה</h1>
             <div className="details-and-icons">
               <div className="memorial-details">
-                <h3>| {profiledata.birthDate && profiledata.birthDate.split('T')[0]}</h3>
-                <h3>| {profiledata.deathDate && profiledata.deathDate.split('T')[0]}</h3>
+                <h3>| {profiledata?.birthDate?.split('T')[0]}</h3>
+                <h3>| {profiledata?.deathDate?.split('T')[0]}</h3>
                 <h3>| {profiledata.wazeLocation}</h3>
               </div>
               <div className="profile-icons-container">
@@ -330,7 +332,7 @@ export default function Profile() {
                           ></img>
                           {/* {imgData.file.map(item => {
                           return <img
-                            src={`http://localhost:8800/${item}`}
+                            src={`${process.env.REACT_APP_API_URL}/${item}`}
                             alt=""
                             className="memory-img"
                           ></img>
@@ -438,14 +440,15 @@ export default function Profile() {
         <div
           className={`${show === 'gallery' && 'display'} full-gallery d-none`}
         >
+          <SRLWrapper>
           <div className="full-gallery-container">
-            {profiledata.gallery?.map((img, index) => (
+            {profiledata?.gallery?.map((img, index) => (
               <div className="full-gallery-img-container" key={index}>
                 <img
                   src={`${process.env.REACT_APP_API_URL}/${img}`}
                   alt=""
                   className="full-gallery-img"
-                ></img>
+                  ></img>
                 <div className="heart-container">
                   <div className="heart-div">
                     <img className="heart-icon" src={heart} alt=""></img>
@@ -454,6 +457,7 @@ export default function Profile() {
               </div>
             ))}
           </div>
+            </SRLWrapper>
         </div>
         <div
           className={`${show === 'friends' && 'display'} friends-list d-none`}

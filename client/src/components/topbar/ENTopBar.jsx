@@ -47,7 +47,7 @@ const Topbar = (props) => {
             {searchData && searchData.length > 0 ? searchData.map(item => {
               return <Link to={`profiledetails/${item._id}`}><div className='ResultBox'>
                 <div>
-                  <span><img style={{ width: '30px', height: '30px', borderRadius: '30px' }} src={`http://localhost:8800/${item.profileImg}`} alt="" /></span>
+                  <span><img style={{ width: '30px', height: '30px', borderRadius: '30px' }} src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`} alt="" /></span>
                 </div>
                 <div>
                   {`${item.firstName} ${item.lastName}`}

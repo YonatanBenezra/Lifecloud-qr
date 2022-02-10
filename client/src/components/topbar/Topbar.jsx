@@ -133,7 +133,7 @@ const Topbar = (props) => {
                 >
                   <img src={
                   user.mainProfilePicture
-                  ? `http://localhost:8800/picUploader/${user.mainProfilePicture}`
+                  ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
                   : user.profilePicture
                   ? user.profilePicture
                   : userIcon

@@ -227,7 +227,7 @@ export default function ProfileEdit() {
                         <div className="profile-image-container">
                             <img
                                 className="profile-image"
-                                src={imgData ? imgData : `http://localhost:8800/${wallInformation.profileImg}`
+                                src={imgData ? imgData : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
                                 }
                                 alt=""
                             ></img>
@@ -241,7 +241,7 @@ export default function ProfileEdit() {
                         <div className="profile-image-container">
                             <img
                                 className="profile-image"
-                                src={coverData ? coverData : `http://localhost:8800/${wallInformation.wallImg}`}
+                                src={coverData ? coverData : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`}
                                 alt=""
                             ></img>
                             <input
