@@ -422,7 +422,7 @@ export default function Profile() {
             {/* <p className="axis-desc">{profiledata.description}</p> */}
           </div>
           <div>
-            {pasrseAxios.map((axis, index) => (
+            {pasrseAxios && pasrseAxios.map((axis, index) => (
               <div className="axis-container" key={index}>
                 <div className="axis-sub-container">
                   <h1 className="axis-title">{axis.axisTitle}</h1>
@@ -439,7 +439,7 @@ export default function Profile() {
           className={`${show === 'gallery' && 'display'} full-gallery d-none`}
         >
           <div className="full-gallery-container">
-            {profiledata.gallery.map((img, index) => (
+            {profiledata.gallery && profiledata.gallery.map((img, index) => (
               <div className="full-gallery-img-container" key={index}>
                 <img
                   src={`${process.env.REACT_APP_API_URL}/${img}`}
