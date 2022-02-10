@@ -223,7 +223,7 @@ export default function Profile() {
           <div className="deceased-details">
             <h1>{`${profiledata.firstName} ${profiledata.lastName}`}</h1>
             <p>
-              {profiledata.birthdata && profiledata.birthDate.split('T')[0]} -{' '}
+              {profiledata.birthDate && profiledata.birthDate.split('T')[0]} -{' '}
               {profiledata.deathDate && profiledata.deathDate.split('T')[0]}
             </p>
             {/* <p>{profile[0].city}</p> */}
