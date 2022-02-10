@@ -6,8 +6,6 @@ import { useHistory } from 'react-router';
 import Topbar from '../../components/topbar/Topbar';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import Footer from '../../components/footer/Footer';
-import Topbar from '../../components/topbar/ENTopBar';
-import SocialFooter from '../../components/socialFooter/ENSocialFooter';
 
 export default function ENRegister() {
   const companyName = useRef();

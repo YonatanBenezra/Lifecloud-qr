@@ -14,6 +14,7 @@ import ENPlans from './pages/plans/ENPlans';
 import ENLogin from './pages/login/ENLogin';
 import ENRegister from './pages/register/ENRegister';
 import ENOrganisationRegister from './pages/register/ENOrganisationRegister';
+import OrganisationRegister from './pages/register/OrganisationRegister';
 import ENOrganisationDetails from './pages/organisation/ENOrganisationDetails';
 import ENProfileEdit from './pages/profile/ENEditProfile';
 import ENProfileCreate from './pages/profile/ENProfileCreate';

@@ -224,7 +224,7 @@ export default function Profile() {
             <h1>{`${profiledata.firstName} ${profiledata.lastName}`}</h1>
             <p>
               {profiledata.birthDate && profiledata.birthDate.split('T')[0]} -{' '}
-              {profiledata.deathDate && profiledata.deathDate.split('T')[0]}
+              {profiledata.deathDate !== null ? profiledata.deathDate.split('T')[0] : ''}
             </p>
             {/* <p>{profile[0].city}</p> */}
           </div>

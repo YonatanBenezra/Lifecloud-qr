@@ -90,9 +90,8 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
     let valfinalcheckid = valcheckFinal && valcheckFinal.map(item => {
         return item.id
     })
-if(users){
-    let e = users.map((n, i) => valfinalcheckid && valfinalcheckid.includes(n._id))
-}
+
+    let e = users ? (users.map((n, i) => valfinalcheckid && valfinalcheckid.includes(n._id))) : []
 
     ///// for admins
     let valchekAdmin = profiledata && profiledata.addAdmins.length > 0 && profiledata.addAdmins.map((item, i) => {
@@ -109,9 +108,8 @@ if(users){
     let valfinalcheckidadmin = valcheckFinaladmin && valcheckFinaladmin.map(item => {
         return item.id
     })
-if(users){
-    let eAdmin = users.map((n, i) => valfinalcheckidadmin && valfinalcheckidadmin.includes(n._id))
-}
+
+    let eAdmin = users ? ( users.map((n, i) => valfinalcheckidadmin && valfinalcheckidadmin.includes(n._id)) ) : []
 
     return (
         <div className="friends-list">
