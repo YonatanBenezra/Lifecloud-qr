@@ -10,7 +10,7 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
         fetchUsers()
     }, [])
     const fetchUsers = async () => {
-        const res = await axios.get(`api/users/all/every`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}api/users/all/every`);
         setUsers(res.data)
     }
     console.log(users)
@@ -18,7 +18,7 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
     const handleAddFriend = (e) => {
         console.log(e, proid, 'e')
         setuserid(e)
-        fetch(`api/profile/addFriends/${proid}`, {
+        fetch(`${process.env.REACT_APP_API_URL}api/profile/addFriends/${proid}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'Application/json',
@@ -37,7 +37,7 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
     const handleAddAcceptFrined = (e) => {
         // setuserid(e)
 
-        fetch(`api/profile/addAcceptFriends/${proid}`, {
+        fetch(`${process.env.REACT_APP_API_URL}api/profile/addAcceptFriends/${proid}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'Application/json',
