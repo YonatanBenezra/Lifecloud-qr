@@ -223,8 +223,8 @@ export default function Profile() {
           <div className="deceased-details">
             <h1>{`${profiledata.firstName} ${profiledata.lastName}`}</h1>
             <p>
-              {profiledata.birthDate.split('T')[0]} -{' '}
-              {profiledata.deathDate.split('T')[0]}
+              {profiledata.birthdata && profiledata.birthDate.split('T')[0]} -{' '}
+              {profiledata.deathDate && profiledata.deathDate.split('T')[0]}
             </p>
             {/* <p>{profile[0].city}</p> */}
           </div>
@@ -266,8 +266,8 @@ export default function Profile() {
             <h1 className="memorial-title">תאריך האזכרה</h1>
             <div className="details-and-icons">
               <div className="memorial-details">
-                <h3>| {profiledata.birthDate.split('T')[0]}</h3>
-                <h3>| {profiledata.deathDate.split('T')[0]}</h3>
+                <h3>| {profiledata.birthDate && profiledata.birthDate.split('T')[0]}</h3>
+                <h3>| {profiledata.deathDate && profiledata.deathDate.split('T')[0]}</h3>
                 <h3>| {profiledata.wazeLocation}</h3>
               </div>
               <div className="profile-icons-container">

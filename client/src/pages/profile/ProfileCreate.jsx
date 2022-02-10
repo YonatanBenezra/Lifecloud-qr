@@ -129,6 +129,9 @@ export default function ENProfileCreate() {
     setInputList([
       ...inputList,
       { axisTitle: '', axisDate: '', axisDescription: '' },
+      { axisTitle: '', axisDate: '', axisDescription: '' },
+      { axisTitle: '', axisDate: '', axisDescription: '' },
+      { axisTitle: '', axisDate: '', axisDescription: '' },
     ]);
   };
   // console.log(hebBirthDate.current.value)
@@ -301,7 +304,7 @@ export default function ENProfileCreate() {
                 </div>
                 <div className="profile-creation-names-container">
                   <input
-                    placeholder="Hebrew"
+                    placeholder="עברי"
                     type="text"
                     // ref={hebBirthDate}\
                     value={hebBirthDate}
@@ -309,7 +312,7 @@ export default function ENProfileCreate() {
                     className="nameInput"
                   />
                   <input
-                    placeholder="Hebrew"
+                    placeholder="עברי"
                     type="text"
                     // ref={hebBirthDate}\
                     value={hebDeathDate}
@@ -323,7 +326,7 @@ export default function ENProfileCreate() {
                   style={{ marginTop: '3rem' }}
                 >
                   <input
-                    placeholder="* עיר"
+                    placeholder="עיר"
                     ref={city}
                     className="nameInput"
                     type="text"
@@ -386,27 +389,7 @@ export default function ENProfileCreate() {
                       name="gender"
                       className="radio"
                     />
-                    <label for="other">א</label>
-                  </div>
-                </div>
-                <div
-                  className="location-container"
-                  style={{ marginTop: '70px' }}
-                >
-                  <h1>* מיקום הקבר</h1>
-                  <div className="location-semicontainer">
-                    <div className="profile-creation-names-container">
-                      <input
-                        placeholder="*הוספת מיקום ווייז "
-                        ref={wazeLocation}
-                        className="nameInput"
-                      />
-                      <input
-                        placeholder="* הוספת מיקום גוגל"
-                        ref={googleLocation}
-                        className="nameInput"
-                      />
-                    </div>
+                    <label for="other">אחר</label>
                   </div>
                 </div>
                 <div
@@ -501,21 +484,21 @@ export default function ENProfileCreate() {
                         <div className="inner-box">
                           <input
                             name="axisTitle"
-                            placeholder="* כותרת"
+                            placeholder="כותרת"
                             value={x.axisTitle}
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-input"
                           />
                           <input
                             name="axisDate"
-                            placeholder="* תאריך"
+                            placeholder="תאריך"
                             value={x.axisDate}
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-input"
                           />
                           <textarea
                             name="axisDescription"
-                            placeholder="* טקסט"
+                            placeholder="טקסט"
                             value={x.axisDescription}
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-description"
@@ -551,12 +534,12 @@ export default function ENProfileCreate() {
                   <div className="location-semicontainer">
                     <div className="profile-creation-names-container">
                       <input
-                        placeholder="*הוספת מיקום ווייז "
+                        placeholder="הוספת מיקום ווייז "
                         ref={wazeLocation}
                         className="nameInput"
                       />
                       <input
-                        placeholder="* הוספת מיקום גוגל"
+                        placeholder="הוספת מיקום גוגל"
                         ref={googleLocation}
                         className="nameInput"
                       />
@@ -583,8 +566,8 @@ export default function ENProfileCreate() {
                 </div>
 
                 <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF', marginTop: '70px' }}>
-                    * פרטיות
+                  <h3 style={{ color: '#6097BF' }}>
+                    פרטיות
                   </h3>
                   <div
                     style={{
