@@ -65,6 +65,9 @@ function App() {
             <Route exact path="/plans">
               <Plans />
             </Route>
+            <Route exact path="/organisationregister">
+              <OrganisationRegister />
+            </Route>
           </Switch>
         ) : (
           <Switch>
@@ -75,8 +78,8 @@ function App() {
             <Route exact path="/register">
               {user ? <Redirect to="/" /> : <ENRegister />}
             </Route>
-            <Route exact path="/OrganisationRegister">
-              {user ? <Redirect to="/" /> : <ENOrganisationRegister />}
+            <Route exact path="/organisationregister">
+              <ENOrganisationRegister />
             </Route>
             <Route exact path="/about" >
               <About />
