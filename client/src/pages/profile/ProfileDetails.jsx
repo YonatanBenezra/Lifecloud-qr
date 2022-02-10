@@ -315,7 +315,7 @@ export default function Profile() {
               {/* {memoryData.forEach((data, key) => { */}
               {/* console.log(data.file[0], '--> data') */}
               {memoryData.length > 0 ? (
-                memoryData.map(
+                memoryData?.map(
                   (
                     imgData,
                     index //change to memories
@@ -422,7 +422,7 @@ export default function Profile() {
             {/* <p className="axis-desc">{profiledata.description}</p> */}
           </div>
           <div>
-            {pasrseAxios && pasrseAxios.map((axis, index) => (
+            {pasrseAxios?.map((axis, index) => (
               <div className="axis-container" key={index}>
                 <div className="axis-sub-container">
                   <h1 className="axis-title">{axis.axisTitle}</h1>
@@ -439,7 +439,7 @@ export default function Profile() {
           className={`${show === 'gallery' && 'display'} full-gallery d-none`}
         >
           <div className="full-gallery-container">
-            {profiledata.gallery && profiledata.gallery.map((img, index) => (
+            {profiledata.gallery?.map((img, index) => (
               <div className="full-gallery-img-container" key={index}>
                 <img
                   src={`${process.env.REACT_APP_API_URL}/${img}`}

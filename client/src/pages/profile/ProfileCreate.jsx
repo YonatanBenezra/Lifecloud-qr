@@ -426,7 +426,7 @@ export default function ENProfileCreate() {
                           className="profile-creation-gallery-img"
                           src={
                             multiFiles && multiFiles.length > 1
-                              ? multiFiles[1].name
+                              ? multiFiles[1].imagePreview
                               : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
                           }
                           alt=""
@@ -435,7 +435,7 @@ export default function ENProfileCreate() {
                           className="profile-creation-gallery-img"
                           src={
                             multiFiles && multiFiles.length > 2
-                              ? multiFiles[2].name
+                              ? multiFiles[2].imagePreview
                               : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
                           }
                           alt=""
@@ -444,7 +444,7 @@ export default function ENProfileCreate() {
                           className="profile-creation-gallery-img"
                           src={
                             multiFiles && multiFiles.length > 3
-                              ? multiFiles[3].name
+                              ? multiFiles[3].imagePreview
                               : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
                           }
                           alt=""
@@ -453,7 +453,7 @@ export default function ENProfileCreate() {
                           className="profile-creation-gallery-img"
                           src={
                             multiFiles && multiFiles.length > 4
-                              ? multiFiles[4].name
+                              ? multiFiles[4].imagePreview
                               : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
                           }
                           alt=""

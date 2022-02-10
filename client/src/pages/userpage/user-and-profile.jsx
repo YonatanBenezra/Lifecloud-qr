@@ -61,7 +61,7 @@ export const UserAndprofiles = () => {
     const formData = new FormData();
     formData.append('mainProfilePicture', event.target.files[0]);
     formData.append('_id', LoggedUser.user._id);
-    await axios.patch('/updateUserProfilePicture', formData, {
+    await axios.patch(`${process.env.REACT_APP_API_URL}/updateUserProfilePicture`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
