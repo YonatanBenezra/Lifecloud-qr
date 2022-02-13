@@ -113,7 +113,6 @@ export const UserAndprofiles = () => {
                 {data &&
                   data.length > 0 &&
                   data.map((userProfiles, i) => {
-                    console.log(userProfiles);
                     return (
                       <Link
                         to={`/profiledetails/${userProfiles._id}`}

@@ -381,6 +381,11 @@
 .heart-icon {
   height: 20px;
   width: 25px;
+  background-size: cover;
+}
+.full-gallery-container>div{
+  display: flex;
+  flex-wrap: wrap;
 }
 .heart-container {
   display: flex;

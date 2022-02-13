@@ -79,8 +79,6 @@ export default function Profile() {
   let pasrseAxios = Object.keys(profiledata).length
     ? JSON.parse(profiledata.lifeAxis)
     : '';
-  console.log(pasrseAxios);
-  console.log();
   const handleLike = (e) => {
     try {
       const formdata = new FormData();
@@ -317,7 +315,7 @@ export default function Profile() {
               {/* {memoryData.forEach((data, key) => { */}
               {/* console.log(data.file[0], '--> data') */}
               {memoryData.length > 0 ? (
-                memoryData?.map(
+                memoryData.map(
                   (
                     imgData,
                     index //change to memories
@@ -440,8 +438,8 @@ export default function Profile() {
         <div
           className={`${show === 'gallery' && 'display'} full-gallery d-none`}
         >
-          <SRLWrapper>
           <div className="full-gallery-container">
+          <SRLWrapper>
             {profiledata?.gallery?.map((img, index) => (
               <div className="full-gallery-img-container" key={index}>
                 <img
@@ -451,13 +449,13 @@ export default function Profile() {
                   ></img>
                 <div className="heart-container">
                   <div className="heart-div">
-                    <img className="heart-icon" src={heart} alt=""></img>
+                    <div className="heart-icon" style={{backgroundImage: `url(${heart})`}}></div>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
             </SRLWrapper>
+          </div>
         </div>
         <div
           className={`${show === 'friends' && 'display'} friends-list d-none`}

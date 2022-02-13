@@ -146,6 +146,10 @@
   margin-bottom: 2rem;
   text-align: center;
 }
+.flex-wrap>div {
+display: flex;
+flex-wrap: wrap;
+}
 .modal {
   font-size: 12px;
   background-color: #fff;

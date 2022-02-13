@@ -7,7 +7,7 @@ export const Gallery = ({ profiledata, id }) => {
   return (
     <>
       <h1 className="gallery-title">גלריה</h1>
-      <div className="imgs-container show-in-flex">
+      <div className="imgs-container show-in-flex flex-wrap">
         <SRLWrapper>
           {profiledata.gallery &&
             profiledata.gallery.slice(0, 4).map((img, index) => {

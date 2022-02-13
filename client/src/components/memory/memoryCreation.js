@@ -93,7 +93,7 @@ const MemoryCreation = () => {
       <Topbar />
       <div className="memory-creation-container">
         <div className="memory-creation-title">
-          <h1>יציאת זיכרון</h1>
+          <h1>יצירת זיכרון</h1>
         </div>
         <div className="memory-creation-content">
           <input
@@ -117,7 +117,7 @@ const MemoryCreation = () => {
               // multiple
               onChange={onChangeMultiplePicture}
             />
-            <span>הוסך תמונה</span>
+            <span>הוסף תמונה</span>
           </div>
           <div className="action-container">
             <div className="white-circle add-icon">+</div>
@@ -128,7 +128,7 @@ const MemoryCreation = () => {
           <div className="publish-btn" onClick={handleClick}>
             פרסם
           </div>
-          <div className="dlt-btn">מחר</div>
+          <div className="dlt-btn">מחק</div>
         </div>
       </div>
       <SnackBar open={open} handleClose={handleClose} message={message} />
