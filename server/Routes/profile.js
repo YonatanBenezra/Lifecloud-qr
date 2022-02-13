@@ -347,4 +347,15 @@ ProfileRouter.get('/searchProfile/:firstName', (req, res, next) => {
     });
 });
 
+ProfileRouter.post('/graveLocation/:id', async (req, res) => {
+  try{
+      const location = req.body.location
+      const profile = await profileModel.findById(req.params.id)
+      profile.googleLocation = location
+  } catch(e){
+      console.log(e)
+  }
+
+})
+
 module.exports = { ProfileRouter };

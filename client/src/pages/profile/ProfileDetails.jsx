@@ -75,7 +75,7 @@ export default function Profile() {
     );
     setmemoryData(res.data);
   };
-
+  
   let pasrseAxios = Object.keys(profiledata).length
     ? JSON.parse(profiledata.lifeAxis)
     : '';
