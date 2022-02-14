@@ -9,7 +9,6 @@ import ProfileDetails from './pages/profile/ProfileDetails';
 import MemoryCreation from './components/memory/memoryCreation';
 import Plans from './pages/plans/Plans';
 import { UserAndprofiles } from './pages/userpage/user-and-profile';
-import Map from './components/map/Map';
 import ENHome from './pages/home/ENHome';
 import ENPlans from './pages/plans/ENPlans';
 import ENLogin from './pages/login/ENLogin';
@@ -69,9 +68,6 @@ function App() {
             </Route>
             <Route exact path="/organisationregister">
               <OrganisationRegister />
-            </Route>
-            <Route exact path="/map">
-              <Map />
             </Route>
           </Switch>
         ) : (

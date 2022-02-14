@@ -2,22 +2,18 @@ import React, { useEffect, useContext, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import classes from './userProfile.module.css';
 import './userandprofiles.css';
 import Topbar from '../../components/topbar/Topbar';
 import { AuthContext } from '../../context/AuthContext';
 import Lock from '../../assets/Lock.png';
-import facebook from '../../assets/facebook.png';
-import ProgressBar from '../../components/progressbar/progressBar';
-import instagram from '../../assets/instagram.png';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
-import userImg from '../../assets/PlayerImage.png';
 import { useRef } from 'react';
 export const UserAndprofiles = () => {
   const LoggedUser = useContext(AuthContext);
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
+  const [userData, setUserData] = useState(localStorage.getItem('user'));
   const id = useParams().id;
   useEffect(() => {
     fetchuserprofiles();
@@ -28,6 +24,7 @@ export const UserAndprofiles = () => {
     );
     setData(res.data);
   };
+console.log(userData)
   const Notifications = [
     {
       date: '12.12.21',
@@ -108,6 +105,33 @@ export const UserAndprofiles = () => {
             </p> */}
             </div>
             <div className="profiles-container">
+            {/* {userData.user_type === 'organisation' && (
+                  <div>
+                    <h1>Main Profile</h1>
+                    <Link
+                      to={`/organisationdetails`}
+                      state={{ id: organisation?._id }}
+                      style={{ cursor: 'hover' }}
+                    >
+                      <div className="profile-container">
+                        <img
+                          className="profile-image"
+                          src={`${process.env.REACT_APP_API_URL}/${organisation.profileImg}`}
+                          alt=""
+                        />
+                        <div className="profile-name">
+                          {organisation?.firstName} {organisation?.lastName}
+                        </div>
+                        <ul className="admins-list">
+                          {organisation?.admins &&
+                            organisation?.admins.map((admin) => (
+                              <li key={admin?._id}>{admin?.firstName}</li>
+                            ))}
+                        </ul>
+                      </div>
+                    </Link>
+                  </div>
+                )} */}
               <h1 className="profile-title">הפרופילים שלי</h1>
               <div className="profiles">
                 {data &&
