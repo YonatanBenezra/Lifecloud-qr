@@ -54,7 +54,7 @@ export default function ENProfileCreate() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-  const [multiFiles, setMultiFiles] = useState();
+  const [multiFiles, setMultiFiles] = useState([{}]);
   const onChangeMultiplePicture = (e) => {
     setMultiFiles(e.target.files);
   };
@@ -132,9 +132,11 @@ export default function ENProfileCreate() {
       formdata.append('wazeLocation', wallInformation.wazeLocation);
       formdata.append('googleLocation', wallInformation.googleLocation);
       formdata.append('description', wallInformation.description);
-      for (let i = 0; i < multiFiles.length; i++) {
-        formdata.append('multiplefiles', multiFiles[i]);
+      if(multiFiles !== undefined){
+      for (let i = 0; i < multiFiles  && multiFiles.length > 0 && multiFiles.length; i++) {
+        formdata.append('multiplefiles', multiFiles && multiFiles[i]);
       }
+    }
 
       fetch(`${process.env.REACT_APP_API_URL}/api/profile/createProfile`, {
         method: 'POST',

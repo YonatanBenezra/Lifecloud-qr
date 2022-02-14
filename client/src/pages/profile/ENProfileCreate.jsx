@@ -169,10 +169,11 @@ export default function ENProfileCreate() {
       formdata.append('googleLocation', wallInformation.googleLocation);
       formdata.append('description', wallInformation.description);
       formdata.append('lifeAxis', JSON.stringify(wallInformation.lifeAxis));
-      for (let i = 0; i < multiFiles.length; i++) {
+      if(multiFiles !== undefined){
+      for (let i = 0; i <  multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
-      
+    }
       fetch(`${process.env.REACT_APP_API_URL}/api/profile/createProfile`, {
         method: 'POST',
         body: formdata,

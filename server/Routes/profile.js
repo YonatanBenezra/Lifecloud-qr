@@ -17,17 +17,17 @@ ProfileRouter.post('/createProfile', uploadpic.fields([{ name: 'profileImg', max
         const url = req.protocol + '://' + req.get('host')
         console.log(req.body, 'body')
         console.log(req.files, 'file')
-        let multiFiles = req.files.multiplefiles.map(res => {
+        let multiFiles = req.files.multiplefiles && req.files.multiplefiles.map(res => {
             return res.path.slice(7)
         })
         console.log(multiFiles, 'multiFiles')
         //new user
         let newUser = new profileModel({
             originalUser: req.body.originalUser,
-            gallery: multiFiles,
-            profileImg: req.files.profileImg[0].path.slice(7),
-            wallImg: req.files.wallImg[0].path.slice(7),
-            graveImg: req.files.graveImg[0].path.slice(7),
+            gallery: multiFiles && multiFiles.length > 0 ? multiFiles : '',
+            profileImg: req.files.profileImg === 'null' ? req.files.profileImg[0].path.slice(7) : '',
+            wallImg: req.files.wallImg === 'null' ? req.files.wallImg[0].path.slice(7) : '',
+            graveImg: req.files.graveImg === 'null' ? req.files.graveImg[0].path.slice(7) : '',
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             privacy: req.body.privacy,
