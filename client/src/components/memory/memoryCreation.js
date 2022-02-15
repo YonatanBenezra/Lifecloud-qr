@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, } from 'react';
+import React, { useState, useEffect } from 'react';
 import share from '../../assets/share.png';
 import axios from 'axios';
 import Topbar from '../topbar/Topbar';
@@ -9,7 +9,6 @@ import {
   useHistory
 } from "react-router-dom";
 const MemoryCreation = () => {
-  const history = useHistory();
   const [profiledata, setProfileData] = useState([]);
   const id = useParams().profileid;
   const [open, setOpen] = useState(false);
@@ -40,10 +39,7 @@ const MemoryCreation = () => {
       formdata.append('originalUser', id);
       formdata.append('firstName', profiledata.originalUser[0].firstName);
       formdata.append('lastName', profiledata.originalUser[0].lastName);
-      // for (let i = 0; i < multiFiles.length; i++) {
       formdata.append('memoryImges', multiFiles);
-
-      // }
       console.log(formdata, 'formdata');
       fetch(`${process.env.REACT_APP_API_URL}/api/memory/createMemory`, {
         method: 'POST',

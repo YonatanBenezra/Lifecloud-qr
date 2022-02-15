@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import initializeAuthentication from '../firebase.config';
 import {
   getAuth,
@@ -6,7 +6,6 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   signOut,
-  onAuthStateChanged,
 } from 'firebase/auth';
 
 initializeAuthentication();

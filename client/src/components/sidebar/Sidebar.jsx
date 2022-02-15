@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './sidebar.css';
 import { useSearch } from '../../context/SearchContext';
 import axios from 'axios';
-import CloseFriend from '../closeFriend/CloseFriend';
 
 const Sidebar = () => {
   const [people, setPeople] = useState([]);

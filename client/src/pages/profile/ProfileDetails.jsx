@@ -44,8 +44,7 @@ export default function Profile() {
   const [friendFlagReq, setrfriendReq] = useState([]);
   const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
-  const [memories, setMemories] = useState([]);
-  const [next, setnext] = useState(1);
+  const [next, setnext] = useState(4);
   const handleShowMoreMemories = () => {
     setnext(next + 4);
   };
@@ -59,9 +58,7 @@ export default function Profile() {
     fetchuserprofiles();
   }, []);
   useEffect(() => {
-    if (Object.keys(profiledata).length > 0) {
       fetchmemories();
-    }
   },[]);
   const fetchuserprofiles = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
@@ -70,9 +67,7 @@ export default function Profile() {
   };
 
   const fetchmemories = async () => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${profiledata.originalUser[0]._id}`
-    );
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`);
     setmemoryData(res.data);
   };
   
@@ -203,7 +198,7 @@ export default function Profile() {
     month: 'long', //to display the full name of the month
     year: 'numeric',
   };
-
+  console.log(memoryData)
   const loggedUser = JSON.parse(localStorage.getItem('user'));
   if (Object.keys(profiledata).length > 0) {
     return (
@@ -237,7 +232,9 @@ export default function Profile() {
                 <span className="small-btn">ערוך פרופיל</span>
               </Link>
             )}
-            <span className="small-btn">הוסף חבר</span>
+            
+            <span className={`${(profiledata.originalUser[0]._id === loggedUser._id ||
+              profiledata.addAdmins.indexOf()) ? 'dissapear' : 'small-btn'}`}>הוסף חבר</span>
             <span className="small-btn" onClick={() => setShow('friends')}>
               רשימת חברים
             </span>
@@ -302,19 +299,20 @@ export default function Profile() {
                 className="grave-img"
               ></img>
             </div>
-            <div className="navigation-btn">
               <a
                 href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation}`}
-              ></a>
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+            <div className="navigation-btn">
               לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
             </div>
+              </a>
           </div>
           <div className="memories-div">
             <h1 className="memories-title">זכרונות</h1>
             <div className="memories-container">
-              {/* {memoryData.forEach((data, key) => { */}
-              {/* console.log(data.file[0], '--> data') */}
-              {memoryData.length > 0 ? (
+              {memoryData.length > 0 ?  (
                 memoryData.map(
                   (
                     imgData,
@@ -324,7 +322,7 @@ export default function Profile() {
                       trigger={
                         <div className="memory-container" key={index}>
                           <img
-                            src={(`${process.env.REACT_APP_API_URL}/${imgData.file}`)}
+                            src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
                             alt=""
                             className="memory-img"
                           ></img>
@@ -334,7 +332,7 @@ export default function Profile() {
                             alt=""
                             className="memory-img"
                           ></img>
-                         })} */}
+                        })} */}
 
                           <div className="icons-container">
                             <div className="memory-heart-container">
@@ -389,8 +387,8 @@ export default function Profile() {
                     </Popup>
                   )
                 )
-              ) : (
-                <p style={{ marginBottom: '40px' }}>כאן יהיו הזכרונות שלנו מ</p>
+              )  : (
+                <p style={{ marginBottom: '40px' }}> {profiledata.firstName} כאן יהיו הזכרונות שלנו מ</p>
               )}
 
               {/* })} */}
@@ -398,7 +396,7 @@ export default function Profile() {
             <div className="memory-actions">
               <div
                 className={
-                  next > profiledata.gallery.length
+                  next > memoryData.length
                     ? ' hideBtn '
                     : ` full-memory-btn`
                 }

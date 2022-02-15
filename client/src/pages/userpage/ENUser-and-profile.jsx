@@ -85,7 +85,7 @@ export const ENUserAndprofiles = () => {
             </p> */}
               </div>
               <div className="profiles-container">
-                {isOrganisation && (
+                {/* {isOrganisation && (
                   <div>
                     <h1>Main Profile</h1>
                     <Link
@@ -111,7 +111,7 @@ export const ENUserAndprofiles = () => {
                       </div>
                     </Link>
                   </div>
-                )}
+                )} */}
                 <h1 className="profile-title">My Profiles</h1>
                 <div className="profiles">
                   {data && data.length > 0 ? (

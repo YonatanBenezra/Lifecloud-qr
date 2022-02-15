@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../../pages/profile/profiledetails.css'
 import { Link } from 'react-router-dom'
 export const ENGallery = ({ profiledata, id }) => {

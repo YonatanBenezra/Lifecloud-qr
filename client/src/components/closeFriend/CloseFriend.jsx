@@ -2,7 +2,6 @@ import './closeFriend.css';
 import { Link } from 'react-router-dom';
 
 export default function CloseFriend({ user }) {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <div className="sidebarFriend">
       <Link to={`/profile/${user.username}`}>

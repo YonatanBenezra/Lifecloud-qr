@@ -3,11 +3,6 @@ import './friendslist.css'
 import Rectangle7 from '../../assets/Rectangle7.png'
 import axios from 'axios'
 const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
-    const [friendsList, setFriendsList] = useState({
-        friendRequests: [{ name: 'Omer Raz', profileImg: Rectangle7 }],
-        friends: [{ name: 'Omer Raz', profileImg: Rectangle7 }],
-        admins: [{ name: 'Omer Raz', profileImg: Rectangle7 }]
-    })
     const [userid, setuserid] = useState('')
 
     const [users, setUsers] = useState([])
@@ -18,10 +13,8 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
         const res = await axios.get(`api/users/all/every`);
         setUsers(res.data)
     }
-    console.log(users)
     const [isAdmin, setIsAdmin] = useState(true)
     const handleAddFriend = (e) => {
-        console.log(e, proid, 'e')
         setuserid(e)
         fetch(`api/profile/addFriends/${proid}`, {
             method: 'PUT',
