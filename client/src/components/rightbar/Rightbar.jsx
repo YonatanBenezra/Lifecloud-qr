@@ -3,11 +3,9 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Add, Remove, Edit } from '@material-ui/icons';
 import './rightbar.css';
-import Online from '../online/Online';
 import { AuthContext } from '../../context/AuthContext';
 
 export default function Rightbar({ user }) {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [followed, setFollowed] = useState();
@@ -100,7 +98,6 @@ export default function Rightbar({ user }) {
         relationship: rel,
         username,
       };
-      const resd = await axios.put('/users/' + user._id, updatedData);
       window.location.reload();
     };
     return (

@@ -9,7 +9,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
 import ENTopbar from '../../components/topbar/ENTopBar';
-export default function ENProfileCreate() {
+export default function ProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
   const [picture, setPicture] = useState(null);
@@ -403,13 +403,14 @@ export default function ENProfileCreate() {
                       style={{ flexDirection: 'column' }}
                     >
                       <div className="form-group multi-preview"></div>
-                      <div className="register_profile_image">
+                      <div className="media-upload-button-container">
                         <input
                           id="profilePic"
                           type="file"
                           name="multiplefiles"
                           multiple
                           onChange={onChangeMultiplePicture}
+                          className="media-upload-button"
                         />
                       </div>
                       <div>

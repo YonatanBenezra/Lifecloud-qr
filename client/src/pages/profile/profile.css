@@ -370,9 +370,17 @@ input::placeholder {
 }
 .active {
   color: #6097bf;
+  background-color: #6097bf;
 }
 .location-semicontainer {
   width: 100%;
+}
+.media-upload-button {
+  width: 125px;
+  margin-bottom: 1.5rem;
+}
+.media-upload-button-container {
+  text-align: center;
 }
 .add-btn {
   margin: auto;
@@ -473,7 +481,6 @@ input::placeholder {
 .custom-file-input::before {
   content: 'הוסף תמונת פרופיל + ';
   display: inline-block;
-  background: linear-gradient(top, #f9f9f9, #e3e3e3);
   /* border: 1px solid #999; */
   border-radius: 3px;
   padding: 5px 8px;
@@ -495,7 +502,6 @@ input::placeholder {
 .custom-file-grave::before {
   content: 'הוסף תמונה של הקבר + ';
   display: inline-block;
-  background: linear-gradient(top, #f9f9f9, #e3e3e3);
   /* border: 1px solid #999; */
   border-radius: 3px;
   padding: 5px 8px;
@@ -513,7 +519,6 @@ input::placeholder {
 #profilePic::before {
   content: '+ הוסף תמונות לגלריה';
   display: inline-block;
-  background: linear-gradient(top, #f9f9f9, #e3e3e3);
   /* border: 1px solid #999; */
   border-radius: 3px;
   padding: 5px 8px;
@@ -528,7 +533,6 @@ input::placeholder {
 .custom-file-input-cover::before {
   content: 'הוסף תמונת קאבר + ';
   display: inline-block;
-  background: linear-gradient(top, #f9f9f9, #e3e3e3);
   /* border: 1px solid #999; */
   border-radius: 3px;
   padding: 5px 8px;

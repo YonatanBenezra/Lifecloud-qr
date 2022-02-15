@@ -32,32 +32,6 @@
     height: 135px;
     font-family: Alef;
   }
-  .small-btn {
-    background: #dcecf4;
-    border-radius: 10px;
-    color: #abc9db;
-    width: fit-content;
-    text-align: center;
-    padding: 1rem;
-    justify-content: center;
-    margin-left: 1rem;
-    cursor: pointer;
-  }
-  .big-btn {
-    display: flex;
-    background: #dcecf4;
-    border-radius: 10px;
-    color: #abc9db;
-    width: -moz-fit-content;
-    width: fit-content;
-    text-align: center;
-    height: 50px;
-    width: 120px;
-    justify-content: center;
-    align-items: center;
-    margin-left: 1rem;
-    cursor: pointer;
-  }
   
   .btns-container {
     display: flex;
@@ -191,20 +165,7 @@
     align-items: center;
     justify-content: space-around;
   }
-  
-  .navigation-btn {
-    display: flex;
-    background: #fff;
-    height: 65px;
-    width: 290px;
-    border-radius: 15px;
-    align-items: center;
-    justify-content: space-evenly;
-    font-size: 18px;
-    /* text-align: center; */
-    margin: auto;
-    margin-top: 2rem;
-  }
+
   .memories-title {
     text-align: center;
     color: #6097bf;

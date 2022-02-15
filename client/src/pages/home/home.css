@@ -351,54 +351,7 @@ flex-wrap: wrap;
   text-decoration: none;
   font-size: 25px;
 }
-.plans-container {
-  display: flex;
-  justify-content: center;
-}
-.plan-container {
-  width: 376px;
-  height: 500px;
-  border: 2px solid #dcecf4;
-  box-sizing: border-box;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  margin: 1rem;
-  text-align: center;
-  padding-top: 3rem;
-}
-.plans-title {
-  color: #6097bf;
-  text-align: center;
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-}
-.plan-title {
-  margin-top: 3rem;
-  color: #6097bf;
-  text-align: center;
-}
-.plan-description {
-  margin-top: 30%;
-  font-size: 20px;
-  color: #6097bf;
-}
-.link-plans {
-  margin-top: 3rem !important;
-  margin-bottom: 5rem !important;
-  display: flex;
-  width: 774px;
-  height: 60px;
-  background: #6097bf;
-  border-radius: 30px;
-  font-size: 20px;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  cursor: pointer;
-  color: #fff;
-}
-.plans-section a {
-  cursor: pointer;
-}
+
 .home-profile-creation-btn {
   height: 50px;
   width: 322px;

@@ -4,8 +4,6 @@ import blueLogo from '../../assets/logo-blue.png';
 import { Link, useHistory } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useSearch } from '../../context/SearchContext';
-import LanguageContext from '../../context/LanguageContext';
 import axios from 'axios';
 import WithLanguage from '../languageButton/WithLanguage';
 import LanguageButton from '../languageButton/LanguageButton';
@@ -13,10 +11,7 @@ import userIcon from '../../assets/userIcon.png';
 
 const Topbar = (props) => {
   const LoggedUser = useContext(AuthContext);
-  const history = useHistory();
-  // const { searchText, setSearchText } = useSearch();
   const [searchData, setSeachData] = useState([]);
-  // console.log(searchText)
   const { user } = useContext(AuthContext);
   const handleSearch = async (e) => {
     const { value } = e.target;

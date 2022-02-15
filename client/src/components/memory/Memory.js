@@ -1,18 +1,14 @@
-import React, { onClick, useEffect, useState } from 'react'
+import React from 'react'
 import './memory-page.css'
 import BottomLeftCloud from '../../assets/bottom-left-cloud.png'
 import TopRightCloud from '../../assets/top-right-cloud.png'
-import Rectangle6 from '../../assets/Rectangle6.png'
 import heart from '../../assets/heart.png';
 import instagram from '../../assets/instagram.png';
 import facebook from '../../assets/facebook.png';
 import Arrow1 from '../../assets/Arrow1.png';
 import moment from 'moment'
-import LanguageContext from '../../context/LanguageContext';
 
 const Memory = ({ data, close, handleLike, onhandleChangeComment, handleComment, commenting, setCommenting, handleDelete, handleDellMemory }) => {
-    const [language, setLanguage] = useState(LanguageContext.language);
-
     const isUserAdmin = true
     return (
         <div className="memory-page">
@@ -72,7 +68,7 @@ const Memory = ({ data, close, handleLike, onhandleChangeComment, handleComment,
                             )
                         })}
                         <div className='action-btns-container'>
-                            <div onClick={() => setCommenting(!commenting)} style={{ cursor: 'pointer' }} className={!commenting && 'comment-btn'}> הגב... </div>
+                            <div onClick={() => setCommenting(!commenting)} style={{ cursor: 'pointer' }} className={!commenting && 'comment-btn'}> ...הגב </div>
                             {commenting ?
                                 <input onChange={onhandleChangeComment} placeholder='write comment' style={{
                                     width: '99%',
@@ -94,7 +90,7 @@ const Memory = ({ data, close, handleLike, onhandleChangeComment, handleComment,
                         </div>
                     </div>
                 </div>
-                <h1 onClick={close} className='close-btn'>Back <img alt='' src={Arrow1}></img></h1>
+                <h1 onClick={close} className='close-btn'>חזרה <img alt='' src={Arrow1}></img></h1>
             </div>
             <img alt='' src={TopRightCloud} className='top-cloud'></img>
             <img src={BottomLeftCloud} className='bottom-cloud' alt=''></img>

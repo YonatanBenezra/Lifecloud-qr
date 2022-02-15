@@ -44,7 +44,6 @@ export default function ENProfile() {
   const [friendFlagReq, setrfriendReq] = useState([])
   const [adminFlagReq, setAdminres] = useState([])
   const id = useParams().id;
-  const [memories, setMemories] = useState([]);
   const [next, setnext] = useState(1);
   const handleShowMoreMemories = () => {
     setnext(next + 4);
@@ -72,12 +71,9 @@ export default function ENProfile() {
 
   const fetchmemories = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`);
-    console.log(res, 'res memory');
     setmemoryData(res.data);
   };
 
-  console.log(memoryData,'get all memory');
-  console.log(profiledata);
   let pasrseAxios = Object.keys(profiledata).length
     ? JSON.parse(profiledata.lifeAxis)
     : '';
@@ -205,15 +201,13 @@ export default function ENProfile() {
     setOpen(false);
     setMessage('');
   };
-  console.log(memoryData, 'memoryData')
   var options = {
     weekday: 'long', //to display the full name of the day, you can use short to indicate an abbreviation of the day
     day: 'numeric',
     month: 'long', //to display the full name of the month
     year: 'numeric',
   };
-  console.log(text, 'setText');
-  // const {file} = memoryData
+  console.log(memoryData)
   if (Object.keys(profiledata).length > 0) {
     return (
       <div>
@@ -305,8 +299,6 @@ export default function ENProfile() {
           <div className="memories-div">
             <h1 className="memories-title">זכרונות</h1>
             <div className="memories-container">
-              {/* {memoryData.forEach((data, key) => { */}
-              {/* console.log(data.file[0], '--> data') */}
               {memoryData.length > 0 ? (
                 memoryData.map(
                   (

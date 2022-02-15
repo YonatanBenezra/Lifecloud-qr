@@ -11,25 +11,35 @@ import moment from 'moment'
 import SnackBar from '../../components/snackbar/SnackBar'
 export default function ProfileEdit() {
     const { user } = useContext(AuthContext);
-    const [image, setImage] = useState(null);
-    const [coverData, setCoverData] = useState(null);
-    const [profiledata, setProfileData] = useState({})
     const id = useParams().id;
     const [picture, setPicture] = useState(null);
     const [imgData, setImgData] = useState(null);
-    const [open, setOpen] = useState(false)
-    const [message, setMessage] = useState('')
-    const [multiFiles, setMultiFiles] = useState()
-    const [inputList, setInputList] = useState([
-        { axisTitle: '', axisDate: '', axisDescription: '' },
-    ]);
+    const [open, setOpen] = useState(false);
+    const [profiledata, setProfileData] = useState({})
+    const [hebBirthDate, sethebBirthDate] = useState('');
+    const [hebDeathDate, sethebDeathDate] = useState('');
     const [selectedGender, setSelectedGender] = useState('');
+    const [selectedPrivacy, setSelectedPrivacy] = useState('public');
+    const [image, setImage] = useState(null);
+    const [graveImage, setGraveImage] = useState(null);
+    const [graveData, setGraveData] = useState(null);
+    const [coverData, setCoverData] = useState(null);
+    const [message, setMessage] = useState('');
+    const [multiFiles, setMultiFiles] = useState([]);
+    const [inputList, setInputList] = useState([
+      { axisTitle: '', axisDate: '', axisDescription: '' },
+    ]);
     const firstName = useRef();
     const lastName = useRef();
     const companyName = useRef();
     const birthDate = useRef();
+    // const hebBirthDate = useRef();
     const deathDate = useRef();
+    // const hebDeathDate = useRef();
+    const city = useRef();
+    const degree = useRef();
     const gender = selectedGender;
+    // const privacy = selectedPrivacy;
     const phone = useRef();
     const email = useRef();
     const password = useRef();
@@ -44,12 +54,17 @@ export default function ProfileEdit() {
     const [wallInformation, setWallInformation] = useState({
         originalUser: Object.keys(profiledata).length ? profiledata.originalUser[0]._id : '',
         profileImg: Object.keys(profiledata).length ? profiledata.profileImg : '',
+        graveImg: Object.keys(profiledata).length ? profiledata.profileImage : '',
         wallImg: Object.keys(profiledata).length ? profiledata.wallImg : '',
         firstName: Object.keys(profiledata).length ? profiledata.firstName : '',
         lastName: Object.keys(profiledata).length ? profiledata.lastName : '',
         birthDate: Object.keys(profiledata).length ? moment(profiledata.birthDate).utc().format("YYYY-DD-MM") : '',
         deathDate: Object.keys(profiledata).length ? moment(profiledata.deathDate).utc().format("YYYY-DD-MM") : '',
+        hebBirthDate: Object.keys(profiledata).length ? moment(profiledata.hebBirthDate).utc().format("YYYY-DD-MM") : '',
+        hebDeathDate: Object.keys(profiledata).length ? moment(profiledata.hebDeathDate).utc().format("YYYY-DD-MM") : '',
         gender: Object.keys(profiledata).length ? profiledata.gender : '',
+        city: Object.keys(profiledata).length ? profiledata.city : '',
+        degree: Object.keys(profiledata).length ? profiledata.degree : '',
         wazeLocation: Object.keys(profiledata).length ? profiledata.wazeLocation : '',
         googleLocation: Object.keys(profiledata).length ? profiledata.googleLocation : '',
         description: Object.keys(profiledata).length ? profiledata.description : '',
@@ -68,6 +83,7 @@ export default function ProfileEdit() {
     const fetchuserprofiles = async () => {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`);
         setProfileData(res.data)
+        setMultiFiles(res.data.gallery)
     }
     const onChangePicture = (e) => {
         if (e.target.files[0]) {
@@ -93,10 +109,28 @@ export default function ProfileEdit() {
         }
     };
 
-    const onChangeMultiplePicture = (e) => {
-        setMultiFiles(e.target.files)
-    }
+    const onChangeGrave = (e) => {
+        if (e.target.files[0]) {
+          console.log('picture: ', e.target.files);
+          setGraveImage(e.target.files[0]);
+          const reader = new FileReader();
+          reader.addEventListener('load', () => {
+            setGraveData(reader.result);
+          });
+          reader.readAsDataURL(e.target.files[0]);
+        }
+      };
 
+    
+      const onChangeMultiplePicture = (e) => {
+        const files = [...e.target.files];
+        files.forEach((file) => (file.imagePreview = URL.createObjectURL(file)));
+        setMultiFiles((prev) => [...prev, ...files]);
+      };
+
+    const handlePrivacyChange = (e) => {
+        setSelectedPrivacy(e.target.value);
+      };
 
     const handleChange = (e) => {
         setSelectedGender(e.target.value);
@@ -122,8 +156,7 @@ export default function ProfileEdit() {
             ])
         }
     }, [profiledata])
-    console.log(profiledata, 'pro')
-    console.log(wallInformation, 'wallInformation')
+    console.log(multiFiles, 'multi')
     // handle input change
     const handleInputChange = (e, index) => {
         console.log(e.target.value, index)
@@ -169,14 +202,12 @@ export default function ProfileEdit() {
             formdata.append('lifeAxis', JSON.stringify(inputList));
             for (let i = 0; i < multiFiles.length; i++) {
                 formdata.append('multiplefiles', multiFiles[i]);
-
             }
             // const config = {
             //   headers: {
             //     'content-type': 'multipart/form-data'
             //   }
             // }
-            console.log(formdata, 'formdata')
             fetch(`${process.env.REACT_APP_API_URL}/api/profile/updateProfile`, {
                 method: 'PUT',
                 body: formdata,
@@ -206,99 +237,162 @@ export default function ProfileEdit() {
     }
     return (
         <div className="profile-creation-container">
-            <Topbar />
-            <div className="profile-creation">
-                <div className="loginWrapper">
-                    <div className="loginLeft">
-                        <h3 className="profile-creation-title">ערוך פרופיל</h3>
-                    </div>
-                    <div className="profile-images">
-                        <div className="register_profile_image"></div>
-                        {/* <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                    !imgData &&
-                    'https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png'
-                }
-                alt=""
-              />
-            </div> */}
-                        <div className="profile-image-container">
-                            <img
-                                className="profile-image"
-                                src={imgData ? imgData : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
-                                }
-                                alt=""
-                            ></img>
-                            <input
-                                className="custom-file-input"
-                                type="file"
-                                name="profileImg"
-                                onChange={onChangePicture}
-                            />
-                        </div>
-                        <div className="profile-image-container">
-                            <img
-                                className="profile-image"
-                                src={coverData ? coverData : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`}
-                                alt=""
-                            ></img>
-                            <input
-                                className="custom-file-input-cover"
-                                type="file"
-                                onChange={onChangeCover}
-                                name="profileImg"
-                            />
-                        </div>
-                    </div>
-                    <div className="loginRight">
-                        <div className="RegBox">
-                            <form className="profile-creation-box" onSubmit={handleClick}>
-                                <div className="names-container">
-                                    <input
-                                        placeholder="* שם פרטי"
-                                        value={wallInformation.firstName}
-                                        ref={firstName}
-                                        onChange={handleChangeValue}
-                                        name='firstName'
-                                        className="nameInput"
-                                    />
-                                    <input
-                                        placeholder="* שם משפחה"
-                                        value={wallInformation.lastName}
-                                        ref={lastName}
-                                        onChange={handleChangeValue}
-                                        name='lastName'
-                                        className="nameInput"
-                                    />
-                                </div>
-                                <div className="names-container">
-                                    <input
-                                        placeholder="* תאריך לידה"
-                                        required
-                                        type="date"
-                                        ref={birthDate}
-                                        onChange={handleChangeValue}
-                                        name='birthDate'
-                                        value={moment(wallInformation.birthDate).format("YYYY-MM-DD")}
-                                        className="nameInput"
-
-                                    />
-                                    <input
-                                        placeholder="* תאריך פטירה"
-                                        required
-                                        type="date"
-                                        onChange={handleChangeValue}
-                                        value={moment(wallInformation.deathDate).utc().format("YYYY-MM-DD")}
-                                        name='deathDate'
-                                        ref={deathDate}
-                                        className="nameInput"
-                                    />
-                                </div>
-                                <div className="radio-container">
+        <Topbar />
+        <div className="profile-creation">
+          <div className="">
+            <div className="loginLeft" style={{ marginBottom: '3rem' }}>
+                
+              {/* <h3 className="profile-creation-title">ערוך פרופיל</h3> */}
+              <div className="notifications-title">
+            <h1
+             onClick={() => history.goBack()}
+              style={{ cursor: 'pointer', paddingRight: '115px' }}
+            >
+              חזרה
+            </h1>
+            <h1 style={{ fontSize: '60px', paddingRight: '160px' }}>ערוך פרופיל</h1>
+          </div>
+              {/* <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div> */}
+            </div>
+            <div className="profile-images">
+              {/* <div className="register_profile_image"></div> */}
+              {/* <div className="profile-image-container">
+                <img
+                  className="profile-image"
+                  src={
+                      !imgData &&
+                      'https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png'
+                  }
+                  alt=""
+                />
+              </div> */}
+              <div className="profile-image-container">
+                <img
+                  className="profile-image"
+                  src={imgData ? imgData : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
+              }
+                  alt=""
+                ></img>
+                <input
+                  className="custom-file-input"
+                  type="file"
+                  name="profileImg"
+                  onChange={onChangePicture}
+                />
+              </div>
+              <div className="profile-image-container">
+                <img
+                  className="profile-image"
+                  src={coverData ? coverData : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`}
+                  alt=""
+                ></img>
+                <input
+                  className="custom-file-input-cover"
+                  type="file"
+                  onChange={onChangeCover}
+                  name="coverImg"
+                />
+              </div>
+            </div>
+            <div className="loginRight">
+              <div className="RegBox">
+                <form className="profile-creation-box" onSubmit={handleClick}>
+                  <div
+                    className="profile-creation-names-container"
+                    style={{ marginBottom: '3rem' }}
+                  >
+                    <input
+                      placeholder="* שם פרטי"
+                      value={wallInformation.firstName}
+                      ref={firstName}
+                      onChange={handleChangeValue}
+                      name='firstName'
+                      className="nameInput"
+                    />
+                                      <input
+                                          placeholder="* שם משפחה"
+                                          value={wallInformation.lastName}
+                                          ref={lastName}
+                                          onChange={handleChangeValue}
+                                          name='lastName'
+                                          className="nameInput"
+                                      />
+                  </div>
+                  <div className="birth-date-container">
+                    <h1>תאריך לידה</h1>
+                    <h1>תאריך פטירה</h1>
+                  </div>
+                  <div className="profile-creation-names-container">
+                    <input
+                      placeholder="* לועזי"
+                      ref={birthDate}
+                      onChange={handleChangeValue}
+                      name='birthDate'
+                      value={moment(wallInformation.birthDate).format("YYYY-MM-DD")}
+                      className="nameInput"
+                      type="text"
+                    />
+                    <input
+                      placeholder="* לועזי"
+                      type="date"
+                      ref={deathDate}
+                      onChange={handleChangeValue}
+                      name='deathDate'
+                      value={moment(wallInformation.deathDate).format("YYYY-MM-DD")}
+  
+                      className="nameInput"
+                    />
+                  </div>
+                  <div className="profile-creation-names-container">
+                    <input
+                      placeholder="עברי"
+                      type="text"
+                      // ref={hebBirthDate}\
+                      onChange={handleChangeValue}
+                      name='birthDate'
+                      value={moment(wallInformation.hebBirthDate).format("YYYY-MM-DD")}
+                      // onChange={(e) => sethebBirthDate(e.target.value)}
+                      className="nameInput"
+                    />
+                    <input
+                      placeholder="עברי"
+                      type="text"
+                      // ref={hebBirthDate}\
+                      value={hebDeathDate}
+                      onChange={handleChangeValue}
+                      name='birthDate'
+                      value={moment(wallInformation.hebDeathDate).format("YYYY-MM-DD")}
+                      // onChange={(e) => sethebDeathDate(e.target.value)}
+                      className="nameInput"
+                    />
+                  </div>
+  
+                  <div
+                    className="profile-creation-names-container"
+                    style={{ marginTop: '3rem' }}
+                  >
+                    <input
+                      placeholder="עיר"
+                      ref={city}
+                      onChange={handleChangeValue}
+                      value={wallInformation.city}
+                      name='city'
+                      className="nameInput"
+                      type="text"
+                    />
+                    <input
+                      placeholder="תואר"
+                      type="text"
+                      ref={degree}
+                      onChange={handleChangeValue}
+                      value={wallInformation.degree}
+                      name='degree'
+                      className="nameInput"
+                    />
+                  </div>
+                  <div className="radio-container">
                                     <h3>מין</h3>
-                                    <div className="radio-input-container">
+                                    <div className={`${wallInformation.gender === 'male' && 'register-active'} radio-input-container-register`}>
                                         <input
                                             type="radio"
                                             value="male"
@@ -309,13 +403,11 @@ export default function ProfileEdit() {
                                         />
                                         <label
                                             for="male"
-                                            className={`${wallInformation.gender === 'male' && 'active'
-                                                } input-label`}
                                         >
                                             ז
                                         </label>
                                     </div>
-                                    <div className="radio-input-container">
+                                    <div className={`${wallInformation.gender === 'female' && 'register-active'} radio-input-container-register`}>
                                         <input
                                             type="radio"
                                             value="female"
@@ -323,131 +415,279 @@ export default function ProfileEdit() {
                                             onChange={handleChangeValue}
                                             name="gender"
                                             className="radio"
+
                                         />
                                         <label
                                             for="female"
-                                            className={`${wallInformation.gender === 'female' && 'active'
-                                                } input-label`}
                                         >
                                             נ
                                         </label>
                                     </div>
-                                </div>
-                                <div className="location-container">
-                                    <h1>* מיקום הקבר</h1>
-                                    <div className="location-semicontainer">
-                                        <div className="names-container">
-                                            <input
-                                                placeholder="* Add waze navigation"
-                                                required
-                                                ref={wazeLocation}
-                                                onChange={handleChangeValue}
-                                                value={wallInformation.wazeLocation}
-                                                name='wazeLocation'
-                                                className="nameInput"
-                                            />
-                                            <input
-                                                placeholder="* Add google map location"
-                                                required
-                                                ref={googleLocation}
-                                                onChange={handleChangeValue}
-                                                value={wallInformation.googleLocation}
-                                                name='googleLocation'
-                                                className="nameInput"
-                                            />
-                                        </div>
+                                    <div className={`${wallInformation.gender === 'other' && 'register-active'} radio-input-container-register`}>
+                                        <input
+                                            type="radio"
+                                            value="other"
+                                            id="other"
+                                            onChange={handleChangeValue}
+                                            name="gender"
+                                            className="radio"
+                                        />
+                                        <label
+                                            for="other"
+                                        >
+                                            אחר
+                                        </label>
                                     </div>
-                                </div>
-                                <div className="location-container">
-                                    <h1>* העלאת תמונות לגלריה</h1>
-                                    <div>
-                                        <div className="names-container">
-                                            <div className="register_profile_image">
-                                                <input
-                                                    id="profilePic"
-                                                    type="file"
-                                                    name="multiplefiles"
-                                                    multiple
-                                                    onChange={onChangeMultiplePicture}
-                                                />
-                                            </div>
-                                            {/* <div className="previewProfilePic">
-                                                <img
-                                                    className="playerProfilePic_home_tile"
-                                                    src={imgData}
-                                                    alt=""
-                                                />
-                                            </div> */}
-                                        </div>
-                                    </div>{' '}
-                                </div>
-                                <input
-                                    placeholder="* + על הנפטר"
-                                    ref={description}
-                                    onChange={handleChangeValue}
-                                    value={wallInformation.description}
-                                    name='description'
-                                    className="nameInput description"
-                                />
-                                <div>
-                                    <h1 style={{ textAlign: 'center' }}>ציר חיים</h1>
-                                    {inputList.map((x, i) => {
-                                        return (
-                                            <div className="box" key={i}>
-                                                <div className="inner-box">
-                                                    <input
-                                                        name="axisTitle"
-                                                        placeholder="* כותרת"
-                                                        value={x.axisTitle}
-                                                        onChange={(e) => handleInputChange(e, i)}
-                                                        className="axis-input"
-                                                    />
-                                                    <input
-                                                        name="axisDate"
-                                                        placeholder="* תאריך"
-                                                        value={x.axisDate}
-                                                        onChange={(e) => handleInputChange(e, i)}
-                                                        className="axis-input"
-                                                    />
-                                                    <input
-                                                        name="axisDescription"
-                                                        placeholder="* טקסט"
-                                                        value={x.axisDescription}
-                                                        onChange={(e) => handleInputChange(e, i)}
-                                                        className="axis-description"
-                                                    />
-                                                    <div className="btn-box">
-                                                        {inputList.length !== 1 && (
-                                                            <p
-                                                                className="delete-btn"
-                                                                onClick={() => handleRemoveClick(i)}
-                                                            >
-                                                                -הסר
-                                                            </p>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                                {inputList.length - 1 === i && (
-                                                    <div className="add-btn" onClick={handleAddClick}>
-                                                        <div className="inner-btn">
-                                                            <div className="line-1"></div>
-                                                            <div className="line-2"></div>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                                <button className="create-btn" type="submit">
-                                    Save
-                                </button>
-                            </form>
+                  </div>
+                  <div
+                    className="location-container"
+                    style={{ marginTop: '70px', marginBottom: '70px' }}
+                  >
+                    <h1>העלאת מדיה</h1>
+                    <div>
+                      <div
+                        className="profile-creation-names-container"
+                        style={{ flexDirection: 'column' }}
+                      >
+                        <div className="form-group multi-preview"></div>
+                        <div className="media-upload-button-container">
+                          <input
+                            id="profilePic"
+                            type="file"
+                            name="multiplefiles"
+                            multiple
+                            onChange={onChangeMultiplePicture}
+                            className="media-upload-button"
+                          />
                         </div>
+                        <div>
+                          <img
+                            className="profile-creation-gallery-img"
+                            src={
+                              profiledata.gallery &&
+                              profiledata.gallery.length > 0 ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[0]}`
+                              : multiFiles && multiFiles.length > 0
+                              ? multiFiles[0].imagePreview
+                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          ></img>
+                          <img
+                            className="profile-creation-gallery-img"
+                            src={
+                              profiledata.gallery && profiledata.gallery.length > 1
+                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[1]}`
+                                : multiFiles && multiFiles.length > 1
+                                ? multiFiles[1].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                              }
+                            alt=""
+                          ></img>
+                          <img
+                            className="profile-creation-gallery-img"
+                            src={
+                              profiledata.gallery && profiledata.gallery.length > 2
+                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[2]}`
+                                : multiFiles && multiFiles.length > 2
+                                ? multiFiles[2].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                              }
+                            alt=""
+                          ></img>
+                          <img
+                            className="profile-creation-gallery-img"
+                            src={
+                              profiledata.gallery && profiledata.gallery.length > 3
+                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[3]}`
+                                : multiFiles && multiFiles.length > 3
+                                ? multiFiles[3].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                              }
+                            alt=""
+                          ></img>
+                          <img
+                            className="profile-creation-gallery-img"
+                            src={
+                              profiledata.gallery && profiledata.gallery.length > 4
+                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[4]}`
+                                : multiFiles && multiFiles.length > 4
+                                ? multiFiles[4].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                              }
+                            alt=""
+                          ></img>
+                        </div>
+                        {/* <div className="previewProfilePic"> */}
+                        {/* <img
+                            className="playerProfilePic_home_tile"
+                            src={imgData}
+                            alt=""
+                          /> */}
+                        {/* </div> */}
+                      </div>
+                    </div>{' '}
+                  </div>
+                  <div style={{ textAlign: 'center' }}>
+                    <h1>על הנפטר</h1>
+                    <input
+                      ref={description}
+                      className="profile-creation-description"
+                    />
+                  </div>
+                  <div >
+                    <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
+                    {inputList.map((x, i) => {
+                      return (
+                        <div className="box" key={i}>
+                          <div className="inner-box">
+                            <input
+                              name="axisTitle"
+                              placeholder="כותרת"
+                              value={x.axisTitle}
+                              onChange={(e) => handleInputChange(e, i)}
+                              className="axis-input"
+                            />
+                            <input
+                              name="axisDate"
+                              placeholder="תאריך"
+                              value={x.axisDate}
+                              onChange={(e) => handleInputChange(e, i)}
+                              className="axis-input"
+                            />
+                            <textarea
+                              name="axisDescription"
+                              placeholder="טקסט"
+                              value={x.axisDescription}
+                              onChange={(e) => handleInputChange(e, i)}
+                              className="axis-description"
+                            />
+                            <div className="btn-box">
+                              {inputList.length !== 1 && (
+                                <p
+                                  className="delete-btn"
+                                  onClick={() => handleRemoveClick(i)}
+                                >
+                                  - הסר
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          {inputList.length - 1 === i && (
+                            <div className="add-btn" onClick={handleAddClick}>
+                              <div className="inner-btn">
+                                <div className="line-1"></div>
+                                <div className="line-2"></div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div
+                    className="location-container"
+                    style={{ marginTop: '70px' }}
+                  >
+                    <h1>מיקום הקבר</h1>
+                    <div className="location-semicontainer">
+                      <div className="profile-creation-names-container">
+                        <input
+                          placeholder="הוספת מיקום ווייז "
+                          ref={wazeLocation}
+                          onChange={handleChangeValue}
+                          value={wallInformation.wazeLocation}
+                          name='wazeLocation'
+                          className="nameInput"
+                        />
+                        <input
+                          placeholder="הוספת מיקום גוגל"
+                          ref={googleLocation}
+                          onChange={handleChangeValue}
+                          value={wallInformation.googleLocation}
+                          name='googleLocation'
+                          className="nameInput"
+                        />
+                      </div>
                     </div>
-                </div>
-                <SnackBar open={open} handleClose={handleClose} message={message} />
+                    <div className="profile-image-container">
+                      <img
+                        className="profile-image"
+                        src={
+                          graveData
+                            ? graveData
+                            : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                        }
+                        alt=""
+                      ></img>
+                      <input
+                        className="custom-file-grave"
+                        type="file"
+                        onChange={onChangeGrave}
+                        name="coverImg"
+                        style={{ marginRight: '38%' }}
+                      />
+                    </div>
+                  </div>
+  
+                  <div className="radio-container-register">
+                    <h3 style={{ color: '#6097BF' }}>
+                      פרטיות
+                    </h3>
+                    <div
+                      style={{
+                        width: 'unset',
+                        paddingRight: '10px',
+                        paddingLeft: '10px',
+                      }}
+                      className={`${
+                        selectedPrivacy === 'private' && 'register-active'
+                      } radio-input-container-register`}
+                      onClick={() => setSelectedPrivacy('private')}
+                    >
+                      <input
+                        type="radio"
+                        value="private"
+                        id="private"
+                        onChange={handlePrivacyChange}
+                        checked={user.privacy === 'private'}
+                        name="privacy"
+                        className="radio"
+                      />
+                      <label for="private">פרטי</label>
+                    </div>
+                    <div
+                      style={{
+                        width: 'unset',
+                        paddingRight: '10px',
+                        paddingLeft: '10px',
+                      }}
+                      className={`${
+                        selectedPrivacy === 'public' && 'register-active'
+                      } radio-input-container-register`}
+                      onClick={() => setSelectedPrivacy('public')}
+                    >
+                      <input
+                        type="radio"
+                        value="public"
+                        id="public"
+                        onChange={handlePrivacyChange}
+                        checked={user.privacy === 'public'}
+                        name="privacy"
+                        className="radio"
+                      />
+                      <label for="public">פומבי</label>
+                    </div>
+                  </div>
+  
+                  <button className="create-btn" type="submit">
+                    שמור
+                  </button>
+                </form>
+              </div>
             </div>
+          </div>
+          <SnackBar open={open} handleClose={handleClose} message={message} />
         </div>
+      </div>
     );
 }

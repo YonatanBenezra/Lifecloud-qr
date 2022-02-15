@@ -69,7 +69,7 @@ const Login = () => {
                   disabled={isFetching}
                 >
                   {isFetching ? (
-                    <CircularProgress color="white" size="20px" />
+                    <CircularProgress color="primary" size="20px" />
                   ) : (
                     'login'
                   )}
@@ -79,7 +79,7 @@ const Login = () => {
               <div className="loginRegisterContainer">
                 <p className="login-register-button">
                   {isFetching ? (
-                    <CircularProgress color="white" size="15px" />
+                    <CircularProgress color="primary" size="15px" />
                   ) : (
                     <Link
                       to="/register"
@@ -93,7 +93,7 @@ const Login = () => {
                 |
                 <p className="login-register-button">
                   {isFetching ? (
-                    <CircularProgress color="white" size="15px" />
+                    <CircularProgress color="primary" size="15px" />
                   ) : (
                     <Link
                       to="/register"

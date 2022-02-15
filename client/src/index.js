@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { AuthContextProvider } from './context/AuthContext';
-import axios from 'axios';
 import { SearchProvider } from './context/SearchContext';
 import SimpleReactLightbox from 'simple-react-lightbox';
 
