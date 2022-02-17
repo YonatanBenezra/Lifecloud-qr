@@ -331,6 +331,34 @@ ProfileRouter.put('/addAdmins/:id', async (req, res) => {
   }
 });
 
+ProfileRouter.put('/addToFriendRequest/:id', async (req, res) => {
+  try{
+    const profile = await profileModel.findById(req.params.id)
+    profile.friendRequests.push(req.body.id) // in req.body.id the id of the user who wants to befriend this profile is located
+    await profile.save()
+    res.send(profile)
+  } catch(e){
+    res.status(500).send(e)
+  }
+})
+
+ProfileRouter.delete('/addToFriendRequest/:id', async (req, res) => {
+  try{
+    const profile = await profileModel.findById(req.params.id)
+    profile.addFriends.push(req.body.id) // in req.body.id the id of the user who is approved to be a friend of this profile
+    const newArray = profile.friendRequests.filter((id) => {
+      return id != req.body.id
+    })
+    profile.friendRequests = newArray
+    await profile.save()
+    res.send(profile)
+  } catch(e){
+    res.status(500).send(e)
+  }
+})
+
+
+
 ProfileRouter.get('/searchProfile/:firstName', (req, res, next) => {
   profileModel
     .find({ firstName: { $regex: req.params.firstName, $options: 'i' } })

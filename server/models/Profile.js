@@ -23,6 +23,18 @@ const PostSchema = new mongoose.Schema(
         },
       },
     ],
+    firendRequests: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+    isMainProfile: { //check if the profile is the main Profile of the user
+      type: Boolean,
+      default: false
+    },
+    isOrganization: {
+      type: Boolean,
+      default: true
+    },
     profileImg: {
       type: String,
     },
