@@ -84,6 +84,7 @@ const Topbar = (props) => {
                   to={`/`}  
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className="topbarLink"
+                  onClick={LoggedUser.myFirebase.logout}
                 >
                   התנתק{' '}
                 </Link>

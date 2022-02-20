@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import initializeAuthentication from '../firebase.config';
 import {
   getAuth,
@@ -6,12 +6,15 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
+import { useHistory } from 'react-router-dom';
 
 initializeAuthentication();
 
 const useFirebase = (dispatch) => {
   //All state
+  const history = useHistory();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -42,13 +45,9 @@ const useFirebase = (dispatch) => {
   };
   //Logout functionality
   const logout = () => {
-    signOut(auth)
-      .then(() => {
-        dispatch({ type: 'FIREBASE_LOGOUT' });
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
+    history.replace('/');
+    localStorage.setItem('user', JSON.stringify(null));
+    dispatch({ type: 'FIREBASE_LOGOUT' });
   };
   // useEffect(() => {
   //   const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -62,6 +61,11 @@ const useFirebase = (dispatch) => {
 
   //   return unsubscribe;
   // }, [auth]);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) dispatch({ type: 'FIREBASE_LOGIN', payload: user });
+  }, []);
 
   return {
     error,

@@ -18,7 +18,9 @@
   justify-content: center;
   color: #6097BF;
 }
-
+.pointer {
+  cursor: pointer;
+}
 .memory-creation-input {
   height: 80%;
   width: 30%;

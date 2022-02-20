@@ -14,7 +14,29 @@ export const UserAndprofiles = () => {
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
   const [userData, setUserData] = useState(localStorage.getItem('user'));
+  const [notifications, setNotifications] = useState([]);
   const id = useParams().id;
+
+  useEffect(() => {
+    (async () => {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/notification/getallNotifications`
+      );
+      setNotifications(
+        res.data.map((item) => ({
+          date: new Date(item.createdAt).toISOString().slice(0, 10),
+          time: new Date(item.createdAt).toISOString().slice(11, 16),
+          profileImg: `${process.env.REACT_APP_API_URL}/picUploader/${
+            item.logedInUser[0].mainProfilePicture ||
+            item.logedInUser[0].profilePicture
+          }`,
+          action: `${item.logedInUser[0].firstName} create a memory on ${item.memoryCreatorNotification[0].firstName} ${item.memoryCreatorNotification[0].lastName}`,
+        }))
+      );
+      setData(res.data);
+    })();
+  }, []);
+
   useEffect(() => {
     fetchuserprofiles();
   }, []);
@@ -25,32 +47,7 @@ export const UserAndprofiles = () => {
     setData(res.data);
   };
 console.log(userData)
-  const Notifications = [
-    {
-      date: '12.12.21',
-      time: '10:02',
-      action: 'הגיב לך על הזיכרון',
-      profileImg: 'https://picsum.photos/200/300',
-    },
-    {
-      date: '12.12.21',
-      time: '10:02',
-      action: 'סרק את קוד הQR של שלמה יהב',
-      profileImg: 'https://picsum.photos/200/300',
-    },
-    {
-      date: '12.12.21',
-      time: '10:02',
-      action: 'הוסיף זיכרון לפרופיל שלך',
-      profileImg: 'https://picsum.photos/200/300',
-    },
-    {
-      date: '12.12.21',
-      time: '10:02',
-      action: 'הוסיף את הפרופיל שלמה יהב כחבר',
-      profileImg: 'https://picsum.photos/200/300',
-    },
-  ];
+  
   const profileImageRef = useRef(null);
   const onChangePicture = async (event) => {
     const src = URL.createObjectURL(event.target.files[0]);
@@ -198,9 +195,11 @@ console.log(userData)
                 <h3 className="settings-subtitle">:סוג התוכנית </h3>
                 <h3 className="settings-subtitle">:סיום התוכנית </h3>
               </div>
-              <Link to="/">
-                <div className="logout-btn">התנתק</div>
-              </Link>
+              <button
+                className="logout-btn"
+                style={{ cursor: 'pointer' }}
+                onClick={LoggedUser.myFirebase.logout}
+              >התנתק</button>
             </div>
           </div>
         </div>

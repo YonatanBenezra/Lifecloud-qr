@@ -32,3 +32,6 @@ input:focus {
   outline: none;
   opacity: 0.9;
 }
+img {
+  object-fit: cover !important;
+}

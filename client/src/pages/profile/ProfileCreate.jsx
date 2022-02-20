@@ -74,10 +74,11 @@ export default function ProfileCreate() {
 
   const [inputList, setInputList] = useState([
     { axisTitle: '', axisDate: '', axisDescription: '' },
+    { axisTitle: '', axisDate: '', axisDescription: '' },
+    { axisTitle: '', axisDate: '', axisDescription: '' },
+    { axisTitle: '', axisDate: '', axisDescription: '' },
   ]);
-  console.log(multiFiles, 'multiFiles');
-  console.log(picture, 'pic');
-  console.log(image, 'image');
+
 
   const firstName = useRef();
   const lastName = useRef();
@@ -129,11 +130,24 @@ export default function ProfileCreate() {
     setInputList([
       ...inputList,
       { axisTitle: '', axisDate: '', axisDescription: '' },
-      { axisTitle: '', axisDate: '', axisDescription: '' },
-      { axisTitle: '', axisDate: '', axisDescription: '' },
-      { axisTitle: '', axisDate: '', axisDescription: '' },
     ]);
   };
+
+    // handle click event of the Add button
+    const addSingleDiv = (i) => {
+      const copyArray = [...inputList];
+      const prevAllData = copyArray.slice(0, i);
+      const nextAllData = copyArray.slice(i);
+  
+      const newArray = [
+        ...prevAllData,
+        { axisTitle: '', axisDate: '', axisDescription: '' },
+        ...nextAllData,
+      ];
+  
+      setInputList(newArray);
+    };
+
   // console.log(hebBirthDate.current.value)
   const handleClick = async (e) => {
     console.log(id, 'id');
@@ -483,6 +497,18 @@ export default function ProfileCreate() {
                   {inputList.map((x, i) => {
                     return (
                       <div className="box" key={i}>
+                        {inputList.length !== 1 && (
+                          <div
+                            className="add-btn"
+                            onClick={() => addSingleDiv(i)}
+                          >
+                            <div className="inner-btn">
+                              <div className="line-1"></div>
+                              <div className="line-2"></div>
+                            </div>
+                          </div>
+                        )}
+
                         <div className="inner-box">
                           <input
                             name="axisTitle"

@@ -12,7 +12,10 @@ let uploadpic = multer({ storage: storage });
 // create profile
 MemoryRouter.post(
   '/createMemory',
-  uploadpic.fields([{ name: 'memoryImges', maxCount: 1 }]),
+  uploadpic.fields([
+    { name: 'memoryImges', maxCount: 1 },
+    { name: 'memoryVideo', maxCount: 1 },
+  ]),
   async (req, res) => {
     try {
       //gen new password
@@ -26,8 +29,10 @@ MemoryRouter.post(
       let newUser = new Memory({
         originalUser: req.body.originalUser,
         file: req.files.memoryImges[0].path.slice(7),
+        memoryVideo: req.files.memoryVideo[0].path.slice(7),
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        description: req.body.description,
         likes: [],
         comments: [],
       });

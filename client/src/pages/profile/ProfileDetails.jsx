@@ -44,9 +44,9 @@ export default function Profile() {
   const [friendFlagReq, setrfriendReq] = useState([]);
   const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
-  const [next, setnext] = useState(4);
+  const [next, setnext] = useState(1);
   const handleShowMoreMemories = () => {
-    setnext(next + 4);
+    setnext(next + 1);
   };
   console.log(id);
   useEffect(() => {

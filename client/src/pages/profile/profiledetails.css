@@ -1,6 +1,7 @@
 .profile-cover {
   width: 100%;
   max-height: 50vh;
+  object-position: 0 75%;
 }
 .profile-details {
   direction: rtl;
@@ -203,6 +204,7 @@
   align-items: center;
   justify-content: space-evenly;
   font-size: 18px;
+  /* text-align: center; */
   margin: auto;
   margin-top: 2rem;
   color: #6097bf;
@@ -389,7 +391,7 @@
   width: 25px;
   background-size: cover;
 }
-.full-gallery-container>div{
+.full-gallery-container > div {
   display: flex;
   flex-wrap: wrap;
 }
