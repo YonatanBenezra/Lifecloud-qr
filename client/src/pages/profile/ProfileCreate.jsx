@@ -196,6 +196,7 @@ export default function ProfileCreate() {
         .then((res) => {
           console.log(res);
           if (res) {
+            history.goBack();
             setMessage('Profile made successfully');
             setOpen(true);
           }

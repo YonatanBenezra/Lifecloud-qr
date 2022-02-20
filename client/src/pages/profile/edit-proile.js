@@ -213,13 +213,14 @@ export default function ProfileEdit() {
                 body: formdata,
             })
                 .then((res) => {
-                    return res.json();
+                  return res.json();
                 })
                 .then((res) => {
-                    console.log(res);
-                    if (res) {
-                        setMessage('Profile updated successfully!')
-                        setOpen(true)
+                  console.log(res);
+                  if (res) {
+                    setMessage('Profile updated successfully!')
+                    setOpen(true)
+                    history.goBack()
                     }
                 });
             // let res = await axios.post('api/profile/createProfile', formdata);

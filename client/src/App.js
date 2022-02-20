@@ -8,6 +8,8 @@ import ProfileCreate from './pages/profile/ProfileCreate';
 import ProfileDetails from './pages/profile/ProfileDetails';
 import MemoryCreation from './components/memory/memoryCreation';
 import Plans from './pages/plans/Plans';
+import Contact from './pages/contact/Contact';
+import Policy from './pages/policy/Policy';
 import { UserAndprofiles } from './pages/userpage/user-and-profile';
 import ENHome from './pages/home/ENHome';
 import ENPlans from './pages/plans/ENPlans';
@@ -68,6 +70,12 @@ function App() {
             </Route>
             <Route exact path="/organisationregister">
               <OrganisationRegister />
+            </Route>
+            <Route exact path="/contact">
+              <Contact />
+            </Route>
+            <Route exact path="/policy">
+              <Policy />
             </Route>
           </Switch>
         ) : (

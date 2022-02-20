@@ -107,7 +107,7 @@ console.log(userData)
             <div className="profiles-container">
             {/* {userData.user_type === 'organisation' && (
                   <div>
-                    <h1>Main Profile</h1>
+                    <h1>Main Pofile</h1>
                     <Link
                       to={`/organisationdetails`}
                       state={{ id: organisation?._id }}
@@ -190,7 +190,9 @@ console.log(userData)
                   פרטי{' '}
                 </div>
                 <div className="big-button">תשלומים</div>
-                <div className="big-button">נהל תוכנית</div>
+                <Link to="/plans">
+                <div className="big-button" style={{padding: '5px'}}>נהל תוכנית</div>
+                </Link>
               </div>
               <div>
                 <h3 className="settings-subtitle">:סוג התוכנית </h3>

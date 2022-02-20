@@ -12,8 +12,10 @@ import Slider from 'react-slick';
 import './home.css';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
+  const user = localStorage.getItem('user');
   const settings = {
     dots: true,
     infinite: true,
@@ -112,7 +114,21 @@ const Home = () => {
       ></div>
       <div className="home-floating-text">
         <h2>יצירת קהילת הנצחה מותאמת אישית</h2>
+        {user ? (
+          <Link
+          to={`/createprofile/${user._id}`}
+          onClick={() => {window.reload()}}
+          >
         <div className="home-profile-creation-btn">ליצירת פרופיל ללא עלות</div>
+        </Link>
+        ) : (
+          <Link
+          to={`/register`}
+          onClick={() => {window.reload()}}
+          >
+        <div className="home-profile-creation-btn">ליצירת פרופיל ללא עלות</div>
+        </Link>
+        )}
       </div>
       <div className="search-container">
         <div className="searchbar-container">
