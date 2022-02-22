@@ -185,7 +185,7 @@ export default function ProfileCreate() {
       formdata.append('firstName', wallInformation.firstName);
       formdata.append('originalUser', wallInformation.originalUser);
       formdata.append('lastName', wallInformation.lastName);
-      formdata.append('birthDate', wallInformation.birthDate);
+      formdata.append('birthDate', wallInfrmation.birthDate);
       formdata.append('hebBirthDate', wallInformation.hebBirthDate);
       formdata.append('hebDeathDate', wallInformation.hebDeathDate);
       formdata.append('city', wallInformation.city);
