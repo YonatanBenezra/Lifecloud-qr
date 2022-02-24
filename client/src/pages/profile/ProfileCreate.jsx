@@ -9,6 +9,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
 import ENTopbar from '../../components/topbar/ENTopBar';
+import useGeoLocation from '../../hooks/useGeoLocation';
 export default function ProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
@@ -79,7 +80,6 @@ export default function ProfileCreate() {
     { axisTitle: '', axisDate: '', axisDescription: '' },
   ]);
 
-
   const firstName = useRef();
   const lastName = useRef();
   const companyName = useRef();
@@ -113,6 +113,7 @@ export default function ProfileCreate() {
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
+
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
@@ -133,24 +134,34 @@ export default function ProfileCreate() {
     ]);
   };
 
-    // handle click event of the Add button
-    const addSingleDiv = (i) => {
-      const copyArray = [...inputList];
-      const prevAllData = copyArray.slice(0, i);
-      const nextAllData = copyArray.slice(i);
-  
-      const newArray = [
-        ...prevAllData,
-        { axisTitle: '', axisDate: '', axisDescription: '' },
-        ...nextAllData,
-      ];
-  
-      setInputList(newArray);
-    };
+  // handle click event of the Add button
+  const addSingleDiv = (i) => {
+    const copyArray = [...inputList];
+    const prevAllData = copyArray.slice(0, i);
+    const nextAllData = copyArray.slice(i);
 
-  // console.log(hebBirthDate.current.value)
+    const newArray = [
+      ...prevAllData,
+      { axisTitle: '', axisDate: '', axisDescription: '' },
+      ...nextAllData,
+    ];
+
+    setInputList(newArray);
+  };
+  const [axisImages, setAxisImages] = useState([]);
+
+  const handleAxisImage = (event, i) => {
+    const copyArray = [...inputList];
+    const files = event.target.files[0];
+
+    copyArray[i].axisImage = files;
+
+    setInputList(copyArray);
+
+    setAxisImages(inputList.map((list) => list.axisImage));
+  };
+
   const handleClick = async (e) => {
-    console.log(id, 'id');
     e.preventDefault();
     const wallInformation = {
       originalUser: id,
@@ -170,12 +181,11 @@ export default function ProfileCreate() {
       gender: selectedGender,
       // privacy: selectedPrivacy,
       wazeLocation: wazeLocation.current.value,
-      googleLocation: googleLocation.current.value,
+      // googleLocation: location.coordinates,
       description: description.current.value,
       lifeAxis: inputList,
       // gallery: picture,
     };
-
     try {
       const formdata = new FormData();
       formdata.append('profileImg', picture);
@@ -193,13 +203,15 @@ export default function ProfileCreate() {
       formdata.append('deathDate', wallInformation.deathDate);
       formdata.append('gender', wallInformation.gender);
       formdata.append('wazeLocation', wallInformation.wazeLocation);
-      formdata.append('googleLocation', wallInformation.googleLocation);
+      formdata.append('googleLocation', JSON.stringify(location.coordinates));
       formdata.append('description', wallInformation.description);
       formdata.append('lifeAxis', JSON.stringify(wallInformation.lifeAxis));
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
-      console.log(formdata, 'formdata');
+      for (let i = 0; i < axisImages.length; i++) {
+        formdata.append('axisImages', axisImages[i]);
+      }
       fetch(`${process.env.REACT_APP_API_URL}/api/profile/createProfile`, {
         method: 'POST',
         body: formdata,
@@ -225,6 +237,9 @@ export default function ProfileCreate() {
     setOpen(false);
     setMessage('');
   };
+  const { location, getGeoLocation } = useGeoLocation();
+
+  console.log(location);
   return (
     <div className="profile-creation-container">
       <Topbar />
@@ -370,7 +385,7 @@ export default function ProfileCreate() {
                       checked={user.gender === 'male'}
                       className="radio"
                     />
-                    <label for="male">ז</label>
+                    <label htmlFor="male">ז</label>
                   </div>
                   <div
                     className={`${
@@ -387,7 +402,7 @@ export default function ProfileCreate() {
                       name="gender"
                       className="radio"
                     />
-                    <label for="female">נ</label>
+                    <label htmlFor="female">נ</label>
                   </div>
                   <div
                     className={`${
@@ -404,7 +419,7 @@ export default function ProfileCreate() {
                       name="gender"
                       className="radio"
                     />
-                    <label for="other">אחר</label>
+                    <label htmlFor="other">אחר</label>
                   </div>
                 </div>
                 <div
@@ -492,7 +507,7 @@ export default function ProfileCreate() {
                     className="profile-creation-description"
                   />
                 </div>
-                <div >
+                <div>
                   <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
                   {inputList.map((x, i) => {
                     return (
@@ -524,6 +539,7 @@ export default function ProfileCreate() {
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-input"
                           />
+
                           <textarea
                             name="axisDescription"
                             placeholder="טקסט"
@@ -531,6 +547,17 @@ export default function ProfileCreate() {
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-description"
                           />
+                          <label class="file-label">
+                            הוסף תמונה
+                            <input
+                            type="file"
+                            name="axisImage"
+                            placeholder="Image"
+                            onChange={(e) => handleAxisImage(e, i)}
+                            className="axis-input-image"
+                            />
+                            <span class="file-custom"></span>
+                          </label>
                           <div className="btn-box">
                             {inputList.length !== 1 && (
                               <p
@@ -566,11 +593,22 @@ export default function ProfileCreate() {
                         ref={wazeLocation}
                         className="nameInput"
                       />
-                      <input
-                        placeholder="הוספת מיקום גוגל"
-                        ref={googleLocation}
-                        className="nameInput"
-                      />
+                      {!location.loaded && (
+                        <button
+                          className="nameInput"
+                          onClick={getGeoLocation}
+                          type="button"
+                        >
+                          הוספת מיקום גוגל
+                        </button>
+                      )}
+                      {location.loaded && location.error?.message && (
+                        <h3>{location.error.message}</h3>
+                      )}
+
+                      {location.loaded && !location.error?.message && (
+                        <h3>מיקומך נשמר כמיקום הקבר</h3>
+                      )}
                     </div>
                   </div>
                   <div className="profile-image-container">
@@ -594,9 +632,7 @@ export default function ProfileCreate() {
                 </div>
 
                 <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>
-                    פרטיות
-                  </h3>
+                  <h3 style={{ color: '#6097BF' }}>פרטיות</h3>
                   <div
                     style={{
                       width: 'unset',
@@ -617,7 +653,7 @@ export default function ProfileCreate() {
                       name="privacy"
                       className="radio"
                     />
-                    <label for="private">פרטי</label>
+                    <label htmlFor="private">פרטי</label>
                   </div>
                   <div
                     style={{
@@ -639,7 +675,7 @@ export default function ProfileCreate() {
                       name="privacy"
                       className="radio"
                     />
-                    <label for="public">פומבי</label>
+                    <label htmlFor="public">פומבי</label>
                   </div>
                 </div>
 

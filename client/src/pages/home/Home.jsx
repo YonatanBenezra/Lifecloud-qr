@@ -13,9 +13,11 @@ import './home.css';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 const Home = () => {
-  const user = localStorage.getItem('user');
+  const { user } = useContext(AuthContext);
   const settings = {
     dots: true,
     infinite: true,
@@ -114,17 +116,18 @@ const Home = () => {
       ></div>
       <div className="home-floating-text">
         <h2>יצירת קהילת הנצחה מותאמת אישית</h2>
+        {console.log(user)}
         {user ? (
           <Link
           to={`/createprofile/${user._id}`}
-          onClick={() => {window.reload()}}
+          // onClick={() => {window.reload()}}
           >
         <div className="home-profile-creation-btn">ליצירת פרופיל ללא עלות</div>
         </Link>
         ) : (
           <Link
-          to={`/register`}
-          onClick={() => {window.reload()}}
+          to='/register'
+          // onClick={() => {window.reload()}}
           >
         <div className="home-profile-creation-btn">ליצירת פרופיל ללא עלות</div>
         </Link>
@@ -153,12 +156,12 @@ const Home = () => {
 
       <div className="vid-text-container">
         <div className="vid-text-title">
-          <h1 className="flex-column mb-3">
-            <strong>״החיים אינם הימים שחלפו, אלא אלה שזוכרים״</strong>
-            <span style={{ fontSize: '20px', marginTop: '17px' }}>
+          <h1 className="mb-3">
+            <span style={{ fontSize: '20px', marginTop: '17px', marginRight: '15px' }}>
               {' '}
-              גבריאל גרסיה מרקס -{' '}
+              גבריאל גרסיה מרקס - {' '}
             </span>
+            <strong>״החיים אינם הימים שחלפו, אלא אלה שזוכרים״</strong>
           </h1>
           <h2 style={{ fontSize: '35px' }}>
             .כל אדם הוא עולם ומלואו שראוי שסיפור חייו ייזכר ויונצח לעד

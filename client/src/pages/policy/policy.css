@@ -50,7 +50,7 @@
   display: block;
 }
 
-h1{
+.accordion-title{
  margin-top: 10px; 
 color: #6097bf;
 font-family: Alef;

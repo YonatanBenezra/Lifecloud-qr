@@ -45,7 +45,6 @@ const useFirebase = (dispatch) => {
   };
   //Logout functionality
   const logout = () => {
-    history.replace('/');
     localStorage.setItem('user', JSON.stringify(null));
     dispatch({ type: 'FIREBASE_LOGOUT' });
   };

@@ -195,11 +195,13 @@ console.log(userData)
                 <h3 className="settings-subtitle">:סוג התוכנית </h3>
                 <h3 className="settings-subtitle">:סיום התוכנית </h3>
               </div>
+              <Link to='/'>
               <button
                 className="logout-btn"
                 style={{ cursor: 'pointer' }}
                 onClick={LoggedUser.myFirebase.logout}
-              >התנתק</button>
+                >התנתק</button>
+                </Link>
             </div>
           </div>
         </div>
@@ -217,7 +219,7 @@ console.log(userData)
           <h3 style={{ fontSize: '30px', marginBottom: '20px' }}>
             התראות חדשות
           </h3>
-          {Notifications.map((n) => {
+          {notifications.map((n) => {
             return (
               <div className="notification-line">
                 <div className="notification-text">

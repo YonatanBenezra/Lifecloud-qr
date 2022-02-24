@@ -135,7 +135,7 @@ export default function Register() {
                       checked={user.gender === 'male'}
                       className="radio"
                     />
-                    <label for="male">ז</label>
+                    <label htmlFor="male">ז</label>
                   </div>
                   <div
                     className={`${
@@ -152,7 +152,7 @@ export default function Register() {
                       name="gender"
                       className="radio"
                     />
-                    <label for="female">נ</label>
+                    <label htmlFor="female">נ</label>
                   </div>
                   <div
                     className={`${
@@ -169,7 +169,7 @@ export default function Register() {
                       name="gender"
                       className="radio"
                     />
-                    <label for="other">א</label>
+                    <label htmlFor="other">א</label>
                   </div>
                 </div>
                 <input

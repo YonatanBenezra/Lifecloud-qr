@@ -45,6 +45,7 @@ export default function Profile() {
   const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
   const [next, setnext] = useState(1);
+  const [geoCoordinates, setGeoCoordinatesCoordinates] = useState([]);
   const handleShowMoreMemories = () => {
     setnext(next + 1);
   };
@@ -58,22 +59,39 @@ export default function Profile() {
     fetchuserprofiles();
   }, []);
   useEffect(() => {
-      fetchmemories();
-  },[]);
+    const stringLocation = profiledata.googleLocation;
+    const coordinatesArray = stringLocation
+      ?.replace('{"lat":', '')
+      .replace('"lng":', '')
+      .replace('}', '')
+      .split(',');
+    setGeoCoordinatesCoordinates(coordinatesArray || []);
+  }, [profiledata.googleLocation]);
   const fetchuserprofiles = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
     );
     setProfileData(res.data);
   };
 
   const fetchmemories = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`);
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`
+    );
     setmemoryData(res.data);
   };
-  
+
+  useEffect(() => {
+    fetchmemories();
+  }, [comment, likeMessage]);
+
   let pasrseAxios = Object.keys(profiledata).length
     ? JSON.parse(profiledata.lifeAxis)
     : '';
+  profiledata?.axisImages?.forEach((element, i) => {
+    pasrseAxios[i].axisImage = element;
+  });
+  console.log(pasrseAxios);
   const handleLike = (e) => {
     try {
       const formdata = new FormData();
@@ -171,9 +189,12 @@ export default function Profile() {
   };
   const handleDellMemory = (e) => {
     console.log(e, 'e');
-    fetch(`${process.env.REACT_APP_API_URL}/api/memory/commentdellOBJ/${e._id}`, {
-      method: 'DELETE',
-    })
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/memory/commentdellOBJ/${e._id}`,
+      {
+        method: 'DELETE',
+      }
+    )
       .then((res) => {
         return res.json();
       })
@@ -198,7 +219,7 @@ export default function Profile() {
     month: 'long', //to display the full name of the month
     year: 'numeric',
   };
-  console.log(memoryData)
+
   const loggedUser = JSON.parse(localStorage.getItem('user'));
   if (Object.keys(profiledata).length > 0) {
     return (
@@ -232,9 +253,17 @@ export default function Profile() {
                 <span className="small-btn">ערוך פרופיל</span>
               </Link>
             )}
-            
-            <span className={`${(profiledata.originalUser[0]._id === loggedUser._id ||
-              profiledata.addAdmins.indexOf()) ? 'dissapear' : 'small-btn'}`}>הוסף חבר</span>
+
+            <span
+              className={`${
+                profiledata.originalUser[0]._id === loggedUser._id ||
+                profiledata.addAdmins.indexOf()
+                  ? 'dissapear'
+                  : 'small-btn'
+              }`}
+            >
+              הוסף חבר
+            </span>
             <span className="small-btn" onClick={() => setShow('friends')}>
               רשימת חברים
             </span>
@@ -268,13 +297,11 @@ export default function Profile() {
                 <h3>| {profiledata.wazeLocation}</h3>
               </div>
               <div className="profile-icons-container">
-                <a href={`https://www.waze.com/ul?q=${profiledata.wazeLocation}`}>
-                <img
-                  src={waze}
-                  alt=""
-                  className="icon"
-                  ></img>
-                  </a>
+                <a
+                  href={`https://www.waze.com/ul?q=${profiledata.wazeLocation}`}
+                >
+                  <img src={waze} alt="" className="icon"></img>
+                </a>
                 <img
                   src={zoom}
                   alt=""
@@ -298,21 +325,30 @@ export default function Profile() {
                 alt=""
                 className="grave-img"
               ></img>
+              {geoCoordinates.length > 0 && (
+                <iframe
+                  title="map"
+                  src={`http://maps.google.com/maps?q=${geoCoordinates[0]},${geoCoordinates[1]}&z=9&output=embed`}
+                  height="450"
+                  width="650"
+                  style={{ border: 'none' }}
+                ></iframe>
+              )}
             </div>
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-            <div className="navigation-btn">
-              לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
-            </div>
-              </a>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="navigation-btn">
+                לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
+              </div>
+            </a>
           </div>
           <div className="memories-div">
             <h1 className="memories-title">זכרונות</h1>
             <div className="memories-container">
-              {memoryData.length > 0 ?  (
+              {memoryData.length > 0 ? (
                 memoryData.map(
                   (
                     imgData,
@@ -387,8 +423,11 @@ export default function Profile() {
                     </Popup>
                   )
                 )
-              )  : (
-                <p style={{ marginBottom: '40px' }}> {profiledata.firstName} כאן יהיו הזכרונות שלנו מ</p>
+              ) : (
+                <p style={{ marginBottom: '40px' }}>
+                  {' '}
+                  {profiledata.firstName} כאן יהיו הזכרונות שלנו מ
+                </p>
               )}
 
               {/* })} */}
@@ -396,9 +435,7 @@ export default function Profile() {
             <div className="memory-actions">
               <div
                 className={
-                  next > memoryData.length
-                    ? ' hideBtn '
-                    : ` full-memory-btn`
+                  next > memoryData.length ? ' hideBtn ' : ` full-memory-btn`
                 }
                 onClick={handleShowMoreMemories}
               >
@@ -424,10 +461,18 @@ export default function Profile() {
               <div className="axis-container" key={index}>
                 <div className="axis-sub-container">
                   <h1 className="axis-title">{axis.axisTitle}</h1>
-                  <p className="axis-description2">{axis.axisDescription}</p>
+                  <span className='axis-details'>{axis.axisDate}</span>
+                  <p className="axis-description2 axis-details">{axis.axisDescription}</p>
                 </div>
-                <div className="axis-bubble">
-                  <span>{axis.axisDate}</span>
+                <div
+                  className="axis-bubble"
+                  style={{
+                    backgroundImage: `url(${process.env.REACT_APP_API_URL}/picUploader/${axis.axisImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                >
                 </div>
               </div>
             ))}
@@ -437,21 +482,24 @@ export default function Profile() {
           className={`${show === 'gallery' && 'display'} full-gallery d-none`}
         >
           <div className="full-gallery-container">
-          <SRLWrapper>
-            {profiledata?.gallery?.map((img, index) => (
-              <div className="full-gallery-img-container" key={index}>
-                <img
-                  src={`${process.env.REACT_APP_API_URL}/${img}`}
-                  alt=""
-                  className="full-gallery-img"
+            <SRLWrapper>
+              {profiledata?.gallery?.map((img, index) => (
+                <div className="full-gallery-img-container" key={index}>
+                  <img
+                    src={`${process.env.REACT_APP_API_URL}/${img}`}
+                    alt=""
+                    className="full-gallery-img"
                   ></img>
-                <div className="heart-container">
-                  <div className="heart-div">
-                    <div className="heart-icon" style={{backgroundImage: `url(${heart})`}}></div>
+                  <div className="heart-container">
+                    <div className="heart-div">
+                      <div
+                        className="heart-icon"
+                        style={{ backgroundImage: `url(${heart})` }}
+                      ></div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
             </SRLWrapper>
           </div>
         </div>
