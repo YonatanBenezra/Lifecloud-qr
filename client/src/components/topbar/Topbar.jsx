@@ -69,7 +69,7 @@ const Topbar = (props) => {
                   );
                 })
               ) : (
-                <div style={{ textAlign: 'center' }}>No Data</div>
+                <div style={{ textAlign: 'center' }}>אין מידע</div>
               )}
             </div>
           ) : (
