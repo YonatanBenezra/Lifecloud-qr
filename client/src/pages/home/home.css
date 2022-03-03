@@ -386,6 +386,9 @@ flex-wrap: wrap;
   .desktop {
     display: none;
   } 
+  /* .mobile {
+    display: block;
+  } */
 }
 @media screen and (min-width: 768px) {
   .mobile {
