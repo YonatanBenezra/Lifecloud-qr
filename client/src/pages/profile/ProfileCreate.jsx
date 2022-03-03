@@ -15,6 +15,7 @@ import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import graveLocationImg from '../../assets/מיקום-הקבר.jpg'
 import LifeAxisImg from '../../assets/ציר-חיים.jpg'
+import ComboDatePicker from './ComboDatePicker'
 export default function ProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
@@ -357,6 +358,23 @@ export default function ProfileCreate() {
                   <h1>תאריך פטירה</h1>
                 </div>
                 <div className="profile-creation-names-container">
+                {/* <ComboDatePicker
+        className={"test"}
+        months={[
+          "ינואר",
+          "פברואר",
+          "מרץ",
+          "אפריל",
+          "מאי",
+          "יוני",
+          "יולי",
+          "אוגוסט",
+          "ספטמבר",
+          "אוקטובר",
+          "נובמבר",
+          "דצמבר"
+        ]}
+      /> */}
                   <input
                     placeholder="* לועזי"
                     ref={birthDate}
