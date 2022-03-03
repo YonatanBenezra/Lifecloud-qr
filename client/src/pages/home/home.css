@@ -382,3 +382,13 @@ flex-wrap: wrap;
   color: #6097bf;
   letter-spacing: 1.3px;
 }
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  } 
+}
+@media screen and (min-width: 768px) {
+  .mobile {
+    display: none;
+  } 
+}

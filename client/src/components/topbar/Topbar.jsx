@@ -48,7 +48,7 @@ const Topbar = (props) => {
               {searchData && searchData.length > 0 ? (
                 searchData.map((item) => {
                   return (
-                    <Link to={`profiledetails/${item._id}`}>
+                    <Link to={`/profiledetails/${item._id}`}>
                       <div className="ResultBox">
                         <div>
                           <span>
@@ -91,7 +91,7 @@ const Topbar = (props) => {
 
                 <Link
                 to={`/createprofile/${LoggedUser.user._id}`}
-                  onClick={() => {window.reload()}}
+                  // onClick={() => {location.reload()}}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className="topbarLink"
                 >

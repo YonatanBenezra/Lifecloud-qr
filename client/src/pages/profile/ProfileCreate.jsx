@@ -10,6 +10,11 @@ import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
 import ENTopbar from '../../components/topbar/ENTopBar';
 import useGeoLocation from '../../hooks/useGeoLocation';
+import Popup from 'reactjs-popup';
+import Footer from '../../components/footer/Footer';
+import SocialFooter from '../../components/socialFooter/socialFooter';
+import graveLocationImg from '../../assets/מיקום-הקבר.jpg'
+import LifeAxisImg from '../../assets/ציר-חיים.jpg'
 export default function ProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
@@ -296,6 +301,39 @@ export default function ProfileCreate() {
               />
             </div>
           </div>
+          
+          <div className="press-explain-container">
+              <Popup
+                trigger={<div className="press-explain-1">+ לחץ להסבר</div>}
+                modal
+                nested
+              >
+                {close => (
+                  <div className="modal">
+                    <button className="close" onClick={close}>
+                      &times;
+                    </button>
+                    <img></img>
+                  </div>
+                )}
+              </Popup>
+              <Popup
+                trigger={<div className="press-explain-2">+ לחץ להסבר</div>}
+                modal
+                nested
+              >
+                {close => (
+                  <div className="modal">
+                    <button className="close" onClick={close}>
+                      &times;
+                    </button>
+                    <img></img>
+                  </div>
+                )}
+              </Popup>
+
+            </div>
+
           <div className="loginRight">
             <div className="RegBox">
               <form className="profile-creation-box" onSubmit={handleClick}>
@@ -509,6 +547,20 @@ export default function ProfileCreate() {
                 </div>
                 <div>
                   <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
+                  <Popup
+                      trigger={<div className="press-explain-4">+ לחץ להסבר</div>}
+                      modal
+                      nested
+                    >
+                      {close => (
+                        <div className="modal">
+                          <button className="close" onClick={close}>
+                            &times;
+                          </button>
+                          <img src={LifeAxisImg} className="life-axis-img" alt=''></img>
+                        </div>
+                      )}
+                    </Popup>
                   {inputList.map((x, i) => {
                     return (
                       <div className="box" key={i}>
@@ -586,6 +638,20 @@ export default function ProfileCreate() {
                   style={{ marginTop: '70px' }}
                 >
                   <h1>מיקום הקבר</h1>
+                  <Popup className='pop'
+                      trigger={<div className="press-explain-3">+ לחץ להסבר</div>}
+                      modal
+                      nested
+                    >
+                      {close => (
+                        <div className="modal">
+                          <button className="close" onClick={close}>
+                            &times;
+                          </button>
+                          <img src={graveLocationImg} className="grave-location-img" alt=''></img>
+                        </div>
+                      )}
+                    </Popup>
                   <div className="location-semicontainer">
                     <div className="profile-creation-names-container">
                       <input
