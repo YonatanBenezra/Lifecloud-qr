@@ -45,8 +45,9 @@ export const UserAndprofiles = () => {
       `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${id}`
     );
     setData(res.data);
+   
   };
-console.log(userData)
+
   
   const profileImageRef = useRef(null);
   const onChangePicture = async (event) => {

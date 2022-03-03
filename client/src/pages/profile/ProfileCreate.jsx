@@ -225,7 +225,7 @@ export default function ProfileCreate() {
           return res.json();
         })
         .then((res) => {
-          console.log(res);
+          console.log(res,'create profile res');
           if (res) {
             history.goBack();
             setMessage('Profile made successfully');

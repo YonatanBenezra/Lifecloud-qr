@@ -34,6 +34,7 @@ const MemoryCreation = () => {
   const onVideoChange = (e) => {
     setMemoryVideo(e.target.files[0]);
   };
+
   const handleClick = async (e) => {
     console.log(id, 'id');
     e.preventDefault();

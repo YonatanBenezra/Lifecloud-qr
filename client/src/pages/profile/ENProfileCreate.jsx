@@ -181,7 +181,7 @@ export default function ENProfileCreate() {
           return res.json();
         })
         .then((res) => {
-          console.log(res);
+          console.log(res,'resonse create profile');
           if (res) {
             setMessage('Profile made successfully');
             setOpen(true);
