@@ -19,6 +19,7 @@ ProfileRouter.post(
     { name: 'graveImg', maxCount: 1 },
   ]),
   async (req, res) => {
+
     try {
       //gen new password
       const url = req.protocol + '://' + req.get('host');
@@ -220,6 +221,7 @@ ProfileRouter.get('/getallprofileofSingleUser/:id', (req, res, next) => {
 });
 
 ProfileRouter.get('/getSingleProfileDetails/:id', (req, res, next) => {
+  console.log(req.params.id,'cd')
   profileModel
     .findById(req.params.id)
     .populate('originalUser')

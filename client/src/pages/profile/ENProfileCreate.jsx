@@ -21,6 +21,7 @@ export default function ProfileCreate() {
   const id = useParams().id;
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
+  const [userData, setUserData] = useState([]);
   const [open, setOpen] = useState(false);
   const [hebBirthDate, sethebBirthDate] = useState('');
   const [hebDeathDate, sethebDeathDate] = useState('');
@@ -42,6 +43,16 @@ export default function ProfileCreate() {
       });
       reader.readAsDataURL(e.target.files[0]);
     }
+  };
+  useEffect(() => {
+    fetchuserData();
+  }, []);
+  console.log(id,'id')
+  const fetchuserData = async () => {
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/users/${id}`
+    );
+    setUserData(res.data);
   };
   const readImage = (e, num) => {
     const reader = new FileReader();
@@ -166,7 +177,7 @@ export default function ProfileCreate() {
 
     setAxisImages(inputList.map((list) => list.axisImage));
   };
-
+console.log(userData,'userData')
   const handleClick = async (e) => {
     e.preventDefault();
     const wallInformation = {
@@ -226,6 +237,25 @@ export default function ProfileCreate() {
           return res.json();
         })
         .then((res) => {
+          fetch(
+            `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'Application/json',
+              },
+              body: JSON.stringify({
+                profileId: res.originalUser[0],
+                loggedInId: userData._id,
+              }),
+            }
+          )
+            .then((res) => {
+              return res.json();
+            })
+            .then((res) => {
+              console.log('notification->', res);
+            });
           console.log(res,'resonse create profile');
           if (res) {
             history.goBack();

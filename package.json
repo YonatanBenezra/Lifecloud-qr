@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "multer": "^1.4.4",
-    "simple-react-lightbox": "^3.6.9-0"
-  }
-}

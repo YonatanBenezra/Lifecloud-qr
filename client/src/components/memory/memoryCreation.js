@@ -18,12 +18,14 @@ const MemoryCreation = () => {
 
   useEffect(() => {
     fetchuserprofiles();
+
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
     );
     setProfileData(res.data);
+    console.log(res,'res')
   };
   const handleText = (e) => {
     setText(e.target.value);
