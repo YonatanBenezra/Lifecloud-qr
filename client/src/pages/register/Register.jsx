@@ -67,6 +67,14 @@ export default function Register() {
       }
     }
   };
+  const handleDateFocus=(e)=>{
+    let date_button=e.target;
+    date_button.type='date'
+  }
+  const handleDateBlur=(e)=>{
+    let date_button=e.target;
+    date_button.type='text'
+  }
   console.log(user, 'user');
   return (
     <>
@@ -107,7 +115,9 @@ export default function Register() {
                   className="register-input"
                   value={user.dateOfBirth}
                   name="dateOfBirth"
-                  type="date"
+                  type="text"
+                  onFocus={handleDateFocus}
+                  onBlur={handleDateBlur}
                 />
                 <div className="radio-container-register">
                   <h3
@@ -244,7 +254,7 @@ export default function Register() {
                     ></input>
                   </span>
                   <span style={{ display: 'flex', marginBottom: '1rem' }}>
-                    אני מאשר קבלת מיילים <div class="container"></div>
+                    אני מאשר קבלת מיילים 
                     <input
                       type="checkbox"
                       style={{ marginLeft: '15px' }}

@@ -17,7 +17,7 @@ const Footer = () => {
         <span>|</span>
         <span>CONTACT</span>
       </div>
-      <span style={{ fontSize: '21px', paddingRight: '5%' }}>
+      <span className='copyRight'>
         (C) all rights reserved to lifecloud-qr.co.il
       </span>
     </div>
