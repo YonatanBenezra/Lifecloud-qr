@@ -18,6 +18,11 @@
   z-index: 0;
   height: 300px;
 }
+@media screen and (max-width: 428px) {
+  .right-bottom-cloud {
+    height: 150px;
+  }
+}
 .social-footer-icons {
   display: flex;
   margin-top: 2rem !important;

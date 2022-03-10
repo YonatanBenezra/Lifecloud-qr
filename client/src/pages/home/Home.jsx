@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import axios from 'axios'
 import { useSearch } from '../../context/SearchContext';
 import './home.css';
 import { useContext } from 'react';
@@ -87,17 +88,29 @@ const Home = () => {
     ],
   };
 
-  const { searchText, setSearchText } = useSearch();
+  const [searchData, setSearchData] = useState([]);
+  const handleSearch = async (e) => {
+    const { value } = e.target;
+    console.log(value);
+    if (value.length === 0 || value.trim() === '' || value === null) {
+      return false;
+    } else {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/profile/searchProfile/${value}`
+      );
+      setSearchData(res.data);
+    }
+  };
   return (
     <div>
 
     <div style={{ cursor: 'default' }} className="desktop">
-      <HomeDesktop user={user} testimonialSettings={testimonialSettings} settings={settings} searchText={searchText} searchText={setSearchText} />
+      <HomeDesktop handleSearch={handleSearch} user={user} testimonialSettings={testimonialSettings} settings={settings} searchData={searchData} setSearchData={setSearchData} />
     </div>
 
 
 <div style={{ cursor: 'default' }} className="mobile">
-<HomeMobile  user={user} testimonialSettings={testimonialSettings} settings={settings} searchText={searchText} searchText={setSearchText} />
+<HomeMobile handleSearch={handleSearch} user={user} testimonialSettings={testimonialSettings} settings={settings} searchData={searchData} setSearchData={setSearchData}/>
 </div>
 </div>
 

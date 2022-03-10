@@ -30,7 +30,7 @@ const PostSchema = new mongoose.Schema(
       type: String,
     },
     hebBirthDate: {
-      type: Date,
+      type: String,
     },
     wallImg: {
       type: String,
@@ -38,6 +38,7 @@ const PostSchema = new mongoose.Schema(
     graveImg: {
       type: String,
     },
+
     firstName: {
       type: String,
     },
@@ -68,6 +69,9 @@ const PostSchema = new mongoose.Schema(
     gallery: {
       type: Array,
     },
+    axisImages: {
+      type: Array,
+    },
     lifeAxis: {
       type: String,
     },
@@ -79,8 +83,12 @@ const PostSchema = new mongoose.Schema(
     },
     city: {
       type: String,
+    },
+    isMain: {
+      type: Boolean,
     }
   },
+
   { timestamps: true }
 );
 

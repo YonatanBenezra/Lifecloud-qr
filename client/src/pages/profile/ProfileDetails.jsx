@@ -27,6 +27,9 @@ import SocialFooter from '../../components/socialFooter/socialFooter';
 import FriendsList from '../../components/friendsList/friendsList';
 // import { useParams } from 'react-router-dom';
 import { SRLWrapper } from 'simple-react-lightbox';
+import useGeoLocation from '../../hooks/useGeoLocation';
+import Map from './Map';
+import Direction from './Direction';
 
 export default function Profile() {
   const { dispatch } = useContext(AuthContext);
@@ -45,11 +48,10 @@ export default function Profile() {
   const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
   const [next, setnext] = useState(1);
-  const [geoCoordinates, setGeoCoordinatesCoordinates] = useState([]);
+
   const handleShowMoreMemories = () => {
     setnext(next + 1);
   };
-  console.log(id);
   useEffect(() => {
     setCommenting('');
     setComment('');
@@ -58,19 +60,16 @@ export default function Profile() {
   useEffect(() => {
     fetchuserprofiles();
   }, []);
+
   useEffect(() => {
-    const stringLocation = profiledata.googleLocation;
-    const coordinatesArray = stringLocation
-      ?.replace('{"lat":', '')
-      .replace('"lng":', '')
-      .replace('}', '')
-      .split(',');
-    setGeoCoordinatesCoordinates(coordinatesArray || []);
-  }, [profiledata.googleLocation]);
+    fetchmemories();
+  }, [comment, likeMessage]);
+
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
     );
+    res.data.googleLocation = JSON.parse(res.data.googleLocation);
     setProfileData(res.data);
   };
 
@@ -78,6 +77,7 @@ export default function Profile() {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`
     );
+    console.log(res)
     setmemoryData(res.data);
   };
 
@@ -91,7 +91,6 @@ export default function Profile() {
   profiledata?.axisImages?.forEach((element, i) => {
     pasrseAxios[i].axisImage = element;
   });
-  console.log(pasrseAxios);
   const handleLike = (e) => {
     try {
       const formdata = new FormData();
@@ -221,6 +220,12 @@ export default function Profile() {
   };
 
   const loggedUser = JSON.parse(localStorage.getItem('user'));
+  const [map, setMap] = useState(false);
+  const { location, getGeoLocation } = useGeoLocation();
+  useEffect(() => {
+    getGeoLocation();
+  }, [getGeoLocation]);
+
   if (Object.keys(profiledata).length > 0) {
     return (
       <div>
@@ -325,25 +330,26 @@ export default function Profile() {
                 alt=""
                 className="grave-img"
               ></img>
-              {geoCoordinates.length > 0 && (
-                <iframe
-                  title="map"
-                  src={`http://maps.google.com/maps?q=${geoCoordinates[0]},${geoCoordinates[1]}&z=9&output=embed`}
-                  height="450"
-                  width="650"
-                  style={{ border: 'none' }}
-                ></iframe>
+              {map && !location.loaded && <h2>Loading...</h2>}
+              {map && location.error && location.loaded && (
+                <h2>{location.error.message}</h2>
+              )}
+              {map && !location.error && location.loaded && (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Direction
+                    destination={profiledata.googleLocation}
+                    origin={location.coordinates}
+                  />
+                </div>
               )}
             </div>
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation}`}
-              target="_blank"
-              rel="noopener noreferrer"
+
+            <button
+              className="navigation-btn"
+              onClick={() => setMap((prevState) => !prevState)}
             >
-              <div className="navigation-btn">
-                לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
-              </div>
-            </a>
+              לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
+            </button>
           </div>
           <div className="memories-div">
             <h1 className="memories-title">זכרונות</h1>
@@ -461,18 +467,18 @@ export default function Profile() {
               <div className="axis-container" key={index}>
                 <div className="axis-sub-container">
                   <h1 className="axis-title">{axis.axisTitle}</h1>
-                  <span className='axis-details'>{axis.axisDate}</span>
-                  <p className="axis-description2 axis-details">{axis.axisDescription}</p>
+                  <p className="axis-description2">{axis.axisDescription}</p>
                 </div>
                 <div
                   className="axis-bubble"
                   style={{
-                    backgroundImage: `url(${process.env.REACT_APP_API_URL}/picUploader/${axis.axisImage})`,
+                    backgroundImage: `url('${process.env.REACT_APP_API_URL}/picUploader/${axis.axisImage}')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                   }}
                 >
+                  <span>{axis.axisDate}</span>
                 </div>
               </div>
             ))}
@@ -485,11 +491,30 @@ export default function Profile() {
             <SRLWrapper>
               {profiledata?.gallery?.map((img, index) => (
                 <div className="full-gallery-img-container" key={index}>
-                  <img
-                    src={`${process.env.REACT_APP_API_URL}/${img}`}
-                    alt=""
-                    className="full-gallery-img"
-                  ></img>
+                  {!img.endsWith('mp4') ? (
+                    <img
+                      src={`${process.env.REACT_APP_API_URL}/${img}`}
+                      alt=""
+                      className="full-gallery-img"
+                    ></img>
+                  ) : (
+                    <video
+                      width="100%"
+                      height="100%"
+                      srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                      srl_video_caption="A video with a rabbit"
+                      srl_video_muted="true"
+                      controls
+                      className="full-gallery-img"
+                    >
+                      <source
+                        src={`${process.env.REACT_APP_API_URL}/${img}`}
+                        type="video/mp4"
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  )}
+
                   <div className="heart-container">
                     <div className="heart-div">
                       <div
@@ -501,6 +526,18 @@ export default function Profile() {
                 </div>
               ))}
             </SRLWrapper>
+            {/* {profiledata?.gallery?.map(
+              (img) =>
+                img.endsWith('mp4') && (
+                  <video width="400" controls>
+                    <source
+                      src={`${process.env.REACT_APP_API_URL}/${img}`}
+                      type="video/mp4"
+                    />
+                    Your browser does not support HTML video.
+                  </video>
+                )
+            )} */}
           </div>
         </div>
         <div

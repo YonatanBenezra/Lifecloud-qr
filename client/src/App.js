@@ -5,7 +5,9 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import ProfileEdit from './pages/profile/edit-proile';
 import ProfileCreate from './pages/profile/ProfileCreate';
+import MainProfileCreate from './pages/profile/MainProfileCreate';
 import ProfileDetails from './pages/profile/ProfileDetails';
+import MainProfileDetails from './pages/profile/MainProfileDetails';
 import MemoryCreation from './components/memory/memoryCreation';
 import Plans from './pages/plans/Plans';
 import Contact from './pages/contact/Contact';
@@ -56,6 +58,9 @@ function App() {
             <Route exact path="/profiledetails/:id" >
               <ProfileDetails />
             </Route>
+            <Route exact path="/mainprofiledetails/:id" >
+              <MainProfileDetails />
+            </Route>
             <Route exact path="/userprofiles/:id" >
               <UserAndprofiles />
             </Route>
@@ -76,6 +81,9 @@ function App() {
             </Route>
             <Route exact path="/policy">
               <Policy />
+            </Route>
+            <Route exact path="/createmainprofile/:id">
+              <MainProfileCreate />
             </Route>
           </Switch>
         ) : (

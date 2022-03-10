@@ -18,12 +18,14 @@ const MemoryCreation = () => {
 
   useEffect(() => {
     fetchuserprofiles();
+
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
     );
     setProfileData(res.data);
+    console.log(res,'res')
   };
   const handleText = (e) => {
     setText(e.target.value);
@@ -34,6 +36,7 @@ const MemoryCreation = () => {
   const onVideoChange = (e) => {
     setMemoryVideo(e.target.files[0]);
   };
+
   const handleClick = async (e) => {
     console.log(id, 'id');
     e.preventDefault();
@@ -64,7 +67,7 @@ const MemoryCreation = () => {
                 'Content-Type': 'Application/json',
               },
               body: JSON.stringify({
-                profileId: res.originalUser[0],
+                profileId: profiledata._id,
                 loggedInId: profiledata.originalUser[0]._id,
               }),
             }

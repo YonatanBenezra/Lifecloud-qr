@@ -17,17 +17,16 @@ ProfileRouter.post(
     { name: 'wallImg', maxCount: 1 },
     { name: 'multiplefiles', maxCount: 20 },
     { name: 'graveImg', maxCount: 1 },
+    { name: 'axisImages', maxCount: 99 },
   ]),
   async (req, res) => {
     try {
       //gen new password
       const url = req.protocol + '://' + req.get('host');
-      console.log(req.body, 'body');
-      console.log(req.files, 'file');
+
       let multiFiles = req.files.multiplefiles.map((res) => {
         return res.path.slice(7);
       });
-      console.log(multiFiles, 'multiFiles');
       //new user
       let newUser = new profileModel({
         originalUser: req.body.originalUser,
@@ -48,6 +47,10 @@ ProfileRouter.post(
         description: req.body.description,
         googleLocation: req.body.googleLocation,
         lifeAxis: req.body.lifeAxis,
+        isMain: req.body.isMain,
+        axisImages: req.files?.axisImages?.map((res) => {
+          return res.filename;
+        }),
       });
 
       //save and response
@@ -55,6 +58,7 @@ ProfileRouter.post(
         res.send(resp);
       });
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   }
@@ -99,6 +103,7 @@ ProfileRouter.put(
           description: req.body.description,
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
+          isMain: req.body.isMain
         };
       } else if (req.files.wallImg) {
         var dataSource = {
@@ -118,6 +123,7 @@ ProfileRouter.put(
           description: req.body.description,
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
+          isMain: req.body.isMain
         };
       } else if (req.files.profileImg) {
         var dataSource = {
@@ -137,6 +143,7 @@ ProfileRouter.put(
           description: req.body.description,
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
+          isMain: req.body.isMain
         };
       } else {
         var dataSource = {
@@ -154,6 +161,7 @@ ProfileRouter.put(
           description: req.body.description,
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
+          isMain: req.body.isMain
         };
       }
       profileModel.findOneAndUpdate(
@@ -348,14 +356,13 @@ ProfileRouter.get('/searchProfile/:firstName', (req, res, next) => {
 });
 
 ProfileRouter.post('/graveLocation/:id', async (req, res) => {
-  try{
-      const location = req.body.location
-      const profile = await profileModel.findById(req.params.id)
-      profile.googleLocation = location
-  } catch(e){
-      console.log(e)
+  try {
+    const location = req.body.location;
+    const profile = await profileModel.findById(req.params.id);
+    profile.googleLocation = location;
+  } catch (e) {
+    console.log(e);
   }
-
-})
+});
 
 module.exports = { ProfileRouter };

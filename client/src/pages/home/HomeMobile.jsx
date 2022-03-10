@@ -37,7 +37,7 @@ const HomeMobile = (props) => {
           }}
         ></div>
         <div className="home-floating-text">
-          <h2>ניסיון יצירת קהילת הנצחה מותאמת אישית</h2>
+          <h2>יצירת קהילת הנצחה מותאמת אישית</h2>
           {console.log(user)}
           {user ? (
             <Link

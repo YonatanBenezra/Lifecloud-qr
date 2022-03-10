@@ -1,21 +1,19 @@
 import axios from 'axios';
 import { useRef, useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Topbar from '../../components/topbar/Topbar';
-import profiles from './dummy-profiles.json';
 import './profile.css';
 import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
 import ENTopbar from '../../components/topbar/ENTopBar';
-import useGeoLocation from '../../hooks/useGeoLocation';
+import Map from './Map';
 import Popup from 'reactjs-popup';
+import useGeoLocation from '../../hooks/useGeoLocation';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import graveLocationImg from '../../assets/מיקום-הקבר.jpg'
 import LifeAxisImg from '../../assets/ציר-חיים.jpg'
-import ComboDatePicker from './ComboDatePicker'
 export default function ProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
@@ -31,6 +29,7 @@ export default function ProfileCreate() {
   const [graveData, setGraveData] = useState(null);
   const [coverData, setCoverData] = useState(null);
   const [message, setMessage] = useState('');
+  useEffect(() => {});
   console.log(hebBirthDate, 'imgData');
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
@@ -42,7 +41,33 @@ export default function ProfileCreate() {
       });
       reader.readAsDataURL(e.target.files[0]);
     }
-  };
+};
+const handleBirthDateBlur = async () => {
+  const birth = new Date(birthDate.current.value);
+
+  const date = birth.getDate();
+  const year = birth.getFullYear();
+  const month = birth.getMonth();
+
+  const response = await fetch(
+    `https://www.shoresh.org.il/dates/go.aspx?what=gth&d=${date}&m=${month}&y=${year}&res=txt`
+  );
+
+  sethebBirthDate(response);
+};
+const handleDeathDateBlur = async () => {
+  const death = new Date(deathDate.current.value);
+
+  const date = death.getDate();
+  const year = death.getFullYear();
+  const month = death.getMonth();
+
+  const response = await fetch(
+    `https://www.shoresh.org.il/dates/go.aspx?what=gth&d=${date}&m=${month}&y=${year}&res=txt`
+  );
+
+  sethebDeathDate(response);
+};
   const readImage = (e, num) => {
     const reader = new FileReader();
     return reader.readAsDataURL(e[num]);
@@ -75,7 +100,15 @@ export default function ProfileCreate() {
   const [multiFiles, setMultiFiles] = useState([]);
   const onChangeMultiplePicture = (e) => {
     const files = [...e.target.files];
-    files.forEach((file) => (file.imagePreview = URL.createObjectURL(file)));
+    if (e.target.files[0].type.startsWith('video')) {
+      files.forEach(
+        (file) =>
+          (file.imagePreview =
+            'https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg')
+      );
+    } else {
+      files.forEach((file) => (file.imagePreview = URL.createObjectURL(file)));
+    }
     setMultiFiles((prev) => [...prev, ...files]);
   };
 
@@ -154,20 +187,9 @@ export default function ProfileCreate() {
 
     setInputList(newArray);
   };
-  const [axisImages, setAxisImages] = useState([]);
-
-  const handleAxisImage = (event, i) => {
-    const copyArray = [...inputList];
-    const files = event.target.files[0];
-
-    copyArray[i].axisImage = files;
-
-    setInputList(copyArray);
-
-    setAxisImages(inputList.map((list) => list.axisImage));
-  };
-
+  // console.log(hebBirthDate.current.value)
   const handleClick = async (e) => {
+    console.log(id, 'id');
     e.preventDefault();
     const wallInformation = {
       originalUser: id,
@@ -187,11 +209,12 @@ export default function ProfileCreate() {
       gender: selectedGender,
       // privacy: selectedPrivacy,
       wazeLocation: wazeLocation.current.value,
-      // googleLocation: location.coordinates,
+      googleLocation: JSON.stringify(position),
       description: description.current.value,
       lifeAxis: inputList,
       // gallery: picture,
     };
+
     try {
       const formdata = new FormData();
       formdata.append('profileImg', picture);
@@ -209,15 +232,17 @@ export default function ProfileCreate() {
       formdata.append('deathDate', wallInformation.deathDate);
       formdata.append('gender', wallInformation.gender);
       formdata.append('wazeLocation', wallInformation.wazeLocation);
-      formdata.append('googleLocation', JSON.stringify(location.coordinates));
+      formdata.append('googleLocation', wallInformation.googleLocation);
       formdata.append('description', wallInformation.description);
       formdata.append('lifeAxis', JSON.stringify(wallInformation.lifeAxis));
+      formdata.append('isMain', false);
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
       for (let i = 0; i < axisImages.length; i++) {
         formdata.append('axisImages', axisImages[i]);
       }
+      console.log(formdata, 'formdata');
       fetch(`${process.env.REACT_APP_API_URL}/api/profile/createProfile`, {
         method: 'POST',
         body: formdata,
@@ -243,9 +268,24 @@ export default function ProfileCreate() {
     setOpen(false);
     setMessage('');
   };
-  const { location, getGeoLocation } = useGeoLocation();
+  const [map, setMap] = useState(false);
+  const [position, setPosition] = useState({
+    lat: 30.928370265478026,
+    lng: 34.81864101562498,
+  });
+  const [axisImages, setAxisImages] = useState([]);
 
-  console.log(location);
+  const handleAxisImage = (event, i) => {
+    const copyArray = [...inputList];
+    const files = event.target.files[0];
+
+    copyArray[i].axisImage = files;
+
+    setInputList(copyArray);
+
+    setAxisImages(inputList.map((list) => list.axisImage));
+  };
+
   return (
     <div className="profile-creation-container">
       <Topbar />
@@ -302,7 +342,7 @@ export default function ProfileCreate() {
               />
             </div>
           </div>
-          
+           
           <div className="press-explain-container">
               <Popup
                 trigger={<div className="press-explain-1">+ לחץ להסבר</div>}
@@ -334,7 +374,6 @@ export default function ProfileCreate() {
               </Popup>
 
             </div>
-
           <div className="loginRight">
             <div className="RegBox">
               <form className="profile-creation-box" onSubmit={handleClick}>
@@ -358,37 +397,22 @@ export default function ProfileCreate() {
                   <h1>תאריך פטירה</h1>
                 </div>
                 <div className="profile-creation-names-container">
-                {/* <ComboDatePicker
-        className={"test"}
-        months={[
-          "ינואר",
-          "פברואר",
-          "מרץ",
-          "אפריל",
-          "מאי",
-          "יוני",
-          "יולי",
-          "אוגוסט",
-          "ספטמבר",
-          "אוקטובר",
-          "נובמבר",
-          "דצמבר"
-        ]}
-      /> */}
                   <input
                     placeholder="* לועזי"
                     ref={birthDate}
                     className="nameInput"
-                    type="text"
+                    type="date"
+                    onBlur={handleBirthDateBlur}
                   />
                   <input
                     placeholder="* לועזי"
                     type="date"
                     ref={deathDate}
                     className="nameInput"
+                    onBlur={handleDeathDateBlur}
                   />
                 </div>
-                <div className="profile-creation-names-container">
+                {/* <div className="profile-creation-names-container">
                   <input
                     placeholder="עברי"
                     type="text"
@@ -405,7 +429,7 @@ export default function ProfileCreate() {
                     onChange={(e) => sethebDeathDate(e.target.value)}
                     className="nameInput"
                   />
-                </div>
+                </div> */}
 
                 <div
                   className="profile-creation-names-container"
@@ -593,6 +617,7 @@ export default function ProfileCreate() {
                             </div>
                           </div>
                         )}
+
                         <div className="inner-box">
                           <input
                             name="axisTitle"
@@ -676,24 +701,21 @@ export default function ProfileCreate() {
                         ref={wazeLocation}
                         className="nameInput"
                       />
-                      {!location.loaded && (
-                        <button
-                          className="nameInput"
-                          onClick={getGeoLocation}
-                          type="button"
-                        >
-                          הוספת מיקום גוגל
-                        </button>
-                      )}
-                      {location.loaded && location.error?.message && (
-                        <h3>{location.error.message}</h3>
-                      )}
-
-                      {location.loaded && !location.error?.message && (
-                        <h3>מיקומך נשמר כמיקום הקבר</h3>
-                      )}
+                      {/* <input
+                        placeholder="הוספת מיקום גוגל"
+                        ref={googleLocation}
+                        className="nameInput"
+                      /> */}
+                      <button
+                        className="nameInput"
+                        onClick={() => setMap(!map)}
+                        type="button"
+                      >
+                        הוספת מיקום גוגל
+                      </button>
                     </div>
                   </div>
+                  {map && <Map position={position} setPosition={setPosition} />}
                   <div className="profile-image-container">
                     <img
                       className="profile-image"
