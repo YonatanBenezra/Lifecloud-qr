@@ -208,7 +208,6 @@
   margin: auto;
   margin-top: 2rem;
   color: #6097bf;
-
 }
 .dissapear {
   display: none;
@@ -376,6 +375,7 @@
   height: 250px;
   width: 250px;
   border-radius: 30px;
+  object-fit: cover;
 }
 
 .full-gallery-container {
@@ -413,6 +413,7 @@
   align-items: center;
   border-radius: 100%;
   justify-content: center;
+  z-index: 99;
 }
 
 .full-gallery-img-container {

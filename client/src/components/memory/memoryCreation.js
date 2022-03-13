@@ -67,7 +67,7 @@ const MemoryCreation = () => {
                 'Content-Type': 'Application/json',
               },
               body: JSON.stringify({
-                profileId: res.originalUser[0],
+                profileId: profiledata._id,
                 loggedInId: profiledata.originalUser[0]._id,
               }),
             }

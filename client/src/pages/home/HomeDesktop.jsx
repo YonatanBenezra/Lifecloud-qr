@@ -19,8 +19,9 @@ const HomeDesktop = (props) => {
     const user = props.user
     const testimonialSettings = props.testimonialSettings
     const settings = props.settings
-    const searchText = props.searchText
-    const setSearchText = props.setSearchText
+    const searchData = props.searchData
+    const setSearchData = props.setSearchData
+    const handleSearch = props.handleSearch
     console.log(props)
     return (
         <div>
@@ -44,7 +45,7 @@ const HomeDesktop = (props) => {
             to={`/createprofile/${user._id}`}
             // onClick={() => {window.reload()}}
             >
-          <div className="home-profile-creation-btn">ליצירת פרופיל ללא עלות ניסיון2</div>
+          <div className="home-profile-creation-btn">ליצירת פרופיל ללא עלות </div>
           </Link>
           ) : (
             <Link
@@ -62,9 +63,9 @@ const HomeDesktop = (props) => {
                 type="text"
                 placeholder="חיפוש שם \ ארגון"
                 className="SearchInput"
-                onChange={(e) => setSearchText(e.target.value)}
+                onChange={handleSearch}
                 style={{
-                  height: '95%',
+                  height: '93%',
                   border: 0,
                   direction: 'rtl',
                   fontSize: '20px',
@@ -75,6 +76,38 @@ const HomeDesktop = (props) => {
           </div>
           <Sidebar> </Sidebar>
         </div>
+        {searchData && searchData.length > 0 ? (
+            <div className="home-result-box-main">
+              {searchData && searchData.length > 0 ? (
+                searchData.map((item) => {
+                  return (
+                    <Link to={`profiledetails/${item._id}`}>
+                      <div className="home-result-box">
+                        <div>
+                          <span>
+                            <img
+                              style={{
+                                width: '30px',
+                                height: '30px',
+                                borderRadius: '30px',
+                              }}
+                              src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                              alt=""
+                            />
+                          </span>
+                        </div>
+                        <div>{`${item.firstName} ${item.lastName}`}</div>
+                      </div>
+                    </Link>
+                  );
+                })
+              ) : (
+                <div style={{ textAlign: 'center' }}>No Data</div>
+              )}
+            </div>
+          ) : (
+            ''
+          )}
   
         <div className="vid-text-container">
           <div className="vid-text-title">
@@ -318,19 +351,29 @@ const HomeDesktop = (props) => {
             </a>
           </Slider>
         </div>
-        <a href="/createprofile" className="creation-btn">
+        <Link to="/userprofiles/61f8ee869ea84f278da5c2f2" className="creation-btn">
           <div className="profile-div">+ לצפייה בפרופיל לדוגמה</div>
-        </a>
-        <a href="/createprofile" className="creation-btn">
+        </Link>
+        {user ? (
+          <Link
+          to={`/createprofile/${user._id}`} className="creation-btn">
           <div className="profile-div" style={{ backgroundColor: '#6097BF' }}>
             + לחץ כאן ליצור פרופיל
           </div>
-        </a>
-        <a href="/createprofile" className="creation-btn">
+        </Link>
+          ) : (
+            <Link
+            to='/register'
+            >
+          <div className="profile-div" style={{ backgroundColor: '#6097BF' }}>+ לחץ כאן ליצור פרופיל</div>
+          </Link>
+          )}
+        
+        <Link to="/plans" className="creation-btn">
           <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
             + לעמוד תוכניות ורכישה
           </div>
-        </a>
+        </Link>
         <div className="testimonials">
           <Slider {...testimonialSettings}>
             <div>
@@ -367,45 +410,6 @@ const HomeDesktop = (props) => {
             style={{ position: 'absolute', left: 0 }}
           ></img>
         </div>
-  
-        {/* <div className="plans-section">
-          <h1 className="plans-title">Plans and options for purchase</h1>
-          <div className="plans-container">
-            <div className="plan-container">
-            <img src={basic1} alt=""></img>
-            <h1 className="plan-title">LifePage</h1>
-            <div className="plan-description">
-            <h5>חינם</h5>
-            <a>+ לחץ לפרטים נוספים</a>
-            </div>
-            </div>
-            <div className="plan-container">
-              <img src={basic2} alt=""></img>
-              <h1 className="plan-title">LifeBook</h1>
-              <div className="plan-description">
-                <h5>שנה</h5>
-                <a>+ לחץ לפרטים נוספים</a>
-              </div>
-            </div>
-            <div className="plan-container">
-              <img src={standart2} alt=""></img>
-              <h1 className="plan-title">LifeBook</h1>
-              <div className="plan-description">
-                <h5>5 שנים</h5>
-                <a>+ לחץ לפרטים נוספים</a>
-              </div>
-            </div>
-            <div className="plan-container">
-              <img src={Premium1} alt=""></img>
-              <h1 className="plan-title">LifeBook</h1>
-              <div className="plan-description">
-                <h5>Organisation</h5>
-                <a>+ לחץ לפרטים נוספים</a>
-              </div>
-            </div>
-          </div>
-          <div className="link-plans">+ To the plans and purchase page</div>
-        </div> */}
         <SocialFooter />
         <Footer />
       </div>

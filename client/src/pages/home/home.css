@@ -395,3 +395,20 @@ flex-wrap: wrap;
     display: none;
   } 
 }
+.home-result-box-main {
+  width: 28%;
+  /* width: 100%; */
+  border-radius: 8px;
+  background: #abc9db;
+  /* position: absolute; */
+  padding-right: 20px;
+  margin: auto;
+  padding-left: 8px;
+}
+.home-result-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px;
+  cursor: pointer;
+}

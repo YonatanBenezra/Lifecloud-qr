@@ -74,14 +74,6 @@ const Plans = () => {
           <div className="plans-section">
             <h1 className="plans-title">תוכניות</h1>
             <div className="plans-container">
-              {/* <div className="plan-container">
-                <img src={basic1} alt=""></img>
-                <h1 className="plan-title">LifePage</h1>
-                <div className="plan-description">
-                  <h5>חינם</h5>
-                  <a>+ לחץ לפרטים נוספים</a>
-                </div>
-              </div> */}
               <div className="plan-container">
                 <img src={basic2} alt=""></img>
                 <h1 className="plan-title">LifeBook</h1>
@@ -99,7 +91,6 @@ const Plans = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="link-plans">+ To the plans and purchase page</div> */}
           </div>
       ) }
       <SocialFooter backgroundColor="#dcecf4" color="#6097bf" />

@@ -11,7 +11,7 @@ import userIcon from '../../assets/userIcon.png';
 
 const Topbar = (props) => {
   const LoggedUser = useContext(AuthContext);
-  const [searchData, setSeachData] = useState([]);
+  const [searchData, setSearchData] = useState([]);
   const { user } = useContext(AuthContext);
   const handleSearch = async (e) => {
     const { value } = e.target;
@@ -22,7 +22,7 @@ const Topbar = (props) => {
       const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/profile/searchProfile/${value}`
       );
-      setSeachData(res.data);
+      setSearchData(res.data);
     }
   };
   return (
@@ -48,7 +48,7 @@ const Topbar = (props) => {
               {searchData && searchData.length > 0 ? (
                 searchData.map((item) => {
                   return (
-                    <Link to={`/profiledetails/${item._id}`}>
+                    <Link to={`profiledetails/${item._id}`}>
                       <div className="ResultBox">
                         <div>
                           <span>
@@ -69,7 +69,7 @@ const Topbar = (props) => {
                   );
                 })
               ) : (
-                <div style={{ textAlign: 'center' }}>אין מידע</div>
+                <div style={{ textAlign: 'center' }}>No Data</div>
               )}
             </div>
           ) : (
@@ -91,7 +91,7 @@ const Topbar = (props) => {
 
                 <Link
                 to={`/createprofile/${LoggedUser.user._id}`}
-                  // onClick={() => {location.reload()}}
+                  onClick={() => {window.reload()}}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className="topbarLink"
                 >

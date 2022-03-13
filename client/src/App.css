@@ -24,6 +24,7 @@
 }
 body {
   font-family: 'almoni-light', sans-serif !important;
+  overflow: auto;
 }
 input {
   color: #6097bf;

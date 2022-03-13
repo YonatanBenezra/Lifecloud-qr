@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import './contact.css';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
@@ -8,7 +8,12 @@ import Arrow1 from '../../assets/Arrow1.png';
 import emailjs from '@emailjs/browser';
 const Contact = () => {
   const form = useRef();
-
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const handleClose = () => {
+    setOpen(false);
+    setMessage('');
+  };
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
@@ -20,6 +25,8 @@ const Contact = () => {
       )
       .then(
         (result) => {
+          setMessage('נשלח בהצלחה!');
+          setOpen(true);
           console.log(result.text);
         },
         (error) => {
@@ -57,7 +64,7 @@ const Contact = () => {
           <input
             className="register-contact"
             required
-            placeholder="Email"
+            placeholder="אימייל*"
             name="email"
             type="email"
           />
@@ -78,15 +85,6 @@ const Contact = () => {
             placeholder="*טלפון "
             name="phone"
             type="phone"
-          />
-        </div>
-        <div>
-          <input
-            className="register-contact"
-            required
-            placeholder="*מייל "
-            name="miles"
-            type="number"
           />
         </div>
         <div>

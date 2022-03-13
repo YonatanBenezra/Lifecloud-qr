@@ -17,16 +17,17 @@
   align-items: center;
 }
 .ResultBoxMain {
-  width: 120%;
+  width: 100%;
   border-radius: 8px;
-  background: aquamarine;
+  background: #abc9db;
   position: absolute;
+  padding-right: 10px;
+  padding-left: 8px;
 }
 .ResultBox {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: aquamarine;
   padding: 7px;
   cursor: pointer;
 }

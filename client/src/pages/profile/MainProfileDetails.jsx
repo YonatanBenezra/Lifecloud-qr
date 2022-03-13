@@ -77,13 +77,8 @@ export default function Profile() {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`
     );
-    console.log(res)
     setmemoryData(res.data);
   };
-
-  useEffect(() => {
-    fetchmemories();
-  }, [comment, likeMessage]);
 
   let pasrseAxios = Object.keys(profiledata).length
     ? JSON.parse(profiledata.lifeAxis)

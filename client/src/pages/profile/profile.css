@@ -295,6 +295,29 @@ padding: 1%;
     margin-bottom: 10px;
   }
 }
+.profile-create-about-container {
+  margin-bottom: 75px;
+    text-align: center;
+}
+.center-text {
+  text-align: center;
+}
+.radio-input-container-profile {
+    background: #fff;
+    margin: 0 1rem 0 1rem;
+    width: 40px;
+    color: #6097bf;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    height: 40px;
+    font-size: 25px;
+    padding: 0 3px;
+}
 .radio-container {
   font-size: 35px;
   display: flex;
@@ -326,10 +349,9 @@ padding: 1%;
   direction: rtl;
   padding-bottom: 70px;
 }
-.profile-images {
+.add-profile-images {
   display: flex;
   justify-content: space-evenly;
-  margin-bottom: 40px;
 }
 .profile-image-container {
   display: flex;
@@ -395,6 +417,23 @@ input::placeholder {
   cursor: pointer;
   transition-duration: 200ms;
 }
+.add-btn-middle {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background: #6097bf;
+  border-radius: 100%;
+  margin-top: 40px;
+cursor: pointer;
+transition: 500ms ease-in-out;
+}
+.add-btn-middle:hover {
+  background: #ffff;
+  color: #abc9db;
+}
 .add-btn:hover {
   background: #abc9db;
   color: #ffffff;
@@ -420,6 +459,19 @@ input::placeholder {
 .line-2 {
   position: absolute;
   width: 45px;
+  height: 0px;
+  border: 1px solid #abc9db;
+}
+.line-1-middle {
+  position: absolute;
+  width: 25px;
+  height: 0px;
+  border: 1px solid #abc9db;
+  transform: rotate(90deg);
+}
+.line-2-middle {
+  position: absolute;
+  width: 25px;
   height: 0px;
   border: 1px solid #abc9db;
 }
@@ -597,4 +649,11 @@ input::placeholder {
   font-weight: 600;
   text-align: right;
   margin-top: 10px;
+}
+.press-explain-container {
+  display: flex;
+    justify-content: space-between;
+    width: 55%;
+    margin: auto;
+    margin-bottom: 40px;
 }

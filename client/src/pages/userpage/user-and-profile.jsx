@@ -13,7 +13,7 @@ export const UserAndprofiles = () => {
   const LoggedUser = useContext(AuthContext);
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
-  const [userData, setUserData] = useState(localStorage.getItem('user'));
+  const { user } = useContext(AuthContext);
   const [notifications, setNotifications] = useState([]);
   const id = useParams().id;
 
@@ -22,18 +22,26 @@ export const UserAndprofiles = () => {
       const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/notification/getallNotifications`
       );
+      const currentLoggedUser = JSON.parse(localStorage.getItem('user'));
+
       setNotifications(
-        res.data.map((item) => ({
-          date: new Date(item.createdAt).toISOString().slice(0, 10),
-          time: new Date(item.createdAt).toISOString().slice(11, 16),
-          profileImg: `${process.env.REACT_APP_API_URL}/picUploader/${
-            item.logedInUser[0].mainProfilePicture ||
-            item.logedInUser[0].profilePicture
-          }`,
-          action: `${item.logedInUser[0].firstName} create a memory on ${item.memoryCreatorNotification[0].firstName} ${item.memoryCreatorNotification[0].lastName}`,
-        }))
+        res.data
+          .filter(
+            (notification) =>
+              notification?.memoryCreatorNotification[0]?.originalUser[0] ===
+              currentLoggedUser._id
+          )
+          .map((item) => ({
+            date: new Date(item.createdAt).toISOString().slice(0, 10),
+            time: new Date(item.createdAt).toISOString().slice(11, 16),
+            profileImg: `${process.env.REACT_APP_API_URL}/picUploader/${
+              item.logedInUser[0].mainProfilePicture ||
+              item.logedInUser[0].profilePicture
+            }`,
+            action: `${item.logedInUser[0].firstName} create a memory on ${item.memoryCreatorNotification[0].firstName} ${item.memoryCreatorNotification[0].lastName}`,
+          }))
       );
-      setData(res.data);
+      // setData(res.data);
     })();
   }, []);
 
@@ -43,12 +51,12 @@ export const UserAndprofiles = () => {
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${id}`
-    );
+      );
+      console.log(res.data)
     setData(res.data);
    
   };
 
-  
   const profileImageRef = useRef(null);
   const onChangePicture = async (event) => {
     const src = URL.createObjectURL(event.target.files[0]);
@@ -56,11 +64,15 @@ export const UserAndprofiles = () => {
     const formData = new FormData();
     formData.append('mainProfilePicture', event.target.files[0]);
     formData.append('_id', LoggedUser.user._id);
-    await axios.patch(`${process.env.REACT_APP_API_URL}/updateUserProfilePicture`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    await axios.patch(
+      `${process.env.REACT_APP_API_URL}/updateUserProfilePicture`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
     // LoggedUser.dispatch({ type: 'FIREBASE_LOGIN', payload: loggedUser });
   };
 
@@ -103,38 +115,61 @@ export const UserAndprofiles = () => {
             </p> */}
             </div>
             <div className="profiles-container">
-            {/* {userData.user_type === 'organisation' && (
-                  <div>
-                    <h1>Main Pofile</h1>
-                    <Link
-                      to={`/organisationdetails`}
-                      state={{ id: organisation?._id }}
-                      style={{ cursor: 'hover' }}
-                    >
-                      <div className="profile-container">
-                        <img
-                          className="profile-image"
-                          src={`${process.env.REACT_APP_API_URL}/${organisation.profileImg}`}
-                          alt=""
-                        />
-                        <div className="profile-name">
-                          {organisation?.firstName} {organisation?.lastName}
+              {user.user_type === 'organisation' && (
+                data &&
+                data.length > 0 &&
+                data.map((userProfiles, i) => {
+                  if(userProfiles.type !== 'main'){
+                    return (
+                      <>
+                        <h1>פרופיל ראשי</h1>
+                        <Link
+                          to={`/profiledetails/${userProfiles._id}`}
+                          state={{ id: userProfiles._id }}
+                          key={i}
+                          style={{ cursor: 'hover' }}
+                        >
+                          <div className="profile-container" key={i}>
+                            <div className="profile-image-div">
+                              <img
+                                className="profile-image"
+                                src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                                alt=""
+                              />
+                            </div>
+                            <div className="profile-name">
+                              {userProfiles.firstName} {userProfiles.lastName}
+                            </div>
+                            <ul className="admins-list">
+                              {userProfiles.admins &&
+                                userProfiles.addAdmins.map((admin) => (
+                                  <li key={admin._id}>{admin}</li>
+                                ))}
+                            </ul>
+                          </div>
+                        </Link>
+                        </>
+                      );
+                    }
+                  <Link to={`/createmainprofile/${LoggedUser.user._id}`}>
+                    <div className="profile-container">
+                      <div className="profile-image create-profile-container">
+                        <div className="inner-btn">
+                          <div className="line-1 user-line"></div>
+                          <div className="line-2 user-line"></div>
                         </div>
-                        <ul className="admins-list">
-                          {organisation?.admins &&
-                            organisation?.admins.map((admin) => (
-                              <li key={admin?._id}>{admin?.firstName}</li>
-                            ))}
-                        </ul>
                       </div>
-                    </Link>
-                  </div>
-                )} */}
+                      <div className="profile-name"> צור פרופיל חדש</div>
+                    </div>
+                  </Link>
+                  }))}
               <h1 className="profile-title">הפרופילים שלי</h1>
               <div className="profiles">
                 {data &&
                   data.length > 0 &&
                   data.map((userProfiles, i) => {
+                    // console.log(data, userProfiles);
+                    if(userProfiles.type !== 'main'){
                     return (
                       <Link
                         to={`/profiledetails/${userProfiles._id}`}
@@ -162,6 +197,7 @@ export const UserAndprofiles = () => {
                         </div>
                       </Link>
                     );
+                              }
                   })}
                 <Link to={`/createprofile/${LoggedUser.user._id}`}>
                   <div className="profile-container">
@@ -189,20 +225,22 @@ export const UserAndprofiles = () => {
                 </div>
                 <div className="big-button">תשלומים</div>
                 <Link to="/plans">
-                <div className="big-button" style={{padding: '5px'}}>נהל תוכנית</div>
+                  <div className="big-button" style={{ padding: '5px' }}>
+                    נהל תוכנית
+                  </div>
                 </Link>
               </div>
               <div>
                 <h3 className="settings-subtitle">:סוג התוכנית </h3>
                 <h3 className="settings-subtitle">:סיום התוכנית </h3>
               </div>
-              <Link to='/'>
               <button
                 className="logout-btn"
                 style={{ cursor: 'pointer' }}
                 onClick={LoggedUser.myFirebase.logout}
-                >התנתק</button>
-                </Link>
+              >
+                התנתק
+              </button>
             </div>
           </div>
         </div>
@@ -229,7 +267,7 @@ export const UserAndprofiles = () => {
                 </div>
                 <img
                   alt=""
-                  src={n.profileImg}
+                  src={n.mainProfilePicture || n.profilePicture}
                   className="notification-img"
                 ></img>
               </div>

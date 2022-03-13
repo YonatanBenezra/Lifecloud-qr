@@ -9,22 +9,15 @@ import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
 import ENTopbar from '../../components/topbar/ENTopBar';
-import useGeoLocation from '../../hooks/useGeoLocation';
-import Popup from 'reactjs-popup';
-import Footer from '../../components/footer/Footer';
-import SocialFooter from '../../components/socialFooter/socialFooter';
-import graveLocationImg from '../../assets/מיקום-הקבר.jpg'
-import LifeAxisImg from '../../assets/ציר-חיים.jpg'
-import ComboDatePicker from './ComboDatePicker'
-export default function ProfileCreate() {
+export default function ENProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
   const [userData, setUserData] = useState([]);
   const [open, setOpen] = useState(false);
-  const [hebBirthDate, sethebBirthDate] = useState('');
-  const [hebDeathDate, sethebDeathDate] = useState('');
+  const [hebBirthDate,sethebBirthDate] = useState('')
+  const [hebDeathDate,sethebDeathDate] = useState('')
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedPrivacy, setSelectedPrivacy] = useState('public');
   const [image, setImage] = useState(null);
@@ -82,21 +75,15 @@ export default function ProfileCreate() {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
-
-  const [multiFiles, setMultiFiles] = useState([]);
+  const [multiFiles, setMultiFiles] = useState();
   const onChangeMultiplePicture = (e) => {
-    const files = [...e.target.files];
-    files.forEach((file) => (file.imagePreview = URL.createObjectURL(file)));
-    setMultiFiles((prev) => [...prev, ...files]);
+    setMultiFiles(e.target.files);
   };
-
   const [inputList, setInputList] = useState([
     { axisTitle: '', axisDate: '', axisDescription: '' },
-    { axisTitle: '', axisDate: '', axisDescription: '' },
-    { axisTitle: '', axisDate: '', axisDescription: '' },
-    { axisTitle: '', axisDate: '', axisDescription: '' },
   ]);
-
+  
+ 
   const firstName = useRef();
   const lastName = useRef();
   const companyName = useRef();
@@ -119,18 +106,17 @@ export default function ProfileCreate() {
   const axisTitle = useRef();
   const axisDate = useRef();
   const history = useHistory();
-
+  
   const handleChange = (e) => {
     setSelectedGender(e.target.value);
   };
   const handlePrivacyChange = (e) => {
     setSelectedPrivacy(e.target.value);
   };
-  // console.log(hebBirthDate,'hebBirthDate')
+// console.log(hebBirthDate,'hebBirthDate')
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
-
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
@@ -179,6 +165,7 @@ export default function ProfileCreate() {
   };
 console.log(userData,'userData')
   const handleClick = async (e) => {
+    console.log(id, 'id');
     e.preventDefault();
     const wallInformation = {
       originalUser: id,
@@ -198,17 +185,18 @@ console.log(userData,'userData')
       gender: selectedGender,
       // privacy: selectedPrivacy,
       wazeLocation: wazeLocation.current.value,
-      // googleLocation: location.coordinates,
+      googleLocation: googleLocation.current.value,
       description: description.current.value,
       lifeAxis: inputList,
       // gallery: picture,
     };
+
     try {
       const formdata = new FormData();
       formdata.append('profileImg', picture);
       formdata.append('graveImg', graveImage);
       formdata.append('wallImg', image);
-      formdata.append('privacy', selectedPrivacy);
+      formdata.append('privacy',selectedPrivacy);
       formdata.append('firstName', wallInformation.firstName);
       formdata.append('originalUser', wallInformation.originalUser);
       formdata.append('lastName', wallInformation.lastName);
@@ -220,15 +208,13 @@ console.log(userData,'userData')
       formdata.append('deathDate', wallInformation.deathDate);
       formdata.append('gender', wallInformation.gender);
       formdata.append('wazeLocation', wallInformation.wazeLocation);
-      formdata.append('googleLocation', JSON.stringify(location.coordinates));
+      formdata.append('googleLocation', wallInformation.googleLocation);
       formdata.append('description', wallInformation.description);
       formdata.append('lifeAxis', JSON.stringify(wallInformation.lifeAxis));
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
-      for (let i = 0; i < axisImages.length; i++) {
-        formdata.append('axisImages', axisImages[i]);
-      }
+      
       fetch(`${process.env.REACT_APP_API_URL}/api/profile/createProfile`, {
         method: 'POST',
         body: formdata,
@@ -258,7 +244,6 @@ console.log(userData,'userData')
             });
           console.log(res,'resonse create profile');
           if (res) {
-            history.goBack();
             setMessage('Profile made successfully');
             setOpen(true);
           }
@@ -273,20 +258,19 @@ console.log(userData,'userData')
     setOpen(false);
     setMessage('');
   };
-  const { location, getGeoLocation } = useGeoLocation();
-
-  console.log(location);
   return (
     <div className="profile-creation-container">
-      <Topbar />
+      <ENTopbar />
       <div className="profile-creation">
-        <div className="">
+        <div className="loginWrapper">
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
-            <h3 className="profile-creation-title">create profile</h3>
-            <div className="profile-example-btn">click here for an example profile</div>
+            <h3 className="profile-creation-title">Create profile</h3>
+            <div className="profile-example-btn">
+              Click to see profile example
+            </div>
           </div>
           <div className="profile-images">
-            {/* <div className="register_profile_image"></div> */}
+            <div className="register_profile_image"></div>
             {/* <div className="profile-image-container">
               <img
                 className="profile-image"
@@ -332,130 +316,80 @@ console.log(userData,'userData')
               />
             </div>
           </div>
-          
-          <div className="press-explain-container">
-              <Popup
-                trigger={<div className="press-explain-1">+ click for explanation</div>}
-                modal
-                nested
-              >
-                {close => (
-                  <div className="modal">
-                    <button className="close" onClick={close}>
-                      &times;
-                    </button>
-                    <img></img>
-                  </div>
-                )}
-              </Popup>
-              <Popup
-                trigger={<div className="press-explain-2">+ click for explanation</div>}
-                modal
-                nested
-              >
-                {close => (
-                  <div className="modal">
-                    <button className="close" onClick={close}>
-                      &times;
-                    </button>
-                    <img></img>
-                  </div>
-                )}
-              </Popup>
-
-            </div>
-
           <div className="loginRight">
             <div className="RegBox">
               <form className="profile-creation-box" onSubmit={handleClick}>
-                <div
-                  className="profile-creation-names-container"
-                  style={{ marginBottom: '3rem' }}
-                >
+                <div className="names-container">
                   <input
-                    placeholder="* first name"
+                    placeholder="* First name"
+                    required
                     ref={firstName}
                     className="nameInput"
                   />
                   <input
-                    placeholder="* last name"
+                    placeholder="* Last name"
+                    required
                     ref={lastName}
                     className="nameInput"
                   />
                 </div>
-                <div className="birth-date-container">
-                  <h1>birth date</h1>
-                  <h1>death date</h1>
+                <div
+                  style={{ display: 'flex', justifyContent: 'spaceBetween' }}
+                >
+                  <h1>Date of birth</h1>
+                  <h1>Date of death</h1>
                 </div>
-                <div className="profile-creation-names-container">
-                {/* <ComboDatePicker
-        className={"test"}
-        months={[
-          "ינואר",
-          "פברואר",
-          "מרץ",
-          "אפריל",
-          "מאי",
-          "יוני",
-          "יולי",
-          "אוגוסט",
-          "ספטמבר",
-          "אוקטובר",
-          "נובמבר",
-          "דצמבר"
-        ]}
-      /> */}
+                <div className="names-container">
                   <input
-                    placeholder="* english date"
+                    placeholder="* English"
+                    required
                     ref={birthDate}
                     className="nameInput"
-                    type="text"
+                    type="date"
                   />
                   <input
-                    placeholder="* english date"
+                    placeholder="* English"
+                    required
                     type="date"
                     ref={deathDate}
                     className="nameInput"
                   />
                 </div>
-                <div className="profile-creation-names-container">
+                <div className="names-container">
                   <input
-                    placeholder="hebrew date"
+                    placeholder="Hebrew"
                     type="text"
                     // ref={hebBirthDate}\
                     value={hebBirthDate}
-                    onChange={(e) => sethebBirthDate(e.target.value)}
+                    onChange={(e)=>sethebBirthDate(e.target.value)}
                     className="nameInput"
                   />
                   <input
-                    placeholder="hebrew date"
+                    placeholder="Hebrew"
                     type="text"
                     // ref={hebBirthDate}\
                     value={hebDeathDate}
-                    onChange={(e) => sethebDeathDate(e.target.value)}
+                    onChange={(e)=>sethebDeathDate(e.target.value)}
                     className="nameInput"
                   />
                 </div>
-
-                <div
-                  className="profile-creation-names-container"
-                  style={{ marginTop: '3rem' }}
-                >
+                <div className="names-container" style={{ marginTop: '3rem' }}>
                   <input
-                    placeholder="city"
+                    placeholder="* City"
+                    required
                     ref={city}
                     className="nameInput"
                     type="text"
                   />
                   <input
-                    placeholder="degree"
+                    placeholder="Degree"
                     type="text"
                     ref={degree}
                     className="nameInput"
                   />
                 </div>
                 <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>gender*</h3>
+                  <h3 style={{ color: '#6097BF' }}>* Gender</h3>
                   <div
                     className={`${
                       selectedGender === 'male' && 'register-active'
@@ -471,7 +405,7 @@ console.log(userData,'userData')
                       checked={user.gender === 'male'}
                       className="radio"
                     />
-                    <label htmlFor="male">m</label>
+                    <label for="male">ז</label>
                   </div>
                   <div
                     className={`${
@@ -488,182 +422,93 @@ console.log(userData,'userData')
                       name="gender"
                       className="radio"
                     />
-                    <label htmlFor="female">f</label>
+                    <label for="female">נ</label>
                   </div>
                   <div
                     className={`${
-                      selectedGender === 'other' && 'register-active'
+                      selectedGender === 'female' && 'register-active'
                     } radio-input-container-register`}
-                    onClick={() => setSelectedGender('other')}
+                    onClick={() => setSelectedGender('female')}
                   >
                     <input
                       type="radio"
-                      value="other"
-                      id="other"
+                      value="female"
+                      id="female"
                       onChange={handleChange}
-                      checked={user.gender === 'other'}
+                      checked={user.gender === 'female'}
                       name="gender"
                       className="radio"
                     />
-                    <label htmlFor="other">other</label>
+                    <label for="female">א</label>
                   </div>
                 </div>
                 <div
                   className="location-container"
-                  style={{ marginTop: '70px', marginBottom: '70px' }}
+                  style={{ marginTop: '2rem' }}
                 >
-                  <h1>upload media</h1>
+                  <h1>* Upload media</h1>
                   <div>
-                    <div
-                      className="profile-creation-names-container"
-                      style={{ flexDirection: 'column' }}
-                    >
+                    <div className="names-container">
                       <div className="form-group multi-preview"></div>
-                      <div className="media-upload-button-container">
+                      <div className="register_profile_image">
                         <input
                           id="profilePic"
                           type="file"
                           name="multiplefiles"
                           multiple
                           onChange={onChangeMultiplePicture}
-                          className="media-upload-button"
                         />
                       </div>
-                      <div>
-                        <img
-                          className="profile-creation-gallery-img"
-                          src={
-                            multiFiles && multiFiles.length > 0
-                              ? multiFiles[0].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img"
-                          src={
-                            multiFiles && multiFiles.length > 1
-                              ? multiFiles[1].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img"
-                          src={
-                            multiFiles && multiFiles.length > 2
-                              ? multiFiles[2].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img"
-                          src={
-                            multiFiles && multiFiles.length > 3
-                              ? multiFiles[3].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img"
-                          src={
-                            multiFiles && multiFiles.length > 4
-                              ? multiFiles[4].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                      </div>
-                      {/* <div className="previewProfilePic"> */}
-                      {/* <img
+                      <div className="previewProfilePic">
+                        {/* <img
                           className="playerProfilePic_home_tile"
                           src={imgData}
                           alt=""
                         /> */}
-                      {/* </div> */}
+                      </div>
                     </div>
                   </div>{' '}
                 </div>
-                <div style={{ textAlign: 'center' }}>
-                  <h1>about</h1>
-                  <input
-                    ref={description}
-                    className="profile-creation-description"
-                  />
-                </div>
-                <div>
+                <input
+                  placeholder="+ על הנפטר"
+                  required
+                  ref={description}
+                  className="profile-creation-description"
+                />
+                <div style={{ marginTop: '2rem' }}>
                   <h1 style={{ textAlign: 'center' }}>Life axis</h1>
-                  <Popup
-                      trigger={<div className="press-explain-4">+ click for explanation</div>}
-                      modal
-                      nested
-                    >
-                      {close => (
-                        <div className="modal">
-                          <button className="close" onClick={close}>
-                            &times;
-                          </button>
-                          <img src={LifeAxisImg} className="life-axis-img" alt=''></img>
-                        </div>
-                      )}
-                    </Popup>
                   {inputList.map((x, i) => {
                     return (
                       <div className="box" key={i}>
-                        {inputList.length !== 1 && (
-                          <div
-                            className="add-btn"
-                            onClick={() => addSingleDiv(i)}
-                          >
-                            <div className="inner-btn">
-                              <div className="line-1"></div>
-                              <div className="line-2"></div>
-                            </div>
-                          </div>
-                        )}
                         <div className="inner-box">
                           <input
                             name="axisTitle"
-                            placeholder="title"
+                            placeholder="* כותרת"
                             value={x.axisTitle}
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-input"
                           />
                           <input
                             name="axisDate"
-                            placeholder="date"
+                            placeholder="* תאריך"
                             value={x.axisDate}
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-input"
                           />
-
-                          <textarea
+                          <input
                             name="axisDescription"
-                            placeholder="text"
+                            placeholder="* טקסט"
                             value={x.axisDescription}
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-description"
                           />
-                          <label class="file-label">
-                            add image
-                            <input
-                            type="file"
-                            name="axisImage"
-                            placeholder="Image"
-                            onChange={(e) => handleAxisImage(e, i)}
-                            className="axis-input-image"
-                            />
-                            <span class="file-custom"></span>
-                          </label>
                           <div className="btn-box">
                             {inputList.length !== 1 && (
                               <p
                                 className="delete-btn"
                                 onClick={() => handleRemoveClick(i)}
                               >
-                                - delete
+                                - Remove
                               </p>
                             )}
                           </div>
@@ -682,46 +527,22 @@ console.log(userData,'userData')
                 </div>
                 <div
                   className="location-container"
-                  style={{ marginTop: '70px' }}
+                  style={{ marginTop: '2rem' }}
                 >
-                  <h1>grave location</h1>
-                  <Popup className='pop'
-                      trigger={<div className="press-explain-3">+ click for explanation</div>}
-                      modal
-                      nested
-                    >
-                      {close => (
-                        <div className="modal">
-                          <button className="close" onClick={close}>
-                            &times;
-                          </button>
-                          <img src={graveLocationImg} className="grave-location-img" alt=''></img>
-                        </div>
-                      )}
-                    </Popup>
+                  <h1>* Graves location</h1>
                   <div className="location-semicontainer">
-                    <div className="profile-creation-names-container">
+                    <div className="names-container">
                       <input
-                        placeholder="add waze location "
+                        placeholder="*Add waze direction "
+                        required
                         ref={wazeLocation}
                         className="nameInput"
                       />
-                      {!location.loaded && (
-                        <button
-                          className="nameInput"
-                          onClick={getGeoLocation}
-                          type="button"
-                        >
-                         add google location
-                        </button>
-                      )}
-                      {location.loaded && location.error?.message && (
-                        <h3>{location.error.message}</h3>
-                      )}
-
-                      {location.loaded && !location.error?.message && (
-                        <h3>your location has been saved</h3>
-                      )}
+                      <input
+                        placeholder="* add google direction"
+                        ref={googleLocation}
+                        className="nameInput"
+                      />
                     </div>
                   </div>
                   <div className="profile-image-container">
@@ -738,14 +559,15 @@ console.log(userData,'userData')
                       className="custom-file-grave"
                       type="file"
                       onChange={onChangeGrave}
-                      name="coverImg"
-                      style={{ marginRight: '38%' }}
+                      name="graveimage"
                     />
                   </div>
                 </div>
-
-                <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>privacy</h3>
+                <div
+                  className="radio-container-register"
+                  style={{ direction: 'ltr' }}
+                >
+                  <h3 style={{ color: '#6097BF' }}>* Privacy</h3>
                   <div
                     style={{
                       width: 'unset',
@@ -766,7 +588,7 @@ console.log(userData,'userData')
                       name="privacy"
                       className="radio"
                     />
-                    <label htmlFor="private">private</label>
+                    <label for="private">private</label>
                   </div>
                   <div
                     style={{
@@ -788,12 +610,11 @@ console.log(userData,'userData')
                       name="privacy"
                       className="radio"
                     />
-                    <label htmlFor="public">public</label>
+                    <label for="public">public</label>
                   </div>
                 </div>
-
                 <button className="create-btn" type="submit">
-                  save
+                  Save
                 </button>
               </form>
             </div>

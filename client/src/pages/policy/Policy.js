@@ -27,7 +27,7 @@ function Policy() {
        
     
             <div className="accordion">
-            <h1 className='accordion-title'>LifeCloud תויטרפ תוינידמ</h1>
+            <h1>LifeCloud תויטרפ תוינידמ</h1>
     
             {data.map((item,i) =>(
                 
