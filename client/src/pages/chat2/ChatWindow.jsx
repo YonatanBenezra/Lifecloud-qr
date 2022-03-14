@@ -11,9 +11,11 @@ import ScriptTag from 'react-script-tag';
 import {TextInput} from 'react-native';
 
 const express = require('express');
-    const app = express();
-    const http = require('http');
-    const server = http.createServer(app);
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
 const ChatWindow = (props) => {
 
@@ -21,10 +23,12 @@ const ChatWindow = (props) => {
     console.log('listening on *:2347');
   });
 
+  var socket = io.connect('http://localhost:2347/');
+
   socket.on('chat message', function(msg) {
     var item = document.createElement('li');
     item.textContent = msg;
-    messages.appendChild(item);
+    //messages.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
   });
 
