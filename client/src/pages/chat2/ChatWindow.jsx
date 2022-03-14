@@ -10,8 +10,26 @@ import './fonts.css';
 import ScriptTag from 'react-script-tag';
 import {TextInput} from 'react-native';
 
+const express = require('express');
+    const app = express();
+    const http = require('http');
+    const server = http.createServer(app);
+
 const ChatWindow = (props) => {
-    
+
+  server.listen(2347, () => {
+    console.log('listening on *:2347');
+  });
+
+  socket.on('chat message', function(msg) {
+    var item = document.createElement('li');
+    item.textContent = msg;
+    messages.appendChild(item);
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+
+
   //
   const [textValue, setTextValue] = useState("");
 
@@ -65,6 +83,7 @@ const ChatWindow = (props) => {
       var message = e.target.value;
       console.log("got into if");
 
+      socket.emit('chat message', message);
 
       try {
             const formdata = new FormData();
@@ -169,7 +188,19 @@ const ChatWindow = (props) => {
             //props.messages = myData;
             //return myData;
         
-        
+            const script = document.createElement("script");
+            script.src = "./server.js";
+            script.async = true;
+            document.body.appendChild(script);
+
+            const script2 = document.createElement("script");
+            script2.src = "/socket.io/socket.io.js";
+            script2.async = true;
+            document.body.appendChild(script2);
+
+            
+
+            
     //}
 
     
