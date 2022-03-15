@@ -87,6 +87,7 @@ app.use('/api/auth', AuthRouter);
 app.use('/api/posts', PostRouter);
 app.use('/api/profile', ProfileRouter);
 
+
 //Error handling middleware
 app.use((err, req, res, next) => {
   console.log(err);

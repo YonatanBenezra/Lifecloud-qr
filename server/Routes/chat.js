@@ -5,7 +5,7 @@ const ChatRouter = Router();
 
 
 
-ChatRouter.put('/saveMessage', async (req, res) => {//was post and not put, and not async
+ChatRouter.post('/saveMessage',  async (req, res) => {//was post and not put, and not async
 
     
     
@@ -14,13 +14,26 @@ ChatRouter.put('/saveMessage', async (req, res) => {//was post and not put, and 
     //var query = dbSchemas.SomeValue.find({}).select({ "name": 1, "_id": 0});
 
     //var query = dbSchemas.SomeValue.find({}).select('name -_id');
+    try {
+        console.log(req.body);
+        var message = new chatMessageModel({
+          user_one_id: req.body.user_one_id,
+          user_two_id: req.body.user_two_id,
+          message: req.body.message,
+          //timeofmessage: req.body.timeofmessage,
+          action_user_id: req.body.action_user_id
 
-    var message = new chatMessageModel(req.body);
-    message.save((err) =>{
-      if(err)
-        sendStatus(500);
-      res.sendStatus(200);
-    })
+        });
+        message.save().then((resp) => {
+          res.send(resp);
+        });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+
+
+    
   })
 
 
@@ -35,7 +48,7 @@ ChatRouter.get('/getAllChatMessages/:id', (req, res, next) => {
   chatMessageModel
   //.find({"chatUserIDs": myProfileID + "," + req.params.id})
   .find({$and:[{user_one_id: userOneID} , {user_two_id: userTwoID}]})
-  .sort('-date')
+  //.sort('-date')
   .select({})//was here
     //.populate('originalUser')
     //.populate('')

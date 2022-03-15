@@ -1,5 +1,6 @@
 const Router = require('express');
 const { profileModel } = require('./../models/Profile');
+const { chatMessageModel } = require('../models/ChatMessageModel');
 const ProfileRouter = Router();
 const multer = require('multer');
 var storage = multer.diskStorage({
@@ -9,6 +10,109 @@ var storage = multer.diskStorage({
   },
 });
 let uploadpic = multer({ storage: storage });
+
+
+ProfileRouter.get('/getAllChatMessages/:id', (req, res, next) => {
+
+  let myString = req.params.id;
+  let myArray = myString.split(',');
+  let userOneID = parseInt(myArray[0]);
+  let userTwoID = parseInt(myArray[1]);
+
+
+  const fs = require('fs');
+  fs.writeFile("C:/myfolder/log2.txt", "fields: " + userOneID + ", " + userTwoID, function(err) {
+      if(err) {
+          return console.log(err);
+      }
+  
+      console.log("The file was saved 2!");
+  }); 
+
+
+  let a = chatMessageModel
+  .find({})
+  .populate('messages') // key to populate
+  .then((response) => {
+    if (!response) {
+      return res.status(404).json({
+        message: 'data not found',
+      });
+    }
+    res.json(response);
+  });
+/*
+chatMessageModel
+//.find({"chatUserIDs": myProfileID + "," + req.params.id})
+.find({user_one_id: userOneID} , {user_two_id: userTwoID})//was {$and:[{user_one_id: userOneID} , {user_two_id: userTwoID}]})
+//.sort('-date')
+//.select({})//was here
+  //.populate('originalUser')
+  //.populate('')
+  //.exec() // key to populate
+  .then((response) => {
+    if (!response) {
+      return res.status(404).json({
+        message: 'data not found',
+      });
+    }
+    res.json(response);
+  });*/
+});
+
+ProfileRouter.post('/saveChatMessage',  async (req, res) => {//was post and not put, and not async
+  console.log("got into savechatmessage");
+  /*var form = req;
+  form.parse(req, function(err, fields, files) {
+      // fields fields fields
+      const fs = require('fs');
+      fs.writeFile("C:/myfolder/log.txt", "fields " + fields, function(err) {
+          if(err) {
+              return console.log(err);
+          }
+      
+          console.log("The file was saved!");
+      }); 
+  });
+    */
+  //.findByChatuserIDs(req.params.id);
+
+  //var query = dbSchemas.SomeValue.find({}).select({ "name": 1, "_id": 0});
+
+  //var query = dbSchemas.SomeValue.find({}).select('name -_id');
+  try {
+      console.log("req.body: " + req.body);
+
+      const fs = require('fs');
+      fs.writeFile("C:/myfolder/log.txt", "req.body: " + JSON.stringify(req.body), function(err) {
+          if(err) {
+              return console.log(err);
+          }
+      
+          console.log("The file was saved!");
+      }); 
+
+      var message = new chatMessageModel({
+        user_one_id: req.body.user_one_id,
+        user_two_id: req.body.user_two_id,
+        message: req.body.message,
+        //timeofmessage: req.body.timeofmessage,
+        action_user_id: req.body.action_user_id
+
+      });
+      message.save().then((resp) => {
+        res.send(resp);
+      });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+
+
+  
+})
+
+
 // create profile
 ProfileRouter.post(
   '/createProfile',

@@ -10,6 +10,10 @@ const AuthReducer = (state, action) => {
       return {
         profiledata: action.payload,
       };
+    case 'CHATMESSAGES':
+    return {
+      chatdata: action.payload,
+    };
     case 'LOGIN_SUCCESS':
       return {
         user: action.payload,

@@ -8,6 +8,7 @@ import axios from 'axios';
 import WithLanguage from '../languageButton/WithLanguage';
 import LanguageButton from '../languageButton/LanguageButton';
 import userIcon from '../../assets/userIcon.png';
+import ChatWindow  from '../../pages/chat2/ChatWindow';
 
 
 
@@ -17,6 +18,29 @@ import userIcon from '../../assets/userIcon.png';
 const Topbar = (props) => {
 
   
+      const [isSticky, setSticky] = useState(false);
+      const ref = useRef(null);
+      const handleScroll = () => {
+        if (ref.current) {
+          setSticky(ref.current.getBoundingClientRect().top <= 0);
+        }
+      };
+
+      useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+          return () => {
+            window.removeEventListener('scroll', () => handleScroll);
+          };
+      }, []);
+
+
+
+
+      const [showChatWindow, toggleChatWindow] = useState(false);
+      const buttonHandler = () => {
+          toggleChatWindow(showChatWindow => !showChatWindow);
+      }
 
   const LoggedUser = useContext(AuthContext);
   const [searchData, setSearchData] = useState([]);
@@ -36,7 +60,10 @@ const Topbar = (props) => {
   return (
 
     <div className="topbarContainer">
-      
+      <button onClick = {buttonHandler}>Toggle Chat Window</button>
+      <div className={`sticky-wrapper${isSticky ? ' sticky' : ''}`} ref={ref}>
+        {showChatWindow && <ChatWindow disappearChatWindow={buttonHandler}/>}
+      </div>
       <div className="topbarLeft">
         <Link to="/" style={{ textDecoration: 'none', color: '#6097BF' }}>
           <img className="logo" src={blueLogo} alt="" />

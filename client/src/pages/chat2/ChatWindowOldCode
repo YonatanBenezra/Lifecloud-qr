@@ -1,0 +1,622 @@
+
+//import console-polyfill from 'console-polyfill';
+import React, {Component} from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { useState, useContext, useParams, useEffect } from "react";
+import axios from 'axios';
+import './bootstrap.min.css';
+import './bootstrapchatstyle.css';
+import './chatstyle.css';
+import './fonts.css';
+import * as utils from './serverold.js'; 
+//import './jquery.min.js';
+//import './bootstrap.bundle.min.js';
+import cancel from './cancel.png';
+
+import {TextInput} from 'react-native';
+
+import Messages from './Messages';
+//import  { express } from 'express'
+/////////////////////////
+import io from 'socket.io-client';
+import { getAdditionalUserInfo } from 'firebase/auth';
+import { textAlign } from '@mui/system';
+
+require('console-polyfill')
+
+
+const ChatWindow = (props) => {
+  //var chat = require('./server.js');
+  //var express = require('express');
+  //var myExpress = express();
+  //var http = require('http');
+  //var app = http.createServer(myExpress);
+  //var { Server } = require("socket.io");
+  //var myio = new Server(app);
+
+  const [socket, setSocket] = useState(null);
+  const [userAdded, setUserAdded] = useState(false);
+
+  
+  const [messages, setMessages] = useState([]);
+  const [messageCounter, setMessageCounter] = useState(0);
+
+  const fetch = require('node-fetch');
+
+  const { user } = useContext(AuthContext);
+/*
+  useEffect(() => {
+    const newSocket = io(`http://localhost:3000`);// io(`http://${window.location.hostname}:3000`);
+    setSocket(newSocket);
+    //return () => newSocket.close();
+    
+    
+
+    
+
+  }, [setSocket]);
+*/
+
+
+//dispatch({ type: 'CHATMESSAGES', payload: res.data });
+
+
+//const json = res.json();
+    
+
+//console.log("mydata response for getMessages: " + JSON.stringify(myData))
+
+
+  
+
+  const messageListener = (message) => {
+    console.log("entered messagelistener: " + JSON.stringify(message));
+
+    const myMessages = messages;
+    var myLength = Object.keys(myMessages).length;
+    if (myLength == undefined) {
+      myLength = 0;
+      console.log("length was undefined");
+    }
+    console.log("length: " + myLength);
+    myMessages[myLength] = message;
+    setMessages([...myMessages]);
+    //setMessageCounter(messageCounter + 1);
+    
+    //setMessages((prevMessages) => {
+      //const newMessages = {...prevMessages};
+      //newMessages[messageCounter] = message;
+      //setMessageCounter(messageCounter + 1);
+      console.log("myMessages: " + JSON.stringify(messages));
+      //return newMessages;
+    //});
+  };
+
+  const deleteMessageListener = (messageID) => {
+    setMessages((prevMessages) => {
+      const newMessages = {...prevMessages};
+      delete newMessages[messageID];
+      return newMessages;
+    });
+  };
+
+  
+
+
+
+
+
+/*
+  socket.on('connect', function(data) {
+    //$('.connect_error').hide();
+    //$('.connected').show();
+   //console.log(data);
+   //socket.emit('create_socket', '<?= $port; ?>');
+
+  });
+/*
+  const newSocket = io(`http://${window.location.hostname}:3000`);
+  setSocket(newSocket);
+*/
+  /*const talonProps = useFaq({
+    query: getAllFaqs,
+    onCompleted: ({ data, error, loading }) => setState({data})
+  });*/
+
+  useEffect(() => {
+    console.log ("entered useEffect 1")
+
+
+    const mySocket = io(`http://localhost:3000`);
+    setSocket(mySocket);
+    /*return () => {
+      socket.emit("disconnect");
+    };*/
+
+    mySocket.on("connect", () => {
+      mySocket.on('add-message', messageListener);
+      mySocket.on('deleteMessage', deleteMessageListener);
+      //socket.emit('getMessages');
+      mySocket.emit("add-user", {
+        "id": user._id//.user.
+      });
+      setUserAdded(true);
+    });
+    
+      //setSocket(await io(process.env.REACT_APP_BASE_URL));
+      
+
+      console.log(JSON.stringify(user));
+
+      console.log("finalstring:" + FinalString());
+
+      const myString = FinalString();
+
+      const res = async () => { 
+        fetch(//await axios.get
+      `${process.env.REACT_APP_API_URL}/api/profile/getAllChatMessages/${myString}`)};//${id}
+      
+      //const myData = async () => { await res };
+/*
+      const { profiledata, dispatch } = useContext(AuthContext);
+      const id = useParams().id;
+      useEffect(() => {
+          fetchuserprofiles(id,dispatch)
+      }, [])
+      // const fetchuserprofiles = async () => {
+      //     const res = await axios.get(`/api/profile/getallprofileofSingleUser/${id}`);
+  
+      //     setData(res.data)
+      // }
+      console.log(profiledata)
+*/
+
+
+      console.log('json getMessages', JSON.stringify(res))
+        //const myData = async () => { await res };//.data
+
+
+    //const newSocket = io(`http://${window.location.hostname}:3000`);
+    //setSocket(newSocket);
+    
+    
+    
+  /*socket.on("add-message", function(data){
+
+    chatData.push("<div className='d-flex flex-row p-3'> \
+    <div className='bg-white mr-2 p-3'><span className='text-muted'>"
+    + data.content
+    + "</span></div> \
+    <img src='https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png' width={30} height={30} /> \
+    </div>");
+/*
+    setChatData(chatData + "<div className='d-flex flex-row p-3'> \
+          <div className='bg-white mr-2 p-3'><span className='text-muted'>"
+          + data.content
+          + "</span></div> \
+          <img src='https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png' width={30} height={30} /> \
+          </div>")*/
+    /*
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+    */
+    const script3 = document.createElement("script");
+    script3.src = "./bootstrap.bundle.min.js";
+    script3.async = true;
+    document.body.appendChild(script3);
+
+    const script4 = document.createElement("script");
+    script4.src = "./jquery.min.js";
+    script4.async = true;
+    document.body.appendChild(script4);
+
+    const addUser = () => {
+      socket.emit("add-user", {
+        "id": user._id//.user.
+      });
+      setUserAdded(true);
+    }
+    //return () => newSocket.close();
+  }, [setSocket]);
+  
+
+  
+
+  
+  
+
+
+  const [chatData, setChatData] = useState([]);
+/*
+  var express = require('express');
+var Server = require('socket.io');
+var http = require('http');
+var server = http.createServer(app);
+var io = new Server(server);
+/*
+socketio(server,{
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
+});*/
+//var cors = require('cors');
+//var app = express();
+//app.use(cors());
+/*
+  server.listen(2347, () => {
+    console.log('listening on *:2347');
+  });
+*/
+  //const socket = io.connect('http://localhost/');
+/*
+  socket.on('chat message', function(msg) {
+    var item = document.createElement('li');
+    item.textContent = msg;
+    console.log ("got message:" + msg);
+    //messages.appendChild(item);
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+  */
+
+
+  //
+  const [textValue, setTextValue] = useState("");
+/*
+  const Jquery = props => (
+    <ScriptTag type="text/javascript" src="/jquery.min.js" />
+    )
+  const Bootstrap = props => (
+    <ScriptTag type="text/javascript" src="/bootstrap.bundle.min.js" />
+    )
+ */
+    
+  
+
+  const FinalString = () => {
+      
+   
+      let myID = user._id;
+    
+      //let friendID = useParams().id;
+
+      let friendID = "";
+      if (myID == "622b541ffa9ae732dcd40bb5"){
+        friendID = "622b54c2fa9ae732dcd40bc4";
+      }
+      else {
+        friendID = "622b541ffa9ae732dcd40bb5";
+      }
+
+      let finalString = null;
+    
+      if (myID > friendID) {
+        finalString = friendID + "," + myID;
+      }
+      else {
+        finalString = myID + "," + friendID;
+      }
+    
+      return finalString;
+    
+   
+  }
+/*
+  const SaveMessage = async (message) => {
+      console.log (message.charAt(message.length - 1))
+      if (message.charAt(message.length - 1) == "$"){
+          const res = async () => {
+            await axios.post(
+          `${process.env.REACT_APP_API_URL}/` + FinalString);
+        
+          }
+      }
+  }
+*/
+  const HandleKeyDown =  (e) => {
+    console.log("got into keydown: " + e.target.value + "key and keycode:" + e.key + ":" + e.keyCode);
+    console.log(e);
+    if ((e.key === 'Enter' || e.keyCode === 13)) {
+      var message = e.target.value;
+      console.log("got into if");
+      console.log("user" + JSON.stringify(user));
+
+      if (!userAdded){
+        //const addUser = () => {
+          socket.emit("add-user", {
+            "id": user._id//.user.
+           });
+      
+        //}
+        setUserAdded(true);
+      }
+
+      //const myIDs = ["622b541ffa9ae732dcd40bb5","622b54c2fa9ae732dcd40bc4"]
+
+      var recipient_id = "";
+      if (user._id == "622b541ffa9ae732dcd40bb5"){
+        recipient_id = "622b54c2fa9ae732dcd40bc4";
+      }
+      else {
+        recipient_id = "622b541ffa9ae732dcd40bb5";
+      }
+
+      socket.emit("message", {
+        "id": user._id, //user._id,//.user.
+        "recipientid": recipient_id,
+        "content": message
+       });
+
+      try {
+            const formdata = new FormData();
+
+            if (user._id < recipient_id){
+              formdata.append('user_one_id', user._id);
+              formdata.append('user_two_id', recipient_id);
+              formdata.append('action_user_id', 1);
+            }
+            else {
+              formdata.append('user_one_id', recipient_id);
+              formdata.append('user_two_id', user._id);
+              formdata.append('action_user_id', 2);
+            }
+            
+            formdata.append('message', message);
+            //formdata.append('timeofmessage', Date.now());
+            
+            
+           
+            // const config = {
+            //   headers: {
+            //     'content-type': 'multipart/form-data'
+            //   }
+            // }
+            console.log('formdata: ' + JSON.stringify(formdata));
+
+            for (var key of formdata.entries()) {
+              console.log(key[0] + ', ' + key[1]);
+            }
+
+            var object = {};
+            formdata.forEach(function(value, key){
+                object[key] = value;
+            });
+            var json = JSON.stringify(object);
+/*
+            var object = {};
+            formdata.forEach(function(value, key){
+                object[key] = value;
+            });
+            var json = JSON.stringify(object);*/
+          //xlet res = awaitaxios.post('api/profile/createProfile', formdata);
+
+          //was fetch(`${process.env.REACT_APP_API_URL}/api/chat/saveMessage/`, {
+          let myResponse = fetch(`${process.env.REACT_APP_API_URL}/api/profile/saveChatMessage/`, {
+            headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+             },
+            method: 'POST',
+            body: json//.serializeObject()
+          })
+          //.then((res) => {
+           // return res.json();
+          //})
+          .then((res) => {
+            
+            console.log("response:" + JSON.stringify(res));
+            if (res) {
+              //setMessage('Profile updated successfully!');
+              //setOpen(true);
+              console.log("Saved message successfully!" + JSON.stringify(res))
+              setTextValue("");
+            }
+          });
+          //await myResponse.json();
+        // let res = await axios.post('api/profile/createProfile', formdata);
+        // console.log('res', res)
+        // history.push('/login');
+      } catch (err) {
+        console.log(JSON.stringify(err));
+        //setMessage('Something went wrong!');
+        //setOpen(true);
+      }
+
+        
+      }
+      else {
+        setTextValue(e.target.value + String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode));
+      }
+    }
+      /*
+      const res = async () => {
+          await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/chat/saveMessage` + FinalString);
+    
+      }*/
+    
+  
+  
+/*
+    async componentDidMount(){
+        const script = document.createElement("script");
+        script.src = "./bootstrap.bundle.min.js";
+        script.async = true;
+        document.body.appendChild(script);
+
+        const script2 = document.createElement("script");
+        script2.src = "./jquery.min.js";
+        script2.async = true;
+        document.body.appendChild(script2);
+
+
+        
+
+        this.loadAndDisplayData();
+        
+    }
+*/
+    
+
+
+     
+  
+            //this.setState({finalString: GetFinalString()})
+          
+    //const loadAndDisplayData = (e) => {   
+          //PUT THIS BACK IN!!!
+            
+    
+            //console.log("1" + myDropdownNotifications);
+            //console.log("2" + JSON.stringify("loadAndDisplayData: " + myData));
+            //this.setState ({ messages: myData});
+            //props.messages = myData;
+            //return myData;
+        /*
+            const script = document.createElement("script");
+            script.src = "./server.js";
+            script.async = true;
+            document.body.appendChild(script);
+
+            const script2 = document.createElement("script");
+            script2.src = "/socket.io/socket.io.js";
+            script2.async = true;
+            document.body.appendChild(script2);
+*/
+            
+
+            
+    //}
+
+    
+    const DoNothing = (event) => {
+
+    }
+
+    useEffect(() => {
+      //socket.emit("add-user", {"id": user.user._id});
+
+
+      
+    }, []);
+  
+    return (
+        
+              <div id = "ChatContainer">
+                    
+                    
+                      <div id = "TopContainer">
+                            <div id = "CancelContainer">
+                                <img id = "CancelImg" src={cancel} onClick={() => props.disappearChatWindow()}/>
+                            </div>
+                      </div>
+                      <div id = "Messages_Container">
+                    {[...Object.values(messages)] //makes mappable
+                              //.sort((a, b) => a.time - b.time)
+                              .map((message, index) => (
+
+
+                                
+
+                                  message.recipientid==user._id
+                                    ? (<><div class = "HisSpeech">
+                                              <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width={30} height={30} />
+                                              <span class = "HisSpeechText">{message.content}</span>
+                                       </div><br /><br /></>)
+                                    
+                                    
+                                    : (<><div class = "MySpeech">
+                                              
+                                              <span class = "MySpeechText">{message.content}</span>
+                                       </div><br /><br /></>)
+
+
+                                  
+
+                             
+
+
+                                ))}
+                           </div>   
+                   
+                    <textarea id = "Chat_Input" value= {textValue} /*{textValue}*/ onChange={DoNothing} onKeyDown = {HandleKeyDown}  rows={5} placeholder="Type your message" />
+                      
+                    
+              </div>
+
+        
+    )
+      
+        
+  }
+
+export default ChatWindow;
+//<Messages socket={socket} />
+
+//onChange={(event)=>InputChangedHandler(event)}
+
+//onKeyDown={HandleKeyDown}
+
+
+
+
+/*
+
+
+return (
+        <>
+                <div id="main" onContextMenu={()=>{return false}} className='snippet-body'>
+                <div id = "MessageContainer" className="container d-flex justify-content-center">
+                    <div className="card mt-5">
+                    <div className="d-flex flex-row justify-content-between p-3 adiv text-white"> <i className="fas fa-chevron-left" /> <span className="pb-3">Live chat</span> <i className="fas fa-times" /> </div>
+                    <div className="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width={30} height={30} />
+                        <div className="chat ml-2 p-3">Hello and thankyou for visiting birdlymind. Please click the video above</div>
+                    </div>
+                    <div className="d-flex flex-row p-3">
+                        <div className="bg-white mr-2 p-3"><span className="text-muted">Hello and thankyou for visiting birdlynind.</span></div> <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width={30} height={30} />
+                    </div>
+                    <div className="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width={30} height={30} />
+                        <div className="myvideo ml-2"><img src="https://imgur.com/GOxU1jx.png" width={200} /></div>
+                    </div>
+                    <div className="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width={30} height={30} />
+                        <div className="chat ml-2 p-3"><span className="text-muted dot">. . .</span></div>
+                    </div>
+                    
+                      {[...Object.values(messages)] //makes mappable
+                        //.sort((a, b) => a.time - b.time)
+                        .map((message, index) => (
+                          
+                            <div style={message.recipient_id==user._id ? {float:"left"} : {float:"right"}}>
+                            <div key={index} className="d-flex flex-row p-3" style={message.recipient_id==user._id ? {float:"left"} : {float:"right"}}>
+                                              <div className='bg-white mr-2 p-3' style={message.recipient_id==user._id ? {float:"left"} : {float:"right"}}>
+                                                  <span className='text-muted' style={message.recipient_id==user._id ? {float:"left"} : {float:"right"}}>
+                                                      {message.content}
+                                                  </span>
+                                              </div> 
+                    
+                                              <img src='https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png' width={30} height={30} /> \
+                            </div>
+                            </div>
+                        ))
+
+                        //<div className="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width={30} height={30} />
+                        //<div className="chat ml-2 p-3">Hello and thankyou for visiting birdlymind. Please click the video above</div>
+                        //</div>
+                      }
+                    
+                    <div className="form-group px-3"> <textarea value={textValue} onChange={DoNothing} onKeyDown = {HandleKeyDown} className="form-control" rows={5} placeholder="Type your message"  /> </div>
+                    </div>
+                </div>
+                    <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js'></script>
+
+                    </div>
+      
+                  
+        </>
+        )
+
+
+
+
+
+*/

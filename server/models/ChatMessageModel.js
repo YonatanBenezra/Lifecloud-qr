@@ -1,13 +1,12 @@
-const { Int32 } = require('mongodb');
+
 const mongoose = require('mongoose');
 
-var chatMessageSchema = new mongoose.Schema({
-    id: Int32,
-    user_one_id: Int32,
-    user_two_id: Int32,
+const chatMessageSchema = new mongoose.Schema({
+    user_one_id: String,
+    user_two_id: String,
     message: String,
-    timeofmessage: {type: Date, default:Date.now},
-    action_user_id: Int32
+    //timeofmessage: {type: Date, default:Date.now},
+    action_user_id: Number
 
     /*
     chatUserIDs: String,
