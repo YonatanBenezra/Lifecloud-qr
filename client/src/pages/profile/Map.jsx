@@ -37,7 +37,7 @@ function Map({ position, setPosition }) {
           zoom={currentLocation ? 12 : 8}
           onClick={onLoad}
         >
-          <Marker position={currentLocation || position} />
+          <Marker position={position} />
         </GoogleMap>
       </LoadScript>
       <button

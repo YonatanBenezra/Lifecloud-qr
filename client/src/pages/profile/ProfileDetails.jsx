@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
-import profile from './dummy-profiles.json';
 import waze from '../../assets/waze.png';
-import wts from '../../assets/wts.png';
 import zoom from '../../assets/zoom.png';
 import google from '../../assets/google.png';
-import map from '../../assets/map.png';
-import share from '../../assets/share.png';
 import heart from '../../assets/heart.png';
 import instagram from '../../assets/instagram.png';
 import facebook from '../../assets/facebook.png';
+import leftCloud from '../../assets/left-bottom-white-cloud.png';
 import { Link } from 'react-router-dom';
 import './profiledetails.css';
 import TopBar from '../../components/topbar/Topbar';
@@ -30,7 +27,6 @@ import { SRLWrapper } from 'simple-react-lightbox';
 import useGeoLocation from '../../hooks/useGeoLocation';
 import Map from './Map';
 import Direction from './Direction';
-
 export default function Profile() {
   const { dispatch } = useContext(AuthContext);
   const [profiledata, setProfileData] = useState([]);
@@ -77,7 +73,6 @@ export default function Profile() {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`
     );
-    console.log(res)
     setmemoryData(res.data);
   };
 
@@ -85,11 +80,11 @@ export default function Profile() {
     fetchmemories();
   }, [comment, likeMessage]);
 
-  let pasrseAxios = Object.keys(profiledata).length
+  let parseAxios = Object.keys(profiledata).length
     ? JSON.parse(profiledata.lifeAxis)
     : '';
   profiledata?.axisImages?.forEach((element, i) => {
-    pasrseAxios[i].axisImage = element;
+    parseAxios[i].axisImage = element;
   });
   const handleLike = (e) => {
     try {
@@ -236,18 +231,19 @@ export default function Profile() {
           className="profile-cover"
         ></img>
         <div className="profile-details">
+          <img src={leftCloud} alt="" className="leftcloud-profile"></img>
           <img
             src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
             alt=""
             className="profile-img"
           ></img>
           <div className="deceased-details">
-            <h1>{`${profiledata.firstName} ${profiledata.lastName}`}</h1>
+            <h1 className="profile-h1">{`${profiledata?.degree} ${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
             <p>
               {profiledata?.birthDate?.split('T')[0]} -{' '}
               {profiledata?.deathDate?.split('T')[0]}
             </p>
-            {/* <p>{profile[0].city}</p> */}
+            <p>{profiledata?.city}</p>
           </div>
         </div>
         <div className="btns-container">
@@ -255,7 +251,7 @@ export default function Profile() {
             {(profiledata.originalUser[0]._id === loggedUser._id ||
               profiledata.addAdmins.indexOf()) && (
               <Link to={`/editprofiles/${id}`}>
-                <span className="small-btn">ערוך פרופיל</span>
+                <span className="profile-small-btn">ערוך פרופיל</span>
               </Link>
             )}
 
@@ -264,25 +260,28 @@ export default function Profile() {
                 profiledata.originalUser[0]._id === loggedUser._id ||
                 profiledata.addAdmins.indexOf()
                   ? 'dissapear'
-                  : 'small-btn'
+                  : 'profile-small-btn'
               }`}
             >
               הוסף חבר
             </span>
-            <span className="small-btn" onClick={() => setShow('friends')}>
+            <span
+              className="profile-small-btn"
+              onClick={() => setShow('friends')}
+            >
               רשימת חברים
             </span>
           </div>
           <div className="big-btns-container">
             <div
               onClick={() => setShow('bio')}
-              className={`${show === 'bio' && 'active'} big-btn`}
+              className={`${show === 'bio' && 'active'} profile-big-btn`}
             >
               ביוגרפיה
             </div>
             <div
               onClick={() => setShow('wall')}
-              className={`${show === 'wall' && 'active'} big-btn`}
+              className={`${show === 'wall' && 'active'} profile-big-btn`}
             >
               קיר
             </div>
@@ -297,8 +296,9 @@ export default function Profile() {
             <h1 className="memorial-title">תאריך האזכרה</h1>
             <div className="details-and-icons">
               <div className="memorial-details">
+                {console.log(profiledata)}
                 <h3>| {profiledata?.birthDate?.split('T')[0]}</h3>
-                <h3>| {profiledata?.deathDate?.split('T')[0]}</h3>
+                <h3>| {profiledata?.hebDeathDate}</h3>
                 <h3>| {profiledata.wazeLocation}</h3>
               </div>
               <div className="profile-icons-container">
@@ -463,11 +463,12 @@ export default function Profile() {
             {/* <p className="axis-desc">{profiledata.description}</p> */}
           </div>
           <div>
-            {pasrseAxios?.map((axis, index) => (
+            {parseAxios?.map((axis, index) => (
               <div className="axis-container" key={index}>
                 <div className="axis-sub-container">
                   <h1 className="axis-title">{axis.axisTitle}</h1>
                   <p className="axis-description2">{axis.axisDescription}</p>
+                  <span>{axis.axisDate}</span>
                 </div>
                 <div
                   className="axis-bubble"
@@ -477,9 +478,7 @@ export default function Profile() {
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                   }}
-                >
-                  <span>{axis.axisDate}</span>
-                </div>
+                ></div>
               </div>
             ))}
           </div>

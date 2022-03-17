@@ -657,3 +657,59 @@ transition: 500ms ease-in-out;
     margin: auto;
     margin-bottom: 40px;
 }
+.organisation-name {
+  margin-top: 45px;
+  width: 90%;
+}
+
+.press-change-container {
+  display: flex;
+  align-items: center;
+  align-content: space-between;
+}
+.press-change-1 {
+  margin-right: 37%;
+  font-size: 18px;
+}
+.press-change-2 {
+  margin-right: 21%;
+  font-size: 18px;
+
+}
+.press-explain-container {
+  display: flex;
+}
+.press-explain-1 {
+  margin-left: 25%;
+  font-size: 18px;
+  direction: rtl;
+  color: #ABC9DB;
+}
+.press-explain-2 {
+  font-size: 18px;
+  margin-left: 33%;
+  direction: rtl;
+  color: #ABC9DB;
+}
+.press-explain-3 {
+  font-size: 18px;
+  direction: rtl;
+  color: #ABC9DB;
+}
+.press-explain-4 {
+  font-size: 18px;
+  direction: rtl;
+  color: #ABC9DB;
+  display:flex;
+ margin-right: 45%;
+ margin-top: 10px;
+}
+
+.grave-location-img {
+  width: 100%;
+  height: 100%;
+}
+.life-axis-img {
+  width: 100%;
+  height: 100%;
+}

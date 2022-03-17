@@ -8,6 +8,9 @@ const UserSchema = new mongoose.Schema(
     lastName: {
       type: String,
     },
+    companyName: {
+      type: String,
+    },
     dateOfBirth: {
       type: String,
     },
@@ -29,7 +32,6 @@ const UserSchema = new mongoose.Schema(
     },
     user_type: {
       type: String,
-      default: 'normal',
     },
   },
   {

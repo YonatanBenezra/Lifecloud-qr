@@ -18,6 +18,7 @@ MemoryRouter.post(
   ]),
   async (req, res) => {
     try {
+      console.log('hey')
       //gen new password
       const url = req.protocol + '://' + req.get('host');
       console.log(req.body, 'body');

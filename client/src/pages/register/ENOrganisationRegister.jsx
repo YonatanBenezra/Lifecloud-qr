@@ -9,7 +9,7 @@ import Footer from '../../components/footer/Footer';
 import ENTopbar from '../../components/topbar/ENTopBar';
 import ENSocialFooter from '../../components/socialFooter/ENSocialFooter';
 
-export default function ENRegister() {
+export default function ENOrganisationRegister() {
   const companyName = useRef();
   const phone = useRef();
   const email = useRef();
