@@ -18,26 +18,22 @@ const MemoryCreation = () => {
 
   useEffect(() => {
     fetchuserprofiles();
-
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
     );
     setProfileData(res.data);
-    console.log(res,'res')
   };
   const handleText = (e) => {
     setText(e.target.value);
   };
   const onChangeMultiplePicture = (e) => {
     setMultiFiles(e.target.files[0]);
-    console.log(multiFiles)
   };
   const onVideoChange = (e) => {
     setMemoryVideo(e.target.files[0]);
   };
-
   const handleClick = async (e) => {
     console.log(id, 'id');
     e.preventDefault();
@@ -51,7 +47,7 @@ const MemoryCreation = () => {
       formdata.append('memoryVideo', memoryVideo);
       formdata.append('memoryImges', multiFiles);
 
-      console.log(multiFiles, 'formdata');
+      console.log(formdata, 'formdata');
       fetch(`${process.env.REACT_APP_API_URL}/api/memory/createMemory`, {
         method: 'POST',
         body: formdata,
@@ -68,7 +64,7 @@ const MemoryCreation = () => {
                 'Content-Type': 'Application/json',
               },
               body: JSON.stringify({
-                profileId: profiledata._id,
+                profileId: res.originalUser[0],
                 loggedInId: profiledata.originalUser[0]._id,
               }),
             }

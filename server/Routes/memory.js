@@ -18,7 +18,6 @@ MemoryRouter.post(
   ]),
   async (req, res) => {
     try {
-      console.log('hey')
       //gen new password
       const url = req.protocol + '://' + req.get('host');
       console.log(req.body, 'body');
@@ -29,8 +28,8 @@ MemoryRouter.post(
       // console.log(multiFiles, 'multiFiles')
       let newUser = new Memory({
         originalUser: req.body.originalUser,
-        file: req.files.memoryImges[0].path.slice(7),
-        memoryVideo: req.files.memoryVideo[0].path.slice(7),
+        file: req.files.memoryImges?.[0].path.slice(7),
+        memoryVideo: req.files.memoryVideo?.[0].path.slice(7),
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         description: req.body.description,

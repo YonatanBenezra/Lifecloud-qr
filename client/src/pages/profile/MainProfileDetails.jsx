@@ -31,7 +31,7 @@ import useGeoLocation from '../../hooks/useGeoLocation';
 import Map from './Map';
 import Direction from './Direction';
 
-export default function Profile() {
+export default function MainProfile(props) {
   const { dispatch } = useContext(AuthContext);
   const [profiledata, setProfileData] = useState([]);
   const [memoryData, setmemoryData] = useState([]);
@@ -47,7 +47,9 @@ export default function Profile() {
   const [friendFlagReq, setrfriendReq] = useState([]);
   const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
+  const [data, setData] = useState([]);
   const [next, setnext] = useState(1);
+  const { user } = useContext(AuthContext);
 
   const fetchuserprofiles = async () => {
     const res = await axios.get(
@@ -55,25 +57,23 @@ export default function Profile() {
     );
     setProfileData(res.data);
   };
+  const fetchallprofiles = async () => {
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${user._id}`
+    );
+    setData(res.data);
+  };
   
+  useEffect(() => {
+    fetchuserprofiles();
+    fetchallprofiles();
+  }, []);
+
   const handleClose = () => {
     setOpen(false);
     setMessage('');
   };
-  var options = {
-    weekday: 'long', //to display the full name of the day, you can use short to indicate an abbreviation of the day
-    day: 'numeric',
-    month: 'long', //to display the full name of the month
-    year: 'numeric',
-  };
-
   const loggedUser = JSON.parse(localStorage.getItem('user'));
-  const [map, setMap] = useState(false);
-  const { location, getGeoLocation } = useGeoLocation();
-  useEffect(() => {
-    getGeoLocation();
-  }, [getGeoLocation]);
-
   if (Object.keys(profiledata).length > 0) {
     return (
       <div>
@@ -90,12 +90,7 @@ export default function Profile() {
             className="profile-img"
           ></img>
           <div className="deceased-details">
-            <h1>{`${profiledata.firstName} ${profiledata.lastName}`}</h1>
-            <p>
-              {profiledata?.birthDate?.split('T')[0]} -{' '}
-              {profiledata?.deathDate?.split('T')[0]}
-            </p>
-            {/* <p>{profile[0].city}</p> */}
+            <h1>{`${profiledata.firstName}`}</h1>
           </div>
         </div>
         <div className="btns-container">
@@ -103,7 +98,7 @@ export default function Profile() {
             {(profiledata.originalUser[0]._id === loggedUser._id ||
               profiledata.addAdmins.indexOf()) && (
               <Link to={`/editprofiles/${id}`}>
-                <span className="small-btn">ערוך פרופיל</span>
+                <span className="profile-small-btn">ערוך פרופיל</span>
               </Link>
             )}
 
@@ -112,25 +107,19 @@ export default function Profile() {
                 profiledata.originalUser[0]._id === loggedUser._id ||
                 profiledata.addAdmins.indexOf()
                   ? 'dissapear'
-                  : 'small-btn'
+                  : 'profile-small-btn'
               }`}
             >
               הוסף חבר
             </span>
-            <span className="small-btn" onClick={() => setShow('friends')}>
+            <span className="profile-small-btn" onClick={() => setShow('friends')}>
               רשימת חברים
             </span>
           </div>
-          <div className="big-btns-container">
-            <div
-              onClick={() => setShow('bio')}
-              className={`${show === 'bio' && 'active'} big-btn`}
-            >
-              ביוגרפיה
-            </div>
+          <div className="profile-big-btns-container">
             <div
               onClick={() => setShow('wall')}
-              className={`${show === 'wall' && 'active'} big-btn`}
+              className={`${show === 'wall' && 'active'} profile-big-btn`}
             >
               קיר
             </div>
@@ -141,28 +130,13 @@ export default function Profile() {
             show === 'wall' && 'display'
           } d-none wall-main-container`}
         >
-          <div className="memorial-container">
-            <h1 className="memorial-title">תאריך האזכרה</h1>
-            <div className="details-and-icons">
-              <div className="memorial-details">
-                <h3>| {profiledata?.birthDate?.split('T')[0]}</h3>
-                <h3>| {profiledata?.deathDate?.split('T')[0]}</h3>
-                <h3>| {profiledata.wazeLocation}</h3>
-              </div>
-              <div className="profile-icons-container">
-                <a
-                  href={`https://www.waze.com/ul?q=${profiledata.wazeLocation}`}
-                >
-                  <img src={waze} alt="" className="icon"></img>
-                </a>
-                <img
-                  src={zoom}
-                  alt=""
-                  className={`${!profiledata.zoomLink && 'no-link-icon'} icon`}
-                ></img>
-              </div>
-            </div>
+        <div className='display'>
+          <div className="bio-content">
+            <h1 className="bio-name">{profiledata.firstName}.</h1>
+            <p className="bio-bio">{profiledata.description}</p>
           </div>
+          
+        </div>
           <div className="gallery-container">
             <Gallery profiledata={profiledata} id={id} />
             <div onClick={() => setShow('gallery')} className="full-btn">
@@ -171,13 +145,11 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        {/* <div className={`${show === 'bio' && 'display'} d-none`}>
-          <div className="bio-content">
-            <h1 className="bio-name">{profiledata.firstName}.</h1>
-            <p className="bio-bio">{profiledata.description}</p>
+        <div>
+          <div className='deceased-list'>
+            {/* {console.log(profiles)} */}
           </div>
-          
-        </div> */}
+        </div>
         <div
           className={`${show === 'gallery' && 'display'} full-gallery d-none`}
         >
@@ -220,20 +192,35 @@ export default function Profile() {
                 </div>
               ))}
             </SRLWrapper>
-            {/* {profiledata?.gallery?.map(
-              (img) =>
-                img.endsWith('mp4') && (
-                  <video width="400" controls>
-                    <source
-                      src={`${process.env.REACT_APP_API_URL}/${img}`}
-                      type="video/mp4"
-                    />
-                    Your browser does not support HTML video.
-                  </video>
-                )
-            )} */}
           </div>
         </div>
+        {console.log(data)}
+        { data &&
+                  data.length > 0 &&
+                  data.map((userProfiles, i) => {
+                    if (userProfiles.isMain === false) {
+                      return (
+                        <Link
+                          to={`/profiledetails/${userProfiles._id}`}
+                          key={i}
+                          style={{ cursor: 'hover' }}
+                        >
+                          <div className="profile-container" key={i}>
+                            <div className="profile-image-div">
+                              <img
+                                className="profile-image"
+                                src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                                alt=""
+                              />
+                            </div>
+                            <div className="profile-name">
+                              {userProfiles.firstName} {userProfiles.lastName}
+                            </div>
+                          </div>
+                        </Link>
+                      );
+                    }
+                  })}
         <div
           className={`${show === 'friends' && 'display'} friends-list d-none`}
         >
