@@ -77,8 +77,8 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('message', function(data){
-    //console.log("Sending: " + data.content + " to " + data.id);
-    console.log("here we are: " + clients[data.recipientid] + " message is " + data.content);
+    //console.log("Sending: " + data.message + " to " + data.id);
+    console.log("here we are: " + clients[data.recipientid] + " message is " + data.message);
 
     if (clients[data.recipientid] != undefined){//if other user is connected, send him a message
       const recipientsocket = io.of("/").sockets.get(clients[data.recipientid].socket);

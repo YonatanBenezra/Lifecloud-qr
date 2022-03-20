@@ -24,11 +24,14 @@ require('console-polyfill')
 
 const ChatWindow = (props) => {
 
+  const [isMounted, setIsMounted] = useState(false);
 
   const [socket, setSocket] = useState(null);
   const [userAdded, setUserAdded] = useState(false);
 
-  
+  const [hasLoadedFetchedMessages, setHasLoadedFetchedMessages] = useState(false);
+  //const [fetchedMessages, setFetchedMessages] = useState("");
+
   const [messages, setMessages] = useState([]);
   const [messageCounter, setMessageCounter] = useState(0);
 
@@ -36,21 +39,59 @@ const ChatWindow = (props) => {
 
   const { user } = useContext(AuthContext);
 
-  const messageListener = (message) => {
-    console.log("entered messagelistener: " + JSON.stringify(message));
+  function getExistingMessages() {
+    return messages;
+  }
 
-    const myMessages = messages;
-    var myLength = Object.keys(myMessages).length;
-    if (myLength == undefined) {
-      myLength = 0;
-      console.log("length was undefined");
-    }
-    console.log("length: " + myLength);
-    myMessages[myLength] = message;
-    setMessages([...myMessages]);
-   
-      console.log("myMessages: " + JSON.stringify(messages));
-      
+  function messageListener(data) {
+    const message = data.message;
+    console.log("entered messagelistener2: " + JSON.stringify(data));
+          //if(isMounted){
+              console.log("entered messagelistener: " + JSON.stringify(data));
+
+              const myMessages = messages;//getExistingMessages();
+              
+              var myLength = myMessages.length;//Object.keys(myMessages).length;
+              if (myLength == undefined) {
+                myLength = 0;
+                console.log("length was undefined");
+              }
+              console.log("length: " + myLength);
+
+              const myDataArray = 
+                {
+                   
+
+                    "_id":"nothing",
+                    "user_one_id":data.id,
+                    "user_two_id":data.recipientid,
+                    "message":data.message,
+                    "action_user_id":1,
+                    "__v":0,
+                    "timeofmessage":Date.now
+                }
+            
+
+              //const newArray = [...messages, ...myDataArray];
+              //setMessages(newArray);
+
+              setMessages((prevMessages) => {
+                const newMessages = {...prevMessages};
+                const myLength = newMessages.length;
+                console.log("newMessages.length: " + myLength);
+                newMessages[myLength] = {...myDataArray};
+                return newMessages;
+              });
+
+              var objDiv = document.getElementById("Messages_Container");
+              objDiv.scrollTop = objDiv.scrollHeight;
+              //myMessages[myLength] = message;
+              console.log("pay attention: " + messages);/*
+            /* setMessages([...myMessages]);
+            
+                console.log("myMessages: " + JSON.stringify(messages));
+                */
+        //  }
   };
 
   const deleteMessageListener = (messageID) => {
@@ -62,6 +103,9 @@ const ChatWindow = (props) => {
   };
 
   useEffect(() => {
+    //let isMounted = true;
+    setIsMounted(true);
+
     console.log ("entered useEffect 1")
 
 
@@ -72,7 +116,12 @@ const ChatWindow = (props) => {
     };*/
 
     mySocket.on("connect", () => {
-      mySocket.on('add-message', messageListener);
+      //mySocket.on('add-message', messageListener());
+
+      mySocket.on('add-message', function (data) {
+        messageListener(data);
+      });
+
       mySocket.on('deleteMessage', deleteMessageListener);
       //socket.emit('getMessages');
       mySocket.emit("add-user", {
@@ -80,23 +129,47 @@ const ChatWindow = (props) => {
       });
       setUserAdded(true);
     });
-    
-     
+    if (!hasLoadedFetchedMessages){
+            try {
 
-      console.log(JSON.stringify(user));
+              console.log(JSON.stringify(user));
 
-      console.log("finalstring:" + FinalString());
+              console.log("finalstring:" + FinalString());
 
-      const myString = FinalString();
+              const myString = FinalString();//"1234,5678"//FinalString();
 
-      const res = async () => { 
-        fetch(//await axios.get
-      `${process.env.REACT_APP_API_URL}/api/profile/getAllChatMessages/${myString}`)};//${id}
-      
-      
+              async function fetchAllChatMessages()  {
+                  const res = await 
+                  axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllChatMessages/`, {
+                    "myString": myString
+                  })
+                  .then(function (response) {
+                    console.log("before:" + response);
+                    console.log("now here: " + JSON.stringify(response.data));
+                    setHasLoadedFetchedMessages(true);
+                    const newArray = [...messages, ...response.data];
+                    setMessages(newArray);
 
+                    //setMessages([...response.data]);
+                    console.log("messages.length: " + messages.length);
+                    var objDiv = document.getElementById("Messages_Container");
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+                  
+              }
+              fetchAllChatMessages();
+              
 
-      console.log('json getMessages', JSON.stringify(res))
+            } catch (err) {
+              console.log(JSON.stringify(err));
+              //setMessage('Something went wrong!');
+              //setOpen(true);
+            }
+    }
+
        
     const script3 = document.createElement("script");
     script3.src = "./bootstrap.bundle.min.js";
@@ -115,7 +188,9 @@ const ChatWindow = (props) => {
       setUserAdded(true);
     }
     //return () => newSocket.close();
-  }, [setSocket]);
+    //return () => { isMounted = false };
+    //setIsMounted(false);
+  }, [setSocket, setMessages]);
   
 
 
@@ -154,7 +229,7 @@ const ChatWindow = (props) => {
    
   }
 
-  const HandleKeyDown =  (e) => {
+  const HandleKeyDown = async (e) => {
     console.log("got into keydown: " + e.target.value + "key and keycode:" + e.key + ":" + e.keyCode);
     console.log(e);
     if ((e.key === 'Enter' || e.keyCode === 13)) {
@@ -185,7 +260,7 @@ const ChatWindow = (props) => {
       socket.emit("message", {
         "id": user._id, //user._id,//.user.
         "recipientid": recipient_id,
-        "content": message
+        "message": message
        });
 
       try {
@@ -215,35 +290,36 @@ const ChatWindow = (props) => {
                 object[key] = value;
             });
             var json = JSON.stringify(object);
+            console.log("myjson: " + json)
 
-          let myResponse = fetch(`${process.env.REACT_APP_API_URL}/api/profile/saveChatMessage/`, {
-            headers : { 
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-             },
-            method: 'POST',
-            body: json//.serializeObject()
-          })
-          //.then((res) => {
-           // return res.json();
-          //})
-          .then((res) => {
-            
-            console.log("response:" + JSON.stringify(res));
-            if (res) {
-              //setMessage('Profile updated successfully!');
-              //setOpen(true);
-              console.log("Saved message successfully!" + JSON.stringify(res))
-              setTextValue("");
-            }
-          });
-        
-      } catch (err) {
-        console.log(JSON.stringify(err));
-        //setMessage('Something went wrong!');
-        //setOpen(true);
-      }
 
+
+              const res = await 
+              axios.post(`${process.env.REACT_APP_API_URL}/api/profile/saveChatMessage/`, {
+                "info": json
+              })
+              .then(function (response) {
+                console.log("before:" + response);
+                console.log("now here: " + JSON.stringify(response.data));
+               
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+              
+          //}
+          //fetchAllChatMessages();
+          
+
+        } catch (err) {
+          console.log(JSON.stringify(err));
+          //setMessage('Something went wrong!');
+          //setOpen(true);
+        }
+
+        var objDiv = document.getElementById("Messages_Container");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        setTextValue("");
         
       }
       else {
@@ -271,22 +347,23 @@ const ChatWindow = (props) => {
                     {[...Object.values(messages)] //makes mappable
                               //.sort((a, b) => a.time - b.time)
                               .map((message, index) => (
-
-                                  message.recipientid==user._id
+                                  
+                                  (message.user_one_id==user._id && message.action_user_id == 2) ||
+                                  (message.user_two_id==user._id && message.action_user_id == 1)
                                     ? (<><div class = "HisSpeech">
                                               <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width={30} height={30} />
-                                              <span class = "HisSpeechText">{message.content}</span>
+                                              <span class = "HisSpeechText">{message.message}</span>
                                        </div><br /><br /></>)
                                     
                                     
                                     : (<><div class = "MySpeech">
                                               
-                                              <span class = "MySpeechText">{message.content}</span>
+                                              <span class = "MySpeechText">{message.message}</span>
                                        </div><br /><br /></>)
 
-                                ))}
+                              ))}
                            </div>   
-                   
+                                  
                     <textarea id = "Chat_Input" value= {textValue}  onChange={DoNothing} onKeyDown = {HandleKeyDown}  rows={5} placeholder="Type your message" />
                       
                     

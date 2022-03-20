@@ -12,79 +12,58 @@ var storage = multer.diskStorage({
 let uploadpic = multer({ storage: storage });
 
 
-ProfileRouter.get('/getAllChatMessages/:id', (req, res, next) => {
+ProfileRouter.post('/getAllChatMessages', (req, res, next) => {//:id
 
-  let myString = req.params.id;
+  let myString = req.body.myString;  //params.id;
   let myArray = myString.split(',');
-  let userOneID = parseInt(myArray[0]);
-  let userTwoID = parseInt(myArray[1]);
-
-
+  let userOneID = myArray[0];
+  let userTwoID = myArray[1];
+/*
   const fs = require('fs');
-  fs.writeFile("C:/myfolder/log2.txt", "fields: " + userOneID + ", " + userTwoID, function(err) {
+  fs.writeFile("C:/myfolder/log2.txt", "12345response: " + req.body.myString + " reqbody: " , function(err) {
       if(err) {
           return console.log(err);
       }
   
-      console.log("The file was saved 2!");
+      console.log("The file was saved 3!");
   }); 
-
+  */
+  var mysort = { timeofmessage: 1 };
 
   let a = chatMessageModel
-  .find({})
-  .populate('messages') // key to populate
+  //.find({})
+  .find({user_one_id: userOneID, user_two_id: userTwoID})
+  //.sort('-timeofmessage')
+  .sort(mysort)
+  .populate('message') // key to populate
   .then((response) => {
+  
+
+
     if (!response) {
       return res.status(404).json({
         message: 'data not found',
       });
     }
+    //return response;
     res.json(response);
+    //res.write(response);
   });
-/*
-chatMessageModel
-//.find({"chatUserIDs": myProfileID + "," + req.params.id})
-.find({user_one_id: userOneID} , {user_two_id: userTwoID})//was {$and:[{user_one_id: userOneID} , {user_two_id: userTwoID}]})
-//.sort('-date')
-//.select({})//was here
-  //.populate('originalUser')
-  //.populate('')
-  //.exec() // key to populate
-  .then((response) => {
-    if (!response) {
-      return res.status(404).json({
-        message: 'data not found',
-      });
-    }
-    res.json(response);
-  });*/
+
 });
 
 ProfileRouter.post('/saveChatMessage',  async (req, res) => {//was post and not put, and not async
-  console.log("got into savechatmessage");
-  /*var form = req;
-  form.parse(req, function(err, fields, files) {
-      // fields fields fields
-      const fs = require('fs');
-      fs.writeFile("C:/myfolder/log.txt", "fields " + fields, function(err) {
-          if(err) {
-              return console.log(err);
-          }
-      
-          console.log("The file was saved!");
-      }); 
-  });
-    */
-  //.findByChatuserIDs(req.params.id);
-
-  //var query = dbSchemas.SomeValue.find({}).select({ "name": 1, "_id": 0});
-
-  //var query = dbSchemas.SomeValue.find({}).select('name -_id');
+  console.log("got into savechatmessage2");
+  
   try {
-      console.log("req.body: " + req.body);
+      console.log("req.body.info: " + req.body.info);
+
+      const myInfo = JSON.parse(req.body.info);
+
+      console.log("req.body.info.user_one_id: " + myInfo["user_one_id"]);
 
       const fs = require('fs');
-      fs.writeFile("C:/myfolder/log.txt", "req.body: " + JSON.stringify(req.body), function(err) {
+      fs.writeFile("C:/myfolder/log.txt", "req.bodyaaaaa: " + JSON.stringify(req.body), function(err) {
           if(err) {
               return console.log(err);
           }
@@ -93,11 +72,11 @@ ProfileRouter.post('/saveChatMessage',  async (req, res) => {//was post and not 
       }); 
 
       var message = new chatMessageModel({
-        user_one_id: req.body.user_one_id,
-        user_two_id: req.body.user_two_id,
-        message: req.body.message,
+        user_one_id: myInfo["user_one_id"],
+        user_two_id: myInfo["user_two_id"],
+        message: myInfo["message"],
         //timeofmessage: req.body.timeofmessage,
-        action_user_id: req.body.action_user_id
+        action_user_id: myInfo["action_user_id"]
 
       });
       message.save().then((resp) => {
