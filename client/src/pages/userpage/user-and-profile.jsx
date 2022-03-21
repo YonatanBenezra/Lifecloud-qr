@@ -16,6 +16,7 @@ export const UserAndprofiles = () => {
   const { user } = useContext(AuthContext);
   const [notifications, setNotifications] = useState([]);
   const id = useParams().id;
+  const [userId, setId] = useState(id);
 
   useEffect(() => {
     (async () => {
@@ -115,10 +116,11 @@ export const UserAndprofiles = () => {
                     if (userProfiles.isMain) {
                       return (
                         <>
+                        {console.log(id)}
                           <h1>פרופיל ראשי</h1>
                           <Link
                             to={`/mainprofiledetails/${userProfiles._id}`}
-                            state={{ id: userProfiles._id }}
+                            state={{ id: userProfiles._id, userId: userId}}
                             key={i}
                             style={{ cursor: 'hover' }}
                           >
