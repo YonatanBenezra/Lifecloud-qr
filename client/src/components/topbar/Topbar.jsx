@@ -9,7 +9,7 @@ import WithLanguage from '../languageButton/WithLanguage';
 import LanguageButton from '../languageButton/LanguageButton';
 import userIcon from '../../assets/userIcon.png';
 import ChatWindow  from '../../pages/chat2/ChatWindow';
-
+import ChatExplorer  from '../../pages/chat2/ChatExplorer';
 
 
 
@@ -20,6 +20,7 @@ const Topbar = (props) => {
   
       const [isSticky, setSticky] = useState(false);
       const ref = useRef(null);
+      const ref2 = useRef(null);
       const handleScroll = () => {
         if (ref.current) {
           setSticky(ref.current.getBoundingClientRect().top <= 0);
@@ -41,6 +42,10 @@ const Topbar = (props) => {
       const buttonHandler = () => {
           toggleChatWindow(showChatWindow => !showChatWindow);
       }
+      const [showChatExplorer, toggleChatExplorer] = useState(false);
+      const chatExplorerHandler = () => {
+          toggleChatExplorer(showChatExplorer => !showChatExplorer);
+      }
 
   const LoggedUser = useContext(AuthContext);
   const [searchData, setSearchData] = useState([]);
@@ -61,8 +66,12 @@ const Topbar = (props) => {
 
     <div className="topbarContainer">
       <button onClick = {buttonHandler}>Toggle Chat Window</button>
+      <button onClick = {chatExplorerHandler}>Toggle Chat Explorer</button>
       <div className={`sticky-wrapper${isSticky ? ' sticky' : ''}`} ref={ref}>
         {showChatWindow && <ChatWindow disappearChatWindow={buttonHandler}/>}
+      </div>
+      <div className={`sticky-wrapper${isSticky ? ' sticky' : ''}`} ref={ref2}>
+        {showChatExplorer && <ChatExplorer disappearChatExplorer={chatExplorerHandler}/>}
       </div>
       <div className="topbarLeft">
         <Link to="/" style={{ textDecoration: 'none', color: '#6097BF' }}>

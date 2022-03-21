@@ -1,0 +1,57 @@
+#ChatContainer {
+    background-color: #99d6ff;
+    
+    width:100%;
+    height:100%;
+    z-index:100;
+    position: absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+}
+
+#Messages_Container {
+    height:80%;
+    width:100%;
+    background-color: #99d6ff;
+    position:absolute;
+    overflow:auto;
+    
+    
+}
+
+
+#Chat_Input {
+    background-color: white;
+    position: absolute;
+    height:15%;
+    width:80%;
+    bottom:0px;
+    left:10%;
+    right:10%;
+}
+
+.HisSpeech {
+    float:left;
+    
+}
+
+
+.MySpeech {
+    float:right;
+    position:relative;
+}
+
+.HisSpeechText {
+    background-color: #E4E6EB;
+    padding: 4px 4px 4px 4px;
+    border-radius: 20%;
+}
+
+.MySpeechText {
+    background-color: #0084FF;
+    padding: 4px 4px 4px 4px;
+    color:white;
+    border-radius: 20%;
+}

@@ -77,27 +77,34 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('message', function(data){
-    //console.log("Sending: " + data.message + " to " + data.id);
-    console.log("here we are: " + clients[data.recipientid] + " message is " + data.message);
 
-    if (clients[data.recipientid] != undefined){//if other user is connected, send him a message
-      const recipientsocket = io.of("/").sockets.get(clients[data.recipientid].socket);
-      recipientsocket.emit("add-message", data);
-      console.log("sent message to: " + data.recipientid);
-      //io.sockets.connected[clients[data.id].socket].emit("add-message", data);
-    } 
-    else {
-      //const socket = io.of("/").sockets.get(clients[data.id].socket);
-      socket.emit("user-not-connected", data);
-    }
-    //Send message to self no matter what
-    //const socket = io.of("/").sockets.get(clients[data.id].socket);
-    socket.emit("add-message", data);
-      //io.sockets.connected[clients[data.id].socket].emit("add-message", data);
-      //io.sockets.connected[clients[data.id].socket].emit("user-not-connected", data);
-    
-      
-    }
+    const myRecipientIDs = data.recipient_ids;
+    //console.log("Sending: " + data.message + " to " + data.id);
+    for (var i = 0; i < myRecipientIDs.length; i++){
+        /*if (clients[myRecipientIDs[i]] == undefined){
+            continue;
+        }*/
+              console.log("here we are: " + clients[myRecipientIDs[i]] + " message is " + data.message);
+
+              if (clients[myRecipientIDs[i]] != null){//if other user is connected, send him a message
+                const recipientsocket = io.of("/").sockets.get(clients[myRecipientIDs[i]].socket);
+                recipientsocket.emit("add-message", data);
+                console.log("sent message to: " + myRecipientIDs[i]);
+                //io.sockets.connected[clients[data.id].socket].emit("add-message", data);
+              } 
+              else {
+                //const socket = io.of("/").sockets.get(clients[data.id].socket);
+                socket.emit("user-not-connected", data);
+              }
+              //Send message to self no matter what
+              //const socket = io.of("/").sockets.get(clients[data.id].socket);
+              //socket.emit("add-message", data);
+                //io.sockets.connected[clients[data.id].socket].emit("add-message", data);
+                //io.sockets.connected[clients[data.id].socket].emit("user-not-connected", data);
+              
+                
+              }
+      }
   );
 
   //Removing the socket on disconnect
@@ -105,6 +112,7 @@ io.sockets.on('connection', function (socket) {
   	for(var id in clients) {
   		if(clients[id].socket === socket.id) {
   			delete clients[id];
+        console.log("user disconnected");
   			break;
   		}
   	}	

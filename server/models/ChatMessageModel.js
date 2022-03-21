@@ -2,21 +2,13 @@
 const mongoose = require('mongoose');
 
 const chatMessageSchema = new mongoose.Schema({
-    user_one_id: String,
-    user_two_id: String,
+    chat_session_id: String,
+    sender_user_id: String,
     message: String,
     timeofmessage: {type: Date, default:Date.now},
-    action_user_id: Number
-
-    /*
-    chatUserIDs: String,
-    senderID: Int16Array,
-    recipientID: Int16Array,
-    senderUsername: String,
-    recepientUsername: String,
-    contents: String,
-    dateCreated: {type: Date, default:Date.now}*/
-
+    sender_firstName: String,
+    sender_lastName: String,
+    sender_profile_src:String,
 });
 
 const chatMessageModel = mongoose.model('ChatMessage', chatMessageSchema);

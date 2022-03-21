@@ -1,0 +1,180 @@
+#WholePage {
+    /*width:100wv;*/
+    /*height:100vh;*/
+    
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    z-index:1000;
+    background-color: blue;
+    
+}
+
+#LoadingAlertContainer {
+    z-index:9999;
+}
+
+#ExistingChats {
+    width:25%;
+    height:100%;
+    float:left;
+    background-color: rgb(241,239,241);
+    border-right:2px solid rgb(215,214,215);
+}
+
+#ChatWindow {
+    width:50%;
+    height:100%;
+    float:left;
+    /*background-color: rgb(241,239,241);*/
+    background-color: red;
+    border-right:2px solid rgb(215,214,215);
+    position:relative;
+}
+#PeopleDiv {
+    width:25%;
+    height:100%;
+    float:left;
+    background-color: rgb(241,239,241);
+    position: relative;
+}
+
+#ExitWindow {
+    width:7px;
+    height:7px;
+    position: absolute;
+    top:3px;
+    right:3px;
+}
+
+#ExitImage {
+    width:7px;
+    height:7px;
+}
+
+#PeopleHeader {
+    margin:7px 0px 0px 7px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#PeopleInnerContainer {
+    height:300px;
+}
+
+.OnePeopleDivPerson {
+    width:100%;
+    height:5%;
+    margin:1% 0 1% 0;
+    /*background-color: #4FBC9C;*/
+    position:relative;
+}
+
+.OnePeopleDivPerson .PictureDiv {
+    
+    height:100%;
+    width:15%;
+    float:left;
+}
+
+.OnePeopleDivPerson .NameDiv {
+    
+    height:100%;
+    width:60%;
+    float:left;
+}
+
+.DropdownDiv {
+    
+    float:left;
+}
+
+.DropdownDiv:hover {
+    
+    background-color: #2D7FAF;
+}
+
+.DropdownDiv img {
+    width:70%;
+    height:20%;
+    margin:16% 0 64% 0;
+
+}
+
+.OnePeopleDivPerson .AddButton {
+    margin:5px 5px 5px 5px;
+    height:40px;
+    width:60%;
+    float:left;
+}
+
+.OnePeopleDivPerson .AddDiv {
+    margin:5px 0px 5px 5px;
+    height:100%;
+    width:5%;
+    float:left;
+    position: relative;
+}
+
+.MenuContainer {
+    position:absolute;
+    width:25px;
+    height:30px;
+    top:15px;
+    left:0px;
+    display:none;
+}
+
+.MenuContainer .TopOption {
+    
+    width:25px;
+    height:15px;
+
+}
+
+.MenuContainer .TopOption:hover {
+    background-color: #93C2E7;
+
+}
+
+.MenuContainer .SecondOption {
+    
+    width:25px;
+    height:15px;
+
+}
+
+.MenuContainer .SecondOption:hover {
+    background-color: #93C2E7;
+
+}
+
+.AddDivButton {
+    float:left;
+    width:40%;
+    height:100%;
+}
+
+.DropdownMenu {
+    display:block;
+    position:absolute;
+    top:100%;
+    left:40%;
+    width:50%;
+    height:340%;
+    background-color: white;
+    z-index:1000;
+}
+
+.MenuItem {
+
+
+    width:100%;
+    height:50%
+}
+
+.OneReactionItem {
+    width:100%;
+}

@@ -1,0 +1,41 @@
+#SessionsContainer {
+    width:100%;
+}
+
+.OneChatSession {
+    width:100%;
+    height:5%;
+}
+
+.ImgDiv {
+    margin-right:10%;
+   /* height:5%;
+    padding-top:100%;*/
+
+}
+
+.ImgClass {
+    float:left;
+    /*height:5%;
+    padding-top:100%;*/
+
+}
+
+.HeaderText {
+    margin:.1% 0px 0px .1%;
+    /*margin:5px 0px 0px 5px;*/
+    font-weight: bold;
+    font-size:14px;
+}
+
+.LastMessage {
+    /*margin:5px 0px 0px 5px;*/
+    margin:.1% 0px 0px .1%;
+    font-size:10px;
+}
+
+.LastMessageTime {
+    margin:5px 0px 0px 5px;
+    font-size:10px;
+    float:right;
+}

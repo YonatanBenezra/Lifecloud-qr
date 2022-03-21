@@ -348,8 +348,7 @@ const ChatWindow = (props) => {
                               //.sort((a, b) => a.time - b.time)
                               .map((message, index) => (
                                   
-                                  (message.user_one_id==user._id && message.action_user_id == 2) ||
-                                  (message.user_two_id==user._id && message.action_user_id == 1)
+                                  message.sender_user_id != user._id
                                     ? (<><div class = "HisSpeech">
                                               <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width={30} height={30} />
                                               <span class = "HisSpeechText">{message.message}</span>
