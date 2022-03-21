@@ -30,7 +30,7 @@ export default function ProfileCreate() {
   const [graveData, setGraveData] = useState(null);
   const [coverData, setCoverData] = useState(null);
   const [message, setMessage] = useState('');
-  useEffect(() => {});
+  useEffect(() => { });
   console.log(hebBirthDate, 'imgData');
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
@@ -42,33 +42,33 @@ export default function ProfileCreate() {
       });
       reader.readAsDataURL(e.target.files[0]);
     }
-};
-const handleBirthDateBlur = async () => {
-  const birth = new Date(birthDate.current.value);
+  };
+  const handleBirthDateBlur = async () => {
+    const birth = new Date(birthDate.current.value);
 
-  const date = birth.getDate();
-  const year = birth.getFullYear();
-  const month = birth.getMonth();
+    const date = birth.getDate();
+    const year = birth.getFullYear();
+    const month = birth.getMonth();
 
-  const response = await fetch(
-    `https://www.shoresh.org.il/dates/go.aspx?what=gth&d=${date}&m=${month}&y=${year}&res=txt`
-  );
+    const response = await fetch(
+      `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${month+1}&gd=${date}&g2h=1`
+    );
+    const data=await response.json()
+    sethebBirthDate(data.hebrew);
+  };
+  const handleDeathDateBlur = async () => {
+    const death = new Date(deathDate.current.value);
 
-  sethebBirthDate(response);
-};
-const handleDeathDateBlur = async () => {
-  const death = new Date(deathDate.current.value);
+    const date = death.getDate();
+    const year = death.getFullYear();
+    const month = death.getMonth();
 
-  const date = death.getDate();
-  const year = death.getFullYear();
-  const month = death.getMonth();
-
-  const response = await fetch(
-    `https://www.shoresh.org.il/dates/go.aspx?what=gth&d=${date}&m=${month}&y=${year}&res=txt`
-  );
-
-  sethebDeathDate(response);
-};
+    const response = await fetch(
+      `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${month+1}&gd=${date}&g2h=1`
+    )
+    const data=await response.json()
+    sethebDeathDate(data.hebrew);
+  };
   const readImage = (e, num) => {
     const reader = new FileReader();
     return reader.readAsDataURL(e[num]);
@@ -104,8 +104,8 @@ const handleDeathDateBlur = async () => {
     if (e.target.files[0].type.startsWith('video')) {
       files.forEach(
         (file) =>
-          (file.imagePreview =
-            'https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg')
+        (file.imagePreview =
+          'https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg')
       );
     } else {
       files.forEach((file) => (file.imagePreview = URL.createObjectURL(file)));
@@ -373,38 +373,6 @@ const handleDeathDateBlur = async () => {
               />
             </div>
           </div>
-           
-          <div className="press-explain-container">
-              <Popup
-                trigger={<div className="press-explain-1">+ לחץ להסבר</div>}
-                modal
-                nested
-              >
-                {close => (
-                  <div className="modal">
-                    <button className="close" onClick={close}>
-                      &times;
-                    </button>
-                    <img></img>
-                  </div>
-                )}
-              </Popup>
-              <Popup
-                trigger={<div className="press-explain-2">+ לחץ להסבר</div>}
-                modal
-                nested
-              >
-                {close => (
-                  <div className="modal">
-                    <button className="close" onClick={close}>
-                      &times;
-                    </button>
-                    <img></img>
-                  </div>
-                )}
-              </Popup>
-
-            </div>
           <div className="loginRight">
             <div className="RegBox">
               <form className="profile-creation-box" onSubmit={handleClick}>
@@ -430,6 +398,7 @@ const handleDeathDateBlur = async () => {
                 <div className="profile-creation-names-container">
                   <input
                     placeholder="* לועזי"
+                    pattern="\d{4}-\d{2}-\d{2}"
                     ref={birthDate}
                     className="nameInput"
                     type="date"
@@ -482,9 +451,8 @@ const handleDeathDateBlur = async () => {
                 <div className="radio-container-register">
                   <h3 style={{ color: '#6097BF' }}>מין *</h3>
                   <div
-                    className={`${
-                      selectedGender === 'male' && 'register-active'
-                    } radio-input-container-register`}
+                    className={`${selectedGender === 'male' && 'register-active'
+                      } radio-input-container-register`}
                     onClick={() => setSelectedGender('male')}
                   >
                     <input
@@ -499,9 +467,8 @@ const handleDeathDateBlur = async () => {
                     <label htmlFor="male">ז</label>
                   </div>
                   <div
-                    className={`${
-                      selectedGender === 'female' && 'register-active'
-                    } radio-input-container-register`}
+                    className={`${selectedGender === 'female' && 'register-active'
+                      } radio-input-container-register`}
                     onClick={() => setSelectedGender('female')}
                   >
                     <input
@@ -516,9 +483,8 @@ const handleDeathDateBlur = async () => {
                     <label htmlFor="female">נ</label>
                   </div>
                   <div
-                    className={`${
-                      selectedGender === 'other' && 'register-active'
-                    } radio-input-container-register`}
+                    className={`${selectedGender === 'other' && 'register-active'
+                      } radio-input-container-register`}
                     onClick={() => setSelectedGender('other')}
                   >
                     <input
@@ -621,19 +587,19 @@ const handleDeathDateBlur = async () => {
                 <div>
                   <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
                   <Popup
-                      trigger={<div className="press-explain-4">+ לחץ להסבר</div>}
-                      modal
-                      nested
-                    >
-                      {close => (
-                        <div className="modal">
-                          <button className="close" onClick={close}>
-                            &times;
-                          </button>
-                          <img src={LifeAxisImg} className="life-axis-img" alt=''></img>
-                        </div>
-                      )}
-                    </Popup>
+                    trigger={<div className="press-explain-4 pointer">+ לחץ להסבר</div>}
+                    modal
+                    nested
+                  >
+                    {close => (
+                      <div className="modal">
+                        <button className="close" onClick={close}>
+                          &times;
+                        </button>
+                        <img src={LifeAxisImg} className="life-axis-img" alt=''></img>
+                      </div>
+                    )}
+                  </Popup>
                   {inputList.map((x, i) => {
                     return (
                       <div className="box" key={i}>
@@ -675,11 +641,11 @@ const handleDeathDateBlur = async () => {
                           <label class="file-label">
                             הוסף תמונה
                             <input
-                            type="file"
-                            name="axisImage"
-                            placeholder="Image"
-                            onChange={(e) => handleAxisImage(e, i)}
-                            className="axis-input-image"
+                              type="file"
+                              name="axisImage"
+                              placeholder="Image"
+                              onChange={(e) => handleAxisImage(e, i)}
+                              className="axis-input-image"
                             />
                             <span class="file-custom"></span>
                           </label>
@@ -712,19 +678,19 @@ const handleDeathDateBlur = async () => {
                 >
                   <h1>מיקום הקבר</h1>
                   <Popup className='pop'
-                      trigger={<div className="press-explain-3">+ לחץ להסבר</div>}
-                      modal
-                      nested
-                    >
-                      {close => (
-                        <div className="modal">
-                          <button className="close" onClick={close}>
-                            &times;
-                          </button>
-                          <img src={graveLocationImg} className="grave-location-img" alt=''></img>
-                        </div>
-                      )}
-                    </Popup>
+                    trigger={<div className="press-explain-3 pointer">+ לחץ להסבר</div>}
+                    modal
+                    nested
+                  >
+                    {close => (
+                      <div className="modal">
+                        <button className="close" onClick={close}>
+                          &times;
+                        </button>
+                        <img src={graveLocationImg} className="grave-location-img" alt=''></img>
+                      </div>
+                    )}
+                  </Popup>
                   <div className="location-semicontainer">
                     <div className="profile-creation-names-container">
                       <input
@@ -775,9 +741,8 @@ const handleDeathDateBlur = async () => {
                       paddingRight: '10px',
                       paddingLeft: '10px',
                     }}
-                    className={`${
-                      selectedPrivacy === 'private' && 'register-active'
-                    } radio-input-container-register`}
+                    className={`${selectedPrivacy === 'private' && 'register-active'
+                      } radio-input-container-register`}
                     onClick={() => setSelectedPrivacy('private')}
                   >
                     <input
@@ -797,9 +762,8 @@ const handleDeathDateBlur = async () => {
                       paddingRight: '10px',
                       paddingLeft: '10px',
                     }}
-                    className={`${
-                      selectedPrivacy === 'public' && 'register-active'
-                    } radio-input-container-register`}
+                    className={`${selectedPrivacy === 'public' && 'register-active'
+                      } radio-input-container-register`}
                     onClick={() => setSelectedPrivacy('public')}
                   >
                     <input

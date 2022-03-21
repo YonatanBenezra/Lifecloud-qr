@@ -8,6 +8,8 @@ import axios from 'axios';
 import WithLanguage from '../languageButton/WithLanguage';
 import LanguageButton from '../languageButton/LanguageButton';
 import userIcon from '../../assets/userIcon.png';
+import { Search } from '@material-ui/icons';
+
 
 const Topbar = (props) => {
   const LoggedUser = useContext(AuthContext);
@@ -25,18 +27,23 @@ const Topbar = (props) => {
       setSearchData(res.data);
     }
   };
+
+
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <Link to="/" style={{ textDecoration: 'none', color: '#6097BF' }}>
+
+        <Link to="/" className="life-cloud-logo-image-topbar-mobile" style={{ textDecoration: 'none', color: '#6097BF' }}>
           <img className="logo" src={blueLogo} alt="" />
         </Link>
         <WithLanguage>
           <LanguageButton />
         </WithLanguage>
       </div>
+      <Search className="searchIcon-topbar-mobile" />
+      <h1 className="menu-icon-topbar-mobile"> - </h1>
       <div className="topbarCenter">
-        <div style={{ position: 'relative', textAlign: 'end' }}>
+        <div className="topbarCenter-search">
           <input
             type="text"
             placeholder="חיפוש..."
@@ -48,7 +55,7 @@ const Topbar = (props) => {
               {searchData && searchData.length > 0 ? (
                 searchData.map((item) => {
                   return (
-                    <Link to={`profiledetails/${item._id}`}>
+                    <Link to={`/profiledetails/${item._id}`}>
                       <div className="ResultBox">
                         <div>
                           <span>
@@ -69,7 +76,7 @@ const Topbar = (props) => {
                   );
                 })
               ) : (
-                <div style={{ textAlign: 'center' }}>No Data</div>
+                <div style={{ textAlign: 'center' }}>אין מידע</div>
               )}
             </div>
           ) : (
@@ -81,7 +88,7 @@ const Topbar = (props) => {
             {user ? (
               <div className="logged-nav">
                 <Link
-                  to={`/`}  
+                  to={`/`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className="topbarLink"
                   onClick={LoggedUser.myFirebase.logout}
@@ -90,8 +97,7 @@ const Topbar = (props) => {
                 </Link>
 
                 <Link
-                to={`/createprofile/${LoggedUser.user._id}`}
-                  onClick={() => {window.reload()}}
+                  to={`/createprofile/${LoggedUser.user._id}`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className="topbarLink"
                 >
@@ -114,7 +120,7 @@ const Topbar = (props) => {
                   צור קשר{' '}
                 </Link>
 
-                  <Link
+                <Link
                   to={`/plans`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className="topbarLink"
@@ -128,13 +134,13 @@ const Topbar = (props) => {
                   className="topbarLink"
                 >
                   <img src={
-                  user.mainProfilePicture
-                  ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
-                  : user.profilePicture
-                  ? user.profilePicture
-                  : userIcon
+                    user.mainProfilePicture
+                      ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
+                      : user.profilePicture
+                        ? user.profilePicture
+                        : userIcon
                   }
-                  alt=""
+                    alt=""
                     className="topbarImg"
                   />
                 </Link>

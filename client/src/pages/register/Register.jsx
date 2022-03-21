@@ -20,7 +20,7 @@ export default function Register() {
   const history = useHistory();
   const [error, setErro] = useState('');
   const [user, setUser] = useState({
-    isOrganisation: false,
+    user_type: 'normal',
     firstName: '',
     lastName: '',
     dateOfBirth: '',

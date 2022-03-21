@@ -32,6 +32,7 @@ const MemoryCreation = () => {
   };
   const onChangeMultiplePicture = (e) => {
     setMultiFiles(e.target.files[0]);
+    console.log(multiFiles)
   };
   const onVideoChange = (e) => {
     setMemoryVideo(e.target.files[0]);
@@ -50,7 +51,7 @@ const MemoryCreation = () => {
       formdata.append('memoryVideo', memoryVideo);
       formdata.append('memoryImges', multiFiles);
 
-      console.log(formdata, 'formdata');
+      console.log(multiFiles, 'formdata');
       fetch(`${process.env.REACT_APP_API_URL}/api/memory/createMemory`, {
         method: 'POST',
         body: formdata,

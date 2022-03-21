@@ -1,3 +1,4 @@
+
 .topbarContainer {
   height: 60px;
   width: 100%;
@@ -9,6 +10,12 @@
   z-index: 999;
   box-shadow: rgb(149 157 165 / 10%) 0px 8px 24px;
 }
+.searchIcon-topbar-mobile {
+  display:none !important;
+}
+.menu-icon-topbar-mobile {
+  display: none;
+}
 
 .topbarLeft {
   flex: 3;
@@ -17,17 +24,16 @@
   align-items: center;
 }
 .ResultBoxMain {
-  width: 100%;
+  width: 120%;
   border-radius: 8px;
-  background: #abc9db;
+  background: aquamarine;
   position: absolute;
-  padding-right: 10px;
-  padding-left: 8px;
 }
 .ResultBox {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: aquamarine;
   padding: 7px;
   cursor: pointer;
 }
@@ -94,8 +100,13 @@
   align-items: center;
   justify-content: space-around;
   color: white;
-  margin-left: 3rem;
-  margin-right: 3rem;
+  /* margin-left: 3rem;
+  margin-right: 3rem; */
+}
+.topbarCenter-search {
+  position: relative;
+   text-align: end;
+   margin-right: 60px;
 }
 
 .topbarLink {
@@ -138,15 +149,47 @@
   cursor: pointer;
 }
 
+@media screen and (max-width: 768px) {
+  .topbarCenter {
+    display: none;
+  }
+  .life-cloud-logo-image-topbar-mobile {
+    position: absolute;
+    margin-left: 30%;
+  }
+  .searchIcon-topbar-mobile {
+   display: inline-block !important;
+   color:#6097bf;
+   background-color: #ffffff;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   margin-right: 20px;
+   margin-left: 20px;
+  }
+  .menu-icon-topbar-mobile {
+    display: inline-block;
+    color:#6097bf;
+    margin-right: 20px;
+  }
+  
+}
+@media screen and (max-width: 500px) {
+  .searchIcon-topbar-mobile {
+    display: none !important;
+  }
+  .menu-icon-topbar-mobile {
+    display: none !important;
+  }
+}
+
+
 @media only screen and (max-width: 600px) {
   /* .topbarLinks {
     display: none;
   } */
+
   .searchbar {
     display: none;
-  }
-  .topbarContainer {
-    width: 420px;
   }
   .topbarCenter {
     display: none;

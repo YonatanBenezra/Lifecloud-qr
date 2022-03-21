@@ -1,20 +1,11 @@
 import axios from 'axios';
 import { useRef, useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Topbar from '../../components/topbar/Topbar';
-import profiles from './dummy-profiles.json';
 import './profile.css';
 import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
-import ENTopbar from '../../components/topbar/ENTopBar';
-import Map from './Map';
-import Popup from 'reactjs-popup';
-import Footer from '../../components/footer/Footer';
-import SocialFooter from '../../components/socialFooter/socialFooter';
-import graveLocationImg from '../../assets/מיקום-הקבר.jpg'
-import LifeAxisImg from '../../assets/ציר-חיים.jpg'
 import './main-profile-create.css';
 export default function MainProfileCreate() {
   const { user } = useContext(AuthContext);
@@ -24,8 +15,6 @@ export default function MainProfileCreate() {
   const [open, setOpen] = useState(false);
   const [selectedPrivacy, setSelectedPrivacy] = useState('public');
   const [image, setImage] = useState(null);
-  const [graveImage, setGraveImage] = useState(null);
-  const [graveData, setGraveData] = useState(null);
   const [coverData, setCoverData] = useState(null);
   const [message, setMessage] = useState('');
   const onChangePicture = (e) => {
@@ -56,18 +45,6 @@ export default function MainProfileCreate() {
     }
   };
 
-  const onChangeGrave = (e) => {
-    if (e.target.files[0]) {
-      console.log('picture: ', e.target.files);
-      setGraveImage(e.target.files[0]);
-      const reader = new FileReader();
-      reader.addEventListener('load', () => {
-        setGraveData(reader.result);
-      });
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
-
   const [multiFiles, setMultiFiles] = useState([]);
   const onChangeMultiplePicture = (e) => {
     const files = [...e.target.files];
@@ -84,8 +61,6 @@ export default function MainProfileCreate() {
   };
 
   const firstName = useRef();
-  const lastName = useRef();
-  const wazeLocation = useRef();
   const description = useRef();
   const history = useHistory();
 
@@ -101,24 +76,19 @@ export default function MainProfileCreate() {
     const wallInformation = {
       originalUser: id,
       profileImg: picture,
-      graveImg: graveImage,
       wallImg: image,
       firstName: firstName.current.value,
-      wazeLocation: wazeLocation.current.value,
-      googleLocation: JSON.stringify(position),
       description: description.current.value,
     };
 
     try {
       const formdata = new FormData();
       formdata.append('profileImg', picture);
-      formdata.append('graveImg', graveImage);
       formdata.append('wallImg', image);
       formdata.append('privacy', selectedPrivacy);
       formdata.append('firstName', wallInformation.firstName);
       formdata.append('originalUser', wallInformation.originalUser);
-      formdata.append('lastName', wallInformation.lastName);
-      formdata.append('googleLocation', wallInformation.googleLocation);
+      formdata.append('lastName', 'placeholder');
       formdata.append('description', wallInformation.description);
       formdata.append('isMain', true);
       for (let i = 0; i < multiFiles.length; i++) {
@@ -203,7 +173,7 @@ export default function MainProfileCreate() {
             <div className="RegBox">
               <form className="profile-creation-box" onSubmit={handleClick}>
                 <div
-                  className="profile-creation-names-container"
+                  className="profile-creation-names-container organisation-name"
                 >
                   <input
                     placeholder="*שם"
@@ -283,66 +253,11 @@ export default function MainProfileCreate() {
                   </div>{' '}
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <h1>על הנפטר</h1>
+                  <h1>על העמותה</h1>
                   <input
                     ref={description}
                     className="profile-creation-description"
                   />
-                </div>
-                <div
-                  className="location-container"
-                  style={{ marginTop: '70px' }}
-                >
-                  <h1>מיקום הקבר</h1>
-                  <Popup className='pop'
-                      trigger={<div className="press-explain-3">+ לחץ להסבר</div>}
-                      modal
-                      nested
-                    >
-                      {close => (
-                        <div className="modal">
-                          <button className="close" onClick={close}>
-                            &times;
-                          </button>
-                          <img src={graveLocationImg} className="grave-location-img" alt=''></img>
-                        </div>
-                      )}
-                    </Popup>
-                  <div className="location-semicontainer">
-                    <div className="profile-creation-names-container">
-                      <input
-                        placeholder="הוספת מיקום ווייז "
-                        ref={wazeLocation}
-                        className="nameInput"
-                      />
-                      <button
-                        className="nameInput"
-                        onClick={() => setMap(!map)}
-                        type="button"
-                      >
-                        הוספת מיקום גוגל
-                      </button>
-                    </div>
-                  </div>
-                  {map && <Map position={position} setPosition={setPosition} />}
-                  <div className="profile-image-container">
-                    <img
-                      className="profile-image"
-                      src={
-                        graveData
-                          ? graveData
-                          : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                      }
-                      alt=""
-                    ></img>
-                    <input
-                      className="custom-file-grave"
-                      type="file"
-                      onChange={onChangeGrave}
-                      name="coverImg"
-                      style={{ marginRight: '38%' }}
-                    />
-                  </div>
                 </div>
 
                 <div className="radio-container-register">

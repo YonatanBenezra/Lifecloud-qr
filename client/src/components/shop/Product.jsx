@@ -4,9 +4,10 @@ import arrowUp from '../../assets/Arrow_up.png'
 import arrowDown from '../../assets/Arrow_down.png'
 import SubmitBtn from '../submitBtn/SubmitBtn'
 
-const Product = ({name, hebName, price, text, img, submit, setSelectedQuantity}) => {
+const Product = ({name, hebName, price, text, img, options, submit, setSelectedQuantity}) => {
 
   const [quantity, setQuantity] = useState(1);
+  const [selectedOption, setSelectedOption] = useState(options && options[0])
 
   const addQuantity = () => setQuantity(quantity + 1)
   const reduceQuantity = () => {quantity > 1 && setQuantity(quantity - 1)}
@@ -20,6 +21,43 @@ const Product = ({name, hebName, price, text, img, submit, setSelectedQuantity})
         <div className='image-container' 
              style={{backgroundImage: `url(${img})`}}>
         </div>
+        {
+          options && (
+            <div>
+              <div className='subtitle'>
+                :אופציות נוספות
+              </div>
+              <div className='options-row'>
+                {options.map((opt, i) => (
+                  <div className='option'
+                      key={i}
+                      style={{backgroundImage: `url(${opt.img})`}}
+                      />
+                ))}
+              </div>
+              {
+                selectedOption.subOptions && (
+                  <div>
+                    <div className='subtitle'>
+                      {selectedOption.subOptionsTitle}
+                    </div>
+                    <div className='options-row'>
+                      {selectedOption.subOptions.map((subOpt, i) => (
+                        <div className='option'
+                        key={i}
+                        style={{backgroundImage: `url(${subOpt.img})`}}
+                        />
+                      
+                      ))}
+                    </div>
+                  </div>
+                  
+                )
+              }
+            </div>  
+          )
+          
+        }
         <div className='header-line'>            
             <div className='price'>{price} ש״ח</div>
             <div className='separator'>|</div>

@@ -34,10 +34,9 @@ export const UserAndprofiles = () => {
           .map((item) => ({
             date: new Date(item.createdAt).toISOString().slice(0, 10),
             time: new Date(item.createdAt).toISOString().slice(11, 16),
-            profileImg: `${process.env.REACT_APP_API_URL}/picUploader/${
-              item.logedInUser[0].mainProfilePicture ||
+            profileImg: `${process.env.REACT_APP_API_URL}/picUploader/${item.logedInUser[0].mainProfilePicture ||
               item.logedInUser[0].profilePicture
-            }`,
+              }`,
             action: `${item.logedInUser[0].firstName} create a memory on ${item.memoryCreatorNotification[0].firstName} ${item.memoryCreatorNotification[0].lastName}`,
           }))
       );
@@ -47,12 +46,12 @@ export const UserAndprofiles = () => {
 
   useEffect(() => {
     fetchuserprofiles();
+    console.log(user)
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${id}`
-      );
-      console.log(res.data)
+    );
     setData(res.data);
    
   };
@@ -103,26 +102,74 @@ export const UserAndprofiles = () => {
                   onChange={onChangePicture}
                   className="user-img-input"
                 />
-                שלום {LoggedUser.user.firstName}
+                שלום {LoggedUser.user.firstName || LoggedUser.user.companyName}
               </h1>
               <div className="notifications-btn" onClick={() => setShow(true)}>
                 התראות
               </div>
-              {/* <p className='user-description'>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s,{' '}
-            </p> */}
             </div>
             <div className="profiles-container">
-              {user.user_type === 'organisation' && (
-                data &&
-                data.length > 0 &&
-                data.map((userProfiles, i) => {
-                  if(userProfiles.type !== 'main'){
-                    return (
-                      <>
-                        <h1>פרופיל ראשי</h1>
+              {user.user_type == "organisation" && (
+                  data?.length > 0 ? (
+                  data?.map((userProfiles, i) => {
+                    if (userProfiles.isMain) {
+                      return (
+                        <>
+                          <h1>פרופיל ראשי</h1>
+                          <Link
+                            to={`/mainprofiledetails/${userProfiles._id}`}
+                            state={{ id: userProfiles._id }}
+                            key={i}
+                            style={{ cursor: 'hover' }}
+                          >
+                            <div className="profile-container" key={i}>
+                              <div className="profile-image-div">
+                                <img
+                                  className="profile-image"
+                                  src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                                  alt=""
+                                />
+                              </div>
+                              <div className="profile-name">
+                                {userProfiles.firstName} {userProfiles.lastName}
+                              </div>
+                              <ul className="admins-list">
+                                {userProfiles.admins &&
+                                  userProfiles.addAdmins.map((admin) => (
+                                    <li key={admin._id}>{admin}</li>
+                                  ))}
+                              </ul>
+                            </div>
+                          </Link>
+                        </>
+                      );
+                    }
+                  })
+                ) : (
+                  <>
+                  <h1>פרופיל ראשי</h1>
+                  <Link to={`/createmainprofile/${LoggedUser.user._id}`}>
+                    <div className="profile-container">
+                      <div className="profile-image create-profile-container">
+                        <div className="inner-btn">
+                          <div className="line-1 user-line"></div>
+                          <div className="line-2 user-line"></div>
+                        </div>
+                      </div>
+                      <div className="profile-name"> צור פרופיל חדש</div>
+                    </div>
+                  </Link>
+                  </>
+                )
+              )}
+              <h1 className="profile-title">הפרופילים שלי</h1>
+              <div className="profiles">
+                {data &&
+                  data.length > 0 &&
+                  data.map((userProfiles, i) => {
+                    // console.log(data, userProfiles);
+                    if (userProfiles.isMain === false) {
+                      return (
                         <Link
                           to={`/profiledetails/${userProfiles._id}`}
                           state={{ id: userProfiles._id }}
@@ -148,56 +195,8 @@ export const UserAndprofiles = () => {
                             </ul>
                           </div>
                         </Link>
-                        </>
                       );
                     }
-                  <Link to={`/createmainprofile/${LoggedUser.user._id}`}>
-                    <div className="profile-container">
-                      <div className="profile-image create-profile-container">
-                        <div className="inner-btn">
-                          <div className="line-1 user-line"></div>
-                          <div className="line-2 user-line"></div>
-                        </div>
-                      </div>
-                      <div className="profile-name"> צור פרופיל חדש</div>
-                    </div>
-                  </Link>
-                  }))}
-              <h1 className="profile-title">הפרופילים שלי</h1>
-              <div className="profiles">
-                {data &&
-                  data.length > 0 &&
-                  data.map((userProfiles, i) => {
-                    // console.log(data, userProfiles);
-                    if(userProfiles.type !== 'main'){
-                    return (
-                      <Link
-                        to={`/profiledetails/${userProfiles._id}`}
-                        state={{ id: userProfiles._id }}
-                        key={i}
-                        style={{ cursor: 'hover' }}
-                      >
-                        <div className="profile-container" key={i}>
-                          <div className="profile-image-div">
-                            <img
-                              className="profile-image"
-                              src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
-                              alt=""
-                            />
-                          </div>
-                          <div className="profile-name">
-                            {userProfiles.firstName} {userProfiles.lastName}
-                          </div>
-                          <ul className="admins-list">
-                            {userProfiles.admins &&
-                              userProfiles.addAdmins.map((admin) => (
-                                <li key={admin._id}>{admin}</li>
-                              ))}
-                          </ul>
-                        </div>
-                      </Link>
-                    );
-                              }
                   })}
                 <Link to={`/createprofile/${LoggedUser.user._id}`}>
                   <div className="profile-container">

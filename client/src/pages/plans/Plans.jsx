@@ -29,19 +29,75 @@ const Plans = () => {
       name: 'פרחים',
       price: 100,
       text: tempText,
-      img: flowersImg
+      img: flowersImg,
+      options: [
+        {
+          optName: 'opt1',
+          img: flowersImg,
+          subOptionsTitle: ':בחר זר',
+          subOptions: [
+            {
+              optName: 'זר 1',
+              price: 179,
+              img: flowersImg
+            },
+            {
+              optName: 'זר 2',
+              price: 179,
+              img: flowersImg
+            },
+            {
+              optName: 'זר 3',
+              price: 179,
+              img: flowersImg
+            },
+          ]
+        },
+        {
+          optName: 'opt2',
+          img: flowersImg
+        }
+      ]
     },
     {
       name: 'תמונות על עץ',
       price: 100,
       text: tempText,
-      img: woodPrintImg
+      img: woodPrintImg,
+      options: [
+        {
+          optName: 'opt1',
+          img: woodPrintImg
+        },
+        {
+          optName: 'opt2',
+          img: woodPrintImg
+        }
+        ,{
+          optName: 'opt3',
+          img: woodPrintImg
+        }
+      ]
     },
     {
-      name: 'קוד סריקה חרוט',
+      name: 'שרשרת qr',
       price: 100,
       text: tempText,
-      img: qrImg
+      img: qrImg,
+      options: [
+        {
+          optName: 'opt1',
+          img: qrImg
+        },
+        {
+          optName: 'opt2',
+          img: qrImg
+        }
+        ,{
+          optName: 'opt3',
+          img: qrImg
+        }
+      ]
     },
   ]
 

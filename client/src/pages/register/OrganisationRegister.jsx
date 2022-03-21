@@ -1,3 +1,4 @@
+import React from 'react'
 import axios from 'axios';
 import { useRef, useState } from 'react';
 import './register.css';
@@ -7,7 +8,7 @@ import Topbar from '../../components/topbar/Topbar';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import Footer from '../../components/footer/Footer';
 
-export default function ENRegister() {
+export default function OrganisationRegister() {
   const companyName = useRef();
   const phone = useRef();
   const email = useRef();
@@ -16,8 +17,8 @@ export default function ENRegister() {
   const history = useHistory();
   const [error, setErro] = useState('');
   const [user, setUser] = useState({
-    IsOrganisation: true,
-    OrganisationName: '',
+    user_type: 'organisation',
+    companyName: '',
     email: '',
     password: '',
     passwordAgain: '',
