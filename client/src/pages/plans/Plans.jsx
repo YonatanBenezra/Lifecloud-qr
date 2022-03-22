@@ -22,12 +22,12 @@ const Plans = () => {
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const history = useHistory();
   const { myFirebase, user } = useContext(AuthContext);
+  
   const tempText = "םינוגריאל יגעכחיג כגחיכחג  םינוגריאל יגעכחיג כגחיכחגי כעכע  םינוגריאל יגעכחיג"
-
   const products = [
     {
       name: 'פרחים',
-      price: 100,
+      priceRange: '400 - 100',
       text: tempText,
       img: flowersImg,
       options: [
@@ -43,59 +43,66 @@ const Plans = () => {
             },
             {
               optName: 'זר 2',
-              price: 179,
+              price: 222,
               img: flowersImg
             },
             {
               optName: 'זר 3',
-              price: 179,
+              price: 333,
               img: flowersImg
             },
           ]
         },
         {
           optName: 'opt2',
-          img: flowersImg
+          img: flowersImg,
+          price: 321
         }
       ]
     },
     {
       name: 'תמונות על עץ',
-      price: 100,
+      priceRange: '400 - 100',
       text: tempText,
       img: woodPrintImg,
       options: [
         {
           optName: 'opt1',
-          img: woodPrintImg
+          img: woodPrintImg,
+          price: 111          
         },
         {
           optName: 'opt2',
-          img: woodPrintImg
+          img: woodPrintImg,
+          price: 222
         }
         ,{
           optName: 'opt3',
-          img: woodPrintImg
+          img: woodPrintImg,
+          price: 333
         }
       ]
     },
     {
       name: 'שרשרת qr',
-      price: 100,
+      priceRange: '400 - 100',
       text: tempText,
       img: qrImg,
       options: [
         {
           optName: 'opt1',
-          img: qrImg
+          img: qrImg,
+          price: 111
         },
         {
           optName: 'opt2',
-          img: qrImg
+          img: qrImg,
+          price: 222
         }
         ,{
           optName: 'opt3',
-          img: qrImg
+          img: qrImg,
+          price: 333
         }
       ]
     },
