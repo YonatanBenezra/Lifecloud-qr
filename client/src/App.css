@@ -19,20 +19,20 @@
   src: local('almoni-dl-aaa-regular'),
     url('./fonts/almoni-dl-aaa-regular.otf') format('truetype');
 }
-/* * {
-  font-family: 'almoni-light', sans-serif !important;
+* {
+  font-family: 'almoni-regular', sans-serif !important;
 }
 body {
-  font-family: 'almoni-light', sans-serif !important;
+  font-family: 'almoni-regular', sans-serif !important;
+  overflow: auto;
+}
+/* * {
+  font-family: 'Alef' !important;
+}
+body {
+  font-family: 'Alef' !important;
   overflow: auto;
 } */
-* {
-  font-family: 'Alef' !important;
-}
-body {
-  font-family: 'Alef' !important;
-  overflow: auto;
-}
 input {
   color: #6097bf;
 }

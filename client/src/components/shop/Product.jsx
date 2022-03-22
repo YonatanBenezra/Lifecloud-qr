@@ -74,7 +74,7 @@ const Product = ({name, hebName, priceRange, text, img, options, submit, setSele
           )
           
         }
-        <div className='header-line' style={{marginTop: '16px'}}>      
+        <div className='header-line'>      
             <div className='price'>{priceRange} ש״ח</div>
             <div className='separator'>|</div>
             <div className='title'>{hebName || name}</div>
