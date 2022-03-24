@@ -20,19 +20,12 @@
     url('./fonts/almoni-dl-aaa-regular.otf') format('truetype');
 }
 * {
-  font-family: 'almoni-regular', sans-serif !important;
+  font-family: 'almoni-light', sans-serif;
 }
 body {
-  font-family: 'almoni-regular', sans-serif !important;
+  font-family: 'almoni-light', sans-serif;
   overflow: auto;
 }
-/* * {
-  font-family: 'Alef' !important;
-}
-body {
-  font-family: 'Alef' !important;
-  overflow: auto;
-} */
 input {
   color: #6097bf;
 }
@@ -42,4 +35,23 @@ input:focus {
 }
 img {
   object-fit: cover !important;
+}
+
+html {
+  font-size: 28px;
+}
+@media only screen and (max-width: 1366px) {
+  html {
+    font-size: 24px;
+  } 
+}
+@media only screen and (max-width: 767px) {
+  html {
+    font-size: 20px;
+  } 
+}
+@media only screen and (max-width: 375px) {
+  html {
+    font-size: 16px;
+  } 
 }

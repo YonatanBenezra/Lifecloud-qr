@@ -1,42 +1,50 @@
+
 .profile-cover {
     width: 100%;
-    max-height: 50vh;
+    max-height: 30vh;
     object-position: 0 50%;
 }
 
-.profile-details {
+.profile-details-first {
     direction: rtl;
-    height: 400px;
+    /* height: 400px; */
     background-color: #ABC9DB;
-    width: 100%;
     display: flex;
     align-items: center;
+    position: relative;
+    margin-top: -6px;
+    padding: 2.5rem 0;
 }
 
 .hideBtn {
     display: none;
 }
 
-.profile-h1 {
+/* .profile-h1 {
     font-size: 60px;
-}
+} */
 
-.leftcloud-profile {
+.left-cloud {
     position: absolute;
     left: 0;
+    bottom: -1px;
+    width: 33vw;
+    max-width: 380px;
 }
 
-.profile-img {
-    height: 300px;
-    width: 300px;
+.profile-details .profile-img {
+    height: 260px;
+    width: 260px;
     border-radius: 100%;
-    margin-left: 15%;
+    /* margin-left: 15%; */
+    /* margin: 0 84px 0px 44px; */
+    margin: 0 4rem 0px 1.5rem;
 }
 
 .deceased-details {
     display: flex;
     color: #fff;
-    font-size: 25px;
+    /* font-size: 25px; */
     font-weight: bolder;
     margin-left: 4rem;
     flex-direction: column;
@@ -44,47 +52,50 @@
     height: 135px;
     font-family: Alef;
 }
+.profile-details .btns-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 140px;
+}
+
+.big-btns-container,
+.small-btns-container {
+    display: flex;
+}
 
 .profile-small-btn {
     background: #6097BF;
-    border-radius: 10px;
+    border-radius: 4px;
     color: #ffff;
-    width: fit-content;
     text-align: center;
-    padding: 1rem;
+    padding: 4px 0.4rem;
     justify-content: center;
-    margin-left: 1rem;
+    margin: 0 0.5rem;
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.7rem;
+    min-width: 4rem;
 }
 
 .profile-big-btn {
     display: flex;
     background: #6097BF;
-    border-radius: 10px;
+    border-radius: 4px;
     color: #ffff;
     width: -moz-fit-content;
     width: fit-content;
     text-align: center;
-    height: 50px;
-    width: 120px;
+    min-width: 4rem;
     justify-content: center;
     align-items: center;
-    margin-left: 1rem;
+    margin: 0 0.5rem;
+    padding: 0.5rem 0.4rem;
     cursor: pointer;
     font-weight: 600;
 }
 
-.btns-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    height: 100px;
-}
 
-.big-btns-container {
-    display: flex;
-}
 
 .d-none {
     display: none;
@@ -95,64 +106,75 @@
     color: #6097bf;
 }
 
-.memorial-container {
-    display: flex;
-    padding: 5rem;
-    background: #dcecf4;
+.memorial-container,
+.gallery-container {
+    display: flex;    
     justify-content: center;
-    padding: 5rem;
-    background: #dcecf4;
+    padding: 2rem 3rem;    
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
 }
-
-.memorial-title {
+.memorial-container {
+    background: #dcecf4;
+}
+.profile-details-title {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.profile-details-title h1 {
     color: #6097bf;
-    font-size: 50px;
     margin-bottom: 2rem;
 }
 
 .details-and-icons {
-    direction: rtl;
-    color: #6097bf;
+    direction: rtl;    
     background-color: #fff;
     font-size: 20px;
     border-radius: 30px;
-    padding: 3rem;
-    width: 100%;
+    padding: 12px 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
+.details-and-icons h3 {
+    color: #6097bf;
+    margin: 8px 0;
+}
+.memorial-details .dash {
+    display: none;
+}
 .wall-main-container {
     align-self: self-end;
 }
 
-.icon {
-    height: 50px;
-    width: 50px;
+.profile-details .icon-btn {
+    width: 2rem;
     margin-left: 20px;
 }
 
-.no-link-icon {
+.disabled {
     opacity: 0.2;
 }
 
-.gallery-container {
+/* .gallery-container {
     display: flex;
     justify-content: center;
     flex-direction: column;
     color: #6097bf;
     font-size: 30px;
+} */
+
+.gallery .imgs-container {
+    margin-top: 0px;
+    margin-bottom: 2rem;
 }
 
 .gallery-img {
-    height: 250px;
-    width: 250px;
-    border-radius: 30px;
+    height: 240px;
+    width: 240px;
+    border-radius: 10%;
     overflow: hidden;
-    margin-left: 20px;
+    margin: 0px 8px;
     border: 1px solid #6097bf;
 }
 
@@ -165,11 +187,11 @@
     font-weight: 100;
 }
 
-.gallery-title {
+/* .gallery-title {
     text-align: center;
     margin-bottom: 2rem;
     margin-top: 2rem;
-}
+} */
 
 .full-btn {
     text-align: center;
@@ -201,10 +223,8 @@
 }
 
 .grave-location-container {
-    margin-top: 5rem;
+    padding: 2rem 3rem;
     background-color: #dcecf4;
-    width: 100%;
-    padding-bottom: 3rem;
 }
 
 .grave-location-title {
@@ -230,19 +250,24 @@
 .navigation-btn {
     display: flex;
     background: #fff;
-    height: 65px;
-    width: 290px;
-    border-radius: 15px;
+    height: 44px;
+    width: 320px;
+    border-radius: 14px;
     align-items: center;
     justify-content: space-evenly;
-    font-size: 18px;
     /* text-align: center; */
     margin: auto;
     margin-top: 2rem;
     color: #6097bf;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.navigation-btn img {
+    width: 28px;
 }
 
-.dissapear {
+.hidden {
     display: none;
 }
 
@@ -411,7 +436,7 @@
 
 .image-gallery-section {
     height: 100%;
-    width: 250px;
+    width: 100%;
 }
 
 .last-image {
@@ -545,4 +570,67 @@ input[type='date']:valid {
 input[type='date']:focus::before,
 input[type='date']:valid::before {
     content: '' !important;
+}
+
+@media only screen and (max-width: 1200px) {
+    .memorial-container, 
+    .gallery-container {
+        padding: 2rem;
+    }
+    .gallery-img {
+        /* width: 180px;
+        height: 180px; */
+        width: 19vw;
+        height: 19vw;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .profile-details .profile-img {
+        width: 20vw;
+        height: 20vw;
+        min-width: 100px;
+        min-height: 100px;
+        /* margin: 0 2rem 0px 1.5rem; */
+        margin: 0 0 20px 0;
+    }
+    .navigation-btn {
+        width: 256px;
+    }
+    .profile-details-first {
+        flex-direction: column;
+    }
+    .deceased-details {
+        margin: 0;
+        height: 5rem;
+        text-align: center;
+    }
+    .profile-details-title h1 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .profile-details .btns-container,
+    .details-and-icons {
+        flex-direction: column;
+    }
+    /* .details-and-icons {
+        flex-direction: column;
+    } */
+    .memorial-details .separator {
+        display: none;
+    }
+    .memorial-details .dash {
+        display: initial;
+    }
+    .memorial-container,
+    .gallery-container {
+        padding: 1rem;
+    }    
+}
+@media only screen and (max-width: 480px) {
+    .gallery-img {
+        width: 16vw;
+        height: 16vw;
+        border-radius: 8px;
+    }
 }

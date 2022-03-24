@@ -5,21 +5,23 @@ import { SRLWrapper } from 'simple-react-lightbox';
 
 export const Gallery = ({ profiledata, id }) => {
   return (
-    <>
-      <h1 className="gallery-title">גלריה</h1>
+    <div className='gallery'>
+      <div className='profile-details-title'>
+        <h1>גלריה</h1>
+      </div>
+      
       <div className="imgs-container show-in-flex flex-wrap">
         <SRLWrapper>
           {profiledata.gallery &&
             profiledata.gallery.slice(0, 4).map((img, index) => {
+              // console.log('profiledata.gallery index, img ', index, img)
               return (
                 <>
                   {index === 3 ? (
                     <div
                       className="gallery-img last-image"
                       style={{
-                        backgroundImage: `${process.env.REACT_APP_API_URL}/${img}`,
-                        width: '250px',
-                        height: '250px',
+                        backgroundImage: `${process.env.REACT_APP_API_URL}/${img}`
                       }}
                     >
                       +
@@ -68,6 +70,6 @@ export const Gallery = ({ profiledata, id }) => {
             })}
         </SRLWrapper>
       </div>
-    </>
+    </div>
   );
 };

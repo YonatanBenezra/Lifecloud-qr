@@ -1,10 +1,13 @@
-* {
+/* * {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-}
+} */
 
 .profile {
-  display: flex;
+  display: flex;  
+}
+.profile *, .notifications-container * {
+  font-family: 'Roboto', sans-serif;
 }
 
 .profileRight {
@@ -526,7 +529,7 @@ a {
   padding: 75px 15px 75px 15px;
   background: #f5fcff;
 }
-.btns-container {
+.settings-container .btns-container {
   display: flex;
   justify-content: space-evenly;
   align-items: center;

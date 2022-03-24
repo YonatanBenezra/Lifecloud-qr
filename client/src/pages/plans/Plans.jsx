@@ -124,7 +124,7 @@ const Plans = () => {
     <>
       <Topbar />
       {selectedProduct ? (
-      <div className="main-container">
+      <div className="plans-main-container">
         <div className="plans">
           <h3 className="plans-logo">תשלומים ותכניות</h3>
         </div>
