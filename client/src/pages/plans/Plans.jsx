@@ -11,11 +11,105 @@ import basic1 from '../../assets/basic1.png'
 import basic2 from '../../assets/basic2.png'
 import standart2 from '../../assets/standart2.png'
 import Premium1 from '../../assets/Premium1.png'
+import Product from '../../components/shop/Product'
+import flowersImg from '../../assets/product_flowers.jpg'
+import woodPrintImg from '../../assets/product_wood_print.jpg'
+import qrImg from '../../assets/product_qr.jpg'
+
 
 const Plans = () => {
-  const [plan, setPlan] = useState();
+  const [selectedProduct, setSelectedProduct] = useState();
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
   const history = useHistory();
   const { myFirebase, user } = useContext(AuthContext);
+  
+  const tempText = "םינוגריאל יגעכחיג כגחיכחג  םינוגריאל יגעכחיג כגחיכחגי כעכע  םינוגריאל יגעכחיג"
+  const products = [
+    {
+      name: 'פרחים',
+      priceRange: '400 - 100',
+      text: tempText,
+      img: flowersImg,
+      options: [
+        {
+          optName: 'opt1',
+          img: flowersImg,
+          subOptionsTitle: ':בחר זר',
+          subOptions: [
+            {
+              optName: 'זר 1',
+              price: 179,
+              img: flowersImg
+            },
+            {
+              optName: 'זר 2',
+              price: 222,
+              img: flowersImg
+            },
+            {
+              optName: 'זר 3',
+              price: 333,
+              img: flowersImg
+            },
+          ]
+        },
+        {
+          optName: 'opt2',
+          img: flowersImg,
+          price: 321
+        }
+      ]
+    },
+    {
+      name: 'תמונות על עץ',
+      priceRange: '400 - 100',
+      text: tempText,
+      img: woodPrintImg,
+      options: [
+        {
+          optName: 'opt1',
+          img: woodPrintImg,
+          price: 111          
+        },
+        {
+          optName: 'opt2',
+          img: woodPrintImg,
+          price: 222
+        }
+        ,{
+          optName: 'opt3',
+          img: woodPrintImg,
+          price: 333
+        }
+      ]
+    },
+    {
+      name: 'שרשרת qr',
+      priceRange: '400 - 100',
+      text: tempText,
+      img: qrImg,
+      options: [
+        {
+          optName: 'opt1',
+          img: qrImg,
+          price: 111
+        },
+        {
+          optName: 'opt2',
+          img: qrImg,
+          price: 222
+        }
+        ,{
+          optName: 'opt3',
+          img: qrImg,
+          price: 333
+        }
+      ]
+    },
+  ]
+
+
+
   const handleOnClick = async () => {
     await myFirebase.saveUser({ ...user, user_type: 'paid' }, 'PUT');
     history.push('/');
@@ -24,16 +118,18 @@ const Plans = () => {
     await myFirebase.saveUser({ ...user, user_type: 'normal' }, 'PUT');
     history.push('/');
   };
+
+  const submit = (product) => setSelectedProduct(product)
   return (
     <>
       <Topbar />
-      {plan ? (
-      <div className="about-container">
+      {selectedProduct ? (
+      <div className="plans-main-container">
         <div className="plans">
           <h3 className="plans-logo">תשלומים ותכניות</h3>
         </div>
         <div className="change-plan">
-          <h3 onClick={() => setPlan()} className="pointer">
+          <h3 onClick={() => setSelectedProduct()} className="pointer">
             {' '}
             +שנה תוכנית
           </h3>
@@ -41,27 +137,32 @@ const Plans = () => {
 
         <div className="register-plans">
           <span className='register-plan-type'>סוג תכניות:</span>
-           {plan.name} 
+           {selectedProduct.name} 
         </div>
         
         <div className="register-plans">
           <span className='register-plan-type'>מחיר:</span>
-
-          ₪{plan.price}
+          ₪{selectedProduct.price}
         </div>
+
+        <div className="register-plans">
+          <span className='register-plan-type'>כמות:</span>
+          {selectedQuantity}
+        </div>
+
         <div className="register-plans">
           <span className='register-plan-type'>מע"מ:</span>
-          ₪{plan.tax}
+          ₪{selectedProduct.tax}
         </div>
 
         <div className="register-plans">
           <span className='register-plan-type'>סכום כולל:</span>
-          ₪{plan.totalPrice}
+          ₪{selectedProduct.totalPrice * selectedQuantity}
         </div>
 
         <div className="register-plans">
           <span className='register-plan-type'>הסבר:</span>
-          ₪{plan.description}
+          {selectedProduct.text}
         </div>
         
         <div className="payment-method">
@@ -72,8 +173,8 @@ const Plans = () => {
       </div>
       ) : ( 
           <div className="plans-section">
-            <h1 className="plans-title">תוכניות</h1>
-            <div className="plans-container">
+            <h1 className="plans-title">חנות</h1>                        
+            {/* <div className="plans-container"> 
               <div className="plan-container">
                 <img src={basic2} alt=""></img>
                 <h1 className="plan-title">LifeBook</h1>
@@ -90,7 +191,13 @@ const Plans = () => {
                   <Link to='/contact' >+ לחץ לפרטים נוספים</Link>
                 </div>
               </div>
+            </div> */}
+
+            <div className='products-container'>
+              {products.map((p, i) => (<Product {...p} key={i} submit={() => submit(p)} setSelectedQuantity={setSelectedQuantity}/>))}
             </div>
+
+
           </div>
       ) }
       <SocialFooter backgroundColor="#dcecf4" color="#6097bf" />

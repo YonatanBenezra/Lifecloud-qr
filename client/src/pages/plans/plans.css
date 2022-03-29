@@ -1,4 +1,4 @@
-.about-container {
+.plans-main-container {
   display: grid;
   place-items: center;
   background-color: #dcecf4;
@@ -23,6 +23,7 @@
 .plans-section {
   cursor: default;
   background-color: #dcecf4;
+  /* background-color: #F5FCFF; */
 }
 .pointer {
   cursor: pointer;
@@ -55,7 +56,7 @@
 .register-plan-type{
   color: #6097BF
 }
-h3 {
+.plans-main-container h3 {
   color: #ABC9DB;
   font-size: 25px;
   margin-left: 15px;
@@ -151,4 +152,20 @@ h3 {
 }
 .plans-section a {
   cursor: pointer;
+}
+
+
+.products-container {
+  display: flex;
+  /* margin-bottom: 40px; */
+  justify-content: center;
+  flex-direction: row-reverse;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .products-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }

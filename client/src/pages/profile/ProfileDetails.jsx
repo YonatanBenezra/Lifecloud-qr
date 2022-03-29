@@ -223,15 +223,14 @@ export default function Profile() {
 
   if (Object.keys(profiledata).length > 0) {
     return (
-      <div>
+      <div className="profile-details">
         <TopBar />
         <img
           src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
           alt=""
           className="profile-cover"
         ></img>
-        <div className="profile-details">
-          <img src={leftCloud} alt="" className="leftcloud-profile"></img>
+        <div className="profile-details-first">          
           <img
             src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
             alt=""
@@ -245,37 +244,38 @@ export default function Profile() {
             </p>
             <p>{profiledata?.city}</p>
           </div>
+          <img src={leftCloud} alt="" className="left-cloud"/>
         </div>
         <div className="btns-container">
-          <div>
+          <div className="small-btns-container">
             {(profiledata.originalUser[0]._id === loggedUser._id ||
               profiledata.addAdmins.indexOf()) && (
               <Link to={`/editprofiles/${id}`}>
-                <span className="profile-small-btn">ערוך פרופיל</span>
+                <div className="profile-small-btn">ערוך פרופיל</div>
               </Link>
             )}
 
-            <span
+            <div
               className={`${
                 profiledata.originalUser[0]._id === loggedUser._id ||
                 profiledata.addAdmins.indexOf()
-                  ? 'dissapear'
+                  ? 'hidden'
                   : 'profile-small-btn'
               }`}
             >
               הוסף חבר
-            </span>
-            <span
+            </div>
+            <div
               className="profile-small-btn"
               onClick={() => setShow('friends')}
             >
               רשימת חברים
-            </span>
+            </div>
           </div>
           <div className="big-btns-container">
             <div
               onClick={() => setShow('bio')}
-              className={`${show === 'bio' && 'active'} profile-big-btn`}
+              className={`profile-big-btn ${show === 'bio' && 'active'}`}
             >
               ביוגרפיה
             </div>
@@ -293,37 +293,53 @@ export default function Profile() {
           } d-none wall-main-container`}
         >
           <div className="memorial-container">
-            <h1 className="memorial-title">תאריך האזכרה</h1>
+            <div className="profile-details-title">
+            <h1>תאריך האזכרה</h1>
+            </div>
+            
             <div className="details-and-icons">
               <div className="memorial-details">
-                {console.log(profiledata)}
-                <h3>| {profiledata?.birthDate?.split('T')[0]}</h3>
-                <h3>| {profiledata?.hebDeathDate}</h3>
-                <h3>| {profiledata.wazeLocation}</h3>
+                {/* {console.log(profiledata)} */}
+                <h3>
+                  <span className='separator'>| </span>
+                  <span className='dash'>- </span>
+                  {profiledata?.birthDate?.split('T')[0]}
+                </h3>
+                <h3>
+                  <span className='separator'>| </span>
+                  <span className='dash'>- </span>
+                  {profiledata?.hebDeathDate}
+                </h3>
+                <h3>
+                  <span className='separator'>| </span>
+                  <span className='dash'>- </span>
+                  {profiledata.wazeLocation}
+                </h3>
               </div>
-              <div className="profile-icons-container">
-                <a
-                  href={`https://www.waze.com/ul?q=${profiledata.wazeLocation}`}
-                >
-                  <img src={waze} alt="" className="icon"></img>
-                </a>
+              <div className="profile-icons-container">                
                 <img
                   src={zoom}
                   alt=""
-                  className={`${!profiledata.zoomLink && 'no-link-icon'} icon`}
-                ></img>
+                  className={`${!profiledata.zoomLink && 'disabled'} icon-btn`}
+                />
+                <a
+                  href={`https://www.waze.com/ul?q=${profiledata.wazeLocation}`}
+                >
+                  <img src={waze} alt="" className="icon-btn"></img>
+                </a>
               </div>
             </div>
           </div>
           <div className="gallery-container">
             <Gallery profiledata={profiledata} id={id} />
             <div onClick={() => setShow('gallery')} className="full-btn">
-              {' '}
-              + לכל הגלריה
+            {' '} לכל הגלריה +
             </div>
           </div>
           <div className="grave-location-container">
-            <h1 className="grave-location-title">מיקום ותמונת הקבר</h1>
+            <div className="profile-details-title">
+              <h1>מיקום הקבר</h1>
+            </div>            
             <div className="grave-imgs-container">
               <img
                 src={`${process.env.REACT_APP_API_URL}/${profiledata.graveImg}`}
@@ -348,7 +364,7 @@ export default function Profile() {
               className="navigation-btn"
               onClick={() => setMap((prevState) => !prevState)}
             >
-              לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
+              מיקום מדוייק של הקבר <img src={google} alt=""></img>
             </button>
           </div>
           <div className="memories-div">

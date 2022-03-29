@@ -54,6 +54,7 @@ export const UserAndprofiles = () => {
       `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${id}`
     );
     setData(res.data);
+   
   };
 
   const profileImageRef = useRef(null);

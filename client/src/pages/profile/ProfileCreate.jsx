@@ -20,6 +20,7 @@ export default function ProfileCreate() {
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
   const [open, setOpen] = useState(false);
+  const [userData, setUserData] = useState([]);
   const [hebBirthDate, sethebBirthDate] = useState('');
   const [hebDeathDate, sethebDeathDate] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
@@ -157,7 +158,17 @@ export default function ProfileCreate() {
     list[index][name] = value;
     setInputList(list);
   };
-
+  useEffect(() => {
+    fetchuserData();
+  }, []);
+  console.log(id,'id')
+  const fetchuserData = async () => {
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/users/${id}`
+    );
+    setUserData(res.data);
+    console.log(res,'res usrDaata')
+  };
   // handle click event of the Remove button
   const handleRemoveClick = (index) => {
     const list = [...inputList];
@@ -251,11 +262,31 @@ export default function ProfileCreate() {
           return res.json();
         })
         .then((res) => {
-          console.log(res);
+          console.log(res,'create profile res');
+          fetch(
+            `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'Application/json',
+              },
+              body: JSON.stringify({
+                profileId: res.originalUser[0],
+                loggedInId: userData._id,
+              }),
+            }
+          )
+            .then((res) => {
+              return res.json();
+            })
+            .then((res) => {
+              console.log('notification->', res);
+            });
           if (res) {
             history.goBack();
             setMessage('Profile made successfully');
             setOpen(true);
+            
           }
         });
     } catch (err) {
