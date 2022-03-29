@@ -1,6 +1,6 @@
 
 
-import React, {Component} from 'react';
+import React, {Component, useRef} from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useState, useContext, useEffect } from "react";
 import axios from 'axios';
@@ -23,9 +23,34 @@ import { textAlign } from '@mui/system';
 
 
 const SmallChatWindow = (props) => {
+  const { user } = useContext(AuthContext);
+
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  const myExplorerChatWindow =  useRef();
+
+  function getFriendID(){
+    if (user._id == "622b541ffa9ae732dcd40bb5"){
+      return "622b54c2fa9ae732dcd40bc4";
+    }
+    else {
+      return "622b541ffa9ae732dcd40bb5";
+    }
+
+  }
+
+  useEffect(() => {
+      if (!hasLoaded){
+          setHasLoaded(true);
+          myExplorerChatWindow.current.loadChatFromUserID(getFriendID(), "Abraham", "Lincoln", null);
+
+      }
+  }, []);
+
+
       return (
 
-        <ChatWindow />
+        <ChatWindow ref={myChatWindow}/>
       )
         
   }
