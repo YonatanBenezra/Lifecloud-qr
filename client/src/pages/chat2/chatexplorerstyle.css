@@ -22,9 +22,10 @@
     float:left;
     background-color: rgb(241,239,241);
     border-right:2px solid rgb(215,214,215);
+    overflow:scroll;
 }
 
-#ChatWindow {
+#CEChatWindow {
     width:50%;
     height:100%;
     float:left;
@@ -32,6 +33,7 @@
     background-color: red;
     border-right:2px solid rgb(215,214,215);
     position:relative;
+    overflow:scroll;
 }
 #PeopleDiv {
     width:25%;
@@ -39,6 +41,7 @@
     float:left;
     background-color: rgb(241,239,241);
     position: relative;
+    overflow:scroll;
 }
 
 #ExitWindow {

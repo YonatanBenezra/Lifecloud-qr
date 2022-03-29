@@ -475,7 +475,7 @@ const ChatExplorer = (props) => {
 
 
                 </div>
-                <div id = "ChatWindow">
+                <div id = "CEChatWindow">
                         <ExplorerChatWindow ref={myExplorerChatWindow} />
                         {/**ref={(ref) => myExplorerChatWindow=ref} */}
 

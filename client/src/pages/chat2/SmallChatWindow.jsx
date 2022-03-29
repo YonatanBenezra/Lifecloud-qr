@@ -2,16 +2,16 @@
 
 import React, {Component} from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { useState, useContext, useParams, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from 'axios';
 import './bootstrap.min.css';
 import './bootstrapchatstyle.css';
 import './chatstyle.css';
 import './fonts.css';
-import * as utils from './serverold.js'; 
+//import * as utils from './serverold.js'; 
 import cancel from './cancel.png';
 
-import {TextInput} from 'react-native';
+//import {TextInput} from 'react-native';
 
 import Messages from './Messages';
 
@@ -22,7 +22,7 @@ import { textAlign } from '@mui/system';
 //require('console-polyfill')
 
 
-const ChatWindow = (props) => {
+const SmallChatWindow = (props) => {
 
   const [isMounted, setIsMounted] = useState(false);
 
@@ -375,4 +375,4 @@ const ChatWindow = (props) => {
         
   }
 
-export default ChatWindow;
+export default SmallChatWindow;

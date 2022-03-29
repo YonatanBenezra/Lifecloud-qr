@@ -13,7 +13,7 @@ import cancel from './cancel.png';
 
 import {TextInput} from 'react-native';
 
-import Messages from './Messages';
+//import Messages from './Messages';
 import {socket} from "./socket.js";
 import io from 'socket.io-client';
 import { getAdditionalUserInfo } from 'firebase/auth';
@@ -687,34 +687,34 @@ const [connected, setConnected] = useState(false);
 
     return (
         
-              <div id = "ChatContainer">
+              <div id = "CEChatContainer">
                     
                     
                      
-                      <div id = "Messages_Container">
+                      <div id = "CEMessages_Container">
                     { [...Object.values(messages)]//makes mappable //was [...Object.values(messages)]
                               //.sort((a, b) => a.time - b.time)
                               .map((message, index) => (
                                  
                                   
                                   message.sender_user_id != user._id
-                                    ? (<><div class = "HisSpeech">
+                                    ? (<><div class = "CEHisSpeech">
                                               <img src={message.sender_profile_src} width={30} height={30} />
-                                              <span class = "HisSpeechText">{message.message}</span>
+                                              <span class = "CEHisSpeechText">{message.message}</span>
                                               
                                        </div><br /><br /></>)
                                     
                                     
-                                    : (<><div class = "MySpeech">
+                                    : (<><div class = "CEMySpeech">
                                               
-                                              <span class = "MySpeechText">{message.message}</span>
+                                              <span class = "CEMySpeechText">{message.message}</span>
                                             
                                        </div><br /><br /></>)
                                   ))
                               }
                            </div>   
                                   
-                    <textarea id = "Chat_Input" value= {textValue}  onChange={DoNothing} onKeyDown = {HandleKeyDown}  rows={5} placeholder="Type your message" />
+                    <textarea id = "CEChat_Input" value= {textValue}  onChange={DoNothing} onKeyDown = {HandleKeyDown}  rows={5} placeholder="Type your message" />
                       
                     
               </div>

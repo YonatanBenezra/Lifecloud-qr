@@ -1,4 +1,4 @@
-#ChatContainer {
+#CEChatContainer {
     background-color: #99d6ff;
     
     width:100%;
@@ -11,7 +11,7 @@
     left:0;
 }
 
-#Messages_Container {
+#CEMessages_Container {
     height:80%;
     width:100%;
     background-color: #99d6ff;
@@ -22,7 +22,7 @@
 }
 
 
-#Chat_Input {
+#CEChat_Input {
     background-color: white;
     position: absolute;
     height:15%;
@@ -32,24 +32,24 @@
     right:10%;
 }
 
-.HisSpeech {
+.CEHisSpeech {
     float:left;
     
 }
 
 
-.MySpeech {
+.CEMySpeech {
     float:right;
     position:relative;
 }
 
-.HisSpeechText {
+.CEHisSpeechText {
     background-color: #E4E6EB;
     padding: 4px 4px 4px 4px;
     border-radius: 20%;
 }
 
-.MySpeechText {
+.CEMySpeechText {
     background-color: #0084FF;
     padding: 4px 4px 4px 4px;
     color:white;

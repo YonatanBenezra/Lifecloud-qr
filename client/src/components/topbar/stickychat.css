@@ -39,3 +39,48 @@
     opacity:1;
 
 }
+
+
+
+
+
+
+.sticky-wrapper2 {
+  position: relative;
+   /* We need to change this value */
+  opacity:1;
+  background-color: blue;
+
+}
+.absolute2{
+    position:absolute;
+    width:100vw;
+    height: 100vh;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+}
+.relative2 {
+  position:relative;
+  width:100vw;
+    height: 100vh;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+}
+
+.sticky2 .sticky-inner2 {
+  position: sticky;
+  /*
+  top: 0;
+  left: 0;
+  right: 0;
+  */
+  bottom:0;
+  right:0;
+  z-index: 100;
+  opacity:1;
+
+}

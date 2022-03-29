@@ -8,9 +8,9 @@ import axios from 'axios';
 import WithLanguage from '../languageButton/WithLanguage';
 import LanguageButton from '../languageButton/LanguageButton';
 import userIcon from '../../assets/userIcon.png';
-import ChatWindow  from '../../pages/chat2/ChatWindow';
+//import ChatWindow  from '../../pages/chat2/ChatWindow';
 import ChatExplorer  from '../../pages/chat2/ChatExplorer';
-
+import SmallChatWindow  from '../../pages/chat2/SmallChatWindow';
 
 
 
@@ -19,11 +19,15 @@ const Topbar = (props) => {
 
   
       const [isSticky, setSticky] = useState(false);
+      const [isSticky2, setSticky2] = useState(false);
       const ref = useRef(null);
       const ref2 = useRef(null);
       const handleScroll = () => {
         if (ref.current) {
           setSticky(ref.current.getBoundingClientRect().top <= 0);
+        }
+        if (ref2.current) {
+          setSticky2(ref2.current.getBoundingClientRect().top <= 0);
         }
       };
 
@@ -67,10 +71,10 @@ const Topbar = (props) => {
     <div className="topbarContainer">
       <button onClick = {buttonHandler}>Toggle Chat Window</button>
       <button onClick = {chatExplorerHandler}>Toggle Chat Explorer</button>
-      <div className={`sticky-wrapper${isSticky ? ' sticky' : ''}`} ref={ref}>
-        {showChatWindow && <ChatWindow disappearChatWindow={buttonHandler}/>}
+      <div className={`sticky-wrapper2${isSticky ? ' sticky2' : ''}`} ref={ref}>
+        {showChatWindow && <SmallChatWindow disappearChatWindow={buttonHandler}/>}
       </div>
-      <div className={`sticky-wrapper${isSticky ? ' sticky' : ''}`} ref={ref2}>
+      <div className={`sticky-wrapper${isSticky2 ? ' sticky' : ''}`} ref={ref2}>
         {showChatExplorer && <ChatExplorer disappearChatExplorer={chatExplorerHandler}/>}
       </div>
       <div className="topbarLeft">
