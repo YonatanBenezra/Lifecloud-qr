@@ -27,7 +27,7 @@ const SmallChatWindow = (props) => {
 
   const [hasLoaded, setHasLoaded] = useState(false);
 
-  const myExplorerChatWindow =  useRef();
+  const myChatWindow =  useRef();
 
   function getFriendID(){
     if (user._id == "622b541ffa9ae732dcd40bb5"){
@@ -42,7 +42,7 @@ const SmallChatWindow = (props) => {
   useEffect(() => {
       if (!hasLoaded){
           setHasLoaded(true);
-          myExplorerChatWindow.current.loadChatFromUserID(getFriendID(), "Abraham", "Lincoln", null);
+          myChatWindow.current.loadChatFromUserID(getFriendID(), "Abraham", "Lincoln", null);
 
       }
   }, []);

@@ -321,12 +321,42 @@ const [connected, setConnected] = useState(false);
 
               var chat_session_id = data.chat_session_id;
               var sender_user_id = data.sender_user_id;
-              var recipient_ids = data.recipient_ids;
+              
               var myMessage = data.message;
               var sender_firstName = data.sender_firstName;
               var sender_lastName = data.sender_lastName;
+              var sender_profile_src = data.sender_profile_src;
 
-              
+              const myDataArray = 
+                {
+                   
+
+                    "chat_session_id":chat_session_id,
+                    "sender_user_id":sender_user_id,
+                    "message":myMessage,
+                    "timeofmessage":Date.now,
+                    "sender_firstName":sender_firstName,
+                    "sender_lastName":sender_lastName,
+                    "sender_profile_src":sender_profile_src
+                }
+            
+
+              //const newArray = [...messages, ...myDataArray];
+              //setMessages(newArray);
+
+              //setMessages((prevMessages) => {
+                const newMessages = {...messages};
+                const thisLength = newMessages.length;
+                console.log("newMessages.length: " + myLength);
+                newMessages[thisLength] = {...myDataArray};
+                setMessages(newMessages);
+                //return newMessages;
+              //});
+
+              var objDiv = document.getElementById("Messages_Container");
+              objDiv.scrollTop = objDiv.scrollHeight;
+              //myMessages[myLength] = message;
+              console.log("pay attention: " + messages);/*
 
               //var objDiv = document.getElementById("Messages_Container");
               //objDiv.scrollTop = objDiv.scrollHeight;
