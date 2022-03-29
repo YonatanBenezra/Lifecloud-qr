@@ -291,19 +291,25 @@ const [connected, setConnected] = useState(false);
             const newArray = [...messages, ...newElement];
             setMessages(newArray);
               */
-            setMessages((prevMessages) => {
+
+            setMessages([...messages,myDataArray])
+              /*setMessages((prevMessages) => {
+                prevMessages.push({...myDataArray})
+                return prevMessages;
+              })*/
+           /* setMessages((prevMessages) => {
               const newMessages = prevMessages;//{...prevMessages};
               const myLength = newMessages.length;
               //console.log("newMessages.length: " + myLength);
               newMessages[myLength] = myDataArray;
               console.log("new messages: " + JSON.stringify(newMessages));
               return newMessages;
-            });
+            });*/
 //end add message
           //}
   }
   
-
+/*
   function messageListener(data) {
     const message = data.message;
     console.log("entered messagelistener2: " + JSON.stringify(data));
@@ -343,16 +349,19 @@ const [connected, setConnected] = useState(false);
 
               //const newArray = [...messages, ...myDataArray];
               //setMessages(newArray);
-
-              //setMessages((prevMessages) => {
-                const newMessages = {...messages};
-                const thisLength = newMessages.length;
-                console.log("newMessages.length: " + myLength);
-                newMessages[thisLength] = {...myDataArray};
-                setMessages(newMessages);
+              setMessages([...messages],{...myDataArray})
+              /*setMessages((prevMessages) => {
+                prevMessages.push({...myDataArray})
+                return prevMessages;
+              })*/
+                //const newMessages = {...messages};
+                //const thisLength = newMessages.length;
+                //console.log("newMessages.length: " + myLength);
+                //newMessages[thisLength] = {...myDataArray};
+                //setMessages(newMessages);
                 //return newMessages;
               //});
-
+/*
               var objDiv = document.getElementById("Messages_Container");
               objDiv.scrollTop = objDiv.scrollHeight;
               //myMessages[myLength] = message;
@@ -365,9 +374,9 @@ const [connected, setConnected] = useState(false);
             /* setMessages([...myMessages]);
             
                 console.log("myMessages: " + JSON.stringify(messages));
-                */
+                
         //  }
-  };
+  };*/
 
   const deleteMessageListener = (messageID) => {
     setMessages((prevMessages) => {
@@ -612,7 +621,7 @@ const [connected, setConnected] = useState(false);
         
 
        });
-       
+       socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
        /*,withTimeout(() => {
         console.log("success!" + number);
         setNumber(number + 1);
