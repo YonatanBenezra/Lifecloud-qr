@@ -1,11 +1,10 @@
 .friend-request {
-  height: 60px;
-  display: flex;
+  height: 60px; 
   direction: rtl;
   align-items: center;
   width: 66%;
   justify-content: space-between;
-  margin: auto;
+  
   color: #6097bf;
   background: #dcecf4;
   border-radius: 15px;

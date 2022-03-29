@@ -38,16 +38,17 @@ const Contact = () => {
   return (
     <>
       <Topbar />
-      <form className="bgBlue px-3 py-2" ref={form} onSubmit={sendEmail}>
+      <form className="bgBlue px-3 py-2 " ref={form} onSubmit={sendEmail}>
         <div className="plans">
         <div className="flex justify-center items-center">
           <h3 className="plans-logo">צור קשר</h3>
         </div>
         </div>
-        <div className="flex p-2 space-x-4">
+        <div className="w-full md:w-6/12 mx-auto">
+        <div className="flex p-2 space-x-4 ">
           <input
             id=""
-            className="w-6/12 p-2"
+            className="w-6/12 p-2 rounded-lg"
             required
             placeholder="*שם משפחה"
             name="firstName"
@@ -55,7 +56,7 @@ const Contact = () => {
           />
           <input
             id=""
-            className="w-6/12 p-2"
+            className="w-6/12 p-2 rounded-lg"
             required
             placeholder="*שם פרטי"
             name="lastName"
@@ -65,7 +66,7 @@ const Contact = () => {
         <div className="px-2 py-1">
         <div className="py-2">
           <input
-            className="w-full p-2"
+            className="w-full p-2 rounded-lg"
             required
             placeholder="אימייל*"
             name="email"
@@ -74,7 +75,7 @@ const Contact = () => {
         </div>
         <div className="py-2">
           <input
-            className="w-full p-2"
+            className="w-full p-2 rounded-lg"
             required
             placeholder="*שם החברה (אופציונלי)"
             name="company"
@@ -83,7 +84,7 @@ const Contact = () => {
         </div>
         <div className="py-2">
           <input
-            className="w-full p-2"
+            className="w-full p-2 rounded-lg"
             required
             placeholder="*טלפון "
             name="phone"
@@ -93,7 +94,7 @@ const Contact = () => {
         <div className="py-2">
           <textarea
             id="free-text"
-            className="w-full p-2"
+            className="w-full p-2 rounded-lg"
             name="message"
             required
             placeholder=" טקסט חופשי..."
@@ -101,9 +102,10 @@ const Contact = () => {
         </div>
         </div>
         <div className="w-full p-2">
-        <button className="blueBtn w-full rounded-sm p-2 text-white" type="submit">
+        <button className="blueBtn w-full rounded-sm p-2 rounded-lg text-white" type="submit">
           שליחה
         </button> 
+        </div>
         </div>
       </form>
       <SocialFooter backgroundColor="#dcecf4" color="#6097bf" />

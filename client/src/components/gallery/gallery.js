@@ -7,7 +7,7 @@ export const Gallery = ({ profiledata, id }) => {
   return (
     <>
       <h1 className="gallery-title">גלריה</h1>
-      <div className="imgs-container show-in-flex flex-wrap">
+      <div className="imgs-container show-in-flex flex-wrap flex items-center justify-center p-5">
         <SRLWrapper>
           {profiledata.gallery &&
             profiledata.gallery.slice(0, 4).map((img, index) => {
@@ -15,7 +15,7 @@ export const Gallery = ({ profiledata, id }) => {
                 <>
                   {index === 3 ? (
                     <div
-                      className="gallery-img last-image"
+                      className=""
                       style={{
                         backgroundImage: `${process.env.REACT_APP_API_URL}/${img}`,
                         width: '250px',
@@ -25,7 +25,7 @@ export const Gallery = ({ profiledata, id }) => {
                       +
                     </div>
                   ) : (
-                    <div className="gallery-img">
+                    <div className="brdr p-2 m-2 h-64 rounded-xl w-full md:w-64">
                       {!img.endsWith('mp4') ? (
                         <a
                           href={`${
@@ -35,7 +35,7 @@ export const Gallery = ({ profiledata, id }) => {
                           }`}
                         >
                           <img
-                            className="image-gallery-section"
+                            className="image-gallery-section "
                             src={`${
                               img
                                 ? `${process.env.REACT_APP_API_URL}/${img}`

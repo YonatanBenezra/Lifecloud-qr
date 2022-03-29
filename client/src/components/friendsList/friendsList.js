@@ -130,7 +130,7 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
     : [];
 
   return (
-    <div className="friends-list">
+    <div className="">
       {isAdmin ? (
         <div>
           <h1>חברים חדשים</h1>
@@ -138,10 +138,10 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
             profiledata.addFriends.map((friend, i) => {
               return (
                 <div
-                  className="friend-request"
+                  className=""
                   key={friend.user && friend.user[0]._id}
                 >
-                  <div className="friend-request-details">
+                  <div className="">
                     <img src={friend.profileImg} alt="profile" />
                     <p>{friend.user && friend.user[0].firstName}</p>
                   </div>
@@ -171,7 +171,7 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
             users.length > 0 &&
             users.map((user, i) => {
               return (
-                <div className="friend-request" key={user._id}>
+                <div className="friend-request flex mx-auto my-2" key={user._id}>
                   <div className="friend-request-details">
                     <img src={Rectangle7} alt="profile" />
                     <p>{user.firstName}</p>

@@ -6,6 +6,7 @@ import './userandprofiles.css';
 import Topbar from '../../components/topbar/Topbar';
 import { AuthContext } from '../../context/AuthContext';
 import Lock from '../../assets/Lock.png';
+import Arrow2 from '../../assets/Arrow2.png';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import { useRef } from 'react';
@@ -215,20 +216,30 @@ export const UserAndprofiles = () => {
             <div className="settings-container">
               <h1 className="profile-title">הגדרות חשבון</h1>
               <div className="btns-container">
-                <div className="big-button">
+
+
+              <div className="flex space-x-2">
+                <div className="bgBlue flex justify-center items-center p-2 space-x-2 rounded-lg font-bold">
                   <img
                     src={Lock}
                     alt=""
-                    style={{ height: '15px', width: '15px' }}
+                    className="w-5"
                   ></img>
-                  פרטי{' '}
+                  <div>
+                  פרטי 
+                  </div> 
                 </div>
-                <div className="big-button">תשלומים</div>
+                <div className="bgBlue flex justify-center items-center p-2 rounded-lg font-bold">תשלומים</div>
                 <Link to="/plans">
-                  <div className="big-button" style={{ padding: '5px' }}>
+                  <div className="bgBlue p-2 flex justify-center items-center rounded-lg font-bold">
                     נהל תוכנית
                   </div>
                 </Link>
+                </div>
+
+
+
+
               </div>
               <div>
                 <h3 className="settings-subtitle">:סוג התוכנית </h3>
@@ -246,33 +257,44 @@ export const UserAndprofiles = () => {
         </div>
       ) : (
         <div className="notifications-container">
-          <div className="notifications-title">
+          <div className="flex justify-center items-center">
+          <div className="flex px-3 bg-white rounded-lg justify-center items-center space-x-2 -ml-5">
+          <img src={Arrow2} className="h-2  "/>
             <h1
               onClick={() => setShow(false)}
-              style={{ cursor: 'pointer', paddingRight: '115px' }}
-            >
+              className=""
+             >
               חזרה
             </h1>
-            <h1 style={{ fontSize: '60px', paddingRight: '160px' }}>התראות</h1>
+            </div>
+            <h1 className="p-2 text-5xl font-bold" >התראות </h1>
           </div>
-          <h3 style={{ fontSize: '30px', marginBottom: '20px' }}>
+          <h3 className="text-3xl p-2 font-bold">
             התראות חדשות
           </h3>
           {notifications.map((n) => {
             return (
-              <div className="notification-line">
-                <div className="notification-text">
-                  <span>{n.date}</span> | <span>{n.time}</span>{' '}
-                  <span>{n.action}</span>
-                </div>
+              
+
+                <div className="flex p-2 md:w-full justify-center">
+           <div className="flex bg-white w-full md:w-6/12 rounded-lg justify-between items-center px-2 py-1">
                 <img
                   alt=""
                   src={n.mainProfilePicture || n.profilePicture}
-                  className="notification-img"
+                  className="rounded-full w-8 h-8 bg-red-700"
                 ></img>
+                <div className="p-2 flex space-x-2">
+                  <span className="font-bold">{n.action}</span>
+                  <span>{n.date}</span> | <span>{n.time}</span>{' '}
+                </div>
+                
+                </div>
+               
               </div>
+
             );
           })}
+           
           <SocialFooter backgroundColor="#DCECF4;" color="#6097BF" />
         </div>
       )}
