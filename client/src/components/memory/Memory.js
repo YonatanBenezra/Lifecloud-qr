@@ -141,7 +141,7 @@ const Memory = ({
           </div>
         
         <h1 onClick={close} className="close-btn">
-          חזרה <img alt="" src={Arrow1}></img>
+          חזרה <img alt="" src={Arrow1}/>
         </h1>
       </div>
       <img alt="" src={TopRightCloud} className="top-cloud"></img>

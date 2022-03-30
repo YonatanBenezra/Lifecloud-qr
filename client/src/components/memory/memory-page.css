@@ -7,10 +7,11 @@
   overflow-y: auto;
 }
 .close-btn {
-  padding-top: 2rem;
+  margin: 2rem 0;
   cursor: pointer;
+  font-size: 1.2rem;
 }
-.clost-btn img {
+.close-btn img {
   height: 15px;
 }
 .top-cloud {
