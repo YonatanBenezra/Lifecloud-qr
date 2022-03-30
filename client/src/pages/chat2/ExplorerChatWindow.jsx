@@ -33,7 +33,7 @@ const [connected, setConnected] = useState(false);
 
   const [lastChatMessageScrambled, setLastChatMessageScrambled] = useState(undefined);
   const [isMounted, setIsMounted] = useState(false);
-  const [doWeHaveAListenerYet, setDoWeHaveAListenerYet] = useState(true);
+  const [doWeHaveAListenerYet, setDoWeHaveAListenerYet] = useState(false);
   //const [socket, setSocket] = useState(null);
   const [userAdded, setUserAdded] = useState(false);
   const [recipientFirstNames, setRecipientFirstNames] = useState(false);
@@ -120,9 +120,7 @@ const [connected, setConnected] = useState(false);
         },
 
         async loadChatFromSessionID(session){
-          socket.emit("add-user", {
-            "id": user._id//.user.
-          });
+          
           console.log("in loadChatFromSessionID")
           console.log("session setting: " + JSON.stringify(session))
           //console.log("messages now are: " + JSON.stringify(messages));
@@ -409,10 +407,13 @@ const [connected, setConnected] = useState(false);
 
   useEffect(() => {
     if(doWeHaveAListenerYet==false){
+            socket.emit("add-user", {
+              "id": user._id//.user.
+            });
             setDoWeHaveAListenerYet(true);
             socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
             //socket.on('add-message', acceptWhoIsOnline);
-            socket.on('whoisonline', acceptWhoIsOnline);
+            //socket.on('whoisonline', acceptWhoIsOnline);
             socket.emit("message", {
               "senderID":user._id,
               "purpose":"get client array"
