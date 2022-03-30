@@ -396,6 +396,7 @@ export default function ENProfileEdit() {
                           type="file"
                           name="multiplefiles"
                           multiple
+                          className='with-text'
                           onChange={onChangeMultiplePicture}
                         />
                       </div>

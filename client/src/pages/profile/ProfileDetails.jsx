@@ -8,6 +8,7 @@ import heart from '../../assets/heart.png';
 import instagram from '../../assets/instagram.png';
 import facebook from '../../assets/facebook.png';
 import leftCloud from '../../assets/left-bottom-white-cloud.png';
+import arrowRightLong from '../../assets/Arrow_right_long.png';
 import { Link } from 'react-router-dom';
 import './profiledetails.css';
 import TopBar from '../../components/topbar/Topbar';
@@ -499,13 +500,15 @@ export default function Profile() {
             ))}
           </div>
         </div>
-        <div
-          className={`${show === 'gallery' && 'display'} full-gallery d-none`}
-        >
+        <div className={`${show === 'gallery' && 'display'} full-gallery d-none`}>
           <div className="full-gallery-container">
+            <div className='profile-details-title'>
+              <h1>גלריה</h1>
+            </div>                        
             <SRLWrapper>
               {profiledata?.gallery?.map((img, index) => (
                 <div className="full-gallery-img-container" key={index}>
+                  <div className='full-gallery-img-inner-container'>
                   {!img.endsWith('mp4') ? (
                     <img
                       src={`${process.env.REACT_APP_API_URL}/${img}`}
@@ -528,16 +531,14 @@ export default function Profile() {
                       />
                       Your browser does not support the video tag.
                     </video>
-                  )}
-
-                  <div className="heart-container">
-                    <div className="heart-div">
+                  )}    
+                    <div className="heart-container">                    
                       <div
                         className="heart-icon"
                         style={{ backgroundImage: `url(${heart})` }}
-                      ></div>
-                    </div>
-                  </div>
+                      />                    
+                    </div>              
+                  </div>                  
                 </div>
               ))}
             </SRLWrapper>
@@ -553,6 +554,9 @@ export default function Profile() {
                   </video>
                 )
             )} */}
+            <div onClick={() => setShow('wall')} className="full-btn back-btn">
+              {' '} חזרה <img src={`${arrowRightLong}`}/>
+            </div>  
           </div>
         </div>
         <div

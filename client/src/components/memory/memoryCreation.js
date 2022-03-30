@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import share from '../../assets/share.png';
+import bluePlus from '../../assets/blue_plus.png';
 import axios from 'axios';
 import Topbar from '../topbar/Topbar';
 import { useParams } from 'react-router';
@@ -103,42 +103,53 @@ const MemoryCreation = () => {
           <h1>יצירת זיכרון</h1>
         </div>
         <div className="memory-creation-content">
-          <input
-            className="memory-creation-input"
-            name="text"
-            onChange={handleText}
-          />
-          <div className="action-container pointer">
-            {/* <div className='white-circle add-icon'>+</div> */}
-            <input
-              id="profilePic"
-              type="file"
-              className="white-circle add-icon"
-              name="multiplefiles"
-              accept="image/*"
-              // multiple
-              onChange={onChangeMultiplePicture}
-            />
-            <span>הוסף תמונה</span>
-          </div>
-          <div className="action-container pointer">
-            <input
-              id="memoryVideo"
-              type="file"
-              className="white-circle add-icon"
-              name="memoryVideo"
-              // multiple
-              onChange={onVideoChange}
-              accept="video/mp4,video/x-m4v,video/*"
-            />
-            <span>הוסף סרטון</span>
+          <div className='text-input-container'>
+            <textarea
+              className="memory-creation-input"
+              name="text"
+              onChange={handleText}
+              dir='rtl'
+              placeholder='הקלד...'
+              />
+            </div>
+          <div className="action-container">            
+            <div className='btn-container'>
+              <input
+                id="memoryVideo"
+                type="file"
+                name="memoryVideo"
+                // multiple
+                onChange={onVideoChange}
+                accept="video/mp4,video/x-m4v,video/*"
+              />
+              <label for='memoryVideo'
+                      className='white-circle add-icon'
+                      style={{backgroundImage: `url('${bluePlus}')`}}>
+                <div className='label-text'>הוסף סרטון</div>
+              </label>              
+            </div>
+            <div className='btn-container'>
+              <input
+                id="profilePic"
+                type="file"              
+                name="multiplefiles"
+                accept="image/*"
+                // multiple
+                onChange={onChangeMultiplePicture}         
+              />
+              <label for='profilePic'
+                      className='white-circle add-icon'
+                      style={{backgroundImage: `url('${bluePlus}')`}}>
+                <div className='label-text'>הוסף תמונות</div>
+              </label>              
+            </div>
           </div>
         </div>
         <div className="memory-creation-bottom-actions">
           <div className="publish-btn pointer" onClick={handleClick}>
             פרסם
           </div>
-          <div className="dlt-btn pointer">מחק</div>
+          <div className="dlt-btn pointer">מחיקה</div>
         </div>
       </div>
       <SnackBar open={open} handleClose={handleClose} message={message} />

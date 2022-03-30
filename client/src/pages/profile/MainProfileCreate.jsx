@@ -199,7 +199,7 @@ export default function MainProfileCreate() {
                           name="multiplefiles"
                           multiple
                           onChange={onChangeMultiplePicture}
-                          className="media-upload-button"
+                          className="media-upload-button with-text"
                         />
                       </div>
                       <div>

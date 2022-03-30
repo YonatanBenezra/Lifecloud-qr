@@ -594,7 +594,7 @@ transition: 500ms ease-in-out;
 #profilePic::-webkit-file-upload-button {
   visibility: hidden;
 }
-#profilePic::before {
+#profilePic.with-text::before {
   content: '+ הוסף תמונות לגלריה';
   display: inline-block;
   /* border: 1px solid #999; */

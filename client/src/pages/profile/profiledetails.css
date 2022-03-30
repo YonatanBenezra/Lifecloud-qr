@@ -207,6 +207,15 @@
     margin: auto;
     align-items: center;
 }
+.full-btn.back-btn {
+    width: initial;    
+    border-color: transparent;
+    font-family: 'almoni-regular', sans-serif;
+}
+.full-btn.back-btn img {
+    width: 44px;
+    margin: 0 12px;
+}
 
 .full-memory-btn {
     text-align: center;
@@ -451,57 +460,63 @@
     display: block !important;
 }
 
-.full-gallery-img {
-    height: 250px;
-    width: 250px;
-    border-radius: 30px;
-    object-fit: cover;
-}
-
-.full-gallery-container {
+/* .full-gallery-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
     margin-top: 5rem;
+    margin-bottom: 2rem;
+} */
+.full-gallery-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: initial;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
 }
 
-.heart-icon {
-    height: 20px;
-    width: 25px;
-    background-size: cover;
-}
 
-.full-gallery-container>div {
+
+.full-gallery-container > div:not(.profile-details-title) {
     display: flex;
     flex-wrap: wrap;
-}
-
-.heart-container {
-    display: flex;
-    height: 50px;
-    width: 50px;
-    border-radius: 100%;
-    align-items: center;
-    justify-content: center;
-    margin-top: -65px;
-    margin-left: 15px;
-}
-
-.heart-div {
-    background: #fff;
-    height: 50px;
-    width: 50px;
-    display: flex;
-    align-items: center;
-    border-radius: 100%;
-    justify-content: center;
-    z-index: 99;
+    /* width: calc(100vw - 192px); */
 }
 
 .full-gallery-img-container {
-    margin-bottom: 5rem;
-    margin-right: 2rem;
+    /* margin-bottom: 5rem;
+    margin-right: 2rem; */
+    margin: 0 1rem 3rem;    
+}
+.full-gallery-img-inner-container {
+    position: relative;
+}
+
+.full-gallery-img {
+    height: 250px;
+    width: 250px;
+    border-radius: 15%;    
+}
+
+.heart-container {    
+    height: 44px;
+    width: 44px;
+    position: absolute;
+    bottom: 11%;
+    left: 10%;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+}
+.heart-icon {
+    height: 20px;
+    width: 22px;
+    background-size: cover;
 }
 
 .memories-container {
@@ -583,6 +598,13 @@ input[type='date']:valid::before {
         width: 19vw;
         height: 19vw;
     }
+    .full-gallery-img {
+        width: 20vw;
+        height: 20vw;
+        min-width: 104px;
+        min-height: 104px;
+    }
+    
 }
 @media only screen and (max-width: 767px) {
     .profile-details .profile-img {
