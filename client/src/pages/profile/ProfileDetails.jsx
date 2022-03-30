@@ -433,6 +433,7 @@ export default function Profile() {
                         <Memory
                           close={close}
                           data={imgData}
+                          profiledata={profiledata}
                           index={index}
                           handleLike={handleLike}
                           onhandleChangeComment={onhandleChangeComment}

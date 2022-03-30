@@ -512,7 +512,7 @@ a {
   align-items: center;
   margin-left: 2rem;
   cursor: pointer;
-  font-size: 1.9rem;
+  /* font-size: 1.9rem; */
   font-weight: 600;
   justify-content: space-evenly;
   transition-duration: 500ms;

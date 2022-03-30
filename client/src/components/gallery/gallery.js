@@ -16,13 +16,11 @@ export const Gallery = ({ profiledata, id }) => {
             profiledata.gallery.slice(0, 4).map((img, index) => {
               // console.log('profiledata.gallery index, img ', index, img)
               return (
-                <>
+                <div key={index}>
                   {index === 3 ? (
                     <div
                       className="gallery-img last-image"
-                      style={{
-                        backgroundImage: `${process.env.REACT_APP_API_URL}/${img}`
-                      }}
+                      style={{backgroundImage: `${process.env.REACT_APP_API_URL}/${img}`}}                      
                     >
                       +
                     </div>
@@ -65,7 +63,7 @@ export const Gallery = ({ profiledata, id }) => {
                       )}
                     </div>
                   )}
-                </>
+                </div>
               );
             })}
         </SRLWrapper>

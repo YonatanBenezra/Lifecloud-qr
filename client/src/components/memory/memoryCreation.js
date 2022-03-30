@@ -122,7 +122,7 @@ const MemoryCreation = () => {
                 onChange={onVideoChange}
                 accept="video/mp4,video/x-m4v,video/*"
               />
-              <label for='memoryVideo'
+              <label htmlFor='memoryVideo'
                       className='white-circle add-icon'
                       style={{backgroundImage: `url('${bluePlus}')`}}>
                 <div className='label-text'>הוסף סרטון</div>
@@ -137,7 +137,7 @@ const MemoryCreation = () => {
                 // multiple
                 onChange={onChangeMultiplePicture}         
               />
-              <label for='profilePic'
+              <label htmlFor='profilePic'
                       className='white-circle add-icon'
                       style={{backgroundImage: `url('${bluePlus}')`}}>
                 <div className='label-text'>הוסף תמונות</div>
