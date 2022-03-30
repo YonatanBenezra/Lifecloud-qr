@@ -11,6 +11,7 @@ import ellipses from './icons8-ellipsis-30.png';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 import LoadingAlert from './loadingAlert'
+import { red } from '@material-ui/core/colors';
 
 
 const ChatExplorer = (props) => {
@@ -221,6 +222,31 @@ const ChatExplorer = (props) => {
                 console.log("MY NEW ARRAY: " + JSON.stringify(newArray))
                 setPeople(newArray);
 
+                
+                    //from "my people"
+                var profileid = "6229e7160c72f8cadff6b44c";//response.data[1].originalUser[0];
+                console.log("profileid: " + profileid)
+
+
+                const fetchData = async () => {await 
+                    axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${profileid}`, {
+                      //"hisID": userID,
+                      
+                      //"myID": user._id
+                      
+                    })
+                    .then(function (response2) {
+                          console.log("all sessions2: " + JSON.stringify(response2));
+                          return response2;
+                    });
+                    return res;
+                  }
+              const myData = fetchData()
+              // make sure to catch any error
+              .catch(console.error);
+
+                //const myData = fetchuserprofiles.data;
+                console.log("profile data:" + JSON.stringify(myData))
                 //console.log("chatSessions.length: " + chatSessions.length);
                 var objDiv = document.getElementById("PeopleInnerContainer");
                 //objDiv.scrollTop = 0;

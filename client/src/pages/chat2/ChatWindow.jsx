@@ -220,10 +220,15 @@ const [connected, setConnected] = useState(false);
                         setMessages(newArray);
 
                         console.log("line 170: messages: " + messages + JSON.stringify(messages));
+
+
+                          //res.data.googleLocation = JSON.parse(res.data.googleLocation);
+                         // setProfileData(res.data);
+                        //};
                         //setMessages([...response.data]);
                         //console.log("messages.length: " + messages.length);
-                        //var objDiv = document.getElementById("Messages_Container");
-                        //objDiv.scrollTop = objDiv.scrollHeight;
+                        var objDiv = document.getElementById("Messages_Container");
+                        objDiv.scrollTop = objDiv.scrollHeight;
                     
                   })
                   .catch(function (error) {
@@ -245,9 +250,9 @@ const [connected, setConnected] = useState(false);
   }));
 
   function acceptChatMessage(data){
-    socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
+    console.log("entered accept chat messages messages now are: " + JSON.stringify(messages));
     //socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
-    console.log("into add-message " + lastChatMessageScrambled + "data:" + data.scrambled);
+    //console.log("into add-message " + lastChatMessageScrambled + "data:" + data.scrambled);
 
 
     var lastScrambled = lastChatMessageScrambled;
@@ -263,10 +268,11 @@ const [connected, setConnected] = useState(false);
 
               var chat_session_id = data.chat_session_id;
               var sender_user_id = data.sender_user_id;
-              var recipient_ids = data.recipient_ids;
+              //var recipient_ids = data.recipient_ids;
               var myMessage = data.message;
               var sender_firstName = data.sender_firstName;
               var sender_lastName = data.sender_lastName;
+              var sender_profile_src = data.sender_profile_src;
               const myDataArray = 
               {
                 
@@ -274,11 +280,12 @@ const [connected, setConnected] = useState(false);
                   "chat_session_id":chat_session_id,
                   "sender_user_id":sender_user_id,
                   "message":myMessage,
+                  "timeofmessage":Date.now,
                   "sender_firstName":sender_firstName,
                   "sender_lastName":sender_lastName,
+                  "sender_profile_src":sender_profile_src
                   
                   
-                  "timeofmessage":Date.now
               }
 
             console.log(JSON.stringify(messages));
@@ -292,7 +299,22 @@ const [connected, setConnected] = useState(false);
             setMessages(newArray);
               */
 
-            setMessages([...messages,myDataArray])
+            //ERASE ALL PREV MESSAGES ON RECIEVER: setMessages([...messages,{...myDataArray}])
+
+            setMessages((prevMessages) => {
+              const newMessages = [...prevMessages, myDataArray];
+              //const myLength = newMessages.length;
+              //console.log("newMessages.length: " + myLength);
+             // newMessages[myLength] = myDataArray;
+              return newMessages;
+            });
+
+            
+
+            socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
+
+            var objDiv = document.getElementById("Messages_Container");
+              objDiv.scrollTop = objDiv.scrollHeight;
               /*setMessages((prevMessages) => {
                 prevMessages.push({...myDataArray})
                 return prevMessages;
@@ -432,6 +454,9 @@ const [connected, setConnected] = useState(false);
   }
 
   useEffect(() => {
+
+    console.log("in useeffect messages are: " + messages);
+
     if(doWeHaveAListenerYet==false){
             setDoWeHaveAListenerYet(true);
             socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
