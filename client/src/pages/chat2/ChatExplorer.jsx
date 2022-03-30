@@ -22,12 +22,15 @@ const ChatExplorer = (props) => {
     const [chatSessions, setChatSessions] = useState([]);
     const [people, setPeople] = useState([]);
 
+
+
     const [messages, setMessages] = useState([]);
     const [sasLoadedFetchedMessages, setHasLoadedFetchedMessages] = useState(false);
     const { user } = useContext(AuthContext);
     var [currentSession, setCurrentSession] = useState();
 
-    
+    const [onlinePeople, setOnlinePeople] = useState([]);
+    const [refreshOnlinePeople, setRefreshOnlinePeople] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const myExplorerChatWindow =  useRef();
     const myExplorerChatSessions =  useRef();
@@ -197,21 +200,13 @@ const ChatExplorer = (props) => {
         firstChild.style.display = "none";
     }
 
-    function setWhoIsOnline(data){
-            
+    const setWhoIsOnline = (data) =>{
+        setOnlinePeople(data.clientsarray);
+        setRefreshOnlinePeople(true);
       //acceptWhoIsOnline(data);
-        console.log("got into data.purpose is clientarray")
-
-        const myPeople = people;//[...people]
-        const myClientsArray = data.clientsarray;
-        for (const [key, value] of Object.entries(myClientsArray)) {
-        //for (i in myClientsArray){
-            for(const p in myPeople){
-                if(myPeople[p]._id == key){
-                    myPeople[p].isOnline = "true";
-                }
-            }
-        }
+        console.log("got into data.purpose is clientarray " + JSON.stringify(data))
+        console.log("got into data.purpose is people " + JSON.stringify(people))
+        
     }
     
 
@@ -356,7 +351,23 @@ function acceptWhoIsOnline(data){
             "id": user._id//.user.
           });
 */
-          
+        if(refreshOnlinePeople){
+            setRefreshOnlinePeople(false);
+            const myPeople = people;//[...people]
+            const myClientsArray = onlinePeople;
+            console.log("myClientsArray:"  + JSON.stringify(myClientsArray))
+             for (const [key, value] of Object.entries(myClientsArray)) {
+        //for (i in myClientsArray){
+                    for(const p in myPeople){
+                        //if(myPeople[p]._id == key){
+                            myPeople[p].isOnline = "true";
+                        //}
+                    }
+            }
+            setPeople(myPeople);
+        }          
+
+
         if (!hasLoaded){
             
             changeCursor();
@@ -392,7 +403,7 @@ function acceptWhoIsOnline(data){
             //document.getElementById("WholePage").style.height = myHeight;
             $("#WholePage").css("height", myHeight + "px");
 
-    }, [setHasLoaded, loadPeople]);
+    }, [setHasLoaded, loadPeople, setPeople, setRefreshOnlinePeople]);
 
     const mystyle = {
         width: myWidth,
@@ -539,8 +550,8 @@ function acceptWhoIsOnline(data){
                                        
                                             <img src = {ellipses} />
                                         </div>
-
-                                        {props.onePerson.isOnline && props.onePerson.isOnline == "true" ? <GreenDot /> : ""}
+                                        {/*props.onePerson.isOnline && props.onePerson.isOnline == "true"*/}
+                                        <GreenDot />
                                         {/*<button className = "AddDivButton" onClick = {createNewChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>+</button>
                                         <button className = "AddDivButton" onClick = {addToExistingChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>e</button>*/}
                                     </div>

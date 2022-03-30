@@ -30,6 +30,7 @@ const [connected, setConnected] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [isSocketed, setIsSocketed] = useState(false);
   const [haveDoneAlready, setHaveDoneAlready] = useState(false);
+  
 
   const [lastChatMessageScrambled, setLastChatMessageScrambled] = useState(undefined);
   const [isMounted, setIsMounted] = useState(false);
@@ -249,7 +250,7 @@ const [connected, setConnected] = useState(false);
     console.log("got into acceptChatMessage and data = " + JSON.stringify(data))
     socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
     if (data.purpose){
-
+          console.log("got into special if")
           props.setWhoIsOnline(data);
 
     }
