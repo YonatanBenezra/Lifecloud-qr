@@ -106,7 +106,7 @@ io.sockets.on('connection', function (socket) {
                     data.clientsarray = JSON.stringify(clients);
                     var myMessage = {"purpose":"clientsarray","clientsarray":JSON.stringify(clients)};
                     recipientsocket.emit("add-message", myMessage);
-                    recipientsocket.broadcast.to(i).emit('add-message', myMessage);
+                    //recipientsocket.broadcast.to(i).emit('add-message', myMessage);
                     console.log("sent all connected users to: " + i);
                     //io.sockets.connected[clients[data.id].socket].emit("add-message", data);
             } 

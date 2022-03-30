@@ -248,7 +248,7 @@ const [connected, setConnected] = useState(false);
   function acceptChatMessage(data){
     console.log("got into acceptChatMessage and data = " + JSON.stringify(data))
     socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
-    if (data.purpose && data.purpose=="clientarray"){
+    if (data.purpose){
       //acceptWhoIsOnline(data);
         console.log("got into data.purpose is clientarray")
     }
