@@ -669,7 +669,7 @@ const [connected, setConnected] = useState(false);
             console.log('formdata: ' + JSON.stringify(formdata));
 
             for (var key of formdata.entries()) {
-              console.log(key[0] + ', ' + key[1]);
+              console.log("one row of formdata: " + key[0] + ', ' + key[1]);
             }
 
             var object = {};

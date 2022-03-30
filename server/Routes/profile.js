@@ -397,24 +397,38 @@ ProfileRouter.post('/saveChatMessageFromSessionID',  async (req, res) => {//was 
 
       const myInfo = JSON.parse(req.body.info);
 
-      
+      let sessionid = myInfo["sessionid"];
+      let sender_user_id = myInfo["senderid"];
+      let myMessage = myInfo["message"];
+      let timeofmessage = Date.now();
+      let sender_firstName = myInfo["senderfirstname"];
+      let sender_lastName = myInfo["senderlastname"];
 
+      let sender_profile_src = "";
+      
+      if (myInfo["senderprofilesrc"] != null){
+        //sender_profile_src = myInfo["senderprofilesrc"];
+      }
+      
       var message = new chatMessageModel({
-        chat_session_id: myInfo["sessionid"],
-        sender_user_id: myInfo["senderid"],
-        message: myInfo["message"],
-        sender_firstName: myInfo["senderfirstname"],
-        sender_lastName: myInfo["senderlastname"],
-        sender_profile_src: myInfo["senderprofilesrc"]
+        chat_session_id: sessionid,
+        sender_user_id: sender_user_id,
+        message: myMessage,
+        //timeofmessage: timeofmessage,
+        sender_firstName: sender_firstName,
+        sender_lastName: sender_lastName,
+        sender_profile_src: sender_profile_src
       });
       
       message.save().then((resp) => {
 
+        console.log("save response:" + resp);
+
         let mySession = chatSessionModel
             
-        .findOne({ _id: myInfo["sessionid"] })
+        .findOne({ _id: sessionid })
         .then((doc) => {
-            doc.lastmessage = myInfo["message"];
+            doc.lastmessage = myMessage;
             doc.save().then((resp) => {
               res.send(resp);
             
