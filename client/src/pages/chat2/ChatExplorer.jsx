@@ -197,6 +197,19 @@ const ChatExplorer = (props) => {
         firstChild.style.display = "none";
     }
 
+    function setWhoIsOnline(data){
+            
+      //acceptWhoIsOnline(data);
+        console.log("got into data.purpose is clientarray")
+
+        const myPeople = people;//[...people]
+        const myClientsArray = data.clientsarray;
+        /*for (i in myClientsArray){
+            for(p in myPeople){
+                if(myPeople(p)._id == myClientsArray[i].))
+            }
+        }*/
+    }
     
 
     async function loadPeople()  {
@@ -555,7 +568,9 @@ function acceptWhoIsOnline(data){
 
                 </div>
                 <div id = "CEChatWindow">
-                        <ExplorerChatWindow ref={myExplorerChatWindow} onLoadRender={onChangeChatWindow} />
+                        <ExplorerChatWindow ref={myExplorerChatWindow} 
+                        onLoadRender={onChangeChatWindow} 
+                        setWhoIsOnline = {setWhoIsOnline}/>
                         {/**ref={(ref) => myExplorerChatWindow=ref} */}
 
 
