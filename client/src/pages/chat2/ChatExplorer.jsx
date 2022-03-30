@@ -12,7 +12,7 @@ import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 import LoadingAlert from './loadingAlert'
 import { red } from '@material-ui/core/colors';
-
+import {socket} from "./socket.js";
 
 const ChatExplorer = (props) => {
     const { useState, useMemo } = React;
@@ -197,7 +197,17 @@ const ChatExplorer = (props) => {
         firstChild.style.display = "none";
     }
 
+    
+
     async function loadPeople()  {
+        
+        /*
+        socket.emit("message", {
+            "senderID":user._id,
+            "purpose":"get client array"
+            
+    
+           });*/
         try {
             
                 const res = await 
@@ -218,6 +228,8 @@ const ChatExplorer = (props) => {
                 
                 //const stringified = JSON.stringify(response.data);
                 const newArray = [...response.data];
+
+                
                 //setPeople([...JSON.stringify(response.data[0])]);
                 console.log("MY NEW ARRAY: " + JSON.stringify(newArray))
                 setPeople(newArray);
@@ -226,8 +238,13 @@ const ChatExplorer = (props) => {
                     //from "my people"
                 var profileid = "6229e7160c72f8cadff6b44c";//response.data[1].originalUser[0];
                 console.log("profileid: " + profileid)
+                    
+
+                    //loadWhoIsOnline();
 
 
+
+                    /*
                 const fetchData = async () => {await 
                     axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${profileid}`, {
                       //"hisID": userID,
@@ -241,14 +258,14 @@ const ChatExplorer = (props) => {
                     });
                     return res;
                   }
-              const myData = fetchData()
+              const myData = fetchData()*/
               // make sure to catch any error
-              .catch(console.error);
+              
 
                 //const myData = fetchuserprofiles.data;
-                console.log("profile data:" + JSON.stringify(myData))
+                //console.log("profile data:" + JSON.stringify(myData))
                 //console.log("chatSessions.length: " + chatSessions.length);
-                var objDiv = document.getElementById("PeopleInnerContainer");
+                //var objDiv = document.getElementById("PeopleInnerContainer");
                 //objDiv.scrollTop = 0;
                 })
                 .catch(function (error) {
@@ -264,6 +281,30 @@ const ChatExplorer = (props) => {
             //setOpen(true);
         }
 
+}
+/*
+const loadWhoIsOnline = async () => {
+//function loadWhoIsOnline(){
+    console.log("got into loadWhoIsOnline");
+    socket.emit("message", {
+        "senderID":user._id,
+        "purpose":"get client array"
+        
+
+       });
+}
+*/
+
+function acceptWhoIsOnline(data){
+    console.log("got into acceptWhoIsOnline");
+    const tempPeople = people;
+
+    console.log("my client array:" + JSON.stringify(data.clientsarray));
+
+    
+    //for (const i in clientArray){
+     //   if ()
+    //}    
 }
 
     function updateCurrentSession (session) {
@@ -294,7 +335,14 @@ const ChatExplorer = (props) => {
     */
 
     useEffect(() => {
+        /*
+        socket.emit("add-user", {
+            "id": user._id//.user.
+          });
+*/
+          
         if (!hasLoaded){
+            
             changeCursor();
             const fetchData = async () => {const res = await 
                   axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllChatSessionsInfo/`, {
@@ -315,11 +363,14 @@ const ChatExplorer = (props) => {
             //loadMyChatSessions();
             //arrayOfUsers = [];
             //this.myExplorerChatWindow.loadChat(arrayOfUsers);
+            
             loadPeople();
             setHasLoaded(true);
             
         }
         
+        
+
             console.log("myheight:" + window.innerHeight);
             let myHeight = window.innerHeight;
             //document.getElementById("WholePage").style.height = myHeight;
@@ -472,6 +523,8 @@ const ChatExplorer = (props) => {
                                        
                                             <img src = {ellipses} />
                                         </div>
+
+                                        {props.onePerson.isOnline == "true" ? <GreenDot /> : ""}
                                         {/*<button className = "AddDivButton" onClick = {createNewChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>+</button>
                                         <button className = "AddDivButton" onClick = {addToExistingChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>e</button>*/}
                                     </div>
@@ -502,7 +555,7 @@ const ChatExplorer = (props) => {
 
                 </div>
                 <div id = "CEChatWindow">
-                        <ExplorerChatWindow ref={myExplorerChatWindow} />
+                        <ExplorerChatWindow ref={myExplorerChatWindow} onLoadRender={onChangeChatWindow} />
                         {/**ref={(ref) => myExplorerChatWindow=ref} */}
 
 
@@ -550,4 +603,15 @@ export function AddMenuContainer(props){
     );
   }
 
+
+  export function GreenDot(props){
+    //console.log(JSON.stringify((props)));
+    
+    
+    return (
+        <div className = "GreenDot">
+            
+        </div>
+    );
+  }
   

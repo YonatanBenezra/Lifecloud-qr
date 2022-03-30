@@ -119,6 +119,8 @@
     width:5%;
     float:left;
     position: relative;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .MenuContainer {
@@ -180,4 +182,14 @@
 
 .OneReactionItem {
     width:100%;
+}
+
+.GreenDot {
+    width:1%;
+    height:1%;
+    border-radius: 50%;
+    background-color: #33ff33;
+    display:inline-block;
+    margin-right:5px;
+    
 }

@@ -120,6 +120,9 @@ const [connected, setConnected] = useState(false);
         },
 
         async loadChatFromSessionID(session){
+          socket.emit("add-user", {
+            "id": user._id//.user.
+          });
           console.log("in loadChatFromSessionID")
           console.log("session setting: " + JSON.stringify(session))
           //console.log("messages now are: " + JSON.stringify(messages));
@@ -245,7 +248,15 @@ const [connected, setConnected] = useState(false);
   }));
 
   function acceptChatMessage(data){
+    console.log("got into acceptChatMessage and data = " + JSON.stringify(data))
     socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
+    if (data.purpose && data.purpose=="clientarray"){
+      //acceptWhoIsOnline(data);
+        console.log("got into data.purpose is clientarray")
+    }
+    else{
+
+    
     //socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
     console.log("into add-message " + lastChatMessageScrambled + "data:" + data.scrambled);
 
@@ -301,6 +312,7 @@ const [connected, setConnected] = useState(false);
             });
 //end add message
           //}
+    }
   }
   
 
@@ -347,6 +359,9 @@ const [connected, setConnected] = useState(false);
     });
   };
 
+  function acceptWhoIsOnline(){
+    console.log("got into acceptWhoIsOnline")
+  }
 
   async function getChatMessagesFromSessionID(session){
               try {
@@ -396,6 +411,14 @@ const [connected, setConnected] = useState(false);
     if(doWeHaveAListenerYet==false){
             setDoWeHaveAListenerYet(true);
             socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
+            //socket.on('add-message', acceptWhoIsOnline);
+            socket.on('whoisonline', acceptWhoIsOnline);
+            socket.emit("message", {
+              "senderID":user._id,
+              "purpose":"get client array"
+              
+      
+             });
     }
 
     if(needToLoadChatMessages == true) {
@@ -437,9 +460,9 @@ const [connected, setConnected] = useState(false);
 
                                 socket.on('deleteMessage', deleteMessageListener);
                                 //socket.emit('getMessages');
-                                socket.emit("add-user", {
+                                /*socket.emit("add-user", {
                                   "id": user._id//.user.
-                                });
+                                });*/
                                 //setUserAdded(true);
                                 //setIsConnected(true);
                             
