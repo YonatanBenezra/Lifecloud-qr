@@ -204,11 +204,14 @@ const ChatExplorer = (props) => {
 
         const myPeople = people;//[...people]
         const myClientsArray = data.clientsarray;
-        /*for (i in myClientsArray){
-            for(p in myPeople){
-                if(myPeople(p)._id == myClientsArray[i].))
+        for (const [key, value] of Object.entries(myClientsArray)) {
+        //for (i in myClientsArray){
+            for(const p in myPeople){
+                if(myPeople[p]._id == key){
+                    myPeople[p].isOnline = "true";
+                }
             }
-        }*/
+        }
     }
     
 
@@ -537,7 +540,7 @@ function acceptWhoIsOnline(data){
                                             <img src = {ellipses} />
                                         </div>
 
-                                        {props.onePerson.isOnline == "true" ? <GreenDot /> : ""}
+                                        {props.onePerson.isOnline && props.onePerson.isOnline == "true" ? <GreenDot /> : ""}
                                         {/*<button className = "AddDivButton" onClick = {createNewChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>+</button>
                                         <button className = "AddDivButton" onClick = {addToExistingChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>e</button>*/}
                                     </div>
