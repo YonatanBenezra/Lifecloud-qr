@@ -8,7 +8,7 @@
     bottom:0;
     right:0;
     z-index:1000;
-    background-color: blue;
+    
     
 }
 
@@ -30,7 +30,7 @@
     height:100%;
     float:left;
     /*background-color: rgb(241,239,241);*/
-    background-color: red;
+    
     border-right:2px solid rgb(215,214,215);
     position:relative;
     overflow:scroll;
@@ -72,18 +72,22 @@
     height:5%;
     margin:1% 0 1% 0;
     /*background-color: #4FBC9C;*/
-    position:relative;
+    position: relative;
+
+   
+    
+    
 }
 
 .OnePeopleDivPerson .PictureDiv {
-    
+   
     height:100%;
     width:15%;
     float:left;
 }
 
 .OnePeopleDivPerson .NameDiv {
-    
+   
     height:100%;
     width:60%;
     float:left;
@@ -106,6 +110,8 @@
 
 }
 
+
+
 .OnePeopleDivPerson .AddButton {
     margin:5px 5px 5px 5px;
     height:40px;
@@ -118,9 +124,8 @@
     height:100%;
     width:5%;
     float:left;
-    position: relative;
-    display: table-cell;
-    vertical-align: middle;
+    
+    
 }
 
 .MenuContainer {
@@ -185,11 +190,28 @@
 }
 
 .GreenDot {
-    width:1%;
-    height:1%;
+    width:5px;
+    height:5px;
     border-radius: 50%;
     background-color: #33ff33;
     display:inline-block;
     margin-right:5px;
     
+}
+
+.RightDiv {
+    
+    
+  
+    
+    top:0%;
+    right:1%;
+    height:100%;
+    width:5%;
+    position:absolute;
+}
+
+.myHoverContainer {
+   
+   
 }

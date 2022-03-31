@@ -121,7 +121,7 @@ const ChatExplorer = (props) => {
         return (
             <>
 
-                       <div style = {{background: hovered ? '#e6ffee' : 'rgb(241,239,241)'}} {...eventHandlers}>
+                       <div className = "myHoverContainer" style = {{background: hovered ? '#e6ffee' : 'rgb(241,239,241)'}} {...eventHandlers}>
                         {children}
                        
                         {/*<Alert severity="success">This is a success alert — check it out!</Alert>*/}
@@ -517,7 +517,7 @@ function acceptWhoIsOnline(data){
     function OnePeopleDivPerson(props){
         return (
             <>
-            <HoverContainer>
+            <HoverContainer className = "HoverContainer">
                         <div className = "OnePeopleDivPerson">
                             
                             
@@ -551,12 +551,15 @@ function acceptWhoIsOnline(data){
                                             <img src = {ellipses} />
                                         </div>
                                         {/*props.onePerson.isOnline && props.onePerson.isOnline == "true"*/}
-                                        <GreenDot />
+                                        
                                         {/*<button className = "AddDivButton" onClick = {createNewChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>+</button>
                                         <button className = "AddDivButton" onClick = {addToExistingChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>e</button>*/}
                                     </div>
                                     </Item>
-
+                                    <div class = "RightDiv">
+                                        <GreenDot />
+                                    </div>    
+                                        
                             </div>
                             <br />
                             </HoverContainer>
