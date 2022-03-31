@@ -25,28 +25,28 @@ require('console-polyfill')
 
 const { forwardRef, useRef, useImperativeHandle } = React;
 
-const ExplorerChatWindow = forwardRef((props, ref) => {
+const ChatWindow = forwardRef((props, ref) => {
 const [connected, setConnected] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [isSocketed, setIsSocketed] = useState(false);
+  const [myOldestIDSoFar, setMyOldestIDSoFar] = useState("");
   const [haveDoneAlready, setHaveDoneAlready] = useState(false);
-  
-
+  const myFormerTopElementRef = useRef(null)
   const [lastChatMessageScrambled, setLastChatMessageScrambled] = useState(undefined);
   const [isMounted, setIsMounted] = useState(false);
-  const [doWeHaveAListenerYet, setDoWeHaveAListenerYet] = useState(false);
+  const [doWeHaveAListenerYet, setDoWeHaveAListenerYet] = useState(true);
   //const [socket, setSocket] = useState(null);
   const [userAdded, setUserAdded] = useState(false);
   const [recipientFirstNames, setRecipientFirstNames] = useState(false);
   const [recipientLastNames, setRecipientLastNames] = useState(false);
-
+  const [haveWeJustAddedOldMessages, setHaveWeJustAddedOldMessages] = useState(false);
   const [hasLoadedFetchedMessages, setHasLoadedFetchedMessages] = useState(false);
   //const [fetchedMessages, setFetchedMessages] = useState("");
-
+  const [mySessionHasLoaded, setMySessionHasLoaded] = useState(false);
   const [number, setNumber] = useState(1);
-
+  const [mySetMessagesNewestTime, setMySetMessagesNewestTime] = useState(Date.now());
   const [mySocket, setMySocket] = useState(null);
-
+  const [scrollIncrementCount, setScrollIncrementCount] = useState(0);
   const [messages, setMessages] = useState([]);
   const [messageCounter, setMessageCounter] = useState(0);
 
@@ -63,6 +63,8 @@ const [connected, setConnected] = useState(false);
   const [myUsersInfo, setMyUsersInfo] = useState([]);
 
   const [mySession, setMySession] = useState(undefined);
+
+  const [oldestTime, setOldestTime] = useState(undefined);
 
   const [needToLoadChatMessages, setNeedToLoadChatMessages] = useState(false);
 
@@ -120,9 +122,32 @@ const [connected, setConnected] = useState(false);
           
         },
 
+
+        async loadChatFromAjaxMessage(session, message) {
+            console.log("got into loadChatFromAjaxMessage" + JSON.stringify(message) + JSON.stringify(session))
+          setMySetMessagesNewestTime(0);
+          //console.log("in loadChatFromSessionID " + session._id)
+          //console.log("session setting: " + JSON.stringify(session))
+          //console.log("messages now are: " + JSON.stringify(messages));
+          //setMessages([]);
+          
+          //var array = session.users;
+          //var index = array.indexOf(user._id); // Let's say it's Bob.
+          //delete array[index];
+
+          //setRecipientIDs([...array]);
+          setMySession(session);
+          setDoWeHaveAListenerYet(false);
+          //console.log("in load chat from session id and session:" + JSON.stringify(session));
+          ///maybe this!!! setNeedToLoadChatMessages(true);
+          getChatMessagesFromCustomMessageFromSessionID(session, message);
+          //setScrollIncrementCount(1);
+        },
+
         async loadChatFromSessionID(session){
           
-          console.log("in loadChatFromSessionID")
+          setMySetMessagesNewestTime(0);
+          console.log("in loadChatFromSessionID " + session._id)
           console.log("session setting: " + JSON.stringify(session))
           //console.log("messages now are: " + JSON.stringify(messages));
           //setMessages([]);
@@ -137,9 +162,11 @@ const [connected, setConnected] = useState(false);
           //console.log("in load chat from session id and session:" + JSON.stringify(session));
           setNeedToLoadChatMessages(true);
           getChatMessagesFromSessionID(session);
+          setScrollIncrementCount(1);
         },
       
         async loadChatFromUserID(userID, firstName, lastName, profilePicture){
+          setScrollIncrementCount(1);
           console.log("messages now are: " + JSON.stringify(messages));
           //setMessages([]);
           //if(!haveDoneAlready){
@@ -221,11 +248,23 @@ const [connected, setConnected] = useState(false);
                         const newArray = [...response.data.chatResponse];
                         setMessages(newArray);
 
+
+                        
+                        setMySessionHasLoaded(true);
+                        
+                    
+
+
                         console.log("line 170: messages: " + messages + JSON.stringify(messages));
+
+                        
+                          //res.data.googleLocation = JSON.parse(res.data.googleLocation);
+                         // setProfileData(res.data);
+                        //};
                         //setMessages([...response.data]);
                         //console.log("messages.length: " + messages.length);
-                        //var objDiv = document.getElementById("Messages_Container");
-                        //objDiv.scrollTop = objDiv.scrollHeight;
+                        var objDiv = document.getElementById("Messages_Container");
+                        objDiv.scrollTop = objDiv.scrollHeight;
                     
                   })
                   .catch(function (error) {
@@ -247,22 +286,13 @@ const [connected, setConnected] = useState(false);
   }));
 
   function acceptChatMessage(data){
-    console.log("got into acceptChatMessage and data = " + JSON.stringify(data))
-    socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
-    if (data.purpose){
-          console.log("got into special if")
-          props.setWhoIsOnline(data);
-
-    }
-    else{
-
-    
+    console.log("entered accept chat messages messages now are: " + JSON.stringify(messages));
     //socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
-    console.log("into add-message " + lastChatMessageScrambled + "data:" + data.scrambled);
+    //console.log("into add-message " + lastChatMessageScrambled + "data:" + data.scrambled);
 
-
-    var lastScrambled = lastChatMessageScrambled;
-    //if(data.scrambled != lastScrambled) {
+/*
+        var lastScrambled = lastChatMessageScrambled;
+            //if(data.scrambled != lastScrambled) {
               setLastChatMessageScrambled(data.scrambled);
 
 
@@ -270,14 +300,16 @@ const [connected, setConnected] = useState(false);
                 
                 return data.scrambled;
               });
-
+              */
+      if(mySession.users.indexOf(data.sender_user_id) > -1){
 
               var chat_session_id = data.chat_session_id;
               var sender_user_id = data.sender_user_id;
-              var recipient_ids = data.recipient_ids;
+              //var recipient_ids = data.recipient_ids;
               var myMessage = data.message;
               var sender_firstName = data.sender_firstName;
               var sender_lastName = data.sender_lastName;
+              var sender_profile_src = data.sender_profile_src;
               const myDataArray = 
               {
                 
@@ -285,11 +317,12 @@ const [connected, setConnected] = useState(false);
                   "chat_session_id":chat_session_id,
                   "sender_user_id":sender_user_id,
                   "message":myMessage,
+                  "timeofmessage":Date.now,
                   "sender_firstName":sender_firstName,
                   "sender_lastName":sender_lastName,
+                  "sender_profile_src":sender_profile_src
                   
                   
-                  "timeofmessage":Date.now
               }
 
             console.log(JSON.stringify(messages));
@@ -302,20 +335,42 @@ const [connected, setConnected] = useState(false);
             const newArray = [...messages, ...newElement];
             setMessages(newArray);
               */
+
+            //ERASE ALL PREV MESSAGES ON RECIEVER: setMessages([...messages,{...myDataArray}])
+
             setMessages((prevMessages) => {
+              const newMessages = [...prevMessages, myDataArray];
+              //const myLength = newMessages.length;
+              //console.log("newMessages.length: " + myLength);
+             // newMessages[myLength] = myDataArray;
+              return newMessages;
+            });
+
+            
+
+            socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
+
+            var objDiv = document.getElementById("CEMessages_Container");
+              objDiv.scrollTop = objDiv.scrollHeight;
+              /*setMessages((prevMessages) => {
+                prevMessages.push({...myDataArray})
+                return prevMessages;
+              })*/
+           /* setMessages((prevMessages) => {
               const newMessages = prevMessages;//{...prevMessages};
               const myLength = newMessages.length;
               //console.log("newMessages.length: " + myLength);
               newMessages[myLength] = myDataArray;
               console.log("new messages: " + JSON.stringify(newMessages));
               return newMessages;
-            });
+            });*/
 //end add message
           //}
-    }
+
+      }
   }
   
-
+/*
   function messageListener(data) {
     const message = data.message;
     console.log("entered messagelistener2: " + JSON.stringify(data));
@@ -333,12 +388,45 @@ const [connected, setConnected] = useState(false);
 
               var chat_session_id = data.chat_session_id;
               var sender_user_id = data.sender_user_id;
-              var recipient_ids = data.recipient_ids;
+              
               var myMessage = data.message;
               var sender_firstName = data.sender_firstName;
               var sender_lastName = data.sender_lastName;
+              var sender_profile_src = data.sender_profile_src;
 
-              
+              const myDataArray = 
+                {
+                   
+
+                    "chat_session_id":chat_session_id,
+                    "sender_user_id":sender_user_id,
+                    "message":myMessage,
+                    "timeofmessage":Date.now,
+                    "sender_firstName":sender_firstName,
+                    "sender_lastName":sender_lastName,
+                    "sender_profile_src":sender_profile_src
+                }
+            
+
+              //const newArray = [...messages, ...myDataArray];
+              //setMessages(newArray);
+              setMessages([...messages],{...myDataArray})
+              /*setMessages((prevMessages) => {
+                prevMessages.push({...myDataArray})
+                return prevMessages;
+              })*/
+                //const newMessages = {...messages};
+                //const thisLength = newMessages.length;
+                //console.log("newMessages.length: " + myLength);
+                //newMessages[thisLength] = {...myDataArray};
+                //setMessages(newMessages);
+                //return newMessages;
+              //});
+/*
+              var objDiv = document.getElementById("Messages_Container");
+              objDiv.scrollTop = objDiv.scrollHeight;
+              //myMessages[myLength] = message;
+              console.log("pay attention: " + messages);/*
 
               //var objDiv = document.getElementById("Messages_Container");
               //objDiv.scrollTop = objDiv.scrollHeight;
@@ -347,9 +435,9 @@ const [connected, setConnected] = useState(false);
             /* setMessages([...myMessages]);
             
                 console.log("myMessages: " + JSON.stringify(messages));
-                */
+                
         //  }
-  };
+  };*/
 
   const deleteMessageListener = (messageID) => {
     setMessages((prevMessages) => {
@@ -359,11 +447,78 @@ const [connected, setConnected] = useState(false);
     });
   };
 
-  function acceptWhoIsOnline(){
-    console.log("got into acceptWhoIsOnline")
+  const handleScroll = async(e) => {
+    console.log("got into handlescroll")
+    const currentScrollY = e.target.scrollTop;
+    if(currentScrollY == 0){
+    //if(window.pageYOffset === 0) {
+      console.log("got into handlescroll at top")
+      renewChatMessagesFromSessionID(mySession);
+    }
   }
+  
+  async function renewChatMessagesFromSessionID(session){
+    try {
+      console.log("oldesttime: " + JSON.stringify(oldestTime));
+  //console.log(JSON.stringify(user));
+
+  //console.log("finalstring:" + FinalString());
+
+  //const myArray= FinalString();//"1234,5678"//FinalString();
+
+  //async function fetchAllChatMessages()  {
+      const res = await 
+      axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getMoreAllChatMessagesFromSessionID/`, {
+        "sessionID": mySession._id,
+        "myOldestIDSoFar":myOldestIDSoFar
+        //"time": mySetMessagesNewestTime,
+        //"scrollIncrementCount":scrollIncrementCount
+      })
+      .then(function (response) {
+        //console.log("before:" + response);
+        //console.log("now here: " + JSON.stringify(response.data));
+        //setHasLoadedFetchedMessages(true);
+        //console.log("now messages are: " + JSON.stringify(response.data));
+        var newArray = [...response.data];
+        newArray = newArray.reverse();
+        //const temp = response.data;
+        console.log("here we go renew2: " + JSON.stringify(response));
+        //if(temp[0].timeofmessage){
+        //  setOldestTime(temp[12].timeofmessage);
+        //}
+        if(newArray[0]._id){
+          setMyOldestIDSoFar(newArray[0]._id)
+        }
+        console.log("now messages are about to be set: " + JSON.stringify(response.data))
+        setScrollIncrementCount(scrollIncrementCount + 1);
+        setMessages([...newArray,...messages]);
+        
+        //setMessages([...response.data]);
+        //console.log("messages.length: " + messages.length);
+        //var objDiv = document.getElementById("Messages_Container");
+        //objDiv.scrollTop = objDiv.scrollHeight;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
+  //}
+  //fetchAllChatMessages();
+  
+
+} catch (err) {
+  console.log(JSON.stringify(err));
+  //setMessage('Something went wrong!');
+  //setOpen(true);
+}
+}
+
+
 
   async function getChatMessagesFromSessionID(session){
+
+            console.log("in getChatMessagesFromSessionID and session id is " +session._id)
+
               try {
               
             //console.log(JSON.stringify(user));
@@ -373,24 +528,45 @@ const [connected, setConnected] = useState(false);
             //const myArray= FinalString();//"1234,5678"//FinalString();
 
             //async function fetchAllChatMessages()  {
+                //const myTime = Date.now();
+                //set(myTime);
+                //console.log("oldesttime: " + JSON.stringify(myTime))
+
                 const res = await 
                 axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllChatMessagesFromSessionID/`, {
                   "sessionID": mySession._id
+                  
+                  //"time": null,
+                  //"scrollIncrementCount": scrollIncrementCount
                 })
                 .then(function (response) {
                   //console.log("before:" + response);
                   //console.log("now here: " + JSON.stringify(response.data));
                   //setHasLoadedFetchedMessages(true);
                   //console.log("now messages are: " + JSON.stringify(response.data));
-                  const newArray = [...response.data];
+                  var newArray = [...response.data];
+
+                  newArray = newArray.reverse();
 
                   console.log("now messages are about to be set: " + JSON.stringify(response.data))
                   setMessages(newArray);
+                  //setHaveWeJustAddedOldMessages(true);
+                  //setScrollIncrementCount(scrollIncrementCount + 1);
                   
+                  //if(response.data != ""){
+                  if (newArray.length){
+                    console.log("new oldest id is: " + newArray[0]._id + JSON.stringify(newArray));
+                    setMyOldestIDSoFar(newArray[0]._id)
+                  }
+                  //}
+                  //const temp = response.data;
+                  console.log("here we go: " + JSON.stringify(newArray));
+                  //setOldestTime(newArray[12].timeofmessage);
                   //setMessages([...response.data]);
                   //console.log("messages.length: " + messages.length);
-                  //var objDiv = document.getElementById("Messages_Container");
-                  //objDiv.scrollTop = objDiv.scrollHeight;
+
+                        //var objDiv = document.getElementById("Messages_Container");
+                        //objDiv.scrollTop = objDiv.scrollHeight;
                 })
                 .catch(function (error) {
                   console.log(error);
@@ -408,20 +584,24 @@ const [connected, setConnected] = useState(false);
   }
 
   useEffect(() => {
+
+
+    
+
+    if (haveWeJustAddedOldMessages == true){
+      setHaveWeJustAddedOldMessages(false);
+      //var objDiv = document.getElementById("CEMessages_Container");
+      //objDiv.scrollTop = objDiv.scrollHeight;
+      myFormerTopElementRef.current.scrollIntoView()  
+    }
+
+    
+
+    console.log("in useeffect messages are: " + messages);
+
     if(doWeHaveAListenerYet==false){
-            socket.emit("add-user", {
-              "id": user._id//.user.
-            });
             setDoWeHaveAListenerYet(true);
             socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
-            //socket.on('add-message', acceptWhoIsOnline);
-            //socket.on('whoisonline', acceptWhoIsOnline);
-            socket.emit("message", {
-              "senderID":user._id,
-              "purpose":"get client array"
-              
-      
-             });
     }
 
     if(needToLoadChatMessages == true) {
@@ -463,9 +643,9 @@ const [connected, setConnected] = useState(false);
 
                                 socket.on('deleteMessage', deleteMessageListener);
                                 //socket.emit('getMessages');
-                                /*socket.emit("add-user", {
+                                socket.emit("add-user", {
                                   "id": user._id//.user.
-                                });*/
+                                });
                                 //setUserAdded(true);
                                 //setIsConnected(true);
                             
@@ -563,6 +743,65 @@ const [connected, setConnected] = useState(false);
    
   }
 
+  function getChatMessagesFromCustomMessageFromSessionID(session, message){
+    //set oldest id equal to message id  
+    setMyOldestIDSoFar(message._id);
+    //Load chat message and all messages after that date
+    const res = 
+                  axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getChatMessagesNewerThanOneMessage/`, {
+                    "message":message
+
+                  })
+                  .then(function (response) {
+                        console.log("response for 753: " + JSON.stringify(response, null, 2))
+                        setHasLoadedFetchedMessages(true);
+                        //const newArray2 = [...response.data.chatResponse];//try json.stringify
+                        const newArray = [...response.data.response1, ...response.data.response2];
+                        
+                        console.log("new messages are: " + JSON.stringify(newArray))
+
+                        
+
+                        setMessages(newArray);
+
+                        //setMessages((messages) => {
+                          
+                          
+                          //return newArray;
+                        //});
+
+                        console.log("current session is: " + JSON.stringify(mySession._id))
+                        
+                        setMySessionHasLoaded(true);
+                        
+                    
+
+
+                        console.log("line 170: messages: " + messages + JSON.stringify(messages));
+
+                        
+                          //res.data.googleLocation = JSON.parse(res.data.googleLocation);
+                         // setProfileData(res.data);
+                        //};
+                        //setMessages([...response.data]);
+                        //console.log("messages.length: " + messages.length);
+//HERE:
+                        //var objDiv = document.getElementById("CEMessages_Container");
+                        //objDiv.scrollTop = objDiv.scrollHeight;
+                        var element = document.getElementById("Message" + message._id);
+
+                        element.scrollIntoView();
+
+
+                        //scroll to Message1
+                        //automatically scrolls to top
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+  }
+
+
   const HandleKeyDown = async (e) => {
     
     console.log("got into keydown: " + e.target.value + "key and keycode:" + e.key + ":" + e.keyCode);
@@ -608,7 +847,7 @@ const [connected, setConnected] = useState(false);
         
 
        });
-       
+       socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
        /*,withTimeout(() => {
         console.log("success!" + number);
         setNumber(number + 1);
@@ -631,7 +870,7 @@ const [connected, setConnected] = useState(false);
             console.log('formdata: ' + JSON.stringify(formdata));
 
             for (var key of formdata.entries()) {
-              console.log(key[0] + ', ' + key[1]);
+              console.log("one row of formdata: " + key[0] + ', ' + key[1]);
             }
 
             var object = {};
@@ -709,29 +948,80 @@ const [connected, setConnected] = useState(false);
       }
     }
    
-   
+   const MyTitle = (mySession) => {
+    
+     if ( mySession !== undefined && mySession != {} && Object.keys(mySession).length && 
+     mySession.title !== undefined) {
+       if (mySession.title != ""){
+          return mySession.title;
+       }
+       else{
+         return "No title";
+       }
+     }
+     else {
+       return "No title";
+     }
+   }
 
     return (
         
               <div id = "CEChatContainer">
-                    
+                    <div id = "CEChatWindowHeaderContainer">
+                        <div id = "CEChatWindowTitleDiv">
+                            {/*mySession.title != "" ? mySession.title : "No Title"*/}
+                            {console.log("absolute session: " + JSON.stringify(mySession, null, 2))}
+                        </div>
+                        <div id = "CEChatWindowUsersDiv">
+
+                            <span class = "CEChatWindowUsersDivHeaderText">Title:</span> &nbsp;
+                            { 
+                            
+                            MyTitle(mySession)
+                            
+                            /*
+                            mySession !== undefined && mySession != {} && Object.keys(mySession).length && 
+                            mySession.title !== undefined ?
+                            mySession.title
+                            : "No title"
+                            */
+                            }
+                            <br />
+                            <span class = "CEChatWindowUsersDivHeaderText">Users:</span> &nbsp;
+                            { /*[...Object.values(mySession.userInfo)] 
+                                .map((user, index) => (
+                                    user.firstName + " " + user.lastName + ", "
+                                ))*/
+                                mySessionHasLoaded && mySession !== null && mySession !== undefined && mySession.length > 0 && mySession != {} && Object.keys(mySession).length &&
+                                  [...Object.values(mySession.userInfo)].map((user, i) => (
+                                  user.firstName + " " + user.lastName + ", "
+                                ))
+                              
+                              }
+                            
+                                
+                                
+                                
+                        </div>
+                    </div>
                     
                      
-                      <div id = "CEMessages_Container">
+                      <div id = "CEMessages_Container" onScroll = {handleScroll}>
+                        {messages.length == 0 && <>No messages in chat session</>}
                     { [...Object.values(messages)]//makes mappable //was [...Object.values(messages)]
                               //.sort((a, b) => a.time - b.time)
                               .map((message, index) => (
                                  
                                   
                                   message.sender_user_id != user._id
-                                    ? (<><div class = "CEHisSpeech">
+                                    ? (<><div class = "CEHisSpeech" ref={index==12?myFormerTopElementRef:null} id = {"Message"+message._id}>
                                               <img src={message.sender_profile_src} width={30} height={30} />
                                               <span class = "CEHisSpeechText">{message.message}</span>
                                               
                                        </div><br /><br /></>)
                                     
                                     
-                                    : (<><div class = "CEMySpeech">
+                                    : (<><div class = "CEMySpeech" ref={index==12?myFormerTopElementRef:null}id = {"Message"+message._id}>
                                               
                                               <span class = "CEMySpeechText">{message.message}</span>
                                             
@@ -740,7 +1030,7 @@ const [connected, setConnected] = useState(false);
                               }
                            </div>   
                                   
-                    <textarea id = "CEChat_Input" value= {textValue}  onChange={DoNothing} onKeyDown = {HandleKeyDown}  rows={5} placeholder="Type your message" />
+                    <textarea id = "CEChat_Input" value= {textValue}  onChange={DoNothing} onKeyPress = {HandleKeyDown}  rows={5} placeholder="Type your message" />
                       
                     
               </div>
@@ -751,6 +1041,6 @@ const [connected, setConnected] = useState(false);
         
   });
 
-export default ExplorerChatWindow;
+export default ChatWindow;
 
 

@@ -20,6 +20,7 @@ const Topbar = (props) => {
   
       const [isSticky, setSticky] = useState(false);
       const [isSticky2, setSticky2] = useState(false);
+      
       const ref = useRef(null);
       const ref2 = useRef(null);
       const handleScroll = () => {
@@ -32,6 +33,13 @@ const Topbar = (props) => {
       };
 
       useEffect(() => {
+          if(showChatExplorer){
+            
+          }
+
+
+
+
         window.addEventListener('scroll', handleScroll);
 
           return () => {
@@ -48,6 +56,8 @@ const Topbar = (props) => {
       }
       const [showChatExplorer, toggleChatExplorer] = useState(false);
       const chatExplorerHandler = () => {
+        console.log("got into chatExplorerHandler")
+        
           toggleChatExplorer(showChatExplorer => !showChatExplorer);
       }
 

@@ -14,14 +14,23 @@ var storage = multer.diskStorage({
 let uploadpic = multer({ storage: storage });
 
 
-ProfileRouter.post('/getAllPeople', (req, res, next) => {//:id
+ProfileRouter.post('/getAjaxSearchSessionsTitle', (req, res, next) => {//:id
 
+  let myTitle = req.body.title;
+  let userid = req.body.userid;
+ 
   
-  var mysort = { lastupdated: -1 };
-  let myPeople = profileModel //was userModel
+  
+  var myFind = {title: {$regex: new RegExp(myTitle, "i")}};
+  
+//{'title': {$regex: myTitle, $options: 'i'}}//
+  var mysort = { title: -1 };
+  let mySessions = chatSessionModel //was userModel
   //.find({})
-  .find({})
-  .populate('firstName','lastname')
+  .find(myFind)
+  .sort(mysort)
+  .limit(5)
+  .populate('title','_id')
   .then((response) => {
       
     if (!response) {
@@ -29,10 +38,250 @@ ProfileRouter.post('/getAllPeople', (req, res, next) => {//:id
         message: 'data not found',
       });
     }
+    console.log("ajax response getAjaxSearchSessionsTitle: " + JSON.stringify(response))
     //return response;
     res.json(response);
     //res.write(response);
   });
+
+
+
+//.sort('-timeofmessage')
+
+
+});
+
+
+
+
+
+ProfileRouter.post('/getAjaxSearchSessionsChatBody', (req, res, next) => {//:id
+
+  let text = req.body.text;
+  let userid = req.body.userid;
+ 
+  
+
+  let myChatSessions = chatSessionModel //was userModel
+  //.find({})
+  .find({"users": userid})
+  //.populate('title','_id')
+  .then((response) => {
+    var myChatSessionIDs = [];
+    for (var i = 0;i<response.length;i++){
+      //        ^^^^
+        myChatSessionIDs.push(response[i]._id);
+    }
+
+    
+  var myFind = {$and:[ {"message": {$regex: new RegExp(text, "i")}}, {"chat_session_id": myChatSessionIDs}]}
+
+
+  var mysort = { _id: -1 };
+  let myChatMessages = chatMessageModel //was userModel
+  //.find({})
+  .find(myFind)
+  .sort(mysort)
+  .limit(5)
+  //.populate('_id','users','userInfo')
+  .then((response) => {
+      
+    if (!response) {
+      return res.status(404).json({
+        message: 'data not found',
+      });
+    }
+    console.log("ajax response: " + JSON.stringify(response))
+    //return response;
+    res.json(response);
+    //res.write(response);
+  });
+
+
+
+//.sort('-timeofmessage')
+
+  })
+});
+
+
+
+
+ProfileRouter.post('/getChatMessagesNewerThanOneMessage', (req, res, next) => {//:id
+
+  let message = req.body.message;
+ 
+  var mysort = { _id: 1 };
+
+  let myChatMessage = chatMessageModel //was userModel
+  //.find({})
+  .find({"_id": {$gte: message._id}})
+  .sort(mysort)
+  //.populate('sender_firstName','sender_lastName','timeofmessage','sender_profile_src')
+  .then((response) => {
+        let myChatMessage = chatMessageModel //was userModel
+        //.find({})
+        .find({"_id": {$lt: message._id}})
+        .limit(10)
+        .sort(mysort)
+        //.populate('sender_firstName','sender_lastName','timeofmessage','sender_profile_src')
+        .then((response2) => {
+
+              if (!response) {
+                return res.status(404).json({
+                  message: 'data not found',
+                });
+              }
+              console.log("ajax response: " + JSON.stringify(response))
+              //return response;
+
+
+              const finalResponse = {
+                response1:response2,
+                response2:response
+               
+              }
+
+
+              
+
+              res.json(finalResponse);
+              //res.write(response);
+        })
+  });
+
+
+
+//.sort('-timeofmessage')
+
+  
+});
+
+
+
+ProfileRouter.post('/getChatSessionFromSessionID', (req, res, next) => {//:id
+
+  let sessionID = req.body.sessionID;
+ 
+  
+
+  let myChatSessions = chatSessionModel //was userModel
+  //.find({})
+  .findOne({"_id": sessionID})
+  .populate('title','_id')
+  .then((response) => {
+    
+    if (!response) {
+      return res.status(404).json({
+        message: 'data not found',
+      });
+    }
+    console.log("ajax response: " + JSON.stringify(response))
+    //return response;
+    res.json(response);
+    //res.write(response);
+  });
+
+
+
+//.sort('-timeofmessage')
+
+  
+});
+
+
+
+
+
+
+ProfileRouter.post('/getAjaxSearchPeople', (req, res, next) => {//:id
+
+          let firstName = req.body.firstName;
+          let lastName = req.body.lastName;
+         
+          var myFind = {}
+          if (lastName == ""){
+            myFind = {"firstName": {$regex: '.*' + firstName + '.*'}}
+          }
+          else {
+          myFind = {$or:[ {"firstName": {$regex: '.*' + firstName + '.*'}}, {"lastName": {$regex: '.*' + lastName + '.*'}}]}
+          }
+
+          var mysort = { lastName: -1 };
+          let myPeople = profileModel //was userModel
+          //.find({})
+          .find({})
+          .sort(mysort)
+          .limit(5)
+          .populate('firstName','lastname')
+          .then((response) => {
+              
+            if (!response) {
+              return res.status(404).json({
+                message: 'data not found',
+              });
+            }
+            console.log("ajax response: " + JSON.stringify(response))
+            //return response;
+            res.json(response);
+            //res.write(response);
+          });
+  
+  
+  
+  //.sort('-timeofmessage')
+  
+
+});
+
+
+
+ProfileRouter.post('/getAllPeople', (req, res, next) => {//:id
+
+  let bottomMostPersonID = req.body.bottomMostPersonID;
+
+  if (bottomMostPersonID == ""){
+          //var mysort = { lastupdated: -1 };
+          let myPeople = profileModel //was userModel
+          //.find({})
+          .find({})
+          //.sort(mysort)
+          .limit(14)
+          .populate('firstName','lastname')
+          .then((response) => {
+              
+            if (!response) {
+              return res.status(404).json({
+                message: 'data not found',
+              });
+            }
+            //return response;
+            res.json(response);
+            //res.write(response);
+          });
+  }
+  else{
+    console.log("my object id is: " + bottomMostPersonID)
+        //var mysort = { lastupdated: -1 };
+        let myPeople = profileModel //was userModel
+        //.find({})
+        .find({_id: {$gt: bottomMostPersonID}})
+        //.sort(mysort)
+        .limit(14)
+        .populate('firstName','lastname')
+        .then((response) => {
+            
+          if (!response) {
+            return res.status(404).json({
+              message: 'data not found',
+            });
+          }
+          //return response;
+          res.json(response);
+          //res.write(response);
+        });
+  }
+
   
   //.sort('-timeofmessage')
   
@@ -73,21 +322,120 @@ ProfileRouter.post('/getSessionInfo', (req, res, next) => {//:id
 
 ProfileRouter.post('/getAllChatSessions', (req, res, next) => {//:id
 
+  let bottomMostSessionID = req.body.bottomMostSessionID;
   let myID = req.body.userid;  //params.id;
-  let arrMyID = myID;//was [myID]
+  let skipCount = req.body.skipCount;
+  let isArchived = req.body.isArchived;
   var mysort = { lastupdated: -1 };
-  let mySessions = chatSessionModel
+console.log("got into getAllChatSessions and skipcount = " + skipCount)
+  //if (bottomMostSessionID == ""){
+          //var mysort = { lastupdated: -1 };
+      try{
+          if (!isArchived){
+                  let mySessions = chatSessionModel //was userModel
+                  //.find({})
+                  .find({ users: {$all: myID}, archiveUserIDList: {$ne: myID } })
+                  .sort(mysort)
+                  .skip(skipCount * 13)
+                  .limit(13)
+                  //.populate('firstName','lastname')
+                  .then((response) => {
+                      
+                    if (!response) {
+                      return res.status(404).json({
+                        message: 'data not found',
+                      });
+                    }
+                    //return response;
+                    res.json(response);
+                    //res.write(response);
+                  });
+        }
+        else { //is Archived
+
+                let mySessions = chatSessionModel //was userModel
+                //.find({})
+                .find({ users: {$all: myID}, archiveUserIDList: {$all: myID } })
+                .sort(mysort)
+                .skip(skipCount * 13)
+                .limit(13)
+                //.populate('firstName','lastname')
+                .then((response) => {
+                    
+                  if (!response) {
+                    return res.status(404).json({
+                      message: 'data not found',
+                    });
+                  }
+                  //return response;
+                  res.json(response);
+                  //res.write(response);
+                });
+
+        }
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
+  //}
+  /*else{
+    console.log("my object id is: " + bottomMostPersonID)
+        //var mysort = { lastupdated: -1 };
+        let myPeople = profileModel //was userModel
+        //.find({})
+        .find({_id: {$gt: bottomMostPersonID}})
+        //.sort(mysort)
+        .limit(14)
+        .populate('firstName','lastname')
+        .then((response) => {
+            
+          if (!response) {
+            return res.status(404).json({
+              message: 'data not found',
+            });
+          }
+          //return response;
+          res.json(response);
+          //res.write(response);
+        });
+  }
+*/
+
+});
+
+function toDateTime(secs) {
+  var t = new Date(1970, 0, 1); // Epoch
+  t.setSeconds(secs);
+  return t;
+}
+
+ProfileRouter.post('/getAllChatMessagesFromSessionID', (req, res, next) => {//:id
+
+  let myString = req.body.sessionID;  //params.id;
+  //let myNewestTime= req.body.time;
+  /*if (myNewestTime == null){
+    myNewestTime = Date.now();
+  }*/
+  //let scrollIncrementCount= req.body.scrollIncrementCount;
+  //console.log("scroll increment count of mine: " + scrollIncrementCount)
+  //console.log("my newest time: " + myNewestTime)
+  //let arrSessionID = [myString];
+  var mysort = { timeofmessage: -1 };//from bottom going up
+  let myChatMessages = chatMessageModel
   //.find({})
-  .find({ users: {$all: arrMyID}  })
+  .find({ chat_session_id: myString})//timeofmessage: {$lt: myNewestTime}})//, timeofmessage: {$lte: myNewestTime}
   .sort(mysort)
-  //.populate('users','userinfo','title','timeofcreation','lastmessage','lastupdated')
+  .limit(12)
+  .populate('message')
+  
   .then((response) => {
-      
+      console.log("my response:" + JSON.stringify(response));
     if (!response) {
       return res.status(404).json({
         message: 'data not found',
       });
     }
+    
     //return response;
     res.json(response);
     //res.write(response);
@@ -98,30 +446,229 @@ ProfileRouter.post('/getAllChatSessions', (req, res, next) => {//:id
 
 });
 
-ProfileRouter.post('/getAllChatMessagesFromSessionID', (req, res, next) => {//:id
+ProfileRouter.post('/getMoreAllChatMessagesFromSessionID', (req, res, next) => {//:id
 
   let myString = req.body.sessionID;  //params.id;
-  
+  //let myNewestTime= req.body.time;
+  //if (myNewestTime == null){
+  //  myNewestTime = Date.now();
+  //}
+  let myOldestIDSoFar = req.body.myOldestIDSoFar;
+  //let scrollIncrementCount= req.body.scrollIncrementCount;
+  //console.log("scroll increment count of mine: " + scrollIncrementCount)
+  //console.log("my newest time: " + myNewestTime)
   //let arrSessionID = [myString];
-  var mysort = { timeofmessage: 1 };
+  var mysort = { timeofmessage: -1 };//from bottom going up
   let mySession = chatMessageModel
   //.find({})
-  .find({ chat_session_id: myString })
-  .populate('message')
+  .find({ chat_session_id: myString, _id: {$lt: myOldestIDSoFar}})//timeofmessage: {$lt: myNewestTime}})//, timeofmessage: {$lte: myNewestTime}
   .sort(mysort)
+  //.skip(12 * scrollIncrementCount)
+  .limit(12)
+  .populate('message')
+  
   .then((response) => {
-      console.log(JSON.stringify(response));
+      console.log("my response:" + JSON.stringify(response));
     if (!response) {
       return res.status(404).json({
         message: 'data not found',
       });
     }
+    
     //return response;
     res.json(response);
     //res.write(response);
   });
   
   //.sort('-timeofmessage')
+  
+
+});
+
+
+
+
+ProfileRouter.post('/archiveSession', (req, res, next) => {//:id
+
+  try{
+      let userID = req.body.userID;  //params.id;
+      let chatSessionID = req.body.sessionID;
+     
+     
+
+      chatSessionModel.find({ _id: chatSessionID }, function(err, chatSession) {
+        
+        //console.log("all results: " + JSON.stringify(chatSession, null, 2))
+
+        const myExistingArchiveUserIDsArray = chatSession[0].archiveUserIDList;
+        
+        if (!myExistingArchiveUserIDsArray.includes(userID))
+            myExistingArchiveUserIDsArray.push(userID);
+        
+        chatSession[0].archiveUserIDList = myExistingArchiveUserIDsArray;
+        chatSession[0].save(function(err, updatedChatSession) {
+          console.log("updatedChatSession" + JSON.stringify(updatedChatSession))
+          //res.json("Success!");
+          var mysort = { lastupdated: -1 };
+                let mySessions = chatSessionModel //was userModel
+                //.find({})
+                .find({ users: {$all: userID}, archiveUserIDList: {$ne: userID } })
+                .sort(mysort)
+                .skip(0 * 13)
+                .limit(13)
+                //.populate('firstName','lastname')
+                .then((response) => {
+                    
+                  if (!response) {
+                    return res.status(404).json({
+                      message: 'data not found',
+                    });
+                  }
+                  //return response;
+                  res.json(response);
+                  //res.write(response);
+                });
+        });
+        
+    });
+      
+      
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
+
+  
+
+});
+
+ProfileRouter.post('/unArchiveSession', (req, res, next) => {//:id
+
+  try{
+      let userID = req.body.userID;  //params.id;
+      let chatSessionID = req.body.sessionID;
+     
+     
+
+      chatSessionModel.find({ _id: chatSessionID }, function(err, chatSession) {
+        
+        //console.log("all results: " + JSON.stringify(chatSession, null, 2))
+
+        const myExistingArchiveUserIDsArray = chatSession[0].archiveUserIDList;
+        
+        if (myExistingArchiveUserIDsArray.includes(userID))
+            removeItemAll(myExistingArchiveUserIDsArray,userID);
+        
+        chatSession[0].archiveUserIDList = myExistingArchiveUserIDsArray;
+        chatSession[0].save(function(err, updatedChatSession) {
+          console.log("updatedChatSession" + JSON.stringify(updatedChatSession))
+          //res.json("Success!");
+                var mysort = { lastupdated: -1 };
+                let mySessions = chatSessionModel //was userModel
+                //.find({})
+                .find({ users: {$all: userID}, archiveUserIDList: {$all: userID } })
+                .sort(mysort)
+                .skip(0 * 13)
+                .limit(13)
+                //.populate('firstName','lastname')
+                .then((response) => {
+                    
+                  if (!response) {
+                    return res.status(404).json({
+                      message: 'data not found',
+                    });
+                  }
+                  //return response;
+                  res.json(response);
+                  //res.write(response);
+                });
+        });
+        
+    });
+      
+      
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
+
+  
+
+});
+
+function removeItemAll(arr, value) {
+  var i = 0;
+  while (i < arr.length) {
+    if (arr[i] === value) {
+      arr.splice(i, 1);
+    } else {
+      ++i;
+    }
+  }
+  return arr;
+}
+
+ProfileRouter.post('/setChatSessionTitle', (req, res, next) => {//:id
+
+  try{
+      let myTitle = req.body.value;  //params.id;
+      let chatSessionID = req.body.sessionid;
+     
+     
+
+      chatSessionModel.find({ _id: chatSessionID }, function(err, chatSession) {
+        
+        console.log("all results: " + JSON.stringify(chatSession, null, 2))
+
+        chatSession[0].title = myTitle;
+        chatSession[0].save(function(err, updatedChatSession) {
+          console.log("updatedChatSession" + JSON.stringify(updatedChatSession))
+          res.json("Success!");
+        });
+        
+    });
+      
+      
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
+
+  
+
+});
+
+
+ProfileRouter.post('/setSessionHasBeenClicked', (req, res, next) => {//:id
+
+  try{
+      let myString = req.body.sessionID;  //params.id;
+      
+      //let arrSessionID = [myString];
+      //var mysort = { timeofmessage: 1 };
+      const filter = { chat_session_id: myString };
+      const update = { hasNotBeenRead: false };
+      /*
+      let mysessions = chatSessionModel.find({ _id: myString }
+        ).then((mySessionModel) => {
+        console.log("my result sessions: " + JSON.stringify(mySessionModel, null, 2))
+        });
+*/
+      chatSessionModel.findOne({ _id: myString }, function(err, chatSession) {
+        chatSession.hasNotBeenRead = false;
+        chatSession.save(function(err, updatedChatSession) {
+          console.log("updatedChatSession" + JSON.stringify(updatedChatSession))
+          res.json("Success!");
+        });
+        
+    });
+      
+      
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
+
   
 
 });
@@ -510,6 +1057,60 @@ ProfileRouter.post('/addUserToChatSession',  async (req, res) => {//was post and
   
 })
 
+
+ProfileRouter.post(
+  '/createYoniProfile',
+  uploadpic.fields([
+    { name: 'profileImg', maxCount: 1 },
+    { name: 'wallImg', maxCount: 1 },
+    { name: 'multiplefiles', maxCount: 20 },
+    { name: 'graveImg', maxCount: 1 },
+    { name: 'axisImages', maxCount: 99 },
+  ]),
+  async (req, res) => {
+    try {
+      //gen new password
+      const url = req.protocol + '://' + req.get('host');
+
+      let multiFiles = req.files.multiplefiles.map((res) => {
+        return res.path.slice(7);
+      });
+      //new user
+      let newUser = new profileModel({
+        originalUser: req.body.originalUser,
+        gallery: multiFiles,
+        profileImg: req.files.profileImg[0].path.slice(7),
+        wallImg: req.files.wallImg[0].path.slice(7),
+        graveImg: req.files.graveImg[0].path.slice(7),
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        privacy: req.body.privacy,
+        gender: req.body.gender,
+        birthDate: req.body.birthDate,
+        deathDate: req.body.deathDate,
+        hebBirthDate: req.body.hebBirthDate,
+        degree: req.body.degree,
+        city: req.body.city,
+        wazeLocation: req.body.wazeLocation,
+        description: req.body.description,
+        googleLocation: req.body.googleLocation,
+        lifeAxis: req.body.lifeAxis,
+        isMain: req.body.isMain,
+        axisImages: req.files?.axisImages?.map((res) => {
+          return res.filename;
+        }),
+      });
+
+      //save and response
+      newUser.save().then((resp) => {
+        res.send(resp);
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  }
+);
 
 // create profile
 ProfileRouter.post(

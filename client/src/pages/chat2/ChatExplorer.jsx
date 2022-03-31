@@ -7,22 +7,31 @@ import cancel from './cancel.png';
 import $ from 'jquery';
 import ExplorerChatWindow from './ExplorerChatWindow';
 import ExplorerChatSessions from './ExplorerChatSessions';
+import SessionEditTitle from './SessionEditTitle';
 import ellipses from './icons8-ellipsis-30.png';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 import LoadingAlert from './loadingAlert'
 import { red } from '@material-ui/core/colors';
 import {socket} from "./socket.js";
+import ReactDOM from 'react-dom';
+import magnifyingglass from './magnifying-glass.png';
+
 
 const ChatExplorer = (props) => {
+
+    
+
+
     const { useState, useMemo } = React;
     const { forwardRef, useRef, useImperativeHandle } = React;
     const [hasLoaded, setHasLoaded] = useState(false);
     const [myUrl, setMyUrl] = useState("");
     const [chatSessions, setChatSessions] = useState([]);
     const [people, setPeople] = useState([]);
+    const [bottomMostPersonID, setBottomMostPersonID] = useState("");
 
-
+    const [hasSetInitialChat,setHasSetInitialChat] = useState(false);
 
     const [messages, setMessages] = useState([]);
     const [sasLoadedFetchedMessages, setHasLoadedFetchedMessages] = useState(false);
@@ -34,11 +43,22 @@ const ChatExplorer = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const myExplorerChatWindow =  useRef();
     const myExplorerChatSessions =  useRef();
-
+    const [searchTextValue, setSearchTextValue] = useState("");
     const loadMyChatFromUserID = React.useRef(null)
-
+    const [peopleAjax, setPeopleAjax] = useState([]);
     const [cursor, setCursor] = useState('hourglass');
+    const PeopleHolderRef = useRef(null);
+    const [haveWeReachedTheEndOfLoadingPeople, setHaveWeReachedTheEndOfLoadingPeople] = useState(false);
+    const [isEditingTitleSession, setIsEditingTitleSession] = useState(false);
+    const [currentSessionToEditTitle, setCurrentSessionToEditTitle] = useState(undefined);
+    //const clickOutsideRef = useRef(null);
+    //useOutsideAlerter(clickOutsideRef);
+    const myScrollRef = useRef();
+    const [scrollTop, setScrollTop] = useState(0);
+    const [hasBeenClosed, setHasBeenClosed] = useState(false);
 
+    
+    
 
     function changeCursor() {
         setCursor(prevState => {
@@ -48,6 +68,8 @@ const ChatExplorer = (props) => {
           return 'hourglass';
         });
       }
+
+     
 
     function getWindowDimensions() {
         const { innerWidth: width, innerHeight: height } = window;
@@ -82,6 +104,19 @@ const ChatExplorer = (props) => {
               
     }
 
+
+/*
+    const handlePeopleScroll = async(e) => {
+      console.log("got into handlePeopleScroll")
+      const currentScrollY = e.target.scrollBottom;
+      if(currentScrollY == 0){
+      //if(window.pageYOffset === 0) {
+          console.log("got into handlePeopleScroll at bottom")
+          renewMyPeople();
+      }
+  }*/
+
+
 //onMouseOut() { setHovered(false); }
     const useHover = () => {
         const [hovered, setHovered] = useState();
@@ -96,6 +131,29 @@ const ChatExplorer = (props) => {
      
         
         return [hovered, eventHandlers];
+      }
+
+
+      const AjaxSearchResult = ({_id, firstName, lastName, profilePicture, children }) => {
+        const [hovered, eventHandlers] = useHover();
+        const [hovered2, eventHandlers2] = useHover();
+        const [hovered3, eventHandlers3] = useHover();
+        //console.log("props are: " + _id);
+        {console.log("in ajaxsearchresult " + firstName)}
+        return (
+            <>
+          <div class = "OnePersonAjax" {...eventHandlers}>
+                        
+                        {firstName} {lastName}
+                        {children}
+                        <div className = "AddCreateSpan">{hovered && <><span class = "ajaxButton" {...eventHandlers2} style={{background: hovered2 ? '#1aa3ff' : 'white'}} onClick = {createNewChat.bind(null, _id, firstName, lastName, profilePicture)}>New+</span><span class = "ajaxButton" {...eventHandlers3} style={{background: hovered3 ? '#1aa3ff' : 'white'}} onClick = {addToExistingChat.bind(null, _id, firstName, lastName, profilePicture)}>Existing+</span></>}
+                        </div>
+            </div>
+                        
+                        {/*<Alert severity="success">This is a success alert — check it out!</Alert>*/}
+            </>
+
+        )
       }
 
       
@@ -135,7 +193,7 @@ const ChatExplorer = (props) => {
 
     async function addToExistingChat(id, firstName, lastName, profilePicture)  {
         console.log("in chatexplorer addToExistingChat, " + id + "," + firstName + "," + lastName);
-            if(currentSession._id != ""){
+            if(currentSession && currentSession._id != ""){
                         try {
                             console.log("inside try");
                             console.log("current session id: " + currentSession._id);
@@ -223,7 +281,7 @@ const ChatExplorer = (props) => {
             
                 const res = await 
                 axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllPeople/`, {
-                
+                    bottomMostPersonID: bottomMostPersonID
                 })
                 
                 //let id = user._id;
@@ -234,7 +292,7 @@ const ChatExplorer = (props) => {
                     //var myUrl = makeTextFile(JSON.stringify(response.data));
                     setMyUrl(myUrl);
 
-                console.log("before:" + JSON.stringify(response.data));
+                console.log("getAllPeopleResponse" + JSON.stringify(response.data));
                 console.log("People " + JSON.stringify(response.data[0].firstName));
                 
                 //const stringified = JSON.stringify(response.data);
@@ -244,6 +302,7 @@ const ChatExplorer = (props) => {
                 //setPeople([...JSON.stringify(response.data[0])]);
                 console.log("MY NEW ARRAY: " + JSON.stringify(newArray))
                 setPeople(newArray);
+                setBottomMostPersonID(newArray[newArray.length - 1]._id);
 
                 
                     //from "my people"
@@ -330,10 +389,43 @@ function acceptWhoIsOnline(data){
     //})
 
     function onChangeChatWindow (session) {
+        console.log("in chatexplorer onchangechatwindow and session is: " + JSON.stringify(session))
         //useMemo(() => updateCurrentSession(session), [times]);
-        currentSession = session;
+        setCurrentSession(session);
         //setCurrentSession(session);
         myExplorerChatWindow.current.loadChatFromSessionID(session);
+    }
+
+    async function onChangeChatWindowFromMessageAjax (message) {
+        console.log("into message load: " + JSON.stringify(message))
+        const myNewSession = await getSessionFromSessionID(message.chat_session_id);
+        console.log("got current session from click: " + JSON.stringify(myNewSession._id))
+        setCurrentSession(myNewSession);
+        myExplorerChatWindow.current.loadChatFromAjaxMessage(myNewSession, message);
+
+    }
+
+
+    async function getSessionFromSessionID(sessionID) {
+            
+              const myVar = await axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getChatSessionFromSessionID/`, {
+                "sessionID": sessionID
+                //"hisID": userID,
+                
+                //"myID": user._id
+                
+              })
+              .then(function (response) {
+                    //console.log("all sessions: " + JSON.stringify(response, null, 2));
+                    console.log("about to return response: " + JSON.stringify(response.data));
+                    const myTempVar = response.data;
+                    return myTempVar;
+              })
+              .catch(function (error) {
+                console.log("axios error: " + error);
+             });
+            console.log("myVar is: " + JSON.stringify(myVar));
+             return myVar;
     }
 /*
     const togglePopUp = useCallback(
@@ -346,6 +438,40 @@ function acceptWhoIsOnline(data){
     */
 
     useEffect(() => {
+      document.body.style.overflow = "hidden";
+
+
+
+
+      if (hasBeenClosed){
+        props.disappearChatExplorer();
+      }
+
+      window.addEventListener('scroll', peopleOnScroll, true);
+      //window.addEventListener("scroll", handleScrollDown);
+      
+/*
+        function handleClickOutside(event) {
+            if (clickOutsideRef.current && !clickOutsideRef.current.contains(event.target)) {
+              //console.log("You clicked outside of me!");
+              setPeopleAjax(false);
+            }
+          }
+          // Bind the event listener
+          document.addEventListener("mousedown", handleClickOutside);
+          */
+
+        //const myNode = ReactDOM.findDOMNode(refs.PeopleHolderRef)
+        //myNode.addEventListener('scroll', handlePeopleScroll);
+        //if(PeopleHolderRef.current){
+         
+            //function watchScroll() {
+                //PeopleHolderRef.current.addEventListener('scroll', handlePeopleScroll);
+            //}
+              //watchScroll();
+              
+        //}
+        
         /*
         socket.emit("add-user", {
             "id": user._id//.user.
@@ -386,7 +512,10 @@ function acceptWhoIsOnline(data){
             // make sure to catch any error
             .catch(console.error);
             
-            myExplorerChatSessions.current.loadMyChatSessions();
+            const firstSession = myExplorerChatSessions.current.loadMyChatSessions();
+            if (firstSession != null){
+                onChangeChatWindow(firstSession);
+            }
             //loadMyChatSessions();
             //arrayOfUsers = [];
             //this.myExplorerChatWindow.loadChat(arrayOfUsers);
@@ -402,8 +531,60 @@ function acceptWhoIsOnline(data){
             let myHeight = window.innerHeight;
             //document.getElementById("WholePage").style.height = myHeight;
             $("#WholePage").css("height", myHeight + "px");
+/*
+            return () => {
+                // Unbind the event listener on clean up
+                document.removeEventListener("mousedown", handleClickOutside);
+              };*/
+    
+              //return () => {
+                // Unbind the event listener on clean up
+               // document.getElementById("PeopleDiv").removeEventListener("scroll", e => handleScrollDown(e));
+              //};
 
+              return () => {
+                
+                window.removeEventListener('scroll', peopleOnScroll, true);
+              };
     }, [setHasLoaded, loadPeople, setPeople, setRefreshOnlinePeople]);
+
+    function atBottom(ele) {
+      var sh = ele.scrollHeight;
+      var st = ele.scrollTop;
+      var ht = ele.offsetHeight;
+      console.log(sh + ", " + st + "," + ht + ",")
+      if(ht==0) {
+          return true;
+      }
+      if(st >= sh - ht -5)
+          {return true;} 
+      else 
+          {return false;}
+  }
+
+    const peopleOnScroll = (e) => {
+      //alert("got into scroll");
+      //e.stopPropagation();
+      console.log("my id: " + e.target.id)
+      if (e.target.id == "PeopleInnerContainer") {
+        //setIsVisible(false);
+        //console.log("variables: " + e.target.scrollHeight + "," + e.target.scrollY + "," + e.target.scrollTop + "," + mySessionsScrollRef.current.scrollTop + ", " + mySessionsScrollRef.current.scrollTop)
+    
+        if (atBottom(e.target)) {
+          //amIInsideAtBottom = true;
+    
+          console.log("renewing sessions")
+          renewMyPeople();
+    
+          //setTimeout(() => {  console.log("World!"); }, 3000);
+          //amIInsideAtBottom = false;
+        }
+      }
+    
+    
+      }
+
+
 
     const mystyle = {
         width: myWidth,
@@ -459,7 +640,8 @@ function acceptWhoIsOnline(data){
 
     function GetReaction(){
         {console.log("my people: " + JSON.stringify(people))}
-        const reactionItems = people && [...Object.values(people)] //makes mappable
+        
+        const reactionItems = <div>{/*<PeopleScrollDownAlerter>*/}{people && [...Object.values(people)] //makes mappable
                                     //.sort((a, b) => a.time - b.time)
                                     .map((onePerson, index) => (
                                         <>
@@ -468,13 +650,14 @@ function acceptWhoIsOnline(data){
                                             
                                        
                                         </>
-                                    ))
-    
+                                    ))  }{/*</PeopleScrollDownAlerter>*/}</div>
+        
         return (
             <>
+            
                 
                 <>{reactionItems}</>
-                
+             
             </>
             );
     
@@ -511,13 +694,113 @@ function acceptWhoIsOnline(data){
     const incrementChatSessionsUseMemoRef = () => useChatSessionsMemoRef.current++;
     const chatSessionsMemoizedValue = useMemo(() => incrementChatSessionsUseMemoRef(), [chatSessions]);
 
+    const EditSessionTitleMemoRef = useRef(0);
+
+    const incrementEditSessionTitleMemoRef = () => EditSessionTitleMemoRef.current++;
+    const EditSessionTitleMemoizedValue = useMemo(() => incrementChatSessionsUseMemoRef(), []);
+
     // the next line ensures that <UseMemoCounts /> only renders when the times value changes
 //const memoizedValue = useMemo(() => incrementUseMemoRef(), [times]);
+
+
+
+
+async function renewMyPeople(){
+  console.log("got inside renewmypeople")
+    try {
+      
+  //console.log(JSON.stringify(user));
+
+  //console.log("finalstring:" + FinalString());
+
+  //const myArray= FinalString();//"1234,5678"//FinalString();
+
+  //async function fetchAllChatMessages()  {
+      console.log("inside getmypeople and bottommostpersonid: " + bottomMostPersonID);
+      const res = await 
+      axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllPeople/`, {
+        
+        "bottomMostPersonID":bottomMostPersonID
+        //"time": mySetMessagesNewestTime,
+        //"scrollIncrementCount":scrollIncrementCount
+      })
+      .then(function (response) {
+        //console.log("before:" + response);
+        //console.log("now here: " + JSON.stringify(response.data));
+        //setHasLoadedFetchedMessages(true);
+        //console.log("now messages are: " + JSON.stringify(response.data));
+        var newArray = [...response.data];
+        //newArray = newArray.reverse();
+        //const temp = response.data;
+        console.log("getAllPeopleResponseRenew" + JSON.stringify(response.data));
+        console.log("here we go renew2: " + JSON.stringify(response));
+        //if(temp[0].timeofmessage){
+        //  setOldestTime(temp[12].timeofmessage);
+        //}
+        if(newArray[newArray.length - 1]._id){
+          setBottomMostPersonID(newArray[newArray.length - 1]._id)
+        }
+        console.log("now messages are about to be set: " + JSON.stringify(response.data))
+        //setScrollIncrementCount(scrollIncrementCount + 1);
+        //setMessages([...newArray,...messages]);
+        setPeople([...people,...newArray]);
+        //setMessages([...response.data]);
+        //console.log("messages.length: " + messages.length);
+        //var objDiv = document.getElementById("Messages_Container");
+        //objDiv.scrollTop = objDiv.scrollHeight;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
+  //}
+  //fetchAllChatMessages();
+  
+
+} catch (err) {
+  console.log(JSON.stringify(err));
+  //setMessage('Something went wrong!');
+  //setOpen(true);
+}
+}
+
+function useOutsideAlerter(ref) {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          //alert("You clicked outside of me!");
+          setPeopleAjax(false);
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+
+  /**
+ * Component that alerts if you click outside of it
+ */
+function OutsideAlerter(props) {
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
+  
+    return <div ref={wrapperRef}>{props.children}</div>;
+  }
+
+  
 
     function OnePeopleDivPerson(props){
         return (
             <>
             <HoverContainer className = "HoverContainer">
+               
                         <div className = "OnePeopleDivPerson">
                             
                             
@@ -562,21 +845,108 @@ function acceptWhoIsOnline(data){
                                         
                             </div>
                             <br />
+                           
                             </HoverContainer>
                             </>          
         )
 
 
 }
+const DoNothing = (event) => {
 
+}
+
+const setSessionToEditTitle = (session) => {
+  console.log("is inside editing title in main" + session._id);
+    setCurrentSessionToEditTitle(session);
+    setIsEditingTitleSession(true);
+    
+}
+
+const SearchPeopleHandleKeyDown = async (e) => {
+    
+    console.log("got into keydown: " + e.target.value + "key and keycode:" + e.key + ":" + e.keyCode);
+    console.log(e);
+    //if ((e.key === 'Enter' || e.keyCode === 13)) {
+      var message = e.target.value;
+      console.log("got into if");
+      console.log("user" + JSON.stringify(user));
+
+
+      var lastNameIndex = message.lastIndexOf(" ");
+      
+      var firstName = message;
+      var lastName = "";
+      
+      if (lastNameIndex != -1){
+        lastName = message.split(lastNameIndex + 1);
+        firstName = message.split(0, lastNameIndex - 1);
+      }
+
+
+      var sender_user_id = user._id;
+
+      
+                    const res = await 
+                    axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchPeople/`, {
+                        "firstName": firstName,
+                        "lastName": lastName
+                        
+                        //"time": mySetMessagesNewestTime,
+                        //"scrollIncrementCount":scrollIncrementCount
+                    })
+                    .then(function (response) {
+                        //console.log("before:" + response);
+                        //console.log("now here: " + JSON.stringify(response.data));
+                        //setHasLoadedFetchedMessages(true);
+                        //console.log("now messages are: " + JSON.stringify(response.data));
+                        console.log("ajax response: " + JSON.stringify(response.data));
+                        setPeopleAjax([...response.data]);
+                        //if(temp[0].timeofmessage){
+                        //  setOldestTime(temp[12].timeofmessage);
+                        //}
+                       
+                        //setMessages([...response.data]);
+                        //console.log("messages.length: " + messages.length);
+                        //var objDiv = document.getElementById("Messages_Container");
+                        //objDiv.scrollTop = objDiv.scrollHeight;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+
+        //var objDiv = document.getElementById("Messages_Container");
+        //objDiv.scrollTop = objDiv.scrollHeight;
+        //setTextValue("");
+        
+      //}
+      //else {
+        //setSearchTextValue(e.target.value + String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode));
+      //}
+    }
+
+    function saveNewTitleToRenderIntermediate(sessionid, title){
+      myExplorerChatSessions.current.saveNewTitleToRender(sessionid, title);
+    }
 
     return (
         
         <div id = "WholePage" >{/*style={/*{ cursor: isLoading? "wait" : "pointer" }*/}
             {/*isLoading && <LoadingAlert />*/}
+            {isEditingTitleSession && <SessionEditTitle 
+            closeMe = {() => setIsEditingTitleSession(false)} 
+            mySession = {currentSessionToEditTitle}
+            saveNewTitleToRender = {saveNewTitleToRenderIntermediate}
+            /*memoizedValue = {EditSessionTitleMemoizedValue}*//>}
+
+
                 <div id = "ExistingChats">
                         <ExplorerChatSessions ref={myExplorerChatSessions}
-                        onChangeChatWindow={onChangeChatWindow} setIsLoading = {setIsLoading} memoizedValue = {chatSessionsMemoizedValue}/>{/**  
+                        onChangeChatWindow={onChangeChatWindow} 
+                        onChangeChatWindowFromMessageAjax = {onChangeChatWindowFromMessageAjax}
+                        setIsLoading = {setIsLoading} memoizedValue = {chatSessionsMemoizedValue}
+                        setSessionToEditTitle = {setSessionToEditTitle}/>{/**  
                     ref={(ref) => myExplorerChatSessions=ref} */}
 
                         
@@ -598,14 +968,36 @@ function acceptWhoIsOnline(data){
                 <div id = "PeopleDiv">
                         <div id = "PeopleHeader">
                             People
+                            <div id = "SearchPeopleContainer">
+                                <img id = "SearchPeopleMagnifyingGlass"src = {magnifyingglass} />
+                                <textarea id = "SearchPeopleInput" style = {{height:"40%",width:"80%"}}onChange={DoNothing} onKeyDown = {SearchPeopleHandleKeyDown}  rows={1} placeholder="" />
+                                <div id = "PeopleInnerContainer">
+                                <OutsideAlerter>
+                                {
+                                    peopleAjax && [...Object.values(peopleAjax)] //makes mappable
+                                    //.sort((a, b) => a.time - b.time)
+                                    .map((onePersonAjax, index) => (
+                                        <>{console.log("in map: " + onePersonAjax.firstName)}
+                                            <AjaxSearchResult _id = {onePersonAjax._id} firstName = {onePersonAjax.firstName} lastName = {onePersonAjax.lastName} profilePicture = {onePersonAjax.profileImg} />
+                                             
+                                    
+                                        </>
+                                    ))  
+
+                                }
+                                </OutsideAlerter>
+                                </div>
+                            </div>
                         </div>
-                        <div id = "PeopleInnerContainer">
+                        
+                        <div id = "PeopleInnerContainer"  ref = {PeopleHolderRef}>
                                 <GetReaction />
 
                         </div>
+                        
                         {/*<a href = {myUrl && myUrl}>click here</a>*/}
                         
-                        <div id = "ExitWindow" onClick={props.disappearChatExplorer()}>
+                        <div id = "ExitWindow" onClick={() => setHasBeenClosed(true)}>
                                 <img id = "ExitImage" src={cancel} />
 
                         </div>
@@ -614,6 +1006,11 @@ function acceptWhoIsOnline(data){
         </div>
     )   
 
+
+
+
+
+    
 
 }
 

@@ -55,3 +55,12 @@
     color:white;
     border-radius: 20%;
 }
+
+#CEChatWindowHeaderContainer {
+    background-color: #f1f1f1;
+}
+
+.CEChatWindowUsersDivHeaderText {
+    font-weight: bold;
+    text-decoration: underline;
+}

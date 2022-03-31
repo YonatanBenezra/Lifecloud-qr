@@ -14,7 +14,9 @@ const chatSessionSchema = new mongoose.Schema({
     title: String,
     timeofcreation: {type: Date, default:Date.now},
     lastmessage: String, 
-    lastupdated: {type: Date, default:Date.now}
+    lastupdated: {type: Date, default:Date.now},
+    hasNotBeenRead: {type: Boolean, default: true},
+    archiveUserIDList:Array
 });
 
 const chatSessionModel = mongoose.model('ChatSession', chatSessionSchema);
