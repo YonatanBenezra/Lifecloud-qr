@@ -7,7 +7,7 @@ import instagram from '../../assets/instagram.png'
 const SocialFooter = ({links, backgroundColor, color}) => {
     return (
         <div className="social-footer" style={{backgroundColor: backgroundColor, color: color}}>
-            <h1 className="font-bold">עקבו אחרינו</h1>
+            <h1>עקבו אחרינו</h1>
             <div className="icons-container social-footer-icons">
                 <div className="facebook-container social-footer-facebook">
                     <div className="heart-div social-footer-icon">

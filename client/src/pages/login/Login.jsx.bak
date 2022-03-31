@@ -8,9 +8,6 @@ import Topbar from '../../components/topbar/Topbar';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import Footer from '../../components/footer/Footer';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
-import GoogleAuth from '../../assets/googleAuth.png';
-import facebookAuth from '../../assets/facebookAuth.png';
-import Arrow2 from '../../assets/Arrow2.png'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -35,65 +32,42 @@ const Login = () => {
     <>
       <Topbar />
       <div className="login">
-        <div className="">
+        <div className="loginWrapper">
           <div className="loginLeft">
-            <span className="text-6xl">התחברות </span>
+            <span className="loginDesc">התחברות</span>
           </div>
-          <div className="flex justify-center items-center text-xl p-2">
-            תועצמאב םשרה
-          </div>
-
-          <div className="w-full flex justify-center items-center p-2">
-            
-            <SocialLogin />
-          </div> 
+          <div></div>
           <div className="loginRight">
-            <div className="w-screen p-4 md:w-full">
-            <div className="">
-              <form className="" onSubmit={handleClick}>
-              <div className=" ">
+            <div className="loginBox">
+              <form className="loginBox" onSubmit={handleClick}>
                 <input
                   placeholder="מייל*"
                   type="email"
                   value={email}
                   required
-                  className="w-full p-3  rounded-lg my-2 text-center"
+                  className="login-input"
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                </div>
-                <div>
                 <input
                   placeholder="סיסמא*"
                   type="password"
                   value={password}
                   required
                   minLength="6"
-                  className="w-full p-3  rounded-lg my-2 text-center"
+                  className="login-input"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                </div>
-                <div>
                 <input
                   placeholder="טלפון"
                   type="phone"
                   value={phone}
                   minLength="6"
-                  className="w-full p-3  rounded-lg my-2 text-center"
+                  className="login-input"
                   onChange={(e) => setPhone(e.target.value)}
                 />
-                </div>
-                <div className="flex  justify-center items-center space-x-2">
-                <div className="text-lg font-semibold">יתוא רוכז* </div>
-                <div className="-mt-1">
-               <label className="contain">
-                 <input type="checkbox"/>
-                 <span className="checkmark"></span>
-               </label>                 
-               </div>
-               </div>
-                <div className="w-full">
+                
                 <button
-                  className="w-full border-2 border-white p-2 text-2xl font-bold rounded-lg my-5"
+                  className="login-button"
                   type="submit"
                   disabled={isFetching}
                 >
@@ -103,10 +77,8 @@ const Login = () => {
                     'התחבר'
                   )}
                 </button>
-                </div>
                 <span className="loginForgot"></span>
               </form>
-              </div>
               <div className="loginRegisterContainer">
                 <p className="login-register-button">
                   {isFetching ? (
@@ -137,7 +109,7 @@ const Login = () => {
                 </p>
               </div>
             </div>
-            
+            <SocialLogin />
           </div>
         </div>
       </div>

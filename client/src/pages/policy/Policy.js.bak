@@ -23,11 +23,11 @@ function Policy() {
        <Topbar />
 
       
-        <div className="md:container md:mx-auto bgBlue">
+        <div className="container">
        
     
-            <div className="">
-            <h1 className='text-4xl txtColor text-center pt-5'>LifeCloud תויטרפ תוינידמ</h1>
+            <div className="accordion">
+            <h1 className='policy-title'>LifeCloud תויטרפ תוינידמ</h1>
     
             {data.map((item,i) =>(
                 
@@ -36,10 +36,10 @@ function Policy() {
                 <div className="item">
                     
     
-                    <div className="title font-bold" onClick={()=> info(i)}>
+                    <div className="title" onClick={()=> info(i)}>
                         
                         <h2>{item.question}</h2>
-                        <span className="span2 font-bold">{selected === i ? '-' : '+'}</span>
+                        <span className="span2">{selected === i ? '-' : '+'}</span>
                     </div>
                     <div className={selected === i ? 'content show': 'content'}> {item.answer}</div>
                 </div>

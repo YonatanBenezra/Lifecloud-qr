@@ -15,10 +15,6 @@ import SocialFooter from '../../components/socialFooter/socialFooter';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import fourteen from "../../assets/Rectangle14.png"
-import thirteen from "../../assets/Rectangle13.png"
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
 const HomeMobile = (props) => {
   const user = props.user
   const testimonialSettings = props.testimonialSettings
@@ -28,9 +24,8 @@ const HomeMobile = (props) => {
   return (
     <div className="home-mobile-whole-page">
       <Topbar />
-      
       <div
-        className="relative flex justify-center"
+        className="homeContainer-mobile"
         style={{
           backgroundImage: `url(${mainImage})`,
           width: '100%',
@@ -40,45 +35,37 @@ const HomeMobile = (props) => {
           backgroundRepeat: 'noRepeat',
           backgroundSize: 'cover'
         }}
-      >
-        <div className="absolute bottom-1">
-        <div className="text-2xl txtColor text-center w-full"> יצירת קהילת הנצחה </div>
-        <div className="text-2xl txtColor text-center w-full"> מותאמת אישית </div>
-        {/*{console.log(user)}*/}
+      ></div>
+      <div className="home-floating-text">
+        <h2> יצירת קהילת הנצחה</h2>
+        <h2> מותאמת אישית</h2>
+        {console.log(user)}
         {user ? (
           <Link
             to={`/createprofile/${user._id}`}
           // onClick={() => {window.reload()}}
           >
-           <div className="w-screen text-sm font-bold text-white flex justify-center">
-            <div className="rounded-lg homeBtn w-10/12 p-2 text-center">ליצירת פרופיל ללא עלות  </div>
-            </div>
+            <div className="home-profile-creation-btn">ליצירת פרופיל ללא עלות</div>
           </Link>
         ) : (
           <Link
             to='/register'
           // onClick={() => {window.reload()}}
           >
-            <div className="w-screen text-md font-bold text-white flex justify-center">
-            <div className="rounded-lg homeBtn w-10/12 p-2 text-center hover:bg-white btnHover">ליצירת פרופיל ללא עלות  </div>
-            </div>
+            <div className="home-profile-creation-btn">ליצירת פרופיל ללא עלות</div>
           </Link>
         )}
       </div>
-      </div>
-      
-      <div className="srch px-8 py-5">
+      <div className="search-container-home-mobile">
         {/* <div className="searchbar-container-home-mobile"> */}
-        <div className="flex bg-white justify-center items-center rounded-xl">
-        <div className="">
+        <div className="searchbar-searchIcon-container-home-mobile">
           <input
             type="text"
             placeholder="חיפוש מנוח / עמותה..."
-            className="p-2"
+            className="SearchInput-home-mobile"
             onChange={(e) => setSearchText(e.target.value)}
           />
           <Search className="searchIcon" />
-        </div>
         </div>
         {/* </div> */}
         <Sidebar> </Sidebar>
@@ -110,107 +97,54 @@ const HomeMobile = (props) => {
           />
           <div className="top-image-container">
             <div className="top-image">
-              <p className="font-bold text-xl">
+              <p className="text-container-home">
                 סיפור חייו של אדם הינו פאזל
               </p>
-              <p className="font-bold text-xl">
+              <p className="text-container-home">
                 המורכב מחלקים השלובים בחייהם
               </p>
-              <p className="font-bold text-xl">
+              <p className="text-container-home">
                 של בני משפחה, חברים ומכרים.
               </p>
-              <p className="font-bold text-xl">
+              <p className="text-container-home">
                 עם לכתו של אדם מהעולם,
               </p>
-              <p className="font-bold text-xl">
+              <p className="text-container-home">
                 סיפור חייו הולך עימו.
               </p>
             </div>
           </div>
           <div className="bottom-image-container">
-          <img
-              alt=""
-              src={rightCloud}
-              style={{ position: 'absolute', right: 0,width:"120px" ,height:"190px" }}
-            ></img>
-            <p className="font-semibold text-3xl text-white py-2">
+            <p className="text-container-home-bottom">
               האם אפשר לחבר
             </p>
-            <p className="font-semibold text-3xl text-white py-2">
+            <p className="text-container-home-bottom">
               את הפאזל בחזרה            </p>
-            <p className="font-semibold text-3xl text-white py-2">
+            <p className="text-container-home-bottom">
               או להחיות את הסיפור?
             </p>
 
-            
+            <img
+              alt=""
+              src={rightCloud}
+              style={{ position: 'absolute', right: 0, height: '275px' }}
+            ></img>
           </div>
         </div>
       </div>
 
       <div className="popups-container">
-        <h1 className="font-semibold text-3xl rtl txtColor py-2">
+        <h1 className="life-cloud-explaination-container-home">
           ספר החיים של Life Cloud
         </h1>
-        <h1 className="font-semibold text-3xl rtl txtColor py-2">
-          את הפאזל מאפשר לנו
+        <h1 className="life-cloud-explaination-container-home">
+          מאפשר לנו
         </h1>
-        <h1 className="font-semibold text-3xl rtl txtColor py-2">
-          להרכיב <span className="home-mobile-text-emphasis"> באמצעות </span>
+        <h1 className="life-cloud-explaination-container-home">
+          להרכיב את הפאזל <span className="home-mobile-text-emphasis"> באמצעות</span>
         </h1>
       </div>
-      {/*Grid Bar*/}
-       <div className="grid grid-cols-2 gap-4 w-full items-center p-2">
-         <div className="w-full">
-           <img src={thirteen} className="h-32 rounded-xl"/>
-           <div className="text-center">
-              <div className="text-md  font-semibold txtColor rtl">רא עוד  </div>
-              <div className="text-md  font-semibold txtColor">+</div>
-              <div className="text-md  font-semibold txtColor">ייחודי QR קוד </div>
-           </div>
-         </div>
-         <div className="w-full">
-           <img src={fourteen} className="h-32 rounded-xl"/>
-           <div className="text-center">
-              <div className="text-md  font-semibold txtColor rtl">רא עוד  </div>
-              <div className="text-md  font-semibold txtColor">+</div>
-              <div className="text-md  font-semibold txtColor">ייחודי QR קוד </div>
-           </div>
-         </div>
-         <div className="w-full">
-           <img src={fourteen} className="h-32 rounded-xl"/>
-           <div className="text-center">
-              <div className="text-md  font-semibold txtColor rtl">רא עוד  </div>
-              <div className="text-md  font-semibold txtColor">+</div>
-              <div className="text-md  font-semibold txtColor">ייחודי QR קוד </div>
-           </div>
-         </div>
-         <div className="w-full">
-           <img src={fourteen} className="h-32 rounded-xl"/>
-           <div className="text-center">
-              <div className="text-md  font-semibold txtColor rtl">רא עוד  </div>
-              <div className="text-md  font-semibold txtColor">+</div>
-              <div className="text-md  font-semibold txtColor">ייחודי QR קוד </div>
-           </div>
-         </div>
-         <div className="w-full ">
-           <img src={fourteen} className="h-32 rounded-xl"/>
-           <div className="text-center">
-              <div className="text-md  font-semibold txtColor rtl">רא עוד  </div>
-              <div className="text-md  font-semibold txtColor">+</div>
-              <div className="text-md  font-semibold txtColor">ייחודי QR קוד </div>
-           </div>
-         </div>
-         <div className="w-full ">
-           <img src={fourteen} className="h-32 rounded-xl"/>
-           <div className="text-center">
-              <div className="text-md  font-semibold txtColor rtl">רא עוד  </div>
-              <div className="text-md  font-semibold txtColor">+</div>
-              <div className="text-md  font-semibold txtColor">ייחודי QR קוד </div>
-           </div>
-         </div>
-       </div>
-     {/*Grid Bar END*/}
-      {/*<div className="imgs-container">
+      <div className="imgs-container">
         <div className='openers-mobile'>
           <div>
             <div className="img-300 fourteen">
@@ -262,8 +196,8 @@ const HomeMobile = (props) => {
           </div>
 
         </div>
-      </div>*/}
-      {/*<div className="imgs-container-middle">
+      </div>
+      <div className="imgs-container-middle">
         <div className='openers-mobile'>
           <div>
             <div className="img-300 thirteen">
@@ -314,9 +248,9 @@ const HomeMobile = (props) => {
           </div>
 
         </div>
-      </div>*/}
+      </div>
 
-      {/*<div className="imgs-container">
+      <div className="imgs-container">
         <div className='openers-mobile'>
           <div>
             <div className="img-300 seventeen">
@@ -361,47 +295,13 @@ const HomeMobile = (props) => {
             <h1 className="h1-home-mobile">מיקום הקבר</h1>
           </div>
         </div>
-      </div>*/}
-      <div className="bgBlue py-5">
-      {/*<img src={exampleProfileImage} className="py-8 px-2"/>*/}
-      <Slider {...settings} style={{width:"100%"}}>
-            <a href="#">
-              <div
-                className="w-full"
-                
-                 
-              ><img src={exampleProfileImage} className="px-2"/></div>
-            </a>
-            <a href="#">
-              <div
-                className="w-full" 
-                
-              >
-                <img src={exampleProfileImage} className="px-2"/>
-              </div>
-            </a>
-            <a href="#">
-              <div
-                className="w-full"
-                 
-              >
-                <img src={exampleProfileImage} className="px-2"/>
-              </div>
-            </a>
-            <a href="#">
-              <div
-                className="w-full"
-                
-              >
-                <img src={exampleProfileImage} className="px-2"/>
-              </div>
-            </a>
-          </Slider>
-        {/*<Slider {...settings} className="w-screen">
+      </div>
+      <div className="example-profile">
+        <Slider {...settings}>
           <a href="#">
             <div
               style={{ backgroundImage: `url(${exampleProfileImage})` }}
-              className=" h-32"
+              className="example-profile-image"
             ></div>
           </a>
           <a href="#">
@@ -422,7 +322,7 @@ const HomeMobile = (props) => {
               className="example-profile-image"
             ></div>
           </a>
-        </Slider>*/}
+        </Slider>
       </div>
       <a href="/createprofile" className="creation-btn">
         <div className="profile-div">+ לצפייה בפרופיל לדוגמה</div>
@@ -438,42 +338,10 @@ const HomeMobile = (props) => {
         </div>
       </a>
       <div className="seperation-div-home-mobile-try1"></div>
-      
-
-      <div className="">
-      {/*<Carousel>
-                <div>
-                    <h3 className="">
-              "בזכות העלאה ושיתוף תמונות, סיפורים וסרטונים של חברים ומכרים,
-              נחשפתי לצדדים חדשים ומרגשים [של אהובי]{' '}
-            </h3>
-            <h5 style={{ marginBottom: '15px' }}>-ס״א-</h5>
-                </div>
-                <div>
-                   <h3 className="pilKahol">
-              "הבנתי שאם אני לא עושה לייף בוק לאמא שלי, נכדיי לא יכירו אותה"
-              אידית צעירי
-            </h3>
-            <h5 style={{ marginBottom: '15px' }}>-עידית צעירי-</h5>
-                </div>
-                <div>
-                   <h3 className="pilKahol">
-              "חיילי גולני הצעירים זכו לראשונה להכיר את בני צחי, בזכות ה-QR שעל
-              המצבה"{' '}
-            </h3>
-            <h5 style={{ marginBottom: '15px' }}>-שולה דאלי-</h5>
-                </div>
-                <div>
-                   <h3 className="pilKahol">
-              ״הלייף בוק נראה ממש כמו הפרופיל שלעולם לא היה לאמא בפייסבוק.״
-            </h3>
-            <h5 style={{ marginBottom: '15px' }}>-אריאל-</h5>
-                </div>
-            </Carousel>*/}
-
-        <Slider {...testimonialSettings} className="" style={{width:"100%"}}>
-          <div className="">
-            <h3 className="">
+      <div className="testimonials">
+        <Slider {...testimonialSettings}>
+          <div>
+            <h3 className="pilKahol">
               "בזכות העלאה ושיתוף תמונות, סיפורים וסרטונים של חברים ומכרים,
               נחשפתי לצדדים חדשים ומרגשים [של אהובי]{' '}
             </h3>
@@ -500,13 +368,16 @@ const HomeMobile = (props) => {
             <h5 style={{ marginBottom: '15px' }}>-אריאל-</h5>
           </div>
         </Slider>
-
- 
+        <img
+          alt=""
+          src={leftCloud}
+          style={{ position: 'absolute', left: 0 }}
+        ></img>
       </div>
 
 
       <SocialFooter />
-      <Footer className="" />
+      <Footer className="footer-links mobile" />
     </div>
   );
 }

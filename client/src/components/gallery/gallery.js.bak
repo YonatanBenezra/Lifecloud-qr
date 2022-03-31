@@ -5,27 +5,29 @@ import { SRLWrapper } from 'simple-react-lightbox';
 
 export const Gallery = ({ profiledata, id }) => {
   return (
-    <>
-      <h1 className="gallery-title">גלריה</h1>
-      <div className="imgs-container show-in-flex flex-wrap flex items-center justify-center p-5">
+    <div className='gallery'>
+      <div className='profile-details-title'>
+        <h1>גלריה</h1>
+      </div>
+      
+      <div className="imgs-container show-in-flex flex-wrap">
         <SRLWrapper>
           {profiledata.gallery &&
             profiledata.gallery.slice(0, 4).map((img, index) => {
+              // console.log('profiledata.gallery index, img ', index, img)
               return (
                 <>
                   {index === 3 ? (
                     <div
-                      className=""
+                      className="gallery-img last-image"
                       style={{
-                        backgroundImage: `${process.env.REACT_APP_API_URL}/${img}`,
-                        width: '250px',
-                        height: '250px',
+                        backgroundImage: `${process.env.REACT_APP_API_URL}/${img}`
                       }}
                     >
                       +
                     </div>
                   ) : (
-                    <div className="brdr p-2 m-2 h-64 rounded-xl w-full md:w-64">
+                    <div className="gallery-img">
                       {!img.endsWith('mp4') ? (
                         <a
                           href={`${
@@ -35,7 +37,7 @@ export const Gallery = ({ profiledata, id }) => {
                           }`}
                         >
                           <img
-                            className="image-gallery-section "
+                            className="image-gallery-section"
                             src={`${
                               img
                                 ? `${process.env.REACT_APP_API_URL}/${img}`
@@ -68,6 +70,6 @@ export const Gallery = ({ profiledata, id }) => {
             })}
         </SRLWrapper>
       </div>
-    </>
+    </div>
   );
 };

@@ -9,7 +9,7 @@ import HomeMobile from './HomeMobile';
 const Home = () => {
   const { user } = useContext(AuthContext);
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     slidesToScroll: 1,
     autoplay: true,
@@ -48,7 +48,7 @@ const Home = () => {
     ],
   };
 
-  const testimonialSettings = { 
+  const testimonialSettings = {
     dots: true,
     infinite: true,
     slidesToScroll: 1,

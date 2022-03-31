@@ -6,9 +6,6 @@ import { useHistory } from 'react-router';
 import Topbar from '../../components/topbar/Topbar';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import Footer from '../../components/footer/Footer';
-import GoogleAuth from '../../assets/googleAuth.png';
-import facebookAuth from '../../assets/facebookAuth.png';
-import Arrow2 from '../../assets/Arrow2.png';
 
 export default function Register() {
   const [selectedGender, setSelectedGender] = useState('');
@@ -85,18 +82,10 @@ export default function Register() {
       <div className="register">
         <div className="register-wrapper">
           <div className="loginLeft">
-            <h3 className="register-logo">הרשמה  </h3>
-          </div>
-          <div className="w-full flex justify-center items-center">
-            <button className="h-24 w-24">
-            <img src={GoogleAuth} className="object-cover"/>
-            </button>
-            <button className="h-24 w-24">
-            <img src={facebookAuth} className="object-cover"/>
-            </button>
+            <h3 className="register-logo">הרשמה</h3>
           </div>
           <div className="loginRight">
-            <div className="w-screen p-4 md:w-full">
+            <div className="RegBox">
               <form className="loginBox" onSubmit={handleClick}>
                 <div className="names-container">
                   <input
@@ -275,11 +264,6 @@ export default function Register() {
                 <button className="register-button" type="submit">
                   הרשמה
                 </button>
-
-                <div className="flex justify-center justify-center w-full pt-12">
-                  <img src={Arrow2}/>
-                </div>
-
               </form>
             </div>
           </div>

@@ -35,10 +35,12 @@ const SocialLogin = ({ user_type }) => {
 
   return (
     <>
-      <div className={classes.separator}>
-        <b>או</b>
+      {/*<div className={classes.separator}>*/}
+      <div>
+        {/*<b>או</b>*/}
       </div>
       <div className={classes.wrapper}>
+      <div className="flex justify-center items-center">
         <div
           className={classes.button}
           style={{ marginRight: '28px' }}
@@ -49,11 +51,14 @@ const SocialLogin = ({ user_type }) => {
           </div>
           <span>התחבר עם גוגל</span>
         </div>
+        </div>
+        <div className="flex justify-center items-center">
         <div className={classes.button} onClick={handleFacebookLogin}>
           <div className={classes.icon}>
             <i className="fab fa-facebook-f"></i>
           </div>
           <span>התחבר עם פייסבוק</span>
+        </div>
         </div>
       </div>
     </>

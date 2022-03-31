@@ -12,10 +12,8 @@ const About = () => {
             <Topbar />
             <div className='about-container'>
                 <div className='top-about'>
-                <div className="w-full">
-                    <img src={whiteLogo} alt=''  />
-                </div>    
-                    <div className="">
+                    <img src={whiteLogo} alt='' style={{ height: '12rem' }} />
+                    <div>
                         <p>
                             Life cloud נוצרה מתוך הבנה שיש להבדיל בין רשתות חברתיות ועמודי הזכרון, בהם ספר החיים של life cloud.
                             Life cloud היא פלטפורמה נוחה להפעלה וידידותית למשתמש, המאפשרת לנו להעלות, לאשר, לערוך, לאצור ולשתף את אותם הרגעים עם החברים והדורות הבאים.
@@ -40,7 +38,7 @@ const About = () => {
                     <div className='gali-simha-img'>
                         <img id='gali-simha-img' src={signatureGali} alt=''></img>
                     </div>
-                    <div className='text-center'>גלי שמחה</div>
+                    <div className='gali-simha-text'>גלי שמחה</div>
                 </div>
             </div>
             <SocialFooter backgroundColor='#F5FCFF' color='#6097bf' />

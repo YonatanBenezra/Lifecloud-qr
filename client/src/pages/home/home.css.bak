@@ -59,7 +59,9 @@
   justify-content: center;
 }
 .searchIcon {
-   
+  height: 30px !important;
+  margin-right: 20px;
+  width: 30px !important;
 }
 .img-350 {
   height: 350px;
@@ -217,7 +219,6 @@ flex-wrap: wrap;
 }
 .fourteen {
   background-image: url('../../assets/Rectangle14.png');
-  
 }
 .fifteen {
   background-image: url('../../assets/Rectangle15.png');
@@ -280,8 +281,7 @@ flex-wrap: wrap;
   color: #fff;
 }
 .slick-next {
-  right: 20px; 
-  z-index: 10;
+  right: 0;
 }
 .slick-next::before {
   font-size: 40px;
@@ -290,7 +290,6 @@ flex-wrap: wrap;
 }
 .slick-prev {
   left: 0;
-  z-index: 10;
 }
 .slick-prev::before {
   font-size: 40px;
@@ -436,7 +435,9 @@ background-color: #ffffff;
   border: 0;
 }
  .searchIcon {
-   
+   background-color: #ffffff;
+   margin-top: 10px;
+   padding-left: 13px;
  }
  .home-mobile-heading-strong {
    font-weight: 900;
@@ -446,15 +447,15 @@ background-color: #ffffff;
    direction: rtl;
  }
  .home-mobile-heading {
-   font-size: 22px;
+   font-size: 35px;
    direction: rtl;
    margin: 15px 0;
    font-weight: 900;
  }
  .homeMobile-moments-legacy-community {
   color: #ABC9DB;
-   font-size: 20px;
-  margin: 15px 0;
+   font-size: 30px;
+  margin: 2rem 0;
     
  }
  .home-mobile-video {
@@ -691,4 +692,3 @@ background-color: #ffffff;
 .openers-mobile {
   max-width: 40%;
 }
- 

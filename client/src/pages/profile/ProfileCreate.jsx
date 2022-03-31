@@ -262,31 +262,11 @@ export default function ProfileCreate() {
           return res.json();
         })
         .then((res) => {
-          console.log(res,'create profile res');
-          fetch(
-            `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'Application/json',
-              },
-              body: JSON.stringify({
-                profileId: res.originalUser[0],
-                loggedInId: userData._id,
-              }),
-            }
-          )
-            .then((res) => {
-              return res.json();
-            })
-            .then((res) => {
-              console.log('notification->', res);
-            });
+          console.log(res);
           if (res) {
             history.goBack();
             setMessage('Profile made successfully');
             setOpen(true);
-            
           }
         });
     } catch (err) {
@@ -321,12 +301,12 @@ export default function ProfileCreate() {
     <div className="profile-creation-container">
       <Topbar />
       <div className="profile-creation">
-        <div className="">
+        <div className="p-2 w-full md:w-6/12">
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
             <h3 className="profile-creation-title">צור פרופיל</h3>
             <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div>
           </div>
-          <div className="profile-images">
+          <div className="flex   w-full justify-center items-center mx-auto space-x-10">
             {/* <div className="register_profile_image"></div> */}
             {/* <div className="profile-image-container">
               <img
@@ -338,9 +318,10 @@ export default function ProfileCreate() {
                 alt=""
               />
             </div> */}
-            <div className="profile-image-container">
+            <div className="w-6/12   flex-col justify-center items-center ">
+            <div className="flex justify-center items-center">
               <img
-                className="profile-image"
+                className="rounded-full md:w-32"
                 src={
                   imgData
                     ? imgData
@@ -348,16 +329,24 @@ export default function ProfileCreate() {
                 }
                 alt=""
               ></img>
+              </div>
+               <div className="flex justify-center items-center">
+              <label for="inp" className="text-lg md:text-xl font-bold">וסף תמונת קאבר +</label>
               <input
-                className="custom-file-input"
+                id="inp"
+                className="w-full"
                 type="file"
                 name="profileImg"
                 onChange={onChangePicture}
+                hidden
               />
             </div>
-            <div className="profile-image-container">
+            </div>
+
+            <div className="w-6/12 flex-col justify-center items-center">
+              <div className="flex justify-center items-center">
               <img
-                className="profile-image"
+                className="rounded-full md:w-32"
                 src={
                   coverData
                     ? coverData
@@ -365,73 +354,69 @@ export default function ProfileCreate() {
                 }
                 alt=""
               ></img>
+              </div>
+              <div className="flex justify-center items-center">
+              <label for="inp" className="text-lg md:text-xl font-bold">וסף תמונת פרופיל +</label>
               <input
-                className="custom-file-input-cover"
+                id="inp"
+                className="w-full"
                 type="file"
                 onChange={onChangeCover}
                 name="coverImg"
+                hidden
               />
+
+              </div>
             </div>
+
           </div>
-          <div className="loginRight">
-            <div className="RegBox">
-              <form className="profile-creation-box" onSubmit={handleClick}>
+          <div className="">
+            <div className="">
+              <form className="" onSubmit={handleClick}>
                 <div
-                  className="profile-creation-names-container"
-                  style={{ marginBottom: '3rem' }}
+                  className="flex justify-center items-center text-center w-full pt-2" 
                 >
+                <div className="w-6/12 p-1">
                   <input
                     placeholder="* שם פרטי"
                     ref={firstName}
-                    className="nameInput"
+                    className="w-full rounded-lg p-1"
                   />
+                  </div>
+                  <div className="w-6/12 p-1">
                   <input
                     placeholder="* שם משפחה"
                     ref={lastName}
-                    className="nameInput"
+                    className="w-full rounded-lg p-1"
                   />
+                  </div>
                 </div>
-                <div className="birth-date-container">
-                  <h1>תאריך לידה</h1>
-                  <h1>תאריך פטירה</h1>
-                </div>
-                <div className="profile-creation-names-container">
+              {/*#########*/}
+              
+              {/*#######*/}
+               <div className="flex w-full justify-center items-center pt-2">
+               <div className="w-6/12 p-1">
                   <input
                     placeholder="* לועזי"
                     pattern="\d{4}-\d{2}-\d{2}"
                     ref={birthDate}
-                    className="nameInput"
+                    className="w-full rounded-lg p-1"
                     type="date"
                     onBlur={handleBirthDateBlur}
                   />
+                  </div>
+                  <div className="w-6/12 p-1">
                   <input
                     placeholder="* לועזי"
                     type="date"
                     ref={deathDate}
-                    className="nameInput"
+                    className="w-full rounded-lg p-1"
                     onBlur={handleDeathDateBlur}
                   />
                 </div>
-                {/* <div className="profile-creation-names-container">
-                  <input
-                    placeholder="עברי"
-                    type="text"
-                    // ref={hebBirthDate}\
-                    value={hebBirthDate}
-                    onChange={(e) => sethebBirthDate(e.target.value)}
-                    className="nameInput"
-                  />
-                  <input
-                    placeholder="עברי"
-                    type="text"
-                    // ref={hebBirthDate}\
-                    value={hebDeathDate}
-                    onChange={(e) => sethebDeathDate(e.target.value)}
-                    className="nameInput"
-                  />
-                </div> */}
-
-                <div
+                </div>
+              {/*##########*/}
+              <div
                   className="profile-creation-names-container"
                   style={{ marginTop: '3rem' }}
                 >
@@ -448,6 +433,9 @@ export default function ProfileCreate() {
                     className="nameInput"
                   />
                 </div>
+              {/*########*/}
+
+
                 <div className="radio-container-register">
                   <h3 style={{ color: '#6097BF' }}>מין *</h3>
                   <div
@@ -499,14 +487,17 @@ export default function ProfileCreate() {
                     <label htmlFor="other">אחר</label>
                   </div>
                 </div>
+              {/*######*/}
+
+
                 <div
                   className="location-container"
                   style={{ marginTop: '70px', marginBottom: '70px' }}
                 >
-                  <h1>העלאת מדיה</h1>
+                  <h1>העלאת מדיה </h1>
                   <div>
                     <div
-                      className="profile-creation-names-container"
+                      className="mx-auto w-full md:w-4/12"
                       style={{ flexDirection: 'column' }}
                     >
                       <div className="form-group multi-preview"></div>
@@ -520,9 +511,9 @@ export default function ProfileCreate() {
                           className="media-upload-button"
                         />
                       </div>
-                      <div>
+                      <div className="">
                         <img
-                          className="profile-creation-gallery-img"
+                          className="p-2 items-center rounded-xl"
                           src={
                             multiFiles && multiFiles.length > 0
                               ? multiFiles[0].imagePreview
@@ -531,7 +522,7 @@ export default function ProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="p-2 items-center rounded-xl"
                           src={
                             multiFiles && multiFiles.length > 1
                               ? multiFiles[1].imagePreview
@@ -540,7 +531,7 @@ export default function ProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="p-2 items-center rounded-xl"
                           src={
                             multiFiles && multiFiles.length > 2
                               ? multiFiles[2].imagePreview
@@ -549,7 +540,7 @@ export default function ProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="p-2 items-center rounded-xl"
                           src={
                             multiFiles && multiFiles.length > 3
                               ? multiFiles[3].imagePreview
@@ -558,7 +549,7 @@ export default function ProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="p-2 items-center rounded-xl"
                           src={
                             multiFiles && multiFiles.length > 4
                               ? multiFiles[4].imagePreview
@@ -577,17 +568,24 @@ export default function ProfileCreate() {
                     </div>
                   </div>{' '}
                 </div>
+              {/*######*/}
+
+
                 <div style={{ textAlign: 'center' }}>
-                  <h1>על הנפטר</h1>
+                  <h1>על הנפטר </h1>
                   <input
                     ref={description}
                     className="profile-creation-description"
                   />
                 </div>
-                <div>
-                  <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
+
+              {/*###########*/}
+              <div className="">
+              <div className="flex justify-center items-center">
+              <h1 style={{ textAlign: 'center' }} className="p-2">נקודות ציון בחיים</h1>
+              </div>
                   <Popup
-                    trigger={<div className="press-explain-4 pointer">+ לחץ להסבר</div>}
+                    trigger={<div className=" pointer text-center w-full p-2">+ לחץ להסבר</div>}
                     modal
                     nested
                   >
@@ -614,51 +612,59 @@ export default function ProfileCreate() {
                             </div>
                           </div>
                         )}
-
-                        <div className="inner-box">
+ 
+                         <div className="flex w-full bg-blue justify-between items-center">
+                          <div className="w-4/12 p-2 space-x-1">
                           <input
                             name="axisTitle"
                             placeholder="כותרת"
                             value={x.axisTitle}
                             onChange={(e) => handleInputChange(e, i)}
-                            className="axis-input"
+                            className="w-5/12 rounded-lg p-2"
                           />
+                         
                           <input
                             name="axisDate"
                             placeholder="תאריך"
                             value={x.axisDate}
                             onChange={(e) => handleInputChange(e, i)}
-                            className="axis-input"
-                          />
-
+                            className="w-5/12 rounded-lg p-2"
+                          /></div>
+                          <div className="w-4/12 p-2">
                           <textarea
-                            name="axisDescription"
+                            name="axisDescription pas"
                             placeholder="טקסט"
                             value={x.axisDescription}
                             onChange={(e) => handleInputChange(e, i)}
-                            className="axis-description"
+                            className="w-full h-24 rounded-lg p-2"
                           />
-                          <label class="file-label">
+                          </div>
+                          <div className="flex w-4/12 space-x-1 p-2">
+                          <label class="rounded-lg p-2">
                             הוסף תמונה
                             <input
                               type="file"
                               name="axisImage"
                               placeholder="Image"
                               onChange={(e) => handleAxisImage(e, i)}
-                              className="axis-input-image"
+                              className="axis-input-image w-5/12"
                             />
                             <span class="file-custom"></span>
                           </label>
-                          <div className="btn-box">
+                          <div className="w-5/12 rounded-lg p-2">
                             {inputList.length !== 1 && (
                               <p
-                                className="delete-btn"
+                                className="w-full"
                                 onClick={() => handleRemoveClick(i)}
                               >
                                 - הסר
                               </p>
                             )}
+                          </div> 
                           </div>
+
+
+
                         </div>
                         {inputList.length - 1 === i && (
                           <div className="add-btn" onClick={handleAddClick}>
@@ -671,14 +677,16 @@ export default function ProfileCreate() {
                       </div>
                     );
                   })}
-                </div>
-                <div
+                  </div>
+                {/*#########*/}
+                <div className="text-center">
+                     <div
                   className="location-container"
                   style={{ marginTop: '70px' }}
                 >
-                  <h1>מיקום הקבר</h1>
+                  <h1 className="p-2">מיקום הקבר</h1>
                   <Popup className='pop'
-                    trigger={<div className="press-explain-3 pointer">+ לחץ להסבר</div>}
+                    trigger={<div className="press-explain-3 pointer p-2">+ לחץ להסבר</div>}
                     modal
                     nested
                   >
@@ -692,11 +700,12 @@ export default function ProfileCreate() {
                     )}
                   </Popup>
                   <div className="location-semicontainer">
-                    <div className="profile-creation-names-container">
+                  <div className="flex justify-center items-center space-x-2">
+                    
                       <input
                         placeholder="הוספת מיקום ווייז "
                         ref={wazeLocation}
-                        className="nameInput"
+                        className="p-2 rounded-lg"
                       />
                       {/* <input
                         placeholder="הוספת מיקום גוגל"
@@ -704,7 +713,7 @@ export default function ProfileCreate() {
                         className="nameInput"
                       /> */}
                       <button
-                        className="nameInput"
+                        className="py-2 px-1 border border-white rounded-lg"
                         onClick={() => setMap(!map)}
                         type="button"
                       >
@@ -712,8 +721,10 @@ export default function ProfileCreate() {
                       </button>
                     </div>
                   </div>
+                  <div className="text-center">
                   {map && <Map position={position} setPosition={setPosition} />}
-                  <div className="profile-image-container">
+                  <div className="">
+                  <div className="flex items-center justify-center p-5">
                     <img
                       className="profile-image"
                       src={
@@ -723,12 +734,12 @@ export default function ProfileCreate() {
                       }
                       alt=""
                     ></img>
+                    </div>
                     <input
                       className="custom-file-grave"
                       type="file"
                       onChange={onChangeGrave}
-                      name="coverImg"
-                      style={{ marginRight: '38%' }}
+                      name="coverImg" 
                     />
                   </div>
                 </div>
@@ -777,11 +788,16 @@ export default function ProfileCreate() {
                     />
                     <label htmlFor="public">פומבי</label>
                   </div>
+                  </div>
+                   
+                </div>
                 </div>
 
+                <div className="flex items-center justify-center">
                 <button className="create-btn" type="submit">
                   שמור
                 </button>
+                </div>
               </form>
             </div>
           </div>
