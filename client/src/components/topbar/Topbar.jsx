@@ -8,8 +8,6 @@ import axios from 'axios';
 import WithLanguage from '../languageButton/WithLanguage';
 import LanguageButton from '../languageButton/LanguageButton';
 import userIcon from '../../assets/userIcon.png';
-import { Search } from '@material-ui/icons';
-
 
 const Topbar = (props) => {
   const LoggedUser = useContext(AuthContext);

@@ -26,10 +26,9 @@ export const ENUserAndprofiles = () => {
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${id}`);
-    setData(res);
-    console.log(res, 'res, user Notification');
+    setData(res.data);
+    console.log(res, 'res');
   };
-
   const Notifications = [
     {
       date: '12.12.21',

@@ -12,17 +12,13 @@ import Slider from 'react-slick';
 import './home.css';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import thirteen from "../../assets/Rectangle13.png"
 import fourteen from "../../assets/Rectangle14.png"
-import twelve from "../../assets/Rectangle12.png"
-import sixteen from "../../assets/Rectangle16.png"
-import seventeen from "../../assets/Rectangle17.png" 
-import eighteen from "../../assets/map.png" 
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
+import thirteen from "../../assets/Rectangle13.png"
 const HomeMobile = (props) => {
   const user = props.user
   const testimonialSettings = props.testimonialSettings
@@ -32,7 +28,6 @@ const HomeMobile = (props) => {
   return (
     <div className="home-mobile-whole-page">
       <Topbar />
-      
       <div
         className="relative flex justify-center"
         style={{
@@ -71,14 +66,14 @@ const HomeMobile = (props) => {
       </div>
       </div>
       
-      <div className="srch px-8 py-5">
+      <div className="srch px-6 py-5">
         {/* <div className="searchbar-container-home-mobile"> */}
-        <div className="flex bg-white justify-center items-center rounded-xl">
+        <div className="flex bg-red-700 justify-center items-center">
         <div className="">
           <input
             type="text"
             placeholder="חיפוש מנוח / עמותה..."
-            className="p-2"
+            className=""
             onChange={(e) => setSearchText(e.target.value)}
           />
           <Search className="searchIcon" />
@@ -181,7 +176,7 @@ const HomeMobile = (props) => {
            </div>
          </div>
          <div className="w-full">
-           <img src={twelve} className="h-32 rounded-xl"/>
+           <img src={fourteen} className="h-32 rounded-xl"/>
            <div className="text-center">
               <div className="text-md  font-semibold txtColor rtl">רא עוד  </div>
               <div className="text-md  font-semibold txtColor">+</div>
@@ -189,7 +184,7 @@ const HomeMobile = (props) => {
            </div>
          </div>
          <div className="w-full">
-           <img src={sixteen} className="h-32 rounded-xl object-cover w-full"/>
+           <img src={fourteen} className="h-32 rounded-xl"/>
            <div className="text-center">
               <div className="text-md  font-semibold txtColor rtl">רא עוד  </div>
               <div className="text-md  font-semibold txtColor">+</div>
@@ -197,7 +192,7 @@ const HomeMobile = (props) => {
            </div>
          </div>
          <div className="w-full ">
-           <img src={seventeen} className="h-32 rounded-xl object-cover w-full"/>
+           <img src={fourteen} className="h-32 rounded-xl"/>
            <div className="text-center">
               <div className="text-md  font-semibold txtColor rtl">רא עוד  </div>
               <div className="text-md  font-semibold txtColor">+</div>
@@ -205,7 +200,7 @@ const HomeMobile = (props) => {
            </div>
          </div>
          <div className="w-full ">
-           <img src={eighteen} className="h-32 rounded-xl"/>
+           <img src={fourteen} className="h-32 rounded-xl"/>
            <div className="text-center">
               <div className="text-md  font-semibold txtColor rtl">רא עוד  </div>
               <div className="text-md  font-semibold txtColor">+</div>
@@ -366,41 +361,8 @@ const HomeMobile = (props) => {
           </div>
         </div>
       </div>*/}
-      <div className="bgBlue py-5">
-      {/*<img src={exampleProfileImage} className="py-8 px-2"/>*/}
-      <Slider {...settings} style={{width:"100%"}}>
-            <a href="#">
-              <div
-                className="w-full"
-                
-                 
-              ><img src={exampleProfileImage} className="px-2"/></div>
-            </a>
-            <a href="#">
-              <div
-                className="w-full" 
-                
-              >
-                <img src={exampleProfileImage} className="px-2"/>
-              </div>
-            </a>
-            <a href="#">
-              <div
-                className="w-full"
-                 
-              >
-                <img src={exampleProfileImage} className="px-2"/>
-              </div>
-            </a>
-            <a href="#">
-              <div
-                className="w-full"
-                
-              >
-                <img src={exampleProfileImage} className="px-2"/>
-              </div>
-            </a>
-          </Slider>
+      <div className="bgBlue">
+      <img src={exampleProfileImage} className="py-8 px-2"/>
         {/*<Slider {...settings} className="w-screen">
           <a href="#">
             <div
@@ -444,40 +406,11 @@ const HomeMobile = (props) => {
       <div className="seperation-div-home-mobile-try1"></div>
       
 
-      <div className="">
-      {/*<Carousel>
-                <div>
-                    <h3 className="">
-              "בזכות העלאה ושיתוף תמונות, סיפורים וסרטונים של חברים ומכרים,
-              נחשפתי לצדדים חדשים ומרגשים [של אהובי]{' '}
-            </h3>
-            <h5 style={{ marginBottom: '15px' }}>-ס״א-</h5>
-                </div>
-                <div>
-                   <h3 className="pilKahol">
-              "הבנתי שאם אני לא עושה לייף בוק לאמא שלי, נכדיי לא יכירו אותה"
-              אידית צעירי
-            </h3>
-            <h5 style={{ marginBottom: '15px' }}>-עידית צעירי-</h5>
-                </div>
-                <div>
-                   <h3 className="pilKahol">
-              "חיילי גולני הצעירים זכו לראשונה להכיר את בני צחי, בזכות ה-QR שעל
-              המצבה"{' '}
-            </h3>
-            <h5 style={{ marginBottom: '15px' }}>-שולה דאלי-</h5>
-                </div>
-                <div>
-                   <h3 className="pilKahol">
-              ״הלייף בוק נראה ממש כמו הפרופיל שלעולם לא היה לאמא בפייסבוק.״
-            </h3>
-            <h5 style={{ marginBottom: '15px' }}>-אריאל-</h5>
-                </div>
-            </Carousel>*/}
-
-        <Slider {...testimonialSettings} className="" style={{width:"100%"}}>
+      <div className="h-96">
+      
+        <Slider {...testimonialSettings} style={{width:"80%"}}>
           <div className="">
-            <h3 className="">
+            <h3 className="pilKahol">
               "בזכות העלאה ושיתוף תמונות, סיפורים וסרטונים של חברים ומכרים,
               נחשפתי לצדדים חדשים ומרגשים [של אהובי]{' '}
             </h3>
@@ -505,7 +438,12 @@ const HomeMobile = (props) => {
           </div>
         </Slider>
 
- 
+
+        <img
+          alt=""
+          src={leftCloud}
+          style={{ position: 'absolute', left: 0 }}
+        ></img>
       </div>
 
 
