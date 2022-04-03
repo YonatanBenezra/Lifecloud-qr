@@ -77,6 +77,7 @@ const MemoryCreation = () => {
             });
           console.log(res, 'memory created fuccesfully');
           if (res) {
+            history.goBack()
             setMessage('Profile updated successfully!');
             setOpen(true);
           }

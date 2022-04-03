@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import './plans.css';
+import './shop.css';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import Topbar from '../../components/topbar/Topbar';
@@ -17,7 +17,7 @@ import woodPrintImg from '../../assets/product_wood_print.jpg'
 import qrImg from '../../assets/product_qr.jpg'
 
 
-const Plans = () => {
+const Shop = () => {
   const history = useHistory();
   const { myFirebase, user } = useContext(AuthContext);
   
@@ -193,7 +193,7 @@ const Plans = () => {
         <div className="register-plans">
           <span className='register-plan-type'>הסבר: </span>
           {selectedProduct.text}
-        </div>
+        </div> 
         
         <div className="payment-method">
           <h3 className="payment-logo">אמצעי תשלום</h3>
@@ -240,4 +240,4 @@ const Plans = () => {
     </>
   );
 };
-export default Plans;
+export default Shop;

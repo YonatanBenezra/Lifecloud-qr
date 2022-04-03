@@ -8,7 +8,7 @@ import facebook from '../../assets/facebook.png';
 import Arrow1 from '../../assets/Arrow1.png';
 import moment from 'moment';
 
-import tempMemoryImg from '../../assets/tmpMemoryImg.png';
+import tempMemoryImg from '../../assets/tmpMemoryImg.jpg';
 
 const Memory = ({
   data,

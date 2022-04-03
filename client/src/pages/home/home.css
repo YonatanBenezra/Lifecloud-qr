@@ -638,8 +638,8 @@ background-color: #ffffff;
     flex-direction: column;
   }
   .text-home-desktop {
-    width: 33%;
-    font-size: 35px;
+    width: 45%;
+    font-size: 30px;
     font-weight: 900;
     color: #6097bf;
     margin-top: 50px;
@@ -663,7 +663,7 @@ background-color: #ffffff;
     
   }
   .bottom-image-container-home-desktop {
-    padding: 0 4rem;
+    padding-right: 50px;
     height: 200px;
     background-position: center;
     direction: rtl;
