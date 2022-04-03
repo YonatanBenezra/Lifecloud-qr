@@ -344,7 +344,8 @@ export default function ProfileEdit() {
                       className="nameInput"
                     />
                   </div>
-
+                 
+  
                   <div
                     className="profile-creation-names-container"
                     style={{ marginTop: '3rem' }}
@@ -507,7 +508,7 @@ export default function ProfileEdit() {
                   </div>
                   <div style={{ textAlign: 'center' }}>
                     <h1>על הנפטר</h1>
-                    <textarea
+                    <input
                       ref={description}
                       className="profile-creation-description"
                     />
