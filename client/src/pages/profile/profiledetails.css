@@ -1,7 +1,7 @@
 
 .profile-cover {
     width: 100%;
-    max-height: 30vh;
+    max-height: 50vh;
     object-position: 0 50%;
 }
 
@@ -15,7 +15,9 @@
     margin-top: -6px;
     padding: 2.5rem 0;
 }
-
+.list-of-deceased-container {
+    margin-bottom: 75px;
+}
 .hideBtn {
     display: none;
 }
@@ -76,6 +78,14 @@
     font-weight: 600;
     font-size: 0.7rem;
     min-width: 4rem;
+}
+
+.list-of-deceased {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 75px;
 }
 
 .profile-big-btn {
@@ -230,31 +240,30 @@
     justify-content: center;
     align-items: center;
 }
-
 .grave-location-container {
-    padding: 2rem 3rem;
+    margin-top: 5rem;
     background-color: #dcecf4;
-}
-
-.grave-location-title {
+    width: 100%;
+    padding-bottom: 3rem;
+  }
+  .grave-location-title {
     text-align: center;
     color: #6097bf;
     font-size: 50px;
     margin-bottom: 2rem;
     padding-top: 2rem;
-}
-
-.grave-img {
+  }
+  .grave-img {
     height: 300px;
     width: 300px;
     border-radius: 15px;
-}
-
-.grave-imgs-container {
+  }
+  .grave-imgs-container {
     display: flex;
     align-items: center;
     justify-content: space-around;
-}
+  }
+  
 
 .navigation-btn {
     display: flex;

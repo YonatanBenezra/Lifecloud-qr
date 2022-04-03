@@ -63,7 +63,7 @@ export default function MainProfile(props) {
     );
     setData(res.data);
   };
-  
+
   useEffect(() => {
     fetchuserprofiles();
     fetchallprofiles();
@@ -76,14 +76,14 @@ export default function MainProfile(props) {
   const loggedUser = JSON.parse(localStorage.getItem('user'));
   if (Object.keys(profiledata).length > 0) {
     return (
-      <div>
+      <div className="profile-details">
         <TopBar />
         <img
           src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
           alt=""
           className="profile-cover"
         ></img>
-        <div className="profile-details">
+        <div className="profile-details-first">
           <img
             src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
             alt=""
@@ -102,17 +102,20 @@ export default function MainProfile(props) {
               </Link>
             )}
 
-            <span
+            <div
               className={`${
                 profiledata.originalUser[0]._id === loggedUser._id ||
                 profiledata.addAdmins.indexOf()
-                  ? 'dissapear'
+                  ? 'hidden'
                   : 'profile-small-btn'
               }`}
             >
               הוסף חבר
-            </span>
-            <span className="profile-small-btn" onClick={() => setShow('friends')}>
+            </div>
+            <span
+              className="profile-small-btn"
+              onClick={() => setShow('friends')}
+            >
               רשימת חברים
             </span>
           </div>
@@ -130,13 +133,12 @@ export default function MainProfile(props) {
             show === 'wall' && 'display'
           } d-none wall-main-container`}
         >
-        <div className='display'>
-          <div className="bio-content">
-            <h1 className="bio-name">{profiledata.firstName}.</h1>
-            <p className="bio-bio">{profiledata.description}</p>
+          <div className="display">
+            <div className="bio-content">
+              <h1 className="bio-name">{profiledata.firstName}.</h1>
+              <p className="bio-bio">{profiledata.description}</p>
+            </div>
           </div>
-          
-        </div>
           <div className="gallery-container">
             <Gallery profiledata={profiledata} id={id} />
             <div onClick={() => setShow('gallery')} className="full-btn">
@@ -144,11 +146,43 @@ export default function MainProfile(props) {
               + לכל הגלריה
             </div>
           </div>
-        </div>
-        <div>
-          <div className='deceased-list'>
-            {/* {console.log(profiles)} */}
+          <div className="profile-details-title">
+            <h1>רשימת חללים</h1>
           </div>
+          <div className='list-of-deceased-container'>
+          <div className="list-of-deceased">
+            {data &&
+              data.length > 0 &&
+              data.map((userProfiles, i) => {
+                if (userProfiles.isMain === false) {
+                  return (
+                    <Link
+                    to={`/profiledetails/${userProfiles._id}`}
+                      key={i}
+                      style={{ cursor: 'hover' }}
+                      >
+                      <div className="profile-container" key={i}>
+                        <div className="profile-image-div">
+                          <img
+                            className="profile-image"
+                            src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                            alt=""
+                          />
+                        </div>
+                        <div className="profile-name">
+                          {userProfiles.firstName} {userProfiles.lastName}
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                }
+              })}
+          </div>
+          <div onClick={() => setShow('deceased')} className="full-btn">
+            {' '}
+            + לעמוד החללים
+          </div>
+        </div>
         </div>
         <div
           className={`${show === 'gallery' && 'display'} full-gallery d-none`}
@@ -195,36 +229,44 @@ export default function MainProfile(props) {
           </div>
         </div>
         {console.log(data)}
-        { data &&
-                  data.length > 0 &&
-                  data.map((userProfiles, i) => {
-                    if (userProfiles.isMain === false) {
-                      return (
-                        <Link
-                          to={`/profiledetails/${userProfiles._id}`}
-                          key={i}
-                          style={{ cursor: 'hover' }}
-                        >
-                          <div className="profile-container" key={i}>
-                            <div className="profile-image-div">
-                              <img
-                                className="profile-image"
-                                src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
-                                alt=""
-                              />
-                            </div>
-                            <div className="profile-name">
-                              {userProfiles.firstName} {userProfiles.lastName}
-                            </div>
-                          </div>
-                        </Link>
-                      );
-                    }
-                  })}
+
         <div
           className={`${show === 'friends' && 'display'} friends-list d-none`}
         >
           <FriendsList />
+        </div>
+        <div className={`${show === 'deceased' && 'display'} d-none`}>
+          <div className="profile-details-title">
+            <h1>רשימת חללים</h1>
+          </div>
+          <div className="list-of-deceased">
+            {data &&
+              data.length > 0 &&
+              data.map((userProfiles, i) => {
+                if (userProfiles.isMain === false) {
+                  return (
+                    <Link
+                      to={`/profiledetails/${userProfiles._id}`}
+                      key={i}
+                      style={{ cursor: 'hover' }}
+                    >
+                      <div className="profile-container" key={i}>
+                        <div className="profile-image-div">
+                          <img
+                            className="profile-image"
+                            src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                            alt=""
+                          />
+                        </div>
+                        <div className="profile-name">
+                          {userProfiles.firstName} {userProfiles.lastName}
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                }
+              })}
+          </div>
         </div>
         <SnackBar open={open} handleClose={handleClose} message={message} />
         <SocialFooter />

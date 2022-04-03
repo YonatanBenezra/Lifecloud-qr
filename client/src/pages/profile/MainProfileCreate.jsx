@@ -254,7 +254,7 @@ export default function MainProfileCreate() {
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <h1>על העמותה</h1>
-                  <input
+                  <textarea
                     ref={description}
                     className="profile-creation-description"
                   />

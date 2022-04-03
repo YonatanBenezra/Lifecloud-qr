@@ -153,13 +153,6 @@
 display: flex;
 flex-wrap: wrap;
 }
-.modal {
-  font-size: 12px;
-  background-color: #fff;
-  border: 1px solid #d7d7d7;
-  color: #6097bf;
-  width: 50vw;
-}
 .modal > .header {
   width: 98.5%;
   border-bottom: 1px solid gray;

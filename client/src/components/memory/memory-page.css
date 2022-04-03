@@ -28,16 +28,6 @@
   z-index: 0;
   width: 32vw;
 }
-
-
-.single-memory-title {
-  padding: 4rem 0 2rem;
-}
-
-.image-container {
-  display: inline-grid;
-}
-
 .single-memory-img {
   border-radius: 15px;
   height: 40vh;

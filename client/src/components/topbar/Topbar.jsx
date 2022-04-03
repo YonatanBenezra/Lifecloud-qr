@@ -121,11 +121,11 @@ const Topbar = (props) => {
                 </Link>
 
                 <Link
-                  to={`/plans`}
+                  to={`/shop`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className="topbarLink"
                 >
-                  תוכניות{' '}
+                  חנות{' '}
                 </Link>
 
                 <Link

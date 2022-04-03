@@ -7,15 +7,15 @@ const containerStyle = {
   height: '600px',
 };
 
-const center = { lat: 30.928370265478026, lng: 34.81864101562498 };
+const center = { lat: 30.92, lng: 34.82 };
 
 function Map({ position, setPosition }) {
-  const { location, getGeoLocation } = useGeoLocation();
+  const { location, getGeoLocation } = useGeoLocation(null);
   const [currentLocation, setCurrentLocation] = useState(null);
 
   useEffect(() => {
     if (location.coordinates?.lat && location.coordinates?.lng) {
-      console.log(location.coordinates);
+      setPosition(location.coordinates);
       setCurrentLocation(location.coordinates);
     }
   }, [location, setPosition]);
@@ -34,7 +34,7 @@ function Map({ position, setPosition }) {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={currentLocation || center}
-          zoom={currentLocation ? 12 : 8}
+          zoom={currentLocation ? 8 : 5}
           onClick={onLoad}
         >
           <Marker position={position} />

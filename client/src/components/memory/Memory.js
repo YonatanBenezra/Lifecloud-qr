@@ -21,15 +21,15 @@ const Memory = ({
   setCommenting,
   handleDelete,
   handleDellMemory,
+  profile,
 }) => {
   const isUserAdmin = true;
-  //console.log('memory profiledata', profiledata)
-  //console.log('memory data', data)
+  console.log(data)
   return (
     <div className="memory-page">
       <div className="single-memory-content-container">
-        
-          <h1 className="single-memory-title">{profiledata.firstName} {profiledata.lastName} | 12.3.22</h1>{' '}
+        <div className="single-memory-subcontainer">
+          <h1 className="single-memory-title">{profile.firstName} {profile.lastName} | {moment(data.createdAt).utc().format('YYYY-DD-MM')}</h1>{' '}
           {/* add the title prome profiledata memory with the memory index */}
           <div className='image-container'>
             <img
@@ -62,7 +62,7 @@ const Memory = ({
               </div>
             </div>
           </div>
-          <p className="single-memory-text">{Memory.text || 'לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול ,לכנו בעריר גק לי ,ושבעגט ליבם סולגק .בראיט ולחת צורק מונח ,בגורמי מגמש. תרבנך וסתעד לכנו סתשם השמה ישבעס'}</p>
+          <p className="single-memory-text">{data.description || ''}</p>
           <div className="comments-container">
             <div className='subtitle-continer'>
               <h2>תגובות</h2>
@@ -85,7 +85,7 @@ const Memory = ({
                     style={{ cursor: 'pointer' }}
                     onClick={() => handleDelete(comment, data._id)}
                   >
-                    מחר -
+                    מחק -
                   </span>
                 </div>
               );
@@ -146,6 +146,7 @@ const Memory = ({
       </div>
       <img alt="" src={TopRightCloud} className="top-cloud"></img>
       <img src={BottomLeftCloud} className="bottom-cloud" alt=""></img>
+    </div>
     </div>
   );
 };

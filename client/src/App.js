@@ -9,12 +9,12 @@ import MainProfileCreate from './pages/profile/MainProfileCreate';
 import ProfileDetails from './pages/profile/ProfileDetails';
 import MainProfileDetails from './pages/profile/MainProfileDetails';
 import MemoryCreation from './components/memory/memoryCreation';
-import Plans from './pages/plans/Plans';
+import Shop from './pages/shop/Shop';
 import Contact from './pages/contact/Contact';
 import Policy from './pages/policy/Policy';
 import { UserAndprofiles } from './pages/userpage/user-and-profile';
 import ENHome from './pages/home/ENHome';
-import ENPlans from './pages/plans/ENPlans';
+import ENShop from './pages/shop/ENShop';
 import ENLogin from './pages/login/ENLogin';
 import ENRegister from './pages/register/ENRegister';
 import ENOrganisationRegister from './pages/register/ENOrganisationRegister';
@@ -34,6 +34,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import LanguageContext from './context/LanguageContext';
+import Memory from './components/memory/Memory'
 function App() {
   const { user } = useContext(AuthContext);
   const [language, setLanguage] = useState(localStorage.getItem('lang') || 'heb');
@@ -70,8 +71,8 @@ function App() {
             <Route exact path="/memorycreation/:profileid" >
               <MemoryCreation />
             </Route>
-            <Route exact path="/plans">
-              <Plans />
+            <Route exact path="/shop">
+              <Shop />
             </Route>
             <Route exact path="/organisationregister">
               <OrganisationRegister />
@@ -101,8 +102,8 @@ function App() {
             <Route exact path="/about" >
               <About />
             </Route>
-            <Route exact path="/plans">
-              <ENPlans />
+            <Route exact path="/shop">
+              <ENShop />
             </Route>
             <Route exact path="/createprofile/:id" >
               <ENProfileCreate />

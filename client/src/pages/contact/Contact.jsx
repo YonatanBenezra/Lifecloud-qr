@@ -38,9 +38,9 @@ const Contact = () => {
   return (
     <>
       <Topbar />
-      <form className="about-container" ref={form} onSubmit={sendEmail}>
-        <div className="plans">
-          <h3 className="plans-logo">צור קשר</h3>
+      <form className="contact-container" ref={form} onSubmit={sendEmail}>
+        <div className="contact">
+          <h3 className="contact-title">צור קשר</h3>
         </div>
         <div>
           <input
@@ -81,8 +81,7 @@ const Contact = () => {
         <div>
           <input
             className="register-contact"
-            required
-            placeholder="*טלפון "
+            placeholder="טלפון "
             name="phone"
             type="phone"
           />

@@ -579,7 +579,7 @@ export default function ProfileCreate() {
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <h1>על הנפטר</h1>
-                  <input
+                  <textarea
                     ref={description}
                     className="profile-creation-description"
                   />

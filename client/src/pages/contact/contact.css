@@ -6,12 +6,13 @@
     padding-left: 20px;
     margin: 2px;
     margin-top: 5%;
-    height: 30px;
     font-weight: 600;
     width: 600px;
     background-color: #fff;
     padding-top: 1px;
     padding-bottom: 1px;
+    border: none;
+    resize: none;
   }
 #first-name, #last-name {
     display: inline-block;
@@ -26,6 +27,7 @@
     font-weight: 600;
     width: 275px;
     background-color: #fff;
+    border: none;
   }
 #first-name{
     margin-right: 15px;
@@ -55,4 +57,24 @@
 .arrow{
     transform: rotate(180deg);
     margin: 5px;
+}
+.contact-title {
+  padding-bottom: 30px;
+  font-size: 70px !important;
+  margin-top: 75px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 3px;
+  color: #6097bf !important;
+}
+.contact-container {
+  background: #DCECF4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-contact::placeholder {
+color: #6097BF;
 }

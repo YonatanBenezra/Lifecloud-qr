@@ -15,7 +15,7 @@ import TopBar from '../../components/topbar/Topbar';
 import ProgressBar from '../../components/progressbar/progressBar';
 import { Gallery } from '../../components/gallery/gallery';
 // import { AuthContext } from '../../context/AuthContext';
-import { useParams } from 'react-router';
+import { useParams, useLocation } from 'react-router';
 import Memory from '../../components/memory/Memory';
 import Popup from 'reactjs-popup';
 import { useHistory } from 'react-router';
@@ -26,6 +26,9 @@ import FriendsList from '../../components/friendsList/friendsList';
 // import { useParams } from 'react-router-dom';
 import { SRLWrapper } from 'simple-react-lightbox';
 import useGeoLocation from '../../hooks/useGeoLocation';
+import GraveMap from './GraveMap';
+import { QRCodeSVG } from 'qrcode.react';
+
 import Map from './Map';
 import Direction from './Direction';
 export default function Profile() {
@@ -217,14 +220,59 @@ export default function Profile() {
 
   const loggedUser = JSON.parse(localStorage.getItem('user'));
   const [map, setMap] = useState(false);
-  const { location, getGeoLocation } = useGeoLocation();
-  useEffect(() => {
-    getGeoLocation();
-  }, [getGeoLocation]);
+  // const { location, getGeoLocation } = useGeoLocation();
+  // useEffect(() => {
+  //   getGeoLocation();
+  // }, [getGeoLocation]);
 
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
+        <div
+          class="modal fade "
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  QRסרוק את ה
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body text-center">
+                <QRCodeSVG value={window.location.href} />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  סגור
+                </button>
+                <a
+                  href={`https://wa.me/?text=${window.location.href}`}
+                  type="button"
+                  class="btn btn-success"
+                  target={'_blank'}
+                  rel="noreferrer"
+                >
+                  שתף בוואטסאפ
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
         <TopBar />
         <img
           src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
@@ -274,6 +322,14 @@ export default function Profile() {
             </div>
           </div>
           <div className="big-btns-container">
+            <div
+              type="button"
+              className="profile-big-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              QR
+            </div>
             <div
               onClick={() => setShow('bio')}
               className={`profile-big-btn ${show === 'bio' && 'active'}`}
@@ -337,35 +393,42 @@ export default function Profile() {
             {' '} לכל הגלריה +
             </div>
           </div>
-          <div className="grave-location-container">
-            <div className="profile-details-title">
-              <h1>מיקום הקבר</h1>
-            </div>            
+                    <div className="grave-location-container">
+            <h1 className="grave-location-title">מיקום ותמונת הקבר</h1>
             <div className="grave-imgs-container">
               <img
                 src={`${process.env.REACT_APP_API_URL}/${profiledata.graveImg}`}
                 alt=""
                 className="grave-img"
               ></img>
-              {map && !location.loaded && <h2>Loading...</h2>}
-              {map && location.error && location.loaded && (
-                <h2>{location.error.message}</h2>
-              )}
-              {map && !location.error && location.loaded && (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Direction
+
+              {map && (
+                <React.Fragment>
+                  <div>
+                    {/* <Direction
                     destination={profiledata.googleLocation}
                     origin={location.coordinates}
-                  />
-                </div>
+                  /> */}
+                    <GraveMap graveLocation={profiledata.googleLocation} />
+                    <div className="text-center mt-3">
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation.lat}%2C${profiledata.googleLocation.lng}`}
+                        className="profile-example-btn"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        נווט לקבר
+                      </a>
+                    </div>
+                  </div>
+                </React.Fragment>
               )}
             </div>
-
             <button
               className="navigation-btn"
               onClick={() => setMap((prevState) => !prevState)}
             >
-              מיקום מדוייק של הקבר <img src={google} alt=""></img>
+              פתח מפה <img src={google} alt=""></img>
             </button>
           </div>
           <div className="memories-div">
@@ -442,6 +505,7 @@ export default function Profile() {
                           commenting={commenting}
                           handleDelete={handleDelete}
                           handleDellMemory={handleDellMemory}
+                          profile={profiledata}
                         /> //change to memories
                       )}
                     </Popup>
