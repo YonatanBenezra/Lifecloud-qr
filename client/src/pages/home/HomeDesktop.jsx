@@ -38,22 +38,12 @@ const HomeDesktop = (props) => {
         }}
       ></div>
       <div className="home-floating-text">
-        <h2>יצירת קהילת הנצחה מותאמת אישית</h2>
-        {user ? (
+        <h2>יצירת קהילת הנצחה מותאמת אישית</h2>        
           <Link
-            to={`/createprofile/${user._id}`}
-          // onClick={() => {window.reload()}}
+            to={ user ? `/createprofile/${user._id}` : '/register'}
           >
             <div className="home-profile-creation-btn">יצירת פרופיל ללא עלות</div>
-          </Link>
-        ) : (
-          <Link
-            to='/register'
-          // onClick={() => {window.reload()}}
-          >
-            <div className="home-profile-creation-btn">ליצירת פרופיל ללא עלות</div>
-          </Link>
-        )}
+          </Link>        
       </div>
       <div className="search-container-home-desktop">
         <div className="searchbar-container-home-desktop">
@@ -72,13 +62,13 @@ const HomeDesktop = (props) => {
 
       <div className="vid-text-container">
         <div className="vid-text-title">
-          <h1 className="mb-3">
+          {/* <h1 className="mb-3">
             <strong>״החיים אינם הימים שחלפו, אלא אלה שזוכרים״</strong>
             <span style={{ fontSize: '20px', marginTop: '17px', marginRight: '15px' }}>
               {' '}
               - גבריאל גרסיה מרקס{' '}
             </span>
-          </h1>
+          </h1> */}
           <h2 style={{ fontSize: '35px' }}>
             .כל אדם הוא עולם ומלואו שראוי שסיפור חייו ייזכר ויונצח לעד
           </h2>
@@ -96,9 +86,7 @@ const HomeDesktop = (props) => {
             </div>
           </div>
           <div className="bottom-image-container-home-desktop">
-            <p
-              className="text-container-home-desktop"
-            >
+            <p className="text-container-home-desktop">
               איך נוכל לחבר את <br></br>החלקים ולספר מי הם היו?{' '}
             </p>
             <Player
@@ -109,10 +97,8 @@ const HomeDesktop = (props) => {
               controls={true}
             />
             <img
-              alt=""
-              src={rightCloud}
-              style={{ position: 'absolute', right: 0, height: '275px' }}
-            ></img>
+              alt="" src={rightCloud}
+              className='right-cloud'/>
           </div>
         </div>
       </div>
@@ -350,11 +336,9 @@ const HomeDesktop = (props) => {
         <img
           alt=""
           src={leftCloud}
-          style={{ position: 'absolute', left: 0 }}
+          className='testemonials-left-cloud'
         ></img>
       </div>
-
-
       <SocialFooter />
       <Footer />
     </div>

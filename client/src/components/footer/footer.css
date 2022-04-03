@@ -84,6 +84,7 @@ a {
 @media screen and (max-width: 742px) {
   .footer {
     height: 120px;
+    flex-direction: column;
   }
   .c-rights-reserved {
     margin-left: auto;
