@@ -26,11 +26,42 @@ const Plans = () => {
   const [selectedProduct, setSelectedProduct] = useState();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [submitedOption, setSubmitedOption] = useState()
-  const [submitedSubOption, setSubmitedSubOption] = useState('???')
-  const [finalProductPrice, setFinalProductPrice] = useState(0)
+  const [submitedSubOption, setSubmitedSubOption] = useState()
+  const [productPrice, setProductPrice] = useState(0)
 
-  useEffect(() => { finalProductPrice && setShowSelected(true)} , [finalProductPrice]);
-  useEffect(() => { console.log('submitedSubOption useEffect changed')} , [submitedSubOption]);
+  useEffect(() => { productPrice && setShowSelected(true)} , [productPrice]);
+  useEffect(() => { console.log('submitedSubOption useEffect changed', submitedSubOption)} , [submitedSubOption]);
+
+  useEffect(() => { submitedSubOption && sumbitProductPrice() } , [submitedSubOption]);
+  useEffect(() => { submitedOption && sumbitProductPrice() } , [submitedOption]);
+
+
+
+
+  const handleOnClick = async () => {
+    await myFirebase.saveUser({ ...user, user_type: 'paid' }, 'PUT');
+    history.push('/');
+  };
+  const handleSwitchBack = async () => {
+    await myFirebase.saveUser({ ...user, user_type: 'normal' }, 'PUT');
+    history.push('/');
+  };
+
+  const submit = (product, selectedOption, selectedSubOption) => {        
+    // console.log('submitted product', product)
+    // console.log('submitted selectedOption', selectedOption)
+    // console.log('selectedSubOption product', selectedSubOption)
+    setSelectedProduct(product)
+    setSubmitedOption(selectedOption)
+    selectedSubOption && setSubmitedSubOption(selectedSubOption)    
+  }
+  
+  const sumbitProductPrice = () => {
+    console.log('sumbitProductPrice submitedSubOption ', submitedSubOption)
+    setProductPrice(submitedSubOption ? submitedSubOption.price : (submitedOption ? submitedOption.price : selectedProduct.price))
+  }
+
+
 
 
   const tempText = "םינוגריאל יגעכחיג כגחיכחג  םינוגריאל יגעכחיג כגחיכחגי כעכע  םינוגריאל יגעכחיג"
@@ -117,27 +148,6 @@ const Plans = () => {
       ]
     },
   ]
-
-
-
-  const handleOnClick = async () => {
-    await myFirebase.saveUser({ ...user, user_type: 'paid' }, 'PUT');
-    history.push('/');
-  };
-  const handleSwitchBack = async () => {
-    await myFirebase.saveUser({ ...user, user_type: 'normal' }, 'PUT');
-    history.push('/');
-  };
-
-  const submit = (product) => {        
-    setSelectedProduct(product)
-
-    setTimeout(() => {
-      console.log('submit submitedSubOption ', submitedSubOption)
-      setFinalProductPrice(submitedSubOption ? submitedSubOption.price : (submitedOption ? submitedOption.price : product.price))
-    } ,1000);    
-  }
-
   
 
   return (
@@ -156,32 +166,32 @@ const Plans = () => {
         </div>
 
         <div className="register-plans">
-          <span className='register-plan-type'>סוג תכניות:</span>
+          <span className='register-plan-type'>סוג תכניות: </span>
            {selectedProduct.name}
         </div>
         
         <div className="register-plans">
-          <span className='register-plan-type'>מחיר:</span>
-          ₪{finalProductPrice}
+          <span className='register-plan-type'>מחיר: </span>
+          ₪{productPrice}
         </div>
 
         <div className="register-plans">
-          <span className='register-plan-type'>כמות:</span>
+          <span className='register-plan-type'>כמות: </span>
           {selectedQuantity}
         </div>
 
         <div className="register-plans">
-          <span className='register-plan-type'>מע"מ:</span>
-          ₪{selectedProduct.tax}
+          <span className='register-plan-type'>מע"מ: </span>
+          ₪{productPrice * 0.18}
         </div>
 
         <div className="register-plans">
-          <span className='register-plan-type'>סכום כולל:</span>
-          ₪{selectedProduct.totalPrice * selectedQuantity}
+          <span className='register-plan-type'>סכום כולל: </span>
+          ₪{productPrice * selectedQuantity * 1.18}
         </div>
 
         <div className="register-plans">
-          <span className='register-plan-type'>הסבר:</span>
+          <span className='register-plan-type'>הסבר: </span>
           {selectedProduct.text}
         </div>
         
@@ -215,11 +225,9 @@ const Plans = () => {
 
             <div className='products-container'>
               {products.map((p, i) => (
-                <Product {...p} key={i} 
-                submit={() => submit(p)} 
-                setSubmitedOption={setSubmitedOption}
-                setSubmitedSubOption={setSubmitedSubOption}
-                setSelectedQuantity={setSelectedQuantity} 
+                <Product product={p} {...p} key={i} 
+                submit={submit} 
+                setSelectedQuantity={setSelectedQuantity}
                 />)
               )}
             </div>
