@@ -30,6 +30,7 @@ const Plans = () => {
   const [finalProductPrice, setFinalProductPrice] = useState(0)
 
   useEffect(() => { finalProductPrice && setShowSelected(true)} , [finalProductPrice]);
+  useEffect(() => { console.log('submitedSubOption useEffect changed')} , [submitedSubOption]);
 
 
   const tempText = "םינוגריאל יגעכחיג כגחיכחג  םינוגריאל יגעכחיג כגחיכחגי כעכע  םינוגריאל יגעכחיג"
@@ -132,11 +133,9 @@ const Plans = () => {
     setSelectedProduct(product)
 
     setTimeout(() => {
+      console.log('submit submitedSubOption ', submitedSubOption)
       setFinalProductPrice(submitedSubOption ? submitedSubOption.price : (submitedOption ? submitedOption.price : product.price))
-    } ,100);
-    // setTimeout(() => {      
-    // } ,1000);
-    // console.log('submitedOption ', submitedOption)
+    } ,1000);    
   }
 
   
@@ -150,7 +149,7 @@ const Plans = () => {
           <h3 className="plans-logo">תשלומים ותכניות</h3>
         </div>
         <div className="change-plan">
-          <h3 onClick={() => setSelectedProduct()} className="pointer">
+          <h3 onClick={() => setShowSelected(false)} className="pointer">
             {' '}
             +שנה תוכנית
           </h3>
