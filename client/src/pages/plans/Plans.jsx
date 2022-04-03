@@ -182,7 +182,7 @@ const Plans = () => {
 
         <div className="register-plans">
           <span className='register-plan-type'>מע"מ: </span>
-          ₪{productPrice * 0.18}
+          ₪{(productPrice * 0.18) * selectedQuantity}
         </div>
 
         <div className="register-plans">
