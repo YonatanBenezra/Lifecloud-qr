@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './plans.css';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
@@ -18,11 +18,20 @@ import qrImg from '../../assets/product_qr.jpg'
 
 
 const Plans = () => {
-  const [selectedProduct, setSelectedProduct] = useState();
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
   const history = useHistory();
   const { myFirebase, user } = useContext(AuthContext);
   
+  
+  const [showSelected, setShowSelected] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState();
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const [submitedOption, setSubmitedOption] = useState()
+  const [submitedSubOption, setSubmitedSubOption] = useState('???')
+  const [finalProductPrice, setFinalProductPrice] = useState(0)
+
+  useEffect(() => { finalProductPrice && setShowSelected(true)} , [finalProductPrice]);
+
+
   const tempText = "םינוגריאל יגעכחיג כגחיכחג  םינוגריאל יגעכחיג כגחיכחגי כעכע  םינוגריאל יגעכחיג"
   const products = [
     {
@@ -119,11 +128,23 @@ const Plans = () => {
     history.push('/');
   };
 
-  const submit = (product) => setSelectedProduct(product)
+  const submit = (product) => {        
+    setSelectedProduct(product)
+
+    setTimeout(() => {
+      setFinalProductPrice(submitedSubOption ? submitedSubOption.price : (submitedOption ? submitedOption.price : product.price))
+    } ,100);
+    // setTimeout(() => {      
+    // } ,1000);
+    // console.log('submitedOption ', submitedOption)
+  }
+
+  
+
   return (
     <>
       <Topbar />
-      {selectedProduct ? (
+      {showSelected ? (
       <div className="plans-main-container">
         <div className="plans">
           <h3 className="plans-logo">תשלומים ותכניות</h3>
@@ -137,12 +158,12 @@ const Plans = () => {
 
         <div className="register-plans">
           <span className='register-plan-type'>סוג תכניות:</span>
-           {selectedProduct.name} 
+           {selectedProduct.name}
         </div>
         
         <div className="register-plans">
           <span className='register-plan-type'>מחיר:</span>
-          ₪{selectedProduct.price}
+          ₪{finalProductPrice}
         </div>
 
         <div className="register-plans">
@@ -194,7 +215,14 @@ const Plans = () => {
             </div> */}
 
             <div className='products-container'>
-              {products.map((p, i) => (<Product {...p} key={i} submit={() => submit(p)} setSelectedQuantity={setSelectedQuantity}/>))}
+              {products.map((p, i) => (
+                <Product {...p} key={i} 
+                submit={() => submit(p)} 
+                setSubmitedOption={setSubmitedOption}
+                setSubmitedSubOption={setSubmitedSubOption}
+                setSelectedQuantity={setSelectedQuantity} 
+                />)
+              )}
             </div>
 
 

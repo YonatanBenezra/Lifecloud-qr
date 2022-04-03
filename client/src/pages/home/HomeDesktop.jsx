@@ -80,14 +80,15 @@ const HomeDesktop = (props) => {
           <div className="top-image-container-desktop-home">
             <div className="top-image">
               <p className="text-home-desktop">
-                סיפור חייהם של יקירנו מורכב מחלקים השלובים בחייהם של בני משפחתם,
-                חברים ומכרים. כאשר הם הלכו מן העולם, הסיפורים נעלמים איתם...
+              סיפור חייהם של יקירנו מורכבים מחלקים השלובים בחייהם של בני משפחתם, חברים ומכרים.
+אם לכתם מן העולם, סיפורם נעלם איתם.
               </p>
             </div>
           </div>
           <div className="bottom-image-container-home-desktop">
             <p className="text-container-home-desktop">
-              איך נוכל לחבר את <br></br>החלקים ולספר מי הם היו?{' '}
+              {/* איך נוכל לחבר את <br></br>החלקים ולספר מי הם היו?{' '} */}
+              איך נוכל לחבר את החלקים<br/> ולשמר לעד<br/> מי שהם היו?
             </p>
             <Player
               src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
@@ -107,9 +108,9 @@ const HomeDesktop = (props) => {
         <h1
           className="text-container-home-desktop-emphasis"
         >
-          ספר החיים של לייף קלאוד מאפשר לנו
+           מאפשר לנו LifeCloud ספר החיים של
           <br></br>{' '}
-          לחבר ולשתף את הסיפורים והחוויות באמצעות
+          לחבר ולשתף את הסיפורים, המורשת והחוויות
         </h1>
       </div>
       <div className="imgs-container">

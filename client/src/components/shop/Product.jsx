@@ -4,7 +4,7 @@ import arrowUp from '../../assets/Arrow_up.png'
 import arrowDown from '../../assets/Arrow_down.png'
 import SubmitBtn from '../submitBtn/SubmitBtn'
 
-const Product = ({name, hebName, priceRange, text, img, options, submit, setSelectedQuantity}) => {
+const Product = ({name, hebName, priceRange, text, img, options, submit, setSelectedQuantity, setSubmitedOption, setSubmitedSubOption}) => {
 
   const [quantity, setQuantity] = useState(1);
   const [selectedOption, setSelectedOption] = useState(options && options[0])
@@ -15,11 +15,13 @@ const Product = ({name, hebName, priceRange, text, img, options, submit, setSele
 
   const onSubmit = () => {
     setSelectedQuantity(quantity)
+    setSubmitedOption(selectedOption)
+    selectedSubOption && setSubmitedSubOption(selectedSubOption)
     submit()
   }
 
   //console.log('options[0]', options[0])
-  console.log('selectedOption', selectedOption)
+  //console.log('selectedOption', selectedOption)
   //console.log('???', selectedOption.optName === selectedOption.optName)
 
   const selectOption = (opt) => {
