@@ -6,6 +6,8 @@ import Topbar from '../../components/topbar/Topbar';
 import whiteLogo from '../../assets/whiteLogo.png';
 import Arrow1 from '../../assets/Arrow1.png';
 import emailjs from '@emailjs/browser';
+import SnackBar from '../../components/snackbar/SnackBar';
+
 const Contact = () => {
   const form = useRef();
   const [open, setOpen] = useState(false);
@@ -72,8 +74,7 @@ const Contact = () => {
         <div>
           <input
             className="register-contact"
-            required
-            placeholder="*שם החברה (אופציונלי)"
+            placeholder="שם החברה (אופציונלי)"
             name="company"
             type="text"
           />
@@ -101,6 +102,7 @@ const Contact = () => {
         </button>
         <img src={Arrow1} className="arrow" alt=""></img>
       </form>
+      <SnackBar open={open} handleClose={handleClose} message={message} />
       <SocialFooter backgroundColor="#dcecf4" color="#6097bf" />
       <Footer />
     </>

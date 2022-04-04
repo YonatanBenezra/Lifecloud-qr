@@ -36,8 +36,9 @@
 .single-memory-content-container {
   z-index: 1;
   position: relative;
-  width: 80vw;
+  width: 100%;
   margin: auto;
+  height: 100%;
 }
 
 .memory-page .icons-container {

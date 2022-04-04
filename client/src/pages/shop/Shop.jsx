@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import './shop.css';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
@@ -15,9 +15,39 @@ import Product from '../../components/shop/Product'
 import flowersImg from '../../assets/product_flowers.jpg'
 import woodPrintImg from '../../assets/product_wood_print.jpg'
 import qrImg from '../../assets/product_qr.jpg'
-
+import emailjs from '@emailjs/browser';
+import SnackBar from '../../components/snackbar/SnackBar';
 
 const Shop = () => {
+
+  const form = useRef();
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const handleClose = () => {
+    setOpen(false);
+    setMessage('');
+  };
+  const sendEmail = (e) => {
+    e.preventDefault();
+    emailjs
+      .sendForm(
+        'service_a5sxqbr',
+        'template_mmyqft9',
+        form.current,
+        'user_n6k8WK1Ql3fToMiGcyIRm'
+      )
+      .then(
+        (result) => {
+          setMessage('נשלח בהצלחה!');
+          setOpen(true);
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
+  
   const history = useHistory();
   const { myFirebase, user } = useContext(AuthContext);
   

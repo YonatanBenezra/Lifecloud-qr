@@ -344,8 +344,6 @@ export default function ProfileEdit() {
                       className="nameInput"
                     />
                   </div>
-                 
-  
                   <div
                     className="profile-creation-names-container"
                     style={{ marginTop: '3rem' }}

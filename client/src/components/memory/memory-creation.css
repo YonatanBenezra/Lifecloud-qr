@@ -85,9 +85,9 @@
 
 
 
-input[type="file"] {
+/* input[type="file"] {
   display: none;
-}
+} */
 .white-circle {
   height: 70px;
   width: 70px;
