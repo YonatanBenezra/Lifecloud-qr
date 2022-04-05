@@ -38,7 +38,7 @@ const HomeDesktop = (props) => {
         }}
       ></div>
       <div className="home-floating-text">
-        <h2>יצירת קהילת הנצחה מותאמת אישית</h2>        
+        <h2>יצירת קהילת הנצחה מותאמת אישית</h2>
           <Link
             to={ user ? `/createprofile/${user._id}` : '/register'}
           >
