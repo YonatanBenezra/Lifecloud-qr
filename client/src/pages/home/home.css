@@ -388,7 +388,8 @@ flex-wrap: wrap;
   text-align: center;
   position: absolute;
   bottom: 33%;
-  font-size: .8rem;
+  /* font-size: 2rem; */
+  font-size: 28px;
   color: #6097bf;
   letter-spacing: 1.3px;
 }
@@ -617,12 +618,13 @@ background-color: #ffffff;
     border-radius: 15px;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: 20px 0;
     background-color: #FFF;
     border: 0;
  }
-  .searchInput-home-desktop {
-    margin-left: 20%;
+  input.searchInput-home-desktop {
+    margin-left: 10%;
     direction: rtl;
     color: #6097BF;
     font-size: 25px;
@@ -630,6 +632,27 @@ background-color: #ffffff;
     height: 95%;
     border: 0 ;
   }
+  input.searchInput-home-desktop::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #6097BF;
+}
+input.searchInput-home-desktop:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #6097BF;
+   opacity:  1;
+}
+input.searchInput-home-desktop::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #6097BF;
+   opacity:  1;
+}
+input.searchInput-home-desktop:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #6097BF;
+}
+input.searchInput-home-desktop::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #6097BF;
+}
+
+input.searchInput-home-desktop::placeholder { /* Most modern browsers support this now. */
+   color:    #6097BF;
+}
   .searchIcon {
     color: #ABC9DB !important;
   }
@@ -705,5 +728,5 @@ background-color: #ffffff;
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 20%;
+  width: 15%;
 }

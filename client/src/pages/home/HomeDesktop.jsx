@@ -38,7 +38,7 @@ const HomeDesktop = (props) => {
         }}
       ></div>
       <div className="home-floating-text">
-        <h2>יצירת קהילת הנצחה מותאמת אישית</h2>        
+        <h2>יוצרים בית חדש לחיים שאחרי</h2>        
           <Link
             to={ user ? `/createprofile/${user._id}` : '/register'}
           >
@@ -73,7 +73,7 @@ const HomeDesktop = (props) => {
             .כל אדם הוא עולם ומלואו שראוי שסיפור חייו ייזכר ויונצח לעד
           </h2>
           <h2 style={{ color: '#ABC9DB', fontSize: '30px', marginTop: '1rem' }}>
-            MOMENTS. LEGACY. COMMUNITY
+            Moments . Community . Legacy
           </h2>
         </div>
         <div className="text-section-container-desktop-home">
