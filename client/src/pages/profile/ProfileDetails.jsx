@@ -70,7 +70,9 @@ export default function Profile() {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
     );
-    res.data.googleLocation = JSON.parse(res.data.googleLocation);
+    if (res.data.googleLocation) {
+      res.data.googleLocation = JSON.parse(res.data.googleLocation);
+    }
     setProfileData(res.data);
   };
 
@@ -84,13 +86,12 @@ export default function Profile() {
   useEffect(() => {
     fetchmemories();
   }, [comment, likeMessage]);
-
   let parseAxios = Object.keys(profiledata).length
-    ? JSON.parse(profiledata.lifeAxis)
-    : '';
-  profiledata?.axisImages?.forEach((element, i) => {
-    parseAxios[i].axisImage = element;
-  });
+      ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
+      : '';
+    profiledata?.axisImages?.forEach((element, i) => {
+      parseAxios[i].axisImage = element;
+    });
   const handleLike = (e) => {
     try {
       const formdata = new FormData();
