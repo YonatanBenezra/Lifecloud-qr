@@ -30,6 +30,7 @@ import { SRLWrapper } from 'simple-react-lightbox';
 import useGeoLocation from '../../hooks/useGeoLocation';
 import Map from './Map';
 import Direction from './Direction';
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function MainProfile(props) {
   const { dispatch } = useContext(AuthContext);
@@ -77,6 +78,51 @@ export default function MainProfile(props) {
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
+        <div
+          className="modal fade qr-modal"
+          id="exampleModal"
+          tabIndex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
+                  QRסרוק את ה
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div className="modal-body text-center">
+                <QRCodeSVG value={window.location.href} />
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  סגור
+                </button>
+                <a
+                  href={`https://wa.me/?text=${window.location.href}`}
+                  type="button"
+                  className="btn btn-success"
+                  target={'_blank'}
+                  rel="noreferrer"
+                >
+                  שתף בוואטסאפ
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
         <TopBar />
         <img
           src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
@@ -125,6 +171,14 @@ export default function MainProfile(props) {
               className={`${show === 'wall' && 'active'} profile-big-btn`}
             >
               קיר
+            </div>
+            <div
+              type="button"
+              className="profile-big-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              QR
             </div>
           </div>
         </div>

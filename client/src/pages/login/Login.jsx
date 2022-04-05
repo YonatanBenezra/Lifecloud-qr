@@ -37,6 +37,7 @@ const Login = () => {
             <span className="loginDesc">התחברות</span>
           </div>
           <div></div>
+          <SocialLogin />
           <div className="loginRight">
             <div className="loginBox">
               <form className="loginBox" onSubmit={handleClick}>
@@ -109,7 +110,6 @@ const Login = () => {
                 </p>
               </div>
             </div>
-            <SocialLogin />
           </div>
         </div>
       </div>

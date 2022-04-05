@@ -35,15 +35,12 @@ const SocialLogin = ({ user_type }) => {
 
   return (
     <>
-      <div className={classes.separator}>
-        <b>או</b>
-      </div>
       <div className={classes.wrapper}>
         <div
           className={classes.button}
           style={{ marginRight: '28px' }}
           onClick={handleGoogleLogin}
-        > 
+        >
           <div className={classes.icon}>
             <i className="fab fa-google"></i>
           </div>
@@ -55,6 +52,9 @@ const SocialLogin = ({ user_type }) => {
           </div>
           <span>התחבר עם פייסבוק</span>
         </div>
+      </div>
+      <div className={classes.separator}>
+        <b>או</b>
       </div>
     </>
   );

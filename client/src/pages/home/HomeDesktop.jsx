@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Topbar from '../../components/topbar/Topbar';
-import Sidebar from '../../components/sidebar/Sidebar';
 import mainImage from '../../assets/Rectangle.png';
+import axios from 'axios';
 import { useSearch } from '../../context/SearchContext';
 import { Search } from '@material-ui/icons';
 import leftCloud from '../../assets/light-blue-left-cloud.png';
@@ -16,12 +16,24 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 const HomeDesktop = (props) => {
-  const user = props.user
-  const testimonialSettings = props.testimonialSettings
-  const settings = props.settings
-  const searchText = props.searchText
-  const setSearchText = props.setSearchText
-  console.log(props)
+  const user = props.user;
+  const testimonialSettings = props.testimonialSettings;
+  const settings = props.settings;
+  const [searchData, setSearchData] = useState([]);
+  const [value, setValue] = useState('');
+
+  const handleSearch = async (e) => {
+    const { value } = e.target;
+    setValue(value);
+    if (value.length === 0 || value.trim() === '' || value === null) {
+      return false;
+    } else {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/profile/searchProfile/${value}`
+      );
+      setSearchData(res.data);
+    }
+  };
   return (
     <div>
       <Topbar />
@@ -34,16 +46,14 @@ const HomeDesktop = (props) => {
           overflow: 'hidden',
           backgroundPosition: 'bottom',
           backgroundRepeat: 'noRepeat',
-          backgroundSize: 'cover'
+          backgroundSize: 'cover',
         }}
       ></div>
       <div className="home-floating-text">
-        <h2>יצירת קהילת הנצחה מותאמת אישית</h2>        
-          <Link
-            to={ user ? `/createprofile/${user._id}` : '/register'}
-          >
-            <div className="home-profile-creation-btn">יצירת פרופיל ללא עלות</div>
-          </Link>        
+        <h2>יוצרים בית חדש לחיים שאחרי</h2>
+        <Link to={user ? `/createprofile/${user._id}` : '/register'}>
+          <div className="home-profile-creation-btn">יצירת פרופיל ללא עלות</div>
+        </Link>
       </div>
       <div className="search-container-home-desktop">
         <div className="searchbar-container-home-desktop">
@@ -52,12 +62,41 @@ const HomeDesktop = (props) => {
             type="text"
             placeholder="חיפוש מנוח/עמותה..."
             className="searchInput-home-desktop"
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={handleSearch}
           />
           <Search className="searchIcon" />
           {/* </div> */}
         </div>
-        <Sidebar> </Sidebar>
+        {value && searchData && searchData.length > 0 && (
+          <div className="home-result-box-main">
+            {searchData &&
+              searchData.length > 0 &&
+              searchData.map((item, index) => {
+                return (
+                  <Link to={`/profiledetails/${item._id}`} key={index}>
+                    <div className="result-box">
+                      <div>
+                        <span>
+                          <img
+                            style={{
+                              width: '30px',
+                              height: '30px',
+                              borderRadius: '30px',
+                            }}
+                            src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                            alt=""
+                          />
+                        </span>
+                      </div>
+                      <span>{`${item?.firstName} ${
+                        item?.lastName === 'placeholder' ? '' : item?.lastName
+                      }`}</span>
+                    </div>
+                  </Link>
+                );
+              })}
+          </div>
+        )}
       </div>
 
       <div className="vid-text-container">
@@ -73,22 +112,24 @@ const HomeDesktop = (props) => {
             .כל אדם הוא עולם ומלואו שראוי שסיפור חייו ייזכר ויונצח לעד
           </h2>
           <h2 style={{ color: '#ABC9DB', fontSize: '30px', marginTop: '1rem' }}>
-            MOMENTS. LEGACY. COMMUNITY
+            MOMENTS. COMMUNITY. LEGACY
           </h2>
         </div>
         <div className="text-section-container-desktop-home">
           <div className="top-image-container-desktop-home">
             <div className="top-image">
               <p className="text-home-desktop">
-              סיפור חייהם של יקירנו מורכבים מחלקים השלובים בחייהם של בני משפחתם, חברים ומכרים.
-אם לכתם מן העולם, סיפורם נעלם איתם.
+                סיפור חייהם של יקירנו מורכבים מחלקים השלובים בחייהם של בני
+                משפחתם, חברים ומכרים. אם לכתם מן העולם, סיפורם נעלם איתם.
               </p>
             </div>
           </div>
           <div className="bottom-image-container-home-desktop">
             <p className="text-container-home-desktop">
               {/* איך נוכל לחבר את <br></br>החלקים ולספר מי הם היו?{' '} */}
-              איך נוכל לחבר את החלקים<br/> ולשמר לעד<br/> מי שהם היו?
+              איך נוכל לחבר את החלקים
+              <br /> ולשמר לעד
+              <br /> מי שהם היו?
             </p>
             <Player
               src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
@@ -97,20 +138,15 @@ const HomeDesktop = (props) => {
               className="react-player-home-desktop"
               controls={true}
             />
-            <img
-              alt="" src={rightCloud}
-              className='right-cloud'/>
+            <img alt="" src={rightCloud} className="right-cloud" />
           </div>
         </div>
       </div>
 
       <div className="popups-container">
-        <h1
-          className="text-container-home-desktop-emphasis"
-        >
-           מאפשר לנו LifeCloud ספר החיים של
-          <br></br>{' '}
-          לחבר ולשתף את הסיפורים, המורשת והחוויות
+        <h1 className="text-container-home-desktop-emphasis">
+          מאפשר לנו LifeCloud ספר החיים של
+          <br></br> לחבר ולשתף את הסיפורים, המורשת והחוויות
         </h1>
       </div>
       <div className="imgs-container">
@@ -121,21 +157,13 @@ const HomeDesktop = (props) => {
                 חיבור עמודי המנוח ברשתות החברתיות הקיימות.
               </p>
               <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
+                <span className="read-more-home-desktop">
                   <p>+</p>
                   <p>קרא עוד</p>{' '}
                 </span>
               </div>
             </div>
-            <h1 className="h1-home-desktop">
-              קישור לרשתות חברתיות
-            </h1>
+            <h1 className="h1-home-desktop">קישור לרשתות חברתיות</h1>
           </div>
         </div>
         <div>
@@ -146,21 +174,13 @@ const HomeDesktop = (props) => {
                 לספר החיים של המנוח{' '}
               </p>
               <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
+                <span className="read-more-home-desktop">
                   <p>+</p>
                   <p>קרא עוד</p>{' '}
                 </span>
               </div>
             </div>{' '}
-            <h1 className="h1-home-desktop">
-              ייחודי QR קוד
-            </h1>
+            <h1 className="h1-home-desktop">ייחודי QR קוד</h1>
           </div>
         </div>
         <div>
@@ -171,21 +191,13 @@ const HomeDesktop = (props) => {
                 אלבומים, ולשתף חברים, משפחה וקהילה
               </p>
               <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
+                <span className="read-more-home-desktop">
                   <p>+</p>
                   <p>קרא עוד</p>{' '}
                 </span>
               </div>
             </div>{' '}
-            <h1 className="h1-home-desktop">
-              העלאת תמונות וסרטונים
-            </h1>
+            <h1 className="h1-home-desktop">העלאת תמונות וסרטונים</h1>
           </div>
         </div>
       </div>
@@ -198,20 +210,13 @@ const HomeDesktop = (props) => {
                 ומכרים.{' '}
               </p>
               <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
+                <span className="read-more-home-desktop">
                   <p>+</p>
                   <p>קרא עוד</p>{' '}
                 </span>
               </div>
             </div>{' '}
-            <h1 className="h1-home-desktop">
-              כתיבה            </h1>
+            <h1 className="h1-home-desktop">כתיבה </h1>
             <h1 className="h1-home-desktop" style={{ marginTop: '0' }}>
               ושיתוף זכרונות
             </h1>
@@ -224,21 +229,13 @@ const HomeDesktop = (props) => {
                 לוח שנה –ציון ימים חשובים, שליחת הזמנות לאירועי אזכרה ומפגשים.{' '}
               </p>
               <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
+                <span className="read-more-home-desktop">
                   <p>+</p>
                   <p>קרא עוד</p>{' '}
                 </span>
               </div>
             </div>{' '}
-            <h1 className="h1-home-desktop" >
-              ניהול מועדים
-            </h1>
+            <h1 className="h1-home-desktop">ניהול מועדים</h1>
           </div>
         </div>
         <div>
@@ -246,13 +243,7 @@ const HomeDesktop = (props) => {
             <div className="img-300 fifteen">
               <p className="img-300-text">מיקום הקבר </p>
               <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
+                <span className="read-more-home-desktop">
                   <p>+</p>
                   <p>קרא עוד</p>{' '}
                 </span>
@@ -291,19 +282,22 @@ const HomeDesktop = (props) => {
           </a>
         </Slider>
       </div>
-      <a href="/createprofile" className="creation-btn">
+      <Link to="/profiledetails/622ccc5b81cdc2a0a86e2827" className="creation-btn">
         <div className="profile-div">+ צפייה בעמוד לדוגמה</div>
-      </a>
-      <a href="/createprofile" className="creation-btn">
+      </Link>
+      <Link
+        to={user ? `/createprofile/${user._id}` : '/register'}
+        className="creation-btn"
+      >
         <div className="profile-div" style={{ backgroundColor: '#6097BF' }}>
           + יצירת פרופיל חדש - ללא עלות!
         </div>
-      </a>
-      <a href="/createprofile" className="creation-btn">
+      </Link>
+      <Link to="/shop" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
-          + תוספות ותוכניות
+          + LifeCloud חנות
         </div>
-      </a>
+      </Link>
       <div className="testimonials">
         <Slider {...testimonialSettings}>
           <div>
@@ -334,15 +328,11 @@ const HomeDesktop = (props) => {
             <h5 style={{ marginBottom: '15px' }}>-אריאל-</h5>
           </div>
         </Slider>
-        <img
-          alt=""
-          src={leftCloud}
-          className='testemonials-left-cloud'
-        ></img>
+        <img alt="" src={leftCloud} className="testemonials-left-cloud"></img>
       </div>
       <SocialFooter />
       <Footer />
     </div>
   );
-}
-export default HomeDesktop
+};
+export default HomeDesktop;

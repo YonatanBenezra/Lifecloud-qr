@@ -14,9 +14,13 @@ const Topbar = (props) => {
   const LoggedUser = useContext(AuthContext);
   const [searchData, setSearchData] = useState([]);
   const { user } = useContext(AuthContext);
+  const [clicked, setClicked] = useState('');
+  const [value, setValue] = useState('');
+
   const handleSearch = async (e) => {
     const { value } = e.target;
-    console.log(value);
+    setValue(value);
+
     if (value.length === 0 || value.trim() === '' || value === null) {
       return false;
     } else {
@@ -26,7 +30,6 @@ const Topbar = (props) => {
       setSearchData(res.data);
     }
   };
-
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -37,9 +40,9 @@ const Topbar = (props) => {
         >
           <img className="logo" src={blueLogo} alt="" />
         </Link>
-        <WithLanguage>
+        {/* <WithLanguage>
           <LanguageButton />
-        </WithLanguage>
+        </WithLanguage> */}
       </div>
       <Search className="searchIcon-topbar-mobile" />
       <h1 className="menu-icon-topbar-mobile"> - </h1>
@@ -51,13 +54,14 @@ const Topbar = (props) => {
             className="SearchInput top-search"
             onChange={handleSearch}
           />
-          {searchData && searchData.length > 0 ? (
-            <div className="ResultBoxMain">
-              {searchData && searchData.length > 0 ? (
-                searchData.map((item) => {
+          {value && searchData && searchData.length > 0 && (
+            <div className="result-box-main">
+              {searchData &&
+                searchData.length > 0 &&
+                searchData.map((item, index) => {
                   return (
-                    <Link to={`/profiledetails/${item._id}`}>
-                      <div className="ResultBox">
+                    <Link to={`/profiledetails/${item._id}`} key={index}>
+                      <div className="result-box">
                         <div>
                           <span>
                             <img
@@ -71,17 +75,14 @@ const Topbar = (props) => {
                             />
                           </span>
                         </div>
-                        <div>{`${item.firstName} ${item.lastName}`}</div>
+                        <span>{`${item.firstName} ${
+                          item?.lastName === 'placeholder' ? '' : item?.lastName
+                        }`}</span>
                       </div>
                     </Link>
                   );
-                })
-              ) : (
-                <div style={{ textAlign: 'center' }}>אין מידע</div>
-              )}
+                })}
             </div>
-          ) : (
-            ''
           )}
         </div>
         <div className="topbarRight">
@@ -91,8 +92,13 @@ const Topbar = (props) => {
                 <Link
                   to={`/`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
-                  className="topbarLink"
-                  onClick={LoggedUser.myFirebase.logout}
+                  className={`${
+                    clicked === 'logout' && 'topbar-active'
+                  } topbarLink`}
+                  onClick={() => [
+                    LoggedUser.myFirebase.logout,
+                    setClicked('logout'),
+                  ]}
                 >
                   התנתק{' '}
                 </Link>
@@ -100,7 +106,10 @@ const Topbar = (props) => {
                 <Link
                   to={`/createprofile/${LoggedUser.user._id}`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
-                  className="topbarLink"
+                  className={`${
+                    clicked === 'createprofile' && 'topbar-active'
+                  } topbarLink`}
+                  onClick={() => setClicked('createprofile')}
                 >
                   צור פרופיל{' '}
                 </Link>
@@ -108,7 +117,10 @@ const Topbar = (props) => {
                 <Link
                   to={`/about`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
-                  className="topbarLink"
+                  onClick={() => setClicked('about')}
+                  className={`${
+                    clicked === 'about' && 'topbar-active'
+                  } topbarLink`}
                 >
                   אודות
                 </Link>
@@ -116,23 +128,32 @@ const Topbar = (props) => {
                 <Link
                   to={`/contact`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
-                  className="topbarLink"
+                  className={`${
+                    clicked === 'contact' && 'topbar-active'
+                  } topbarLink`}
+                  onClick={() => setClicked('contact')}
                 >
                   צור קשר{' '}
                 </Link>
 
-                <Link
-                  to={`/shop`}
-                  style={{ textDecoration: 'none', color: '#6097BF' }}
-                  className="topbarLink"
-                >
-                  חנות{' '}
-                </Link>
-
+                <div onClick={() => setClicked('shop')}>
+                  <Link
+                    to={`/shop`}
+                    style={{ textDecoration: 'none', color: '#6097BF' }}
+                    className={`${
+                      clicked === 'shop' && 'topbar-active'
+                    } topbarLink`}
+                  >
+                    חנות{' '}
+                  </Link>
+                </div>
                 <Link
                   style={{ marginRight: '15px' }}
                   to={`/userprofiles/${user._id}`}
-                  className="topbarLink"
+                  className={`${
+                    clicked === 'userprofiles' && 'topbar-active'
+                  } topbarLink`}
+                  onClick={() => setClicked('userprofiles')}
                 >
                   <img
                     src={
@@ -152,21 +173,30 @@ const Topbar = (props) => {
                 <Link
                   to={`/about`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
-                  className="topbarLink"
+                  className={`${
+                    clicked === 'about' && 'topbar-active'
+                  } topbarLink`}
+                  onClick={() => setClicked('about')}
                 >
                   אודות
                 </Link>
                 <Link
                   to={`/plans`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
-                  className="topbarLink"
+                  className={`${
+                    clicked === 'plans' && 'topbar-active'
+                  } topbarLink`}
+                  onClick={() => setClicked('plans')}
                 >
                   תוכניות
                 </Link>
                 <Link
                   to={`/login`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
-                  className="topbarLink"
+                  className={`${
+                    clicked === 'login' && 'topbar-active'
+                  } topbarLink`}
+                  onClick={() => setClicked('login')}
                 >
                   כניסה
                 </Link>

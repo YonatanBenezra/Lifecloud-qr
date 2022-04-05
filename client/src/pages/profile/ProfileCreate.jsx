@@ -32,7 +32,6 @@ export default function ProfileCreate() {
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
   useEffect(() => {});
-  console.log(hebBirthDate, 'imgData');
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
       console.log('picture: ', e.target.files);

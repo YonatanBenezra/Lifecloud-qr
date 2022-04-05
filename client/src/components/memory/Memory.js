@@ -76,16 +76,16 @@ const Memory = ({
                       alt=""
                       className="comment-img"
                     />
-                    <p>{moment(comment.date).utc().format('YYYY-DD-MM')}</p>|
+                    <p>{moment(comment.date).utc().format('YYYY-DD-MM-HHHH')}</p>|
                     <p>{`${data.firstName} ${data.lastName}`}</p>|
                     {/* <p>{comment.uploaderName}:</p> */}
-                    <p>{comment.text}</p>
+                    <p className='comment-text'>{comment.text}</p>
                   </span>
                   <span
                     style={{ cursor: 'pointer' }}
                     onClick={() => handleDelete(comment, data._id)}
                   >
-                    מחק -
+                    - מחק
                   </span>
                 </div>
               );
@@ -94,7 +94,7 @@ const Memory = ({
               <div
                 onClick={() => setCommenting(!commenting)}
                 style={{ cursor: 'pointer' }}
-                className={!commenting && 'comment-btn'}
+                className={!commenting && 'comment-btn memory-btn-hover'}
               >
                 {' '}
                 ...הגב{' '}
@@ -114,14 +114,14 @@ const Memory = ({
 
               <div className="action-btns">
                 <div
-                  className="action-btn"
+                  className="action-btn memory-btn-hover"
                   onClick={() => handleComment(data)}
                   style={{ cursor: 'pointer' }}
                 >
                   פרסם
                 </div>
                 <div
-                  className="action-btn"
+                  className="action-btn memory-btn-hover"
                   onClick={() => setCommenting(!commenting)}
                   style={{ cursor: 'pointer' }}
                 >
@@ -130,7 +130,7 @@ const Memory = ({
               </div>
               {isUserAdmin && (
                 <div
-                  className="dlt-comment-btn"
+                  className="dlt-comment-btn memory-btn-hover"
                   onClick={() => handleDellMemory(data)}
                   style={{ cursor: 'pointer' }}
                 >
@@ -141,7 +141,7 @@ const Memory = ({
           </div>
         
         <h1 onClick={close} className="close-btn">
-          חזרה <img alt="" src={Arrow1}/>
+          <img alt="" className="left-arrow" src={Arrow1}/> חזרה
         </h1>
       </div>
       <img alt="" src={TopRightCloud} className="top-cloud"></img>
