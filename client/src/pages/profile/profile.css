@@ -141,7 +141,8 @@
   width: 150px;
   border-radius: 15px;
   margin: 0rem;
-  margin-right: 4rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
 }
 
 .admins-list {
@@ -545,6 +546,10 @@ transition: 500ms ease-in-out;
   font-size: 35px;
   font-weight: 600;
   transition-duration: 200ms;
+}
+.submitted {
+  background: #ffffff;
+  color: #6097bf;
 }
 .create-btn:hover {
   background: #ffffff;

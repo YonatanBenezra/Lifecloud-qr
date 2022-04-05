@@ -166,7 +166,7 @@
 .radio-input-container-register {
   background: #fff;
   margin: 0 1rem 0 1rem;
-  width: 40px;
+  min-width: 40px;
   color: #6097bf;
   text-align: center;
   cursor: pointer;

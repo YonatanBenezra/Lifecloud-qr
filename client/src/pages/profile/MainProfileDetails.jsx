@@ -136,7 +136,7 @@ export default function MainProfile(props) {
           <div className="display">
             <div className="bio-content">
               <h1 className="bio-name">{profiledata.firstName}.</h1>
-              <p className="bio-bio">{profiledata.description}</p>
+              <pre className="bio-bio">{profiledata.description}</pre>
             </div>
           </div>
           <div className="gallery-container">

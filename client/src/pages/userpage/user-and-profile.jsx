@@ -133,7 +133,7 @@ export const UserAndprofiles = () => {
                                 />
                               </div>
                               <div className="profile-name">
-                                {userProfiles.firstName} {userProfiles.lastName}
+                                {userProfiles.firstName}
                               </div>
                               <ul className="admins-list">
                                 {userProfiles.admins &&

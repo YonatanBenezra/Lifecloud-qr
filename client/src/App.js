@@ -86,6 +86,9 @@ function App() {
             <Route exact path="/createmainprofile/:id">
               <MainProfileCreate />
             </Route>
+            <Route exact path="/memory/:id">
+              <Memory />
+            </Route>
           </Switch>
         ) : (
           <Switch>
