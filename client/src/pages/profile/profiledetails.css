@@ -52,7 +52,6 @@
     flex-direction: column;
     justify-content: space-between;
     height: 135px;
-    font-family: Alef;
 }
 .profile-details .btns-container {
     display: flex;

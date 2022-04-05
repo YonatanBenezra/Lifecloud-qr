@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Alef&display=swap');
 @font-face {
   font-family: 'os-luizi'; /*Can be any text*/
-  src: local('os-luizi'),
-    url('./fonts/OS_Luizi\ Round-FFC.otf') format('truetype');
+  src: local('os_luizi_round-ffc-web'),
+    url('./fonts/os_luizi_round-ffc-web.woff') format('truetype');
 }
 @font-face {
   font-family: 'pilkahol'; /*Can be any text*/
@@ -10,11 +10,8 @@
     url('./fonts/FtPilKahol-1.00-400-Regular.otf') format('truetype');
 }
 * {
-  font-family: 'os_luizi', sans-serif;
-}
-body {
-  font-family: 'os_luizi', sans-serif;
-  overflow: auto;
+  font-family: 'os_luizi';
+  margin: 0;
 }
 input {
   color: #6097bf;

@@ -1,7 +1,4 @@
-* {
-  margin: 0;
-  /* font-family: 'Roboto', sans-serif; */
-}
+
 .profile-creation-box input {
   font-size: 25px;
   font-weight: 600;
@@ -185,7 +182,6 @@
 }
 
 .loginLogo {
-  font-family: Alef !important;
   font-style: normal;
   font-weight: normal;
   font-size: 100px !important;
@@ -257,7 +253,6 @@ padding: 1%;
 }
 
 .loginRegisterButton {
-  font-family: Alef;
   font-style: normal;
   font-weight: normal;
   font-size: 30px;
