@@ -10,10 +10,12 @@ import ProfileDetails from './pages/profile/ProfileDetails';
 import MainProfileDetails from './pages/profile/MainProfileDetails';
 import MemoryCreation from './components/memory/memoryCreation';
 import Shop from './pages/shop/Shop';
+import Plans from './pages/plans/Plans';
 import Contact from './pages/contact/Contact';
 import Policy from './pages/policy/Policy';
 import { UserAndprofiles } from './pages/userpage/user-and-profile';
 import ENHome from './pages/home/ENHome';
+import ENPlans from './pages/plans/ENPlans';
 import ENShop from './pages/shop/ENShop';
 import ENLogin from './pages/login/ENLogin';
 import ENRegister from './pages/register/ENRegister';
@@ -89,6 +91,9 @@ function App() {
             <Route exact path="/memory/:id">
               <Memory />
             </Route>
+            <Route exact path="/plans">
+              <Plans />
+            </Route>
           </Switch>
         ) : (
           <Switch>
@@ -104,6 +109,9 @@ function App() {
             </Route>
             <Route exact path="/about" >
               <About />
+            </Route>
+            <Route exact path="/plans">
+              <ENPlans />
             </Route>
             <Route exact path="/shop">
               <ENShop />

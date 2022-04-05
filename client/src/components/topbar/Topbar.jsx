@@ -10,7 +10,6 @@ import LanguageButton from '../languageButton/LanguageButton';
 import userIcon from '../../assets/userIcon.png';
 import { Search } from '@material-ui/icons';
 
-
 const Topbar = (props) => {
   const LoggedUser = useContext(AuthContext);
   const [searchData, setSearchData] = useState([]);
@@ -28,12 +27,14 @@ const Topbar = (props) => {
     }
   };
 
-
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-
-        <Link to="/" className="life-cloud-logo-image-topbar-mobile" style={{ textDecoration: 'none', color: '#6097BF' }}>
+        <Link
+          to="/"
+          className="life-cloud-logo-image-topbar-mobile"
+          style={{ textDecoration: 'none', color: '#6097BF' }}
+        >
           <img className="logo" src={blueLogo} alt="" />
         </Link>
         <WithLanguage>
@@ -133,13 +134,14 @@ const Topbar = (props) => {
                   to={`/userprofiles/${user._id}`}
                   className="topbarLink"
                 >
-                  <img src={
-                    user.mainProfilePicture
-                      ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
-                      : user.profilePicture
+                  <img
+                    src={
+                      user.mainProfilePicture
+                        ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
+                        : user.profilePicture
                         ? user.profilePicture
                         : userIcon
-                  }
+                    }
                     alt=""
                     className="topbarImg"
                   />
@@ -155,18 +157,18 @@ const Topbar = (props) => {
                   אודות
                 </Link>
                 <Link
+                  to={`/plans`}
+                  style={{ textDecoration: 'none', color: '#6097BF' }}
+                  className="topbarLink"
+                >
+                  תוכניות
+                </Link>
+                <Link
                   to={`/login`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className="topbarLink"
                 >
-                  התחברות
-                </Link>
-                <Link
-                  to={`/register`}
-                  style={{ textDecoration: 'none', color: '#6097BF' }}
-                  className="topbarLink"
-                >
-                  הרשמה
+                  כניסה
                 </Link>
               </div>
             )}
