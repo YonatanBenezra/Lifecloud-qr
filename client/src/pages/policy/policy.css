@@ -1,16 +1,15 @@
 .policy-container{
   display: flex;
   margin-block-end: auto;
-  height: 100;
-  width: 100vw;
   align-items: center;
   justify-content: center;
-  background-color: #f5fcff;
- 
+  background-color: #f5fcff;  
+  padding: 0 4rem;
 }
 
 .accordion{
-  width: 700px;
+  /* width: 700px; */
+  min-width: calc(100vw - 8rem);
 }
 
 .item{
@@ -18,18 +17,19 @@
  padding: 10px 20px;
   color: #6097bf;
 }
-.span2{
+.span2 {
   font-size: 2.0rem;
-  margin-left: 5px;
+  margin: 0 5px;
 }
 
-.title{
+.title {
   color: #6097BF;
   direction: rtl;
   display: flex;
   align-items: center;
   text-align: right;
   cursor: pointer;
+  /* margin-bottom: 12px; */
 }
 
 .content{
@@ -39,11 +39,12 @@
   max-height: 0;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0,1,0,1);
+  font-size: 1.5rem;
 }
 
 .content.show{
   height: auto;
-  max-height: 9999px;
+  max-height: initial;
   transition: all 0.5s cubic-bezier(0,1,0,1);
 }
 .show{
@@ -51,12 +52,25 @@
 }
 
 .policy-title{
- margin-top: 10px; 
-color: #6097bf;
-font-size: 40px;
-line-height: 136px;
-font-style: normal;
-display: flex;
-align-items: center;
-justify-content: center;
+  margin-top: 10px; 
+  color: #6097bf;
+  font-size: 40px;
+  line-height: 136px;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.answer-paragraph,
+.section-title {
+  margin-bottom: 12px;
+}
+
+.answer-paragraph.small-text {
+  font-size: 1.2rem;
+}
+.answer-paragraph.small-text:first-child {
+  margin-bottom: 0;
+
 }
