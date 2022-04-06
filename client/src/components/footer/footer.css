@@ -6,25 +6,22 @@
   align-items: center;
   font-size: 16px;
   font-weight: 600;
+  padding: 0 25px;
 }
 .footer img {
-  padding-left: 60px;
-  height: 35px;
-  font-size: 24px;
-  margin-left: 20px;
-  margin-right: 10px;
-  font-weight: bold;
-  color: #abc9db;
   cursor: pointer;
+  width: 15rem;
 }
-.footer-links {
-  left: 36%;
-  position: absolute;
-  width: 27vw;
-  display: flex;
-  justify-content: space-evenly;
-  font-size: 23px;
+.footer-links a {
+  transition: ease-in-out 1s;
 }
+.footer-links a:hover{
+  color: #dcecf4;
+}
+.line-seperator {
+ padding: 0.5rem;
+}
+
 a {
   text-decoration: none;
   color: #6097bf;

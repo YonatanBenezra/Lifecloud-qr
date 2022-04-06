@@ -28,6 +28,7 @@ import { SRLWrapper } from 'simple-react-lightbox';
 import useGeoLocation from '../../hooks/useGeoLocation';
 import GraveMap from './GraveMap';
 import { QRCodeSVG } from 'qrcode.react';
+import moment from 'moment';
 
 import Map from './Map';
 import Direction from './Direction';
@@ -47,7 +48,7 @@ export default function Profile() {
   const [friendFlagReq, setrfriendReq] = useState([]);
   const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
-  const [next, setnext] = useState(1);
+  const [next, setnext] = useState(4);
 
   const handleShowMoreMemories = () => {
     setnext(next + 1);
@@ -69,7 +70,9 @@ export default function Profile() {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
     );
-    res.data.googleLocation = JSON.parse(res.data.googleLocation);
+    if (res.data.googleLocation) {
+      res.data.googleLocation = JSON.parse(res.data.googleLocation);
+    }
     setProfileData(res.data);
   };
 
@@ -83,13 +86,12 @@ export default function Profile() {
   useEffect(() => {
     fetchmemories();
   }, [comment, likeMessage]);
-
   let parseAxios = Object.keys(profiledata).length
-    ? JSON.parse(profiledata.lifeAxis)
-    : '';
-  profiledata?.axisImages?.forEach((element, i) => {
-    parseAxios[i].axisImage = element;
-  });
+      ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
+      : '';
+    profiledata?.axisImages?.forEach((element, i) => {
+      parseAxios[i].axisImage = element;
+    });
   const handleLike = (e) => {
     try {
       const formdata = new FormData();
@@ -229,33 +231,33 @@ export default function Profile() {
     return (
       <div className="profile-details">
         <div
-          class="modal fade "
+          className="modal fade qr-modal"
           id="exampleModal"
-          tabindex="-1"
+          tabIndex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
                   QRסרוק את ה
                 </h5>
                 <button
                   type="button"
-                  class="btn-close"
+                  className="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
               </div>
 
-              <div class="modal-body text-center">
+              <div className="modal-body text-center">
                 <QRCodeSVG value={window.location.href} />
               </div>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  className="btn btn-secondary"
                   data-bs-dismiss="modal"
                 >
                   סגור
@@ -263,7 +265,7 @@ export default function Profile() {
                 <a
                   href={`https://wa.me/?text=${window.location.href}`}
                   type="button"
-                  class="btn btn-success"
+                  className="btn btn-success"
                   target={'_blank'}
                   rel="noreferrer"
                 >
@@ -279,7 +281,7 @@ export default function Profile() {
           alt=""
           className="profile-cover"
         ></img>
-        <div className="profile-details-first">          
+        <div className="profile-details-first">
           <img
             src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
             alt=""
@@ -288,12 +290,12 @@ export default function Profile() {
           <div className="deceased-details">
             <h1 className="profile-h1">{`${profiledata?.degree} ${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
             <p>
-              {profiledata?.birthDate?.split('T')[0]} -{' '}
-              {profiledata?.deathDate?.split('T')[0]}
+              {moment(profiledata?.birthDate).utc().format('YYYY-DD-MM')} -{' '}
+              {moment(profiledata?.deathDate).utc().format('YYYY-DD-MM')}
             </p>
             <p>{profiledata?.city}</p>
           </div>
-          <img src={leftCloud} alt="" className="left-cloud"/>
+          <img src={leftCloud} alt="" className="left-cloud" />
         </div>
         <div className="btns-container">
           <div className="small-btns-container">
@@ -351,29 +353,29 @@ export default function Profile() {
         >
           <div className="memorial-container">
             <div className="profile-details-title">
-            <h1>תאריך האזכרה</h1>
+              <h1>תאריך האזכרה</h1>
             </div>
-            
+
             <div className="details-and-icons">
               <div className="memorial-details">
                 {/* {console.log(profiledata)} */}
                 <h3>
-                  <span className='separator'>| </span>
-                  <span className='dash'>- </span>
+                  <span className="separator">| </span>
+                  <span className="dash">- </span>
                   {profiledata?.birthDate?.split('T')[0]}
                 </h3>
                 <h3>
-                  <span className='separator'>| </span>
-                  <span className='dash'>- </span>
+                  <span className="separator">| </span>
+                  <span className="dash">- </span>
                   {profiledata?.hebDeathDate}
                 </h3>
                 <h3>
-                  <span className='separator'>| </span>
-                  <span className='dash'>- </span>
+                  <span className="separator">| </span>
+                  <span className="dash">- </span>
                   {profiledata.wazeLocation}
                 </h3>
               </div>
-              <div className="profile-icons-container">                
+              <div className="profile-icons-container">
                 <img
                   src={zoom}
                   alt=""
@@ -390,10 +392,11 @@ export default function Profile() {
           <div className="gallery-container">
             <Gallery profiledata={profiledata} id={id} />
             <div onClick={() => setShow('gallery')} className="full-btn">
-            {' '} לכל הגלריה +
+              {' '}
+              לכל הגלריה +
             </div>
           </div>
-                    <div className="grave-location-container">
+          <div className="grave-location-container">
             <h1 className="grave-location-title">מיקום ותמונת הקבר</h1>
             <div className="grave-imgs-container">
               <img
@@ -537,8 +540,8 @@ export default function Profile() {
         </div>
         <div className={`${show === 'bio' && 'display'} d-none`}>
           <div className="bio-content">
-            <h1 className="bio-name">{profiledata.firstName}.</h1>
-            <p className="bio-bio">{profiledata.description}</p>
+            <h1 className="bio-name">.{profiledata.firstName}</h1>
+            <pre className="bio-bio">{profiledata.description}</pre>
           </div>
           <div className="life-axis">
             <h1 className="axis-name">ביוגרפיה וציר חיים</h1>
@@ -550,7 +553,6 @@ export default function Profile() {
                 <div className="axis-sub-container">
                   <h1 className="axis-title">{axis.axisTitle}</h1>
                   <p className="axis-description2">{axis.axisDescription}</p>
-                  <span>{axis.axisDate}</span>
                 </div>
                 <div
                   className="axis-bubble"
@@ -560,50 +562,54 @@ export default function Profile() {
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                   }}
-                ></div>
+                >
+                  <span>{axis.axisDate}</span>
+                </div>
               </div>
             ))}
           </div>
         </div>
-        <div className={`${show === 'gallery' && 'display'} full-gallery d-none`}>
+        <div
+          className={`${show === 'gallery' && 'display'} full-gallery d-none`}
+        >
           <div className="full-gallery-container">
-            <div className='profile-details-title'>
+            <div className="profile-details-title">
               <h1>גלריה</h1>
-            </div>                        
+            </div>
             <SRLWrapper>
               {profiledata?.gallery?.map((img, index) => (
                 <div className="full-gallery-img-container" key={index}>
-                  <div className='full-gallery-img-inner-container'>
-                  {!img.endsWith('mp4') ? (
-                    <img
-                      src={`${process.env.REACT_APP_API_URL}/${img}`}
-                      alt=""
-                      className="full-gallery-img"
-                    ></img>
-                  ) : (
-                    <video
-                      width="100%"
-                      height="100%"
-                      srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                      srl_video_caption="A video with a rabbit"
-                      srl_video_muted="true"
-                      controls
-                      className="full-gallery-img"
-                    >
-                      <source
+                  <div className="full-gallery-img-inner-container">
+                    {!img.endsWith('mp4') ? (
+                      <img
                         src={`${process.env.REACT_APP_API_URL}/${img}`}
-                        type="video/mp4"
-                      />
-                      Your browser does not support the video tag.
-                    </video>
-                  )}    
-                    <div className="heart-container">                    
+                        alt=""
+                        className="full-gallery-img"
+                      ></img>
+                    ) : (
+                      <video
+                        width="100%"
+                        height="100%"
+                        srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                        srl_video_caption="A video with a rabbit"
+                        srl_video_muted="true"
+                        controls
+                        className="full-gallery-img"
+                      >
+                        <source
+                          src={`${process.env.REACT_APP_API_URL}/${img}`}
+                          type="video/mp4"
+                        />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
+                    <div className="heart-container">
                       <div
                         className="heart-icon"
                         style={{ backgroundImage: `url(${heart})` }}
-                      />                    
-                    </div>              
-                  </div>                  
+                      />
+                    </div>
+                  </div>
                 </div>
               ))}
             </SRLWrapper>
@@ -620,8 +626,9 @@ export default function Profile() {
                 )
             )} */}
             <div onClick={() => setShow('wall')} className="full-btn back-btn">
-              {' '} חזרה <img src={`${arrowRightLong}`}/>
-            </div>  
+              {' '}
+              חזרה <img src={`${arrowRightLong}`} />
+            </div>
           </div>
         </div>
         <div

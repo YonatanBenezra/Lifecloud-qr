@@ -56,7 +56,6 @@ export const UserAndprofiles = () => {
     setData(res.data);
    
   };
-
   const profileImageRef = useRef(null);
   const onChangePicture = async (event) => {
     const src = URL.createObjectURL(event.target.files[0]);
@@ -64,7 +63,7 @@ export const UserAndprofiles = () => {
     const formData = new FormData();
     formData.append('mainProfilePicture', event.target.files[0]);
     formData.append('_id', LoggedUser.user._id);
-    await axios.patch(
+    const response = await axios.patch(
       `${process.env.REACT_APP_API_URL}/updateUserProfilePicture`,
       formData,
       {
@@ -73,9 +72,8 @@ export const UserAndprofiles = () => {
         },
       }
     );
-    // LoggedUser.dispatch({ type: 'FIREBASE_LOGIN', payload: loggedUser });
+    LoggedUser.dispatch({ type: 'FIREBASE_LOGIN', payload: response.data });
   };
-
   return (
     <>
       <Topbar />
@@ -87,7 +85,7 @@ export const UserAndprofiles = () => {
                 className="user-name"
                 style={{ direction: 'rtl', flexDirection: 'column' }}
               >
-                <img
+                 <img
                   alt=""
                   src={
                     LoggedUser.user.mainProfilePicture
@@ -133,7 +131,7 @@ export const UserAndprofiles = () => {
                                 />
                               </div>
                               <div className="profile-name">
-                                {userProfiles.firstName} {userProfiles.lastName}
+                                {userProfiles.firstName}
                               </div>
                               <ul className="admins-list">
                                 {userProfiles.admins &&
@@ -214,7 +212,7 @@ export const UserAndprofiles = () => {
               </div>
             </div>
             <div className="settings-container">
-              <h1 className="profile-title">הגדרות חשבון</h1>
+              {/* <h1 className="profile-title">הגדרות חשבון</h1>
               <div className="btns-container">
                 <div className="big-button">
                   <img
@@ -234,7 +232,7 @@ export const UserAndprofiles = () => {
               <div>
                 <h3 className="settings-subtitle">:סוג התוכנית </h3>
                 <h3 className="settings-subtitle">:סיום התוכנית </h3>
-              </div>
+              </div> */}
               <button
                 className="logout-btn"
                 style={{ cursor: 'pointer' }}

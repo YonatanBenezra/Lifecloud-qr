@@ -1,7 +1,3 @@
-* {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-}
 
 .profile {
   display: flex;
@@ -235,7 +231,6 @@
 }
 
 .loginLogo {
-  font-family: Alef !important;
   font-style: normal;
   font-weight: normal;
   font-size: 100px !important;
@@ -294,7 +289,6 @@
 }
 
 .loginRegisterButton {
-  font-family: Alef;
   font-style: normal;
   font-weight: normal;
   font-size: 30px;

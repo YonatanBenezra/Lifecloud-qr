@@ -30,6 +30,13 @@
 .social-footer-icon img {
   height: 60px;
   width: 60px;
+  transition: ease-in-out 500ms;
+}
+.social-footer-icon:hover img {
+  transform: scale(1.1);
+  border: 1px solid #6097bf;
+  border-radius: 100%;
+  cursor: pointer;
 }
 .social-footer-facebook {
   margin-right: 3rem;

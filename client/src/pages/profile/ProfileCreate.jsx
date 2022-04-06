@@ -12,8 +12,8 @@ import Popup from 'reactjs-popup';
 import useGeoLocation from '../../hooks/useGeoLocation';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
-import graveLocationImg from '../../assets/מיקום-הקבר.jpg'
-import LifeAxisImg from '../../assets/ציר-חיים.jpg'
+import graveLocationImg from '../../assets/מיקום-הקבר.jpg';
+import LifeAxisImg from '../../assets/ציר-חיים.jpg';
 export default function ProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
@@ -30,8 +30,8 @@ export default function ProfileCreate() {
   const [graveData, setGraveData] = useState(null);
   const [coverData, setCoverData] = useState(null);
   const [message, setMessage] = useState('');
-  useEffect(() => { });
-  console.log(hebBirthDate, 'imgData');
+  const [submitted, setSubmitted] = useState(false);
+  useEffect(() => {});
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
       console.log('picture: ', e.target.files);
@@ -51,9 +51,11 @@ export default function ProfileCreate() {
     const month = birth.getMonth();
 
     const response = await fetch(
-      `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${month+1}&gd=${date}&g2h=1`
+      `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${
+        month + 1
+      }&gd=${date}&g2h=1`
     );
-    const data=await response.json()
+    const data = await response.json();
     sethebBirthDate(data.hebrew);
   };
   const handleDeathDateBlur = async () => {
@@ -64,9 +66,11 @@ export default function ProfileCreate() {
     const month = death.getMonth();
 
     const response = await fetch(
-      `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${month+1}&gd=${date}&g2h=1`
-    )
-    const data=await response.json()
+      `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${
+        month + 1
+      }&gd=${date}&g2h=1`
+    );
+    const data = await response.json();
     sethebDeathDate(data.hebrew);
   };
   const readImage = (e, num) => {
@@ -104,8 +108,8 @@ export default function ProfileCreate() {
     if (e.target.files[0].type.startsWith('video')) {
       files.forEach(
         (file) =>
-        (file.imagePreview =
-          'https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg')
+          (file.imagePreview =
+            'https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg')
       );
     } else {
       files.forEach((file) => (file.imagePreview = URL.createObjectURL(file)));
@@ -161,13 +165,13 @@ export default function ProfileCreate() {
   useEffect(() => {
     fetchuserData();
   }, []);
-  console.log(id,'id')
+  console.log(id, 'id');
   const fetchuserData = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/users/${id}`
     );
     setUserData(res.data);
-    console.log(res,'res usrDaata')
+    console.log(res, 'res usrDaata');
   };
   // handle click event of the Remove button
   const handleRemoveClick = (index) => {
@@ -262,7 +266,7 @@ export default function ProfileCreate() {
           return res.json();
         })
         .then((res) => {
-          console.log(res,'create profile res');
+          console.log(res, 'create profile res');
           fetch(
             `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
             {
@@ -286,7 +290,6 @@ export default function ProfileCreate() {
             history.goBack();
             setMessage('Profile made successfully');
             setOpen(true);
-            
           }
         });
     } catch (err) {
@@ -451,8 +454,9 @@ export default function ProfileCreate() {
                 <div className="radio-container-register">
                   <h3 style={{ color: '#6097BF' }}>מין *</h3>
                   <div
-                    className={`${selectedGender === 'male' && 'register-active'
-                      } radio-input-container-register`}
+                    className={`${
+                      selectedGender === 'male' && 'register-active'
+                    } radio-input-container-register`}
                     onClick={() => setSelectedGender('male')}
                   >
                     <input
@@ -467,8 +471,9 @@ export default function ProfileCreate() {
                     <label htmlFor="male">ז</label>
                   </div>
                   <div
-                    className={`${selectedGender === 'female' && 'register-active'
-                      } radio-input-container-register`}
+                    className={`${
+                      selectedGender === 'female' && 'register-active'
+                    } radio-input-container-register`}
                     onClick={() => setSelectedGender('female')}
                   >
                     <input
@@ -483,8 +488,9 @@ export default function ProfileCreate() {
                     <label htmlFor="female">נ</label>
                   </div>
                   <div
-                    className={`${selectedGender === 'other' && 'register-active'
-                      } radio-input-container-register`}
+                    className={`${
+                      selectedGender === 'other' && 'register-active'
+                    } radio-input-container-register`}
                     onClick={() => setSelectedGender('other')}
                   >
                     <input
@@ -587,16 +593,22 @@ export default function ProfileCreate() {
                 <div>
                   <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
                   <Popup
-                    trigger={<div className="press-explain-4 pointer">+ לחץ להסבר</div>}
+                    trigger={
+                      <div className="press-explain-4 pointer">+ לחץ להסבר</div>
+                    }
                     modal
                     nested
                   >
-                    {close => (
+                    {(close) => (
                       <div className="modal">
                         <button className="close" onClick={close}>
                           &times;
                         </button>
-                        <img src={LifeAxisImg} className="life-axis-img" alt=''></img>
+                        <img
+                          src={LifeAxisImg}
+                          className="life-axis-img"
+                          alt=""
+                        ></img>
                       </div>
                     )}
                   </Popup>
@@ -677,17 +689,24 @@ export default function ProfileCreate() {
                   style={{ marginTop: '70px' }}
                 >
                   <h1>מיקום הקבר</h1>
-                  <Popup className='pop'
-                    trigger={<div className="press-explain-3 pointer">+ לחץ להסבר</div>}
+                  <Popup
+                    className="pop"
+                    trigger={
+                      <div className="press-explain-3 pointer">+ לחץ להסבר</div>
+                    }
                     modal
                     nested
                   >
-                    {close => (
+                    {(close) => (
                       <div className="modal">
                         <button className="close" onClick={close}>
                           &times;
                         </button>
-                        <img src={graveLocationImg} className="grave-location-img" alt=''></img>
+                        <img
+                          src={graveLocationImg}
+                          className="grave-location-img"
+                          alt=""
+                        ></img>
                       </div>
                     )}
                   </Popup>
@@ -728,7 +747,7 @@ export default function ProfileCreate() {
                       type="file"
                       onChange={onChangeGrave}
                       name="coverImg"
-                      style={{ marginRight: '38%' }}
+                      style={{ width: '300px' }}
                     />
                   </div>
                 </div>
@@ -741,8 +760,9 @@ export default function ProfileCreate() {
                       paddingRight: '10px',
                       paddingLeft: '10px',
                     }}
-                    className={`${selectedPrivacy === 'private' && 'register-active'
-                      } radio-input-container-register`}
+                    className={`${
+                      selectedPrivacy === 'private' && 'register-active'
+                    } radio-input-container-register`}
                     onClick={() => setSelectedPrivacy('private')}
                   >
                     <input
@@ -762,8 +782,9 @@ export default function ProfileCreate() {
                       paddingRight: '10px',
                       paddingLeft: '10px',
                     }}
-                    className={`${selectedPrivacy === 'public' && 'register-active'
-                      } radio-input-container-register`}
+                    className={`${
+                      selectedPrivacy === 'public' && 'register-active'
+                    } radio-input-container-register`}
                     onClick={() => setSelectedPrivacy('public')}
                   >
                     <input
@@ -778,10 +799,17 @@ export default function ProfileCreate() {
                     <label htmlFor="public">פומבי</label>
                   </div>
                 </div>
-
-                <button className="create-btn" type="submit">
-                  שמור
-                </button>
+                {submitted ? (
+                  <button className="create-btn submitted">נשמר</button>
+                ) : (
+                  <button
+                    className="create-btn"
+                    type="submit"
+                    onClick={setSubmitted(true)}
+                  >
+                    שמור
+                  </button>
+                )}
               </form>
             </div>
           </div>

@@ -12,6 +12,7 @@ const Contact = () => {
   const form = useRef();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
   const handleClose = () => {
     setOpen(false);
     setMessage('');
@@ -20,10 +21,10 @@ const Contact = () => {
     e.preventDefault();
     emailjs
       .sendForm(
-        'service_a5sxqbr',
-        'template_is3zage',
+        'service_1unhwqh',
+        'template_c5vu8up',
         form.current,
-        'user_n6k8WK1Ql3fToMiGcyIRm'
+        'Vvq3N8J0fr4iu32Gs'
       )
       .then(
         (result) => {
@@ -44,12 +45,12 @@ const Contact = () => {
         <div className="contact">
           <h3 className="contact-title">צור קשר</h3>
         </div>
-        <div>
+        <div className="names-container-contact">
           <input
             id="first-name"
             className="register-contact-inline"
             required
-            placeholder="*שם משפחה"
+            placeholder="*שם פרטי"
             name="firstName"
             type="text"
           />
@@ -57,7 +58,7 @@ const Contact = () => {
             id="last-name"
             className="register-contact-inline"
             required
-            placeholder="*שם פרטי"
+            placeholder="*שם משפחה"
             name="lastName"
             type="text"
           />
@@ -96,10 +97,14 @@ const Contact = () => {
             placeholder=" טקסט חופשי..."
           />
         </div>
+        {submitted ? (
+          <button className="contact-send submitted">נשלח</button>
+        ) : (
+          <button className="contact-send" type="submit">
+            שליחה
+          </button>
+        )}
 
-        <button className="contact-send" type="submit">
-          שליחה
-        </button>
         <img src={Arrow1} className="arrow" alt=""></img>
       </form>
       <SnackBar open={open} handleClose={handleClose} message={message} />

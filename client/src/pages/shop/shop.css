@@ -98,6 +98,12 @@
   width: 400px;
   background-color: #6097BF;
   color: white;
+  transition: ease-in-out 500ms;
+}
+.register-plans-payment:hover {
+  background-color: #fff;
+  color: #6097bf;
+  border: 1px solid #6097bf;
 }
 .arrow1-plans-payment {
   margin-bottom: 30px;

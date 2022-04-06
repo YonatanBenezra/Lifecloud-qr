@@ -29,12 +29,12 @@
     background-color: #fff;
     border: none;
   }
-#first-name{
-    margin-right: 15px;
-    }
-#last-name {
-    margin-left: 15px;
-    }
+  .names-container-contact {
+    direction: rtl;
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+  }
 #free-text{
     padding-top: 18px;
     padding-bottom: 18px;
@@ -52,7 +52,12 @@
     font-weight: 600;
     width: 600px;
     background-color: #6097BF;
-    color: white;
+    color: #fff;
+    transition: ease-in-out 500ms;
+}
+.contact-send:hover {
+  background-color: #fff;
+    color: #6097BF;
 }
 .arrow{
     transform: rotate(180deg);

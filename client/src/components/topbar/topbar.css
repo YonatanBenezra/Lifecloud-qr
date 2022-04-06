@@ -23,21 +23,29 @@
   display: flex;
   align-items: center;
 }
-.ResultBoxMain {
-  width: 120%;
+.result-box-main {
+  width: 100%;
   border-radius: 8px;
-  background: aquamarine;
+  background: #fff;
   position: absolute;
+  max-height: 120px;
+  overflow: auto;
 }
-.ResultBox {
+.result-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: aquamarine;
   padding: 7px;
-  cursor: pointer;
 }
-
+.result-box span {
+  cursor: pointer;
+  transition: ease-in-out 500ms;
+}
+.result-box:hover span{
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #6097bf;
+}
 .logo {
   height: 35px;
   font-size: 24px;
@@ -113,12 +121,20 @@
   margin-right: 40px;
   font-size: 20px;
   cursor: pointer;
-  font-family: 'os_luizi' !important;
   font-weight: 600;
+  transition: ease-in-out 500ms;
+}
+
+.topbarLink:hover {
+  color: #abc9db !important;
 }
 
 .topbarIcons {
   display: flex;
+}
+
+.topbar-active {
+  color: #abc9db !important;
 }
 
 .topbarIconItem {

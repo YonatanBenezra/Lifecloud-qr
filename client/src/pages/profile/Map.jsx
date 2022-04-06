@@ -3,11 +3,9 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import useGeoLocation from '../../hooks/useGeoLocation';
 
 const containerStyle = {
-  width: '800px',
-  height: '600px',
+  width: '400px',
+  height: '200px',
 };
-
-const center = { lat: 30.92, lng: 34.82 };
 
 function Map({ position, setPosition }) {
   const { location, getGeoLocation } = useGeoLocation(null);
@@ -33,8 +31,8 @@ function Map({ position, setPosition }) {
       <LoadScript googleMapsApiKey="AIzaSyD9pgeqLi_nElWfwzmIOH9g_SNe5vKhhLk">
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={currentLocation || center}
-          zoom={currentLocation ? 8 : 5}
+          center={position}
+          zoom={currentLocation ? 12 : 8}
           onClick={onLoad}
         >
           <Marker position={position} />

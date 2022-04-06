@@ -17,6 +17,7 @@ export default function MainProfileCreate() {
   const [image, setImage] = useState(null);
   const [coverData, setCoverData] = useState(null);
   const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
       console.log('picture: ', e.target.files);
@@ -67,7 +68,6 @@ export default function MainProfileCreate() {
   const handlePrivacyChange = (e) => {
     setSelectedPrivacy(e.target.value);
   };
-
 
   // console.log(hebBirthDate.current.value)
   const handleClick = async (e) => {
@@ -172,9 +172,7 @@ export default function MainProfileCreate() {
           <div className="loginRight">
             <div className="RegBox">
               <form className="profile-creation-box" onSubmit={handleClick}>
-                <div
-                  className="profile-creation-names-container organisation-name"
-                >
+                <div className="profile-creation-names-container organisation-name">
                   <input
                     placeholder="*שם"
                     ref={firstName}
@@ -308,9 +306,13 @@ export default function MainProfileCreate() {
                   </div>
                 </div>
 
-                <button className="create-btn" type="submit">
-                  שמור
-                </button>
+                {submitted ? (
+                  <button className="create-btn submitted">נשמר</button>
+                ) : (
+                  <button className="create-btn" type="submit">
+                    שמור
+                  </button>
+                )}
               </form>
             </div>
           </div>

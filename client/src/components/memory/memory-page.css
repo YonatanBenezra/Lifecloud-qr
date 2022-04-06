@@ -22,11 +22,9 @@
   width: 32vw;
 }
 .bottom-cloud {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 0;
   width: 32vw;
+  margin-right: 67.7%;
+  height: 16%;
 }
 .single-memory-img {
   border-radius: 15px;
@@ -64,6 +62,15 @@
   border: 1px solid;
   border-radius: 15px;
   padding: 7px;
+  margin-bottom: 1rem;
+  width: 80%;
+  margin-left: 10%;
+  direction: rtl;
+  color: #abc9db;
+}
+.comment-text {
+  font-weight: 600;
+  color: #6097BF;
 }
 .comment-container .subtitle-continer {
   display: flex;
@@ -71,7 +78,8 @@
 }
 
 .comment-subcontainer p {
-  margin-left: 5px;
+  margin: 0;
+  padding: 10px;
 }
 .comment-subcontainer {
   display: flex;
@@ -86,6 +94,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: ease-in-out 500ms;
+}
+.memory-btn-hover:hover {
+  background: #fff;
+  color: #6097BF;
+  border: 1px solid #6097BF;
 }
 
 input.comment-input {
@@ -95,6 +109,9 @@ input.comment-input {
   border-radius: 10px;
   padding: 0 12px;
   font-size: 17px;
+}
+.left-arrow {
+  transform: rotate(180deg);
 }
 
 .action-btns {
@@ -113,7 +130,9 @@ input.comment-input {
   color: #fff;
 }
 .action-btns-container {
+  width: 80%;
   padding-top: 1rem;
+  margin-left: 10%;
 }
 .dlt-comment-btn {
   margin-top: 1rem;
@@ -125,4 +144,7 @@ input.comment-input {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.image-container {
+  height: 35vh;
 }

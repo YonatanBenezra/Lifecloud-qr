@@ -50,15 +50,13 @@ app.patch(
     const { _id: userId } = req.body;
     const { filename } = req.file;
 
-    await User.findOneAndUpdate(
+    const response = await User.findOneAndUpdate(
       { _id: ObjectId(userId) },
       { mainProfilePicture: filename },
       { new: true }
     );
 
-    res.json({
-      message: 'profile picture updated',
-    });
+    res.json(response);
   }
 );
 

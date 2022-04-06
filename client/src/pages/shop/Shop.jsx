@@ -6,20 +6,19 @@ import Topbar from '../../components/topbar/Topbar';
 import whiteLogo from '../../assets/whiteLogo.png';
 import { AuthContext } from '../../context/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
-import Arrow1 from '../../assets/Arrow1.png'
-import basic1 from '../../assets/basic1.png'
-import basic2 from '../../assets/basic2.png'
-import standart2 from '../../assets/standart2.png'
-import Premium1 from '../../assets/Premium1.png'
-import Product from '../../components/shop/Product'
-import flowersImg from '../../assets/product_flowers.jpg'
-import woodPrintImg from '../../assets/product_wood_print.jpg'
-import qrImg from '../../assets/product_qr.jpg'
+import Arrow1 from '../../assets/Arrow1.png';
+import basic1 from '../../assets/basic1.png';
+import basic2 from '../../assets/basic2.png';
+import standart2 from '../../assets/standart2.png';
+import Premium1 from '../../assets/Premium1.png';
+import Product from '../../components/shop/Product';
+import flowersImg from '../../assets/product_flowers.jpg';
+import woodPrintImg from '../../assets/product_wood_print.jpg';
+import qrImg from '../../assets/product_qr.jpg';
 import emailjs from '@emailjs/browser';
 import SnackBar from '../../components/snackbar/SnackBar';
 
 const Shop = () => {
-
   const form = useRef();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -47,27 +46,39 @@ const Shop = () => {
         }
       );
   };
-  
+
   const history = useHistory();
   const { myFirebase, user } = useContext(AuthContext);
-  
-  
+
   const [showSelected, setShowSelected] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const [submitedOption, setSubmitedOption] = useState()
-  const [submitedSubOption, setSubmitedSubOption] = useState()
-  const [productPrice, setProductPrice] = useState(0)
+  const [submitedOption, setSubmitedOption] = useState();
+  const [submitedSubOption, setSubmitedSubOption] = useState();
+  const [productPrice, setProductPrice] = useState(0);
 
-  useEffect(() => { productPrice && setShowSelected(true)} , [productPrice]);
-  useEffect(() => { console.log('submitedSubOption useEffect changed', submitedSubOption)} , [submitedSubOption]);
+  useEffect(() => {
+    productPrice && setShowSelected(true);
+  }, [productPrice]);
+  useEffect(() => {
+    console.log('submitedSubOption useEffect changed', submitedSubOption);
+  }, [submitedSubOption]);
 
-  useEffect(() => { submitedSubOption && sumbitProductPrice() } , [submitedSubOption]);
-  useEffect(() => { submitedOption && sumbitProductPrice() } , [submitedOption]);
+  useEffect(() => {
+    submitedSubOption && sumbitProductPrice();
+  }, [submitedSubOption]);
+  useEffect(() => {
+    submitedOption && sumbitProductPrice();
+  }, [submitedOption]);
 
-
-
-
+  const handleBack = () => {
+    setShowSelected(false);
+    setSelectedProduct();
+    setSelectedQuantity(1);
+    setSubmitedOption();
+    setSubmitedSubOption();
+    setProductPrice(0);
+  };
   const handleOnClick = async () => {
     await myFirebase.saveUser({ ...user, user_type: 'paid' }, 'PUT');
     history.push('/');
@@ -77,24 +88,28 @@ const Shop = () => {
     history.push('/');
   };
 
-  const submit = (product, selectedOption, selectedSubOption) => {        
+  const submit = (product, selectedOption, selectedSubOption) => {
     // console.log('submitted product', product)
     // console.log('submitted selectedOption', selectedOption)
     // console.log('selectedSubOption product', selectedSubOption)
-    setSelectedProduct(product)
-    setSubmitedOption(selectedOption)
-    selectedSubOption && setSubmitedSubOption(selectedSubOption)    
-  }
-  
+    setSelectedProduct(product);
+    setSubmitedOption(selectedOption);
+    selectedSubOption && setSubmitedSubOption(selectedSubOption);
+  };
+
   const sumbitProductPrice = () => {
-    console.log('sumbitProductPrice submitedSubOption ', submitedSubOption)
-    setProductPrice(submitedSubOption ? submitedSubOption.price : (submitedOption ? submitedOption.price : selectedProduct.price))
-  }
+    console.log('sumbitProductPrice submitedSubOption ', submitedSubOption);
+    setProductPrice(
+      submitedSubOption
+        ? submitedSubOption.price
+        : submitedOption
+        ? submitedOption.price
+        : selectedProduct.price
+    );
+  };
 
-
-
-
-  const tempText = "םינוגריאל יגעכחיג כגחיכחג  םינוגריאל יגעכחיג כגחיכחגי כעכע  םינוגריאל יגעכחיג"
+  const tempText =
+    'םינוגריאל יגעכחיג כגחיכחג  םינוגריאל יגעכחיג כגחיכחגי כעכע  םינוגריאל יגעכחיג';
   const products = [
     {
       name: 'פרחים',
@@ -110,26 +125,26 @@ const Shop = () => {
             {
               optName: 'זר 1',
               price: 179,
-              img: flowersImg
+              img: flowersImg,
             },
             {
               optName: 'זר 2',
               price: 222,
-              img: flowersImg
+              img: flowersImg,
             },
             {
               optName: 'זר 3',
               price: 333,
-              img: flowersImg
+              img: flowersImg,
             },
-          ]
+          ],
         },
         {
           optName: 'opt2',
           img: flowersImg,
-          price: 321
-        }
-      ]
+          price: 321,
+        },
+      ],
     },
     {
       name: 'תמונות על עץ',
@@ -140,19 +155,19 @@ const Shop = () => {
         {
           optName: 'opt1',
           img: woodPrintImg,
-          price: 111          
+          price: 111,
         },
         {
           optName: 'opt2',
           img: woodPrintImg,
-          price: 222
-        }
-        ,{
+          price: 222,
+        },
+        {
           optName: 'opt3',
           img: woodPrintImg,
-          price: 333
-        }
-      ]
+          price: 333,
+        },
+      ],
     },
     {
       name: 'שרשרת qr',
@@ -163,78 +178,76 @@ const Shop = () => {
         {
           optName: 'opt1',
           img: qrImg,
-          price: 111
+          price: 111,
         },
         {
           optName: 'opt2',
           img: qrImg,
-          price: 222
-        }
-        ,{
+          price: 222,
+        },
+        {
           optName: 'opt3',
           img: qrImg,
-          price: 333
-        }
-      ]
+          price: 333,
+        },
+      ],
     },
-  ]
-  
+  ];
 
   return (
     <>
       <Topbar />
       {showSelected ? (
-      <div className="plans-main-container">
-        <div className="plans">
-          <h3 className="plans-logo">תשלומים ותכניות</h3>
-        </div>
-        <div className="change-plan">
-          <h3 onClick={() => setShowSelected(false)} className="pointer">
-            {' '}
-            +שנה תוכנית
-          </h3>
-        </div>
+        <div className="plans-main-container">
+          <div className="plans">
+            <h3 className="plans-logo">תשלומים ותכניות</h3>
+          </div>
+          <div className="change-plan">
+            <h3 onClick={() => handleBack()} className="pointer">
+              {' '}
+              חזור לדף המוצרים
+            </h3>
+          </div>
 
-        <div className="register-plans">
-          <span className='register-plan-type'>סוג תכניות: </span>
-           {selectedProduct.name}
-        </div>
-        
-        <div className="register-plans">
-          <span className='register-plan-type'>מחיר: </span>
-          ₪{productPrice}
-        </div>
+          <div className="register-plans">
+            <span className="register-plan-type">סוג תכניות: </span>
+            {selectedProduct.name}
+          </div>
 
-        <div className="register-plans">
-          <span className='register-plan-type'>כמות: </span>
-          {selectedQuantity}
-        </div>
+          <div className="register-plans">
+            <span className="register-plan-type">מחיר: </span>₪{productPrice}
+          </div>
 
-        <div className="register-plans">
-          <span className='register-plan-type'>מע"מ: </span>
-          ₪{(productPrice * 0.18) * selectedQuantity}
-        </div>
+          <div className="register-plans">
+            <span className="register-plan-type">כמות: </span>
+            {selectedQuantity}
+          </div>
 
-        <div className="register-plans">
-          <span className='register-plan-type'>סכום כולל: </span>
-          ₪{productPrice * selectedQuantity * 1.18}
-        </div>
+          <div className="register-plans">
+            <span className="register-plan-type">מע"מ: </span>₪
+            {productPrice * 0.18 * selectedQuantity}
+          </div>
 
-        <div className="register-plans">
-          <span className='register-plan-type'>הסבר: </span>
-          {selectedProduct.text}
-        </div> 
-        
-        <div className="payment-method">
-          <h3 className="payment-logo">אמצעי תשלום</h3>
+          <div className="register-plans">
+            <span className="register-plan-type">סכום כולל: </span>₪
+            {productPrice * selectedQuantity * 1.18}
+          </div>
+
+          <div className="register-plans">
+            <span className="register-plan-type">הסבר: </span>
+            {selectedProduct.text}
+          </div>
+
+          <div className="payment-method">
+            <h3 className="payment-logo">אמצעי תשלום</h3>
+          </div>
+          <button className="register-plans-payment">המשך לתשלום</button>
+          <img src={Arrow1} className="arrow1-plans-payment" alt=""></img>
         </div>
-        <button className="register-plans-payment" >המשך לתשלום</button>
-        <img src={Arrow1} className='arrow1-plans-payment' alt=''></img>
-      </div>
-      ) : ( 
-          <div className="plans-section">
-            <h1 className="plans-title">חנות</h1>                        
-            {/* <div className="plans-container"> 
+      ) : (
+        <div className="plans-section">
+          <h1 className="plans-title">חנות</h1>
+          {/* <div className="plans-container"> 
               <div className="plan-container">
                 <img src={basic2} alt=""></img>
                 <h1 className="plan-title">LifeBook</h1>
@@ -253,18 +266,19 @@ const Shop = () => {
               </div>
             </div> */}
 
-            <div className='products-container'>
-              {products.map((p, i) => (
-                <Product product={p} {...p} key={i} 
-                submit={submit} 
+          <div className="products-container">
+            {products.map((p, i) => (
+              <Product
+                product={p}
+                {...p}
+                key={i}
+                submit={submit}
                 setSelectedQuantity={setSelectedQuantity}
-                />)
-              )}
-            </div>
-
-
+              />
+            ))}
           </div>
-      ) }
+        </div>
+      )}
       <SocialFooter backgroundColor="#dcecf4" color="#6097bf" />
       <Footer />
     </>
