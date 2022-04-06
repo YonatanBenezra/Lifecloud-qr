@@ -1,8 +1,8 @@
 import './App.css';
 import Home from './pages/home/Home';
-import About from './pages/about/About';
-import Login from './pages/login/Login';
-import Register from './pages/register/Register';
+import About from './pages/about/AboutMain';
+import Login from './pages/login/MainLogin';
+import Register from './pages/register/MainRegister';
 import ProfileEdit from './pages/profile/edit-proile';
 import ProfileCreate from './pages/profile/ProfileCreate';
 import MainProfileCreate from './pages/profile/MainProfileCreate';

@@ -194,3 +194,23 @@
 input::placeholder {
   color: #abc9db;
 }
+
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+  .mobile{
+    display: block;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: block;
+  } 
+ 
+}
