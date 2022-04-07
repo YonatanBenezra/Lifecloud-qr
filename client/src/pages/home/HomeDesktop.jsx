@@ -47,7 +47,6 @@ const HomeDesktop = (props) => {
       </div>
       <div className="search-container-home-desktop">
         <div className="searchbar-container-home-desktop">
-          {/* <div className="searchbar-container-home-desktop"> */}
           <input
             type="text"
             placeholder="חיפוש מנוח/עמותה..."
@@ -55,7 +54,6 @@ const HomeDesktop = (props) => {
             onChange={(e) => setSearchText(e.target.value)}
           />
           <Search className="searchIcon" />
-          {/* </div> */}
         </div>
         <Sidebar> </Sidebar>
       </div>
