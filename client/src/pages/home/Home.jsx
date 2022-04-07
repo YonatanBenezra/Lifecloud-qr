@@ -8,21 +8,6 @@ import HomeDesktop from './HomeDesktop';
 import HomeMobile from './HomeMobile';
 const Home = () => {
   const { user } = useContext(AuthContext);
-  const [searchData, setSearchData] = useState([]);
-
-  const handleSearch = async (e) => {
-    const { value } = e.target;
-    console.log(value);
-    if (value.length === 0 || value.trim() === '' || value === null) {
-      return false;
-    } else {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/profile/searchProfile/${value}`
-      );
-      setSearchData(res.data);
-    }
-  };
-
   const settings = {
     dots: true,
     infinite: true,
@@ -103,20 +88,33 @@ const Home = () => {
     ],
   };
 
-  
-  console.log()
-  if (!searchData.length) {
-    return <div>
-      <div style={{ cursor: 'default' }} className="desktop">
-        <HomeDesktop handleSearch={handleSearch} user={user} testimonialSettings={testimonialSettings} settings={settings} searchData={searchData} setSearchData={setSearchData} />
-      </div>
-      <div style={{ cursor: 'default' }} className="mobile">
-        <HomeMobile handleSearch={handleSearch} user={user} testimonialSettings={testimonialSettings} settings={settings} searchData={searchData} setSearchData={setSearchData}/>
-      </div>
+  const [searchData, setSearchData] = useState([]);
+  const handleSearch = async (e) => {
+    const { value } = e.target;
+    console.log(value);
+    if (value.length === 0 || value.trim() === '' || value === null) {
+      return false;
+    } else {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/profile/searchProfile/${value}`
+      );
+      setSearchData(res.data);
+    }
+  };
+  return (
+    <div>
+
+    <div style={{ cursor: 'default' }} className="desktop">
+      <HomeDesktop handleSearch={handleSearch} user={user} testimonialSettings={testimonialSettings} settings={settings} searchData={searchData} setSearchData={setSearchData} />
     </div>
-  } else {
-    return <SearchResults results={searchData} setSearchData={setSearchData}/>
-  }  
+
+
+<div style={{ cursor: 'default' }} className="mobile">
+<HomeMobile handleSearch={handleSearch} user={user} testimonialSettings={testimonialSettings} settings={settings} searchData={searchData} setSearchData={setSearchData}/>
+</div>
+</div>
+
+  );
 };
 
 export default Home;
