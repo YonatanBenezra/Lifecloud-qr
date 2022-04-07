@@ -73,7 +73,7 @@ const HomeDesktop = (props) => {
             .כל אדם הוא עולם ומלואו שראוי שסיפור חייו ייזכר ויונצח לעד
           </h2>
           <h2 style={{ color: '#ABC9DB', fontSize: '30px', marginTop: '1rem' }}>
-            Moments . Community . Legacy
+            Moments • Community • Legacy
           </h2>
         </div>
         <div className="text-section-container-desktop-home">

@@ -1,4 +1,4 @@
-.policy-container{
+.policy-container {
   display: flex;
   margin-block-end: auto;
   align-items: center;
@@ -13,23 +13,28 @@
 }
 
 .item{
- margin-bottom: 5px;
- padding: 10px 20px;
+  margin-bottom: 5px;
+  padding: 4px 0px;
   color: #6097bf;
+
 }
 .span2 {
-  font-size: 2.0rem;
+  /* font-size: 2.0rem; */
   margin: 0 5px;
 }
 
-.title {
+.policy-container .title {
   color: #6097BF;
   direction: rtl;
   display: flex;
   align-items: center;
   text-align: right;
   cursor: pointer;
-  /* margin-bottom: 12px; */
+  margin-bottom: 12px;
+}
+.policy-container .title h2,
+.policy-container .title .span2 {
+  font-size: 2rem;
 }
 
 .content{
@@ -62,15 +67,20 @@
   justify-content: center;
 }
 
-.answer-paragraph,
+.answer-paragraph {
+  margin-bottom: 12px;
+}
 .section-title {
   margin-bottom: 12px;
 }
 
 .answer-paragraph.small-text {
   font-size: 1.2rem;
+  padding: 0 12px;
 }
-.answer-paragraph.small-text:first-child {
-  margin-bottom: 0;
-
+.answer-paragraph.no-margin {
+  margin: 0;
+}
+.answer-paragraph.bold {
+  font-weight: bold;
 }
