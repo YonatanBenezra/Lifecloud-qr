@@ -1,0 +1,150 @@
+.memory-page {
+  height: 100vh;
+  min-width: 100vw;
+  background: #fff;
+  color: #6097bf;
+  text-align: center;
+  overflow-y: auto;
+}
+.close-btn {
+  margin: 2rem 0;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+.close-btn img {
+  height: 15px;
+}
+.top-cloud {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  width: 32vw;
+}
+.bottom-cloud {
+  width: 32vw;
+  margin-right: 67.7%;
+  height: 16%;
+}
+.single-memory-img {
+  border-radius: 15px;
+  height: 40vh;
+  width: 60vw;
+}
+.single-memory-content-container {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  margin: auto;
+  height: 100%;
+}
+
+.memory-page .icons-container {
+  width: 220px;
+  margin: -64px auto;
+}
+
+.single-memory-text {
+  padding-top: 1rem;
+}
+.comments-container {
+  padding-top: 2rem;
+}
+.comment-img {
+  height: 50px;
+  border-radius: 100%;
+  width: 50px;
+}
+.comment-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid;
+  border-radius: 15px;
+  padding: 7px;
+  margin-bottom: 1rem;
+  width: 80%;
+  margin-left: 10%;
+  direction: rtl;
+  color: #abc9db;
+}
+.comment-text {
+  font-weight: 600;
+  color: #6097BF;
+}
+.comment-container .subtitle-continer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-subcontainer p {
+  margin: 0;
+  padding: 10px;
+}
+.comment-subcontainer {
+  display: flex;
+  align-items: center;
+}
+.comment-btn {
+  width: 100%;
+  height: 50px;
+  color: #fff;
+  background: #abc9db;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: ease-in-out 500ms;
+}
+.memory-btn-hover:hover {
+  background: #fff;
+  color: #6097BF;
+  border: 1px solid #6097BF;
+}
+
+input.comment-input {
+  width: calc(99% - 24px);
+  height: 41px;
+  border: 1px solid rgb(171, 201, 219);
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: 17px;
+}
+.left-arrow {
+  transform: rotate(180deg);
+}
+
+.action-btns {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.action-btn {
+  width: 48%;
+  height: 50px;
+  background: #abc9db;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.action-btns-container {
+  width: 80%;
+  padding-top: 1rem;
+  margin-left: 10%;
+}
+.dlt-comment-btn {
+  margin-top: 1rem;
+  width: 100%;
+  height: 50px;
+  color: #fff;
+  background: #dcecf4;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-container {
+  height: 35vh;
+}
