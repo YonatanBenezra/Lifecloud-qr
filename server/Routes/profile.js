@@ -44,6 +44,7 @@ ProfileRouter.post(
         birthDate: req.body.birthDate,
         deathDate: req.body.deathDate,
         hebBirthDate: req.body.hebBirthDate,
+        hebDeathDate: req.body.hebDeathDate,
         degree: req.body.degree,
         city: req.body.city,
         wazeLocation: req.body.wazeLocation,
@@ -73,14 +74,13 @@ ProfileRouter.put(
     { name: 'profileImg', maxCount: 1 },
     { name: 'wallImg', maxCount: 1 },
     { name: 'multiplefiles', maxCount: 20 },
+    { name: 'axisImages', maxCount: 99 },
   ]),
   async (req, res) => {
     try {
       //gen new password
 
       const url = req.protocol + '://' + req.get('host');
-      console.log(req.body, 'body');
-      console.log(req.files, 'file');
       //new user
       let multiFiles =
         req.files &&
@@ -88,6 +88,11 @@ ProfileRouter.put(
         req.files.multiplefiles.map((res) => {
           return res.path.slice(7);
         });
+
+      const axisImages = req.files.axisImages?.map((res) => {
+        return res.filename;
+      });
+
       if (req.files.profileImg && req.files.wallImg) {
         var dataSource = {
           originalUser: req.body.originalUser,
@@ -107,6 +112,7 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
+          axisImages: req.body.axisImagesNames.split(','),
         };
       } else if (req.files.wallImg) {
         var dataSource = {
@@ -127,6 +133,7 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
+          axisImages: req.body.axisImagesNames.split(','),
         };
       } else if (req.files.profileImg) {
         var dataSource = {
@@ -147,6 +154,7 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
+          axisImages: req.body.axisImagesNames.split(','),
         };
       } else {
         var dataSource = {
@@ -165,6 +173,7 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
+          axisImages: req.body.axisImagesNames.split(','),
         };
       }
       profileModel.findOneAndUpdate(
@@ -184,7 +193,6 @@ ProfileRouter.put(
           if (err) {
             throw err;
           } else {
-            console.log('Updated', doc);
             res.send(true);
           }
         }
@@ -236,6 +244,7 @@ ProfileRouter.get('/getSingleProfileDetails/:id', (req, res, next) => {
     .populate('originalUser')
     .populate('addFriends.user')
     .populate('addAdmins.user')
+    .populate('friendRequests.user')
     .exec() // key to populate
     .then((resonse) => {
       if (!resonse) {
@@ -247,30 +256,71 @@ ProfileRouter.get('/getSingleProfileDetails/:id', (req, res, next) => {
     });
 });
 
-ProfileRouter.put('/addFriends/:id', async (req, res) => {
+// ProfileRouter.put('/addFriends/:id', async (req, res) => {
+//   console.log(req.params.id,"req")
+//   let profileAccess = await profileModel.findById(req.params.id);
+//   let pullreq = profileAccess.addFriends.find((friend) => {
+//     console.log(friend.user,'friend');
+//     return friend.user == req.body.userId;
+//   });
+//   console.log(pullreq, req.body.userId, 'pro');
+//   if (pullreq && pullreq.user == req.body.userId) {
+//     let result = await profileAccess.updateOne(
+//       {
+//         $pull: {
+//           addFriends: { user: req.body.userId },
+//         },
+//       },
+//       {
+//         upsert: true, //to return updated document
+//       }
+//     );
+//     res.send(profileAccess);
+//   } else {
+//     let result = await profileAccess.updateOne(
+//       {
+//         $push: {
+//           addFriends: {
+//             $each: [{ user: req.body.userId, isFriend: req.body.isFriend }],
+//             $position: -1,
+//           },
+//         },
+//       },
+//       {
+//         upsert: true, //to return updated document
+//       }
+//     );
+//     res.send(profileAccess);
+//   }
+// });
+
+ProfileRouter.put('/addFriendRequests/:id', async (req, res) => {
+  console.log(req.params.id,"req")
   let profileAccess = await profileModel.findById(req.params.id);
-  let pullreq = profileAccess.addFriends.find((friend) => {
-    console.log(friend);
-    return friend.user == req.body.userId;
+  let pullreq = profileAccess.friendRequests.find((friendRequest) => {
+    console.log(friendRequest.user,'friend');
+    return friendRequest.user == req.body.userId;
   });
   console.log(pullreq, req.body.userId, 'pro');
   if (pullreq && pullreq.user == req.body.userId) {
-    let result = await profileAccess.updateOne(
-      {
-        $pull: {
-          addFriends: { user: req.body.userId },
-        },
-      },
-      {
-        upsert: true, //to return updated document
-      }
-    );
-    res.send(profileAccess);
+    // return false
+    // let result = await profileAccess.updateOne(
+    //   {
+    //     $pull: {
+    //       friendRequests: { user: req.body.userId },
+    //     },
+    //   },
+    //   {
+    //     upsert: true, //to return updated document
+    //   }
+    // );
+    res.send('Friend req already sent');
+   
   } else {
     let result = await profileAccess.updateOne(
       {
         $push: {
-          addFriends: {
+          friendRequests: {
             $each: [{ user: req.body.userId, isFriend: req.body.isFriend }],
             $position: -1,
           },
@@ -283,8 +333,8 @@ ProfileRouter.put('/addFriends/:id', async (req, res) => {
     res.send(profileAccess);
   }
 });
-
 ProfileRouter.put('/addAcceptFriends/:id', async (req, res) => {
+  
   try {
     const filter = { _id: req.params.id, 'addFriends._id': req.body.userId };
     const options = { upsert: true };
@@ -306,12 +356,35 @@ ProfileRouter.put('/addAcceptFriends/:id', async (req, res) => {
   // }
 });
 
+// ProfileRouter.put('/addFriendRequest/:id', async (req, res) => {
+//   console.log(req.params.id,"req")
+//   try {
+//     const filter = { _id: req.params.id, 'friendRequests._id': req.body.userId };
+//     const options = { upsert: true };
+//     const updateDoc = {
+//       $set: {
+//         'friendRequests.$.requested': req.body.requested,
+//       },
+//     };
+//     const result = await profileModel.updateOne(filter, updateDoc, options);
+//     res.send(true);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+
+  // res.send('friend request accepted');
+
+  // } catch (err) {
+  //     res.status(500).json(err);
+  // }
+// });
+
 ProfileRouter.put('/addAdmins/:id', async (req, res) => {
   let profileAccess = await profileModel.findById(req.params.id);
   let pullreq = profileAccess.addAdmins.find((friend) => {
     return friend.user == req.body.userId;
   });
-  console.log(pullreq, req.body.userId, 'pro');
+  // console.log(pullreq, req.body.userId, 'pro');
   if (pullreq && pullreq.user == req.body.userId) {
     let result = await profileAccess.updateOne(
       {
@@ -330,6 +403,41 @@ ProfileRouter.put('/addAdmins/:id', async (req, res) => {
         $push: {
           addAdmins: {
             $each: [{ user: req.body.userId, isAdmin: req.body.isAdmin }],
+            $position: -1,
+          },
+        },
+      },
+      {
+        upsert: true, //to return updated document
+      }
+    );
+    res.send(profileAccess);
+  }
+});
+ProfileRouter.put('/addFriends/:id', async (req, res) => {
+  let profileAccess = await profileModel.findById(req.params.id);
+  let pullreq = profileAccess.addAdmins.find((friend) => {
+    return friend.user == req.body.userId;
+  });
+  // console.log(pullreq, req.body.userId, 'pro');
+  if (pullreq && pullreq.user == req.body.userId) {
+    let result = await profileAccess.updateOne(
+      {
+        $pull: {
+          addFriends: { user: req.body.userId, isFriend: req.body.isFriend },
+        },
+      },
+      {
+        upsert: true, //to return updated document
+      }
+    );
+    res.send(profileAccess);
+  } else {
+    let result = await profileAccess.updateOne(
+      {
+        $push: {
+          addFriends: {
+            $each: [{ user: req.body.userId, isFriend: req.body.isFriend }],
             $position: -1,
           },
         },

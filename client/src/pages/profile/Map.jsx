@@ -3,8 +3,8 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import useGeoLocation from '../../hooks/useGeoLocation';
 
 const containerStyle = {
-  width: '400px',
-  height: '200px',
+  width: '800px',
+  height: '600px',
 };
 
 function Map({ position, setPosition }) {

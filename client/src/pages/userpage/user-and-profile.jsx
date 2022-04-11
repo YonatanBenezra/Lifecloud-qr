@@ -18,13 +18,14 @@ export const UserAndprofiles = () => {
   const id = useParams().id;
   const [userId, setId] = useState(id);
 
+
   useEffect(() => {
     (async () => {
       const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/notification/getallNotifications`
       );
-      const currentLoggedUser = JSON.parse(localStorage.getItem('user'));
 
+      const currentLoggedUser = JSON.parse(localStorage.getItem('user'));
       setNotifications(
         res.data
           .filter(
@@ -32,30 +33,36 @@ export const UserAndprofiles = () => {
               notification?.memoryCreatorNotification[0]?.originalUser[0] ===
               currentLoggedUser._id
           )
-          .map((item) => ({
-            date: new Date(item.createdAt).toISOString().slice(0, 10),
-            time: new Date(item.createdAt).toISOString().slice(11, 16),
-            profileImg: `${process.env.REACT_APP_API_URL}/picUploader/${item.logedInUser[0].mainProfilePicture ||
-              item.logedInUser[0].profilePicture
-              }`,
-            action: `${item.logedInUser[0].firstName} create a memory on ${item.memoryCreatorNotification[0].firstName} ${item.memoryCreatorNotification[0].lastName}`,
+          .map((userNotification) => ({
+            date: new Date(userNotification.createdAt)
+              .toISOString()
+              .slice(0, 10),
+            time: new Date(userNotification.createdAt)
+              .toISOString()
+              .slice(11, 16),
+            profileImg: `${process.env.REACT_APP_API_URL}/picUploader/${
+              userNotification.logedInUser[0]?.mainProfilePicture ||
+              userNotification.logedInUser[0]?.profilePicture
+            }`,
+            action:
+              userNotification.notificationType === 'profileVisit'
+                ? `${userNotification.logedInUser[0]?.firstName} visits ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`
+                : `${userNotification.logedInUser[0]?.firstName} create a memory on ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`,
           }))
       );
-      // setData(res.data);
     })();
   }, []);
-
   useEffect(() => {
     fetchuserprofiles();
-    console.log(user)
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${id}`
     );
+    console.log(res.data);
     setData(res.data);
-   
   };
+
   const profileImageRef = useRef(null);
   const onChangePicture = async (event) => {
     const src = URL.createObjectURL(event.target.files[0]);
@@ -85,7 +92,7 @@ export const UserAndprofiles = () => {
                 className="user-name"
                 style={{ direction: 'rtl', flexDirection: 'column' }}
               >
-                 <img
+                <img
                   alt=""
                   src={
                     LoggedUser.user.mainProfilePicture
@@ -101,14 +108,19 @@ export const UserAndprofiles = () => {
                   onChange={onChangePicture}
                   className="user-img-input"
                 />
-                שלום {LoggedUser.user.firstName || LoggedUser.user.companyName}
+                שלום {LoggedUser.user.firstName}
               </h1>
               <div className="notifications-btn" onClick={() => setShow(true)}>
                 התראות
               </div>
+              {/* <p className='user-description'>
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s,{' '}
+            </p> */}
             </div>
             <div className="profiles-container">
-              {user.user_type == "organisation" && (
+            {user.user_type == "organisation" && (
                   data?.length > 0 ? (
                   data?.map((userProfiles, i) => {
                     if (userProfiles.isMain) {

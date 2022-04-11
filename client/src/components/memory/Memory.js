@@ -29,7 +29,7 @@ const Memory = ({
     <div className="memory-page">
       <div className="single-memory-content-container">
         <div className="single-memory-subcontainer">
-          <h1 className="single-memory-title">{profile.firstName} {profile.lastName} | {moment(data.createdAt).utc().format('YYYY-DD-MM')}</h1>{' '}
+          <h1 className="single-memory-title">{profile.firstName} {profile.lastName} | {moment(data.createdAt).utc().format('DD-MM-YYYY')}</h1>{' '}
           {/* add the title prome profiledata memory with the memory index */}
           <div className='image-container'>
             <img
@@ -76,7 +76,7 @@ const Memory = ({
                       alt=""
                       className="comment-img"
                     />
-                    <p>{moment(comment.date).utc().format('YYYY-DD-MM-HHHH')}</p>|
+                    <p>{moment(comment.date).utc().format('DD-MM-YYYY-HHHH')}</p>|
                     <p>{`${data.firstName} ${data.lastName}`}</p>|
                     {/* <p>{comment.uploaderName}:</p> */}
                     <p className='comment-text'>{comment.text}</p>

@@ -14,7 +14,6 @@ import './profiledetails.css';
 import TopBar from '../../components/topbar/Topbar';
 import ProgressBar from '../../components/progressbar/progressBar';
 import { Gallery } from '../../components/gallery/gallery';
-// import { AuthContext } from '../../context/AuthContext';
 import { useParams, useLocation } from 'react-router';
 import Memory from '../../components/memory/Memory';
 import Popup from 'reactjs-popup';
@@ -32,6 +31,7 @@ import moment from 'moment';
 
 import Map from './Map';
 import Direction from './Direction';
+
 export default function Profile() {
   const { dispatch } = useContext(AuthContext);
   const [profiledata, setProfileData] = useState([]);
@@ -49,6 +49,57 @@ export default function Profile() {
   const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
   const [next, setnext] = useState(4);
+  const [users, setUsers] = useState([]);
+  const { user } = useContext(AuthContext);
+  const [hebMemorialDate, setHebMemorialDate] = useState('');
+  const location = useLocation();
+
+  const handleDeathDateBlur = async () => {
+    const death = new Date(profiledata?.deathDate);
+
+    const date = death.getDate();
+    const year = new Date().getFullYear();
+    const month = death.getMonth();
+
+    const response = await fetch(
+      `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${
+        month + 1
+      }&gd=${date}&g2h=1`
+    );
+    const data = await response.json();
+    setHebMemorialDate(data.hebrew);
+  };
+
+  const handleAddFriendRequest = (e) => {
+    // setuserid(e)
+
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/profile/addFriendRequests/${profiledata._id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({
+          isFriend: false,
+          userId: user._id,
+          // profileImg: user.mainProfilePicture,
+          // firstName: profiledata.firstName,
+          // lastName: profiledata.lastName,
+
+          // userId: e._id,
+          // user: e.user[0]._id,
+          user: user._id,
+        }),
+      }
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setrfriendReq(res);
+      });
+  };
 
   const handleShowMoreMemories = () => {
     setnext(next + 1);
@@ -60,12 +111,13 @@ export default function Profile() {
   }, [likeMessage, comment, DellComment, friendFlagReq, adminFlagReq]);
   useEffect(() => {
     fetchuserprofiles();
-  }, []);
-
+  }, [friendFlagReq, adminFlagReq]);
   useEffect(() => {
     fetchmemories();
   }, [comment, likeMessage]);
-
+  useEffect(() => {
+    handleDeathDateBlur();
+  }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
@@ -82,16 +134,22 @@ export default function Profile() {
     );
     setmemoryData(res.data);
   };
-
+  const fetchUsers = async () => {
+    // const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/all/every`);
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/users/getSingleUser/${profiledata.originalUser[0]._id}`
+    );
+    setUsers(res.data);
+  };
   useEffect(() => {
     fetchmemories();
   }, [comment, likeMessage]);
   let parseAxios = Object.keys(profiledata).length
-      ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
-      : '';
-    profiledata?.axisImages?.forEach((element, i) => {
-      parseAxios[i].axisImage = element;
-    });
+    ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
+    : '';
+  profiledata?.axisImages?.forEach((element, i) => {
+    parseAxios[i].axisImage = element;
+  });
   const handleLike = (e) => {
     try {
       const formdata = new FormData();
@@ -126,7 +184,6 @@ export default function Profile() {
 
   //
   const handleComment = (e) => {
-    console.log(e);
     try {
       fetch(`${process.env.REACT_APP_API_URL}/api/memory/comment/${e._id}`, {
         method: 'PUT',
@@ -166,7 +223,6 @@ export default function Profile() {
   };
 
   const handleDelete = (e, id) => {
-    console.log(e, id);
     fetch(`${process.env.REACT_APP_API_URL}/api/memory/commentdell/${id}`, {
       method: 'DELETE',
       headers: {
@@ -188,7 +244,6 @@ export default function Profile() {
       });
   };
   const handleDellMemory = (e) => {
-    console.log(e, 'e');
     fetch(
       `${process.env.REACT_APP_API_URL}/api/memory/commentdellOBJ/${e._id}`,
       {
@@ -209,6 +264,7 @@ export default function Profile() {
         }
       });
   };
+
   const handleClose = () => {
     setOpen(false);
     setMessage('');
@@ -226,7 +282,29 @@ export default function Profile() {
   // useEffect(() => {
   //   getGeoLocation();
   // }, [getGeoLocation]);
-
+  // console.log(profiledata);
+  useEffect(() => {
+    if (profiledata.originalUser?.[0]._id === loggedUser._id) {
+      return;
+    }
+    if (!profiledata.originalUser?.[0]._id || !loggedUser._id) {
+      return;
+    }
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({
+          profileId: profiledata._id,
+          loggedInId: loggedUser._id,
+          notificationType: 'profileVisit',
+        }),
+      }
+    );
+  }, [loggedUser._id, profiledata._id, profiledata.originalUser]);
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
@@ -263,7 +341,7 @@ export default function Profile() {
                   סגור
                 </button>
                 <a
-                  href={`https://wa.me/?text=${window.location.href}`}
+                  href={`https://api.whatsapp.com/send/?text=https://lifecloud-qr.com/${location.pathname}`}
                   type="button"
                   className="btn btn-success"
                   target={'_blank'}
@@ -290,8 +368,8 @@ export default function Profile() {
           <div className="deceased-details">
             <h1 className="profile-h1">{`${profiledata?.degree} ${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
             <p>
-              {moment(profiledata?.birthDate).utc().format('YYYY-DD-MM')} -{' '}
-              {moment(profiledata?.deathDate).utc().format('YYYY-DD-MM')}
+              {moment(profiledata?.deathDate).utc().format('DD-MM-YYYY')} -{' '}
+              {moment(profiledata?.birthDate).utc().format('DD-MM-YYYY')}
             </p>
             <p>{profiledata?.city}</p>
           </div>
@@ -321,6 +399,13 @@ export default function Profile() {
               onClick={() => setShow('friends')}
             >
               רשימת חברים
+            </div>
+            <div
+              className="profile-small-btn"
+              onClick={() => handleAddFriendRequest()}
+              style={{ cursor: 'pointer' }}
+            >
+              הוסף פרופיל כחבר{' '}
             </div>
           </div>
           <div className="big-btns-container">
@@ -362,12 +447,12 @@ export default function Profile() {
                 <h3>
                   <span className="separator">| </span>
                   <span className="dash">- </span>
-                  {profiledata?.birthDate?.split('T')[0]}
+                  {moment(profiledata?.deathDate).utc().format('DD-MM-YYYY')}
                 </h3>
                 <h3>
                   <span className="separator">| </span>
                   <span className="dash">- </span>
-                  {profiledata?.hebDeathDate}
+                  {hebMemorialDate}
                 </h3>
                 <h3>
                   <span className="separator">| </span>
@@ -634,7 +719,17 @@ export default function Profile() {
         <div
           className={`${show === 'friends' && 'display'} friends-list d-none`}
         >
-          <FriendsList />
+          {/* <FriendsList
+            setrfriendReq={setrfriendReq}
+            setAdminres={setAdminres}
+          /> */}
+          <FriendsList
+            proid={id}
+            profiledata={profiledata}
+            setAdminres={setAdminres}
+            setrfriendReq={setrfriendReq}
+            users={users}
+          />
         </div>
         <SnackBar open={open} handleClose={handleClose} message={message} />
         <SocialFooter />

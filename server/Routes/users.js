@@ -135,6 +135,19 @@ UserRouter.get('/', async (req, res) => {
   }
 });
 
+UserRouter.get('/getSingleUser/:id', (req, res, next) => {
+  console.log(req.params.id, 'body');
+  User.find({ _id: req.params.id })
+    .exec() // key to populate
+    .then((resonse) => {
+      if (!resonse) {
+        return res.status(404).json({
+          message: 'data not found',
+        });
+      }
+      res.json(resonse);
+    });
+});
 //get all users
 UserRouter.get('/all/every', async (req, res) => {
   try {

@@ -361,7 +361,7 @@ export default function ProfileEdit() {
                     onChange={handleChangeValue}
                     name="birthDate"
                     value={moment(wallInformation.birthDate).format(
-                      'YYYY-MM-DD'
+                      'DD-MM-YYYY'
                     )}
                     className="nameInput"
                     type="text"
@@ -373,7 +373,7 @@ export default function ProfileEdit() {
                     onChange={handleChangeValue}
                     name="deathDate"
                     value={moment(wallInformation.deathDate).format(
-                      'YYYY-MM-DD'
+                      'DD-MM-YYYY'
                     )}
                     className="nameInput"
                   />

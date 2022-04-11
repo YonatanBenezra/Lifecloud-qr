@@ -6,11 +6,11 @@ const NotificationsRouter = Router();
 //Update User
 NotificationsRouter.post('/addnotifications', async (req, res) => {
   try {
-    let { profileId, loggedInId } = req.body;
-    console.log(req.body)
+    let { profileId, loggedInId, notificationType } = req.body;
     let createNotifications = new Notifications({
       memoryCreatorNotification: profileId,
       logedInUser: loggedInId,
+      notificationType: notificationType,
     });
     let res = await createNotifications.save();
     res.send(res);
