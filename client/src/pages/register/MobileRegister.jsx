@@ -279,6 +279,10 @@ export default function Register() {
       </div>
       <SocialFooter />
       <MobileFooter />
+      </div>
+      </div>
+      </div>
+      </div>
     </>
   );
 }
