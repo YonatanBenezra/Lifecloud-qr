@@ -3,7 +3,11 @@ import Home from './pages/home/Home';
 import About from './pages/about/AboutMain';
 import Login from './pages/login/MainLogin';
 import Register from './pages/register/MainRegister';
+<<<<<<< HEAD
 import ProfileEdit from './pages/profile/RootEditProfile';
+=======
+import ProfileEdit from './pages/profile/edit-proile';
+>>>>>>> 9a8b1114b5466cec43663e025ce7ba2197048879
 import ProfileCreate from './pages/profile/ProfileCreate';
 import MainProfileCreate from './pages/profile/MainProfileCreate';
 import ProfileDetails from './pages/profile/RootProfileDetails';

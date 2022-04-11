@@ -79,6 +79,7 @@ export default function Register() {
   return (
     <>
       <MobileTopbar />
+<<<<<<< HEAD
       <div className="MobileRegister">
         <div className="MobileRegisterWrapper">
           <div className="loginLeft">
@@ -86,6 +87,15 @@ export default function Register() {
           </div>
           <div className="">
             <div className="MobileRegBox">
+=======
+      <div className="register">
+        <div className="register-wrapper">
+          <div className="loginLeft">
+            <h3 className="register-logo">הרשמה</h3>
+          </div>
+          <div className="loginRight">
+            <div className="RegBox">
+>>>>>>> 9a8b1114b5466cec43663e025ce7ba2197048879
               <form className="loginBox" onSubmit={handleClick}>
                 <div className="names-container">
                   <input
@@ -95,7 +105,11 @@ export default function Register() {
                     ref={lastName}
                     value={user.lastName}
                     name="lastName"
+<<<<<<< HEAD
                     className="MobileNameInput"
+=======
+                    className="name-input"
+>>>>>>> 9a8b1114b5466cec43663e025ce7ba2197048879
                   />
                   <input
                     placeholder="* שם פרטי"
@@ -104,7 +118,11 @@ export default function Register() {
                     ref={firstName}
                     value={user.firstName}
                     name="firstName"
+<<<<<<< HEAD
                     className="MobileNameInput"
+=======
+                    className="name-input"
+>>>>>>> 9a8b1114b5466cec43663e025ce7ba2197048879
                   />
                 </div>
                 <input
