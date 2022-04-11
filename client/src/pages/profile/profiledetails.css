@@ -70,6 +70,12 @@
   display: flex;
 }
 
+.MobilebigBtnsContainer{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .profile-small-btn {
   background: #6097bf;
   border-radius: 4px;
@@ -82,6 +88,19 @@
   font-weight: 600;
   font-size: 1rem;
   min-width: 4rem;
+}
+.MobileProfileSmallBtn{
+  background: #6097bf;
+  border-radius: 4px;
+  color: #ffff;
+  text-align: center;
+  padding: 8px 0.4rem;
+  justify-content: center;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  width: 50px;
 }
 
 .list-of-deceased {
@@ -105,6 +124,21 @@
   align-items: center;
   margin: 0 0.5rem;
   padding: 0.5rem 0.4rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.MobileProfileBigBtn{
+  display: flex;
+  background: #6097bf;
+  border-radius: 4px;
+  color: #ffff;
+  width: 25%; 
+  text-align: center; 
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.5rem;
+  padding: 8px 0.4rem;
   cursor: pointer;
   font-weight: 600;
   font-size: 1.5rem;
@@ -162,6 +196,10 @@
 
 .profile-details .icon-btn {
   width: 2rem;
+  margin-left: 20px;
+}
+.MobileIconBtn {
+  width: 40px;
   margin-left: 20px;
 }
 
@@ -243,6 +281,19 @@
   justify-content: center;
   align-items: center;
 }
+.MobileFullMemoryBtn{
+  text-align: center;
+  color: #6097bf;
+  font-size: 30px;
+  height: 50px;
+  width: 265px;
+  border: 2px solid #6097bf;
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .grave-location-container {
   margin-top: 5rem;
   background-color: #dcecf4;
@@ -259,6 +310,11 @@
 .grave-img {
   height: 300px;
   width: 300px;
+  border-radius: 15px;
+}
+.MobileGraveImg {
+  width: 90%;
+  padding: 5px;
   border-radius: 15px;
 }
 .grave-imgs-container {
@@ -412,6 +468,12 @@
   margin-bottom: 2rem;
   padding-top: 2rem;
 }
+.MobileAxisName {
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: 2rem;
+  padding-top: 2rem;
+}
 
 .axis-desc {
   font-size: 30px;
@@ -425,6 +487,13 @@
   justify-content: center;
   margin-bottom: 5rem;
   align-items: center;
+}
+.MobileAxisContainer{
+  display: flex;
+  color: #6097bf;
+  justify-content: center;
+  margin-bottom: 5rem;;
+  text-align: center; 
 }
 
 .axis-sub-container {
@@ -559,6 +628,12 @@
   width: 700px;
   margin: auto;
 }
+.MobileMemoryActions {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%; 
+  margin: auto;
+}
 
 .memories-div {
   padding-bottom: 3rem;
@@ -660,4 +735,26 @@ input[type='date']:valid::before {
     height: 16vw;
     border-radius: 8px;
   }
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+  .mobile{
+    display: block;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: block;
+  } 
+ 
 }

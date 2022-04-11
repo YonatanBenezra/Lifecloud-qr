@@ -8,6 +8,11 @@
   justify-content: center;
   color: #ffff;
 }
+.MobileRegister {
+  background-color: #dcecf4; 
+  width: 100%; 
+  color: #ffff;
+}
 
 .loginWrapper {
   display: flex;
@@ -17,6 +22,10 @@
   width: 35%;
   display: flex;
   flex-direction: column;
+}
+.MobileRegisterWrapper {
+  width: 90%;
+  margin: 0px auto; 
 }
 
 .loginLeft,
@@ -42,6 +51,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.MobileRegBox{
+  border-radius: 10px; 
+  margin: 0px auto;
 }
 
 .register-input {
@@ -76,6 +89,21 @@
   color: #abc9db;
   font-weight: 600;
 }
+.MobileNameInput {
+  text-align: center;
+  direction: rtl;
+  border-radius: 10px;
+  border: 1px solid #fff;
+  font-size: 25px !important;
+  padding-left: 20px;
+  margin: 2px;
+  margin-top: 4%;
+  width: 45%;
+  height: 40px;
+  color: #abc9db;
+  font-weight: 600;
+}
+ 
 @media (max-width: 768px) {
   .name-input {
     font-size: 20px !important;
@@ -192,4 +220,24 @@
 }
 input::placeholder {
   color: #abc9db;
+}
+
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+  .mobile{
+    display: block;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: block;
+  } 
+ 
 }

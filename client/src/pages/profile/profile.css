@@ -130,6 +130,13 @@
   border-radius: 100%;
   margin: 0rem;
 }
+.MobilepProfileImages{
+  width: 100%;
+  border-radius: 100%;
+  margin: 0rem;
+  display: flex;
+  justify-content: center;
+}
 .profile-creation-gallery-img {
   width: 100%;
   height: 100%;
@@ -140,6 +147,13 @@
   margin: 0rem;
   margin-right: 2rem;
   margin-left: 2rem;
+}
+.MobileCreationGalleryImg { 
+  object-fit: cover;
+  height: 150px;
+  width: 50%;
+  padding: 5px;
+  border-radius: 15px; 
 }
 
 .admins-list {
@@ -345,6 +359,15 @@ padding: 1%;
   direction: rtl;
   padding-bottom: 70px;
 }
+.MobileProfileCreationBox{
+  height: auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  direction: rtl;
+  padding-bottom: 70px;
+}
 .add-profile-images {
   display: flex;
   justify-content: space-evenly;
@@ -356,9 +379,22 @@ padding: 1%;
   color: #6097bf;
   margin-top: 40px;
 }
+.MobileProfileImageContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #6097bf;
+  margin-top: 40px; 
+}
+.prfPicTxt{padding: 5px;margin: 5px; font-size: 18px;} 
+.cvrPicTxt{padding: 5px;margin: 5px; font-size: 18px;}
 .profile-image-container p {
   margin-top: 2rem;
 }
+.mobileImg{border-radius: 100%;
+          padding: 5px;
+          height: 100px;
+          width: 100px;}
 input::placeholder {
   color: #abc9db;
 }
@@ -378,6 +414,9 @@ input::placeholder {
 }
 .radio {
   display: none;
+}
+.MobileNameInput{
+  font-weight: normal;
 }
 .input-label {
   background: #ffffff;
@@ -553,10 +592,29 @@ transition: 500ms ease-in-out;
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
 }
+.MobileCustomFileInput::-webkit-file-upload-button {
+  visibility: hidden;
+}
 .custom-file-input-cover::-webkit-file-upload-button {
   visibility: hidden;
 }
 .custom-file-input::before {
+  content: 'הוסף תמונת פרופיל + ';
+  display: inline-block;
+  /* border: 1px solid #999; */
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 25px;
+  margin-top: 10px;
+}
+.MobileCustomFileInputBox{width: 100px;}
+.MobileCustomFileInput::before {
   content: 'הוסף תמונת פרופיל + ';
   display: inline-block;
   /* border: 1px solid #999; */
@@ -713,3 +771,27 @@ transition: 500ms ease-in-out;
   width: 100%;
   height: 100%;
 }
+
+.txtMap{font-size: 32px;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;}
+.txtInpMap{font-size: 16px;
+          padding: 2px 5px;
+          border-radius: 5px;
+          border: 1px solid #fff;
+          text-align: center;
+          margin: 0px auto;}
+.mpBox{text-align: center;padding: 10px;}        
+.mpBtn{border: 1px solid #6097bf;
+       background-color: #6097bf;
+       color: #ffffff;
+       font-size: 16px;
+       padding: 5px 10px;
+       border-radius: 5px;
+     }
+.mpBtnBox{text-align: center; margin: 10px auto;} 
+.mobileFileGrave{text-align: center;width: 100%;}  
+.sbtBtn{padding:5px; text-align: center; margin-top: 10px; }
+.lstBtn{padding: 5px; width: 50%;border: 1px solid #fff; font-size: 21px;color: #6097bf;
+      font-weight: bold;}  

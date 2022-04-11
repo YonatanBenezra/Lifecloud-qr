@@ -1,5 +1,5 @@
 import React from 'react';
-import Topbar from '../../components/topbar/Topbar';
+import Topbar from '../../components/topbar/MobileTopbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import mainImage from '../../assets/Rectangle.png';
 import { useSearch } from '../../context/SearchContext';
@@ -10,11 +10,17 @@ import exampleProfileImage from '../../assets/exampleProfileImage.png';
 import { Player } from 'video-react';
 import Slider from 'react-slick';
 import './home.css';
-import Footer from '../../components/footer/Footer';
+import MobileFooter from '../../components/footer/MobileFooter';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import f12 from "../../assets/Rectangle12.png";
+import f13 from "../../assets/Rectangle13.png";
+import f14 from "../../assets/Rectangle14.png";
+import f15 from "../../assets/Rectangle15.png";
+import f16 from "../../assets/Rectangle16.png";
+import f17 from "../../assets/Rectangle17.png";
 const HomeMobile = (props) => {
   const user = props.user
   const testimonialSettings = props.testimonialSettings
@@ -56,20 +62,26 @@ const HomeMobile = (props) => {
           </Link>
         )}
       </div>
-      <div className="search-container-home-mobile">
+
+
+
+      <div className="search-container-home-mobile p-5">
         {/* <div className="searchbar-container-home-mobile"> */}
-        <div className="searchbar-searchIcon-container-home-mobile">
+        <div className="flex items-center bg-white w-full p-4 rounded-sm">
           <input
             type="text"
             placeholder="חיפוש מנוח / עמותה..."
-            className="SearchInput-home-mobile"
+            className="searchBox"
             onChange={(e) => setSearchText(e.target.value)}
           />
-          <Search className="searchIcon" />
+          <div className="p-2 bg-white">
+          <Search />
+          </div>
         </div>
         {/* </div> */}
         <Sidebar> </Sidebar>
       </div>
+
       <div className="vid-text-container">
         <div className="vid-text-title">
           <h1 className="home-mobile-heading-strong">
@@ -133,6 +145,8 @@ const HomeMobile = (props) => {
         </div>
       </div>
 
+
+
       <div className="popups-container">
         <h1 className="life-cloud-explaination-container-home">
           ספר החיים של Life Cloud
@@ -144,33 +158,80 @@ const HomeMobile = (props) => {
           להרכיב את הפאזל <span className="home-mobile-text-emphasis"> באמצעות</span>
         </h1>
       </div>
-      <div className="imgs-container">
-        <div className='openers-mobile'>
-          <div>
-            <div className="img-300 fourteen">
-              <p className="img-300-text">
-                קוד QR החרוט במקום ייחודי ועמיד שתבחרו, יחבר כל סמארטפון ישירות
-                לספר החיים של המנוח{' '}
-              </p>
-              <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
-                  <p>+</p>
-                  <p>קרא עוד</p>{' '}
-                </span>
-              </div>
-            </div>{' '}
-            <h1 className="h1-home-mobile" >
-              ייחודי QR קוד
+
+
+
+
+      <div className="">
+        <div className=''>
+          <div className="gridBar">
+          <div className="bx">
+          <img src={f13} width="100%" height="150px"/>
+          <div className="gridTxt">
+          <h1>קיבור עמודי המנוח ברשתות החברתיות הקיימות. </h1>
+          <p>+</p>
+                  <h1>קרא עוד</h1></div>
+          </div>
+          <div className="bx">
+          <img src={f14} width="100%" height="150px"/>
+          <div className="gridTxt">
+          <h1>  קישור לרשתות חברתיות
             </h1>
+            <p>+</p>
+          <h1 className="" >
+            קרא עמודי </h1></div>
+          </div> 
+          </div>
+          <div className="gridBar">
+          <div className="bx">
+          <img src={f15} width="100%" height="150px"/>
+          <div className="gridTxt"><h1 className="" >
+             ייחודי QR קוד
+            </h1>
+            <p>+</p>
+            <h1 className="" >
+            קרא עמודי  </h1>
+
+            </div>
+          </div>
+          <div className="bx">
+          <img src={f16} width="100%" height="150px"/>
+          <div className="gridTxt"><h1 className="" >
+              העלאת תמונות וסרטונים
+            </h1>
+            <p>+</p>
+            <h1 className="" >
+            קרא עמודי  </h1>
+
+            </div>
+          </div> 
+          </div>
+          <div className="gridBar">
+          <div className="bx">
+          <img src={f17} width="100%" height="150px"/>
+          <div className="gridTxt"><h1 className="" >
+              ושיתוף זכרונות
+            </h1>
+            <p>+</p>
+            <h1 className="" >
+            קרא עמודי  </h1>
+
+            </div>
+          </div>
+          <div className="bx">
+          <img src={f12} width="100%" height="150px"/>
+         <div className="gridTxt"><h1 className="" >
+              ניהול מועדים
+            </h1>
+            <p>+</p>
+            <h1 className="" >
+            קרא עמודי  </h1>
+
+            </div>
+          </div> 
           </div>
         </div>
-        <div className='openers-mobile'>
+        {/*<div className='openers-mobile'>
           <div>
             <div className="img-300 twelve">
               <p className="img-300-text">
@@ -195,9 +256,13 @@ const HomeMobile = (props) => {
             </h1>
           </div>
 
-        </div>
+        </div>*/}
       </div>
-      <div className="imgs-container-middle">
+
+
+
+
+      {/*<div className="imgs-container-middle">
         <div className='openers-mobile'>
           <div>
             <div className="img-300 thirteen">
@@ -248,9 +313,11 @@ const HomeMobile = (props) => {
           </div>
 
         </div>
-      </div>
+      </div>*/}
 
-      <div className="imgs-container">
+
+
+     {/* <div className="imgs-container">
         <div className='openers-mobile'>
           <div>
             <div className="img-300 seventeen">
@@ -295,50 +362,57 @@ const HomeMobile = (props) => {
             <h1 className="h1-home-mobile">מיקום הקבר</h1>
           </div>
         </div>
-      </div>
-      <div className="example-profile">
+      </div>*/}
+
+
+      <div className="mobile-example-profile">
         <Slider {...settings}>
           <a href="#">
             <div
               style={{ backgroundImage: `url(${exampleProfileImage})` }}
-              className="example-profile-image"
+              className="mobile-example-profile-image"
             ></div>
           </a>
           <a href="#">
             <div
               style={{ backgroundImage: `url(${exampleProfileImage})` }}
-              className="example-profile-image"
+              className="mobile-example-profile-image"
             ></div>
           </a>
           <a href="#">
             <div
               style={{ backgroundImage: `url(${exampleProfileImage})` }}
-              className="example-profile-image"
+              className="mobile-example-profile-image"
             ></div>
           </a>
           <a href="#">
             <div
               style={{ backgroundImage: `url(${exampleProfileImage})` }}
-              className="example-profile-image"
+              className="mobile-example-profile-image"
             ></div>
           </a>
         </Slider>
       </div>
-      <a href="/createprofile" className="creation-btn">
+
+       <a href="/createprofile" className="creation-btn">
         <div className="profile-div">+ לצפייה בפרופיל לדוגמה</div>
       </a>
+
       <a href="/createprofile" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#6097BF' }}>
           + לחץ כאן ליצור פרופיל
         </div>
       </a>
+
       <a href="/createprofile" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
           + לעמוד תוכניות ורכישה
         </div>
       </a>
+
       <div className="seperation-div-home-mobile-try1"></div>
-      <div className="testimonials">
+
+      <div className="MobileTestimonials">
         <Slider {...testimonialSettings}>
           <div>
             <h3 className="pilKahol">
@@ -371,13 +445,13 @@ const HomeMobile = (props) => {
         <img
           alt=""
           src={leftCloud}
-          style={{ position: 'absolute', left: 0 }}
+          style={{ position: 'absolute', left: 0,height:"100px"}}
         ></img>
       </div>
-
-
       <SocialFooter />
-      <Footer className="footer-links mobile" />
+      <MobileFooter />
+
+ 
     </div>
   );
 }

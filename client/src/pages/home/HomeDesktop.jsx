@@ -176,7 +176,7 @@ const HomeDesktop = (props) => {
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
                   <p>+</p>
-                  <p>קרא עוד</p>{' '}
+                  <p>קרא עמודי  </p>{' '}
                 </span>
               </div>
             </div>{' '}
@@ -193,7 +193,7 @@ const HomeDesktop = (props) => {
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
                   <p>+</p>
-                  <p>קרא עוד</p>{' '}
+                  <p>קרא עמודי  </p>{' '}
                 </span>
               </div>
             </div>{' '}
@@ -212,7 +212,7 @@ const HomeDesktop = (props) => {
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
                   <p>+</p>
-                  <p>קרא עוד</p>{' '}
+                  <p>קרא עמודי  </p>{' '}
                 </span>
               </div>
             </div>{' '}
@@ -231,7 +231,7 @@ const HomeDesktop = (props) => {
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
                   <p>+</p>
-                  <p>קרא עוד</p>{' '}
+                  <p>קרא עמודי  </p>{' '}
                 </span>
               </div>
             </div>{' '}

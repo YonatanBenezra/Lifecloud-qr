@@ -128,6 +128,12 @@
     padding-top: 4rem;
     margin-bottom: 75px;
   }
+  .MobilePlansTitle{
+    color: #6097bf;
+    text-align: center;
+    padding-top: 30px;
+    margin-bottom: 50px;
+  }
   .plan-title {
     margin-top: 3rem;
     color: #6097bf;
@@ -161,3 +167,24 @@
     font-weight: 600;
     transition: ease-in-out 500ms;
   }
+
+
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+  .mobile{
+    display: block;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: block;
+  } 
+ 
+}
