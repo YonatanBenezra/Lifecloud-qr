@@ -1,4 +1,3 @@
-
 .profile-creation-box input {
   font-size: 25px;
   font-weight: 600;
@@ -20,7 +19,41 @@
   height: 320px;
   position: relative;
 }
-
+.middle-axis-btn {
+  height: 50px;
+  width: 50px;
+  background-color: #abc9db;
+  border: 1px solid #fff;
+  border-radius: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  cursor: pointer;
+  transition: ease-in-out 500ms;
+}
+.middle-axis-btn:hover {
+  border: 1px solid #abc9db;
+  background-color: #fff;
+  color: #abc9db;
+}
+.middle-axis-btn:hover .line-1 {
+  width: 25px;
+  border: 1px solid #abc9db;
+}
+.middle-axis-btn:hover .line-2 {
+  width: 25px;
+  border: 1px solid #abc9db;
+}
+.middle-axis-btn .line-1 {
+  width: 25px;
+  border: 1px solid #fff;
+}
+.middle-axis-btn .line-2 {
+  width: 25px;
+  border: 1px solid #fff;
+}
 .profileCoverImg {
   width: 102%;
   height: 250px;
@@ -173,7 +206,6 @@
   justify-content: center;
 }
 
-
 .loginLeft,
 .loginRight {
   display: flex;
@@ -192,7 +224,6 @@
 
   color: #6097bf !important;
 }
-
 
 .RegBox {
   border-radius: 10px;
@@ -225,16 +256,22 @@
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-padding: 1%;
+  padding: 1%;
   resize: none; /*remove the resize handle on the bottom right*/
 }
-.profile-creation-description::placeholder{
+.profile-creation-description::placeholder {
   color: #abc9db;
 }
 .loginInput:focus {
   outline: none;
 }
-
+.popup-modal {
+  font-size: 12px;
+  background-color: #fff;
+  border: 1px solid #d7d7d7;
+  color: #6097bf;
+  width: 50vw;
+}
 .loginButton {
   height: 50px;
   border-radius: 10px;
@@ -293,26 +330,26 @@ padding: 1%;
 }
 .profile-create-about-container {
   margin-bottom: 75px;
-    text-align: center;
+  text-align: center;
 }
 .center-text {
   text-align: center;
 }
 .radio-input-container-profile {
-    background: #fff;
-    margin: 0 1rem 0 1rem;
-    width: 40px;
-    color: #6097bf;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    height: 40px;
-    font-size: 25px;
-    padding: 0 3px;
+  background: #fff;
+  margin: 0 1rem 0 1rem;
+  width: 40px;
+  color: #6097bf;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  height: 40px;
+  font-size: 25px;
+  padding: 0 3px;
 }
 .radio-container {
   font-size: 35px;
@@ -411,7 +448,7 @@ input::placeholder {
   border-radius: 10px;
   margin-top: 40px;
   cursor: pointer;
-  transition-duration: 200ms;
+  transition-duration: 500ms;
 }
 .add-btn-middle {
   margin: auto;
@@ -423,8 +460,8 @@ input::placeholder {
   background: #6097bf;
   border-radius: 100%;
   margin-top: 40px;
-cursor: pointer;
-transition: 500ms ease-in-out;
+  cursor: pointer;
+  transition: 500ms ease-in-out;
 }
 .add-btn-middle:hover {
   background: #ffff;
@@ -528,6 +565,7 @@ transition: 500ms ease-in-out;
   width: 30%;
 }
 .create-btn {
+  display: flex;
   box-sizing: border-box;
   border: 1px solid #fff;
   color: #6097bf;
@@ -540,11 +578,18 @@ transition: 500ms ease-in-out;
   border-radius: 10px;
   font-size: 35px;
   font-weight: 600;
-  transition-duration: 200ms;
+  transition-duration: 500ms;
+  align-items: center;
+  justify-content: center;
 }
+.create-btn:hover {
+  color: #ffffff;
+  border: 1px solid #6097bf;
+}
+
 .submitted {
-  background: #ffffff;
-  color: #6097bf;
+  color: #ffffff;
+  background: #6097bf;
 }
 .create-btn:hover {
   background: #ffffff;
@@ -652,10 +697,10 @@ transition: 500ms ease-in-out;
 }
 .press-explain-container {
   display: flex;
-    justify-content: space-between;
-    width: 55%;
-    margin: auto;
-    margin-bottom: 40px;
+  justify-content: space-between;
+  width: 55%;
+  margin: auto;
+  margin-bottom: 40px;
 }
 .organisation-name {
   margin-top: 45px;
@@ -674,7 +719,6 @@ transition: 500ms ease-in-out;
 .press-change-2 {
   margin-right: 21%;
   font-size: 18px;
-
 }
 .press-explain-container {
   display: flex;
@@ -683,26 +727,26 @@ transition: 500ms ease-in-out;
   margin-left: 25%;
   font-size: 18px;
   direction: rtl;
-  color: #ABC9DB;
+  color: #abc9db;
 }
 .press-explain-2 {
   font-size: 18px;
   margin-left: 33%;
   direction: rtl;
-  color: #ABC9DB;
+  color: #abc9db;
 }
 .press-explain-3 {
   font-size: 18px;
   direction: rtl;
-  color: #ABC9DB;
+  color: #abc9db;
 }
 .press-explain-4 {
   font-size: 18px;
   direction: rtl;
-  color: #ABC9DB;
-  display:flex;
- margin-right: 45%;
- margin-top: 10px;
+  color: #abc9db;
+  display: flex;
+  margin-right: 45%;
+  margin-top: 10px;
 }
 
 .grave-location-img {

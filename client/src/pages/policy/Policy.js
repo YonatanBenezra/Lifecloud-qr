@@ -11,7 +11,6 @@ function Policy() {
     
   const [selected, setSelected] = useState(0)
     const info =(i) =>{
-        console.log(selected)
         if (selected === i){
             return setSelected(null)
         }

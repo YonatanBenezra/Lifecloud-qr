@@ -11,6 +11,7 @@ import MainProfileDetails from './pages/profile/MainProfileDetails';
 import MemoryCreation from './components/memory/memoryCreation';
 import Shop from './pages/shop/Shop';
 import Plans from './pages/plans/Plans';
+import Qa from './pages/qa/Qa';
 import Contact from './pages/contact/Contact';
 import Policy from './pages/policy/Policy';
 import { UserAndprofiles } from './pages/userpage/user-and-profile';
@@ -58,7 +59,7 @@ function App() {
             <Route exact path="/createprofile/:id" >
               <ProfileCreate />
             </Route>
-            <Route exact path="/profiledetails/:id" >
+            <Route exact index path="/profiledetails/:id" >
               <ProfileDetails />
             </Route>
             <Route exact path="/mainprofiledetails/:id" >
@@ -93,6 +94,9 @@ function App() {
             </Route>
             <Route exact path="/plans">
               <Plans />
+            </Route>
+            <Route exact path="/qa">
+              <Qa />
             </Route>
           </Switch>
         ) : (

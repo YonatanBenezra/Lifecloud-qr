@@ -13,6 +13,7 @@ const FriendsList = ({
   setrfriendReq,
   setAdminres,
   fetchUsers,
+  userId,
 }) => {
   const { user } = useContext(AuthContext);
   const [userid, setuserid] = useState('');
@@ -203,47 +204,52 @@ const FriendsList = ({
 
   return (
     <div className="friends-list">
-      {isAdmin ? (
-        <div>
-          <h1>חברים</h1>
-          {profiledata && profiledata.addFriends.length > 0 ? (
-            profiledata.addFriends.map((friend, i) => {
-              return (
-                <div
-                  className="friend-request"
-                  key={friend.user && friend.user[0] && friend.user[0]._id}
-                >
-                  <div className="friend-request-details">
-                    <img src={friend.mainProfilePicture} alt="profile" />
-                    <p>
-                      {friend.user &&
-                        friend.user[0] &&
-                        friend.user[0].firstName}
-                    </p>
-                  </div>
-                  <div>
-                    {/* <span
+      <div>
+        <h1>חברים</h1>
+        {profiledata && profiledata.addFriends.length > 0 ? (
+          profiledata.addFriends.map((friend, i) => {
+            return (
+              <div
+                className="friend-request"
+                key={friend.user && friend.user[0] && friend.user[0]._id}
+              >
+                <div className="friend-request-details">
+                  <img src={friend.mainProfilePicture} alt="profile" />
+                  <p>
+                    {friend.user && friend.user[0] && friend.user[0].firstName}
+                  </p>
+                </div>
+                <div>
+                  {/* <span
                       style={{ cursor: 'pointer' }}
                       onClick={() => handleAddAcceptFrined(friend)}
                     >
                       הוסף חבר
                     </span>
                     | */}
-                    <span
-                      style={{ cursor: 'pointer' }}
-                      // onClick={() =>
-                      //   handleAddAcceptFrined2(friend)
-                      // }
-                    >
-                      הסר
-                    </span>
-                  </div>
+                  <span
+                    style={{ cursor: 'pointer' }}
+                    // onClick={() =>
+                    //   handleAddAcceptFrined2(friend)
+                    // }
+                  >
+                    הסר
+                  </span>
                 </div>
-              );
-            })
-          ) : (
-            <div style={{ textAlign: 'center' }}>אין חברים עדיין</div>
-          )}
+              </div>
+            );
+          })
+        ) : (
+          <div style={{ textAlign: 'center' }}>אין חברים עדיין</div>
+        )}
+        <div
+          className={`${
+            profiledata.originalUser[0]._id === user._id ||
+            profiledata.addAdmins.indexOf()
+            ? ''
+            : 'hidden'
+          }`}
+        >
           <h1>בקשות חברות</h1>
           {/* {users &&
             users.length > 0 &&
@@ -334,6 +340,15 @@ const FriendsList = ({
           ) : (
             <div style={{ textAlign: 'center' }}>אין הצעות עדיין</div>
           )}
+        </div>
+        <div
+          className={`${
+            profiledata.originalUser[0]._id === user._id ||
+            profiledata.addAdmins.indexOf()
+            ? ''
+            : 'hidden'
+          }`}
+        >
           <h1>אדמינים</h1>
           {profiledata && profiledata.addAdmins.length > 0 ? (
             profiledata.addAdmins.map((admin, i) => {
@@ -361,7 +376,8 @@ const FriendsList = ({
             <div style={{ textAlign: 'center' }}>אין אדמינים</div>
           )}
         </div>
-      ) : (
+      </div>
+      {/* ) : (
         <div>
           <h1>חברים</h1>
           {users &&
@@ -403,7 +419,7 @@ const FriendsList = ({
               );
             })}
         </div>
-      )}
+      )} */}
     </div>
   );
 };

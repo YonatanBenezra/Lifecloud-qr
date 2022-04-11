@@ -198,6 +198,45 @@
   border-radius: 18px;
   border: 1px solid #cfcece;
 }
+
+.popup-modal > .header {
+  width: 98.5%;
+  border-bottom: 1px solid gray;
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+}
+.popup-modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+  font-size: 15px;
+}
+.popup-modal > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+.popup-modal > .actions > .button {
+  font-size: 12px;
+  border-radius: 15px;
+  background-color: #fff;
+  border: 1px solid #d7d7d7;
+  color: #6097bf;
+}
+.popup-modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
+}
 .mb-3 {
   margin-bottom: 3rem;
 }

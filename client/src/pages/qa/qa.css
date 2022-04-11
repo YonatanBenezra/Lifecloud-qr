@@ -3,20 +3,19 @@
   margin-block-end: auto;
   align-items: center;
   justify-content: center;
-  background-color: #f5fcff;  
+  background-color: #f5fcff;
   padding: 0 4rem;
 }
 
-.accordion{
+.accordion {
   /* width: 700px; */
   min-width: calc(100vw - 8rem);
 }
 
-.item{
+.item {
   margin-bottom: 5px;
   padding: 4px 0px;
   color: #6097bf;
-
 }
 .span2 {
   /* font-size: 2.0rem; */
@@ -24,7 +23,7 @@
 }
 
 .policy-container .title {
-  color: #6097BF;
+  color: #6097bf;
   direction: rtl;
   display: flex;
   align-items: center;
@@ -37,27 +36,27 @@
   font-size: 2rem;
 }
 
-.content{
+.content {
   display: none;
   color: #6097bf;
   direction: rtl;
   max-height: 0;
   overflow: hidden;
-  transition: all 0.5s cubic-bezier(0,1,0,1);
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
   font-size: 1.5rem;
 }
 
-.content.show{
+.content.show {
   height: auto;
   max-height: initial;
-  transition: all 0.5s cubic-bezier(0,1,0,1);
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
 }
-.show{
+.show {
   display: block;
 }
 
-.policy-title{
-  margin-top: 10px; 
+.policy-title {
+  margin-top: 10px;
   color: #6097bf;
   font-size: 40px;
   line-height: 136px;

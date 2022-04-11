@@ -219,6 +219,11 @@
   justify-content: center;
   margin: auto;
   align-items: center;
+  transition: ease-in-out 0.5s;
+}
+.full-btn:hover {
+  background-color: #6097bf;
+  color: #fff;
 }
 .full-btn.back-btn {
   width: initial;
@@ -242,6 +247,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: ease-in-out 0.5s;
+}
+.full-memory-btn:hover {
+  background-color: #6097bf;
+  color: #fff;
 }
 .grave-location-container {
   margin-top: 5rem;
@@ -423,8 +433,18 @@
   display: flex;
   color: #6097bf;
   justify-content: center;
-  margin-bottom: 5rem;
   align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+.dotted-seperator {
+  transform: rotate(90deg);
+  display: inline-flex;
+  margin: auto;
+  margin-left: 55%;
+  /* width: 100%; */
+  color: #6097bf;
+  font-size: 57px;
 }
 
 .axis-sub-container {
@@ -466,6 +486,12 @@
   align-items: center;
   font-size: 115px;
   font-weight: 100;
+  transition: ease-in-out 500ms;
+}
+.last-image:hover {
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: #6097bf;
 }
 
 .display {
