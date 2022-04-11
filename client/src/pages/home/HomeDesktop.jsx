@@ -50,7 +50,7 @@ const HomeDesktop = (props) => {
         }}
       ></div>
       <div className="home-floating-text">
-        <h2>יוצרים בית חדש לחיים שאחרי</h2>
+        <h2>יוצרים  בית חדש לחיים שאחרי</h2>
         <Link to={user ? `/createprofile/${user._id}` : '/register'}>
           <div className="home-profile-creation-btn">יצירת פרופיל ללא עלות</div>
         </Link>
