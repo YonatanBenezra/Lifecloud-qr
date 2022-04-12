@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Topbar from '../../components/topbar/Topbar';
 import mainImage from '../../assets/Rectangle.png';
-import israelFlag from '../../assets/Israel.png';
 import axios from 'axios';
 import { useSearch } from '../../context/SearchContext';
 import { Search } from '@material-ui/icons';
