@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Topbar from '../../components/topbar/Topbar';
 import mainImage from '../../assets/Rectangle.png';
+import israelFlag from '../../assets/Israel.png';
 import axios from 'axios';
 import { useSearch } from '../../context/SearchContext';
 import { Search } from '@material-ui/icons';
@@ -42,7 +43,7 @@ const HomeDesktop = (props) => {
         style={{
           backgroundImage: `url(${mainImage})`,
           width: '100%',
-          height: '65vh',
+          height: '74vh',
           overflow: 'hidden',
           backgroundPosition: 'bottom',
           backgroundRepeat: 'noRepeat',
@@ -50,7 +51,7 @@ const HomeDesktop = (props) => {
         }}
       ></div>
       <div className="home-floating-text">
-        <h2>יוצרים  בית חדש לחיים שאחרי</h2>
+        <h2 className="home-floating-text-heading">יוצרים  בית חדש לחיים שאחרי</h2>
         <Link to={user ? `/createprofile/${user._id}` : '/register'}>
           <div className="home-profile-creation-btn">יצירת פרופיל ללא עלות</div>
         </Link>
@@ -119,16 +120,16 @@ const HomeDesktop = (props) => {
           <div className="top-image-container-desktop-home">
             <div className="top-image">
               <p className="text-home-desktop">
-                סיפור חייהם של יקירנו מורכבים מחלקים השלובים בחייהם של בני
-                משפחתם, חברים ומכרים. אם לכתם מן העולם, סיפורם נעלם איתם.
+                סיפור חייהם של יקירינו מורכב<br />  מחלקים השלובים בחייהם של<br />   בני
+                משפחתם, חברים ומכרים. <br />  עם לכתם מן העולם, <br /> סיפורם נעלם איתם.
               </p>
             </div>
           </div>
           <div className="bottom-image-container-home-desktop">
             <p className="text-container-home-desktop">
               {/* איך נוכל לחבר את <br></br>החלקים ולספר מי הם היו?{' '} */}
-              איך נוכל לחבר את החלקים
-              <br /> ולשמר לעד
+              איך נוכל לחבר <br />  את החלקים
+              ולשמר לעד
               <br /> מי שהם היו?
             </p>
             <Player
@@ -295,8 +296,8 @@ const HomeDesktop = (props) => {
         </div>
       </Link>
       <Link to="/shop" className="creation-btn">
-        <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
-          + LifeCloud חנות
+        <div className="profile-div" style={{ backgroundColor: '#46779B', direction: 'ltr'}}>
+          LifeCloud חנות +
         </div>
       </Link>
       <div className="testimonials">
