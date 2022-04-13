@@ -396,7 +396,7 @@ const FriendsList = ({
                       onClick={() => handleAddAdmins(friend.user[0]._id)}
                       style={{ cursor: 'pointer' }}
                     >
-                      הוסף כאדמין{' '}
+                      הוסף כאדמין
                     </span>
                     <span
                       onClick={() =>
