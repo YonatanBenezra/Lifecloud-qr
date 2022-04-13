@@ -473,6 +473,7 @@ ProfileRouter.delete('/removeFriend/:id', async (req, res) => {
       },
     }
   );
+
   res.send(response);
 });
 ProfileRouter.delete('/removeFriendRequest/:id', async (req, res) => {
