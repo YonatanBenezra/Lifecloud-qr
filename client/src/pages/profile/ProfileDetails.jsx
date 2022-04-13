@@ -60,14 +60,17 @@ export default function Profile() {
     const date = death.getDate();
     const year = new Date().getFullYear();
     const month = death.getMonth();
-
-    const response = await fetch(
-      `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${
-        month + 1
-      }&gd=${date}&g2h=1`
-    );
-    const data = await response.json();
-    setHebMemorialDate(data.hebrew);
+    try {
+      const response = await fetch(
+        `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${
+          month + 1
+        }&gd=${date}&g2h=1`
+      );
+      const data = await response.json();
+      setHebMemorialDate(data.hebrew);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleAddFriendRequest = (e) => {
@@ -98,6 +101,9 @@ export default function Profile() {
       })
       .then((res) => {
         setrfriendReq(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -241,6 +247,9 @@ export default function Profile() {
           // setMessage('like added successfully!')
           // setOpen(true)
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
   const handleDellMemory = (e) => {
@@ -262,6 +271,9 @@ export default function Profile() {
           setMessage('delete successfully!');
           // setOpen(true)
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -383,8 +395,8 @@ export default function Profile() {
               className={`${
                 profiledata.originalUser[0]._id === user._id ||
                 profiledata.addAdmins.indexOf()
-                ? 'small-btns-container'
-                : 'hidden'
+                  ? 'small-btns-container'
+                  : 'hidden'
               }`}
               to={`/editprofiles/${id}`}
             >
@@ -397,12 +409,13 @@ export default function Profile() {
               רשימת חברים
             </div>
             <div
-              className={`${
-                profiledata.originalUser[0]._id === user._id ||
-                profiledata.addAdmins.indexOf()
-                ? 'hidden'
-                : 'profile-small-btn'
-              }`}
+              className="profile-small-btn"
+              // className={`${
+              //   profiledata.originalUser[0]._id === user._id ||
+              //   profiledata.addAdmins.indexOf()
+              //     ? 'hidden'
+              //     : 'profile-small-btn'
+              // }`}
               onClick={() => handleAddFriendRequest()}
               style={{ cursor: 'pointer' }}
             >
@@ -756,6 +769,7 @@ export default function Profile() {
             setrfriendReq={setrfriendReq}
             users={users}
             userId={user._id}
+            fetchuserprofiles={fetchuserprofiles}
           />
         </div>
         <SnackBar open={open} handleClose={handleClose} message={message} />
