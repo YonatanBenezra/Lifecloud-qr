@@ -458,14 +458,15 @@
   width: 100%;
   text-align: center;
   position: absolute;
-  bottom: 33%;
+  bottom: 30%;
   font-size: 0.8rem;
   color: #6097bf;
   letter-spacing: 1.3px;
 }
 
 .home-floating-text-heading {
-  font-size: 42px;
+  font-size: 6.2vh;
+
 }
 
 @media screen and (max-width: 768px) {
@@ -578,7 +579,6 @@
     text-align: center;
     padding-right: 0;
     padding-bottom: 0;
-    padding-top: 60px;
   }
 
   .text-container-home-bottom {
