@@ -404,7 +404,7 @@ const FriendsList = ({
                       }
                       style={{ cursor: 'pointer' }}
                     >
-                      Decline{' '}
+                      Decline
                     </span>
                   </div>
                 </div>
