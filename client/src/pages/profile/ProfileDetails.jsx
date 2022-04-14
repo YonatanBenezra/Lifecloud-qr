@@ -288,18 +288,19 @@ export default function Profile() {
     year: 'numeric',
   };
 
-  const loggedUser = JSON.parse(localStorage.getItem('user'));
   const [map, setMap] = useState(false);
   // const { location, getGeoLocation } = useGeoLocation();
   // useEffect(() => {
   //   getGeoLocation();
   // }, [getGeoLocation]);
   // console.log(profiledata);
+  
   useEffect(() => {
-    if (profiledata.originalUser?.[0]._id === loggedUser._id) {
+    console.log(user)
+    if (profiledata.originalUser?.[0]._id === user._id) {
       return;
     }
-    if (!profiledata.originalUser?.[0]._id || !loggedUser._id) {
+    if (!profiledata.originalUser?.[0]._id || !user._id) {
       return;
     }
     fetch(
@@ -311,12 +312,12 @@ export default function Profile() {
         },
         body: JSON.stringify({
           profileId: profiledata._id,
-          loggedInId: loggedUser._id,
+          loggedInId: user._id,
           notificationType: 'profileVisit',
         }),
       }
     );
-  }, [loggedUser._id, profiledata._id, profiledata.originalUser]);
+  }, [user._id, profiledata._id, profiledata.originalUser]);
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
@@ -409,13 +410,12 @@ export default function Profile() {
               רשימת חברים
             </div>
             <div
-              className="profile-small-btn"
-              // className={`${
-              //   profiledata.originalUser[0]._id === user._id ||
-              //   profiledata.addAdmins.indexOf()
-              //     ? 'hidden'
-              //     : 'profile-small-btn'
-              // }`}
+              className={`${
+                profiledata.originalUser[0]._id === user._id ||
+                profiledata.addAdmins.indexOf()
+                  ? 'hidden'
+                  : 'profile-small-btn'
+              }`}
               onClick={() => handleAddFriendRequest()}
               style={{ cursor: 'pointer' }}
             >
