@@ -141,8 +141,7 @@ export default function MainProfile(props) {
         </div>
         <div className="btns-container">
           <div>
-            {(profiledata.originalUser[0]._id === loggedUser._id ||
-              profiledata.addAdmins.indexOf()) && (
+            {(profiledata.originalUser[0]._id === loggedUser._id &&
               <Link to={`/editprofiles/${id}`}>
                 <span className="profile-small-btn">ערוך פרופיל</span>
               </Link>
@@ -150,8 +149,7 @@ export default function MainProfile(props) {
 
             <div
               className={`${
-                profiledata.originalUser[0]._id === loggedUser._id ||
-                profiledata.addAdmins.indexOf()
+                profiledata.originalUser[0]._id === loggedUser._id 
                   ? 'hidden'
                   : 'profile-small-btn'
               }`}

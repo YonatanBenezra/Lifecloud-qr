@@ -20,7 +20,13 @@
 .hideBtn {
   display: none;
 }
-
+.profile-details-cover-btns {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
 /* .profile-h1 {
     font-size: 60px;
 } */

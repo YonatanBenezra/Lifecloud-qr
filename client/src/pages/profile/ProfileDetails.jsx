@@ -54,7 +54,6 @@ export default function Profile() {
   const [hebMemorialDate, setHebMemorialDate] = useState('');
   const location = useLocation();
   const [yPos, setYPos] = useState(50);
-
   const handleDeathDateBlur = async () => {
     const death = new Date(profiledata?.deathDate);
 
@@ -298,7 +297,6 @@ export default function Profile() {
   // console.log(profiledata);
 
   useEffect(() => {
-    console.log(user);
     if (profiledata.originalUser?.[0]._id === user._id) {
       return;
     }
@@ -391,13 +389,13 @@ export default function Profile() {
             style={{ objectPosition: `0 ${yPos}%` }}
           ></img>
           <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              right: '0',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
+            className={`${
+              profiledata.originalUser[0]._id === user._id ?
+              // (profiledata.addAdmins.length &&
+              //   profiledata.addAdmins.indexOf(user.id)) !== -1 ?
+                'profile-details-cover-btns' :
+                'hidden' 
+            }`}
           >
             <button
               onClick={() => handleObjectPos('up')}
@@ -431,12 +429,11 @@ export default function Profile() {
         </div>
         <div className="btns-container">
           <div className="small-btns-container">
-            {console.log(profiledata.originalUser[0]._id, 'profiledata')}
-            {console.log(user._id, 'user')}
             <Link
               className={`${
-                profiledata.originalUser[0]._id === user._id ||
-                profiledata.addAdmins.indexOf()
+                profiledata.originalUser[0]._id === user._id
+                // (profiledata.addAdmins.length &&
+                //   profiledata.addAdmins.indexOf(user._id))
                   ? 'small-btns-container'
                   : 'hidden'
               }`}
@@ -450,13 +447,18 @@ export default function Profile() {
             >
               רשימת חברים
             </div>
+            {console.log(profiledata)}
+            {console.log(user._id)}
+            {console.log(user._id)}
             <div
               className={`${
-                // profiledata.originalUser[0]._id === user._id ||
-                // profiledata.addAdmins.indexOf()
-                //   ? 'hidden'
-                //   :
-                'profile-small-btn'
+                profiledata.originalUser[0]._id === user._id 
+                // (profiledata.addAdmins.length &&
+                //   profiledata.addAdmins.indexOf(user._id)) ||
+                //   (profiledata.addFriends.length &&
+                //     profiledata.addFriends.indexOf(user._id))
+                  ? 'hidden'
+                  : 'profile-small-btn'
               }`}
               onClick={() => handleAddFriendRequest()}
               style={{ cursor: 'pointer' }}
@@ -499,7 +501,6 @@ export default function Profile() {
 
             <div className="details-and-icons">
               <div className="memorial-details">
-                {/* {console.log(profiledata)} */}
                 <h3>
                   <span className="separator">| </span>
                   <span className="dash">- </span>
@@ -584,35 +585,33 @@ export default function Profile() {
                     imgData,
                     index //change to memories
                   ) => (
-                    console.log(profiledata),
-                    (
-                      <Popup
-                        trigger={
-                          <div className="memory-container" key={index}>
-                            {imgData.file ? (
-                              <img
-                                src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
-                                alt=""
-                                className="memory-img"
-                              ></img>
-                            ) : (
-                              <video
-                                width="100%"
-                                height="100%"
-                                srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                srl_video_caption="A video with a rabbit"
-                                srl_video_muted="true"
-                                controls
-                                className="memory-img"
-                              >
-                                <source
-                                  src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
-                                  type="video/mp4"
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                            )}
-                            {/* {imgData.file.map(item => {
+                    <Popup
+                      trigger={
+                        <div className="memory-container" key={index}>
+                          {imgData.file ? (
+                            <img
+                              src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
+                              alt=""
+                              className="memory-img"
+                            ></img>
+                          ) : (
+                            <video
+                              width="100%"
+                              height="100%"
+                              srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                              srl_video_caption="A video with a rabbit"
+                              srl_video_muted="true"
+                              controls
+                              className="memory-img"
+                            >
+                              <source
+                                src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
+                                type="video/mp4"
+                              />
+                              Your browser does not support the video tag.
+                            </video>
+                          )}
+                          {/* {imgData.file.map(item => {
                           return <img
                             src={`${process.env.REACT_APP_API_URL}/${item}`}
                             alt=""
@@ -620,61 +619,60 @@ export default function Profile() {
                           ></img>
                         })} */}
 
-                            <div className="icons-container">
-                              <div className="memory-heart-container">
-                                <div className="heart-div">
-                                  <img
-                                    style={{ cursor: 'pointer' }}
-                                    className="heart-icon"
-                                    src={heart}
-                                    alt=""
-                                  ></img>
-                                  <span>{imgData.likes.length}</span>
-                                </div>
+                          <div className="icons-container">
+                            <div className="memory-heart-container">
+                              <div className="heart-div">
+                                <img
+                                  style={{ cursor: 'pointer' }}
+                                  className="heart-icon"
+                                  src={heart}
+                                  alt=""
+                                ></img>
+                                <span>{imgData.likes.length}</span>
                               </div>
-                              <div className="facebook-container">
-                                <div className="heart-div">
-                                  <img
-                                    className="heart-icon"
-                                    src={facebook}
-                                    alt=""
-                                  ></img>
-                                </div>
+                            </div>
+                            <div className="facebook-container">
+                              <div className="heart-div">
+                                <img
+                                  className="heart-icon"
+                                  src={facebook}
+                                  alt=""
+                                ></img>
                               </div>
-                              <div className="instagram-container">
-                                <div className="heart-div">
-                                  <img
-                                    className="heart-icon"
-                                    src={instagram}
-                                    alt=""
-                                  ></img>
-                                </div>
+                            </div>
+                            <div className="instagram-container">
+                              <div className="heart-div">
+                                <img
+                                  className="heart-icon"
+                                  src={instagram}
+                                  alt=""
+                                ></img>
                               </div>
                             </div>
                           </div>
-                        }
-                        modal
-                        nested
-                      >
-                        {(close, item) => (
-                          <Memory
-                            close={close}
-                            data={imgData}
-                            profiledata={profiledata}
-                            index={index}
-                            handleLike={handleLike}
-                            onhandleChangeComment={onhandleChangeComment}
-                            handleComment={handleComment}
-                            setCommenting={setCommenting}
-                            commenting={commenting}
-                            handleDelete={handleDelete}
-                            handleDellMemory={handleDellMemory}
-                            profile={profiledata}
-                            user={user}
-                          /> //change to memories
-                        )}
-                      </Popup>
-                    )
+                        </div>
+                      }
+                      modal
+                      nested
+                    >
+                      {(close, item) => (
+                        <Memory
+                          close={close}
+                          data={imgData}
+                          profiledata={profiledata}
+                          index={index}
+                          handleLike={handleLike}
+                          onhandleChangeComment={onhandleChangeComment}
+                          handleComment={handleComment}
+                          setCommenting={setCommenting}
+                          commenting={commenting}
+                          handleDelete={handleDelete}
+                          handleDellMemory={handleDellMemory}
+                          profile={profiledata}
+                          user={user}
+                        /> //change to memories
+                      )}
+                    </Popup>
                   )
                 )
               ) : (

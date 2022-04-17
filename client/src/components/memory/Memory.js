@@ -114,8 +114,7 @@ const Memory = ({
                   </span>
                   <span
                     className={`${
-                      profiledata.originalUser[0]._id === user._id ||
-                      profiledata.addAdmins.indexOf()
+                      profiledata.originalUser[0]._id === user._id
                       ? ''
                       : 'hidden'
                     }`}
@@ -167,8 +166,7 @@ const Memory = ({
               </div>
               <div
                 className={`${
-                  profiledata.originalUser[0]._id === user._id ||
-                  profiledata.addAdmins.indexOf()
+                  profiledata.originalUser[0]._id === user._id 
                   ? 'dlt-comment-btn memory-btn-hover'
                   : 'hidden'
                 }`}
