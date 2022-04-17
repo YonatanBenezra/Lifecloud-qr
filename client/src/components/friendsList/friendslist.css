@@ -1,4 +1,4 @@
-.friend-request {
+/* .friend-request {
   height: 60px;
   display: flex;
   direction: rtl;
@@ -12,24 +12,98 @@
   font-size: 15px;
   padding-right: 1rem;
   padding-left: 1rem;
+} */
+
+.friend-request-new-friends {
+  height: 60px;
+  display: flex;
+  direction: rtl;
+  align-items: center;
+  width: 66%;
+  justify-content: space-between;
+  margin: auto;
+  color: #6097bf;
+  background: #DCECF4;
+  border-radius: 15px;
+  font-size: 23px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+
 }
+
+.friend-request-friends {
+  height: 60px;
+  display: flex;
+  direction: rtl;
+  align-items: center;
+  width: 66%;
+  justify-content: space-between;
+  margin: auto;
+  color: #6097bf;
+  background: #ABC9DB;
+  border-radius: 15px;
+  font-size: 23px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.friend-request-admins-list {
+  height: 60px;
+  display: flex;
+  direction: rtl;
+  align-items: center;
+  width: 66%;
+  justify-content: space-between;
+  margin: auto;
+  color: #FFFFFF;
+  background: #6097BF;
+  border-radius: 15px;
+  font-size: 23px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
 .friend-request-details {
   display: flex;
   align-items: center;
   width: 100px;
   justify-content: space-between;
 }
+
 .friends-list {
   text-align: center;
   color: #6097bf;
   margin-bottom: 75px;
 }
+
 .friends-list h1 {
   font-weight: 100;
   margin-top: 2rem;
 }
+
 .friends-list img {
-  height: 45px;
+  /* height: 45px; */
   width: 45px;
   border-radius: 100%;
+}
+
+.friendsList-return {
+  font-size: 23px;
+  margin-top: 2rem;
+}
+
+.friendsList-return-arrow {
+  margin: 5px;
+  width: 20px !important;
+}
+
+.friends-list-h1 {
+  font-size: 30px;
+
 }

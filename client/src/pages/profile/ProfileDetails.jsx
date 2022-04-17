@@ -410,12 +410,13 @@ export default function Profile() {
               רשימת חברים
             </div>
             <div
-              className={`${
-                profiledata.originalUser[0]._id === user._id ||
-                profiledata.addAdmins.indexOf()
-                  ? 'hidden'
-                  : 'profile-small-btn'
-              }`}
+              // className={`${
+              //   profiledata.originalUser[0]._id === user._id ||
+              //   profiledata.addAdmins.indexOf()
+              //     ? 'hidden'
+              //     : 'profile-small-btn'
+              // }`}
+              className='profile-small-btn'
               onClick={() => handleAddFriendRequest()}
               style={{ cursor: 'pointer' }}
             >

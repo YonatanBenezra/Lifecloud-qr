@@ -4,6 +4,7 @@ import Rectangle7 from '../../assets/Rectangle7.png';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import userIcon from '../../assets/userIcon.png';
+import Arrow1 from '../../assets/Arrow1.png';
 
 const FriendsList = ({
   proid,
@@ -265,57 +266,7 @@ const FriendsList = ({
   return (
     <div className="friends-list">
       <div>
-        <h1>חברים</h1>
-        {profiledata && profiledata.addFriends.length > 0 ? (
-          profiledata.addFriends.map((friend, i) => {
-            return (
-              <div className="friend-request" key={i}>
-                <div className="friend-request-details">
-                  <img
-                    src={
-                      friend.user[0].mainProfilePicture
-                        ? `${process.env.REACT_APP_API_URL}/picUploader/${friend.user[0].mainProfilePicture}`
-                        : friend.user[0].profilePicture
-                    }
-                    alt="profile"
-                  />
-                  <p>
-                    {friend.user && friend.user[0] && friend.user[0].firstName}
-                  </p>
-                </div>
-                <div>
-                  {/* <span
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => handleAddAcceptFrined(friend)}
-                    >
-                      הוסף חבר
-                    </span>
-                    | */}
-                  <span
-                    style={{ cursor: 'pointer' }}
-                    // onClick={() =>
-                    //   handleAddAcceptFrined2(friend)
-                    // }
-                    onClick={() => handleDeleteFriend(friend.user[0]._id)}
-                  >
-                    הסר
-                  </span>
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          <div style={{ textAlign: 'center' }}>אין חברים עדיין</div>
-        )}
-        <div
-          className={`${
-            profiledata.originalUser[0]._id === user._id ||
-            profiledata.addAdmins.indexOf()
-              ? ''
-              : 'hidden'
-          }`}
-        >
-          <h1>בקשות חברות</h1>
+          <h1 className="friends-list-h1">חברים חדשים</h1>
           {/* {users &&
             users.length > 0 &&
             users.map((user, i) => {
@@ -358,7 +309,7 @@ const FriendsList = ({
             profiledata.friendRequests.map((friend, i) => {
               return (
                 <div
-                  className="friend-request"
+                  className="friend-request-new-friends"
                   key={friend.user && friend.user[0] && friend.user[0]._id}
                 >
                   <div className="friend-request-details">
@@ -381,9 +332,9 @@ const FriendsList = ({
                       style={{ cursor: 'pointer' }}
                       onClick={() => handleAddFriends(friend.user[0]._id)}
                     >
-                      הוסף כחבר
+                      הוסף חבר {' '}
                     </span>
-                    |
+                    |{' '}
                     {/* <span
                       style={{ cursor: 'pointer' }}
                       onClick={() =>
@@ -392,19 +343,25 @@ const FriendsList = ({
                     >
            decline           סרב
                     </span> */}
-                    <span
+
+
+
+                    {/* <span
                       onClick={() => handleAddAdmins(friend.user[0]._id)}
                       style={{ cursor: 'pointer' }}
                     >
-                      הוסף כאדמין
+                      הוסף כאדמין {' '}
                     </span>
+                    | {' '} */}
+
+
                     <span
                       onClick={() =>
                         handleRemoveFriendRequest(friend.user[0]._id)
                       }
                       style={{ cursor: 'pointer' }}
                     >
-                      Decline
+                      סרב
                     </span>
                   </div>
                 </div>
@@ -422,13 +379,70 @@ const FriendsList = ({
               : 'hidden'
           }`}
         >
-          <h1>אדמינים</h1>
+          <h1 className="friends-list-h1">חברים</h1>
+        {profiledata && profiledata.addFriends.length > 0 ? (
+          profiledata.addFriends.map((friend, i) => {
+            return (
+              <div className="friend-request-friends" key={i}>
+                <div className="friend-request-details">
+                  <img
+                    src={
+                      friend.user[0].mainProfilePicture
+                        ? `${process.env.REACT_APP_API_URL}/picUploader/${friend.user[0].mainProfilePicture}`
+                        : friend.user[0].profilePicture
+                    }
+                    alt="profile"
+                  />
+                  <p>
+                    {friend.user && friend.user[0] && friend.user[0].firstName}
+                  </p>
+                </div>
+                <div>
+                  {/* <span
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleAddAcceptFrined(friend)}
+                    >
+                      הוסף חבר
+                    </span>
+                    | */}
+                  <span
+                    style={{ cursor: 'pointer' }}
+                    // onClick={() =>
+                    //   handleAddAcceptFrined2(friend)
+                    // }
+                    onClick={() => handleDeleteFriend(friend.user[0]._id)}
+                  >
+                     הסר חבר {' '}
+                    </span>
+                    |{' '}
+                    <span
+                      onClick={() => handleAddAdmins(friend.user[0]._id)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      הפוך לאדמין {' '}
+                    </span>
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div style={{ textAlign: 'center' }}>אין חברים עדיין</div>
+        )}
+        <div
+          className={`${
+            profiledata.originalUser[0]._id === user._id ||
+            profiledata.addAdmins.indexOf()
+              ? ''
+              : 'hidden'
+          }`}
+        >
+          <h1 className="friends-list-h1">רשימת אדמינים</h1>
           {profiledata && profiledata.addAdmins.length > 0 ? (
             profiledata.addAdmins.map((admin, i) => {
               console.log(admin, '😗');
               return (
                 <div
-                  className="friend-request"
+                  className="friend-request-admins-list"
                   key={admin.user && admin.user[0]._id}
                 >
                   <div className="friend-request-details">
@@ -447,7 +461,7 @@ const FriendsList = ({
                       onClick={() => handleDeleteAdmins(admin.user[0]._id)}
                       style={{ cursor: 'pointer' }}
                     >
-                      הסר
+                      - הסר אדמין
                     </span>
                   </div>
                 </div>
@@ -457,6 +471,10 @@ const FriendsList = ({
             <div style={{ textAlign: 'center' }}>אין אדמינים</div>
           )}
         </div>
+      </div>
+      <div className="friendsList-return">
+        חזרה
+        <img src={Arrow1} className="friendsList-return-arrow" alt=""></img>
       </div>
       {/* ) : (
         <div>
