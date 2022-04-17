@@ -19,7 +19,7 @@ AuthRouter.post('/register', async (req, res) => {
       gender: req.body.gender,
       email: req.body.email,
       password: hashedpassword,
-      user_type: req.user_type
+      user_type: req.user_type,
     });
 
     //save and response
@@ -36,14 +36,15 @@ AuthRouter.post('/register', async (req, res) => {
 AuthRouter.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    !user && res.status(404).send('User NOt Found');
+    if (!user)
+      return res.status(404).json({ message: 'Invalid email or password' });
 
     const validpassword = await bcrypt.compare(
       req.body.password,
       user.password
     );
-    !validpassword && res.status(400).json('Please enter the correct Password');
-
+    if (!validpassword)
+      return res.status(400).json({ message: 'Invalid email or password' });
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json(err);

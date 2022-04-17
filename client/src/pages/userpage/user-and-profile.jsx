@@ -18,6 +18,17 @@ export const UserAndprofiles = () => {
   const id = useParams().id;
   const [userId, setId] = useState(id);
 
+  const notificationString = (userNotification) => {
+    console.log(userNotification, '😎😎');
+    if (userNotification.notificationType === 'profileVisit')
+      return `${userNotification.logedInUser[0]?.firstName} ביקר בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`;
+    else if (userNotification.notificationType === 'memoryCreation')
+      return `${userNotification.logedInUser[0]?.firstName} יצר זיכרון בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`;
+    else if (userNotification.notificationType === 'profileAdmin')
+      return `You are now an admin of ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`;
+    else if (userNotification.notificationType === 'profileFriend')
+      return `You are now a friend of ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`;
+  };
 
   useEffect(() => {
     (async () => {
@@ -26,12 +37,20 @@ export const UserAndprofiles = () => {
       );
 
       const currentLoggedUser = JSON.parse(localStorage.getItem('user'));
+      console.log(res.data, '😴');
       setNotifications(
         res.data
           .filter(
             (notification) =>
-              notification?.memoryCreatorNotification[0]?.originalUser[0] ===
-              currentLoggedUser._id
+              (notification?.memoryCreatorNotification[0]?.originalUser[0] ===
+                currentLoggedUser._id &&
+                notification.notificationType !== 'profileAdmin' &&
+                notification.notificationType !== 'profileFriend') ||
+              (notification?.memoryCreatorNotification[0]?.originalUser[0] !==
+                currentLoggedUser._id &&
+                notification?.logedInUser[0]?._id === currentLoggedUser._id &&
+                (notification.notificationType === 'profileAdmin' ||
+                  notification.notificationType === 'profileFriend'))
           )
           .map((userNotification) => ({
             date: new Date(userNotification.createdAt)
@@ -40,14 +59,10 @@ export const UserAndprofiles = () => {
             time: new Date(userNotification.createdAt)
               .toISOString()
               .slice(11, 16),
-            profileImg: `${process.env.REACT_APP_API_URL}/picUploader/${
-              userNotification.logedInUser[0]?.mainProfilePicture ||
-              userNotification.logedInUser[0]?.profilePicture
-            }`,
-            action:
-              userNotification.notificationType === 'profileVisit'
-                ? `${userNotification.logedInUser[0]?.firstName} ביקר בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`
-                : `${userNotification.logedInUser[0]?.firstName} יצר זיכרון בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`,
+            profileImg: userNotification.logedInUser[0]?.mainProfilePicture
+              ? `${process.env.REACT_APP_API_URL}/picUploader/${userNotification.logedInUser[0]?.mainProfilePicture}`
+              : userNotification.logedInUser[0]?.profilePicture,
+            action: notificationString(userNotification),
           }))
       );
     })();
@@ -120,17 +135,17 @@ export const UserAndprofiles = () => {
             </p> */}
             </div>
             <div className="profiles-container">
-            {user.user_type == "organisation" && (
-                  data?.length > 0 ? (
+              {user.user_type == 'organisation' &&
+                (data?.length > 0 ? (
                   data?.map((userProfiles, i) => {
                     if (userProfiles.isMain) {
                       return (
                         <>
-                        {console.log(id)}
+                          {console.log(id)}
                           <h1>פרופיל ראשי</h1>
                           <Link
                             to={`/mainprofiledetails/${userProfiles._id}`}
-                            state={{ id: userProfiles._id, userId: userId}}
+                            state={{ id: userProfiles._id, userId: userId }}
                             key={i}
                             style={{ cursor: 'hover' }}
                           >
@@ -159,21 +174,20 @@ export const UserAndprofiles = () => {
                   })
                 ) : (
                   <>
-                  <h1>פרופיל ראשי</h1>
-                  <Link to={`/createmainprofile/${LoggedUser.user._id}`}>
-                    <div className="profile-container">
-                      <div className="profile-image create-profile-container">
-                        <div className="inner-btn">
-                          <div className="line-1 user-line"></div>
-                          <div className="line-2 user-line"></div>
+                    <h1>פרופיל ראשי</h1>
+                    <Link to={`/createmainprofile/${LoggedUser.user._id}`}>
+                      <div className="profile-container">
+                        <div className="profile-image create-profile-container">
+                          <div className="inner-btn">
+                            <div className="line-1 user-line"></div>
+                            <div className="line-2 user-line"></div>
+                          </div>
                         </div>
+                        <div className="profile-name"> צור פרופיל חדש</div>
                       </div>
-                      <div className="profile-name"> צור פרופיל חדש</div>
-                    </div>
-                  </Link>
+                    </Link>
                   </>
-                )
-              )}
+                ))}
               <h1 className="profile-title">הפרופילים שלי</h1>
               <div className="profiles">
                 {data &&
@@ -270,6 +284,7 @@ export const UserAndprofiles = () => {
             התראות חדשות
           </h3>
           {notifications.map((n) => {
+            console.log(n);
             return (
               <div className="notification-line">
                 <div className="notification-text">
@@ -278,7 +293,7 @@ export const UserAndprofiles = () => {
                 </div>
                 <img
                   alt=""
-                  src={n.mainProfilePicture || n.profilePicture}
+                  src={n.profileImg}
                   className="notification-img"
                 ></img>
               </div>

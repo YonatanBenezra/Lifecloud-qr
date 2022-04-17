@@ -17,7 +17,6 @@ const FriendsList = ({
   fetchuserprofiles,
 }) => {
   const { user } = useContext(AuthContext);
-  const [userid, setuserid] = useState('');
   const [friendReqRes, setfriendReqRes] = useState({});
   // const [users, setUsers] = useState([])
   // useEffect(() => {
@@ -27,7 +26,6 @@ const FriendsList = ({
   // console.log(RequestedUser, 'RequestedUser');
   const [isAdmin, setIsAdmin] = useState(true);
   const handleAddFriend = (e) => {
-    setuserid(e);
     fetch(`${process.env.REACT_APP_API_URL}/api/profile/addFriends/${proid}`, {
       method: 'PUT',
       headers: {
@@ -98,7 +96,6 @@ const FriendsList = ({
       });
   };
   const handleRemoveFriendRequest = (e) => {
-    setuserid(e);
     fetch(
       `${process.env.REACT_APP_API_URL}/api/profile/removeFriendRequest/${proid}`,
       {
@@ -112,9 +109,28 @@ const FriendsList = ({
       .then(fetchuserprofiles)
       .catch(console.log);
   };
+  const sendNotification = (userId, type) => {
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({
+          profileId: profiledata._id,
+          loggedInId: userId,
+          notificationType: type,
+        }),
+      }
+    );
+  };
 
-  const handleAddFriends = (e) => {
-    setuserid(e);
+  const handleAddFriends = (e, type) => {
+    sendNotification(
+      e,
+      type === 'profileAdmin' ? 'profileAdmin' : 'profileFriend'
+    );
     handleRemoveFriendRequest(e);
     fetch(`${process.env.REACT_APP_API_URL}/api/profile/addFriends/${proid}`, {
       method: 'PATCH',
@@ -134,8 +150,7 @@ const FriendsList = ({
       });
   };
   const handleAddAdmins = (e) => {
-    setuserid(e);
-    handleAddFriends(e);
+    handleAddFriends(e, 'profileAdmin');
     fetch(`${process.env.REACT_APP_API_URL}/api/profile/addAdmins/${proid}`, {
       method: 'PATCH',
       headers: {
@@ -236,7 +251,6 @@ const FriendsList = ({
   );
 
   const handleDeleteAdmins = (e) => {
-    setuserid(e);
     fetch(`${process.env.REACT_APP_API_URL}/api/profile/removeAdmin/${proid}`, {
       method: 'DELETE',
       headers: {
@@ -248,7 +262,6 @@ const FriendsList = ({
       .catch(console.log);
   };
   const handleDeleteFriend = (e) => {
-    setuserid(e);
     fetch(
       `${process.env.REACT_APP_API_URL}/api/profile/removeFriend/${proid}`,
       {

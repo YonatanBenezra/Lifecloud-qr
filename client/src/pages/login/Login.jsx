@@ -8,12 +8,12 @@ import Topbar from '../../components/topbar/Topbar';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import Footer from '../../components/footer/Footer';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
+import { ToastContainer } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
-
 
   const { isFetching, dispatch } = useContext(AuthContext);
 
@@ -24,13 +24,12 @@ const Login = () => {
   const componentClicked = (data) => {
     console.warn(data);
   };
-  useEffect(() => {
-  }, []);
-
+  useEffect(() => {}, []);
 
   return (
     <>
       <Topbar />
+      <ToastContainer />
       <div className="login">
         <div className="loginWrapper">
           <div className="loginLeft">
@@ -66,7 +65,7 @@ const Login = () => {
                   className="login-input"
                   onChange={(e) => setPhone(e.target.value)}
                 />
-                
+
                 <button
                   className="login-button"
                   type="submit"
