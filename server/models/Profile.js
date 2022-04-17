@@ -92,8 +92,12 @@ const PostSchema = new mongoose.Schema(
       type: String,
     },
     isMain: {
-        type: Boolean,
-    }
+      type: Boolean,
+    },
+    objectYPos: {
+      type: Number,
+      default: 50,
+    },
   },
 
   { timestamps: true }
