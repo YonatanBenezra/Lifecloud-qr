@@ -295,10 +295,10 @@ ProfileRouter.get('/getSingleProfileDetails/:id', (req, res, next) => {
 // });
 
 ProfileRouter.put('/addFriendRequests/:id', async (req, res) => {
-  console.log(req.params.id,"req")
+  console.log(req.params.id, 'req');
   let profileAccess = await profileModel.findById(req.params.id);
   let pullreq = profileAccess.friendRequests.find((friendRequest) => {
-    console.log(friendRequest.user,'friend');
+    console.log(friendRequest.user, 'friend');
     return friendRequest.user == req.body.userId;
   });
   console.log(pullreq, req.body.userId, 'pro');
@@ -315,7 +315,6 @@ ProfileRouter.put('/addFriendRequests/:id', async (req, res) => {
     //   }
     // );
     res.send('Friend req already sent');
-   
   } else {
     let result = await profileAccess.updateOne(
       {
@@ -334,7 +333,6 @@ ProfileRouter.put('/addFriendRequests/:id', async (req, res) => {
   }
 });
 ProfileRouter.put('/addAcceptFriends/:id', async (req, res) => {
-  
   try {
     const filter = { _id: req.params.id, 'addFriends._id': req.body.userId };
     const options = { upsert: true };
@@ -372,83 +370,158 @@ ProfileRouter.put('/addAcceptFriends/:id', async (req, res) => {
 //     res.status(500).json(err);
 //   }
 
-  // res.send('friend request accepted');
+// res.send('friend request accepted');
 
-  // } catch (err) {
-  //     res.status(500).json(err);
-  // }
+// } catch (err) {
+//     res.status(500).json(err);
+// }
 // });
 
-ProfileRouter.put('/addAdmins/:id', async (req, res) => {
-  let profileAccess = await profileModel.findById(req.params.id);
-  let pullreq = profileAccess.addAdmins.find((friend) => {
-    return friend.user == req.body.userId;
-  });
-  // console.log(pullreq, req.body.userId, 'pro');
-  if (pullreq && pullreq.user == req.body.userId) {
-    let result = await profileAccess.updateOne(
-      {
-        $pull: {
-          addAdmins: { user: req.body.userId, isAdmin: req.body.isAdmin },
-        },
+// ProfileRouter.put('/addAdmins/:id', async (req, res) => {
+//   let profileAccess = await profileModel.findById(req.params.id);
+//   let pullreq = profileAccess.addAdmins.find((friend) => {
+//     return friend.user == req.body.userId;
+//   });
+//   // console.log(pullreq, req.body.userId, 'pro');
+//   if (pullreq && pullreq.user == req.body.userId) {
+//     let result = await profileAccess.updateOne(
+//       {
+//         $pull: {
+//           addAdmins: { user: req.body.userId, isAdmin: req.body.isAdmin },
+//         },
+//       },
+//       {
+//         upsert: true, //to return updated document
+//       }
+//     );
+//     res.send(profileAccess);
+//   } else {
+//     let result = await profileAccess.updateOne(
+//       {
+//         $push: {
+//           addAdmins: {
+//             $each: [{ user: req.body.userId, isAdmin: req.body.isAdmin }],
+//             $position: -1,
+//           },
+//         },
+//       },
+//       {
+//         upsert: true, //to return updated document
+//       }
+//     );
+//     res.send(profileAccess);
+//   }
+// });
+ProfileRouter.patch('/addFriends/:id', async (req, res) => {
+  console.log(req.body);
+  const profiles = await profileModel.findById(req.params.id);
+  const friend = profiles.addFriends.find(
+    (friend) => friend.user == req.body.userId
+  );
+  if (friend) return;
+  const response = await profileModel.findByIdAndUpdate(
+    req.params.id,
+
+    {
+      $push: {
+        addFriends: { user: req.body.userId, isFriend: req.body.isFriend },
       },
-      {
-        upsert: true, //to return updated document
-      }
-    );
-    res.send(profileAccess);
-  } else {
-    let result = await profileAccess.updateOne(
-      {
-        $push: {
-          addAdmins: {
-            $each: [{ user: req.body.userId, isAdmin: req.body.isAdmin }],
-            $position: -1,
-          },
-        },
-      },
-      {
-        upsert: true, //to return updated document
-      }
-    );
-    res.send(profileAccess);
-  }
+    },
+    { new: true }
+  );
+
+  res.send(response);
 });
-ProfileRouter.put('/addFriends/:id', async (req, res) => {
-  let profileAccess = await profileModel.findById(req.params.id);
-  let pullreq = profileAccess.addAdmins.find((friend) => {
-    return friend.user == req.body.userId;
-  });
-  // console.log(pullreq, req.body.userId, 'pro');
-  if (pullreq && pullreq.user == req.body.userId) {
-    let result = await profileAccess.updateOne(
-      {
-        $pull: {
-          addFriends: { user: req.body.userId, isFriend: req.body.isFriend },
-        },
+ProfileRouter.patch('/addAdmins/:id', async (req, res) => {
+  const profiles = await profileModel.findById(req.params.id);
+
+  const admin = profiles.addAdmins.find(
+    (admin) => admin.user == req.body.userId
+  );
+
+  if (admin) return;
+  const response = await profileModel.findByIdAndUpdate(
+    req.params.id,
+
+    {
+      $push: {
+        addAdmins: { user: req.body.userId, isAdmin: req.body.isAdmin },
       },
-      {
-        upsert: true, //to return updated document
-      }
-    );
-    res.send(profileAccess);
-  } else {
-    let result = await profileAccess.updateOne(
-      {
-        $push: {
-          addFriends: {
-            $each: [{ user: req.body.userId, isFriend: req.body.isFriend }],
-            $position: -1,
-          },
-        },
-      },
-      {
-        upsert: true, //to return updated document
-      }
-    );
-    res.send(profileAccess);
-  }
+    },
+    { new: true }
+  );
+
+  res.send(response);
 });
+ProfileRouter.delete('/removeAdmin/:id', async (req, res) => {
+  const response = await profileModel.updateOne(
+    { _id: req.params.id },
+    {
+      $pull: {
+        addAdmins: { user: req.body.userId },
+      },
+    }
+  );
+  res.send(response);
+});
+ProfileRouter.delete('/removeFriend/:id', async (req, res) => {
+  const response = await profileModel.updateOne(
+    { _id: req.params.id },
+    {
+      $pull: {
+        addFriends: { user: req.body.userId },
+      },
+    }
+  );
+
+  res.send(response);
+});
+ProfileRouter.delete('/removeFriendRequest/:id', async (req, res) => {
+  const response = await profileModel.updateOne(
+    { _id: req.params.id },
+    {
+      $pull: {
+        friendRequests: { user: req.body.userId },
+      },
+    }
+  );
+  res.send(response);
+});
+// ProfileRouter.put('/addFriends/:id', async (req, res) => {
+//   let profileAccess = await profileModel.findById(req.params.id);
+//   let pullreq = profileAccess.addAdmins.find((friend) => {
+//     return friend.user == req.body.userId;
+//   });
+//   // console.log(pullreq, req.body.userId, 'pro');
+//   if (pullreq && pullreq.user == req.body.userId) {
+//     let result = await profileAccess.updateOne(
+//       {
+//         $pull: {
+//           addFriends: { user: req.body.userId, isFriend: req.body.isFriend },
+//         },
+//       },
+//       {
+//         upsert: true, //to return updated document
+//       }
+//     );
+//     res.send(profileAccess);
+//   } else {
+//     let result = await profileAccess.updateOne(
+//       {
+//         $push: {
+//           addFriends: {
+//             $each: [{ user: req.body.userId, isFriend: req.body.isFriend }],
+//             $position: -1,
+//           },
+//         },
+//       },
+//       {
+//         upsert: true, //to return updated document
+//       }
+//     );
+//     res.send(profileAccess);
+//   }
+// });
 
 ProfileRouter.get('/searchProfile/:firstName', (req, res, next) => {
   profileModel

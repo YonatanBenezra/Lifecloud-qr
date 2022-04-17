@@ -1,0 +1,85 @@
+.policy-container {
+  display: flex;
+  margin-block-end: auto;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5fcff;
+  padding: 0 4rem;
+}
+
+.accordion {
+  /* width: 700px; */
+  min-width: calc(100vw - 8rem);
+}
+
+.item {
+  margin-bottom: 5px;
+  padding: 4px 0px;
+  color: #6097bf;
+}
+.span2 {
+  /* font-size: 2.0rem; */
+  margin: 0 5px;
+}
+
+.policy-container .title {
+  color: #6097bf;
+  direction: rtl;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+.policy-container .title h2,
+.policy-container .title .span2 {
+  font-size: 2rem;
+}
+
+.content {
+  display: none;
+  color: #6097bf;
+  direction: rtl;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+  font-size: 1.5rem;
+}
+
+.content.show {
+  height: auto;
+  max-height: initial;
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+}
+.show {
+  display: block;
+}
+
+.policy-title {
+  margin-top: 10px;
+  color: #6097bf;
+  font-size: 40px;
+  line-height: 136px;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.answer-paragraph {
+  margin-bottom: 12px;
+}
+.section-title {
+  margin-bottom: 12px;
+}
+
+.answer-paragraph.small-text {
+  font-size: 1.2rem;
+  padding: 0 12px;
+}
+.answer-paragraph.no-margin {
+  margin: 0;
+}
+.answer-paragraph.bold {
+  font-weight: bold;
+}

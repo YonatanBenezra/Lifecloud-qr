@@ -46,8 +46,8 @@ export const UserAndprofiles = () => {
             }`,
             action:
               userNotification.notificationType === 'profileVisit'
-                ? `${userNotification.logedInUser[0]?.firstName} visits ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`
-                : `${userNotification.logedInUser[0]?.firstName} create a memory on ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`,
+                ? `${userNotification.logedInUser[0]?.firstName} ביקר בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`
+                : `${userNotification.logedInUser[0]?.firstName} יצר זיכרון בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`,
           }))
       );
     })();

@@ -1,37 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Alef&display=swap');
-
 @font-face {
-  font-family: 'os-luizi';
-  /*Can be any text*/
-  src: local('OS_Luizi\ Round-FFC'),
+  font-family: 'os-luizi'; /*Can be any text*/
+  src: local('OS_Luizi'),
     url('./fonts/OS_Luizi\ Round-FFC.otf') format('truetype');
 }
 
 @font-face {
-  font-family: 'pilkahol';
-  /*Can be any text*/
+  font-family: 'almoni'; /*Can be any text*/
+  src: local('almoni'),
+    url('./fonts/almoni-dl-aaa-regular.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'pilkahol'; /*Can be any text*/
   src: local('FtPilKahol-1.00-400-Regular'),
     url('./fonts/FtPilKahol-1.00-400-Regular.otf') format('truetype');
 }
-
 * {
-  font-family: 'os_luizi';
+  font-family: 'almoni';
   margin: 0;
 }
-
 p {
   margin: 0;
 }
-
 input {
   color: #6097bf;
 }
-
 input:focus {
   outline: none;
   opacity: 0.9;
 }
-
 img {
   object-fit: cover !important;
 }
@@ -39,21 +37,18 @@ img {
 html {
   font-size: 18px;
 }
-
 @media only screen and (max-width: 1366px) {
   html {
     font-size: 14px;
-  }
+  } 
 }
-
 @media only screen and (max-width: 767px) {
   html {
     font-size: 11px;
-  }
+  } 
 }
-
 @media only screen and (max-width: 375px) {
   html {
     font-size: 7px;
-  }
+  } 
 }

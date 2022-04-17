@@ -387,11 +387,13 @@ export default function ProfileCreate() {
                   <input
                     placeholder="* שם פרטי"
                     ref={firstName}
+                    required
                     className="nameInput"
                   />
                   <input
                     placeholder="* שם משפחה"
                     ref={lastName}
+                    required
                     className="nameInput"
                   />
                 </div>
@@ -446,7 +448,7 @@ export default function ProfileCreate() {
                     type="text"
                   />
                   <input
-                    placeholder="תואר"
+                    placeholder="תואר (דוקטור, חתן פרס נובל...)"
                     type="text"
                     ref={degree}
                     className="nameInput"
@@ -601,7 +603,7 @@ export default function ProfileCreate() {
                     nested
                   >
                     {(close) => (
-                      <div className="modal">
+                      <div className="popup-modal">
                         <button className="close" onClick={close}>
                           &times;
                         </button>
@@ -618,7 +620,7 @@ export default function ProfileCreate() {
                       <div className="box" key={i}>
                         {inputList.length !== 1 && (
                           <div
-                            className="add-btn"
+                            className="middle-axis-btn"
                             onClick={() => addSingleDiv(i)}
                           >
                             <div className="inner-btn">
@@ -699,7 +701,7 @@ export default function ProfileCreate() {
                     nested
                   >
                     {(close) => (
-                      <div className="modal">
+                      <div className="popup-modal">
                         <button className="close" onClick={close}>
                           &times;
                         </button>
@@ -800,13 +802,14 @@ export default function ProfileCreate() {
                     <label htmlFor="public">פומבי</label>
                   </div>
                 </div>
-                {submitted ? (
+                
+                { submitted ? (
                   <button className="create-btn submitted">נשמר</button>
                 ) : (
                   <button
                     className="create-btn"
                     type="submit"
-                    onClick={setSubmitted(true)}
+                    onClick={() => (setSubmitted(true))}
                   >
                     שמור
                   </button>

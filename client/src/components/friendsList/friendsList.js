@@ -13,6 +13,8 @@ const FriendsList = ({
   setrfriendReq,
   setAdminres,
   fetchUsers,
+  userId,
+  fetchuserprofiles,
 }) => {
   const { user } = useContext(AuthContext);
   const [userid, setuserid] = useState('');
@@ -39,6 +41,9 @@ const FriendsList = ({
       .then((res) => {
         setrfriendReq(res);
         setfriendReqRes(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
   const handleAddAcceptFrined = (e) => {
@@ -63,6 +68,9 @@ const FriendsList = ({
       })
       .then((res) => {
         setrfriendReq(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -84,13 +92,52 @@ const FriendsList = ({
       })
       .then((res) => {
         setrfriendReq(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
+  const handleRemoveFriendRequest = (e) => {
+    setuserid(e);
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/profile/removeFriendRequest/${proid}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({ userId: e }),
+      }
+    )
+      .then(fetchuserprofiles)
+      .catch(console.log);
+  };
 
+  const handleAddFriends = (e) => {
+    setuserid(e);
+    handleRemoveFriendRequest(e);
+    fetch(`${process.env.REACT_APP_API_URL}/api/profile/addFriends/${proid}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'Application/json',
+      },
+      body: JSON.stringify({ userId: e, isFriend: true }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setAdminres(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const handleAddAdmins = (e) => {
     setuserid(e);
+    handleAddFriends(e);
     fetch(`${process.env.REACT_APP_API_URL}/api/profile/addAdmins/${proid}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'Application/json',
       },
@@ -100,24 +147,11 @@ const FriendsList = ({
         return res.json();
       })
       .then((res) => {
+        console.log(res);
         setAdminres(res);
-      });
-  };
-
-  const handleAddFriends = (e) => {
-    setuserid(e);
-    fetch(`${process.env.REACT_APP_API_URL}/api/profile/addFriends/${proid}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'Application/json',
-      },
-      body: JSON.stringify({ isFriend: true, userId: e }),
-    })
-      .then((res) => {
-        return res.json();
       })
-      .then((res) => {
-        setAdminres(res);
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -201,49 +235,86 @@ const FriendsList = ({
     (n, i) => valfinalcheckidadmin && valfinalcheckidadmin.includes(n._id)
   );
 
+  const handleDeleteAdmins = (e) => {
+    setuserid(e);
+    fetch(`${process.env.REACT_APP_API_URL}/api/profile/removeAdmin/${proid}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'Application/json',
+      },
+      body: JSON.stringify({ userId: e }),
+    })
+      .then(fetchuserprofiles)
+      .catch(console.log);
+  };
+  const handleDeleteFriend = (e) => {
+    setuserid(e);
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/profile/removeFriend/${proid}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({ userId: e }),
+      }
+    )
+      .then(fetchuserprofiles)
+      .catch(console.log);
+  };
   return (
     <div className="friends-list">
-      {isAdmin ? (
-        <div>
-          <h1>חברים</h1>
-          {profiledata && profiledata.addFriends.length > 0 ? (
-            profiledata.addFriends.map((friend, i) => {
-              return (
-                <div
-                  className="friend-request"
-                  key={friend.user && friend.user[0] && friend.user[0]._id}
-                >
-                  <div className="friend-request-details">
-                    <img src={friend.mainProfilePicture} alt="profile" />
-                    <p>
-                      {friend.user &&
-                        friend.user[0] &&
-                        friend.user[0].firstName}
-                    </p>
-                  </div>
-                  <div>
-                    {/* <span
+      <div>
+        <h1>חברים</h1>
+        {profiledata && profiledata.addFriends.length > 0 ? (
+          profiledata.addFriends.map((friend, i) => {
+            return (
+              <div className="friend-request" key={i}>
+                <div className="friend-request-details">
+                  <img
+                    src={
+                      friend.user[0].mainProfilePicture
+                        ? `${process.env.REACT_APP_API_URL}/picUploader/${friend.user[0].mainProfilePicture}`
+                        : friend.user[0].profilePicture
+                    }
+                    alt="profile"
+                  />
+                  <p>
+                    {friend.user && friend.user[0] && friend.user[0].firstName}
+                  </p>
+                </div>
+                <div>
+                  {/* <span
                       style={{ cursor: 'pointer' }}
                       onClick={() => handleAddAcceptFrined(friend)}
                     >
                       הוסף חבר
                     </span>
                     | */}
-                    <span
-                      style={{ cursor: 'pointer' }}
-                      // onClick={() =>
-                      //   handleAddAcceptFrined2(friend)
-                      // }
-                    >
-                      הסר
-                    </span>
-                  </div>
+                  <span
+                    style={{ cursor: 'pointer' }}
+                    // onClick={() =>
+                    //   handleAddAcceptFrined2(friend)
+                    // }
+                    onClick={() => handleDeleteFriend(friend.user[0]._id)}
+                  >
+                    הסר
+                  </span>
                 </div>
-              );
-            })
-          ) : (
-            <div style={{ textAlign: 'center' }}>אין חברים עדיין</div>
-          )}
+              </div>
+            );
+          })
+        ) : (
+          <div style={{ textAlign: 'center' }}>אין חברים עדיין</div>
+        )}
+        <div
+          className={`${
+            profiledata.originalUser[0]._id === user._id ||
+            profiledata.addAdmins.indexOf()
+              ? ''
+              : 'hidden'
+          }`}
+        >
           <h1>בקשות חברות</h1>
           {/* {users &&
             users.length > 0 &&
@@ -295,7 +366,7 @@ const FriendsList = ({
                       src={
                         friend.user[0].mainProfilePicture
                           ? `${process.env.REACT_APP_API_URL}/picUploader/${friend.user[0].mainProfilePicture}`
-                          : userIcon
+                          : friend.user[0].profilePicture
                       }
                       alt="profile"
                     />
@@ -308,7 +379,7 @@ const FriendsList = ({
                   <div>
                     <span
                       style={{ cursor: 'pointer' }}
-                      onClick={() => handleAddFriends(user._id)}
+                      onClick={() => handleAddFriends(friend.user[0]._id)}
                     >
                       הוסף כחבר
                     </span>
@@ -322,10 +393,18 @@ const FriendsList = ({
            decline           סרב
                     </span> */}
                     <span
-                      onClick={() => handleAddAdmins(user._id)}
+                      onClick={() => handleAddAdmins(friend.user[0]._id)}
                       style={{ cursor: 'pointer' }}
                     >
-                      הוסף כאדמין{' '}
+                      הוסף כאדמין
+                    </span>
+                    <span
+                      onClick={() =>
+                        handleRemoveFriendRequest(friend.user[0]._id)
+                      }
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Decline
                     </span>
                   </div>
                 </div>
@@ -334,21 +413,38 @@ const FriendsList = ({
           ) : (
             <div style={{ textAlign: 'center' }}>אין הצעות עדיין</div>
           )}
+        </div>
+        <div
+          className={`${
+            profiledata.originalUser[0]._id === user._id ||
+            profiledata.addAdmins.indexOf()
+              ? ''
+              : 'hidden'
+          }`}
+        >
           <h1>אדמינים</h1>
           {profiledata && profiledata.addAdmins.length > 0 ? (
             profiledata.addAdmins.map((admin, i) => {
+              console.log(admin, '😗');
               return (
                 <div
                   className="friend-request"
                   key={admin.user && admin.user[0]._id}
                 >
                   <div className="friend-request-details">
-                    <img src={admin.profileImg} alt="profile" />
+                    <img
+                      src={
+                        admin.user[0].mainProfilePicture
+                          ? `${process.env.REACT_APP_API_URL}/picUploader/${admin.user[0].mainProfilePicture}`
+                          : admin.user[0].profilePicture
+                      }
+                      alt="profile"
+                    />
                     <p>{admin.user && admin.user[0].firstName}</p>
                   </div>
                   <div>
                     <span
-                      onClick={() => handleAddAdmins(admin.user[0]._id)}
+                      onClick={() => handleDeleteAdmins(admin.user[0]._id)}
                       style={{ cursor: 'pointer' }}
                     >
                       הסר
@@ -361,7 +457,8 @@ const FriendsList = ({
             <div style={{ textAlign: 'center' }}>אין אדמינים</div>
           )}
         </div>
-      ) : (
+      </div>
+      {/* ) : (
         <div>
           <h1>חברים</h1>
           {users &&
@@ -403,7 +500,7 @@ const FriendsList = ({
               );
             })}
         </div>
-      )}
+      )} */}
     </div>
   );
 };

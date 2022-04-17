@@ -6,7 +6,13 @@ const NotificationSchema = new mongoose.Schema(
       { type: mongoose.Schema.Types.ObjectId, ref: 'Profile' },
     ],
     logedInUser: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    notificationType: {
+      type: String,
+      enum: ['memoryCreation', 'profileVisit'],
+      default: 'memoryCreation',
+    },
   },
+
   {
     timestamps: true,
   }
