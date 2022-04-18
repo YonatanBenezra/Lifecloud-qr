@@ -19,7 +19,7 @@ AuthRouter.post('/register', async (req, res) => {
       gender: req.body.gender,
       email: req.body.email,
       password: hashedpassword,
-      user_type: req.user_type,
+      user_type: req.body.user_type,
     });
 
     //save and response
