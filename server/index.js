@@ -70,6 +70,7 @@ app.all('/insertOrUpdate', async (req, res) => {
       lastName,
       profilePicture,
       user_type,
+      user_type
     },
   };
   const options = { upsert: true };
