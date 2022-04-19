@@ -1,42 +1,52 @@
-.policy-container {
+.policy-container{
   display: flex;
   margin-block-end: auto;
+  height: 100;
+  width: 100vw;
   align-items: center;
   justify-content: center;
-  background-color: #f5fcff;  
-  padding: 0 4rem;
+  background-color: #f5fcff;
+ 
 }
 
 .accordion{
-  /* width: 700px; */
-  min-width: calc(100vw - 8rem);
+  width: 700px;
 }
 
 .item{
-  margin-bottom: 5px;
-  padding: 4px 0px;
+ margin-bottom: 5px;
+ padding: 10px 20px;
   color: #6097bf;
-
 }
-.span2 {
-  /* font-size: 2.0rem; */
-  margin: 0 5px;
-  margin-bottom: 0.5rem;
+.MobileItem{
+ margin-bottom: 5px;
+ padding: 10px 20px;
+  color: #6097bf;
+  font-size: 23px;
+  font-family: arial,sans-serif;
+}
+.span2{
+  font-size: 2.0rem;
+  margin-left: 5px;
 }
 
-.policy-container .title {
+.title{
   color: #6097BF;
   direction: rtl;
   display: flex;
   align-items: center;
   text-align: right;
   cursor: pointer;
-  margin-bottom: 12px;
 }
-.policy-container .title h2,
-.policy-container .title .span2 {
-  font-size: 2rem;
+.mobileTitle{
+  color: #6097BF;
+  direction: rtl;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  cursor: pointer; 
 }
+.fntFmly{font-family: arial,sans-serif; font-weight: bold;font-size: 24px;}
 
 .content{
   display: none;
@@ -45,43 +55,59 @@
   max-height: 0;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0,1,0,1);
-  font-size: 1.5rem;
 }
 
 .content.show{
   height: auto;
-  max-height: initial;
+  max-height: 9999px;
   transition: all 0.5s cubic-bezier(0,1,0,1);
 }
 .show{
   display: block;
+  font-family: arial,sans-serif;
+  line-height: 2;
+  font-size: 22px;
 }
 
 .policy-title{
-  margin-top: 10px; 
-  color: #6097bf;
-  font-size: 40px;
-  line-height: 136px;
-  font-style: normal;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+ margin-top: 10px; 
+color: #6097bf;
+font-size: 40px;
+line-height: 136px;
+font-style: normal;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.MobilePolicy-title{
+ margin-top: 10px; 
+color: #6097bf;
+font-size: 40px;
+text-align: center;
+font-family: arial,sans-serif;
+padding: 10px;
+font-style: normal;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
-.answer-paragraph {
-  margin-bottom: 12px;
-}
-.section-title {
-  margin-bottom: 12px;
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+  .mobile{
+    display: block;
+  }
 }
 
-.answer-paragraph.small-text {
-  font-size: 1.2rem;
-  padding: 0 12px;
-}
-.answer-paragraph.no-margin {
-  margin: 0;
-}
-.answer-paragraph.bold {
-  font-weight: bold;
+
+@media screen and (min-width: 768px) {
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: block;
+  } 
+ 
 }

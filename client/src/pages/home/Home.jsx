@@ -48,6 +48,48 @@ const Home = () => {
     ],
   };
 
+
+  const MobileSettings = {
+    dots: true,
+    infinite: true,
+    slidesToScroll: 1,
+    autoplay: true,
+    arrows: false,
+    autoplaySpeed: 5000,
+    cssEase: 'linear',
+    lazyLoad: true,
+    speed: 750,
+    slidesToShow: 1,
+    initialSlide: 2,
+    fontSize: '1.5em',
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   const testimonialSettings = {
     dots: true,
     infinite: true,
@@ -61,23 +103,62 @@ const Home = () => {
     initialSlide: 2,
     fontSize: '1.5em',
     responsive: [
-      // {
-      //   breakpoint: 1024,
-      //   settings: {
-      //     slidesToShow: 3,
-      //     slidesToScroll: 3,
-      //     infinite: true,
-      //     dots: true,
-      //   },
-      // },
-      // {
-      //   breakpoint: 600,
-      //   settings: {
-      //     slidesToShow: 2,
-      //     slidesToScroll: 2,
-      //     initialSlide: 2,
-      //   },
-      // },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+  const MobileTestimonialSettings = {
+    dots: false,
+    infinite: true,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    cssEase: 'linear',
+    lazyLoad: true,
+    speed: 750,
+    slidesToShow: 1,
+    initialSlide: 2,
+    fontSize: '1.5em',
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
       {
         breakpoint: 480,
         settings: {
@@ -110,7 +191,7 @@ const Home = () => {
 
 
 <div style={{ cursor: 'default' }} className="mobile">
-<HomeMobile handleSearch={handleSearch} user={user} testimonialSettings={testimonialSettings} settings={settings} searchData={searchData} setSearchData={setSearchData}/>
+<HomeMobile handleSearch={handleSearch} user={user} testimonialSettings={MobileTestimonialSettings} settings={MobileSettings} searchData={searchData} setSearchData={setSearchData}/>
 </div>
 </div>
 

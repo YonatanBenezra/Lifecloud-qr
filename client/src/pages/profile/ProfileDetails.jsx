@@ -14,6 +14,7 @@ import './profiledetails.css';
 import TopBar from '../../components/topbar/Topbar';
 import ProgressBar from '../../components/progressbar/progressBar';
 import { Gallery } from '../../components/gallery/gallery';
+// import { AuthContext } from '../../context/AuthContext';
 import { useParams, useLocation } from 'react-router';
 import Memory from '../../components/memory/Memory';
 import Popup from 'reactjs-popup';
@@ -31,7 +32,6 @@ import moment from 'moment';
 
 import Map from './Map';
 import Direction from './Direction';
-
 export default function Profile() {
   const { dispatch } = useContext(AuthContext);
   const [profiledata, setProfileData] = useState([]);
@@ -48,58 +48,7 @@ export default function Profile() {
   const [friendFlagReq, setrfriendReq] = useState([]);
   const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
-  const [next, setnext] = useState(5);
-  const [users, setUsers] = useState([]);
-  const { user } = useContext(AuthContext);
-  const [hebMemorialDate, setHebMemorialDate] = useState('');
-  const location = useLocation();
-
-  const handleDeathDateBlur = async () => {
-    const death = new Date(profiledata?.deathDate);
-
-    const date = death.getDate();
-    const year = new Date().getFullYear();
-    const month = death.getMonth();
-
-    const response = await fetch(
-      `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${
-        month + 1
-      }&gd=${date}&g2h=1`
-    );
-    const data = await response.json();
-    setHebMemorialDate(data.hebrew);
-  };
-
-  const handleAddFriendRequest = (e) => {
-    // setuserid(e)
-
-    fetch(
-      `${process.env.REACT_APP_API_URL}/api/profile/addFriendRequests/${profiledata._id}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'Application/json',
-        },
-        body: JSON.stringify({
-          isFriend: false,
-          userId: user._id,
-          // profileImg: user.mainProfilePicture,
-          // firstName: profiledata.firstName,
-          // lastName: profiledata.lastName,
-
-          // userId: e._id,
-          // user: e.user[0]._id,
-          user: user._id,
-        }),
-      }
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setrfriendReq(res);
-      });
-  };
+  const [next, setnext] = useState(4);
 
   const handleShowMoreMemories = () => {
     setnext(next + 1);
@@ -111,13 +60,12 @@ export default function Profile() {
   }, [likeMessage, comment, DellComment, friendFlagReq, adminFlagReq]);
   useEffect(() => {
     fetchuserprofiles();
-  }, [friendFlagReq, adminFlagReq]);
+  }, []);
+
   useEffect(() => {
     fetchmemories();
   }, [comment, likeMessage]);
-  useEffect(() => {
-    handleDeathDateBlur();
-  }, []);
+
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
@@ -134,22 +82,16 @@ export default function Profile() {
     );
     setmemoryData(res.data);
   };
-  const fetchUsers = async () => {
-    // const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/all/every`);
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/users/getSingleUser/${profiledata.originalUser[0]._id}`
-    );
-    setUsers(res.data);
-  };
+
   useEffect(() => {
     fetchmemories();
   }, [comment, likeMessage]);
   let parseAxios = Object.keys(profiledata).length
-    ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
-    : '';
-  profiledata?.axisImages?.forEach((element, i) => {
-    parseAxios[i].axisImage = element;
-  });
+      ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
+      : '';
+    profiledata?.axisImages?.forEach((element, i) => {
+      parseAxios[i].axisImage = element;
+    });
   const handleLike = (e) => {
     try {
       const formdata = new FormData();
@@ -184,6 +126,7 @@ export default function Profile() {
 
   //
   const handleComment = (e) => {
+    console.log(e);
     try {
       fetch(`${process.env.REACT_APP_API_URL}/api/memory/comment/${e._id}`, {
         method: 'PUT',
@@ -223,6 +166,7 @@ export default function Profile() {
   };
 
   const handleDelete = (e, id) => {
+    console.log(e, id);
     fetch(`${process.env.REACT_APP_API_URL}/api/memory/commentdell/${id}`, {
       method: 'DELETE',
       headers: {
@@ -244,6 +188,7 @@ export default function Profile() {
       });
   };
   const handleDellMemory = (e) => {
+    console.log(e, 'e');
     fetch(
       `${process.env.REACT_APP_API_URL}/api/memory/commentdellOBJ/${e._id}`,
       {
@@ -264,7 +209,6 @@ export default function Profile() {
         }
       });
   };
-
   const handleClose = () => {
     setOpen(false);
     setMessage('');
@@ -282,33 +226,10 @@ export default function Profile() {
   // useEffect(() => {
   //   getGeoLocation();
   // }, [getGeoLocation]);
-  // console.log(profiledata);
-  useEffect(() => {
-    if (profiledata.originalUser?.[0]._id === loggedUser._id) {
-      return;
-    }
-    if (!profiledata.originalUser?.[0]._id || !loggedUser._id) {
-      return;
-    }
-    fetch(
-      `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'Application/json',
-        },
-        body: JSON.stringify({
-          profileId: profiledata._id,
-          loggedInId: loggedUser._id,
-          notificationType: 'profileVisit',
-        }),
-      }
-    );
-  }, [loggedUser._id, profiledata._id, profiledata.originalUser]);
+
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
-        <TopBar />
         <div
           className="modal fade qr-modal"
           id="exampleModal"
@@ -342,7 +263,7 @@ export default function Profile() {
                   סגור
                 </button>
                 <a
-                  href={`https://api.whatsapp.com/send/?text=https://lifecloud-qr.com/${location.pathname}`}
+                  href={`https://wa.me/?text=${window.location.href}`}
                   type="button"
                   className="btn btn-success"
                   target={'_blank'}
@@ -354,6 +275,7 @@ export default function Profile() {
             </div>
           </div>
         </div>
+        <TopBar />
         <img
           src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
           alt=""
@@ -368,8 +290,8 @@ export default function Profile() {
           <div className="deceased-details">
             <h1 className="profile-h1">{`${profiledata?.degree} ${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
             <p>
-              {moment(profiledata?.deathDate).utc().format('DD-MM-YYYY')} -{' '}
-              {moment(profiledata?.birthDate).utc().format('DD-MM-YYYY')}
+              {moment(profiledata?.birthDate).utc().format('YYYY-DD-MM')} -{' '}
+              {moment(profiledata?.deathDate).utc().format('YYYY-DD-MM')}
             </p>
             <p>{profiledata?.city}</p>
           </div>
@@ -377,36 +299,28 @@ export default function Profile() {
         </div>
         <div className="btns-container">
           <div className="small-btns-container">
-            {console.log(profiledata.originalUser[0]._id, 'profiledata')}
-            {console.log(user._id, 'user')}
-            <Link
+            {(profiledata.originalUser[0]._id === loggedUser._id ||
+              profiledata.addAdmins.indexOf()) && (
+              <Link to={`/editprofiles/${id}`}>
+                <div className="profile-small-btn">ערוך פרופיל</div>
+              </Link>
+            )}
+
+            <div
               className={`${
-                profiledata.originalUser[0]._id === user._id ||
+                profiledata.originalUser[0]._id === loggedUser._id ||
                 profiledata.addAdmins.indexOf()
-                ? 'small-btns-container'
-                : 'hidden'
+                  ? 'hidden'
+                  : 'profile-small-btn'
               }`}
-              to={`/editprofiles/${id}`}
             >
-              <div className="profile-small-btn">ערוך פרופיל</div>
-            </Link>
+              הוסף חבר
+            </div>
             <div
               className="profile-small-btn"
               onClick={() => setShow('friends')}
             >
               רשימת חברים
-            </div>
-            <div
-              className={`${
-                profiledata.originalUser[0]._id === user._id ||
-                profiledata.addAdmins.indexOf()
-                ? 'hidden'
-                : 'profile-small-btn'
-              }`}
-              onClick={() => handleAddFriendRequest()}
-              style={{ cursor: 'pointer' }}
-            >
-              הוסף פרופיל כחבר{' '}
             </div>
           </div>
           <div className="big-btns-container">
@@ -422,7 +336,7 @@ export default function Profile() {
               onClick={() => setShow('bio')}
               className={`profile-big-btn ${show === 'bio' && 'active'}`}
             >
-              אודות
+              ביוגרפיה
             </div>
             <div
               onClick={() => setShow('wall')}
@@ -448,12 +362,12 @@ export default function Profile() {
                 <h3>
                   <span className="separator">| </span>
                   <span className="dash">- </span>
-                  {moment(profiledata?.deathDate).utc().format('DD-MM-YYYY')}
+                  {profiledata?.birthDate?.split('T')[0]}
                 </h3>
                 <h3>
                   <span className="separator">| </span>
                   <span className="dash">- </span>
-                  {hebMemorialDate}
+                  {profiledata?.hebDeathDate}
                 </h3>
                 <h3>
                   <span className="separator">| </span>
@@ -476,7 +390,7 @@ export default function Profile() {
             </div>
           </div>
           <div className="gallery-container">
-            <Gallery profiledata={profiledata} id={id} userId={user._id} />
+            <Gallery profiledata={profiledata} id={id} />
             <div onClick={() => setShow('gallery')} className="full-btn">
               {' '}
               לכל הגלריה +
@@ -529,35 +443,15 @@ export default function Profile() {
                     imgData,
                     index //change to memories
                   ) => (
-                    console.log(profiledata),
-                    (
-                      <Popup
-                        trigger={
-                          <div className="memory-container" key={index}>
-                            {imgData.file ? (
-                              <img
-                                src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
-                                alt=""
-                                className="memory-img"
-                              ></img>
-                            ) : (
-                              <video
-                                width="100%"
-                                height="100%"
-                                srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                srl_video_caption="A video with a rabbit"
-                                srl_video_muted="true"
-                                controls
-                                className="memory-img"
-                              >
-                                <source
-                                  src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
-                                  type="video/mp4"
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                            )}
-                            {/* {imgData.file.map(item => {
+                    <Popup
+                      trigger={
+                        <div className="memory-container" key={index}>
+                          <img
+                            src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
+                            alt=""
+                            className="memory-img"
+                          ></img>
+                          {/* {imgData.file.map(item => {
                           return <img
                             src={`${process.env.REACT_APP_API_URL}/${item}`}
                             alt=""
@@ -565,61 +459,59 @@ export default function Profile() {
                           ></img>
                         })} */}
 
-                            <div className="icons-container">
-                              <div className="memory-heart-container">
-                                <div className="heart-div">
-                                  <img
-                                    style={{ cursor: 'pointer' }}
-                                    className="heart-icon"
-                                    src={heart}
-                                    alt=""
-                                  ></img>
-                                  <span>{imgData.likes.length}</span>
-                                </div>
+                          <div className="icons-container">
+                            <div className="memory-heart-container">
+                              <div className="heart-div">
+                                <img
+                                  style={{ cursor: 'pointer' }}
+                                  className="heart-icon"
+                                  src={heart}
+                                  alt=""
+                                ></img>
+                                <span>{imgData.likes.length}</span>
                               </div>
-                              <div className="facebook-container">
-                                <div className="heart-div">
-                                  <img
-                                    className="heart-icon"
-                                    src={facebook}
-                                    alt=""
-                                  ></img>
-                                </div>
+                            </div>
+                            <div className="facebook-container">
+                              <div className="heart-div">
+                                <img
+                                  className="heart-icon"
+                                  src={facebook}
+                                  alt=""
+                                ></img>
                               </div>
-                              <div className="instagram-container">
-                                <div className="heart-div">
-                                  <img
-                                    className="heart-icon"
-                                    src={instagram}
-                                    alt=""
-                                  ></img>
-                                </div>
+                            </div>
+                            <div className="instagram-container">
+                              <div className="heart-div">
+                                <img
+                                  className="heart-icon"
+                                  src={instagram}
+                                  alt=""
+                                ></img>
                               </div>
                             </div>
                           </div>
-                        }
-                        modal
-                        nested
-                      >
-                        {(close, item) => (
-                          <Memory
-                            close={close}
-                            data={imgData}
-                            profiledata={profiledata}
-                            index={index}
-                            handleLike={handleLike}
-                            onhandleChangeComment={onhandleChangeComment}
-                            handleComment={handleComment}
-                            setCommenting={setCommenting}
-                            commenting={commenting}
-                            handleDelete={handleDelete}
-                            handleDellMemory={handleDellMemory}
-                            profile={profiledata}
-                            user={user}
-                          /> //change to memories
-                        )}
-                      </Popup>
-                    )
+                        </div>
+                      }
+                      modal
+                      nested
+                    >
+                      {(close, item) => (
+                        <Memory
+                          close={close}
+                          data={imgData}
+                          profiledata={profiledata}
+                          index={index}
+                          handleLike={handleLike}
+                          onhandleChangeComment={onhandleChangeComment}
+                          handleComment={handleComment}
+                          setCommenting={setCommenting}
+                          commenting={commenting}
+                          handleDelete={handleDelete}
+                          handleDellMemory={handleDellMemory}
+                          profile={profiledata}
+                        /> //change to memories
+                      )}
+                    </Popup>
                   )
                 )
               ) : (
@@ -652,30 +544,27 @@ export default function Profile() {
             <pre className="bio-bio">{profiledata.description}</pre>
           </div>
           <div className="life-axis">
-            <h1 className="axis-name">ציר חיים</h1>
+            <h1 className="axis-name">ביוגרפיה וציר חיים</h1>
             {/* <p className="axis-desc">{profiledata.description}</p> */}
           </div>
           <div>
             {parseAxios?.map((axis, index) => (
-              <div>
-                <div className="axis-container" key={index}>
-                  <div className="axis-sub-container">
-                    <h1 className="axis-title">{axis.axisTitle}</h1>
-                    <p className="axis-description2">{axis.axisDescription}</p>
-                  </div>
-                  <div
-                    className="axis-bubble"
-                    style={{
-                      backgroundImage: `url('${process.env.REACT_APP_API_URL}/picUploader/${axis.axisImage}')`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat',
-                    }}
-                  >
-                    <span>{axis.axisDate}</span>
-                  </div>
+              <div className="axis-container" key={index}>
+                <div className="axis-sub-container">
+                  <h1 className="axis-title">{axis.axisTitle}</h1>
+                  <p className="axis-description2">{axis.axisDescription}</p>
                 </div>
-                <div className="dotted-seperator">- - - -</div>
+                <div
+                  className="axis-bubble"
+                  style={{
+                    backgroundImage: `url('${process.env.REACT_APP_API_URL}/picUploader/${axis.axisImage}')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                >
+                  <span>{axis.axisDate}</span>
+                </div>
               </div>
             ))}
           </div>
@@ -745,18 +634,7 @@ export default function Profile() {
         <div
           className={`${show === 'friends' && 'display'} friends-list d-none`}
         >
-          {/* <FriendsList
-            setrfriendReq={setrfriendReq}
-            setAdminres={setAdminres}
-          /> */}
-          <FriendsList
-            proid={id}
-            profiledata={profiledata}
-            setAdminres={setAdminres}
-            setrfriendReq={setrfriendReq}
-            users={users}
-            userId={user._id}
-          />
+          <FriendsList />
         </div>
         <SnackBar open={open} handleClose={handleClose} message={message} />
         <SocialFooter />

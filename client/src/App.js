@@ -1,27 +1,26 @@
 import './App.css';
 import Home from './pages/home/Home';
-import About from './pages/about/About';
-import Login from './pages/login/Login';
-import Register from './pages/register/Register';
-import ProfileEdit from './pages/profile/edit-proile';
-import ProfileCreate from './pages/profile/ProfileCreate';
-import MainProfileCreate from './pages/profile/MainProfileCreate';
-import ProfileDetails from './pages/profile/ProfileDetails';
+import About from './pages/about/AboutMain';
+import Login from './pages/login/MainLogin';
+import Register from './pages/register/MainRegister';
+import ProfileEdit from './pages/profile/RootEditProfile';
+import ProfileCreate from './pages/profile/RootProfileCreate';
+import MainProfileCreate from './pages/profile/RootMainProfileCreate';
+import ProfileDetails from './pages/profile/RootProfileDetails';
 import MainProfileDetails from './pages/profile/MainProfileDetails';
-import MemoryCreation from './components/memory/memoryCreation';
-import Shop from './pages/shop/Shop';
-import Plans from './pages/plans/Plans';
-import Qa from './pages/qa/Qa';
-import Contact from './pages/contact/Contact';
-import Policy from './pages/policy/Policy';
-import { UserAndprofiles } from './pages/userpage/user-and-profile';
+import MemoryCreation from './components/memory/RootMemoryCreation';
+import Shop from './pages/shop/MainShop';
+import Plans from './pages/plans/MainPlans';
+import Contact from './pages/contact/MainContact';
+import Policy from './pages/policy/MainPolicy';
+import UserAndprofiles  from './pages/userpage/MainUserProfile';
 import ENHome from './pages/home/ENHome';
 import ENPlans from './pages/plans/ENPlans';
 import ENShop from './pages/shop/ENShop';
 import ENLogin from './pages/login/ENLogin';
 import ENRegister from './pages/register/ENRegister';
 import ENOrganisationRegister from './pages/register/ENOrganisationRegister';
-import OrganisationRegister from './pages/register/OrganisationRegister';
+import OrganisationRegister from './pages/register/MainOrganisationRegister';
 import ENOrganisationDetails from './pages/organisation/ENOrganisationDetails';
 import ENProfileEdit from './pages/profile/ENEditProfile';
 import ENProfileCreate from './pages/profile/ENProfileCreate';
@@ -59,7 +58,7 @@ function App() {
             <Route exact path="/createprofile/:id" >
               <ProfileCreate />
             </Route>
-            <Route exact index path="/profiledetails/:id" >
+            <Route exact path="/profiledetails/:id" >
               <ProfileDetails />
             </Route>
             <Route exact path="/mainprofiledetails/:id" >
@@ -94,9 +93,6 @@ function App() {
             </Route>
             <Route exact path="/plans">
               <Plans />
-            </Route>
-            <Route exact path="/qa">
-              <Qa />
             </Route>
           </Switch>
         ) : (

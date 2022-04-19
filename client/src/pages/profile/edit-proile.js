@@ -102,7 +102,6 @@ export default function ProfileEdit() {
     );
     // res
     setProfileData(res.data);
-    setAxisImagesNames(res.data.axisImages);
     setMultiFiles(res.data.gallery);
   };
   const onChangePicture = (e) => {
@@ -180,6 +179,7 @@ export default function ProfileEdit() {
       );
     }
   }, [profiledata]);
+  console.log(multiFiles, 'multi');
   // handle input change
   const handleInputChange = (e, index) => {
     console.log(e.target.value, index);
@@ -223,13 +223,8 @@ export default function ProfileEdit() {
       formdata.append('googleLocation', JSON.stringify(googlePosition));
       formdata.append('description', wallInformation.description);
       formdata.append('lifeAxis', JSON.stringify(inputList));
-      formdata.append('axisImagesNames', axisImagesNames);
-
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
-      }
-      for (let i = 0; i < axisImages.length; i++) {
-        formdata.append('axisImages', axisImages[i]);
       }
       // const config = {
       //   headers: {
@@ -263,21 +258,6 @@ export default function ProfileEdit() {
   const handleClose = () => {
     setOpen(false);
     setMessage('');
-  };
-  const [axisImages, setAxisImages] = useState([]);
-  const [axisImagesNames, setAxisImagesNames] = useState([]);
-
-  const handleAxisImage = (event, i) => {
-    const copyArray = [...inputList];
-    const copyAxisImagesNames = [...axisImagesNames];
-
-    const file = event.target.files[0];
-    copyArray[i].axisImage = file;
-    copyAxisImagesNames[i] = file.name;
-
-    setAxisImages([...axisImages, file]);
-    setAxisImagesNames(copyAxisImagesNames);
-    setInputList(copyArray);
   };
   return (
     <div className="profile-creation-container">
@@ -381,7 +361,7 @@ export default function ProfileEdit() {
                     onChange={handleChangeValue}
                     name="birthDate"
                     value={moment(wallInformation.birthDate).format(
-                      'DD-MM-YYYY'
+                      'YYYY-MM-DD'
                     )}
                     className="nameInput"
                     type="text"
@@ -393,7 +373,7 @@ export default function ProfileEdit() {
                     onChange={handleChangeValue}
                     name="deathDate"
                     value={moment(wallInformation.deathDate).format(
-                      'DD-MM-YYYY'
+                      'YYYY-MM-DD'
                     )}
                     className="nameInput"
                   />
@@ -596,17 +576,6 @@ export default function ProfileEdit() {
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-description"
                           />
-                          <label class="file-label">
-                            הוסף תמונה
-                            <input
-                              type="file"
-                              name="axisImage"
-                              placeholder="Image"
-                              onChange={(e) => handleAxisImage(e, i)}
-                              className="axis-input-image"
-                            />
-                            <span class="file-custom"></span>
-                          </label>
                           <div className="btn-box">
                             {inputList.length !== 1 && (
                               <p

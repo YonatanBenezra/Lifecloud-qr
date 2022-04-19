@@ -14,6 +14,22 @@
     border: none;
     resize: none;
   }
+  .MobileRegisterContact {
+    text-align: center;
+    direction: rtl;
+    border-radius: 5px;
+    font-size: 25px !important;
+    padding-left: 20px;
+    margin: 2px;
+    margin-top: 5%;
+    font-weight: 600;
+    width: 90%;
+    background-color: #fff;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border: none;
+    resize: none;
+  }
 #first-name, #last-name {
     display: inline-block;
     text-align: center;
@@ -29,11 +45,32 @@
     background-color: #fff;
     border: none;
   }
+#MobileFirstName, #MobileLastName {
+    display: inline-block;
+    text-align: center;
+    direction: rtl;
+    border-radius: 5px;
+    font-size: 25px !important;
+    padding: 3px;
+    margin: 2px;
+    margin-top: 5%;
+    font-weight: 600;
+    width: 45%;
+    background-color: #fff;
+    border: none;
+  }
   .names-container-contact {
     direction: rtl;
     display: flex;
     justify-content: space-between;
     width: 600px;
+  }
+  .MobileNamesContainerContact{
+    direction: rtl;
+    display: flex;
+    justify-content: space-between;
+    justify-content: center;
+    width: 100%; 
   }
 #free-text{
     padding-top: 18px;
@@ -79,7 +116,44 @@
   flex-direction: column;
   align-items: center;
 }
+.MobileContactContainer{ 
+  background: #DCECF4; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .register-contact::placeholder {
 color: #6097BF;
+}
+
+.MobileFrm{text-align: center;
+            width: 100%;}
+.MobileSmtBtn{width: 90%; border: 1px solid #6097bf;
+              background-color: #6097bf;
+              padding: 10px;
+              font-size: 16px;
+              margin-top: 40px;
+              color: #fff;
+              border-radius: 5px;}
+
+
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+  .mobile{
+    display: block;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: block;
+  } 
+ 
 }

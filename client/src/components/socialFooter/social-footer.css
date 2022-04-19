@@ -11,6 +11,14 @@
   color: #6097bf;
   font-size: 25px;
 }
+.MobileSocial-footer {   
+  text-align: center;
+  width: 100%;
+  background-color: #dcecf4;
+  color: #6097bf;
+  font-size: 25px;
+  padding: 15px 0px;
+}
 .right-bottom-cloud {
   position: absolute;
   bottom: 0;
@@ -40,4 +48,27 @@
 }
 .social-footer-facebook {
   margin-right: 3rem;
+}
+.SocialFooterTxt{
+  font-size: 32px;
+  font-family: arial,sans-serif;
+  padding: 5px;
+}
+
+.MobileRight-bottom-cloud {
+  position: absolute;
+  bottom: -15px;
+  right: 0px;
+  z-index: 0; 
+  height: 100px;
+}
+.MobileHeart-icon{
+  height:25px;
+  width:25px;
+  margin: 5px;
+}
+.MobileSocial-footer-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

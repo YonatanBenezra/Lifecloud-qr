@@ -95,7 +95,10 @@ const Topbar = (props) => {
                   className={`${
                     clicked === 'logout' && 'topbar-active'
                   } topbarLink`}
-                  onClick={LoggedUser.myFirebase.logout}
+                  onClick={() => [
+                    LoggedUser.myFirebase.logout,
+                    setClicked('logout'),
+                  ]}
                 >
                   התנתק{' '}
                 </Link>
