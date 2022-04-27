@@ -31,7 +31,6 @@ export default function ProfileCreate() {
   const [coverData, setCoverData] = useState(null);
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [uploaded, setUploaded] = useState([]);
   useEffect(() => {});
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
@@ -78,6 +77,7 @@ export default function ProfileCreate() {
     const reader = new FileReader();
     return reader.readAsDataURL(e[num]);
   };
+  console.log(selectedPrivacy, 'selectedPrivacy');
   const onChangeCover = (e) => {
     if (e.target.files[0]) {
       console.log('picture: ', e.target.files);
@@ -157,14 +157,15 @@ export default function ProfileCreate() {
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
+
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
-    setUploaded(index)
   };
   useEffect(() => {
     fetchuserData();
   }, []);
+  console.log(id, 'id');
   const fetchuserData = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/users/${id}`
@@ -241,7 +242,6 @@ export default function ProfileCreate() {
       formdata.append('birthDate', wallInformation.birthDate);
       formdata.append('hebBirthDate', wallInformation.hebBirthDate);
       formdata.append('hebDeathDate', wallInformation.hebDeathDate);
-      formdata.append('hebMemorialDate', wallInformation.hebMemorialDate);
       formdata.append('city', wallInformation.city);
       formdata.append('degree', wallInformation.degree);
       formdata.append('deathDate', wallInformation.deathDate);
@@ -312,13 +312,12 @@ export default function ProfileCreate() {
   const handleAxisImage = (event, i) => {
     const copyArray = [...inputList];
     const files = event.target.files[0];
-    
-    copyArray[i].axisImage = files;
-    
-    setInputList(copyArray);
-    
-    setAxisImages(inputList.map((list) => list.axisImage));
 
+    copyArray[i].axisImage = files;
+
+    setInputList(copyArray);
+
+    setAxisImages(inputList.map((list) => list.axisImage));
   };
 
   return (
@@ -387,13 +386,11 @@ export default function ProfileCreate() {
                   <input
                     placeholder="* שם פרטי"
                     ref={firstName}
-                    required
                     className="nameInput"
                   />
                   <input
                     placeholder="* שם משפחה"
                     ref={lastName}
-                    required
                     className="nameInput"
                   />
                 </div>
@@ -448,7 +445,7 @@ export default function ProfileCreate() {
                     type="text"
                   />
                   <input
-                    placeholder="תואר (דוקטור, חתן פרס נובל...)"
+                    placeholder="תואר"
                     type="text"
                     ref={degree}
                     className="nameInput"
@@ -603,7 +600,7 @@ export default function ProfileCreate() {
                     nested
                   >
                     {(close) => (
-                      <div className="popup-modal">
+                      <div className="modal">
                         <button className="close" onClick={close}>
                           &times;
                         </button>
@@ -620,7 +617,7 @@ export default function ProfileCreate() {
                       <div className="box" key={i}>
                         {inputList.length !== 1 && (
                           <div
-                            className="middle-axis-btn"
+                            className="add-btn"
                             onClick={() => addSingleDiv(i)}
                           >
                             <div className="inner-btn">
@@ -653,7 +650,7 @@ export default function ProfileCreate() {
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-description"
                           />
-                          <label className="file-label">
+                          <label class="file-label">
                             הוסף תמונה
                             <input
                               type="file"
@@ -662,7 +659,7 @@ export default function ProfileCreate() {
                               onChange={(e) => handleAxisImage(e, i)}
                               className="axis-input-image"
                             />
-                            <span className="file-custom"></span>
+                            <span class="file-custom"></span>
                           </label>
                           <div className="btn-box">
                             {inputList.length !== 1 && (
@@ -701,7 +698,7 @@ export default function ProfileCreate() {
                     nested
                   >
                     {(close) => (
-                      <div className="popup-modal">
+                      <div className="modal">
                         <button className="close" onClick={close}>
                           &times;
                         </button>
@@ -802,14 +799,13 @@ export default function ProfileCreate() {
                     <label htmlFor="public">פומבי</label>
                   </div>
                 </div>
-                
-                { submitted ? (
+                {submitted ? (
                   <button className="create-btn submitted">נשמר</button>
                 ) : (
                   <button
                     className="create-btn"
                     type="submit"
-                    onClick={() => (setSubmitted(true))}
+                    onClick={setSubmitted(true)}
                   >
                     שמור
                   </button>

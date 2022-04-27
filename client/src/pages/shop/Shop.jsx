@@ -118,11 +118,6 @@ const Shop = () => {
       img: flowersImg,
       options: [
         {
-          optName: 'opt2',
-          img: flowersImg,
-          price: 321,
-        },
-        {
           optName: 'opt1',
           img: flowersImg,
           subOptionsTitle: ':בחר זר',
@@ -143,6 +138,11 @@ const Shop = () => {
               img: flowersImg,
             },
           ],
+        },
+        {
+          optName: 'opt2',
+          img: flowersImg,
+          price: 321,
         },
       ],
     },

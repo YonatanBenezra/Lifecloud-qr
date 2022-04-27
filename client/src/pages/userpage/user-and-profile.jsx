@@ -35,8 +35,8 @@ export const UserAndprofiles = () => {
       const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/notification/getallNotifications`
       );
-
       const currentLoggedUser = JSON.parse(localStorage.getItem('user'));
+
       setNotifications(
         res.data
           .filter(
@@ -64,19 +64,21 @@ export const UserAndprofiles = () => {
             action: notificationString(userNotification),
           }))
       );
+      // setData(res.data);
     })();
   }, []);
+
   useEffect(() => {
     fetchuserprofiles();
+    console.log(user)
   }, []);
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${id}`
     );
-    console.log(res.data);
     setData(res.data);
+   
   };
-
   const profileImageRef = useRef(null);
   const onChangePicture = async (event) => {
     const src = URL.createObjectURL(event.target.files[0]);
@@ -106,7 +108,7 @@ export const UserAndprofiles = () => {
                 className="user-name"
                 style={{ direction: 'rtl', flexDirection: 'column' }}
               >
-                <img
+                 <img
                   alt=""
                   src={
                     LoggedUser.user.mainProfilePicture
@@ -122,16 +124,11 @@ export const UserAndprofiles = () => {
                   onChange={onChangePicture}
                   className="user-img-input"
                 />
-                שלום {LoggedUser.user.firstName}
+                שלום {LoggedUser.user.firstName || LoggedUser.user.companyName}
               </h1>
               <div className="notifications-btn" onClick={() => setShow(true)}>
                 התראות
               </div>
-              {/* <p className='user-description'>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s,{' '}
-            </p> */}
             </div>
             <div className="profiles-container">
               {user.user_type == 'organisation' &&

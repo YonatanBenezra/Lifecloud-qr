@@ -1,3 +1,4 @@
+
 .profile-creation-box input {
   font-size: 25px;
   font-weight: 600;
@@ -19,41 +20,7 @@
   height: 320px;
   position: relative;
 }
-.middle-axis-btn {
-  height: 50px;
-  width: 50px;
-  background-color: #abc9db;
-  border: 1px solid #fff;
-  border-radius: 100%;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
-  cursor: pointer;
-  transition: ease-in-out 500ms;
-}
-.middle-axis-btn:hover {
-  border: 1px solid #abc9db;
-  background-color: #fff;
-  color: #abc9db;
-}
-.middle-axis-btn:hover .line-1 {
-  width: 25px;
-  border: 1px solid #abc9db;
-}
-.middle-axis-btn:hover .line-2 {
-  width: 25px;
-  border: 1px solid #abc9db;
-}
-.middle-axis-btn .line-1 {
-  width: 25px;
-  border: 1px solid #fff;
-}
-.middle-axis-btn .line-2 {
-  width: 25px;
-  border: 1px solid #fff;
-}
+
 .profileCoverImg {
   width: 102%;
   height: 250px;
@@ -163,6 +130,13 @@
   border-radius: 100%;
   margin: 0rem;
 }
+.MobilepProfileImages{
+  width: 100%;
+  border-radius: 100%;
+  margin: 0rem;
+  display: flex;
+  justify-content: center;
+}
 .profile-creation-gallery-img {
   width: 100%;
   height: 100%;
@@ -173,6 +147,13 @@
   margin: 0rem;
   margin-right: 2rem;
   margin-left: 2rem;
+}
+.MobileCreationGalleryImg { 
+  object-fit: cover;
+  height: 150px;
+  width: 50%;
+  padding: 5px;
+  border-radius: 15px; 
 }
 
 .admins-list {
@@ -206,6 +187,7 @@
   justify-content: center;
 }
 
+
 .loginLeft,
 .loginRight {
   display: flex;
@@ -224,6 +206,7 @@
 
   color: #6097bf !important;
 }
+
 
 .RegBox {
   border-radius: 10px;
@@ -256,22 +239,16 @@
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-  padding: 1%;
+padding: 1%;
   resize: none; /*remove the resize handle on the bottom right*/
 }
-.profile-creation-description::placeholder {
+.profile-creation-description::placeholder{
   color: #abc9db;
 }
 .loginInput:focus {
   outline: none;
 }
-.popup-modal {
-  font-size: 12px;
-  background-color: #fff;
-  border: 1px solid #d7d7d7;
-  color: #6097bf;
-  width: 50vw;
-}
+
 .loginButton {
   height: 50px;
   border-radius: 10px;
@@ -330,26 +307,26 @@
 }
 .profile-create-about-container {
   margin-bottom: 75px;
-  text-align: center;
+    text-align: center;
 }
 .center-text {
   text-align: center;
 }
 .radio-input-container-profile {
-  background: #fff;
-  margin: 0 1rem 0 1rem;
-  width: 40px;
-  color: #6097bf;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  height: 40px;
-  font-size: 25px;
-  padding: 0 3px;
+    background: #fff;
+    margin: 0 1rem 0 1rem;
+    width: 40px;
+    color: #6097bf;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    height: 40px;
+    font-size: 25px;
+    padding: 0 3px;
 }
 .radio-container {
   font-size: 35px;
@@ -382,6 +359,15 @@
   direction: rtl;
   padding-bottom: 70px;
 }
+.MobileProfileCreationBox{
+  height: auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  direction: rtl;
+  padding-bottom: 70px;
+}
 .add-profile-images {
   display: flex;
   justify-content: space-evenly;
@@ -393,9 +379,22 @@
   color: #6097bf;
   margin-top: 40px;
 }
+.MobileProfileImageContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #6097bf;
+  margin-top: 40px; 
+}
+.prfPicTxt{padding: 5px;margin: 5px; font-size: 18px;} 
+.cvrPicTxt{padding: 5px;margin: 5px; font-size: 18px;}
 .profile-image-container p {
   margin-top: 2rem;
 }
+.mobileImg{border-radius: 100%;
+          padding: 5px;
+          height: 100px;
+          width: 100px;}
 input::placeholder {
   color: #abc9db;
 }
@@ -415,6 +414,9 @@ input::placeholder {
 }
 .radio {
   display: none;
+}
+.MobileNameInput{
+  font-weight: normal;
 }
 .input-label {
   background: #ffffff;
@@ -448,7 +450,7 @@ input::placeholder {
   border-radius: 10px;
   margin-top: 40px;
   cursor: pointer;
-  transition-duration: 500ms;
+  transition-duration: 200ms;
 }
 .add-btn-middle {
   margin: auto;
@@ -460,8 +462,8 @@ input::placeholder {
   background: #6097bf;
   border-radius: 100%;
   margin-top: 40px;
-  cursor: pointer;
-  transition: 500ms ease-in-out;
+cursor: pointer;
+transition: 500ms ease-in-out;
 }
 .add-btn-middle:hover {
   background: #ffff;
@@ -520,6 +522,13 @@ input::placeholder {
   font-weight: 600;
   margin-right: 10px;
 }
+.Mobiledelete-btn {
+  font-size: 13px;
+  color: #6097bf;
+  padding: 0px 5px;
+  font-weight: 600;
+  margin-right: 10px;
+} 
 .axis-input {
   height: 35px;
   border-radius: 10px;
@@ -528,6 +537,15 @@ input::placeholder {
   padding-left: 20px;
   margin: 2px;
   width: 20%;
+}
+.Mobileaxis-input {
+  height: 35px;
+  border-radius: 10px;
+  border: 1px solid #fff;
+  font-size: 18px;
+  padding-left: 20px;
+  margin: 2px;
+  width: 15%;
 }
 .axis-input-image {
   display: none;
@@ -565,7 +583,6 @@ input::placeholder {
   width: 30%;
 }
 .create-btn {
-  display: flex;
   box-sizing: border-box;
   border: 1px solid #fff;
   color: #6097bf;
@@ -578,18 +595,11 @@ input::placeholder {
   border-radius: 10px;
   font-size: 35px;
   font-weight: 600;
-  transition-duration: 500ms;
-  align-items: center;
-  justify-content: center;
+  transition-duration: 200ms;
 }
-.create-btn:hover {
-  color: #ffffff;
-  border: 1px solid #6097bf;
-}
-
 .submitted {
-  color: #ffffff;
-  background: #6097bf;
+  background: #ffffff;
+  color: #6097bf;
 }
 .create-btn:hover {
   background: #ffffff;
@@ -598,10 +608,29 @@ input::placeholder {
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
 }
+.MobileCustomFileInput::-webkit-file-upload-button {
+  visibility: hidden;
+}
 .custom-file-input-cover::-webkit-file-upload-button {
   visibility: hidden;
 }
 .custom-file-input::before {
+  content: 'הוסף תמונת פרופיל + ';
+  display: inline-block;
+  /* border: 1px solid #999; */
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 25px;
+  margin-top: 10px;
+}
+.MobileCustomFileInputBox{width: 100px;}
+.MobileCustomFileInput::before {
   content: 'הוסף תמונת פרופיל + ';
   display: inline-block;
   /* border: 1px solid #999; */
@@ -651,7 +680,7 @@ input::placeholder {
   cursor: pointer;
   text-shadow: 1px 1px #fff;
   font-weight: 700;
-  font-size: 10pt;
+  font-size: 15pt;
 }
 .custom-file-input-cover::before {
   content: 'הוסף תמונת קאבר + ';
@@ -697,10 +726,10 @@ input::placeholder {
 }
 .press-explain-container {
   display: flex;
-  justify-content: space-between;
-  width: 55%;
-  margin: auto;
-  margin-bottom: 40px;
+    justify-content: space-between;
+    width: 55%;
+    margin: auto;
+    margin-bottom: 40px;
 }
 .organisation-name {
   margin-top: 45px;
@@ -719,6 +748,7 @@ input::placeholder {
 .press-change-2 {
   margin-right: 21%;
   font-size: 18px;
+
 }
 .press-explain-container {
   display: flex;
@@ -727,26 +757,26 @@ input::placeholder {
   margin-left: 25%;
   font-size: 18px;
   direction: rtl;
-  color: #abc9db;
+  color: #ABC9DB;
 }
 .press-explain-2 {
   font-size: 18px;
   margin-left: 33%;
   direction: rtl;
-  color: #abc9db;
+  color: #ABC9DB;
 }
 .press-explain-3 {
   font-size: 18px;
   direction: rtl;
-  color: #abc9db;
+  color: #ABC9DB;
 }
 .press-explain-4 {
   font-size: 18px;
   direction: rtl;
-  color: #abc9db;
-  display: flex;
-  margin-right: 45%;
-  margin-top: 10px;
+  color: #ABC9DB;
+  display:flex;
+ margin-right: 45%;
+ margin-top: 10px;
 }
 
 .grave-location-img {
@@ -757,3 +787,57 @@ input::placeholder {
   width: 100%;
   height: 100%;
 }
+
+.txtMap{font-size: 32px;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;}
+.txtInpMap{font-size: 16px;
+          padding: 2px 5px;
+          border-radius: 5px;
+          border: 1px solid #fff;
+          text-align: center;
+          margin: 0px auto;}
+.mpBox{text-align: center;padding: 10px;}        
+.mpBtn{border: 1px solid #6097bf;
+       background-color: #6097bf;
+       color: #ffffff;
+       font-size: 16px;
+       padding: 5px 10px;
+       border-radius: 5px;
+     }
+.mpBtnBox{text-align: center; margin: 10px auto;} 
+.mobileFileGrave{text-align: center;width: 100%;}  
+.sbtBtn{padding:5px; text-align: center; margin-top: 10px; }
+.lstBtn{padding: 5px; width: 50%;border: 1px solid #fff; font-size: 21px;color: #6097bf;
+      font-weight: bold;} 
+.descBox{height: 80px;
+          width: 30%;
+          border-radius: 10px;
+          border: none;
+          padding: 5px;
+          font-size: 16px;
+          font-family: "Alef";} 
+.imgBx{padding: 5px;
+      color: #6097bf; 
+      font-size: 13px;
+      display: flex;
+      border-radius: 10px;
+          background-color: #fff;
+          margin-left: -10px;
+          margin-right: 5px;
+        } 
+  .dlBtn{font-size: 13px;
+        padding: 5px;
+        margin:10px ;}   
+  .ttlTxt{font-size: 40px;
+         padding: 10px;}   
+         .ttlClr{color: #6097bf}  
+  .inpuTxt{width: 80%;
+            padding: 10px;
+           border: none;
+           border-radius: 10px;
+           font-size: 18px;
+           font-family: "Alef";}  
+  .htxt{font-size: 35px;
+        font-family: "Alef";}                                

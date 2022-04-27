@@ -76,6 +76,9 @@
       letter-spacing: 3px;
       color: #6097bf !important;
   }
+  .MobilePlans-logo {
+      padding-bottom: 30px; 
+  }
   .payment-logo {
     padding-bottom: 30px;
     font-size: 30px !important;
@@ -121,12 +124,20 @@
     text-align: center;
     padding-top: 3rem;
     padding-bottom: 1rem;
+    background-color: #fff;
   }
   .plans-title {
     color: #6097bf;
     text-align: center;
     padding-top: 4rem;
     margin-bottom: 75px;
+  }
+  .MobilePlansTitle{
+    color: #6097bf;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 72px;
+    margin-bottom: 50px;
   }
   .plan-title {
     margin-top: 3rem;
@@ -161,3 +172,24 @@
     font-weight: 600;
     transition: ease-in-out 500ms;
   }
+
+
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+  .mobile{
+    display: block;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: block;
+  } 
+ 
+}

@@ -26,3 +26,13 @@ a {
   text-decoration: none;
   color: #6097bf;
 }
+.footerBottom{display: flex; align-items: center; justify-content: space-between; padding: 10px 5px;}
+.footerLink{display: flex;
+            padding: 10px 2px;
+            justify-content: center;
+            align-items: center;
+            font-size: 15px;}
+
+.footerBottomImg{width: 140px;}
+.txtColor{color: #6097bf;font-size: 14px;}
+.linePadding{padding: 5px;font-family: arial,sans-serif;}

@@ -1,23 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Alef&display=swap');
 @font-face {
   font-family: 'os-luizi'; /*Can be any text*/
-  src: local('OS_Luizi'),
+  src: local('OS_Luizi\ Round-FFC'),
     url('./fonts/OS_Luizi\ Round-FFC.otf') format('truetype');
 }
-
-@font-face {
-  font-family: 'almoni'; /*Can be any text*/
-  src: local('almoni'),
-    url('./fonts/almoni-dl-aaa-regular.otf') format('truetype');
-}
-
 @font-face {
   font-family: 'pilkahol'; /*Can be any text*/
   src: local('FtPilKahol-1.00-400-Regular'),
     url('./fonts/FtPilKahol-1.00-400-Regular.otf') format('truetype');
 }
 * {
-  font-family: 'almoni';
+  font-family: 'os_luizi';
   margin: 0;
 }
 p {

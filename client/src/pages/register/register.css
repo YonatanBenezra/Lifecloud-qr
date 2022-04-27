@@ -8,6 +8,11 @@
   justify-content: center;
   color: #ffff;
 }
+.MobileRegister {
+  background-color: #dcecf4; 
+  width: 100%; 
+  color: #ffff;
+}
 
 .loginWrapper {
   display: flex;
@@ -21,6 +26,11 @@
 .rtl {
   direction: rtl;
 }
+.MobileRegisterWrapper {
+  width: 90%;
+  margin: 0px auto; 
+}
+
 .loginLeft,
 .loginRight {
   display: flex;
@@ -38,12 +48,26 @@
   letter-spacing: 3px;
   color: #6097bf !important;
 }
+.Mobileregister-logo {
+  padding-bottom: 30px;
+  font-size: 30px !important;
+  margin-top: 75px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 3px;
+  color: #6097bf !important;
+}
 
 .RegBox {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.MobileRegBox{
+  border-radius: 10px; 
+  margin: 0px auto;
 }
 
 .register-input {
@@ -56,6 +80,19 @@
   margin: 2px;
   margin-top: 4%;
   height: 40px;
+  font-weight: 600;
+}
+.MobileRegister-input{
+  text-align: center;
+  direction: rtl; 
+   padding: 10px 2px;
+   border-radius: 10px;
+   border: none;
+  width: 100%; 
+  margin: 15px 0px;
+  font-size: 18px;
+  font-family: arial,sans-serif;
+  color: #abc9db;
   font-weight: 600;
 }
 [type='date']::-webkit-inner-spin-button {
@@ -78,6 +115,19 @@
   color: #abc9db;
   font-weight: 600;
 }
+.MobileNameInput {
+  text-align: center;
+  direction: rtl; 
+   padding: 10px 2px;
+   border-radius: 10px;
+   border: none;
+  width: 45%; 
+  font-size: 18px;
+  font-family: arial,sans-serif;
+  color: #abc9db;
+  font-weight: 600;
+}
+ 
 @media (max-width: 768px) {
   .name-input {
     font-size: 20px !important;
@@ -195,3 +245,26 @@
 input::placeholder {
   color: #abc9db;
 }
+
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+  .mobile{
+    display: block;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: block;
+  } 
+ 
+}
+
+.txt{font-size: 16px;
+     font-family: arial,sans-serif;}

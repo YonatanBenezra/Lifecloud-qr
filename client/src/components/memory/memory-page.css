@@ -31,6 +31,12 @@
   height: 40vh;
   width: 60vw;
 }
+.Mobilesingle-memory-img {
+  border-radius: 15px;
+  height: 40vh;
+  width: 100%;
+  border-radius: 20px;
+}
 .single-memory-content-container {
   z-index: 1;
   position: relative;
@@ -38,18 +44,14 @@
   margin: auto;
   height: 100%;
 }
-.icon {
-  margin-right: 3rem;
-}
-.memory-icons-container {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  margin-top: 2rem;
+
+.memory-page .icons-container {
+  width: 220px;
+  margin: -64px auto;
 }
 
 .single-memory-text {
-  padding-top: 3vh;
+  padding-top: 1rem;
 }
 .comments-container {
   padding-top: 2rem;
@@ -74,7 +76,7 @@
 }
 .comment-text {
   font-weight: 600;
-  color: #6097bf;
+  color: #6097BF;
 }
 .comment-container .subtitle-continer {
   display: flex;
@@ -102,8 +104,8 @@
 }
 .memory-btn-hover:hover {
   background: #fff;
-  color: #6097bf;
-  border: 1px solid #6097bf;
+  color: #6097BF;
+  border: 1px solid #6097BF;
 }
 
 input.comment-input {
@@ -132,7 +134,6 @@ input.comment-input {
   align-items: center;
   justify-content: center;
   color: #fff;
-  transition: ease-in-out 500ms;
 }
 .action-btns-container {
   width: 80%;
@@ -150,4 +151,9 @@ input.comment-input {
   justify-content: center;
   align-items: center;
 }
+.image-container {
+  height: 35vh;
+}
 
+.mobileCmtBtn{font-size: 20px;
+              font-family: "Alef";}
