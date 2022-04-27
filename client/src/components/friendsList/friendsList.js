@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './friendslist.css';
 import Rectangle7 from '../../assets/Rectangle7.png';
 import axios from 'axios';
-<<<<<<< HEAD
 import { AuthContext } from '../../context/AuthContext';
 import userIcon from '../../assets/userIcon.png';
 
@@ -23,21 +22,8 @@ const FriendsList = ({
   // useEffect(() => {
   //     fetchUsers()
   // }, [])
-=======
-const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
-  const [userid, setuserid] = useState('');
->>>>>>> 2b70edf (new update)
 
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-  const fetchUsers = async () => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/users/all/every`
-    );
-    setUsers(res.data);
-  };
+  // console.log(RequestedUser, 'RequestedUser');
   const [isAdmin, setIsAdmin] = useState(true);
   const handleAddFriend = (e) => {
     fetch(`${process.env.REACT_APP_API_URL}/api/profile/addFriends/${proid}`, {
@@ -52,13 +38,10 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
       })
       .then((res) => {
         setrfriendReq(res);
-<<<<<<< HEAD
         setfriendReqRes(res);
       })
       .catch((err) => {
         console.log(err);
-=======
->>>>>>> 2b70edf (new update)
       });
   };
   const handleAddAcceptFrined = (e) => {
@@ -89,7 +72,6 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
       });
   };
 
-<<<<<<< HEAD
   const handleAddAcceptFrined2 = (e) => {
     // setuserid(e)
     fetch(`${process.env.REACT_APP_API_URL}/api/profile/addFriends/${proid}`, {
@@ -167,8 +149,6 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
         console.log(err);
       });
   };
-=======
->>>>>>> 2b70edf (new update)
   const handleAddAdmins = (e) => {
     handleAddFriends(e, 'profileAdmin');
     fetch(`${process.env.REACT_APP_API_URL}/api/profile/addAdmins/${proid}`, {
@@ -184,12 +164,9 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
       .then((res) => {
         console.log(res);
         setAdminres(res);
-<<<<<<< HEAD
       })
       .catch((err) => {
         console.log(err);
-=======
->>>>>>> 2b70edf (new update)
       });
   };
 
@@ -215,9 +192,36 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
       return item.id;
     });
 
-  let e = users
-    ? users.map((n, i) => valfinalcheckid && valfinalcheckid.includes(n._id))
-    : [];
+  let e = users.map(
+    (n, i) => valfinalcheckid && valfinalcheckid.includes(n._id)
+  );
+
+  /// for friend request
+  let valchekRequest =
+    profiledata &&
+    profiledata.addFriends.length > 0 &&
+    profiledata.addFriends.map((item, i) => {
+      return item.user.map((itemA) => {
+        return itemA._id;
+      });
+    });
+  let valcheckFinalRequest =
+    valchekRequest &&
+    valchekRequest.length > 0 &&
+    valchekRequest.map((item, i) => {
+      return {
+        id: item[0],
+      };
+    });
+  let valfinalcheckidRequest =
+    valcheckFinalRequest &&
+    valcheckFinalRequest.map((item) => {
+      return item.id;
+    });
+
+  let eRequest = users.map(
+    (n, i) => valfinalcheckidRequest && valfinalcheckidRequest.includes(n._id)
+  );
 
   ///// for admins
   let valchekAdmin =
@@ -242,11 +246,9 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
       return item.id;
     });
 
-  let eAdmin = users
-    ? users.map(
-        (n, i) => valfinalcheckidadmin && valfinalcheckidadmin.includes(n._id)
-      )
-    : [];
+  let eAdmin = users.map(
+    (n, i) => valfinalcheckidadmin && valfinalcheckidadmin.includes(n._id)
+  );
 
   const handleDeleteAdmins = (e) => {
     fetch(`${process.env.REACT_APP_API_URL}/api/profile/removeAdmin/${proid}`, {
@@ -275,7 +277,6 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
   };
   return (
     <div className="friends-list">
-<<<<<<< HEAD
       <div>
         <h1>חברים</h1>
         {profiledata && profiledata.addFriends.length > 0 ? (
@@ -297,30 +298,11 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
                 </div>
                 <div>
                   {/* <span
-=======
-      {isAdmin ? (
-        <div>
-          <h1>חברים חדשים</h1>
-          {profiledata && profiledata.addFriends.length > 0 ? (
-            profiledata.addFriends.map((friend, i) => {
-              return (
-                <div
-                  className="friend-request"
-                  key={friend.user && friend.user[0]._id}
-                >
-                  <div className="friend-request-details">
-                    <img src={friend.profileImg} alt="profile" />
-                    <p>{friend.user && friend.user[0].firstName}</p>
-                  </div>
-                  <div>
-                    <span
->>>>>>> 2b70edf (new update)
                       style={{ cursor: 'pointer' }}
                       onClick={() => handleAddAcceptFrined(friend)}
                     >
                       הוסף חבר
                     </span>
-<<<<<<< HEAD
                     | */}
                   <span
                     style={{ cursor: 'pointer' }}
@@ -349,26 +331,9 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
         >
           <h1>בקשות חברות</h1>
           {/* {users &&
-=======
-                    |
-                    <span
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => handleAddFriend(friend.user[0]._id)}
-                    >
-                      סרב
-                    </span>
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            <div style={{ textAlign: 'center' }}>אין חברים עדיין</div>
-          )}
-          <h1>חברים</h1>
-          {users &&
->>>>>>> 2b70edf (new update)
             users.length > 0 &&
             users.map((user, i) => {
+              // console.log(e[i] == true, 'valchek[user._id]')
               return (
                 <div className="friend-request" key={user._id}>
                   <div className="friend-request-details">
@@ -376,10 +341,9 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
                     <p>{user.firstName}</p>
                   </div>
                   <div>
-                    {/* <span onClick={() => handleAddFriend(user._id)} style={{ cursor: 'pointer' }}>Remove Friend</span> */}
                     {e[i] ? (
                       <span style={{ cursor: 'pointer' }}>
-                        בקשת חברות נשלחה
+                        Friend reqest sent
                       </span>
                     ) : (
                       <span
@@ -391,7 +355,7 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
                     )}
                     |
                     {eAdmin[i] ? (
-                      <span style={{ cursor: 'pointer' }}>אדמין</span>
+                      <span style={{ cursor: 'pointer' }}>Admin</span>
                     ) : (
                       <span
                         onClick={() => handleAddAdmins(user._id)}
@@ -403,7 +367,6 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
                   </div>
                 </div>
               );
-<<<<<<< HEAD
             })} */}
           {profiledata && profiledata.friendRequests.length > 0 ? (
             profiledata.friendRequests.map((friend, i) => {
@@ -475,10 +438,6 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
         }`}
         >
           <h1>אדמינים</h1>
-=======
-            })}
-          <h1>רשימת אדמינים</h1>
->>>>>>> 2b70edf (new update)
           {profiledata && profiledata.addAdmins.length > 0 ? (
             profiledata.addAdmins.map((admin, i) => {
               return (
@@ -502,28 +461,61 @@ const ENFriendsList = ({ proid, profiledata, setrfriendReq, setAdminres }) => {
                       onClick={() => handleDeleteAdmins(admin.user[0]._id)}
                       style={{ cursor: 'pointer' }}
                     >
-                      הסר אדמין
+                      הסר
                     </span>
                   </div>
                 </div>
               );
             })
           ) : (
-            <div style={{ textAlign: 'center' }}>אין כאן אדמינים</div>
+            <div style={{ textAlign: 'center' }}>אין אדמינים</div>
           )}
         </div>
-      ) : (
+      </div>
+      {/* ) : (
         <div>
-          <h1>Friends</h1>
-          {/* {friends.friends.map(friend => {
-                        return (
-                            <div className="friend-request" key={friend.id}>
-                            </div>
-                        )
-                    })} */}
+          <h1>חברים</h1>
+          {users &&
+            users.length > 0 &&
+            users.map((user, i) => {
+              // console.log(e[i] == true, 'valchek[user._id]')
+              return (
+                <div className="friend-request" key={user._id}>
+                  <div className="friend-request-details">
+                    <img src={Rectangle7} alt="profile" />
+                    <p>{user.firstName}</p>
+                  </div>
+                  <div>
+                    {e[i] ? (
+                      <span style={{ cursor: 'pointer' }}>
+                        Friend reqest sent
+                      </span>
+                    ) : (
+                      <span
+                        onClick={() => handleAddFriend(user._id)}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        Add Friend
+                      </span>
+                    )}
+                    |
+                    {eAdmin[i] ? (
+                      <span style={{ cursor: 'pointer' }}>Admin</span>
+                    ) : (
+                      <span
+                        onClick={() => handleAddAdmins(user._id)}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        + Add as admin
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
         </div>
-      )}
+      )} */}
     </div>
   );
 };
-export default ENFriendsList;
+export default FriendsList;

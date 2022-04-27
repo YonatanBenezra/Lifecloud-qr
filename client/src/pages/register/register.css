@@ -23,17 +23,14 @@
   display: flex;
   flex-direction: column;
 }
-<<<<<<< HEAD
 .rtl {
   direction: rtl;
 }
-=======
 .MobileRegisterWrapper {
   width: 90%;
   margin: 0px auto; 
 }
 
->>>>>>> 2b70edf (new update)
 .loginLeft,
 .loginRight {
   display: flex;
