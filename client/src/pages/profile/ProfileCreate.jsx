@@ -161,6 +161,7 @@ export default function ProfileCreate() {
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
+    setUploaded(index);
   };
   useEffect(() => {
     fetchuserData();
@@ -805,7 +806,7 @@ export default function ProfileCreate() {
                   <button
                     className="create-btn"
                     type="submit"
-                    onClick={setSubmitted(true)}
+                    onClick={() => setSubmitted(true)}
                   >
                     שמור
                   </button>
