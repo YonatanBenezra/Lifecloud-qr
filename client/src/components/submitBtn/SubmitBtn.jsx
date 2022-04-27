@@ -6,7 +6,7 @@ const SubmitBtn = ({text, onSubmit}) => {
   //const [quantity, setQuantity] = useState(1);
 
   return (
-    <div className='submit-btn' onClick={onSubmit}>
+    <div className='submit-btn szTxt ff' style={{padding:"20px"}} onClick={onSubmit}>
         <span>{text}</span>
     </div>
   );

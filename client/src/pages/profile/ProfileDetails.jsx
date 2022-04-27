@@ -14,6 +14,7 @@ import './profiledetails.css';
 import TopBar from '../../components/topbar/Topbar';
 import ProgressBar from '../../components/progressbar/progressBar';
 import { Gallery } from '../../components/gallery/gallery';
+// import { AuthContext } from '../../context/AuthContext';
 import { useParams, useLocation } from 'react-router';
 import Memory from '../../components/memory/Memory';
 import Popup from 'reactjs-popup';
@@ -31,7 +32,6 @@ import moment from 'moment';
 
 import Map from './Map';
 import Direction from './Direction';
-
 export default function Profile() {
   const { dispatch } = useContext(AuthContext);
   const [profiledata, setProfileData] = useState([]);
@@ -48,6 +48,7 @@ export default function Profile() {
   const [friendFlagReq, setrfriendReq] = useState([]);
   const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
+<<<<<<< HEAD
   const [next, setnext] = useState(5);
   const [users, setUsers] = useState([]);
   const { user } = useContext(AuthContext);
@@ -106,6 +107,9 @@ export default function Profile() {
         console.log(err);
       });
   };
+=======
+  const [next, setnext] = useState(4);
+>>>>>>> 2b70edf (new update)
 
   const handleShowMoreMemories = () => {
     setnext(next + 1);
@@ -117,13 +121,12 @@ export default function Profile() {
   }, [likeMessage, comment, DellComment, friendFlagReq, adminFlagReq]);
   useEffect(() => {
     fetchuserprofiles();
-  }, [friendFlagReq, adminFlagReq]);
+  }, []);
+
   useEffect(() => {
     fetchmemories();
   }, [comment, likeMessage]);
-  useEffect(() => {
-    handleDeathDateBlur();
-  }, []);
+
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
@@ -141,22 +144,16 @@ export default function Profile() {
     );
     setmemoryData(res.data);
   };
-  const fetchUsers = async () => {
-    // const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/all/every`);
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/users/getSingleUser/${profiledata.originalUser[0]._id}`
-    );
-    setUsers(res.data);
-  };
+
   useEffect(() => {
     fetchmemories();
   }, [comment, likeMessage]);
   let parseAxios = Object.keys(profiledata).length
-    ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
-    : '';
-  profiledata?.axisImages?.forEach((element, i) => {
-    parseAxios[i].axisImage = element;
-  });
+      ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
+      : '';
+    profiledata?.axisImages?.forEach((element, i) => {
+      parseAxios[i].axisImage = element;
+    });
   const handleLike = (e) => {
     try {
       const formdata = new FormData();
@@ -191,6 +188,7 @@ export default function Profile() {
 
   //
   const handleComment = (e) => {
+    console.log(e);
     try {
       fetch(`${process.env.REACT_APP_API_URL}/api/memory/comment/${e._id}`, {
         method: 'PUT',
@@ -230,6 +228,7 @@ export default function Profile() {
   };
 
   const handleDelete = (e, id) => {
+    console.log(e, id);
     fetch(`${process.env.REACT_APP_API_URL}/api/memory/commentdell/${id}`, {
       method: 'DELETE',
       headers: {
@@ -254,6 +253,7 @@ export default function Profile() {
       });
   };
   const handleDellMemory = (e) => {
+    console.log(e, 'e');
     fetch(
       `${process.env.REACT_APP_API_URL}/api/memory/commentdellOBJ/${e._id}`,
       {
@@ -277,7 +277,6 @@ export default function Profile() {
         console.log(err);
       });
   };
-
   const handleClose = () => {
     setOpen(false);
     setMessage('');
@@ -294,6 +293,7 @@ export default function Profile() {
   // useEffect(() => {
   //   getGeoLocation();
   // }, [getGeoLocation]);
+<<<<<<< HEAD
   // console.log(profiledata);
 
   useEffect(() => {
@@ -332,10 +332,12 @@ export default function Profile() {
       }
     );
   };
+=======
+
+>>>>>>> 2b70edf (new update)
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
-        <TopBar />
         <div
           className="modal fade qr-modal"
           id="exampleModal"
@@ -369,7 +371,7 @@ export default function Profile() {
                   סגור
                 </button>
                 <a
-                  href={`https://api.whatsapp.com/send/?text=https://lifecloud-qr.com/${location.pathname}`}
+                  href={`https://wa.me/?text=${window.location.href}`}
                   type="button"
                   className="btn btn-success"
                   target={'_blank'}
@@ -381,6 +383,7 @@ export default function Profile() {
             </div>
           </div>
         </div>
+<<<<<<< HEAD
         <div style={{ position: 'relative' }}>
           <img
             src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
@@ -411,6 +414,14 @@ export default function Profile() {
             </button>
           </div>
         </div>
+=======
+        <TopBar />
+        <img
+          src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
+          alt=""
+          className="profile-cover"
+        ></img>
+>>>>>>> 2b70edf (new update)
         <div className="profile-details-first">
           <img
             src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
@@ -420,8 +431,8 @@ export default function Profile() {
           <div className="deceased-details">
             <h1 className="profile-h1">{`${profiledata?.degree} ${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
             <p>
-              {moment(profiledata?.deathDate).utc().format('DD-MM-YYYY')} -{' '}
-              {moment(profiledata?.birthDate).utc().format('DD-MM-YYYY')}
+              {moment(profiledata?.birthDate).utc().format('YYYY-DD-MM')} -{' '}
+              {moment(profiledata?.deathDate).utc().format('YYYY-DD-MM')}
             </p>
             <p>{profiledata?.city}</p>
           </div>
@@ -429,6 +440,7 @@ export default function Profile() {
         </div>
         <div className="btns-container">
           <div className="small-btns-container">
+<<<<<<< HEAD
             <Link
               className={`${
                 profiledata.originalUser[0]._id === user._id
@@ -436,17 +448,32 @@ export default function Profile() {
                 //   profiledata.addAdmins.indexOf(user._id))
                   ? 'small-btns-container'
                   : 'hidden'
+=======
+            {(profiledata.originalUser[0]._id === loggedUser._id ||
+              profiledata.addAdmins.indexOf()) && (
+              <Link to={`/editprofiles/${id}`}>
+                <div className="profile-small-btn">ערוך פרופיל</div>
+              </Link>
+            )}
+
+            <div
+              className={`${
+                profiledata.originalUser[0]._id === loggedUser._id ||
+                profiledata.addAdmins.indexOf()
+                  ? 'hidden'
+                  : 'profile-small-btn'
+>>>>>>> 2b70edf (new update)
               }`}
-              to={`/editprofiles/${id}`}
             >
-              <div className="profile-small-btn">ערוך פרופיל</div>
-            </Link>
+              הוסף חבר
+            </div>
             <div
               className="profile-small-btn"
               onClick={() => setShow('friends')}
             >
               רשימת חברים
             </div>
+<<<<<<< HEAD
             {console.log(profiledata)}
             {console.log(user._id)}
             {console.log(user._id)}
@@ -465,6 +492,8 @@ export default function Profile() {
             >
               הוסף פרופיל כחבר{' '}
             </div>
+=======
+>>>>>>> 2b70edf (new update)
           </div>
           <div className="big-btns-container">
             <div
@@ -479,7 +508,7 @@ export default function Profile() {
               onClick={() => setShow('bio')}
               className={`profile-big-btn ${show === 'bio' && 'active'}`}
             >
-              אודות
+              ביוגרפיה
             </div>
             <div
               onClick={() => setShow('wall')}
@@ -504,12 +533,12 @@ export default function Profile() {
                 <h3>
                   <span className="separator">| </span>
                   <span className="dash">- </span>
-                  {moment(profiledata?.deathDate).utc().format('DD-MM-YYYY')}
+                  {profiledata?.birthDate?.split('T')[0]}
                 </h3>
                 <h3>
                   <span className="separator">| </span>
                   <span className="dash">- </span>
-                  {hebMemorialDate}
+                  {profiledata?.hebDeathDate}
                 </h3>
                 <h3>
                   <span className="separator">| </span>
@@ -532,7 +561,7 @@ export default function Profile() {
             </div>
           </div>
           <div className="gallery-container">
-            <Gallery profiledata={profiledata} id={id} userId={user._id} />
+            <Gallery profiledata={profiledata} id={id} />
             <div onClick={() => setShow('gallery')} className="full-btn">
               {' '}
               לכל הגלריה +
@@ -588,6 +617,7 @@ export default function Profile() {
                     <Popup
                       trigger={
                         <div className="memory-container" key={index}>
+<<<<<<< HEAD
                           {imgData.file ? (
                             <img
                               src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
@@ -611,6 +641,13 @@ export default function Profile() {
                               Your browser does not support the video tag.
                             </video>
                           )}
+=======
+                          <img
+                            src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
+                            alt=""
+                            className="memory-img"
+                          ></img>
+>>>>>>> 2b70edf (new update)
                           {/* {imgData.file.map(item => {
                           return <img
                             src={`${process.env.REACT_APP_API_URL}/${item}`}
@@ -669,7 +706,10 @@ export default function Profile() {
                           handleDelete={handleDelete}
                           handleDellMemory={handleDellMemory}
                           profile={profiledata}
+<<<<<<< HEAD
                           user={user}
+=======
+>>>>>>> 2b70edf (new update)
                         /> //change to memories
                       )}
                     </Popup>
@@ -705,30 +745,27 @@ export default function Profile() {
             <pre className="bio-bio">{profiledata.description}</pre>
           </div>
           <div className="life-axis">
-            <h1 className="axis-name">ציר חיים</h1>
+            <h1 className="axis-name">ביוגרפיה וציר חיים</h1>
             {/* <p className="axis-desc">{profiledata.description}</p> */}
           </div>
           <div>
             {parseAxios?.map((axis, index) => (
-              <div>
-                <div className="axis-container" key={index}>
-                  <div className="axis-sub-container">
-                    <h1 className="axis-title">{axis.axisTitle}</h1>
-                    <p className="axis-description2">{axis.axisDescription}</p>
-                  </div>
-                  <div
-                    className="axis-bubble"
-                    style={{
-                      backgroundImage: `url('${process.env.REACT_APP_API_URL}/picUploader/${axis.axisImage}')`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat',
-                    }}
-                  >
-                    <span>{axis.axisDate}</span>
-                  </div>
+              <div className="axis-container" key={index}>
+                <div className="axis-sub-container">
+                  <h1 className="axis-title">{axis.axisTitle}</h1>
+                  <p className="axis-description2">{axis.axisDescription}</p>
                 </div>
-                <div className="dotted-seperator">- - - -</div>
+                <div
+                  className="axis-bubble"
+                  style={{
+                    backgroundImage: `url('${process.env.REACT_APP_API_URL}/picUploader/${axis.axisImage}')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                >
+                  <span>{axis.axisDate}</span>
+                </div>
               </div>
             ))}
           </div>
@@ -798,6 +835,7 @@ export default function Profile() {
         <div
           className={`${show === 'friends' && 'display'} friends-list d-none`}
         >
+<<<<<<< HEAD
           {/* <FriendsList
             setrfriendReq={setrfriendReq}
             setAdminres={setAdminres}
@@ -811,6 +849,9 @@ export default function Profile() {
             userId={user._id}
             fetchuserprofiles={fetchuserprofiles}
           />
+=======
+          <FriendsList />
+>>>>>>> 2b70edf (new update)
         </div>
         <SnackBar open={open} handleClose={handleClose} message={message} />
         <SocialFooter />
