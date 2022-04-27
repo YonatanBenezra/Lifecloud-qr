@@ -40,9 +40,9 @@ const Topbar = (props) => {
         >
           <img className="logo" src={blueLogo} alt="" />
         </Link>
-        {/* <WithLanguage>
+        <WithLanguage>
           <LanguageButton />
-        </WithLanguage> */}
+        </WithLanguage>
       </div>
       <Search className="searchIcon-topbar-mobile" />
       <h1 className="menu-icon-topbar-mobile"> - </h1>
