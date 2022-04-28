@@ -822,7 +822,7 @@ ProfileRouter.post('/getAllChatMessagesFromPairOfUserIDs', async function (req, 
                 }
                 else {
 
-                var mysort = { timeofmessage: 1 };
+                var mysort = { timeofmessage: -1 };
                 let myMessages = chatMessageModel.find({chat_session_id: mySessionModel._id})
                 .sort(mysort)
                 .limit(30)

@@ -216,8 +216,11 @@ const [connected, setConnected] = useState(false);
                         //console.log("now here: " + JSON.stringify(response.data));
                         setHasLoadedFetchedMessages(true);
                         //const newArray2 = [...response.data.chatResponse];//try json.stringify
-                        const newArray = [...response.data.chatResponse];
-                        setMessages(newArray);
+
+                        const myChatResponseArray = [...response.data.chatResponse].reverse();
+
+                        //const newArray = [...response.data.chatResponse];
+                        setMessages(myChatResponseArray);
 
                         console.log("line 170: messages: " + messages + JSON.stringify(messages));
 
