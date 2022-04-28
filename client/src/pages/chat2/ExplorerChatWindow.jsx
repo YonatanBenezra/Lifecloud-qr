@@ -32,7 +32,7 @@ const [connected, setConnected] = useState(false);
   const [myOldestIDSoFar, setMyOldestIDSoFar] = useState("");
   const [haveDoneAlready, setHaveDoneAlready] = useState(false);
   const myFormerTopElementRef = useRef(null)
-  const [lastChatMessageScrambled, setLastChatMessageScrambled] = useState(undefined);
+  const [lastChatMessageScrambled, setLastChatMessageScrambled] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
   const [doWeHaveAListenerYet, setDoWeHaveAListenerYet] = useState(true);
   //const [socket, setSocket] = useState(null);
@@ -62,9 +62,9 @@ const [connected, setConnected] = useState(false);
 
   const [myUsersInfo, setMyUsersInfo] = useState([]);
 
-  const [mySession, setMySession] = useState(undefined);
+  const [mySession, setMySession] = useState([]);
 
-  const [oldestTime, setOldestTime] = useState(undefined);
+  const [oldestTime, setOldestTime] = useState([]);
 
   const [needToLoadChatMessages, setNeedToLoadChatMessages] = useState(false);
 
@@ -953,16 +953,13 @@ const [connected, setConnected] = useState(false);
         onSuccess.apply(this, args);
       }
     }
-    const myUserInfo = (mySession) => {
+    /*const myUserInfo = (mySession) => {
       console.log("myUserInfo: " + JSON.stringify(mySession, null, 2));
-          return mySession.userInfo.map((user) => 
-          user.firstName + " " + user.lastName + ", "
-
-          )
-        /*mySession !== null && mySession !== undefined && mySession.length > 0 && mySession != {} && Object.keys(mySession).length &&*/
+          return 
+        /**/
           
           
-    }
+   
 
    const MyTitle = (mySession) => {
     
@@ -1008,7 +1005,13 @@ const [connected, setConnected] = useState(false);
                                 .map((user, index) => (
                                     user.firstName + " " + user.lastName + ", "
                                 ))*/
-                                myUserInfo(mySession)
+                                //myUserInfo(mySession)
+                                  
+                                  mySession.userInfo &&
+                                  [...Object.values(mySession.userInfo)].map((user) => 
+                                  (<>{user.firstName} {user.lastName}, </>)
+
+                                  )
                               
                               }
                             
