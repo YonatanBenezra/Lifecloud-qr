@@ -53,6 +53,7 @@ const Topbar = (props) => {
             placeholder="חיפוש..."
             className="SearchInput top-search"
             onChange={handleSearch}
+            value={value}
           />
           {value && searchData && searchData.length > 0 && (
             <div className="result-box-main">
@@ -60,8 +61,8 @@ const Topbar = (props) => {
                 searchData.length > 0 &&
                 searchData.map((item, index) => {
                   return (
-                    <a href={`/profiledetails/${item._id}`} key={index} onClick={() => window.location.reload()}>
-                      <div className="result-box">
+                    <Link to={`/profiledetails/${item._id}`} key={index}>
+                      <div className="result-box" onClick={() => setValue('')}>
                         <div>
                           <span>
                             <img
@@ -79,7 +80,7 @@ const Topbar = (props) => {
                           item?.lastName === 'placeholder' ? '' : item?.lastName
                         }`}</span>
                       </div>
-                    </a>
+                    </Link>
                   );
                 })}
             </div>

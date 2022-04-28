@@ -54,12 +54,8 @@ export default function Profile() {
   const [hebMemorialDate, setHebMemorialDate] = useState('');
   const location = useLocation();
   const [yPos, setYPos] = useState(50);
-<<<<<<< HEAD
-  const handleDeathDateBlur = async () => {
-=======
 
   const handleDeathDateBlur =useCallback( async () => {
->>>>>>> 6f1e9fc (All done)
     const death = new Date(profiledata?.deathDate);
 
     const date = death.getDate();
@@ -327,32 +323,8 @@ export default function Profile() {
   // console.log(profiledata);
 
   useEffect(() => {
-<<<<<<< HEAD
-    if (profiledata.originalUser?.[0]._id === user._id) {
-      return;
-    }
-    if (!profiledata.originalUser?.[0]._id || !user._id) {
-      return;
-    }
-    fetch(
-      `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'Application/json',
-        },
-        body: JSON.stringify({
-          profileId: profiledata._id,
-          loggedInId: user._id,
-          notificationType: 'profileVisit',
-        }),
-      }
-    );
-  }, [user._id, profiledata._id, profiledata.originalUser]);
-=======
     sendNotification('profileVisit');
   }, [sendNotification]);
->>>>>>> 6f1e9fc (All done)
 
   const handleObjectPos = (what) => {
     if (yPos <= 90 && what === 'up') {

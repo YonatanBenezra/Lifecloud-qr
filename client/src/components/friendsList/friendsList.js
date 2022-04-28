@@ -250,18 +250,18 @@ const FriendsList = ({
     (n, i) => valfinalcheckidadmin && valfinalcheckidadmin.includes(n._id)
   );
 
-  const handleDeleteAdmins = (e) => {
+  const handleDeleteAdmins = (userId) => {
     fetch(`${process.env.REACT_APP_API_URL}/api/profile/removeAdmin/${proid}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'Application/json',
       },
-      body: JSON.stringify({ userId: e }),
+      body: JSON.stringify({ userId }),
     })
       .then(fetchuserprofiles)
       .catch(console.log);
   };
-  const handleDeleteFriend = (e) => {
+  const handleDeleteFriend = (userId) => {
     fetch(
       `${process.env.REACT_APP_API_URL}/api/profile/removeFriend/${proid}`,
       {
@@ -269,7 +269,7 @@ const FriendsList = ({
         headers: {
           'Content-Type': 'Application/json',
         },
-        body: JSON.stringify({ userId: e }),
+        body: JSON.stringify({ userId }),
       }
     )
       .then(fetchuserprofiles)
