@@ -568,8 +568,8 @@ ProfileRouter.post('/unArchiveSession', (req, res, next) => {//:id
                 //.find({})
                 .find({ users: {$all: userID}, archiveUserIDList: {$all: userID } })
                 .sort(mysort)
-                .skip(0 * 13)
-                .limit(13)
+                .skip(0 * 17)
+                .limit(17)
                 //.populate('firstName','lastname')
                 .then((response) => {
                     

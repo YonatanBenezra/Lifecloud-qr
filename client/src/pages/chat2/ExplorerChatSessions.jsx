@@ -54,15 +54,20 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
         haveIDoneSkipCount[skipCount] = true;
         console.log("got into renewmysessions "+ skipCount)
         try {
+          console.log("isArchived = " + haveILoadedArchivedSessions)
           
-     
+          const isArchived = false;
+
+          if (mySelectValue == "In Archived Sessions"){
+              isArchived = true;
+          }
           //console.log("inside getmypeople and bottommostpersonid: " + bottomMostPersonID);
           const res = await 
           axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllChatSessions/`, {
             "userid": user._id,
             "bottomMostSessionID":bottomMostSessionID,
             "skipCount":skipCount,
-            "isArchived": haveILoadedArchivedSessions
+            "isArchived": isArchived
             //"time": mySetMessagesNewestTime,
             //"scrollIncrementCount":scrollIncrementCount
           })
@@ -80,7 +85,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
             //if(temp[0].timeofmessage){
             //  setOldestTime(temp[12].timeofmessage);
             //}
-            if(newArray[newArray.length - 1]._id){
+            if(newArray.length > 0 && newArray[newArray.length - 1]._id){
               setBottomMostSessionID(newArray[newArray.length - 1]._id)
             }
             setSkipCount(skipCount + 1)
@@ -688,7 +693,10 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
 
 
       async function loadArchivedSessions()  {
-        setHaveILoadedArchivedSessions(true);
+        //setHaveILoadedArchivedSessions(true);
+        setHaveILoadedArchivedSessions({haveILoadedArchivedSessions}, () => {
+          return true;
+        });
         setSkipCount(1);
           console.log("got into load my archivedchat sessions" + user._id)
           try {
@@ -758,18 +766,19 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
 const sessionsOnScroll = (e) => {
   //alert("got into scroll");
   //e.stopPropagation();
-  console.log("my id: " + e.target.id)
+  console.log("my scroll function id: " + e.target.id)
   if (e.target.id == "SessionsInnerContainer") {
     //setIsVisible(false);
     //console.log("variables: " + e.target.scrollHeight + "," + e.target.scrollY + "," + e.target.scrollTop + "," + mySessionsScrollRef.current.scrollTop + ", " + mySessionsScrollRef.current.scrollTop)
 
     if (atBottom(e.target) && !amIInsideAtBottom) {
+      //alert("at bottom");
       amIInsideAtBottom = true;
 
       console.log("renewing sessions")
       renewMySessions();
 
-      setTimeout(() => {  console.log("World!"); }, 3000);
+      //setTimeout(() => {  console.log("World!"); }, 3000);
       amIInsideAtBottom = false;
     }
   }

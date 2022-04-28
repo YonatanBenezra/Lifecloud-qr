@@ -125,7 +125,18 @@ const [connected, setConnected] = useState(false);
 
         async loadChatFromAjaxMessage(session, message) {
             console.log("got into loadChatFromAjaxMessage" + JSON.stringify(message) + JSON.stringify(session))
-          setMySetMessagesNewestTime(0);
+          
+            //setMessages([]);
+          
+            setMessages({messages}, () => {
+              const a = [];
+              return a;
+            });
+
+
+            setMySetMessagesNewestTime(0);
+          
+          
           //console.log("in loadChatFromSessionID " + session._id)
           //console.log("session setting: " + JSON.stringify(session))
           //console.log("messages now are: " + JSON.stringify(messages));
