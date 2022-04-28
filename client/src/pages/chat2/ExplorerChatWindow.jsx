@@ -497,7 +497,7 @@ const [connected, setConnected] = useState(false);
         console.log("now messages are about to be set: " + JSON.stringify(response.data))
         setScrollIncrementCount(scrollIncrementCount + 1);
         setMessages([...newArray,...messages]);
-        
+        setMySessionHasLoaded(true);
         //setMessages([...response.data]);
         //console.log("messages.length: " + messages.length);
         //var objDiv = document.getElementById("Messages_Container");
@@ -953,7 +953,17 @@ const [connected, setConnected] = useState(false);
         onSuccess.apply(this, args);
       }
     }
-   
+    const myUserInfo = (mySession) => {
+      console.log("myUserInfo: " + JSON.stringify(mySession, null, 2));
+          return mySession.userInfo.map((user) => 
+          user.firstName + " " + user.lastName + ", "
+
+          )
+        /*mySession !== null && mySession !== undefined && mySession.length > 0 && mySession != {} && Object.keys(mySession).length &&*/
+          
+          
+    }
+
    const MyTitle = (mySession) => {
     
      if ( mySession !== undefined && mySession != {} && Object.keys(mySession).length && 
@@ -998,10 +1008,7 @@ const [connected, setConnected] = useState(false);
                                 .map((user, index) => (
                                     user.firstName + " " + user.lastName + ", "
                                 ))*/
-                                mySessionHasLoaded && mySession !== null && mySession !== undefined && mySession.length > 0 && mySession != {} && Object.keys(mySession).length &&
-                                  [...Object.values(mySession.userInfo)].map((user, i) => (
-                                  user.firstName + " " + user.lastName + ", "
-                                ))
+                                myUserInfo(mySession)
                               
                               }
                             
