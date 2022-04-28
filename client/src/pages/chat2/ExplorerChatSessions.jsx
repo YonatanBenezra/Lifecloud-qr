@@ -49,9 +49,9 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
     const [haveILoadedArchivedSessions, setHaveILoadedArchivedSessions] = useState(false);
 
       async function renewMySessions(){
-        //if (haveIDoneSkipCount[skipCount] == true){
-        //  return;
-        //}
+        if (haveIDoneSkipCount[skipCount] == true){
+          return;
+        }
         haveIDoneSkipCount[skipCount] = true;
         
         console.log("got into renewmysessions "+ skipCount)
