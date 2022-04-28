@@ -39,7 +39,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
     const [sessions, setSessions] = useState([]);
     const [sessionsAjax, setSessionsAjax] = useState([]);
     const [searchResultMessagesAjax, setSearchResultMessagesAjax] = useState([]);
-    const [mySelectValue,setMySelectValue] = useState("In Title Only");
+    const [mySelectValue,setMySelectValue] = useState({value:"In Title Only"});
     const [textValue, setTextValue] = useState("");
     const [searchSessionsValue, setSearchSessionsValue] = useState("");
     const [sessionsAjaxHasJustBeenSet, setSessionsAjaxHasJustBeenSet] = useState(false);
@@ -60,11 +60,11 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
           
           var isArchived = false;
 
-          if (mySelectValue == "In Archived Sessions"){
+          if (mySelectValue.value == "In Archived Sessions"){
               isArchived = true;
           }
 
-          console.log("isArchived = " + isArchived)
+          console.log("isArchived = " + isArchived + mySelectValue.value)
           //console.log("inside getmypeople and bottommostpersonid: " + bottomMostPersonID);
           const res = await 
           axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllChatSessions/`, {
@@ -394,7 +394,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                           //console.log("got into if");
                           //console.log("user" + JSON.stringify(user));
 
-                                if (mySelectValue == "In Title Only"){
+                                if (mySelectValue.value == "In Title Only"){
                                         const res = 
                                         axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchSessionsTitle/`, {
                                             "title": message,
@@ -423,7 +423,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                                             console.log(error);
                                         });
                               }
-                              else if (mySelectValue == "In Chat Body"){
+                              else if (mySelectValue.value == "In Chat Body"){
                                         const res = 
                                         axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchSessionsChatBody/`, {
                                             "text": message,
@@ -452,7 +452,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                                             console.log(error);
                                         });
                               }
-                              else if (mySelectValue == "In Archived Sessions"){
+                              else if (mySelectValue.value == "In Archived Sessions"){
                                         const res = 
                                         axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchSessionsChatBody/`, {
                                             "text": message,
@@ -1027,9 +1027,24 @@ function OutsideAlerter(props) {
 const onSelectChange = (e) => {
     //setMySelectValue(e.target.value);
     console.log("e.target.value: " + e.target.value);
-    setMySelectValue(mySelectValue => {
-      return e.target.value
+    /*setMySelectValue(e.target.value,() => {
+      console.log("in callback for setState");
+      //return {value:e.target.value};
     })
+*/
+    var stateObject = mySelectValue;
+
+    //Make any necessary changes to the object:
+    
+    stateObject.value = e.target.value;
+    
+    //and then set the state like this:
+    
+    setMySelectValue(stateObject);
+
+
+
+
     /*setMySelectValue({mySelectValue}, () => {
       return e.target.value;
     });*/
@@ -1053,7 +1068,7 @@ return (
                   <div id = "SearchSessionsInfoContainer">
                         <img id = "SearchSessionsMagnifyingGlass" src = {magnifyingglass} />
                         <textarea id = "SearchSessionsInput" value = {textValue} onChange = {handleChange} onKeyDown = {(e) => SearchSessionsHandleKeyDown(e)}  rows={1} placeholder="" /> {/*onChange={DoNothing} value = {searchSessionsValue}*/}
-                        <select id = "SearchSessionsSelect" onChange={onSelectChange} value={mySelectValue} ref = {mySelectRef}> 
+                        <select id = "SearchSessionsSelect" onChange={onSelectChange} value={mySelectValue.value} ref = {mySelectRef}> 
                             <option selected value="In Title Only">In Title Only</option>
                             <option value="In Chat Body">In Chat Body</option>
                             <option value="In Archived Sessions">In Archived Sessions</option>
