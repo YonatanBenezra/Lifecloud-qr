@@ -916,13 +916,14 @@ const [connected, setConnected] = useState(false);
         
       }
       else {
-        setTextValue(e.target.value + String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode));
+        //setTextValue(e.target.value + String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode));
+        //setTextValue(e.target.value);
       }
     }
      
     
     const DoNothing = (event) => {
-
+      setTextValue(event.target.value);
     }
 
     function makeID(length) {
