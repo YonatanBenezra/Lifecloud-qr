@@ -45,22 +45,26 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
     const [sessionsAjaxHasJustBeenSet, setSessionsAjaxHasJustBeenSet] = useState(false);
     var amIInsideAtBottom = false;
     var haveIDoneSkipCount = {1: false};
+    const mySelectRef = useRef(null)
     const [haveILoadedArchivedSessions, setHaveILoadedArchivedSessions] = useState(false);
 
       async function renewMySessions(){
-        if (haveIDoneSkipCount[skipCount] == true){
-          return;
-        }
+        //if (haveIDoneSkipCount[skipCount] == true){
+        //  return;
+        //}
         haveIDoneSkipCount[skipCount] = true;
+        
         console.log("got into renewmysessions "+ skipCount)
         try {
-          console.log("isArchived = " + haveILoadedArchivedSessions)
           
-          const isArchived = false;
+          
+          var isArchived = false;
 
           if (mySelectValue == "In Archived Sessions"){
               isArchived = true;
           }
+
+          console.log("isArchived = " + isArchived)
           //console.log("inside getmypeople and bottommostpersonid: " + bottomMostPersonID);
           const res = await 
           axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllChatSessions/`, {
@@ -300,6 +304,79 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
       }
 
       useEffect(() => {
+/*
+        if (atBottom(mySelectRef.current)){
+                      try {
+                        
+                        console.log("in useEffect at bottom");
+                        var isArchived = false;
+
+                        if (mySelectValue == "In Archived Sessions"){
+                            isArchived = true;
+                            
+                        }
+
+                        console.log("isArchived = " + isArchived + mySelectValue)
+                        //console.log("inside getmypeople and bottommostpersonid: " + bottomMostPersonID);
+                        
+                        const res = axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllChatSessions/`, {
+                          "userid": user._id,
+                          "bottomMostSessionID":bottomMostSessionID,
+                          "skipCount":skipCount,
+                          "isArchived": isArchived
+                          //"time": mySetMessagesNewestTime,
+                          //"scrollIncrementCount":scrollIncrementCount
+                        })
+                        .then(function (response) {
+                          //console.log("before:" + response);
+                          //console.log("now here: " + JSON.stringify(response.data));
+                          //setHasLoadedFetchedMessages(true);
+                          //console.log("now messages are: " + JSON.stringify(response.data));
+                          var newArray = [...response.data];
+                          //newArray = newArray.reverse();
+                          //const temp = response.data;
+                          console.log("in renew and existing sessions are " + JSON.stringify(sessions));
+                          console.log("in renew and new sessions are " + JSON.stringify(newArray));
+                          console.log("here we go renew2: " + JSON.stringify(response));
+                          //if(temp[0].timeofmessage){
+                          //  setOldestTime(temp[12].timeofmessage);
+                          //}
+                          if(newArray.length > 0 && newArray[newArray.length - 1]._id){
+                            setBottomMostSessionID(newArray[newArray.length - 1]._id)
+                          }
+                          setSkipCount(skipCount + 1)
+                          console.log("now sessions are about to be set: " + JSON.stringify(response.data))
+                          //setScrollIncrementCount(scrollIncrementCount + 1);
+                          //setMessages([...newArray,...messages]);
+                          setSessions((previousSessions) => [...previousSessions,...newArray]);
+                          //setSessions([...sessions,...newArray],{});
+                          //setMessages([...response.data]);
+                          //console.log("messages.length: " + messages.length);
+                          //var objDiv = document.getElementById("Messages_Container");
+                          //objDiv.scrollTop = objDiv.scrollHeight;
+                          
+                        })
+                        .catch(function (error) {
+                          console.log(error);
+                        });
+                      }
+                        catch {
+                          
+                        }
+          }
+
+
+
+
+*/
+
+
+
+
+
+
+
+
         console.log("in useEffect and sessions are: " + JSON.stringify(sessions, null, 2));
         if (sessionsAjaxHasJustBeenSet){
           
@@ -948,7 +1025,14 @@ function OutsideAlerter(props) {
   }
 
 const onSelectChange = (e) => {
-    setMySelectValue(e.target.value);
+    //setMySelectValue(e.target.value);
+    console.log("e.target.value: " + e.target.value);
+    setMySelectValue(mySelectValue => {
+      return e.target.value
+    })
+    /*setMySelectValue({mySelectValue}, () => {
+      return e.target.value;
+    });*/
     if (e.target.value == "In Archived Sessions"){
         loadArchivedSessions();
     }
@@ -969,7 +1053,7 @@ return (
                   <div id = "SearchSessionsInfoContainer">
                         <img id = "SearchSessionsMagnifyingGlass" src = {magnifyingglass} />
                         <textarea id = "SearchSessionsInput" value = {textValue} onChange = {handleChange} onKeyDown = {(e) => SearchSessionsHandleKeyDown(e)}  rows={1} placeholder="" /> {/*onChange={DoNothing} value = {searchSessionsValue}*/}
-                        <select id = "SearchSessionsSelect" onChange={onSelectChange} value={mySelectValue}> 
+                        <select id = "SearchSessionsSelect" onChange={onSelectChange} value={mySelectValue} ref = {mySelectRef}> 
                             <option selected value="In Title Only">In Title Only</option>
                             <option value="In Chat Body">In Chat Body</option>
                             <option value="In Archived Sessions">In Archived Sessions</option>
