@@ -101,7 +101,7 @@ const HomeDesktop = (props) => {
 
       <div className="vid-text-container">
         <div className="vid-text-title">
-          {/* <h1 className="mb-3">
+          {/* <h1 className="mb-3"> 
             <strong>״החיים אינם הימים שחלפו, אלא אלה שזוכרים״</strong>
             <span style={{ fontSize: '20px', marginTop: '17px', marginRight: '15px' }}>
               {' '}
