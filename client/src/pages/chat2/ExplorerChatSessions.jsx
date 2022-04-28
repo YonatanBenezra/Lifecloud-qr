@@ -297,110 +297,119 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
       useEffect(() => {
         console.log("in useEffect and sessions are: " + JSON.stringify(sessions, null, 2));
         if (sessionsAjaxHasJustBeenSet){
-          var message = textValue;
-          //if (e.target.value.length == 0){
-          //  message = e.target.value + e.;
-          //}
-          //else {
-         //   message = "";
-          //}
-          //message += e.key;//String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode);
-          console.log("message to query is:" + message + ":");
-          //console.log("got into if");
-          //console.log("user" + JSON.stringify(user));
-
-                if (mySelectValue == "In Title Only"){
-                        const res = 
-                        axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchSessionsTitle/`, {
-                            "title": message,
-                            "userid": user._id
-                            
-                            //"time": mySetMessagesNewestTime,
-                            //"scrollIncrementCount":scrollIncrementCount
-                        })
-                        .then(function (response) {
-                            //console.log("before:" + response);
-                            //console.log("now here: " + JSON.stringify(response.data));
-                            //setHasLoadedFetchedMessages(true);
-                            //console.log("now messages are: " + JSON.stringify(response.data));
-                            console.log("ajax response: " + JSON.stringify(response.data));
-                            setSessionsAjax([...response.data]);
-                            //if(temp[0].timeofmessage){
-                            //  setOldestTime(temp[12].timeofmessage);
-                            //}
+          
+                if (textValue != ""){
                           
-                            //setMessages([...response.data]);
-                            //console.log("messages.length: " + messages.length);
-                            //var objDiv = document.getElementById("Messages_Container");
-                            //objDiv.scrollTop = objDiv.scrollHeight;
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-              }
-              else if (mySelectValue == "In Chat Body"){
-                        const res = 
-                        axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchSessionsChatBody/`, {
-                            "text": message,
-                            "userid": user._id
-                            
-                            //"time": mySetMessagesNewestTime,
-                            //"scrollIncrementCount":scrollIncrementCount
-                        })
-                        .then(function (response) {
-                            //console.log("before:" + response);
-                            //console.log("now here: " + JSON.stringify(response.data));
-                            //setHasLoadedFetchedMessages(true);
-                            //console.log("now messages are: " + JSON.stringify(response.data));
-                            console.log("ajax response: " + JSON.stringify(response.data));
-                            setSearchResultMessagesAjax([...response.data]);
-                            //if(temp[0].timeofmessage){
-                            //  setOldestTime(temp[12].timeofmessage);
-                            //}
-                          
-                            //setMessages([...response.data]);
-                            //console.log("messages.length: " + messages.length);
-                            //var objDiv = document.getElementById("Messages_Container");
-                            //objDiv.scrollTop = objDiv.scrollHeight;
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-              }
-              else if (mySelectValue == "In Archived Sessions"){
-                        const res = 
-                        axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchSessionsChatBody/`, {
-                            "text": message,
-                            "userid": user._id
-                            
-                            //"time": mySetMessagesNewestTime,
-                            //"scrollIncrementCount":scrollIncrementCount
-                        })
-                        .then(function (response) {
-                            //console.log("before:" + response);
-                            //console.log("now here: " + JSON.stringify(response.data));
-                            //setHasLoadedFetchedMessages(true);
-                            //console.log("now messages are: " + JSON.stringify(response.data));
-                            console.log("ajax response: " + JSON.stringify(response.data));
-                            setSearchResultMessagesAjax([...response.data]);
-                            //if(temp[0].timeofmessage){
-                            //  setOldestTime(temp[12].timeofmessage);
-                            //}
-                          
-                            //setMessages([...response.data]);
-                            //console.log("messages.length: " + messages.length);
-                            //var objDiv = document.getElementById("Messages_Container");
-                            //objDiv.scrollTop = objDiv.scrollHeight;
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                          var message = textValue;
+                          //if (e.target.value.length == 0){
+                          //  message = e.target.value + e.;
+                          //}
+                          //else {
+                        //   message = "";
+                          //}
+                          //message += e.key;//String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode);
+                          console.log("message to query is:" + message + ":");
+                          //console.log("got into if");
+                          //console.log("user" + JSON.stringify(user));
+
+                                if (mySelectValue == "In Title Only"){
+                                        const res = 
+                                        axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchSessionsTitle/`, {
+                                            "title": message,
+                                            "userid": user._id
+                                            
+                                            //"time": mySetMessagesNewestTime,
+                                            //"scrollIncrementCount":scrollIncrementCount
+                                        })
+                                        .then(function (response) {
+                                            //console.log("before:" + response);
+                                            //console.log("now here: " + JSON.stringify(response.data));
+                                            //setHasLoadedFetchedMessages(true);
+                                            //console.log("now messages are: " + JSON.stringify(response.data));
+                                            console.log("ajax response: " + JSON.stringify(response.data));
+                                            setSessionsAjax([...response.data]);
+                                            //if(temp[0].timeofmessage){
+                                            //  setOldestTime(temp[12].timeofmessage);
+                                            //}
+                                          
+                                            //setMessages([...response.data]);
+                                            //console.log("messages.length: " + messages.length);
+                                            //var objDiv = document.getElementById("Messages_Container");
+                                            //objDiv.scrollTop = objDiv.scrollHeight;
+                                        })
+                                        .catch(function (error) {
+                                            console.log(error);
+                                        });
+                              }
+                              else if (mySelectValue == "In Chat Body"){
+                                        const res = 
+                                        axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchSessionsChatBody/`, {
+                                            "text": message,
+                                            "userid": user._id
+                                            
+                                            //"time": mySetMessagesNewestTime,
+                                            //"scrollIncrementCount":scrollIncrementCount
+                                        })
+                                        .then(function (response) {
+                                            //console.log("before:" + response);
+                                            //console.log("now here: " + JSON.stringify(response.data));
+                                            //setHasLoadedFetchedMessages(true);
+                                            //console.log("now messages are: " + JSON.stringify(response.data));
+                                            console.log("ajax response: " + JSON.stringify(response.data));
+                                            setSearchResultMessagesAjax([...response.data]);
+                                            //if(temp[0].timeofmessage){
+                                            //  setOldestTime(temp[12].timeofmessage);
+                                            //}
+                                          
+                                            //setMessages([...response.data]);
+                                            //console.log("messages.length: " + messages.length);
+                                            //var objDiv = document.getElementById("Messages_Container");
+                                            //objDiv.scrollTop = objDiv.scrollHeight;
+                                        })
+                                        .catch(function (error) {
+                                            console.log(error);
+                                        });
+                              }
+                              else if (mySelectValue == "In Archived Sessions"){
+                                        const res = 
+                                        axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchSessionsChatBody/`, {
+                                            "text": message,
+                                            "userid": user._id
+                                            
+                                            //"time": mySetMessagesNewestTime,
+                                            //"scrollIncrementCount":scrollIncrementCount
+                                        })
+                                        .then(function (response) {
+                                            //console.log("before:" + response);
+                                            //console.log("now here: " + JSON.stringify(response.data));
+                                            //setHasLoadedFetchedMessages(true);
+                                            //console.log("now messages are: " + JSON.stringify(response.data));
+                                            console.log("ajax response: " + JSON.stringify(response.data));
+                                            setSearchResultMessagesAjax([...response.data]);
+                                            //if(temp[0].timeofmessage){
+                                            //  setOldestTime(temp[12].timeofmessage);
+                                            //}
+                                          
+                                            //setMessages([...response.data]);
+                                            //console.log("messages.length: " + messages.length);
+                                            //var objDiv = document.getElementById("Messages_Container");
+                                            //objDiv.scrollTop = objDiv.scrollHeight;
+                                        })
+                                        .catch(function (error) {
+                                            console.log(error);
+                                        });
 
 
 
 
 
-              }
+                              }
+
+                        }
+                        else {
+                          setSessionsAjax([]);
+                          setSearchResultMessagesAjax([]);
+                        }
 
               setSessionsAjaxHasJustBeenSet(false);
 

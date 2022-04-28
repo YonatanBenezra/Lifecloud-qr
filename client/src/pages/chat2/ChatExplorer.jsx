@@ -43,7 +43,7 @@ const ChatExplorer = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const myExplorerChatWindow =  useRef();
     const myExplorerChatSessions =  useRef();
-    const [searchTextValue, setSearchTextValue] = useState("");
+    const [textValue, setTextValue] = useState("");
     const loadMyChatFromUserID = React.useRef(null)
     const [peopleAjax, setPeopleAjax] = useState([]);
     const [cursor, setCursor] = useState('hourglass');
@@ -57,7 +57,7 @@ const ChatExplorer = (props) => {
     const [scrollTop, setScrollTop] = useState(0);
     const [hasBeenClosed, setHasBeenClosed] = useState(false);
 
-    
+    const [peopleAjaxHasJustBeenSet, setPeopleAjaxHasJustBeenSet] = useState(false);
     
 
     function changeCursor() {
@@ -438,6 +438,75 @@ function acceptWhoIsOnline(data){
     */
 
     useEffect(() => {
+
+      if (peopleAjaxHasJustBeenSet){
+                if (textValue != ""){
+
+                      var lastNameIndex = textValue.lastIndexOf(" ");
+                      
+                      var firstName = textValue;
+                      var lastName = "";
+                      
+                      if (lastNameIndex != -1){
+                        lastName = textValue.split(lastNameIndex + 1);
+                        firstName = textValue.split(0, lastNameIndex - 1);
+                      }
+
+
+                      var sender_user_id = user._id;
+
+        
+                      const res = 
+                      axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchPeople/`, {
+                          "firstName": firstName,
+                          "lastName": lastName
+                          
+                          //"time": mySetMessagesNewestTime,
+                          //"scrollIncrementCount":scrollIncrementCount
+                      })
+                      .then(function (response) {
+                          //console.log("before:" + response);
+                          //console.log("now here: " + JSON.stringify(response.data));
+                          //setHasLoadedFetchedMessages(true);
+                          //console.log("now messages are: " + JSON.stringify(response.data));
+                          console.log("ajax response: " + JSON.stringify(response.data));
+                          setPeopleAjax([...response.data]);
+                          //if(temp[0].timeofmessage){
+                          //  setOldestTime(temp[12].timeofmessage);
+                          //}
+                        
+                          //setMessages([...response.data]);
+                          //console.log("messages.length: " + messages.length);
+                          //var objDiv = document.getElementById("Messages_Container");
+                          //objDiv.scrollTop = objDiv.scrollHeight;
+                      })
+                      .catch(function (error) {
+                          console.log(error);
+                      });
+                  }
+                  else {
+                    setPeopleAjax([]);
+                  }
+
+                  setPeopleAjaxHasJustBeenSet(false);
+
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       document.body.style.overflow = "hidden";
 
 
@@ -852,8 +921,9 @@ function OutsideAlerter(props) {
 
 
 }
-const DoNothing = (event) => {
-
+const HandleChange = (event) => {
+        setTextValue(event.target.value);
+        setPeopleAjaxHasJustBeenSet(true);
 }
 
 const setSessionToEditTitle = (session) => {
@@ -871,50 +941,7 @@ const SearchPeopleHandleKeyDown = async (e) => {
       var message = e.target.value;
       console.log("got into if");
       console.log("user" + JSON.stringify(user));
-
-
-      var lastNameIndex = message.lastIndexOf(" ");
       
-      var firstName = message;
-      var lastName = "";
-      
-      if (lastNameIndex != -1){
-        lastName = message.split(lastNameIndex + 1);
-        firstName = message.split(0, lastNameIndex - 1);
-      }
-
-
-      var sender_user_id = user._id;
-
-      
-                    const res = await 
-                    axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchPeople/`, {
-                        "firstName": firstName,
-                        "lastName": lastName
-                        
-                        //"time": mySetMessagesNewestTime,
-                        //"scrollIncrementCount":scrollIncrementCount
-                    })
-                    .then(function (response) {
-                        //console.log("before:" + response);
-                        //console.log("now here: " + JSON.stringify(response.data));
-                        //setHasLoadedFetchedMessages(true);
-                        //console.log("now messages are: " + JSON.stringify(response.data));
-                        console.log("ajax response: " + JSON.stringify(response.data));
-                        setPeopleAjax([...response.data]);
-                        //if(temp[0].timeofmessage){
-                        //  setOldestTime(temp[12].timeofmessage);
-                        //}
-                       
-                        //setMessages([...response.data]);
-                        //console.log("messages.length: " + messages.length);
-                        //var objDiv = document.getElementById("Messages_Container");
-                        //objDiv.scrollTop = objDiv.scrollHeight;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-
 
         //var objDiv = document.getElementById("Messages_Container");
         //objDiv.scrollTop = objDiv.scrollHeight;
@@ -970,7 +997,7 @@ const SearchPeopleHandleKeyDown = async (e) => {
                             People
                             <div id = "SearchPeopleContainer">
                                 <img id = "SearchPeopleMagnifyingGlass"src = {magnifyingglass} />
-                                <textarea id = "SearchPeopleInput" style = {{height:"40%",width:"80%"}}onChange={DoNothing} onKeyDown = {SearchPeopleHandleKeyDown}  rows={1} placeholder="" />
+                                <textarea id = "SearchPeopleInput" style = {{height:"40%",width:"80%"}} value = {textValue} onChange={HandleChange} onKeyDown = {SearchPeopleHandleKeyDown}  rows={1} placeholder="" />
                                 <div id = "PeopleInnerContainer">
                                 <OutsideAlerter>
                                 {
