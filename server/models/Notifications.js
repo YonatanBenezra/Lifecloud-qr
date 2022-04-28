@@ -7,7 +7,13 @@ const NotificationSchema = new mongoose.Schema({
   logedInUser: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   notificationType: {
     type: String,
-    enum: ['memoryCreation', 'profileVisit', 'profileAdmin', 'profileFriend'],
+    enum: [
+      'memoryCreation',
+      'profileVisit',
+      'friendRequest',
+      'profileAdmin',
+      'profileFriend',
+    ],
     default: 'memoryCreation',
   },
   createdAt: {

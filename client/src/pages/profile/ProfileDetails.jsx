@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import waze from '../../assets/waze.png';
@@ -54,7 +54,12 @@ export default function Profile() {
   const [hebMemorialDate, setHebMemorialDate] = useState('');
   const location = useLocation();
   const [yPos, setYPos] = useState(50);
+<<<<<<< HEAD
   const handleDeathDateBlur = async () => {
+=======
+
+  const handleDeathDateBlur =useCallback( async () => {
+>>>>>>> 6f1e9fc (All done)
     const death = new Date(profiledata?.deathDate);
 
     const date = death.getDate();
@@ -71,8 +76,32 @@ export default function Profile() {
     } catch (error) {
       console.log(error);
     }
-  };
-
+  },[profiledata?.deathDate]);
+  const sendNotification = useCallback(
+    (notificationType) => {
+      if (profiledata.originalUser?.[0]._id === user._id) {
+        return;
+      }
+      if (!profiledata.originalUser?.[0]._id || !user._id) {
+        return;
+      }
+      fetch(
+        `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'Application/json',
+          },
+          body: JSON.stringify({
+            profileId: profiledata._id,
+            loggedInId: user._id,
+            notificationType,
+          }),
+        }
+      );
+    },
+    [profiledata._id, profiledata.originalUser, user._id]
+  );
   const handleAddFriendRequest = (e) => {
     // setuserid(e)
 
@@ -105,26 +134,13 @@ export default function Profile() {
       .catch((err) => {
         console.log(err);
       });
+    sendNotification('friendRequest');
   };
 
   const handleShowMoreMemories = () => {
     setnext(next + 1);
   };
-  useEffect(() => {
-    setCommenting('');
-    setComment('');
-    setLikeMessage('');
-  }, [likeMessage, comment, DellComment, friendFlagReq, adminFlagReq]);
-  useEffect(() => {
-    fetchuserprofiles();
-  }, [friendFlagReq, adminFlagReq]);
-  useEffect(() => {
-    fetchmemories();
-  }, [comment, likeMessage]);
-  useEffect(() => {
-    handleDeathDateBlur();
-  }, []);
-  const fetchuserprofiles = async () => {
+  const fetchuserprofiles = useCallback(async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
     );
@@ -133,14 +149,28 @@ export default function Profile() {
     }
     setYPos(res.data.objectYPos);
     setProfileData(res.data);
-  };
-
-  const fetchmemories = async () => {
+  }, [id]);
+  const fetchmemories = useCallback(async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`
     );
     setmemoryData(res.data);
-  };
+  }, [id]);
+  useEffect(() => {
+    setCommenting('');
+    setComment('');
+    setLikeMessage('');
+  }, [likeMessage, comment, DellComment, friendFlagReq, adminFlagReq]);
+  useEffect(() => {
+    fetchuserprofiles();
+  }, [friendFlagReq, adminFlagReq, fetchuserprofiles]);
+  useEffect(() => {
+    fetchmemories();
+  }, [comment, fetchmemories, likeMessage]);
+  useEffect(() => {
+    handleDeathDateBlur();
+  }, [handleDeathDateBlur]);
+
   const fetchUsers = async () => {
     // const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/all/every`);
     const res = await axios.get(
@@ -150,7 +180,7 @@ export default function Profile() {
   };
   useEffect(() => {
     fetchmemories();
-  }, [comment, likeMessage]);
+  }, [comment, fetchmemories, likeMessage]);
   let parseAxios = Object.keys(profiledata).length
     ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
     : '';
@@ -297,6 +327,7 @@ export default function Profile() {
   // console.log(profiledata);
 
   useEffect(() => {
+<<<<<<< HEAD
     if (profiledata.originalUser?.[0]._id === user._id) {
       return;
     }
@@ -318,11 +349,15 @@ export default function Profile() {
       }
     );
   }, [user._id, profiledata._id, profiledata.originalUser]);
+=======
+    sendNotification('profileVisit');
+  }, [sendNotification]);
+>>>>>>> 6f1e9fc (All done)
 
   const handleObjectPos = (what) => {
-    if (what === 'up') {
+    if (yPos <= 90 && what === 'up') {
       setYPos(yPos + 10);
-    } else if (what === 'down') {
+    } else if (yPos >= 10 && what === 'down') {
       setYPos(yPos - 10);
     }
     axios.patch(

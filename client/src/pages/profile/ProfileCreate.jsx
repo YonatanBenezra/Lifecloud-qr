@@ -160,7 +160,7 @@ export default function ProfileCreate() {
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
-    setUploaded(index)
+    setUploaded(index);
   };
   useEffect(() => {
     fetchuserData();
@@ -312,13 +312,12 @@ export default function ProfileCreate() {
   const handleAxisImage = (event, i) => {
     const copyArray = [...inputList];
     const files = event.target.files[0];
-    
-    copyArray[i].axisImage = files;
-    
-    setInputList(copyArray);
-    
-    setAxisImages(inputList.map((list) => list.axisImage));
 
+    copyArray[i].axisImage = files;
+
+    setInputList(copyArray);
+
+    setAxisImages(inputList.map((list) => list.axisImage));
   };
 
   return (
@@ -802,14 +801,14 @@ export default function ProfileCreate() {
                     <label htmlFor="public">פומבי</label>
                   </div>
                 </div>
-                
-                { submitted ? (
+
+                {submitted ? (
                   <button className="create-btn submitted">נשמר</button>
                 ) : (
                   <button
                     className="create-btn"
                     type="submit"
-                    onClick={() => (setSubmitted(true))}
+                    onClick={() => setSubmitted(true)}
                   >
                     שמור
                   </button>

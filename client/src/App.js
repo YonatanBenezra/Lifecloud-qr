@@ -37,10 +37,12 @@ import {
   Redirect,
 } from 'react-router-dom';
 import LanguageContext from './context/LanguageContext';
-import Memory from './components/memory/Memory'
+import Memory from './components/memory/Memory';
 function App() {
   const { user } = useContext(AuthContext);
-  const [language, setLanguage] = useState(localStorage.getItem('lang') || 'heb');
+  const [language, setLanguage] = useState(
+    localStorage.getItem('lang') || 'heb'
+  );
   return (
     <>
       <Router>
@@ -49,29 +51,32 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
+            <Route exact path="/login">
+              {user ? <Redirect to="/" /> : <Login />}
+            </Route>
             <Route exact path="/register">
               {user ? <Redirect to="/" /> : <Register />}
             </Route>
-            <Route exact path="/about" >
+            <Route exact path="/about">
               <About />
             </Route>
-            <Route exact path="/createprofile/:id" >
+            <Route exact path="/createprofile/:id">
               <ProfileCreate />
             </Route>
-            <Route exact index path="/profiledetails/:id" >
+            <Route exact index path="/profiledetails/:id">
               <ProfileDetails />
             </Route>
-            <Route exact path="/mainprofiledetails/:id" >
+      
+            <Route exact path="/mainprofiledetails/:id">
               <MainProfileDetails />
             </Route>
-            <Route exact path="/userprofiles/:id" >
+            <Route exact path="/userprofiles/:id">
               <UserAndprofiles />
             </Route>
-            <Route exact path="/editprofiles/:id" >
+            <Route exact path="/editprofiles/:id">
               <ProfileEdit />
             </Route>
-            <Route exact path="/memorycreation/:profileid" >
+            <Route exact path="/memorycreation/:profileid">
               <MemoryCreation />
             </Route>
             <Route exact path="/shop">
@@ -104,14 +109,16 @@ function App() {
             <Route exact path="/">
               <ENHome />
             </Route>
-            <Route exact path="/login">{user ? <Redirect to="/" /> : <ENLogin />}</Route>
+            <Route exact path="/login">
+              {user ? <Redirect to="/" /> : <ENLogin />}
+            </Route>
             <Route exact path="/register">
               {user ? <Redirect to="/" /> : <ENRegister />}
             </Route>
             <Route exact path="/organisationregister">
               <ENOrganisationRegister />
             </Route>
-            <Route exact path="/about" >
+            <Route exact path="/about">
               <About />
             </Route>
             <Route exact path="/plans">
@@ -120,25 +127,25 @@ function App() {
             <Route exact path="/shop">
               <ENShop />
             </Route>
-            <Route exact path="/createprofile/:id" >
+            <Route exact path="/createprofile/:id">
               <ENProfileCreate />
             </Route>
-            <Route exact path="/createmainprofile" >
+            <Route exact path="/createmainprofile">
               <ENMainProfileCreate />
             </Route>
-            <Route exact path="/profiledetails/:id" >
+            <Route exact path="/profiledetails/:id">
               <ENProfileDetails />
             </Route>
-            <Route exact path="/organisationdetails" >
+            <Route exact path="/organisationdetails">
               <ENOrganisationDetails />
             </Route>
-            <Route exact path="/userprofiles/:id" >
+            <Route exact path="/userprofiles/:id">
               <ENUserAndprofiles />
             </Route>
-            <Route exact path="/editprofiles/:id" >
+            <Route exact path="/editprofiles/:id">
               <ENProfileEdit />
             </Route>
-            <Route exact path="/memorycreation/:profileid" >
+            <Route exact path="/memorycreation/:profileid">
               <MemoryCreation />
             </Route>
           </Switch>

@@ -19,11 +19,12 @@ export const UserAndprofiles = () => {
   const [userId, setId] = useState(id);
 
   const notificationString = (userNotification) => {
-    console.log(userNotification, '😎😎');
     if (userNotification.notificationType === 'profileVisit')
       return `${userNotification.logedInUser[0]?.firstName} ביקר בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`;
     else if (userNotification.notificationType === 'memoryCreation')
       return `${userNotification.logedInUser[0]?.firstName} יצר זיכרון בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`;
+    else if (userNotification.notificationType === 'friendRequest')
+      return `${userNotification.logedInUser[0]?.firstName} send a friend request on ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`;
     else if (userNotification.notificationType === 'profileAdmin')
       return `אתה עכשיו אדמין וחבר בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`;
     else if (userNotification.notificationType === 'profileFriend')
