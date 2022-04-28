@@ -485,6 +485,7 @@ ProfileRouter.delete('/removeFriendRequest/:id', async (req, res) => {
       },
     }
   );
+  console.log(response);
   res.send(response);
 });
 // ProfileRouter.put('/addFriends/:id', async (req, res) => {

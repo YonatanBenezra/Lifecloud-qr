@@ -636,10 +636,12 @@ input::placeholder {
   font-weight: 700;
   font-size: 30px;
 }
-#profilePic::-webkit-file-upload-button {
+#profilePic::-webkit-file-upload-button,
+#memoryVideo::-webkit-file-upload-button {
   visibility: hidden;
 }
-#profilePic.with-text::before {
+#profilePic.with-text::before,
+#memoryVideo.with-text::before {
   content: '+ הוסף תמונות לגלריה';
   display: inline-block;
   /* border: 1px solid #999; */

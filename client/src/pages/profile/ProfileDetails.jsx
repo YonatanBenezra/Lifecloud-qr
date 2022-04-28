@@ -454,24 +454,39 @@ export default function Profile() {
             >
               רשימת חברים
             </div>
-            {console.log(profiledata)}
-            {console.log(user._id)}
-            {console.log(user._id)}
-            <div
-              className={`${
-                profiledata.originalUser[0]._id === user._id 
-                // (profiledata.addAdmins.length &&
-                //   profiledata.addAdmins.indexOf(user._id)) ||
-                //   (profiledata.addFriends.length &&
-                //     profiledata.addFriends.indexOf(user._id))
-                  ? 'hidden'
-                  : 'profile-small-btn'
-              }`}
-              onClick={() => handleAddFriendRequest()}
-              style={{ cursor: 'pointer' }}
-            >
-              הוסף פרופיל כחבר{' '}
-            </div>
+
+            {profiledata.originalUser[0]._id !== user._id &&
+              !profiledata.addAdmins.find(
+                (admins) => admins.user[0]._id === user._id
+              ) &&
+              (profiledata.addFriends.find(
+                (friends) => friends.user[0]._id === user._id
+              ) ? (
+                <div
+                  className={`${'profile-small-btn'}`}
+                  onClick={() => handleRemoveFriendRequest(user._id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Remove From Friend
+                </div>
+              ) : profiledata.friendRequests.find(
+                  (friendRequest) => friendRequest.user[0]._id === user._id
+                ) ? (
+                <div
+                  className={`${'profile-small-btn'}`}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Friend Request Already Sent
+                </div>
+              ) : (
+                <div
+                  className={`${'profile-small-btn'}`}
+                  onClick={() => handleAddFriendRequest()}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Send Friend Request
+                </div>
+              ))}
           </div>
           <div className="big-btns-container">
             <div
