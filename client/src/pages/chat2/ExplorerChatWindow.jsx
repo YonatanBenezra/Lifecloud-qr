@@ -1,6 +1,6 @@
 
 
-import React, {Component} from 'react';
+import React, {Component, useReducer} from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useState, useContext, useParams, useEffect } from "react";
 import axios from 'axios';
@@ -68,6 +68,9 @@ const [connected, setConnected] = useState(false);
 
   const [needToLoadChatMessages, setNeedToLoadChatMessages] = useState(false);
 
+  const [_, forceUpdate] = useReducer((x) => x + 1, 0);
+
+
   function getExistingMessages() {
     return messages;
   }
@@ -110,8 +113,11 @@ const [connected, setConnected] = useState(false);
             thisSession.userInfo = newArray2;
             setMySession(thisSession);
 
-
+            console.log ("just set new session in add recipient id");
             props.refreshSessionWindow();
+
+            {forceUpdate()}
+            
             /*const res2 = axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getChatSessionWithID/`, {
             
               "chatsessionid": mySession[0]._id

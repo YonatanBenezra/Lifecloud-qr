@@ -194,9 +194,9 @@ const ChatExplorer = (props) => {
       
       function refreshSessionWindow() {
         const myConst = myExplorerChatSessionsStateVal.value;
-        myConst++;
+        //myConst++;
 
-        setMyExplorerChatSessionsStateVal(myConst);
+        setMyExplorerChatSessionsStateVal(myConst + 1);
       }
 
     async function addToExistingChat(id, firstName, lastName, profilePicture)  {

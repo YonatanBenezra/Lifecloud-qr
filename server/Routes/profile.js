@@ -1050,13 +1050,14 @@ ProfileRouter.post('/addUserToChatSession',  async (req, res) => {//was post and
                 console.log(sessionModel);
 
 
-                
+                res.send(sessionModel);
 
             });
         }
           //sent respnse to client
         }).catch(err => {
           console.log('Oh! Dark')
+          res.status(500).json(err);
         });
       
     
