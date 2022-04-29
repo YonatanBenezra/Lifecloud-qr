@@ -198,68 +198,68 @@ const Shop = () => {
     <>
       <Topbar />
       {showSelected ? (
-        <div className="plans-main-container">
-          <div className="plans">
-            <h3 className="plans-logo">תשלומים ותכניות</h3>
+        <div className="shop-main-container">
+          <div className="shop">
+            <h3 className="shop-logo">תשלומים ותכניות</h3>
           </div>
-          <div className="change-plan">
+          <div className="change-shop">
             <h3 onClick={() => handleBack()} className="pointer">
               {' '}
               חזור לדף המוצרים
             </h3>
           </div>
 
-          <div className="register-plans">
-            <span className="register-plan-type">סוג תכניות: </span>
+          <div className="register-shop">
+            <span className="register-shop-type">סוג תכניות: </span>
             {selectedProduct.name}
           </div>
 
-          <div className="register-plans">
-            <span className="register-plan-type">מחיר: </span>₪{productPrice}
+          <div className="register-shop">
+            <span className="register-shop-type">מחיר: </span>₪{productPrice}
           </div>
 
-          <div className="register-plans">
-            <span className="register-plan-type">כמות: </span>
+          <div className="register-shop">
+            <span className="register-shop-type">כמות: </span>
             {selectedQuantity}
           </div>
 
-          <div className="register-plans">
-            <span className="register-plan-type">מע"מ: </span>₪
+          <div className="register-shop">
+            <span className="register-shop-type">מע"מ: </span>₪
             {productPrice * 0.18 * selectedQuantity}
           </div>
 
-          <div className="register-plans">
-            <span className="register-plan-type">סכום כולל: </span>₪
+          <div className="register-shop">
+            <span className="register-shop-type">סכום כולל: </span>₪
             {productPrice * selectedQuantity * 1.18}
           </div>
 
-          <div className="register-plans">
-            <span className="register-plan-type">הסבר: </span>
+          <div className="register-shop">
+            <span className="register-shop-type">הסבר: </span>
             {selectedProduct.text}
           </div>
 
           <div className="payment-method">
             <h3 className="payment-logo">אמצעי תשלום</h3>
           </div>
-          <button className="register-plans-payment">המשך לתשלום</button>
-          <img src={Arrow1} className="arrow1-plans-payment" alt=""></img>
+          <button className="register-shop-payment">המשך לתשלום</button>
+          <img src={Arrow1} className="arrow1-shop-payment" alt=""></img>
         </div>
       ) : (
-        <div className="plans-section">
-          <h1 className="plans-title">חנות</h1>
-          {/* <div className="plans-container"> 
-              <div className="plan-container">
+        <div className="shop-section">
+          <h1 className="shop-title">חנות</h1>
+          {/* <div className="shop-container"> 
+              <div className="shop-container">
                 <img src={basic2} alt=""></img>
-                <h1 className="plan-title">LifeBook</h1>
-                <div className="plan-description">
+                <h1 className="shop-title">LifeBook</h1>
+                <div className="shop-description">
                   <h5>שנה</h5>
-                  <span className="pointer" onClick={() => setPlan({ name: "חינם", price: 19, tax: 0, totalPrice: 19, description: 'תוכנית זו היא בחינם לשנה שלמה, לאחר מכן התשלום הוא 19 ש"ח לחודש' })} >לחץ לקניית התוכנית</span>
+                  <span className="pointer" onClick={() => setshop({ name: "חינם", price: 19, tax: 0, totalPrice: 19, description: 'תוכנית זו היא בחינם לשנה שלמה, לאחר מכן התשלום הוא 19 ש"ח לחודש' })} >לחץ לקניית התוכנית</span>
                 </div>
               </div>
-              <div className="plan-container">
+              <div className="shop-container">
                 <img src={Premium1} alt=""></img>
-                <h1 className="plan-title">LifeBook</h1>
-                <div className="plan-description">
+                <h1 className="shop-title">LifeBook</h1>
+                <div className="shop-description">
                   <h5>ארגון</h5>
                   <Link to='/contact' >+ לחץ לפרטים נוספים</Link>
                 </div>

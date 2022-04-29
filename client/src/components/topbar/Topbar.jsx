@@ -145,7 +145,6 @@ const Topbar = (props) => {
                   </Link>
                 </div>
                 <Link
-                  style={{ marginRight: '15px' }}
                   to={`/userprofiles/${user._id}`}
                   className={`${
                     clicked === 'userprofiles' && 'topbar-active'
