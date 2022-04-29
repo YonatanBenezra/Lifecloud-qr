@@ -109,6 +109,9 @@ const [connected, setConnected] = useState(false);
             const newArray2 = [...existing, newElement];
             thisSession.userInfo = newArray2;
             setMySession(thisSession);
+
+
+            props.refreshSessionWindow();
             /*const res2 = axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getChatSessionWithID/`, {
             
               "chatsessionid": mySession[0]._id

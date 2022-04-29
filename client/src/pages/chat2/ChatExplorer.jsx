@@ -57,6 +57,9 @@ const ChatExplorer = (props) => {
     const [scrollTop, setScrollTop] = useState(0);
     const [hasBeenClosed, setHasBeenClosed] = useState(false);
 
+    const [myExplorerChatWindowStateVal, setMyExplorerChatWindowStateVal] = useState(0);
+    const [myExplorerChatSessionsStateVal, setMyExplorerChatSessionsStateVal] = useState(0);
+
     const [peopleAjaxHasJustBeenSet, setPeopleAjaxHasJustBeenSet] = useState(false);
     
 
@@ -189,7 +192,9 @@ const ChatExplorer = (props) => {
       };
 
       
-
+      function refreshSessionWindow() {
+        setMyExplorerChatSessionsStateVal(myExplorerChatSessionsStateVal + 1);
+      }
 
     async function addToExistingChat(id, firstName, lastName, profilePicture)  {
         console.log("in chatexplorer addToExistingChat, " + id + "," + firstName + "," + lastName);
@@ -200,6 +205,13 @@ const ChatExplorer = (props) => {
                            
                                 console.log("in chatexplorer, about to call addRecipientID");
                                 myExplorerChatWindow.current.addRecipientID(id, firstName, lastName, profilePicture);
+                                setMyExplorerChatWindowStateVal(myExplorerChatWindowStateVal + 1);
+                                
+                                
+                                
+                                
+                                
+                                
                             //console.log ("add user to session response: " + JSON.stringify(response));
                             //console.log("chatSessions.length: " + chatSessions.length);
                             var objDiv = document.getElementById("PeopleInnerContainer");
@@ -973,7 +985,8 @@ const SearchPeopleHandleKeyDown = async (e) => {
                         onChangeChatWindow={onChangeChatWindow} 
                         onChangeChatWindowFromMessageAjax = {onChangeChatWindowFromMessageAjax}
                         setIsLoading = {setIsLoading} memoizedValue = {chatSessionsMemoizedValue}
-                        setSessionToEditTitle = {setSessionToEditTitle}/>{/**  
+                        setSessionToEditTitle = {setSessionToEditTitle}
+                        myVal = {myExplorerChatSessionsStateVal} />{/**  
                     ref={(ref) => myExplorerChatSessions=ref} */}
 
                         
@@ -984,7 +997,9 @@ const SearchPeopleHandleKeyDown = async (e) => {
                 <div id = "CEChatWindow">
                         <ExplorerChatWindow ref={myExplorerChatWindow} 
                         onLoadRender={onChangeChatWindow} 
-                        setWhoIsOnline = {setWhoIsOnline}/>
+                        setWhoIsOnline = {setWhoIsOnline}
+                        myVal = {myExplorerChatWindowStateVal} 
+                        refreshSessionWindow = {refreshSessionWindow} />
                         {/**ref={(ref) => myExplorerChatWindow=ref} */}
 
 
