@@ -1,6 +1,6 @@
 
 
-import React, {Component} from 'react';
+import React, {Component, useReducer} from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useState, useContext, useParams, useEffect, useMemo, useCallback, memo} from "react";
 import axios from 'axios';
@@ -47,6 +47,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
     var haveIDoneSkipCount = {1: false};
     const mySelectRef = useRef(null)
     const [haveILoadedArchivedSessions, setHaveILoadedArchivedSessions] = useState(false);
+    const [_, forceUpdate] = useReducer((x) => x + 1, 0);
 
       async function renewMySessions(){
         if (haveIDoneSkipCount[skipCount] == true){
@@ -644,15 +645,23 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
 
                 setLoadedPrivateSession(session) {
+                  console.log("got inside setLoadedPrivateSession")
+                  session.lastupdated = Date.now();
                     const tempSessions = sessions;
+                    const haveIUpdated = false;
                     for (const i in tempSessions) {
                         if (tempSessions[i]._id == session._id){
                             tempSessions[i] = session;
-                            tempSessions[i].lastupdated = Date.now;
+                            
                             setSessions(tempSessions,{});
+                            haveIUpdated = true;
                             break;
                         }
                     }
+                    if (!haveIUpdated){
+                      setSessions([...tempSessions, session])
+                    }
+                      {forceUpdate()}
                 },
 
                 saveNewTitleToRender(sessionid, newtitle) {
