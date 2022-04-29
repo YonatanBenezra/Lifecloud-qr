@@ -1114,7 +1114,7 @@ return (
                                             ((!session.archiveUserIDList.includes(user._id) && !haveILoadedArchivedSessions) 
                                             ||(session.archiveUserIDList.includes(user._id) && haveILoadedArchivedSessions)) &&
                                                     <SessionHoverContainer>
-                                                    <div className = "OneSession" onClick = {() => handleOnClick(session,index)} style = {{background: index == selectedSessionIndex ? "#ffccb3":""}}>
+                                                    <div className = "OneSession" onMouseDown = {() => handleOnClick(session,index)} style = {{background: index == selectedSessionIndex ? "#ffccb3":""}}>
                                                           <div className = "ImgDiv"><img class = "ImgClass" onLoad={setHasRendered} src = {session.userInfo[0].id == user._id? session.userInfo[1].profilePicture : session.userInfo[0].profilePicture} /></div>
                                                           <div className = "HeaderText">
 

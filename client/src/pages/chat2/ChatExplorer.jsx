@@ -57,8 +57,8 @@ const ChatExplorer = (props) => {
     const [scrollTop, setScrollTop] = useState(0);
     const [hasBeenClosed, setHasBeenClosed] = useState(false);
 
-    const [myExplorerChatWindowStateVal, setMyExplorerChatWindowStateVal] = useState(0);
-    const [myExplorerChatSessionsStateVal, setMyExplorerChatSessionsStateVal] = useState(0);
+    const [myExplorerChatWindowStateVal, setMyExplorerChatWindowStateVal] = useState({value:0});
+    const [myExplorerChatSessionsStateVal, setMyExplorerChatSessionsStateVal] = useState({value:0});
 
     const [peopleAjaxHasJustBeenSet, setPeopleAjaxHasJustBeenSet] = useState(false);
     
@@ -193,7 +193,10 @@ const ChatExplorer = (props) => {
 
       
       function refreshSessionWindow() {
-        setMyExplorerChatSessionsStateVal(myExplorerChatSessionsStateVal + 1);
+        const myConst = myExplorerChatSessionsStateVal.value;
+        myConst++;
+
+        setMyExplorerChatSessionsStateVal(myConst);
       }
 
     async function addToExistingChat(id, firstName, lastName, profilePicture)  {
@@ -205,7 +208,12 @@ const ChatExplorer = (props) => {
                            
                                 console.log("in chatexplorer, about to call addRecipientID");
                                 myExplorerChatWindow.current.addRecipientID(id, firstName, lastName, profilePicture);
-                                setMyExplorerChatWindowStateVal(myExplorerChatWindowStateVal + 1);
+                                
+                                const myConst = myExplorerChatWindowStateVal.value;
+                                myConst++;
+
+                                
+                                setMyExplorerChatWindowStateVal(myConst);
                                 
                                 
                                 
