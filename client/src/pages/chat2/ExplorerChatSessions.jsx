@@ -652,8 +652,11 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                     for (const i in tempSessions) {
                         if (tempSessions[i]._id == session._id){
                             tempSessions[i] = session;
-                            const myData = [].concat(tempSessions)
-                            .sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
+                            const myData = tempSessions.sort(function(a, b) {
+                              return (a.lastupdated < b.lastupdated) ? 1 : ((a.lastupdated > b.lastupdated) ? -1 : 0);
+                            });
+                            //[].concat(tempSessions)
+                            //.sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
                             setSessions(myData,{});
                             haveIUpdated = true;
                             break;
@@ -662,8 +665,11 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                     if (!haveIUpdated){
                       const tempSessions = sessions;
                       const tempArray = [...tempSessions, session];
-                      const myData = [].concat(tempArray)
-                            .sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
+                      const myData = tempArray.sort(function(a, b) {
+                        return (a.lastupdated < b.lastupdated) ? 1 : ((a.lastupdated > b.lastupdated) ? -1 : 0);
+                      });
+                      //const myData = [].concat(tempArray)
+                        //    .sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
                       setSessions(myData, {});
                     }
                       {forceUpdate()}
