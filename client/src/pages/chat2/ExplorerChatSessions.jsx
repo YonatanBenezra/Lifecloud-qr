@@ -437,7 +437,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                                             //console.log("now here: " + JSON.stringify(response.data));
                                             //setHasLoadedFetchedMessages(true);
                                             //console.log("now messages are: " + JSON.stringify(response.data));
-                                            console.log("ajax response: " + JSON.stringify(response.data));
+                                            console.log("ajax response messagesajax: " + JSON.stringify(response.data, null, 2));
                                             setSearchResultMessagesAjax([...response.data]);
                                             //if(temp[0].timeofmessage){
                                             //  setOldestTime(temp[12].timeofmessage);
@@ -676,7 +676,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                                 //var myUrl = makeTextFile(JSON.stringify(response.data));
                                 //setMyUrl(myUrl);
                                 
-                            console.log("my Chat Sessions:" + JSON.stringify(response.data));
+                            console.log("my Chat Sessions:" + JSON.stringify(response.data, null, 2));
                             //console.log("People " + JSON.stringify(response.data[0].firstName));
                             
                             //const stringified = JSON.stringify(response.data);

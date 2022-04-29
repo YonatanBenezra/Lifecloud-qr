@@ -188,6 +188,9 @@ const [connected, setConnected] = useState(false);
         //}
             console.log("user object: " + JSON.stringify(user));
             console.log("myID: " + user._id);
+
+
+            
             /*
             const res = await 
                   axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllChatSessionsInfo/`, {
@@ -208,6 +211,17 @@ const [connected, setConnected] = useState(false);
           
           /*const res2 = await 
                   axios.post(`${process.env.REACT_APP_API_URL}/api/profile/deleteAllSessions/`, {
+                    //"hisID": userID,
+                    
+                    //"myID": user._id
+                    
+                  })
+                  .then(function (response) {
+                        console.log("delete all sessions: " + response);
+                  });
+
+                  const res3 = await 
+                  axios.post(`${process.env.REACT_APP_API_URL}/api/profile/deleteAllChatMessages/`, {
                     //"hisID": userID,
                     
                     //"myID": user._id
@@ -766,7 +780,7 @@ const [connected, setConnected] = useState(false);
     const res = 
                   axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getChatMessagesNewerThanOneMessage/`, {
                     "message":message
-
+                    //"session":session
                   })
                   .then(function (response) {
                         console.log("response for 753: " + JSON.stringify(response, null, 2))

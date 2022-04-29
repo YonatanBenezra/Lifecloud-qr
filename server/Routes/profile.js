@@ -110,18 +110,19 @@ ProfileRouter.post('/getAjaxSearchSessionsChatBody', (req, res, next) => {//:id
 ProfileRouter.post('/getChatMessagesNewerThanOneMessage', (req, res, next) => {//:id
 
   let message = req.body.message;
+  //let session = req.body.session;
  
   var mysort = { _id: 1 };
 
   let myChatMessage = chatMessageModel //was userModel
   //.find({})
-  .find({"_id": {$gte: message._id}})
+  .find({"chat_session_id":message.chat_session_id,"_id": {$gte: message._id}})
   .sort(mysort)
   //.populate('sender_firstName','sender_lastName','timeofmessage','sender_profile_src')
   .then((response) => {
         let myChatMessage = chatMessageModel //was userModel
         //.find({})
-        .find({"_id": {$lt: message._id}})
+        .find({"chat_session_id":message.chat_session_id,"_id": {$lt: message._id}})
         .limit(10)
         .sort(mysort)
         //.populate('sender_firstName','sender_lastName','timeofmessage','sender_profile_src')
@@ -699,6 +700,18 @@ ProfileRouter.post('/deleteAllSessions', (req, res, next) => {//:id
   
   res.json("nothing");
 })
+
+ProfileRouter.post('/deleteAllChatMessages', (req, res, next) => {//:id
+  
+
+  let myMessages = chatMessageModel
+  .find({})
+  //.find({ users: [userOneID, userTwoID] })
+  .remove().exec();;
+  
+  res.json("nothing");
+})
+
 
 
 
