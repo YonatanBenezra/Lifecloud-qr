@@ -158,14 +158,14 @@ const ChatExplorer = (props) => {
 
       
 
-      const Item = ({_id, firstName, lastName, profilePicture, children }) => {
+      const Item = ({isLastElement, _id, firstName, lastName, profilePicture, children }) => {
         const [hovered, eventHandlers] = useHover();
         //console.log("props are: " + _id);
         return (
             <>
           <div class = "OneReactionItem" {...eventHandlers}>
                         {children}
-                        {hovered && <MenuDiv _id = {_id} firstName = {firstName} lastName = {lastName} profilePicture = {profilePicture} />}
+                        {hovered && <MenuDiv isLastElement = {isLastElement} _id = {_id} firstName = {firstName} lastName = {lastName} profilePicture = {profilePicture} />}
             </div>
                         <br />
                         {/*<Alert severity="success">This is a success alert — check it out!</Alert>*/}
@@ -712,9 +712,9 @@ function acceptWhoIsOnline(data){
         
         const reactionItems = <div>{/*<PeopleScrollDownAlerter>*/}{people && [...Object.values(people)] //makes mappable
                                     //.sort((a, b) => a.time - b.time)
-                                    .map((onePerson, index) => (
+                                    .map((onePerson, index, people) => (
                                         <>
-                                            <OnePeopleDivPerson onePerson = {onePerson} />
+                                            <OnePeopleDivPerson isLastElement = {index + 1 == people.length ? true : false} onePerson = {onePerson} />
                                             
                                             
                                        
@@ -740,7 +740,7 @@ function acceptWhoIsOnline(data){
         /*<button className = "AddDivButton" onClick = {createNewChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>+</button>
                                                         <button className = "AddDivButton" onClick = {addToExistingChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>e</button>*/
         return (
-        <div className = "DropdownMenu">
+        <div className = {props.isLastElement? "DropDownMenuLastElement" : "DropdownMenu"}>
             <div className = "MenuItem" {...eventHandlers2} onClick = {createNewChat.bind(null, props._id, props.firstName, props.lastName, props.profilePicture)}>
                 <div className = "MenuItemInner" style={{background: hovered2 ? '#1aa3ff' : 'white'}}>Private Chat</div>
                 
@@ -888,7 +888,7 @@ function OutsideAlerter(props) {
                                              {props.onePerson.lastName}
                                          </span>
                                     </div>
-                                    <Item _id = {props.onePerson._id} firstName = {props.onePerson.firstName} lastName = {props.onePerson.lastName} profilePicture = {props.onePerson.profileImg}>
+                                    <Item isLastElement = {props.isLastElement} _id = {props.onePerson._id} firstName = {props.onePerson.firstName} lastName = {props.onePerson.lastName} profilePicture = {props.onePerson.profileImg}>
                                     <div className = "AddDiv">
                                         
                                         
@@ -1005,7 +1005,7 @@ const SearchPeopleHandleKeyDown = async (e) => {
                                     //.sort((a, b) => a.time - b.time)
                                     .map((onePersonAjax, index) => (
                                         <>{console.log("in map: " + onePersonAjax.firstName)}
-                                            <AjaxSearchResult _id = {onePersonAjax._id} firstName = {onePersonAjax.firstName} lastName = {onePersonAjax.lastName} profilePicture = {onePersonAjax.profileImg} />
+                                            <AjaxSearchResult  _id = {onePersonAjax._id} firstName = {onePersonAjax.firstName} lastName = {onePersonAjax.lastName} profilePicture = {onePersonAjax.profileImg} />
                                              
                                     
                                         </>
@@ -1016,12 +1016,12 @@ const SearchPeopleHandleKeyDown = async (e) => {
                                 </div>
                             </div>
                         </div>
-                        
-                        <div id = "PeopleInnerContainer"  ref = {PeopleHolderRef}>
-                                <GetReaction />
+                        <div id = "PeopleInnerContainerBox">
+                            <div id = "PeopleInnerContainer"  ref = {PeopleHolderRef}>
+                                    <GetReaction />
 
+                            </div>
                         </div>
-                        
                         {/*<a href = {myUrl && myUrl}>click here</a>*/}
                         
                         <div id = "ExitWindow" onClick={() => setHasBeenClosed(true)}>

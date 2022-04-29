@@ -185,6 +185,17 @@
     z-index:1000;
 }
 
+.DropDownMenuLastElement {
+    display:block;
+    position:absolute;
+    bottom:80%;
+    left:40%;
+    width:50%;
+    height:340%;
+    background-color: white;
+    z-index:1000;
+}
+
 .MenuItem {
 
 
@@ -230,11 +241,17 @@
     
 }
 
-#PeopleInnerContainer{
+#PeopleInnerContainerBox{
     height:100%;
+    width:100%;
+}
+
+#PeopleInnerContainer{
+    height:90%;
     width:100%;
     position:relative;
     overflow: scroll;
+    padding-bottom:10%;
 }
 
 #SearchPeopleMagnifyingGlass{
