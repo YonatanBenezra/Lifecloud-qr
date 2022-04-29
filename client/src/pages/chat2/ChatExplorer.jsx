@@ -741,11 +741,11 @@ function acceptWhoIsOnline(data){
                                                         <button className = "AddDivButton" onClick = {addToExistingChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>e</button>*/
         return (
         <div className = {props.isLastElement? "DropDownMenuLastElement" : "DropdownMenu"}>
-            <div className = "MenuItem" {...eventHandlers2} onClick = {createNewChat.bind(null, props._id, props.firstName, props.lastName, props.profilePicture)}>
+            <div className = "MenuItem" {...eventHandlers2} onMouseDown = {createNewChat.bind(null, props._id, props.firstName, props.lastName, props.profilePicture)}>
                 <div className = "MenuItemInner" style={{background: hovered2 ? '#1aa3ff' : 'white'}}>Private Chat</div>
                 
             </div>
-            <div className = "MenuItem" {...eventHandlers3} onClick = {addToExistingChat.bind(null, props._id, props.firstName, props.lastName, props.profilePicture)}>
+            <div className = "MenuItem" {...eventHandlers3} onMouseDown = {addToExistingChat.bind(null, props._id, props.firstName, props.lastName, props.profilePicture)}>
                 <div className = "MenuItemInner" style={{background: hovered3 ? '#1aa3ff' : 'white'}}>Add to Existing Chat</div>
                 
             </div>
