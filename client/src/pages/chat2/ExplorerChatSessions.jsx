@@ -652,14 +652,18 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                     for (const i in tempSessions) {
                         if (tempSessions[i]._id == session._id){
                             tempSessions[i] = session;
-                            
-                            setSessions(tempSessions,{});
+                            const myData = [].concat(tempSessions)
+                            .sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
+                            setSessions(myData,{});
                             haveIUpdated = true;
                             break;
                         }
                     }
                     if (!haveIUpdated){
-                      setSessions([...tempSessions, session])
+                      const tempArray = [...sessions, session];
+                      const myData = [].concat(tempArray)
+                            .sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
+                      setSessions(myData)
                     }
                       {forceUpdate()}
                 },
