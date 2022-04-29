@@ -109,7 +109,7 @@ const [connected, setConnected] = useState(false);
               lastName: lastName,
               profilePicture: profilePicture
             }
-            const newArray2 = [...existing, newElement];
+            const newArray2 = [...existingInfo, newElement];
             thisSession.userInfo = newArray2;
             setMySession(thisSession);
 
