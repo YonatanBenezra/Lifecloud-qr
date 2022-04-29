@@ -1,0 +1,198 @@
+.product-main {
+    margin: 0 20px;
+    width: 220px;
+    border-radius: 16px;
+    background-color: #fff;
+    margin-bottom: 24px;
+    align-self: flex-start;
+}
+
+.Mproduct-main {
+    margin: 0 20px;
+    width: 90%;
+    border-radius: 16px;
+    background-color: #fff;
+    margin-bottom: 24px;
+    align-self: flex-start;
+}
+.product-main .image-container {
+    width: 220px;
+    height: 196px;
+    border-radius: 16px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.Mimage-container {
+    width: 100%;
+    height: 196px;
+    border-radius: 16px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.product-main .options-row {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    margin-bottom: 12px;
+}
+
+.Moptions-row {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    margin-bottom: 12px;
+}
+.product-main .option {
+    height: 44px;
+    width: 44px;
+    margin: 0 4px;
+    border-radius: 4px;    
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: solid 1px transparent;
+}.Moption {
+    height: 44px;
+    width: 44px;
+    margin: 0 4px;
+    border-radius: 4px;    
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: solid 1px transparent;
+}
+.product-main .option.selected {
+    border: solid 1px #6097BF;
+}
+
+.Mselected {
+    border: solid 1px #6097BF;
+}
+
+.product-main .subtitle {
+    color: #6097BF;
+    text-align: center;
+    font-size: 16px;
+    margin: 8px 0 12px;
+} 
+
+.Msubtitle {
+    color: #6097BF;
+    text-align: center;
+    font-size: 16px;
+    margin: 8px 0 12px;
+}
+
+.product-main .header-line  {
+    display: flex;
+    color: #000;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 28px;
+    justify-content: center;    
+}
+
+.Mheader-line  {
+    display: flex;
+    color: #000;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 28px;
+    justify-content: center;    
+}
+.product-main .title {
+    color: #000;
+}
+.Mtitle {
+    color: #000;
+}
+.product-main .price {
+    direction: rtl;
+}
+.Mprice {
+    direction: rtl;
+}
+.Mprice {
+    direction: rtl;
+}
+.product-main .separator {
+    margin: 0 8px;
+}
+.Mseparator {
+    margin: 0 8px;
+}
+.product-main .text {        
+    min-height: 40px;
+    font-size: 14px;
+    text-align: center;
+    color:#6097BF;
+    margin: 12px 20px;
+    overflow: hidden;
+}
+.Mtext {        
+    min-height: 40px;
+    font-size: 14px;
+    text-align: center;
+    color:#6097BF;
+    margin: 12px 20px;
+    overflow: hidden;
+}
+
+.quantity-line {
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+}
+.Mquantity-line {
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+}
+.product-main .quantity-text {
+    direction: rtl;
+}
+.Mquantity-text {
+    direction: rtl;
+}
+.product-main .quantity-input {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}.Mquantity-input {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+.product-main .quantity-button {
+    width: 12px;
+    margin: 0 4px;
+    cursor: pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.Mquantity-button {
+    width: 12px;
+    margin: 0 4px;
+    cursor: pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.product-main.quantity-num {}
+
+.submit-container {
+    display: flex;
+    justify-content: center;
+    margin: 8px 0 16px;
+}
+.Msubmit-container {
+    display: flex;
+    justify-content: center;
+    margin: 8px 0 16px;
+}
+@media only screen and (max-width: 767px) {
+    .product-main {
+        align-self: initial;
+    }
+  }
+
+  .szTxt{font-size: 30px;}
