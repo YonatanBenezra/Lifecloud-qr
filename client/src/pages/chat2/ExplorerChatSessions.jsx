@@ -660,10 +660,11 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                         }
                     }
                     if (!haveIUpdated){
-                      const tempArray = [...sessions, session];
+                      const tempSessions = sessions;
+                      const tempArray = [...tempSessions, session];
                       const myData = [].concat(tempArray)
                             .sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
-                      setSessions(myData)
+                      setSessions(myData, {});
                     }
                       {forceUpdate()}
                 },
