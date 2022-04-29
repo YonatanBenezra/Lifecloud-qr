@@ -534,7 +534,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
         }, [setHasMounted, hasMounted, textValue]);
       
 
-        const EllipsesHoverContainer = ({children, session}) => {
+        const EllipsesHoverContainer = ({children, isLastElement, session}) => {
             const [hovered, eventHandlers] = useHover();
             const [hovered2, eventHandlers2] = useHover();
             const [hovered3, eventHandlers3] = useHover();
@@ -550,7 +550,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
 
 
                                     
-                                    <div className = "MyElippsesHoverContainer" style = {{display: hovered ? 'block' : 'none'}} >
+                                    <div className = {isLastElement? "LastMyElippsesHoverContainer":"MyElippsesHoverContainer"} style = {{display: hovered ? 'block' : 'none'}} >
                                         <div className = "EllipsesContainer" onMouseDown = {() => editTitle(session)} style = {{background: hovered2 ? '#99D6FF' : 'white'}} {...eventHandlers2}>
                                                 Edit Title
                                         </div>
@@ -1106,43 +1106,44 @@ return (
             
             </div>
         </div>
-        <div id = "SessionsInnerContainer"  style = {{overflow:"scroll"}} >
-            {[...Object.values(sessions)] //makes mappable
-                              //.sort((a, b) => a.time - b.time)
-                              .map((session, index) => (
-                                    ((!session.archiveUserIDList.includes(user._id) && !haveILoadedArchivedSessions) 
-                                    ||(session.archiveUserIDList.includes(user._id) && haveILoadedArchivedSessions)) &&
-                                            <SessionHoverContainer>
-                                            <div className = "OneSession" onClick = {() => handleOnClick(session,index)} style = {{background: index == selectedSessionIndex ? "#ffccb3":""}}>
-                                                  <div className = "ImgDiv"><img class = "ImgClass" onLoad={setHasRendered} src = {session.userInfo[0].id == user._id? session.userInfo[1].profilePicture : session.userInfo[0].profilePicture} /></div>
-                                                  <div className = "HeaderText">
+        <div id = "SessionsPaddingContainer">
+                <div id = "SessionsInnerContainer"  style = {{overflow:"scroll"}} >
+                    {[...Object.values(sessions)] //makes mappable
+                                      //.sort((a, b) => a.time - b.time)
+                                      .map((session, index, sessions) => (
+                                            ((!session.archiveUserIDList.includes(user._id) && !haveILoadedArchivedSessions) 
+                                            ||(session.archiveUserIDList.includes(user._id) && haveILoadedArchivedSessions)) &&
+                                                    <SessionHoverContainer>
+                                                    <div className = "OneSession" onClick = {() => handleOnClick(session,index)} style = {{background: index == selectedSessionIndex ? "#ffccb3":""}}>
+                                                          <div className = "ImgDiv"><img class = "ImgClass" onLoad={setHasRendered} src = {session.userInfo[0].id == user._id? session.userInfo[1].profilePicture : session.userInfo[0].profilePicture} /></div>
+                                                          <div className = "HeaderText">
 
-                                                          {session.title == "" ? [...Object.values(session.userInfo)].map((OneUser, index) =>
-                                                                  (<>{OneUser.id != user._id? OneUser.firstName + " " + OneUser.lastName: ""} {index == session.userInfo.length - 1? "" : ","}
-                                                                    {console.log("one user : " + OneUser.firstName + OneUser.lastName)}</>
-                                                                  )
+                                                                  {session.title == "" ? [...Object.values(session.userInfo)].map((OneUser, index) =>
+                                                                          (<>{OneUser.id != user._id? OneUser.firstName + " " + OneUser.lastName: ""} {index == session.userInfo.length - 1? "" : ","}
+                                                                            {console.log("one user : " + OneUser.firstName + OneUser.lastName)}</>
+                                                                          )
+                                                                          
+                                                                          
+                                                                          
                                                                   
-                                                                  
-                                                                  
-                                                          
-                                                          ): session.title}
-                                                  </div>
-                                                  <span className = "LastMessage">
-                                                          {session.lastmessage}
-                                                  </span>
-                                                  <span className = "LastMessageTime">
-                                                  <ReactTimeAgo date={session.lastupdated} locale="en-US"/>
-                                                  </span>
-                                                  {session.hasNotBeenRead == true && <div className = "BlueDot"></div>}
-                                                  <EllipsesHoverContainer session = {session}>
-                                                          <img src = {ellipses} className = "MyEllipses"/>
-                                                  </EllipsesHoverContainer>
-                                            
-                                            </div>
-                                            </SessionHoverContainer>
-            ))}
+                                                                  ): session.title}
+                                                          </div>
+                                                          <span className = "LastMessage">
+                                                                  {session.lastmessage}
+                                                          </span>
+                                                          <span className = "LastMessageTime">
+                                                          <ReactTimeAgo date={session.lastupdated} locale="en-US"/>
+                                                          </span>
+                                                          {session.hasNotBeenRead == true && <div className = "BlueDot"></div>}
+                                                          <EllipsesHoverContainer isLastElement = {index + 1 == sessions.length ? true : false} session = {session}>
+                                                                  <img src = {ellipses} className = "MyEllipses"/>
+                                                          </EllipsesHoverContainer>
+                                                         
+                                                    </div>
+                                                    </SessionHoverContainer>
+                    ))}
+                  </div>
           </div>
-        
     </div>
 
    
