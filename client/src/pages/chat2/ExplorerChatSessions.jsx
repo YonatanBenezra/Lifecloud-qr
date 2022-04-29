@@ -643,6 +643,17 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
 
+                setLoadedPrivateSession(session) {
+                    const tempSessions = sessions;
+                    for (const i in tempSessions) {
+                        if (tempSessions[i]._id == session._id){
+                            tempSessions[i] = session;
+                            tempSessions[i].lastupdated = Date.now;
+                            setSessions(tempSessions,{});
+                            break;
+                        }
+                    }
+                },
 
                 saveNewTitleToRender(sessionid, newtitle) {
 

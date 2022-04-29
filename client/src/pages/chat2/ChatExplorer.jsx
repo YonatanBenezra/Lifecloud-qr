@@ -104,7 +104,7 @@ const ChatExplorer = (props) => {
         console.log("in create function and userid is " + userid)
 
         myExplorerChatWindow.current.loadChatFromUserID(userid, firstName, lastName, profilePicture);
-              
+        
     }
 
 
@@ -953,6 +953,11 @@ const setSessionToEditTitle = (session) => {
     
 }
 
+function setLoadedPrivateSession(session){
+    myExplorerChatSessions.setLoadedPrivateSession(session);
+}
+
+
 const SearchPeopleHandleKeyDown = async (e) => {
     
     console.log("got into keydown: " + e.target.value + "key and keycode:" + e.key + ":" + e.keyCode);
@@ -1007,7 +1012,8 @@ const SearchPeopleHandleKeyDown = async (e) => {
                         onLoadRender={onChangeChatWindow} 
                         setWhoIsOnline = {setWhoIsOnline}
                         myVal = {myExplorerChatWindowStateVal} 
-                        refreshSessionWindow = {refreshSessionWindow} />
+                        refreshSessionWindow = {refreshSessionWindow} 
+                        setLoadedPrivateSession = {setLoadedPrivateSession} />
                         {/**ref={(ref) => myExplorerChatWindow=ref} */}
 
 
