@@ -293,6 +293,7 @@ const [connected, setConnected] = useState(false);
                         
                         props.setLoadedPrivateSession(response.data.sessionModel);
 
+                        
 
                         console.log("line 170: messages: " + messages + JSON.stringify(messages));
 

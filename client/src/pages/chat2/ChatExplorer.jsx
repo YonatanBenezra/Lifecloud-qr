@@ -955,6 +955,12 @@ const setSessionToEditTitle = (session) => {
 
 function setLoadedPrivateSession(session){
     myExplorerChatSessions.setLoadedPrivateSession(session);
+
+    //const myConst = myExplorerChatSessionsStateVal.value;
+    //myConst++;
+
+    refreshSessionWindow();
+    //setMyExplorerChatSessionsStateVal(myConst);
 }
 
 
