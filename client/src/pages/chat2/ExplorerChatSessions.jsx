@@ -659,6 +659,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                             //[].concat(tempSessions)
                             //.sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
                             const forTopOfArray = tempSessions[i];
+                            tempSessions.splice(i, 1);// 2nd parameter means remove one item only
                             //array.splice(i, 1); // 2nd parameter means remove one item only
                             setSessions([forTopOfArray,...tempSessions]);
                             //setSessions(myData);
