@@ -647,30 +647,34 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                 setLoadedPrivateSession(session) {
                   console.log("got inside setLoadedPrivateSession")
                   session.lastupdated = Date.now();
-                    const tempSessions = sessions;
+                    const tempSessions = [...sessions];
                     const haveIUpdated = false;
+                    const forTopOfArray = undefined;
                     for (const i in tempSessions) {
                         if (tempSessions[i]._id == session._id){
-                            tempSessions[i] = session;
-                            const myData = tempSessions.sort(function(a, b) {
-                              return (a.lastupdated < b.lastupdated) ? 1 : ((a.lastupdated > b.lastupdated) ? -1 : 0);
-                            });
+                            tempSessions[i].lastupdated = Date.now();//do in db
+                            /*const myData = tempSessions.sort(function(a, b) {
+                              return (a.lastupdated > b.lastupdated) ? 1 : ((a.lastupdated < b.lastupdated) ? -1 : 0);
+                            });*/
                             //[].concat(tempSessions)
                             //.sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
-                            setSessions(myData,{});
+                            forTopOfArray = tempSessions[i];
+                            //array.splice(i, 1); // 2nd parameter means remove one item only
+                            setSessions([forTopOfArray,...tempSessions]);
+                            //setSessions(myData);
                             haveIUpdated = true;
                             break;
                         }
                     }
                     if (!haveIUpdated){
-                      const tempSessions = sessions;
-                      const tempArray = [...tempSessions, session];
-                      const myData = tempArray.sort(function(a, b) {
-                        return (a.lastupdated < b.lastupdated) ? 1 : ((a.lastupdated > b.lastupdated) ? -1 : 0);
-                      });
+                      const tempSessions = [...sessions];
+                      const tempArray = [session,...tempSessions];
+                      /*const myData = tempArray.sort(function(a, b) {
+                        return (a.lastupdated > b.lastupdated) ? 1 : ((a.lastupdated < b.lastupdated) ? -1 : 0);
+                      });*/
                       //const myData = [].concat(tempArray)
                         //    .sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
-                      setSessions(myData, {});
+                      setSessions(tempArray);
                     }
                       {forceUpdate()}
                 },
