@@ -645,11 +645,11 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
 
                 setLoadedPrivateSession(session) {
-                  console.log("got inside setLoadedPrivateSession")
+                  console.log("got inside setLoadedPrivateSession " + session._id)
                   session.lastupdated = Date.now();
                     const tempSessions = [...sessions];
                     const haveIUpdated = false;
-                    const forTopOfArray = undefined;
+                     
                     for (const i in tempSessions) {
                         if (tempSessions[i]._id == session._id){
                             tempSessions[i].lastupdated = Date.now();//do in db
@@ -658,7 +658,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                             });*/
                             //[].concat(tempSessions)
                             //.sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
-                            forTopOfArray = tempSessions[i];
+                            const forTopOfArray = tempSessions[i];
                             //array.splice(i, 1); // 2nd parameter means remove one item only
                             setSessions([forTopOfArray,...tempSessions]);
                             //setSessions(myData);
