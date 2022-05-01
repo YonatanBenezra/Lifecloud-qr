@@ -586,7 +586,7 @@ async function renewBottomChatMessagesFromSessionID(session){
       //setHasLoadedFetchedMessages(true);
       //console.log("now messages are: " + JSON.stringify(response.data));
       var newArray = [...response.data];
-      newArray = newArray.reverse();//delete this?
+      //newArray = newArray.reverse();//delete this?
       //const temp = response.data;
       console.log("here we go renew2: " + JSON.stringify(response));
       //if(temp[0].timeofmessage){

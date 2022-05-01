@@ -486,7 +486,44 @@ ProfileRouter.post('/getTopMoreAllChatMessagesFromSessionID', (req, res, next) =
 
 });
 
+ProfileRouter.post('/getBottomMoreAllChatMessagesFromSessionID', (req, res, next) => {//:id
 
+  let myString = req.body.sessionID;  //params.id;
+  //let myNewestTime= req.body.time;
+  //if (myNewestTime == null){
+  //  myNewestTime = Date.now();
+  //}
+  let myNewestIDSoFar = req.body.myNewestIDSoFar;
+  //let scrollIncrementCount= req.body.scrollIncrementCount;
+  //console.log("scroll increment count of mine: " + scrollIncrementCount)
+  //console.log("my newest time: " + myNewestTime)
+  //let arrSessionID = [myString];
+  var mysort = { timeofmessage: -1 };//from bottom going up
+  let mySession = chatMessageModel
+  //.find({})
+  .find({ chat_session_id: myString, _id: {$gt: myOldestIDSoFar}})//timeofmessage: {$lt: myNewestTime}})//, timeofmessage: {$lte: myNewestTime}
+  .sort(mysort)
+  //.skip(12 * scrollIncrementCount)
+  .limit(12)
+  .populate('message')
+  
+  .then((response) => {
+      console.log("my response:" + JSON.stringify(response));
+    if (!response) {
+      return res.status(404).json({
+        message: 'data not found',
+      });
+    }
+    
+    //return response;
+    res.json(response);
+    //res.write(response);
+  });
+  
+  //.sort('-timeofmessage')
+  
+
+});
 
 
 ProfileRouter.post('/archiveSession', (req, res, next) => {//:id
