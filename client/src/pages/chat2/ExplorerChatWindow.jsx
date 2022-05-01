@@ -30,6 +30,7 @@ const [connected, setConnected] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [isSocketed, setIsSocketed] = useState(false);
   const [myOldestIDSoFar, setMyOldestIDSoFar] = useState("");
+  const [myNewestIDSoFar, setMyNewestIDSoFar] = useState("");
   const [haveDoneAlready, setHaveDoneAlready] = useState(false);
   const myFormerTopElementRef = useRef(null)
   const [lastChatMessageScrambled, setLastChatMessageScrambled] = useState([]);
@@ -40,13 +41,15 @@ const [connected, setConnected] = useState(false);
   const [recipientFirstNames, setRecipientFirstNames] = useState(false);
   const [recipientLastNames, setRecipientLastNames] = useState(false);
   const [haveWeJustAddedOldMessages, setHaveWeJustAddedOldMessages] = useState(false);
+  const [haveWeJustAddedNewMessages, setHaveWeJustAddedNewMessages] = useState(false);
   const [hasLoadedFetchedMessages, setHasLoadedFetchedMessages] = useState(false);
   //const [fetchedMessages, setFetchedMessages] = useState("");
   const [mySessionHasLoaded, setMySessionHasLoaded] = useState(false);
   const [number, setNumber] = useState(1);
   const [mySetMessagesNewestTime, setMySetMessagesNewestTime] = useState(Date.now());
   const [mySocket, setMySocket] = useState(null);
-  const [scrollIncrementCount, setScrollIncrementCount] = useState(0);
+  const [scrollTopIncrementCount, setScrollTopIncrementCount] = useState(0);
+  const [scrollBottomIncrementCount, setScrollBottomIncrementCount] = useState(0);
   const [messages, setMessages] = useState([]);
   const [messageCounter, setMessageCounter] = useState(0);
 
@@ -161,7 +164,7 @@ const [connected, setConnected] = useState(false);
           //console.log("in load chat from session id and session:" + JSON.stringify(session));
           ///maybe this!!! setNeedToLoadChatMessages(true);
           getChatMessagesFromCustomMessageFromSessionID(session, message);
-          //setScrollIncrementCount(1);
+          //setScrollTopIncrementCount(1);
         },
 
         async loadChatFromSessionID(session){
@@ -182,11 +185,11 @@ const [connected, setConnected] = useState(false);
           //console.log("in load chat from session id and session:" + JSON.stringify(session));
           setNeedToLoadChatMessages(true);
           getChatMessagesFromSessionID(session);
-          setScrollIncrementCount(1);
+          setScrollTopIncrementCount(1);
         },
       
         async loadChatFromUserID(userID, firstName, lastName, profilePicture){
-          setScrollIncrementCount(1);
+          setScrollTopIncrementCount(1);
           console.log("messages now are: " + JSON.stringify(messages));
           //setMessages([]);
           //if(!haveDoneAlready){
@@ -493,11 +496,18 @@ const [connected, setConnected] = useState(false);
     if(currentScrollY == 0){
     //if(window.pageYOffset === 0) {
       console.log("got into handlescroll at top")
-      renewChatMessagesFromSessionID(mySession);
+      renewTopChatMessagesFromSessionID(mySession);
     }
+
+    if(e.scrollHeight - e.scrollTop === e.clientHeight) {
+      //if(window.pageYOffset === 0) {
+        console.log("got into handlescroll at bottom")
+        renewBottomChatMessagesFromSessionID(mySession);
+      }
+
   }
   
-  async function renewChatMessagesFromSessionID(session){
+  async function renewTopChatMessagesFromSessionID(session){
     try {
       console.log("oldesttime: " + JSON.stringify(oldestTime));
   //console.log(JSON.stringify(user));
@@ -508,11 +518,11 @@ const [connected, setConnected] = useState(false);
 
   //async function fetchAllChatMessages()  {
       const res = await 
-      axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getMoreAllChatMessagesFromSessionID/`, {
+      axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getTopMoreAllChatMessagesFromSessionID/`, {
         "sessionID": mySession._id,
         "myOldestIDSoFar":myOldestIDSoFar
         //"time": mySetMessagesNewestTime,
-        //"scrollIncrementCount":scrollIncrementCount
+        //"scrollTopIncrementCount":scrollTopIncrementCount
       })
       .then(function (response) {
         //console.log("before:" + response);
@@ -530,7 +540,7 @@ const [connected, setConnected] = useState(false);
           setMyOldestIDSoFar(newArray[0]._id)
         }
         console.log("now messages are about to be set: " + JSON.stringify(response.data))
-        setScrollIncrementCount(scrollIncrementCount + 1);
+        setScrollTopIncrementCount(scrollTopIncrementCount + 1);
         setMessages([...newArray,...messages]);
         setMySessionHasLoaded(true);
         //setMessages([...response.data]);
@@ -553,7 +563,61 @@ const [connected, setConnected] = useState(false);
 }
 }
 
+async function renewBottomChatMessagesFromSessionID(session){
+  try {
+    console.log("newesttime: " + JSON.stringify(oldestTime));
+//console.log(JSON.stringify(user));
 
+//console.log("finalstring:" + FinalString());
+
+//const myArray= FinalString();//"1234,5678"//FinalString();
+
+//async function fetchAllChatMessages()  {
+    const res = await 
+    axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getBottomMoreAllChatMessagesFromSessionID/`, {
+      "sessionID": mySession._id,
+      "myNewestIDSoFar":myNewestIDSoFar
+      //"time": mySetMessagesNewestTime,
+      //"scrollTopIncrementCount":scrollTopIncrementCount
+    })
+    .then(function (response) {
+      //console.log("before:" + response);
+      //console.log("now here: " + JSON.stringify(response.data));
+      //setHasLoadedFetchedMessages(true);
+      //console.log("now messages are: " + JSON.stringify(response.data));
+      var newArray = [...response.data];
+      newArray = newArray.reverse();//delete this?
+      //const temp = response.data;
+      console.log("here we go renew2: " + JSON.stringify(response));
+      //if(temp[0].timeofmessage){
+      //  setOldestTime(temp[12].timeofmessage);
+      //}
+      if(newArray[newArray.length - 1]._id){
+        setMyNewestIDSoFar(newArray[newArray.length - 1]._id)
+      }
+      console.log("now messages are about to be set: " + JSON.stringify(response.data))
+      setScrollBottomIncrementCount(scrollBottomIncrementCount + 1);
+      setMessages([...messages,...newArray]);
+      setMySessionHasLoaded(true);
+      //setMessages([...response.data]);
+      //console.log("messages.length: " + messages.length);
+      //var objDiv = document.getElementById("Messages_Container");
+      //objDiv.scrollTop = objDiv.scrollHeight;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    
+//}
+//fetchAllChatMessages();
+
+
+} catch (err) {
+console.log(JSON.stringify(err));
+//setMessage('Something went wrong!');
+//setOpen(true);
+}
+}
 
   async function getChatMessagesFromSessionID(session){
 
@@ -577,7 +641,7 @@ const [connected, setConnected] = useState(false);
                   "sessionID": mySession._id
                   
                   //"time": null,
-                  //"scrollIncrementCount": scrollIncrementCount
+                  //"scrollTopIncrementCount": scrollTopIncrementCount
                 })
                 .then(function (response) {
                   //console.log("before:" + response);
@@ -591,7 +655,7 @@ const [connected, setConnected] = useState(false);
                   console.log("now messages are about to be set: " + JSON.stringify(response.data))
                   setMessages(newArray);
                   //setHaveWeJustAddedOldMessages(true);
-                  //setScrollIncrementCount(scrollIncrementCount + 1);
+                  //setScrollTopIncrementCount(scrollTopIncrementCount + 1);
                   
                   //if(response.data != ""){
                   if (newArray.length){
@@ -634,9 +698,14 @@ const [connected, setConnected] = useState(false);
       //objDiv.scrollTop = objDiv.scrollHeight;
       myFormerTopElementRef.current.scrollIntoView()  
     }
-
-    
-
+/*
+    if (haveWeJustAddedNewMessages == true){
+      setHaveWeJustAddedNewMessages(false);
+      //var objDiv = document.getElementById("CEMessages_Container");
+      //objDiv.scrollTop = objDiv.scrollHeight;
+      myFormerElementRef.current.scrollIntoView()  
+    }
+*/
     console.log("in useeffect messages are: " + messages);
 
     if(doWeHaveAListenerYet==false){

@@ -447,7 +447,7 @@ ProfileRouter.post('/getAllChatMessagesFromSessionID', (req, res, next) => {//:i
 
 });
 
-ProfileRouter.post('/getMoreAllChatMessagesFromSessionID', (req, res, next) => {//:id
+ProfileRouter.post('/getTopMoreAllChatMessagesFromSessionID', (req, res, next) => {//:id
 
   let myString = req.body.sessionID;  //params.id;
   //let myNewestTime= req.body.time;
