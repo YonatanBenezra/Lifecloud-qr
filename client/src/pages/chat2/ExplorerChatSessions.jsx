@@ -644,7 +644,27 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
 
-                setLoadedPrivateSession(session) {
+                async setLoadedPrivateSession(session) {
+
+
+                const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/profile/setChatSessionLastUpdatedToNow/`, {
+                    "chatsessionid": session._id,
+                    
+                })
+            
+                .then(function (response) {
+                    //var myUrl = makeTextFile(JSON.stringify(response.data));
+                 
+
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
+
+
+
+
+
                   console.log("got inside setLoadedPrivateSession " + session._id)
                   session.lastupdated = Date.now();
                     const tempSessions = [...sessions];
@@ -679,6 +699,13 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                     }
                       
                       {forceUpdate()}
+
+
+
+                      
+
+
+
                 },
 
                 saveNewTitleToRender(sessionid, newtitle) {

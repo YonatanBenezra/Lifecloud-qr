@@ -1072,6 +1072,52 @@ ProfileRouter.post('/addUserToChatSession',  async (req, res) => {//was post and
 })
 
 
+ProfileRouter.post('/setChatSessionLastUpdatedToNow',  async (req, res) => {//was post and not put, and not async
+  
+  
+  try {
+      //console.log("req.body.info: " + req.body.info);
+
+      //const myInfo = JSON.parse(req.body);
+
+      let chatsessionid = req.body.chatsessionid;
+      
+
+      let mySession = chatSessionModel
+      
+      .findOne({ _id: chatsessionid })
+      .then((doc) => {
+            doc.lastupdated = Date.now();
+            console.log("got into save response: " + JSON.stringify(doc, null, 2));
+        
+            doc.save().then((sessionModel) => {
+
+                console.log("in save and sessionmodel: " + JSON.stringify(sessionModel, null, 2));
+
+
+                res.send(sessionModel);
+
+            });
+        
+          //sent respnse to client
+        }).catch(err => {
+          console.log('Oh! Dark')
+          res.status(500).json(err);
+        });
+      
+    
+ 
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+
+
+  
+})
+
+
+
 ProfileRouter.post(
   '/createYoniProfile',
   uploadpic.fields([
