@@ -649,7 +649,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                   session.lastupdated = Date.now();
                     const tempSessions = [...sessions];
                     const haveIUpdated = false;
-                     
+                    setSelectedSessionIndex(0);
                     for (const i in tempSessions) {
                         if (tempSessions[i]._id == session._id){
                             tempSessions[i].lastupdated = Date.now();//do in db
@@ -677,6 +677,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                         //    .sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
                       setSessions(tempArray);
                     }
+                      
                       {forceUpdate()}
                 },
 
