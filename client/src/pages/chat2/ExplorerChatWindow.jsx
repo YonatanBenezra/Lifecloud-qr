@@ -677,8 +677,8 @@ console.log(JSON.stringify(err));
                   //setMessages([...response.data]);
                   //console.log("messages.length: " + messages.length);
 
-                        //var objDiv = document.getElementById("Messages_Container");
-                        //objDiv.scrollTop = objDiv.scrollHeight;
+                        var objDiv = document.getElementById("CEMessages_Container");
+                        objDiv.scrollTop = objDiv.scrollHeight;
                 })
                 .catch(function (error) {
                   console.log(error);
