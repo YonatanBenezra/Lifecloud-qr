@@ -887,7 +887,7 @@ console.log(JSON.stringify(err));
                         </div>
                         <div id = "CEChatWindowUsersDiv">
 
-                            <span class = "CEChatWindowUsersDivHeaderText">Title:</span> &nbsp;
+                            <span className = "CEChatWindowUsersDivHeaderText">Title:</span> &nbsp;
                             { 
                             
                             MyTitle(mySession)
@@ -895,7 +895,7 @@ console.log(JSON.stringify(err));
                           
                             }
                             <br />
-                            <span class = "CEChatWindowUsersDivHeaderText">Users:</span> &nbsp;
+                            <span className = "CEChatWindowUsersDivHeaderText">Users:</span> &nbsp;
                             { 
                                   
                                   mySession.userInfo &&
@@ -921,16 +921,16 @@ console.log(JSON.stringify(err));
                                  
                                   
                                   message.sender_user_id != user._id
-                                    ? (<><div class = "CEHisSpeech" ref={index==12?myFormerTopElementRef:null} id = {"Message"+message._id}>
+                                    ? (<><div className = "CEHisSpeech" ref={index==12?myFormerTopElementRef:null} id = {"Message"+message._id}>
                                               <img src={message.sender_profile_src} width={30} height={30} />
-                                              <span class = "CEHisSpeechText">{message.message}</span>
+                                              <span className = "CEHisSpeechText">{message.message}</span>
                                               
                                        </div><br /><br /></>)
                                     
                                     
-                                    : (<><div class = "CEMySpeech" ref={index==12?myFormerTopElementRef:null}id = {"Message"+message._id}>
+                                    : (<><div className = "CEMySpeech" ref={index==12?myFormerTopElementRef:null}id = {"Message"+message._id}>
                                               
-                                              <span class = "CEMySpeechText">{message.message}</span>
+                                              <span className = "CEMySpeechText">{message.message}</span>
                                             
                                        </div><br /><br /></>)
                                   ))

@@ -1056,6 +1056,7 @@ ProfileRouter.post('/saveChatMessageFromSessionID',  async (req, res) => {//was 
         .findOne({ _id: sessionid })
         .then((doc) => {
             doc.lastmessage = myMessage;
+            doc.lastupdated = Date.now();
             doc.save().then((resp) => {
               res.send(resp);
             

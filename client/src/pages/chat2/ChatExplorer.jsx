@@ -135,11 +135,11 @@ const ChatExplorer = (props) => {
         {console.log("in ajaxsearchresult " + firstName)}
         return (
             <>
-          <div class = "OnePersonAjax" {...eventHandlers}>
+          <div className = "OnePersonAjax" {...eventHandlers}>
                         
                         {firstName} {lastName}
                         {children}
-                        <div className = "AddCreateSpan">{hovered && <><span class = "ajaxButton" {...eventHandlers2} style={{background: hovered2 ? '#1aa3ff' : 'white'}} onClick = {createNewChat.bind(null, _id, firstName, lastName, profilePicture)}>New+</span><span class = "ajaxButton" {...eventHandlers3} style={{background: hovered3 ? '#1aa3ff' : 'white'}} onClick = {addToExistingChat.bind(null, _id, firstName, lastName, profilePicture)}>Existing+</span></>}
+                        <div className = "AddCreateSpan">{hovered && <><span className = "ajaxButton" {...eventHandlers2} style={{background: hovered2 ? '#1aa3ff' : 'white'}} onClick = {createNewChat.bind(null, _id, firstName, lastName, profilePicture)}>New+</span><span className = "ajaxButton" {...eventHandlers3} style={{background: hovered3 ? '#1aa3ff' : 'white'}} onClick = {addToExistingChat.bind(null, _id, firstName, lastName, profilePicture)}>Existing+</span></>}
                         </div>
             </div>
                         
@@ -156,7 +156,7 @@ const ChatExplorer = (props) => {
         //console.log("props are: " + _id);
         return (
             <>
-          <div class = "OneReactionItem" {...eventHandlers}>
+          <div className = "OneReactionItem" {...eventHandlers}>
                         {children}
                         {hovered && <MenuDiv isLastElement = {isLastElement} _id = {_id} firstName = {firstName} lastName = {lastName} profilePicture = {profilePicture} />}
             </div>
@@ -832,7 +832,7 @@ function OutsideAlerter(props) {
                                         console.log("id" + props.onePerson._id)
                                         }
                                         
-                                        <div class = "DropdownDiv"> 
+                                        <div className = "DropdownDiv"> 
                                        
                                             <img src = {ellipses} />
                                         </div>
@@ -842,7 +842,7 @@ function OutsideAlerter(props) {
                                         <button className = "AddDivButton" onClick = {addToExistingChat.bind(null, onePerson._id, onePerson.firstName, onePerson.lastName)}>e</button>*/}
                                     </div>
                                     </Item>
-                                    <div class = "RightDiv">
+                                    <div className = "RightDiv">
                                         <GreenDot />
                                     </div>    
                                         

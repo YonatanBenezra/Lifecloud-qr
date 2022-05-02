@@ -824,7 +824,7 @@ const SearchSessionsHandleKeyDown = async (e) => {
     {console.log("in ajaxsearchresult ")}
     return (
         <>
-      <div class = "OneSessionAjax" {...eventHandlers} style={{background: hovered ? '#1aa3ff' : 'white'}}
+      <div className = "OneSessionAjax" {...eventHandlers} style={{background: hovered ? '#1aa3ff' : 'white'}}
       onClick = {() => loadChatFromSessionID(session)}>
                     
                     {session.title}
@@ -846,7 +846,7 @@ const SearchSessionsHandleKeyDown = async (e) => {
     {console.log("on entry in ajaxsearchresult messages: " + JSON.stringify(message))}
     return (
         <>
-      <div class = "OneSessionAjax" {...eventHandlers} style={{background: hovered ? '#1aa3ff' : 'white'}}
+      <div className = "OneSessionAjax" {...eventHandlers} style={{background: hovered ? '#1aa3ff' : 'white'}}
       onClick = {() => loadChatFromChatMessage(message)}>
                     
                     Sent by {message.sender_firstName + " " + message.sender_lastName}
@@ -994,7 +994,7 @@ return (
                                             ||(session.archiveUserIDList.includes(user._id) && haveILoadedArchivedSessions)) &&
                                                     <SessionHoverContainer>
                                                     <div className = "OneSession" onMouseDown = {() => handleOnClick(session,index)} style = {{background: index == selectedSessionIndex ? "#ffccb3":""}}>
-                                                          <div className = "ImgDiv"><img class = "ImgClass" onLoad={setHasRendered} src = {session.userInfo[0].id == user._id? session.userInfo[1].profilePicture : session.userInfo[0].profilePicture} /></div>
+                                                          <div className = "ImgDiv"><img className = "ImgClass" onLoad={setHasRendered} src = {session.userInfo[0].id == user._id? session.userInfo[1].profilePicture : session.userInfo[0].profilePicture} /></div>
                                                           <div className = "HeaderText">
 
                                                                   {session.title == "" ? [...Object.values(session.userInfo)].map((OneUser, index) =>
