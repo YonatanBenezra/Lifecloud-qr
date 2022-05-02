@@ -597,9 +597,12 @@ async function renewBottomChatMessagesFromSessionID(session){
       //if(temp[0].timeofmessage){
       //  setOldestTime(temp[12].timeofmessage);
       //}
-      if(newArray[newArray.length - 1]._id){
+      //if(newArray[newArray.length - 1]._id){
+        console.log("new newest id is: " + newArray[newArray.length - 1]._id);
+      if (newArray.length){
         setMyNewestIDSoFar(newArray[newArray.length - 1]._id)
       }
+        //}
       console.log("now messages are about to be set: " + JSON.stringify(response.data))
       setScrollBottomIncrementCount(scrollBottomIncrementCount + 1);
       setMessages([...messages,...newArray]);
@@ -873,7 +876,7 @@ console.log(JSON.stringify(err));
                         const newArray = [...response.data.response1, ...response.data.response2];
                         
                         console.log("new messages are: " + JSON.stringify(newArray))
-
+                        console.log("new newest id is: " + newArray[newArray.length - 1]._id);
                         setMyOldestIDSoFar(newArray[0]._id);
                         setMyNewestIDSoFar(newArray[newArray.length - 1]._id);
 
