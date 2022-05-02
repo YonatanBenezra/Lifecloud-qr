@@ -616,7 +616,7 @@ console.log(JSON.stringify(err));
     const eventHandler = () => setConnected(true);
     console.log ("entered useEffect 1");
         
-    /
+    
 
                                 socket.on('deleteMessage', deleteMessageListener);
                                 //socket.emit('getMessages');
@@ -721,7 +721,7 @@ console.log(JSON.stringify(err));
       var message = e.target.value;
       console.log("got into if");
       console.log("user" + JSON.stringify(user));
-/
+
       var chat_session_id = mySession._id;
       var sender_user_id = user._id;
       var recipient_ids = mySession.users;
