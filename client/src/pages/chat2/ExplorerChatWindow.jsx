@@ -711,14 +711,35 @@ console.log(JSON.stringify(err));
                     console.log(error);
                   });
   }
-
+  function setSelectionRange(input, selectionStart, selectionEnd) {
+    if (input.setSelectionRange) {
+      input.focus();
+      input.setSelectionRange(selectionStart, selectionEnd);
+    }
+    else if (input.createTextRange) {
+      var range = input.createTextRange();
+      range.collapse(true);
+      range.moveEnd('character', selectionEnd);
+      range.moveStart('character', selectionStart);
+      range.select();
+    }
+  }
+  
+  function setCaretToPos (input, pos) {
+    setSelectionRange(input, pos, pos);
+  }
 
   const HandleKeyDown = async (e) => {
     
     console.log("got into keydown: " + e.target.value + "key and keycode:" + e.key + ":" + e.keyCode);
     console.log(e);
-    if ((e.key === 'Enter' || e.keyCode === 13)) {
+    if ((e.key === 'Enter' || e.keyCode === 13) && e.target.value.trim().length != 0) {
+      e.preventDefault();
       var message = e.target.value;
+      setTextValue("");
+      //setCaretToPos(document.getElementById("CEChat_Input"), 0);
+      e.target.focus();
+      e.target.selectionEnd = 1;
       console.log("got into if");
       console.log("user" + JSON.stringify(user));
 
@@ -798,7 +819,7 @@ console.log(JSON.stringify(err));
 
         //var objDiv = document.getElementById("Messages_Container");
         //objDiv.scrollTop = objDiv.scrollHeight;
-        setTextValue("");
+        
         
       }
       
