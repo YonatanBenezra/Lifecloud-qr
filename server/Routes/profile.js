@@ -553,7 +553,7 @@ ProfileRouter.post('/getBottomMoreAllChatMessagesFromSessionID', (req, res, next
   var mysort = { timeofmessage: -1 };//from bottom going up
   let mySession = chatMessageModel
   //.find({})
-  .find({ chat_session_id: myString, _id: {$gt: myOldestIDSoFar}})//timeofmessage: {$lt: myNewestTime}})//, timeofmessage: {$lte: myNewestTime}
+  .find({ chat_session_id: myString, _id: {$gt: myNewestIDSoFar}})//timeofmessage: {$lt: myNewestTime}})//, timeofmessage: {$lte: myNewestTime}
   .sort(mysort)
   //.skip(12 * scrollIncrementCount)
   .limit(12)

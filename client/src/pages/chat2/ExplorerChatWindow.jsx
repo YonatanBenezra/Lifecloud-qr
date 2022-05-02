@@ -499,9 +499,9 @@ const [connected, setConnected] = useState(false);
       renewTopChatMessagesFromSessionID(mySession);
     }
 
-console.log(e.scrollTop + "," + e.clientHeight + "," + e.scrollHeight)
+console.log(e.target.scrollTop + "," + e.target.clientHeight + "," + e.target.scrollHeight)
     
-    if (e.target.scrollTop + e.target.clientHeight === e.target.scrollHeight) {
+    if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight - 3) {
     //if (e.scrollHeight - e.scrollTop - e.clientHeight < 1) {
         console.log("bottom");
         console.log("got into handlescroll at bottom")
@@ -509,10 +509,6 @@ console.log(e.scrollTop + "," + e.clientHeight + "," + e.scrollHeight)
     }
 
 
-    if(e.scrollTop == e.scrollHeight) {
-      //if(window.pageYOffset === 0) {
-        
-      }
 
   }
   
