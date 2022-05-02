@@ -309,7 +309,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                               }
                               else if (mySelectValue.value == "In Archived Sessions"){
                                         const res = 
-                                        axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchSessionsChatBody/`, {
+                                        axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAjaxSearchSessionsChatBodyArchived/`, {
                                             "text": message,
                                             "userid": user._id
                                             

@@ -105,6 +105,55 @@ ProfileRouter.post('/getAjaxSearchSessionsChatBody', (req, res, next) => {//:id
 });
 
 
+ProfileRouter.post('/getAjaxSearchSessionsChatBodyArchived', (req, res, next) => {//:id
+
+  let text = req.body.text;
+  let userid = req.body.userid;
+ 
+  
+
+  let myChatSessions = chatSessionModel //was userModel
+  //.find({})
+  .find({ users: {$all: userid}, archiveUserIDList: {$all: userid } }) //.find({"users": userid})
+  //.populate('title','_id')
+  .then((response) => {
+    var myChatSessionIDs = [];
+    for (var i = 0;i<response.length;i++){
+      //        ^^^^
+        myChatSessionIDs.push(response[i]._id);
+    }
+
+    
+  var myFind = {$and:[ {"message": {$regex: new RegExp(text, "i")}}, {"chat_session_id": myChatSessionIDs}]}
+
+
+  var mysort = { _id: -1 };
+  let myChatMessages = chatMessageModel //was userModel
+  //.find({})
+  .find(myFind)
+  .sort(mysort)
+  .limit(5)
+  //.populate('_id','users','userInfo')
+  .then((response) => {
+      
+    if (!response) {
+      return res.status(404).json({
+        message: 'data not found',
+      });
+    }
+    console.log("ajax response: " + JSON.stringify(response))
+    //return response;
+    res.json(response);
+    //res.write(response);
+  });
+
+
+
+//.sort('-timeofmessage')
+
+  })
+});
+
 
 
 ProfileRouter.post('/getChatMessagesNewerThanOneMessage', (req, res, next) => {//:id
