@@ -854,10 +854,10 @@ console.log(JSON.stringify(err));
 
   function getChatMessagesFromCustomMessageFromSessionID(session, message){
     //set oldest id equal to message id  
-    setMyOldestIDSoFar(message._id);
+    
     //Load chat message and all messages after that date
     const res = 
-                  axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getChatMessagesNewerThanOneMessage/`, {
+                  axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getChatMessagesSurroundingOneMessage/`, {
                     "message":message
                     //"session":session
                   })
@@ -869,7 +869,8 @@ console.log(JSON.stringify(err));
                         
                         console.log("new messages are: " + JSON.stringify(newArray))
 
-                        
+                        setMyOldestIDSoFar(newArray[0]._id);
+                        setMyNewestIDSoFar(newArray[newArray.length - 1]._id);
 
                         setMessages(newArray);
 

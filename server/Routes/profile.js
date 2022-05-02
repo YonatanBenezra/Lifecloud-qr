@@ -158,6 +158,58 @@ ProfileRouter.post('/getChatMessagesNewerThanOneMessage', (req, res, next) => {/
   
 });
 
+ProfileRouter.post('/getChatMessagesSurroundingOneMessage', (req, res, next) => {//:id
+
+  let message = req.body.message;
+  //let session = req.body.session;
+ 
+  var mysort = { _id: 1 };
+
+  let myChatMessage = chatMessageModel //was userModel
+  //.find({})
+  .find({"chat_session_id":message.chat_session_id,"_id": {$gte: message._id}})
+  .limit(10)
+  .sort(mysort)
+  //.populate('sender_firstName','sender_lastName','timeofmessage','sender_profile_src')
+  .then((response) => {
+        let myChatMessage = chatMessageModel //was userModel
+        //.find({})
+        .find({"chat_session_id":message.chat_session_id,"_id": {$lt: message._id}})
+        .limit(10)
+        .sort(mysort)
+        //.populate('sender_firstName','sender_lastName','timeofmessage','sender_profile_src')
+        .then((response2) => {
+
+              if (!response) {
+                return res.status(404).json({
+                  message: 'data not found',
+                });
+              }
+              console.log("ajax response: " + JSON.stringify(response))
+              //return response;
+
+
+              const finalResponse = {
+                response1:response2,
+                response2:response
+               
+              }
+
+
+              
+
+              res.json(finalResponse);
+              //res.write(response);
+        })
+  });
+
+
+
+//.sort('-timeofmessage')
+
+  
+});
+
 
 
 ProfileRouter.post('/getChatSessionFromSessionID', (req, res, next) => {//:id
