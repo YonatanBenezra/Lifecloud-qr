@@ -468,14 +468,7 @@ function toDateTime(secs) {
 ProfileRouter.post('/getAllChatMessagesFromSessionID', (req, res, next) => {//:id
 
   let myString = req.body.sessionID;  //params.id;
-  //let myNewestTime= req.body.time;
-  /*if (myNewestTime == null){
-    myNewestTime = Date.now();
-  }*/
-  //let scrollIncrementCount= req.body.scrollIncrementCount;
-  //console.log("scroll increment count of mine: " + scrollIncrementCount)
-  //console.log("my newest time: " + myNewestTime)
-  //let arrSessionID = [myString];
+  
   var mysort = { timeofmessage: -1 };//from bottom going up
   let myChatMessages = chatMessageModel
   //.find({})
@@ -841,19 +834,6 @@ ProfileRouter.post('/getAllChatMessagesFromPairOfUserIDs', async function (req, 
   let userTwoID = myArray[1];
 
   console.log("myarray is: " + myArray)
-/*
-  const fs = require('fs');
-  fs.writeFile("C:/myfolder/log2.txt", "12345response: " + req.body.myString + " reqbody: " , function(err) {
-      if(err) {
-          return console.log(err);
-      }
-  
-      console.log("The file was saved 3!");
-  }); 
-  */
-  
-      //let myMessages = chatMessageModel.find({_id: response._id})
-      //.sort(mysort)
 
   let mySession = chatSessionModel
   //.find({})
@@ -883,13 +863,7 @@ ProfileRouter.post('/getAllChatMessagesFromPairOfUserIDs', async function (req, 
                               title: "",
                               //timeofcreation: {type: Date, default:Date.now},
                               lastmessage: ""
-                              //lastupdated: {type: Date, default:Date.now}
-                              
-                              //user_one_id: myInfo["user_one_id"],
-                              //user_two_id: myInfo["user_two_id"],
-                              //message: myInfo["message"],
-                              //timeofmessage: req.body.timeofmessage,
-                              //action_user_id: myInfo["action_user_id"]
+                           
 
                             });
                             console.log("got here 2: " + JSON.stringify(modifiedSessionModel.toJSON()));

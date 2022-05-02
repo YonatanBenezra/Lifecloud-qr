@@ -77,33 +77,21 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
             //"scrollIncrementCount":scrollIncrementCount
           })
           .then(function (response) {
-            //console.log("before:" + response);
-            //console.log("now here: " + JSON.stringify(response.data));
-            //setHasLoadedFetchedMessages(true);
-            //console.log("now messages are: " + JSON.stringify(response.data));
+           
             var newArray = [...response.data];
-            //newArray = newArray.reverse();
-            //const temp = response.data;
+            
             console.log("in renew and existing sessions are " + JSON.stringify(sessions));
             console.log("in renew and new sessions are " + JSON.stringify(newArray));
             console.log("here we go renew2: " + JSON.stringify(response));
-            //if(temp[0].timeofmessage){
-            //  setOldestTime(temp[12].timeofmessage);
-            //}
+            
             if(newArray.length > 0 && newArray[newArray.length - 1]._id){
               setBottomMostSessionID(newArray[newArray.length - 1]._id)
             }
             setSkipCount(skipCount + 1)
             console.log("now sessions are about to be set: " + JSON.stringify(response.data))
-            //setScrollIncrementCount(scrollIncrementCount + 1);
-            //setMessages([...newArray,...messages]);
-            setSessions((previousSessions) => [...previousSessions,...newArray]);
-            //setSessions([...sessions,...newArray],{});
-            //setMessages([...response.data]);
-            //console.log("messages.length: " + messages.length);
-            //var objDiv = document.getElementById("Messages_Container");
-            //objDiv.scrollTop = objDiv.scrollHeight;
             
+            setSessions((previousSessions) => [...previousSessions,...newArray]);
+          
           })
           .catch(function (error) {
             console.log(error);
@@ -144,32 +132,21 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
 
     const archiveSession = (session) => {
         
-      //return function () {
-          // you code 
+     
           console.log("inside archive session");
-/*
-          setSessions(sessions.filter(function(oneSession) { 
-            return oneSession._id !== session._id 
-            }));
-*/
+
             const res = 
             axios.post(`${process.env.REACT_APP_API_URL}/api/profile/archiveSession/`, {
                 "sessionID": session._id,
                 "userID": user._id
                 
-                //"time": mySetMessagesNewestTime,
-                //"scrollIncrementCount":scrollIncrementCount
             })
             .then(function (response) {
               //loadMyChatSessions();
 
               console.log("my Chat Sessions:" + JSON.stringify(response.data));
-              //console.log("People " + JSON.stringify(response.data[0].firstName));
               
-              //const stringified = JSON.stringify(response.data);
               const newArray = [...response.data];
-              //setPeople([...JSON.stringify(response.data[0])]);
-              //console.log("MY NEW ARRAY: " + JSON.stringify(newArray))
               console.log("about to call setSessions line 315 " + JSON.stringify(newArray))
               setSessions(newArray,{});
               if (newArray.length){
@@ -213,22 +190,14 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
   }
     
   const unArchiveSession = (session) => {
-        
-    //return function () {
-        // you code 
+    
         console.log("inside unarchive session");
-/*
-        setSessions(sessions.filter(function(oneSession) { 
-          return oneSession._id !== session._id 
-          }));
-*/
+
           const res = 
           axios.post(`${process.env.REACT_APP_API_URL}/api/profile/unarchiveSession/`, {
               "sessionID": session._id,
               "userID": user._id
               
-              //"time": mySetMessagesNewestTime,
-              //"scrollIncrementCount":scrollIncrementCount
           })
           .then(function (response) {
             //loadArchivedSessions();
@@ -237,8 +206,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                             
                             //const stringified = JSON.stringify(response.data);
                             const newArray = [...response.data];
-                            //setPeople([...JSON.stringify(response.data[0])]);
-                            //console.log("MY NEW ARRAY: " + JSON.stringify(newArray))
+                    
                             console.log("about to call setSessions line 315 " + JSON.stringify(newArray))
                             setSessions(newArray,{});
                             if (newArray.length){
@@ -256,27 +224,6 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
 
 
 
-        
-        /*const tempSessions = sessions;
-        for (const i in tempSessions){
-            if (tempSessions[i]._id == session._id){
-                const myArray = tempSessions[i].archiveUserIDList;
-                
-                myArray.push(user._id);
-                tempSessions[i].archiveUserIDList = myArray;
-                setSessions(tempSessions,{});
-                break;
-            }
-        }
-
-
-        console.log("tempSessions: " + JSON.stringify(tempSessions, null, 2))
-        //setSessions(tempSessions,{});
-        /*(setSessions((sessions) => {
-          //console.log(state); // "React is awesome!"
-          
-          return [...tempSessions];
-        });*/
         console.log("now sessions = " + JSON.stringify(sessions, null, 2));
      //}
 }
@@ -305,77 +252,6 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
       }
 
       useEffect(() => {
-/*
-        if (atBottom(mySelectRef.current)){
-                      try {
-                        
-                        console.log("in useEffect at bottom");
-                        var isArchived = false;
-
-                        if (mySelectValue == "In Archived Sessions"){
-                            isArchived = true;
-                            
-                        }
-
-                        console.log("isArchived = " + isArchived + mySelectValue)
-                        //console.log("inside getmypeople and bottommostpersonid: " + bottomMostPersonID);
-                        
-                        const res = axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllChatSessions/`, {
-                          "userid": user._id,
-                          "bottomMostSessionID":bottomMostSessionID,
-                          "skipCount":skipCount,
-                          "isArchived": isArchived
-                          //"time": mySetMessagesNewestTime,
-                          //"scrollIncrementCount":scrollIncrementCount
-                        })
-                        .then(function (response) {
-                          //console.log("before:" + response);
-                          //console.log("now here: " + JSON.stringify(response.data));
-                          //setHasLoadedFetchedMessages(true);
-                          //console.log("now messages are: " + JSON.stringify(response.data));
-                          var newArray = [...response.data];
-                          //newArray = newArray.reverse();
-                          //const temp = response.data;
-                          console.log("in renew and existing sessions are " + JSON.stringify(sessions));
-                          console.log("in renew and new sessions are " + JSON.stringify(newArray));
-                          console.log("here we go renew2: " + JSON.stringify(response));
-                          //if(temp[0].timeofmessage){
-                          //  setOldestTime(temp[12].timeofmessage);
-                          //}
-                          if(newArray.length > 0 && newArray[newArray.length - 1]._id){
-                            setBottomMostSessionID(newArray[newArray.length - 1]._id)
-                          }
-                          setSkipCount(skipCount + 1)
-                          console.log("now sessions are about to be set: " + JSON.stringify(response.data))
-                          //setScrollIncrementCount(scrollIncrementCount + 1);
-                          //setMessages([...newArray,...messages]);
-                          setSessions((previousSessions) => [...previousSessions,...newArray]);
-                          //setSessions([...sessions,...newArray],{});
-                          //setMessages([...response.data]);
-                          //console.log("messages.length: " + messages.length);
-                          //var objDiv = document.getElementById("Messages_Container");
-                          //objDiv.scrollTop = objDiv.scrollHeight;
-                          
-                        })
-                        .catch(function (error) {
-                          console.log(error);
-                        });
-                      }
-                        catch {
-                          
-                        }
-          }
-
-
-
-
-*/
-
-
-
-
-
-
 
 
         console.log("in useEffect and sessions are: " + JSON.stringify(sessions, null, 2));
@@ -384,12 +260,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                 if (textValue != ""){
                           
                           var message = textValue;
-                          //if (e.target.value.length == 0){
-                          //  message = e.target.value + e.;
-                          //}
-                          //else {
-                        //   message = "";
-                          //}
+                          
                           //message += e.key;//String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode);
                           console.log("message to query is:" + message + ":");
                           //console.log("got into if");
@@ -411,14 +282,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                                             //console.log("now messages are: " + JSON.stringify(response.data));
                                             console.log("ajax response: " + JSON.stringify(response.data));
                                             setSessionsAjax([...response.data]);
-                                            //if(temp[0].timeofmessage){
-                                            //  setOldestTime(temp[12].timeofmessage);
-                                            //}
-                                          
-                                            //setMessages([...response.data]);
-                                            //console.log("messages.length: " + messages.length);
-                                            //var objDiv = document.getElementById("Messages_Container");
-                                            //objDiv.scrollTop = objDiv.scrollHeight;
+                                            
                                         })
                                         .catch(function (error) {
                                             console.log(error);
@@ -434,20 +298,10 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                                             //"scrollIncrementCount":scrollIncrementCount
                                         })
                                         .then(function (response) {
-                                            //console.log("before:" + response);
-                                            //console.log("now here: " + JSON.stringify(response.data));
-                                            //setHasLoadedFetchedMessages(true);
-                                            //console.log("now messages are: " + JSON.stringify(response.data));
+                                           
                                             console.log("ajax response messagesajax: " + JSON.stringify(response.data, null, 2));
                                             setSearchResultMessagesAjax([...response.data]);
-                                            //if(temp[0].timeofmessage){
-                                            //  setOldestTime(temp[12].timeofmessage);
-                                            //}
-                                          
-                                            //setMessages([...response.data]);
-                                            //console.log("messages.length: " + messages.length);
-                                            //var objDiv = document.getElementById("Messages_Container");
-                                            //objDiv.scrollTop = objDiv.scrollHeight;
+                                           
                                         })
                                         .catch(function (error) {
                                             console.log(error);
@@ -463,20 +317,10 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                                             //"scrollIncrementCount":scrollIncrementCount
                                         })
                                         .then(function (response) {
-                                            //console.log("before:" + response);
-                                            //console.log("now here: " + JSON.stringify(response.data));
-                                            //setHasLoadedFetchedMessages(true);
-                                            //console.log("now messages are: " + JSON.stringify(response.data));
+                                          
                                             console.log("ajax response: " + JSON.stringify(response.data));
                                             setSearchResultMessagesAjax([...response.data]);
-                                            //if(temp[0].timeofmessage){
-                                            //  setOldestTime(temp[12].timeofmessage);
-                                            //}
-                                          
-                                            //setMessages([...response.data]);
-                                            //console.log("messages.length: " + messages.length);
-                                            //var objDiv = document.getElementById("Messages_Container");
-                                            //objDiv.scrollTop = objDiv.scrollHeight;
+                                           
                                         })
                                         .catch(function (error) {
                                             console.log(error);
@@ -517,13 +361,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
         if (hasRenderedEverything){
             props.setIsLoading(false);
             
-            /*
-            if(isOnFirstRender){
-                setIsOnFirstRender(false)
-                console.log("first render and session is " + JSON.stringify(sessions[0]));
-                props.onChangeChatWindow(sessions[0])
-            }*/
-            
+           
         }
         console.log("useEffect sessions are: " + JSON.stringify(sessions));
         
@@ -690,11 +528,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                     if (!haveIUpdated){
                       const tempSessions = [...sessions];
                       const tempArray = [session,...tempSessions];
-                      /*const myData = tempArray.sort(function(a, b) {
-                        return (a.lastupdated > b.lastupdated) ? 1 : ((a.lastupdated < b.lastupdated) ? -1 : 0);
-                      });*/
-                      //const myData = [].concat(tempArray)
-                        //    .sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
+                      
                       setSessions(tempArray);
                     }
                       
@@ -924,19 +758,7 @@ const sessionsOnScroll = (e) => {
     }
   }
 
-/*
-  const elem = document.querySelector('#SessionsContainer');
-        console.log("in onScroll and elem.scrollY: " + elem.scrollHeight)
-      if (elem.scrollY == 0){
-        renewMySessions();
-      }
 
-
-
-    const scrollY = elem.scrollY //Don't get confused by what's scrolling - It's not the window
-    const scrollTop = mySessionsScrollRef.current.scrollTop;
-    console.log(`onScroll, window.scrollY: ${scrollY} myRef.scrollTop: ${scrollTop}`)
-    setSessionsScrollTop(scrollTop);*/
   }
 
 
@@ -945,11 +767,7 @@ function doSomething (e) {
   if (hasMounted==true){
       console.log("my style.top: " + document.querySelector('#SessionsInnerContainer').style.top);
 
-      /*if (document.querySelector('#SessionsContainer').style.top >= (scrollTop+30) + 'px')
-      {
-        //oldPageYOffset = document.querySelector('#SessionsContainer').offsetTop;
-        console.log("at bottom of page");
-      }*/
+     
   }
 };
 const save = memo(({ mySessionsBackup })=>{setMySessionsBackup(sessions)})
@@ -961,15 +779,7 @@ const DoNothing = (e) => {
 }
 
 const SearchSessionsHandleKeyDown = async (e) => {
-  //if (e.keyCode >= 96 && e.keyCode <= 105){
-    //setTextValue(e.target.value + String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode));
-    //if (e.which !== 0 &&
-      //!e.ctrlKey && !e.metaKey && !e.altKey && e.shiftKey){
-    /*
-        setTextValue({value: e.target.value + String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode)}, function () {
-          console.log("new textValue:" + textValue + ":");
-        })
-        */
+ 
 
     //}
               console.log("got into keydown: " + e.target.value + "key and keycode:" + e.key + ":" + e.keyCode);
@@ -979,19 +789,7 @@ const SearchSessionsHandleKeyDown = async (e) => {
                     console.log("e.target.value:" + e.target.value + ":")
                     console.log("fromCharCode:" + String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode) + ":")
                     
-                    /*setTextValue((state) => {
-                      //console.log(state); // "React is awesome!"
-                      const newState = e.target.value + String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode);
-                      return newState;
-                    });*/
-          //var objDiv = document.getElementById("Messages_Container");
-      //objDiv.scrollTop = objDiv.scrollHeight;
-      //setTextValue("");
-        //}
-    //}
-    //else {
-      //setSearchTextValue(e.target.value + String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode));
-    //}
+                    
   }
 
   function handleChange(event) {

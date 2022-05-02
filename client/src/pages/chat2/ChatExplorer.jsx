@@ -108,16 +108,6 @@ const ChatExplorer = (props) => {
     }
 
 
-/*
-    const handlePeopleScroll = async(e) => {
-      console.log("got into handlePeopleScroll")
-      const currentScrollY = e.target.scrollBottom;
-      if(currentScrollY == 0){
-      //if(window.pageYOffset === 0) {
-          console.log("got into handlePeopleScroll at bottom")
-          renewMyPeople();
-      }
-  }*/
 
 
 //onMouseOut() { setHovered(false); }
@@ -215,27 +205,16 @@ const ChatExplorer = (props) => {
                                 
                                 setMyExplorerChatWindowStateVal(myConst);
                                 
-                                
-                                
-                                
-                                
-                                
-                            //console.log ("add user to session response: " + JSON.stringify(response));
-                            //console.log("chatSessions.length: " + chatSessions.length);
+             
                             var objDiv = document.getElementById("PeopleInnerContainer");
                             objDiv.scrollTop = 0;
-                            //})
-                            //.catch(function (error) {
-                            //console.log(error);
-                            //});
                             
                         
                         
 
                     } catch (err) {
                         console.log(JSON.stringify(err));
-                        //setMessage('Something went wrong!');
-                        //setOpen(true);
+                        
                     }
         }
         else {
@@ -401,12 +380,7 @@ function acceptWhoIsOnline(data){
         setCurrentSession(session)
     }
 
-    //const onChangeChatWindow = useCallback((session) => {
-        //console.log("got into chatexplorer onChangeChatWindow");
-        //setCurrentSession(session);
-        //myExplorerChatWindow.current.loadChatFromSessionID(session);
-
-    //})
+    
 
     function onChangeChatWindow (session) {
         console.log("in chatexplorer onchangechatwindow and session is: " + JSON.stringify(session))
@@ -481,24 +455,13 @@ function acceptWhoIsOnline(data){
                           "firstName": firstName,
                           "lastName": lastName
                           
-                          //"time": mySetMessagesNewestTime,
-                          //"scrollIncrementCount":scrollIncrementCount
+                     
                       })
                       .then(function (response) {
-                          //console.log("before:" + response);
-                          //console.log("now here: " + JSON.stringify(response.data));
-                          //setHasLoadedFetchedMessages(true);
-                          //console.log("now messages are: " + JSON.stringify(response.data));
+               
                           console.log("ajax response: " + JSON.stringify(response.data));
                           setPeopleAjax([...response.data]);
-                          //if(temp[0].timeofmessage){
-                          //  setOldestTime(temp[12].timeofmessage);
-                          //}
-                        
-                          //setMessages([...response.data]);
-                          //console.log("messages.length: " + messages.length);
-                          //var objDiv = document.getElementById("Messages_Container");
-                          //objDiv.scrollTop = objDiv.scrollHeight;
+                          
                       })
                       .catch(function (error) {
                           console.log(error);
@@ -538,34 +501,8 @@ function acceptWhoIsOnline(data){
 
       window.addEventListener('scroll', peopleOnScroll, true);
       //window.addEventListener("scroll", handleScrollDown);
-      
-/*
-        function handleClickOutside(event) {
-            if (clickOutsideRef.current && !clickOutsideRef.current.contains(event.target)) {
-              //console.log("You clicked outside of me!");
-              setPeopleAjax(false);
-            }
-          }
-          // Bind the event listener
-          document.addEventListener("mousedown", handleClickOutside);
-          */
 
-        //const myNode = ReactDOM.findDOMNode(refs.PeopleHolderRef)
-        //myNode.addEventListener('scroll', handlePeopleScroll);
-        //if(PeopleHolderRef.current){
-         
-            //function watchScroll() {
-                //PeopleHolderRef.current.addEventListener('scroll', handlePeopleScroll);
-            //}
-              //watchScroll();
-              
-        //}
-        
-        /*
-        socket.emit("add-user", {
-            "id": user._id//.user.
-          });
-*/
+
         if(refreshOnlinePeople){
             setRefreshOnlinePeople(false);
             const myPeople = people;//[...people]
@@ -605,10 +542,7 @@ function acceptWhoIsOnline(data){
             if (firstSession != null){
                 onChangeChatWindow(firstSession);
             }
-            //loadMyChatSessions();
-            //arrayOfUsers = [];
-            //this.myExplorerChatWindow.loadChat(arrayOfUsers);
-            
+           
             loadPeople();
             setHasLoaded(true);
             
@@ -620,16 +554,8 @@ function acceptWhoIsOnline(data){
             let myHeight = window.innerHeight;
             //document.getElementById("WholePage").style.height = myHeight;
             $("#WholePage").css("height", myHeight + "px");
-/*
-            return () => {
-                // Unbind the event listener on clean up
-                document.removeEventListener("mousedown", handleClickOutside);
-              };*/
-    
-              //return () => {
-                // Unbind the event listener on clean up
-               // document.getElementById("PeopleDiv").removeEventListener("scroll", e => handleScrollDown(e));
-              //};
+
+            
 
               return () => {
                 
@@ -788,8 +714,6 @@ function acceptWhoIsOnline(data){
     const incrementEditSessionTitleMemoRef = () => EditSessionTitleMemoRef.current++;
     const EditSessionTitleMemoizedValue = useMemo(() => incrementChatSessionsUseMemoRef(), []);
 
-    // the next line ensures that <UseMemoCounts /> only renders when the times value changes
-//const memoizedValue = useMemo(() => incrementUseMemoRef(), [times]);
 
 
 
@@ -798,13 +722,7 @@ async function renewMyPeople(){
   console.log("got inside renewmypeople")
     try {
       
-  //console.log(JSON.stringify(user));
-
-  //console.log("finalstring:" + FinalString());
-
-  //const myArray= FinalString();//"1234,5678"//FinalString();
-
-  //async function fetchAllChatMessages()  {
+ 
       console.log("inside getmypeople and bottommostpersonid: " + bottomMostPersonID);
       const res = await 
       axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllPeople/`, {
@@ -814,10 +732,7 @@ async function renewMyPeople(){
         //"scrollIncrementCount":scrollIncrementCount
       })
       .then(function (response) {
-        //console.log("before:" + response);
-        //console.log("now here: " + JSON.stringify(response.data));
-        //setHasLoadedFetchedMessages(true);
-        //console.log("now messages are: " + JSON.stringify(response.data));
+       
         var newArray = [...response.data];
         //newArray = newArray.reverse();
         //const temp = response.data;
@@ -833,10 +748,7 @@ async function renewMyPeople(){
         //setScrollIncrementCount(scrollIncrementCount + 1);
         //setMessages([...newArray,...messages]);
         setPeople([...people,...newArray]);
-        //setMessages([...response.data]);
-        //console.log("messages.length: " + messages.length);
-        //var objDiv = document.getElementById("Messages_Container");
-        //objDiv.scrollTop = objDiv.scrollHeight;
+      
       })
       .catch(function (error) {
         console.log(error);
@@ -974,14 +886,6 @@ const SearchPeopleHandleKeyDown = async (e) => {
       console.log("user" + JSON.stringify(user));
       
 
-        //var objDiv = document.getElementById("Messages_Container");
-        //objDiv.scrollTop = objDiv.scrollHeight;
-        //setTextValue("");
-        
-      //}
-      //else {
-        //setSearchTextValue(e.target.value + String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode));
-      //}
     }
 
     function saveNewTitleToRenderIntermediate(sessionid, title){

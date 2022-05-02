@@ -121,13 +121,7 @@ const [connected, setConnected] = useState(false);
 
             {forceUpdate()}
             
-            /*const res2 = axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getChatSessionWithID/`, {
-            
-              "chatsessionid": mySession[0]._id
-              
-            }).then(function (response) {
-              
-            });*/
+   
           });
 
 
@@ -138,27 +132,7 @@ const [connected, setConnected] = useState(false);
         async loadChatFromAjaxMessage(session, message) {
             console.log("got into loadChatFromAjaxMessage" + JSON.stringify(message) + JSON.stringify(session))
           
-            //setMessages([]);
           
-            setMessages({messages}, () => {
-              const a = [];
-              return a;
-            });
-
-
-            setMySetMessagesNewestTime(0);
-          
-          
-          //console.log("in loadChatFromSessionID " + session._id)
-          //console.log("session setting: " + JSON.stringify(session))
-          //console.log("messages now are: " + JSON.stringify(messages));
-          //setMessages([]);
-          
-          //var array = session.users;
-          //var index = array.indexOf(user._id); // Let's say it's Bob.
-          //delete array[index];
-
-          //setRecipientIDs([...array]);
           setMySession(session);
           setDoWeHaveAListenerYet(false);
           //console.log("in load chat from session id and session:" + JSON.stringify(session));
@@ -248,16 +222,9 @@ const [connected, setConnected] = useState(false);
 
           //console.log(JSON.stringify(user));
           console.log("got into loadChatFromUserID");
-          //setRecipientIDs([userID]);
-          //setRecipientFirstNames([firstName]);
-          //setRecipientLastNames([lastName]);
+          
           try {
       
-              //console.log(JSON.stringify(user));
-      
-              //console.log("finalstring:" + FinalString());
-      
-              //const myArray= FinalString();//"1234,5678"//FinalString();
               console.log("his ID: " + userID + firstName + lastName);
               //async function fetchAllChatMessages()  {
                   const res = await 
@@ -300,12 +267,7 @@ const [connected, setConnected] = useState(false);
 
                         console.log("line 170: messages: " + messages + JSON.stringify(messages));
 
-                        
-                          //res.data.googleLocation = JSON.parse(res.data.googleLocation);
-                         // setProfileData(res.data);
-                        //};
-                        //setMessages([...response.data]);
-                        //console.log("messages.length: " + messages.length);
+                      
                         var objDiv = document.getElementById("Messages_Container");
                         objDiv.scrollTop = objDiv.scrollHeight;
                     
@@ -330,20 +292,7 @@ const [connected, setConnected] = useState(false);
 
   function acceptChatMessage(data){
     console.log("entered accept chat messages messages now are: " + JSON.stringify(messages));
-    //socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
-    //console.log("into add-message " + lastChatMessageScrambled + "data:" + data.scrambled);
-
-/*
-        var lastScrambled = lastChatMessageScrambled;
-            //if(data.scrambled != lastScrambled) {
-              setLastChatMessageScrambled(data.scrambled);
-
-
-              setLastChatMessageScrambled((prevValue) => {
-                
-                return data.scrambled;
-              });
-              */
+   
       if(mySession.users.indexOf(data.sender_user_id) > -1){
 
               var chat_session_id = data.chat_session_id;
@@ -373,19 +322,10 @@ const [connected, setConnected] = useState(false);
             //setMessages(newArray);
             console.log("my messages:" + JSON.stringify(messages));
 
-          /*
-            const newElement = [myDataArray];//try json.stringify
-            const newArray = [...messages, ...newElement];
-            setMessages(newArray);
-              */
-
-            //ERASE ALL PREV MESSAGES ON RECIEVER: setMessages([...messages,{...myDataArray}])
-
+        
             setMessages((prevMessages) => {
               const newMessages = [...prevMessages, myDataArray];
-              //const myLength = newMessages.length;
-              //console.log("newMessages.length: " + myLength);
-             // newMessages[myLength] = myDataArray;
+             
               return newMessages;
             });
 
@@ -395,20 +335,7 @@ const [connected, setConnected] = useState(false);
 
             var objDiv = document.getElementById("CEMessages_Container");
               objDiv.scrollTop = objDiv.scrollHeight;
-              /*setMessages((prevMessages) => {
-                prevMessages.push({...myDataArray})
-                return prevMessages;
-              })*/
-           /* setMessages((prevMessages) => {
-              const newMessages = prevMessages;//{...prevMessages};
-              const myLength = newMessages.length;
-              //console.log("newMessages.length: " + myLength);
-              newMessages[myLength] = myDataArray;
-              console.log("new messages: " + JSON.stringify(newMessages));
-              return newMessages;
-            });*/
-//end add message
-          //}
+         
 
       }
   }
@@ -515,13 +442,7 @@ console.log(e.target.scrollTop + "," + e.target.clientHeight + "," + e.target.sc
   async function renewTopChatMessagesFromSessionID(session){
     try {
       console.log("oldesttime: " + JSON.stringify(oldestTime));
-  //console.log(JSON.stringify(user));
-
-  //console.log("finalstring:" + FinalString());
-
-  //const myArray= FinalString();//"1234,5678"//FinalString();
-
-  //async function fetchAllChatMessages()  {
+  
       const res = await 
       axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getTopMoreAllChatMessagesFromSessionID/`, {
         "sessionID": mySession._id,
@@ -530,10 +451,7 @@ console.log(e.target.scrollTop + "," + e.target.clientHeight + "," + e.target.sc
         //"scrollTopIncrementCount":scrollTopIncrementCount
       })
       .then(function (response) {
-        //console.log("before:" + response);
-        //console.log("now here: " + JSON.stringify(response.data));
-        //setHasLoadedFetchedMessages(true);
-        //console.log("now messages are: " + JSON.stringify(response.data));
+      
         var newArray = [...response.data];
         newArray = newArray.reverse();
         //const temp = response.data;
@@ -548,10 +466,7 @@ console.log(e.target.scrollTop + "," + e.target.clientHeight + "," + e.target.sc
         setScrollTopIncrementCount(scrollTopIncrementCount + 1);
         setMessages([...newArray,...messages]);
         setMySessionHasLoaded(true);
-        //setMessages([...response.data]);
-        //console.log("messages.length: " + messages.length);
-        //var objDiv = document.getElementById("Messages_Container");
-        //objDiv.scrollTop = objDiv.scrollHeight;
+      
       })
       .catch(function (error) {
         console.log(error);
@@ -571,13 +486,7 @@ console.log(e.target.scrollTop + "," + e.target.clientHeight + "," + e.target.sc
 async function renewBottomChatMessagesFromSessionID(session){
   try {
     console.log("newesttime: " + JSON.stringify(oldestTime));
-//console.log(JSON.stringify(user));
 
-//console.log("finalstring:" + FinalString());
-
-//const myArray= FinalString();//"1234,5678"//FinalString();
-
-//async function fetchAllChatMessages()  {
     const res = await 
     axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getBottomMoreAllChatMessagesFromSessionID/`, {
       "sessionID": mySession._id,
@@ -586,10 +495,7 @@ async function renewBottomChatMessagesFromSessionID(session){
       //"scrollTopIncrementCount":scrollTopIncrementCount
     })
     .then(function (response) {
-      //console.log("before:" + response);
-      //console.log("now here: " + JSON.stringify(response.data));
-      //setHasLoadedFetchedMessages(true);
-      //console.log("now messages are: " + JSON.stringify(response.data));
+   
       var newArray = [...response.data];
       //newArray = newArray.reverse();//delete this?
       //const temp = response.data;
@@ -607,10 +513,7 @@ async function renewBottomChatMessagesFromSessionID(session){
       setScrollBottomIncrementCount(scrollBottomIncrementCount + 1);
       setMessages([...messages,...newArray]);
       setMySessionHasLoaded(true);
-      //setMessages([...response.data]);
-      //console.log("messages.length: " + messages.length);
-      //var objDiv = document.getElementById("Messages_Container");
-      //objDiv.scrollTop = objDiv.scrollHeight;
+     
     })
     .catch(function (error) {
       console.log(error);
@@ -633,17 +536,7 @@ console.log(JSON.stringify(err));
 
               try {
               
-            //console.log(JSON.stringify(user));
-
-            //console.log("finalstring:" + FinalString());
-
-            //const myArray= FinalString();//"1234,5678"//FinalString();
-
-            //async function fetchAllChatMessages()  {
-                //const myTime = Date.now();
-                //set(myTime);
-                //console.log("oldesttime: " + JSON.stringify(myTime))
-
+         
                 const res = await 
                 axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllChatMessagesFromSessionID/`, {
                   "sessionID": mySession._id
@@ -652,10 +545,7 @@ console.log(JSON.stringify(err));
                   //"scrollTopIncrementCount": scrollTopIncrementCount
                 })
                 .then(function (response) {
-                  //console.log("before:" + response);
-                  //console.log("now here: " + JSON.stringify(response.data));
-                  //setHasLoadedFetchedMessages(true);
-                  //console.log("now messages are: " + JSON.stringify(response.data));
+                 
                   var newArray = [...response.data];
 
                   newArray = newArray.reverse();
@@ -706,14 +596,7 @@ console.log(JSON.stringify(err));
       //objDiv.scrollTop = objDiv.scrollHeight;
       myFormerTopElementRef.current.scrollIntoView()  
     }
-/*
-    if (haveWeJustAddedNewMessages == true){
-      setHaveWeJustAddedNewMessages(false);
-      //var objDiv = document.getElementById("CEMessages_Container");
-      //objDiv.scrollTop = objDiv.scrollHeight;
-      myFormerElementRef.current.scrollIntoView()  
-    }
-*/
+
     console.log("in useeffect messages are: " + messages);
 
     if(doWeHaveAListenerYet==false){
@@ -733,88 +616,16 @@ console.log(JSON.stringify(err));
     const eventHandler = () => setConnected(true);
     console.log ("entered useEffect 1");
         
-    //(async () => {
-      //if (!isSocketed) {
-            //const tempSocket = io(`http://localhost:3000`);
-            //setIsSocketed(true);
-            /*return () => {
-              socket.emit("disconnect");
-            };*/
-            
-            //socket.on("connect", () => {
-              //mySocket.on('add-message', messageListener());
-/*
-              mySocket.on('add-message', function (data) {
-                console.log("entered add-message listener messages: " + JSON.stringify(messages));
-                messageListener(data);
-              });
-      */          
-                                //console.log("isConnected = " + isConnected);
-                          //if (!isConnected) {
-                            
-                                //((data) => {
-                                  //messageListener(data);
-                                  //setChat(prev => [...prev, data]);
-                                  
-
+    /
 
                                 socket.on('deleteMessage', deleteMessageListener);
                                 //socket.emit('getMessages');
                                 socket.emit("add-user", {
                                   "id": user._id//.user.
                                 });
-                                //setUserAdded(true);
-                                //setIsConnected(true);
-                            
-                              //setIsConnected(true);
-                              //setMySocket(tempSocket);
-                 // });
-                
-         
-          //})();
-    /*
-    if (!hasLoadedFetchedMessages){
-            try {
+                              
 
-              console.log(JSON.stringify(user));
-
-              console.log("finalstring:" + FinalString());
-
-              const myArray= FinalString();//"1234,5678"//FinalString();
-
-              async function fetchAllChatMessages()  {
-                  const res = await 
-                  axios.post(`${process.env.REACT_APP_API_URL}/api/profile/getAllChatMessages/`, {
-                    "myArray": JSON.stringify(myArray)
-                  })
-                  .then(function (response) {
-                    console.log("before:" + response);
-                    console.log("now here: " + JSON.stringify(response.data));
-                    setHasLoadedFetchedMessages(true);
-                    const newArray = [...messages, ...response.data];
-                    setMessages(newArray);
-
-                    //setMessages([...response.data]);
-                    console.log("messages.length: " + messages.length);
-                    var objDiv = document.getElementById("Messages_Container");
-                    objDiv.scrollTop = objDiv.scrollHeight;
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
-                  
-              }
-              fetchAllChatMessages();
-              
-
-            } catch (err) {
-              console.log(JSON.stringify(err));
-              //setMessage('Something went wrong!');
-              //setOpen(true);
-            }
-    }
-
-       */
+      
     const script3 = document.createElement("script");
     script3.src = "./bootstrap.bundle.min.js";
     script3.async = true;
@@ -824,17 +635,7 @@ console.log(JSON.stringify(err));
     script4.src = "./jquery.min.js";
     script4.async = true;
     document.body.appendChild(script4);
-/*
-    const addUser = () => {
-      socket.emit("add-user", {
-        "id": user._id//.user.
-      });
-      setUserAdded(true);
-    }*/
-    //return () => newSocket.close();
-    //return () => { isMounted = false };
-    //setIsMounted(false);
-   // return function cleanup() {mySocket.off('add-message')}
+
   }, [setIsConnected, setLastChatMessageScrambled, lastChatMessageScrambled, messages, setMessages, setMySocket, mySocket, isConnected, isSocketed, setIsSocketed]);
   
 
@@ -897,15 +698,7 @@ console.log(JSON.stringify(err));
 
                         console.log("line 170: messages: " + messages + JSON.stringify(messages));
 
-                        
-                          //res.data.googleLocation = JSON.parse(res.data.googleLocation);
-                         // setProfileData(res.data);
-                        //};
-                        //setMessages([...response.data]);
-                        //console.log("messages.length: " + messages.length);
-//HERE:
-                        //var objDiv = document.getElementById("CEMessages_Container");
-                        //objDiv.scrollTop = objDiv.scrollHeight;
+                   
                         var element = document.getElementById("Message" + message._id);
 
                         element.scrollIntoView();
@@ -928,22 +721,7 @@ console.log(JSON.stringify(err));
       var message = e.target.value;
       console.log("got into if");
       console.log("user" + JSON.stringify(user));
-/*
-      if (!userAdded){
-        //const addUser = () => {
-          socket.emit("add-user", {
-            "id": user._id//.user.
-           });
-      
-        //}
-        setUserAdded(true);
-      }
-*/
-      //const myIDs = ["622b541ffa9ae732dcd40bb5","622b54c2fa9ae732dcd40bc4"]
-
-      //console.log("1" + mySession);
-      //console.log("2" + JSON.stringify(mySession[0]));
-
+/
       var chat_session_id = mySession._id;
       var sender_user_id = user._id;
       var recipient_ids = mySession.users;
@@ -966,12 +744,7 @@ console.log(JSON.stringify(err));
 
        });
        socket.removeAllListeners("add-message").once('add-message', acceptChatMessage);
-       /*,withTimeout(() => {
-        console.log("success!" + number);
-        setNumber(number + 1);
-      }, () => {
-        console.log("timeout!");
-      }, 1000));*/
+      
 
       try {
             const formdata = new FormData();
@@ -1028,10 +801,7 @@ console.log(JSON.stringify(err));
         setTextValue("");
         
       }
-      else {
-        //setTextValue(e.target.value + String.fromCharCode((96 <= e.keyCode && e.keyCode <= 105)? e.keyCode - 48 : e.keyCode));
-        //setTextValue(e.target.value);
-      }
+      
     }
      
     
@@ -1066,11 +836,7 @@ console.log(JSON.stringify(err));
         onSuccess.apply(this, args);
       }
     }
-    /*const myUserInfo = (mySession) => {
-      console.log("myUserInfo: " + JSON.stringify(mySession, null, 2));
-          return 
-        /**/
-          
+   
           
    
 
@@ -1105,20 +871,11 @@ console.log(JSON.stringify(err));
                             
                             MyTitle(mySession)
                             
-                            /*
-                            mySession !== undefined && mySession != {} && Object.keys(mySession).length && 
-                            mySession.title !== undefined ?
-                            mySession.title
-                            : "No title"
-                            */
+                          
                             }
                             <br />
                             <span class = "CEChatWindowUsersDivHeaderText">Users:</span> &nbsp;
-                            { /*[...Object.values(mySession.userInfo)] 
-                                .map((user, index) => (
-                                    user.firstName + " " + user.lastName + ", "
-                                ))*/
-                                //myUserInfo(mySession)
+                            { 
                                   
                                   mySession.userInfo &&
                                   [...Object.values(mySession.userInfo)].map((user) => 
