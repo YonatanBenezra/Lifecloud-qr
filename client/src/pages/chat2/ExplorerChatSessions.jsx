@@ -506,7 +506,7 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
                   console.log("got inside setLoadedPrivateSession " + session._id)
                   session.lastupdated = Date.now();
                     const tempSessions = [...sessions];
-                    const haveIUpdated = false;
+                    var haveIUpdated = false;
                     setSelectedSessionIndex(0);
                     for (const i in tempSessions) {
                         if (tempSessions[i]._id == session._id){
