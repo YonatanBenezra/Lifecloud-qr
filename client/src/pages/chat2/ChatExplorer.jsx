@@ -199,6 +199,8 @@ const ChatExplorer = (props) => {
                                 console.log("in chatexplorer, about to call addRecipientID");
                                 myExplorerChatWindow.current.addRecipientID(id, firstName, lastName, profilePicture);
                                 
+                                //myExplorerChatSessions.current.addToExistingChat(id, firstName, lastName, profilePicture);
+
                                 const myConst = myExplorerChatWindowStateVal.value;
                                 myConst++;
 

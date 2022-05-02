@@ -482,57 +482,74 @@ const ExplorerChatSessions = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
 
+
+                addToExistingChat(id, firstName, lastName, profilePicture){
+/*
+                        const tempSessions = [...sessions];
+
+                  
+                        const myTempSessionUsers = tempSessions[selectedSessionIndex].users;
+                        const newUsers = [...myTempSessionUsers, id];
+                        tempSessions[selectedSessionIndex].users = newUsers;
+
+                        const myTempSessionUserInfo = tempSessions[selectedSessionIndex].userInfo;
+                        const newUserInfo = [...myTempSessionUserInfo, {id, firstName, lastName, profilePicture}];
+                        tempSessions[selectedSessionIndex].userInfo = newUserInfo;
+
+                        setSessions(tempSessions);*/
+                },
+
                 async setLoadedPrivateSession(session) {
 
 
-                const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/profile/setChatSessionLastUpdatedToNow/`, {
-                    "chatsessionid": session._id,
-                    
-                })
-            
-                .then(function (response) {
-                    //var myUrl = makeTextFile(JSON.stringify(response.data));
-                 
+                                const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/profile/setChatSessionLastUpdatedToNow/`, {
+                                    "chatsessionid": session._id,
+                                    
+                                })
+                            
+                                .then(function (response) {
+                                    //var myUrl = makeTextFile(JSON.stringify(response.data));
+                                
 
-                })
-                .catch(function (error) {
-                console.log(error);
-                });
-
-
+                                })
+                                .catch(function (error) {
+                                console.log(error);
+                                });
 
 
 
-                  console.log("got inside setLoadedPrivateSession " + session._id)
-                  session.lastupdated = Date.now();
-                    const tempSessions = [...sessions];
-                    var haveIUpdated = false;
-                    setSelectedSessionIndex(0);
-                    for (const i in tempSessions) {
-                        if (tempSessions[i]._id == session._id){
-                            tempSessions[i].lastupdated = Date.now();//do in db
-                            /*const myData = tempSessions.sort(function(a, b) {
-                              return (a.lastupdated > b.lastupdated) ? 1 : ((a.lastupdated < b.lastupdated) ? -1 : 0);
-                            });*/
-                            //[].concat(tempSessions)
-                            //.sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
-                            const forTopOfArray = tempSessions[i];
-                            tempSessions.splice(i, 1);// 2nd parameter means remove one item only
-                            //array.splice(i, 1); // 2nd parameter means remove one item only
-                            setSessions([forTopOfArray,...tempSessions]);
-                            //setSessions(myData);
-                            haveIUpdated = true;
-                            break;
-                        }
-                    }
-                    if (!haveIUpdated){
-                      const tempSessions = [...sessions];
-                      const tempArray = [session,...tempSessions];
-                      
-                      setSessions(tempArray);
-                    }
-                      
-                      {forceUpdate()}
+
+
+                                  console.log("got inside setLoadedPrivateSession " + session._id)
+                                  session.lastupdated = Date.now();
+                                    const tempSessions = [...sessions];
+                                    var haveIUpdated = false;
+                                    setSelectedSessionIndex(0);
+                                    for (const i in tempSessions) {
+                                        if (tempSessions[i]._id == session._id){
+                                            tempSessions[i].lastupdated = Date.now();//do in db
+                                            /*const myData = tempSessions.sort(function(a, b) {
+                                              return (a.lastupdated > b.lastupdated) ? 1 : ((a.lastupdated < b.lastupdated) ? -1 : 0);
+                                            });*/
+                                            //[].concat(tempSessions)
+                                            //.sort((a, b) => a.lastupdated > b.lastupdated ? 1 : -1)
+                                            const forTopOfArray = tempSessions[i];
+                                            tempSessions.splice(i, 1);// 2nd parameter means remove one item only
+                                            //array.splice(i, 1); // 2nd parameter means remove one item only
+                                            setSessions([forTopOfArray,...tempSessions]);
+                                            //setSessions(myData);
+                                            haveIUpdated = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!haveIUpdated){
+                                      const tempSessions = [...sessions];
+                                      const tempArray = [session,...tempSessions];
+                                      
+                                      setSessions(tempArray);
+                                    }
+                                      
+                                      {forceUpdate()}
 
 
 
