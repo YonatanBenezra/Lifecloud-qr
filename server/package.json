@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js --watch"
+    "start": "concurrently --kill-others \"nodemon server.js --watch\" \"node chatserver.js\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
+    "concurrently": "^7.1.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
@@ -19,6 +20,7 @@
     "mongoose": "^6.0.10",
     "multer": "^1.4.4",
     "nodemon": "^2.0.15",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "socket.io": "^4.5.0"
   }
 }
