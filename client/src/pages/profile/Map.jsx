@@ -43,7 +43,7 @@ function Map({ position, setPosition }) {
         onClick={getCurrentGeoLocation}
         type="button"
       >
-        Add my current location
+        הוסף מיקום נוכחי
       </button>
     </React.Fragment>
   );

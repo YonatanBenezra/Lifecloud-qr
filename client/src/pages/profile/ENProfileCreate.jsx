@@ -471,7 +471,7 @@ console.log(userData,'userData')
                   </div>{' '}
                 </div>
                 <input
-                  placeholder="+ על הנפטר"
+                  placeholder="+ ביוגרפיה"
                   required
                   ref={description}
                   className="profile-creation-description"

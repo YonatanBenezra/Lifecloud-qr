@@ -17,7 +17,7 @@ export const Gallery = ({ profiledata, id, userId }) => {
               // console.log('profiledata.gallery index, img ', index, img)
               return (
                 <div key={index}>
-                  {index === 3 && profiledata.originalUser[0]._id === userId ? (
+                  {index === 3 && profiledata?.originalUser[0]?._id === userId ? (
                     <Link to={`/editprofiles/${profiledata._id}`}>
                       <div className="gallery-img last-image">+</div>
                     </Link>
@@ -38,7 +38,7 @@ export const Gallery = ({ profiledata, id, userId }) => {
                                 ? `${process.env.REACT_APP_API_URL}/${img}`
                                 : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
                             }`}
-                            alt="hello"
+                            alt=""
                           />
                         </a>
                       ) : (

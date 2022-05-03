@@ -54,24 +54,30 @@ export default function Profile() {
   const [hebMemorialDate, setHebMemorialDate] = useState('');
   const location = useLocation();
   const [yPos, setYPos] = useState(50);
-  const handleDeathDateBlur = async () => {
-    const death = new Date(profiledata?.deathDate);
-
-    const date = death.getDate();
-    const year = new Date().getFullYear();
-    const month = death.getMonth();
-    try {
-      const response = await fetch(
-        `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${
-          month + 1
-        }&gd=${date}&g2h=1`
-      );
-      const data = await response.json();
-      setHebMemorialDate(data.hebrew);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
+  const death =  new Date(profiledata?.deathDate);
+  
+  const date =  death.getDate();
+  const year =  new Date().getFullYear();
+  const month =  death.getMonth();
+  setTimeout(() => {
+    handleDeathDateBlur();
+  }, 0);
+    const handleDeathDateBlur = async () => {
+      try {
+        const response = await fetch(
+          `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${
+            month + 1
+          }&gd=${date}&g2h=1`
+          ) 
+          const data = await response.json();
+          setHebMemorialDate(data.hebrew);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      
+  
 
   const handleAddFriendRequest = (e) => {
     // setuserid(e)
@@ -121,9 +127,7 @@ export default function Profile() {
   useEffect(() => {
     fetchmemories();
   }, [comment, likeMessage]);
-  useEffect(() => {
-    handleDeathDateBlur();
-  }, []);
+
   const fetchuserprofiles = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
@@ -297,10 +301,10 @@ export default function Profile() {
   // console.log(profiledata);
 
   useEffect(() => {
-    if (profiledata.originalUser?.[0]._id === user._id) {
+    if (profiledata?.originalUser?.[0]?._id === user?._id) {
       return;
     }
-    if (!profiledata.originalUser?.[0]._id || !user._id) {
+    if (!profiledata?.originalUser?.[0]?._id || !user?._id) {
       return;
     }
     fetch(
@@ -390,7 +394,7 @@ export default function Profile() {
           ></img>
           <div
             className={`${
-              profiledata.originalUser[0]._id === user._id ?
+              profiledata?.originalUser[0]?._id === user?._id ?
               // (profiledata.addAdmins.length &&
               //   profiledata.addAdmins.indexOf(user.id)) !== -1 ?
                 'profile-details-cover-btns' :
@@ -420,7 +424,7 @@ export default function Profile() {
           <div className="deceased-details">
             <h1 className="profile-h1">{`${profiledata?.degree} ${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
             <p>
-              {moment(profiledata?.deathDate).utc().format('DD-MM-YYYY')} -{' '}
+              {moment(profiledata?.deathDate).utc().format('DD-MM-YYYY')} - {' '}
               {moment(profiledata?.birthDate).utc().format('DD-MM-YYYY')}
             </p>
             <p>{profiledata?.city}</p>
@@ -431,7 +435,7 @@ export default function Profile() {
           <div className="small-btns-container">
             <Link
               className={`${
-                profiledata.originalUser[0]._id === user._id
+                profiledata?.originalUser[0]?._id === user?._id
                 // (profiledata.addAdmins.length &&
                 //   profiledata.addAdmins.indexOf(user._id))
                   ? 'small-btns-container'
@@ -447,12 +451,9 @@ export default function Profile() {
             >
               רשימת חברים
             </div>
-            {console.log(profiledata)}
-            {console.log(user._id)}
-            {console.log(user._id)}
             <div
               className={`${
-                profiledata.originalUser[0]._id === user._id 
+                profiledata?.originalUser[0]?._id === user?._id 
                 // (profiledata.addAdmins.length &&
                 //   profiledata.addAdmins.indexOf(user._id)) ||
                 //   (profiledata.addFriends.length &&
@@ -479,7 +480,7 @@ export default function Profile() {
               onClick={() => setShow('bio')}
               className={`profile-big-btn ${show === 'bio' && 'active'}`}
             >
-              אודות
+              ביוגרפיה
             </div>
             <div
               onClick={() => setShow('wall')}
@@ -789,7 +790,7 @@ export default function Profile() {
                   </video>
                 )
             )} */}
-            <div onClick={() => setShow('wall')} className="full-btn back-btn">
+            <div onClick={() => setShow('wall')} className="back-btn">
               {' '}
               חזרה <img src={`${arrowRightLong}`} />
             </div>

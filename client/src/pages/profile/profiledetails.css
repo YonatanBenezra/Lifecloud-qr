@@ -231,10 +231,21 @@
   background-color: #6097bf;
   color: #fff;
 }
-.full-btn.back-btn {
+.back-btn {
   width: initial;
   border-color: transparent;
-  font-family: 'almoni-regular', sans-serif;
+  text-align: center;
+  color: #6097bf;
+  font-size: 30px;
+  height: 50px;
+  width: 265px;
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  align-items: center;
+  transition: ease-in-out 0.5s;
 }
 .full-btn.back-btn img {
   width: 44px;
@@ -413,6 +424,9 @@
   text-align: center;
   width: 80%;
   direction: rtl;
+  white-space: pre-wrap;
+  max-height: 400px;
+  unicode-bidi: embed;
 }
 
 .life-axis {

@@ -587,7 +587,7 @@ export default function ProfileCreate() {
                   </div>{' '}
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <h1>על הנפטר</h1>
+                  <h1>ביוגרפיה</h1>
                   <textarea
                     ref={description}
                     className="profile-creation-description"

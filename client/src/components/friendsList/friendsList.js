@@ -286,9 +286,9 @@ const FriendsList = ({
                 <div className="friend-request-details">
                   <img
                     src={
-                      friend.user[0].mainProfilePicture
+                      friend?.user[0]?.mainProfilePicture
                         ? `${process.env.REACT_APP_API_URL}/picUploader/${friend.user[0].mainProfilePicture}`
-                        : friend.user[0].profilePicture
+                        : friend?.user[0]?.profilePicture
                     }
                     alt="profile"
                   />
@@ -378,9 +378,9 @@ const FriendsList = ({
                   <div className="friend-request-details">
                     <img
                       src={
-                        friend.user[0].mainProfilePicture
+                        friend?.user[0]?.mainProfilePicture
                           ? `${process.env.REACT_APP_API_URL}/picUploader/${friend.user[0].mainProfilePicture}`
-                          : friend.user[0].profilePicture
+                          : friend?.user[0]?.profilePicture
                       }
                       alt="profile"
                     />
@@ -430,7 +430,7 @@ const FriendsList = ({
         </div>
         <div
         className={`${
-          profiledata.originalUser[0]._id === user._id ?
+          profiledata?.originalUser[0]?._id === user?._id ?
           // (profiledata.addAdmins.length &&
           //   profiledata.addAdmins.indexOf(user.id)) ?
             '' :
@@ -448,9 +448,9 @@ const FriendsList = ({
                   <div className="friend-request-details">
                     <img
                       src={
-                        admin.user[0].mainProfilePicture
+                        admin?.user[0]?.mainProfilePicture
                           ? `${process.env.REACT_APP_API_URL}/picUploader/${admin.user[0].mainProfilePicture}`
-                          : admin.user[0].profilePicture
+                          : admin?.user[0]?.profilePicture
                       }
                       alt="profile"
                     />

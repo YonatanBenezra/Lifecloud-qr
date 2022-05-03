@@ -155,11 +155,14 @@ export default function ProfileEdit() {
     setSelectedGender(e.target.value);
   };
   useEffect(() => {
+    console.log(profiledata)
     if (Object.keys(profiledata).length) {
       setGooglePosition(JSON.parse(profiledata.googleLocation));
       setWallInformation({
         originalUser: profiledata.originalUser[0]._id,
         profileImg: profiledata.profileImg,
+        city: profiledata.city,
+        degree: profiledata.degree,
         wallImg: profiledata.wallImg,
         firstName: profiledata.firstName,
         lastName: profiledata.lastName,
@@ -214,6 +217,8 @@ export default function ProfileEdit() {
       formdata.append('id', profiledata.originalUser[0]._id);
       formdata.append('wallImg', image);
       formdata.append('firstName', wallInformation.firstName);
+      formdata.append('city', wallInformation.city);
+      formdata.append('degree', wallInformation.degree);
       formdata.append('originalUser', wallInformation.originalUser);
       formdata.append('lastName', wallInformation.lastName);
       formdata.append('birthDate', wallInformation.birthDate);
@@ -563,7 +568,7 @@ export default function ProfileEdit() {
                   </div>{' '}
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <h1>על הנפטר</h1>
+                  <h1>ביוגרפיה</h1>
                   <input
                     ref={description}
                     className="profile-creation-description"
