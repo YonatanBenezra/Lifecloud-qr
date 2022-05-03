@@ -321,13 +321,13 @@ const FriendsList = ({
           <div style={{ textAlign: 'center' }}>אין חברים עדיין</div>
         )}
         <div
-        // className={`${
-        //   profiledata.originalUser[0]._id === user._id ||
-        //   (profiledata.addAdmins.length &&
-        //     profiledata.addAdmins.indexOf(user.id)) ?
-        //     '' :
-        //     'hidden' 
-        // }`}
+        className={`${
+          profiledata.originalUser[0]._id === user._id ?
+          // (profiledata.addAdmins.length &&
+          //   profiledata.addAdmins.indexOf(user.id)) ?
+            '' :
+            'hidden' 
+        }`}
         >
           <h1>בקשות חברות</h1>
           {/* {users &&
