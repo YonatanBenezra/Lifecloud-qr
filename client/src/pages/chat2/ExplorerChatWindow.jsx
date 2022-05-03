@@ -674,7 +674,9 @@ console.log(JSON.stringify(err));
                         console.log("response for 753: " + JSON.stringify(response, null, 2))
                         setHasLoadedFetchedMessages(true);
                         //const newArray2 = [...response.data.chatResponse];//try json.stringify
-                        const newArray = [...response.data.response1, ...response.data.response2];
+                        const arrayOne = [...response.data.response1].reverse();
+
+                        const newArray = [...arrayOne, ...response.data.response2];
                         
                         console.log("new messages are: " + JSON.stringify(newArray))
                         console.log("new newest id is: " + newArray[newArray.length - 1]._id);

@@ -239,7 +239,7 @@ ProfileRouter.post('/getChatMessagesSurroundingOneMessage', (req, res, next) => 
               }
               console.log("ajax response: " + JSON.stringify(response))
               //return response;
-              response2 = response2.reverse();
+              //response2 = response2.reverse();
 
               const finalResponse = {
                 response1:response2,
