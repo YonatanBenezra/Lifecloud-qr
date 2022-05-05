@@ -255,13 +255,15 @@ export const UserAndprofiles = () => {
                 <h3 className="settings-subtitle">:סוג התוכנית </h3>
                 <h3 className="settings-subtitle">:סיום התוכנית </h3>
               </div> */}
+              <Link to='/'>
               <button
                 className="logout-btn"
                 style={{ cursor: 'pointer' }}
                 onClick={LoggedUser.myFirebase.logout}
-              >
+                >
                 התנתק
               </button>
+                </Link>
             </div>
           </div>
         </div>

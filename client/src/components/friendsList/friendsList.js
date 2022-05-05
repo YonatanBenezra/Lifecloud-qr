@@ -322,7 +322,7 @@ const FriendsList = ({
         )}
         <div
         className={`${
-          profiledata.originalUser[0]._id === user._id ?
+          profiledata?.originalUser[0]?._id === user?._id ?
           // (profiledata.addAdmins.length &&
           //   profiledata.addAdmins.indexOf(user.id)) ?
             '' :
