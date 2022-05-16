@@ -63,16 +63,16 @@ export default function ProfileEdit() {
     firstName: Object.keys(profiledata).length ? profiledata.firstName : '',
     lastName: Object.keys(profiledata).length ? profiledata.lastName : '',
     birthDate: Object.keys(profiledata).length
-      ? moment(profiledata.birthDate).utc().format('YYYY-DD-MM')
+      ? moment(profiledata.birthDate).format('YYYY-DD-MM')
       : '',
     deathDate: Object.keys(profiledata).length
-      ? moment(profiledata.deathDate).utc().format('YYYY-DD-MM')
+      ? moment(profiledata.deathDate).format('YYYY-DD-MM')
       : '',
     hebBirthDate: Object.keys(profiledata).length
-      ? moment(profiledata.hebBirthDate).utc().format('YYYY-DD-MM')
+      ? moment(profiledata.hebBirthDate).format('YYYY-DD-MM')
       : '',
     hebDeathDate: Object.keys(profiledata).length
-      ? moment(profiledata.hebDeathDate).utc().format('YYYY-DD-MM')
+      ? moment(profiledata.hebDeathDate).format('YYYY-DD-MM')
       : '',
     gender: Object.keys(profiledata).length ? profiledata.gender : '',
     city: Object.keys(profiledata).length ? profiledata.city : '',
@@ -155,7 +155,7 @@ export default function ProfileEdit() {
     setSelectedGender(e.target.value);
   };
   useEffect(() => {
-    console.log(profiledata)
+    console.log(profiledata);
     if (Object.keys(profiledata).length) {
       setGooglePosition(JSON.parse(profiledata.googleLocation));
       setWallInformation({
@@ -380,28 +380,49 @@ export default function ProfileEdit() {
                   <h1>תאריך פטירה</h1>
                 </div>
                 <div className="profile-creation-names-container">
-                  <input
-                    placeholder="* לועזי"
-                    ref={birthDate}
-                    onChange={handleChangeValue}
-                    name="birthDate"
-                    value={moment(wallInformation.birthDate).format(
-                      'DD-MM-YYYY'
-                    )}
-                    className="nameInput"
-                    type="text"
-                  />
-                  <input
-                    placeholder="* לועזי"
-                    type="date"
-                    ref={deathDate}
-                    onChange={handleChangeValue}
-                    name="deathDate"
-                    value={moment(wallInformation.deathDate).format(
-                      'DD-MM-YYYY'
-                    )}
-                    className="nameInput"
-                  />
+                  {wallInformation.birthDate ? (
+                    <input
+                      placeholder="* לועזי"
+                      ref={birthDate}
+                      onChange={handleChangeValue}
+                      name="birthDate"
+                      value={moment(wallInformation.birthDate).format(
+                        'DD-MM-YYYY'
+                      )}
+                      className="nameInput"
+                      type="text"
+                    />
+                  ) : (
+                    <input
+                      ref={birthDate}
+                      placeholder="* לועזי"
+                      pattern="\d{4}-\d{2}-\d{2}"
+                      onChange={handleChangeValue}
+                      className="nameInput"
+                      type="date"
+                    />
+                  )}
+                  {wallInformation.deathDate ? (
+                    <input
+                      placeholder="* לועזי"
+                      ref={deathDate}
+                      onChange={handleChangeValue}
+                      name="deathDate"
+                      value={moment(wallInformation.deathDate).format(
+                        'DD-MM-YYYY'
+                      )}
+                      className="nameInput"
+                    />
+                  ) : (
+                    <input
+                      placeholder="* לועזי"
+                      ref={deathDate}
+                      pattern="\d{4}-\d{2}-\d{2}"
+                      onChange={handleChangeValue}
+                      className="nameInput"
+                      type="date"
+                    />
+                  )}
                 </div>
                 <div
                   className="profile-creation-names-container"

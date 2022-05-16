@@ -257,12 +257,72 @@
   border-radius: 15px;
   position: absolute;
   left: 40px;
-  top: 113%;
+  top: 35px;
   /* padding-top: 319px; */
   /* height: 450px; */
   width: 45vw;
   max-height: 400px;
 }
+/* Media Query */
+@media only screen and (max-width: 1629px) {
+  .video-react .video-react-video {
+    top: 60px;
+  }
+}
+@media only screen and (max-width: 1560px) {
+  .video-react .video-react-video {
+    top: 65px;
+  }
+}
+@media only screen and (max-width: 1480px) {
+  .video-react .video-react-video {
+    top: 80px;
+  }
+}
+@media only screen and (max-width: 1400px) {
+  .video-react .video-react-video {
+    top: 90px;
+    max-height: 450px;
+  }
+}
+@media only screen and (max-width: 1366px) {
+  .video-react .video-react-video {
+    top: 10px;
+    max-height: 450px;
+  }
+}
+@media only screen and (max-width: 1285px) {
+  .video-react .video-react-video {
+    top: 80px;
+    max-height: 450px;
+  }
+}
+@media only screen and (max-width: 1170px) {
+  .video-react .video-react-video {
+    top: 85px;
+  }
+}
+@media only screen and (max-width: 1120px) {
+  .video-react .video-react-video {
+    top: 95px;
+  }
+}
+@media only screen and (max-width: 1020px) {
+  .video-react .video-react-video {
+    top: 120px;
+  }
+}
+@media only screen and (max-width: 960px) {
+  .video-react .video-react-video {
+    top: 170px;
+  }
+}
+@media only screen and (max-width: 769px) {
+  .video-react .video-react-video {
+    top: 180px;
+  }
+}
+
 .video-react-control-bar {
   display: none;
 }
@@ -704,6 +764,9 @@
     color: #ffff;
     font-size: 2rem;
     margin-top: 20px;
+  }
+  .text-section-container-desktop-home {
+    position: relative;
   }
   .react-player-home-desktop {
     padding-top: 0 !important;

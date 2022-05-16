@@ -192,7 +192,7 @@ const FriendsList = ({
       return item.id;
     });
 
-  let e = users.map(
+  let e = users?.map(
     (n, i) => valfinalcheckid && valfinalcheckid.includes(n._id)
   );
 
@@ -321,13 +321,13 @@ const FriendsList = ({
           <div style={{ textAlign: 'center' }}>אין חברים עדיין</div>
         )}
         <div
-        className={`${
-          profiledata?.originalUser[0]?._id === user?._id ?
-          // (profiledata.addAdmins.length &&
-          //   profiledata.addAdmins.indexOf(user.id)) ?
-            '' :
-            'hidden' 
-        }`}
+          className={`${
+            profiledata?.originalUser[0]?._id === user?._id
+              ? // (profiledata.addAdmins.length &&
+                //   profiledata.addAdmins.indexOf(user.id)) ?
+                ''
+              : 'hidden'
+          }`}
         >
           <h1>בקשות חברות</h1>
           {/* {users &&
@@ -429,13 +429,13 @@ const FriendsList = ({
           )}
         </div>
         <div
-        className={`${
-          profiledata?.originalUser[0]?._id === user?._id ?
-          // (profiledata.addAdmins.length &&
-          //   profiledata.addAdmins.indexOf(user.id)) ?
-            '' :
-            'hidden' 
-        }`}
+          className={`${
+            profiledata?.originalUser[0]?._id === user?._id
+              ? // (profiledata.addAdmins.length &&
+                //   profiledata.addAdmins.indexOf(user.id)) ?
+                ''
+              : 'hidden'
+          }`}
         >
           <h1>אדמינים</h1>
           {profiledata && profiledata.addAdmins.length > 0 ? (

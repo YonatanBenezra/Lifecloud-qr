@@ -141,7 +141,7 @@ export default function MainProfile(props) {
         </div>
         <div className="btns-container">
           <div>
-            {(profiledata.originalUser[0]._id === loggedUser._id &&
+            {profiledata.originalUser[0]._id === loggedUser._id && (
               <Link to={`/editprofiles/${id}`}>
                 <span className="profile-small-btn">ערוך פרופיל</span>
               </Link>
@@ -149,7 +149,7 @@ export default function MainProfile(props) {
 
             <div
               className={`${
-                profiledata.originalUser[0]._id === loggedUser._id 
+                profiledata.originalUser[0]._id === loggedUser._id
                   ? 'hidden'
                   : 'profile-small-btn'
               }`}
@@ -201,40 +201,40 @@ export default function MainProfile(props) {
           <div className="profile-details-title">
             <h1>רשימת חללים</h1>
           </div>
-          <div className='list-of-deceased-container'>
-          <div className="list-of-deceased">
-            {data &&
-              data.length > 0 &&
-              data.map((userProfiles, i) => {
-                if (userProfiles.isMain === false) {
-                  return (
-                    <Link
-                    to={`/profiledetails/${userProfiles._id}`}
-                      key={i}
-                      style={{ cursor: 'hover' }}
+          <div className="list-of-deceased-container">
+            <div className="list-of-deceased">
+              {data &&
+                data.length > 0 &&
+                data.map((userProfiles, i) => {
+                  if (userProfiles.isMain === false) {
+                    return (
+                      <Link
+                        to={`/profiledetails/${userProfiles._id}`}
+                        key={i}
+                        style={{ cursor: 'hover' }}
                       >
-                      <div className="profile-container" key={i}>
-                        <div className="profile-image-div">
-                          <img
-                            className="profile-image"
-                            src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
-                            alt=""
-                          />
+                        <div className="profile-container" key={i}>
+                          <div className="profile-image-div">
+                            <img
+                              className="profile-image"
+                              src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                              alt=""
+                            />
+                          </div>
+                          <div className="profile-name">
+                            {userProfiles.firstName} {userProfiles.lastName}
+                          </div>
                         </div>
-                        <div className="profile-name">
-                          {userProfiles.firstName} {userProfiles.lastName}
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                }
-              })}
+                      </Link>
+                    );
+                  }
+                })}
+            </div>
+            <div onClick={() => setShow('deceased')} className="full-btn">
+              {' '}
+              + לעמוד החללים
+            </div>
           </div>
-          <div onClick={() => setShow('deceased')} className="full-btn">
-            {' '}
-            + לעמוד החללים
-          </div>
-        </div>
         </div>
         <div
           className={`${show === 'gallery' && 'display'} full-gallery d-none`}
