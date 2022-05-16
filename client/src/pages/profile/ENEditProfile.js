@@ -51,10 +51,10 @@ export default function ENProfileEdit() {
     firstName: Object.keys(profiledata).length ? profiledata.firstName : '',
     lastName: Object.keys(profiledata).length ? profiledata.lastName : '',
     birthDate: Object.keys(profiledata).length
-      ? moment(profiledata.birthDate).utc().format('YYYY-DD-MM')
+      ? moment(profiledata.birthDate).format('YYYY-DD-MM')
       : '',
     deathDate: Object.keys(profiledata).length
-      ? moment(profiledata.deathDate).utc().format('YYYY-DD-MM')
+      ? moment(profiledata.deathDate).format('YYYY-DD-MM')
       : '',
     gender: Object.keys(profiledata).length ? profiledata.gender : '',
     wazeLocation: Object.keys(profiledata).length
@@ -396,7 +396,7 @@ export default function ENProfileEdit() {
                           type="file"
                           name="multiplefiles"
                           multiple
-                          className='with-text'
+                          className="with-text"
                           onChange={onChangeMultiplePicture}
                         />
                       </div>

@@ -255,7 +255,7 @@ export default function ENProfileCreate() {
                           id="profilePic"
                           type="file"
                           name="multiplefiles"
-                          className='with-text'
+                          className="with-text"
                           multiple
                           onChange={onChangeMultiplePicture}
                         />

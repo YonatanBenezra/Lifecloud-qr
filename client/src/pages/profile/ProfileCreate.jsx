@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useRef, useState, useContext, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, Prompt } from 'react-router';
 import Topbar from '../../components/topbar/Topbar';
 import './profile.css';
 import { AuthContext } from '../../context/AuthContext';
@@ -32,6 +32,8 @@ export default function ProfileCreate() {
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [uploaded, setUploaded] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {});
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
@@ -160,7 +162,7 @@ export default function ProfileCreate() {
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
-    setUploaded(index)
+    setUploaded(index);
   };
   useEffect(() => {
     fetchuserData();
@@ -203,7 +205,10 @@ export default function ProfileCreate() {
   };
   // console.log(hebBirthDate.current.value)
   const handleClick = async (e) => {
-    console.log(id, 'id');
+    setLoading(true);
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     e.preventDefault();
     const wallInformation = {
       originalUser: id,
@@ -266,7 +271,6 @@ export default function ProfileCreate() {
           return res.json();
         })
         .then((res) => {
-          console.log(res, 'create profile res');
           fetch(
             `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
             {
@@ -278,6 +282,7 @@ export default function ProfileCreate() {
                 profileId: res.originalUser[0],
                 loggedInId: userData._id,
               }),
+              signal: signal,
             }
           )
             .then((res) => {
@@ -290,6 +295,7 @@ export default function ProfileCreate() {
             history.goBack();
             setMessage('Profile made successfully');
             setOpen(true);
+            setLoading(false);
           }
         });
     } catch (err) {
@@ -312,18 +318,23 @@ export default function ProfileCreate() {
   const handleAxisImage = (event, i) => {
     const copyArray = [...inputList];
     const files = event.target.files[0];
-    
-    copyArray[i].axisImage = files;
-    
-    setInputList(copyArray);
-    
-    setAxisImages(inputList.map((list) => list.axisImage));
 
+    copyArray[i].axisImage = files;
+
+    setInputList(copyArray);
+
+    setAxisImages(inputList.map((list) => list.axisImage));
+    event.target.closest('label').style.backgroundColor = '#5ca08e';
+    event.target.closest('label').textContent = 'תמונה הועלתה';
   };
 
   return (
     <div className="profile-creation-container">
       <Topbar />
+      <Prompt
+        when={loading}
+        message="You have unsaved changes, are you sure you want to leave?"
+      />
       <div className="profile-creation">
         <div className="">
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
@@ -802,15 +813,18 @@ export default function ProfileCreate() {
                     <label htmlFor="public">פומבי</label>
                   </div>
                 </div>
-                
-                { submitted ? (
-                  <button className="create-btn submitted">נשמר</button>
+
+                {loading ? (
+                  <button className="create-btn" type="button" disabled>
+                    ...Loading
+                    <span
+                      className="spinner-border spinner-border-lg"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
                 ) : (
-                  <button
-                    className="create-btn"
-                    type="submit"
-                    onClick={() => (setSubmitted(true))}
-                  >
+                  <button className="create-btn" type="submit">
                     שמור
                   </button>
                 )}

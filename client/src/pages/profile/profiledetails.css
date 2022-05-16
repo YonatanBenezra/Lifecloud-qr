@@ -461,10 +461,57 @@
   transform: rotate(90deg);
   display: inline-flex;
   margin: auto;
-  margin-left: 55%;
+  margin-left: 55.5%;
   /* width: 100%; */
   color: #6097bf;
   font-size: 57px;
+}
+
+/* Dotted-Separetor Media query */
+@media only screen and (max-width: 1368px) {
+  .dotted-seperator {
+    margin-left: 55%;
+  }
+}
+@media only screen and (max-width: 1300px) {
+  .dotted-seperator {
+    margin-left: 54.5%;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .dotted-seperator {
+    margin-left: 54%;
+  }
+}
+@media only screen and (max-width: 920px) {
+  .dotted-seperator {
+    margin-left: 53.5%;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .dotted-seperator {
+    margin-left: 53%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .dotted-seperator {
+    margin-left: 52%;
+  }
+}
+@media only screen and (max-width: 670px) {
+  .dotted-seperator {
+    margin-left: 51.5%;
+  }
+}
+@media only screen and (max-width: 585px) {
+  .dotted-seperator {
+    margin-left: 51%;
+  }
+}
+@media only screen and (max-width: 520px) {
+  .dotted-seperator {
+    margin-left: 50%;
+  }
 }
 
 .axis-sub-container {
@@ -472,7 +519,6 @@
   display: flex;
   flex-direction: column;
 }
-
 .axis-bubble {
   margin-left: 3rem;
   background: #abc9db;
