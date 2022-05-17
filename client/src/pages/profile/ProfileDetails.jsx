@@ -185,8 +185,9 @@ export default function Profile() {
     ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
     : '';
   profiledata?.axisImages?.forEach((element, i) => {
+    if(parseAxios[i]){
     parseAxios[i].axisImage = element;
-  });
+}});
   const handleLike = (e) => {
     try {
       const formdata = new FormData();
@@ -544,7 +545,7 @@ export default function Profile() {
               onClick={() => setShow('bio')}
               className={`profile-big-btn ${show === 'bio' && 'active'}`}
             >
-              אודות
+              ביוגרפיה
             </div>
             <div
               onClick={() => setShow('wall')}
@@ -805,7 +806,7 @@ export default function Profile() {
                       <div
                         className="axis-bubble"
                         style={{
-                          backgroundImage: `url('${process.env.REACT_APP_API_URL}/picUploader/${axis.axisImage}')`,
+                          backgroundImage: `url('${process.env.REACT_APP_API_URL}/picUploader/${axis?.axisImage}')`,
                           backgroundSize: 'cover',
                           backgroundPosition: 'center',
                           backgroundRepeat: 'no-repeat',
