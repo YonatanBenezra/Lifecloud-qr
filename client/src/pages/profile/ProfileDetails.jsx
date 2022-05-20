@@ -185,21 +185,21 @@ export default function Profile() {
     ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
     : '';
   profiledata?.axisImages?.forEach((element, i) => {
-    if(parseAxios[i]){
-    parseAxios[i].axisImage = element;
-}});
+    if (parseAxios[i]) {
+      parseAxios[i].axisImage = element;
+    }
+  });
   const handleLike = (e) => {
+    console.log(e, 'MEMORY');
     try {
-      const formdata = new FormData();
-      let data = {
-        userId: profiledata.originaluser[0]?._id,
-      };
       fetch(`${process.env.REACT_APP_API_URL}/api/memory/like/${e._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'Application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          userId: JSON.parse(localStorage.getItem('user'))._id,
+        }),
       })
         .then((res) => {
           return res.json();
@@ -529,6 +529,9 @@ export default function Profile() {
                   style={{ cursor: 'pointer' }}
                 >
                   הוסף פרופיל כחבר
+                  {profiledata.privacy === 'private' && (
+                    <i class="fa-solid fa-lock"></i>
+                  )}
                 </div>
               ))}
           </div>
