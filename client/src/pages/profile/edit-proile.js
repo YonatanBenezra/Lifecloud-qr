@@ -107,7 +107,6 @@ export default function ProfileEdit() {
   };
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
-      console.log('picture: ', e.target.files);
       setPicture(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener('load', () => {
@@ -207,9 +206,7 @@ export default function ProfileEdit() {
     ]);
   };
   const handleClick = async (e) => {
-    console.log(id, 'id');
     e.preventDefault();
-
     try {
       const formdata = new FormData();
       formdata.append('profileImg', picture);
@@ -400,6 +397,7 @@ export default function ProfileEdit() {
                       onChange={handleChangeValue}
                       className="nameInput"
                       type="date"
+                      name="birthDate"
                     />
                   )}
                   {wallInformation.deathDate ? (
@@ -421,6 +419,7 @@ export default function ProfileEdit() {
                       onChange={handleChangeValue}
                       className="nameInput"
                       type="date"
+                      name="deathDate"
                     />
                   )}
                 </div>

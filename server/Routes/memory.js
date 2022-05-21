@@ -2,10 +2,13 @@ const Router = require('express');
 const { Memory } = require('./../models/Memory');
 const MemoryRouter = Router();
 const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
+
 var storage = multer.diskStorage({
   destination: './server/picUploader/',
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    const ext = file.mimetype.split('/')[1];
+    cb(null, `${file.originalname.split('.')[0]}-${uuidv4()}.${ext}`);
   },
 });
 let uploadpic = multer({ storage: storage });
