@@ -1,11 +1,14 @@
 const Router = require('express');
 const { profileModel } = require('./../models/Profile');
 const ProfileRouter = Router();
+const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
+
 var storage = multer.diskStorage({
   destination: './server/picUploader/',
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    const ext = file.mimetype.split('/')[1];
+    cb(null, `${file.originalname.split('.')[0]}-${uuidv4()}.${ext}`);
   },
 });
 let uploadpic = multer({ storage: storage });
