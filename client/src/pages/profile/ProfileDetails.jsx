@@ -472,8 +472,11 @@ export default function Profile() {
           <div className="deceased-details">
             <h1 className="profile-h1">{`${profiledata?.degree} ${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
             <p>
-              {moment(profiledata?.deathDate).format('DD-MM-YYYY')} -{' '}
-              {moment(profiledata?.birthDate).format('DD-MM-YYYY')}
+              {profiledata?.deathDate &&
+                moment(profiledata?.deathDate).format('DD-MM-YYYY')}{' '}
+              -{' '}
+              {profiledata?.birthDate &&
+                moment(profiledata?.birthDate).format('DD-MM-YYYY')}
             </p>
             <p>{profiledata?.city}</p>
           </div>
@@ -573,7 +576,8 @@ export default function Profile() {
               <h3>
                 <span className="separator">| </span>
                 <span className="dash">- </span>
-                {moment(profiledata?.deathDate).format('DD-MM-YYYY')}
+                {profiledata?.deathDate &&
+                  moment(profiledata?.deathDate).format('DD-MM-YYYY')}
               </h3>
               <h3>
                 <span className="separator">| </span>
