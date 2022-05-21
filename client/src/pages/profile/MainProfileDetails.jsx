@@ -31,6 +31,7 @@ import useGeoLocation from '../../hooks/useGeoLocation';
 import Map from './Map';
 import Direction from './Direction';
 import { QRCodeSVG } from 'qrcode.react';
+import GraveMap from './GraveMap';
 
 export default function MainProfile(props) {
   const { dispatch } = useContext(AuthContext);
@@ -47,6 +48,7 @@ export default function MainProfile(props) {
   const [DellComment, setDelComment] = useState('');
   const [friendFlagReq, setrfriendReq] = useState([]);
   const [adminFlagReq, setAdminres] = useState([]);
+  const [map, setMap] = useState(false);
   const id = useParams().id;
   const [data, setData] = useState([]);
   const [next, setnext] = useState(1);
@@ -163,13 +165,7 @@ export default function MainProfile(props) {
               רשימת חברים
             </span>
           </div>
-          <div className="profile-big-btns-container">
-            <div
-              onClick={() => setShow('wall')}
-              className={`${show === 'wall' && 'active'} profile-big-btn`}
-            >
-              קיר
-            </div>
+          <div className="profile-big-btns-container d-flex">
             <div
               type="button"
               className="profile-big-btn"
@@ -177,6 +173,12 @@ export default function MainProfile(props) {
               data-bs-target="#exampleModal"
             >
               QR
+            </div>
+            <div
+              onClick={() => setShow('wall')}
+              className={`${show === 'wall' && 'active'} profile-big-btn`}
+            >
+              קיר
             </div>
           </div>
         </div>
@@ -197,6 +199,45 @@ export default function MainProfile(props) {
               {' '}
               + לכל הגלריה
             </div>
+          </div>
+          {/* Google location */}
+          <div className="grave-location-container">
+            <h1 className="grave-location-title">מיקום ותמונת הקבר</h1>
+            <div className="grave-imgs-container">
+              <img
+                src={`${process.env.REACT_APP_API_URL}/${profiledata.graveImg}`}
+                alt=""
+                className="grave-img"
+              ></img>
+
+              {map && (
+                <React.Fragment>
+                  <div>
+                    {/* <Direction
+                    destination={profiledata.googleLocation}
+                    origin={location.coordinates}
+                  /> */}
+                    <GraveMap graveLocation={profiledata.googleLocation} />
+                    <div className="text-center mt-3">
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation.lat}%2C${profiledata.googleLocation.lng}`}
+                        className="profile-example-btn"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        נווט לקבר
+                      </a>
+                    </div>
+                  </div>
+                </React.Fragment>
+              )}
+            </div>
+            <button
+              className="navigation-btn"
+              onClick={() => setMap((prevState) => !prevState)}
+            >
+              פתח מפה <img src={google} alt=""></img>
+            </button>
           </div>
           <div className="profile-details-title">
             <h1>רשימת חללים</h1>

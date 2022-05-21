@@ -77,7 +77,7 @@ const MemoryCreation = () => {
             });
           console.log(res, 'memory created fuccesfully');
           if (res) {
-            history.goBack()
+            history.goBack();
             setMessage('Profile updated successfully!');
             setOpen(true);
           }
@@ -104,17 +104,17 @@ const MemoryCreation = () => {
           <h1>יצירת זיכרון</h1>
         </div>
         <div className="memory-creation-content">
-          <div className='text-input-container'>
+          <div className="text-input-container">
             <textarea
               className="memory-creation-input"
               name="text"
               onChange={handleText}
-              dir='rtl'
-              placeholder='הקלד...'
-              />
-            </div>
-          <div className="action-container">            
-            <div className='btn-container'>
+              dir="rtl"
+              placeholder="הקלד..."
+            />
+          </div>
+          <div className="action-container">
+            <div className="btn-container">
               <input
                 id="memoryVideo"
                 type="file"
@@ -123,26 +123,30 @@ const MemoryCreation = () => {
                 onChange={onVideoChange}
                 accept="video/mp4,video/x-m4v,video/*"
               />
-              <label htmlFor='memoryVideo'
-                      className='white-circle add-icon'
-                      style={{backgroundImage: `url('${bluePlus}')`}}>
-                <div className='label-text'>הוסף סרטון</div>
-              </label>              
+              <label
+                htmlFor="memoryVideo"
+                className="white-circle add-icon"
+                style={{ backgroundImage: `url('${bluePlus}')` }}
+              >
+                <div className="label-text">הוסף סרטון</div>
+              </label>
             </div>
-            <div className='btn-container'>
+            <div className="btn-container">
               <input
                 id="profilePic"
-                type="file"              
+                type="file"
                 name="multiplefiles"
                 accept="image/*"
                 // multiple
-                onChange={onChangeMultiplePicture}         
+                onChange={onChangeMultiplePicture}
               />
-              <label htmlFor='profilePic'
-                      className='white-circle add-icon'
-                      style={{backgroundImage: `url('${bluePlus}')`}}>
-                <div className='label-text'>הוסף תמונות</div>
-              </label>              
+              <label
+                htmlFor="profilePic"
+                className="white-circle add-icon"
+                style={{ backgroundImage: `url('${bluePlus}')` }}
+              >
+                <div className="label-text">הוסף תמונות</div>
+              </label>
             </div>
           </div>
         </div>

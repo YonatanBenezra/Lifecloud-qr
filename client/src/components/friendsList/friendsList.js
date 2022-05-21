@@ -219,7 +219,7 @@ const FriendsList = ({
       return item.id;
     });
 
-  let eRequest = users.map(
+  let eRequest = users?.map(
     (n, i) => valfinalcheckidRequest && valfinalcheckidRequest.includes(n._id)
   );
 
@@ -246,7 +246,7 @@ const FriendsList = ({
       return item.id;
     });
 
-  let eAdmin = users.map(
+  let eAdmin = users?.map(
     (n, i) => valfinalcheckidadmin && valfinalcheckidadmin.includes(n._id)
   );
 
