@@ -134,4 +134,16 @@ MemoryRouter.get('/getallmemory/:id', (req, res) => {
     });
 });
 
+MemoryRouter.get('/getSingleMemory/:id', (req, res) => {
+  Memory.findById(req.params.id) // key to populate
+    .then((resonse) => {
+      if (!resonse) {
+        return res.status(404).json({
+          message: 'data not found',
+        });
+      }
+      res.json(resonse);
+    });
+});
+
 module.exports = { MemoryRouter };

@@ -52,6 +52,9 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
+            <Route exact path="/profile/:profileId/memory/:memoryId">
+              <Memory />
+            </Route>
             <Route exact path="/login">
               {user ? <Redirect to={redirectPath} /> : <Login />}
             </Route>

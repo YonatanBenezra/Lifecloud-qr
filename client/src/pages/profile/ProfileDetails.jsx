@@ -532,9 +532,6 @@ export default function Profile() {
                   style={{ cursor: 'pointer' }}
                 >
                   הוסף פרופיל כחבר
-                  {profiledata.privacy === 'private' && (
-                    <i class="fa-solid fa-lock"></i>
-                  )}
                 </div>
               ))}
           </div>
@@ -558,6 +555,16 @@ export default function Profile() {
               className={`${show === 'wall' && 'active'} profile-big-btn`}
             >
               קיר
+              {profiledata.privacy === 'private' &&
+                !(
+                  profiledata?.originalUser[0]?._id === user?._id ||
+                  profiledata?.addAdmins.find(
+                    (admins) => admins?.user[0]?._id === user?._id
+                  ) ||
+                  profiledata?.addFriends.find(
+                    (friends) => friends?.user[0]?._id === user?._id
+                  )
+                ) && <i className="fa-solid fa-lock ms-2"></i>}
             </div>
           </div>
         </div>
