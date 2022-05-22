@@ -3,13 +3,13 @@ import '../../pages/profile/profiledetails.css';
 import { Link } from 'react-router-dom';
 import { SRLWrapper } from 'simple-react-lightbox';
 
-export const Gallery = ({ profiledata, id }) => {
+export const Gallery = ({ profiledata, id, userId }) => {
   return (
-    <div className='gallery'>
-      <div className='profile-details-title'>
+    <div className="gallery">
+      <div className="profile-details-title">
         <h1>גלריה</h1>
       </div>
-      
+
       <div className="imgs-container show-in-flex flex-wrap">
         <SRLWrapper>
           {profiledata.gallery &&

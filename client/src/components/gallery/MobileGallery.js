@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { SRLWrapper } from 'simple-react-lightbox';
 import "./gallery.css";
 
-export const Gallery = ({ profiledata, id }) => {
+export const Gallery = ({ profiledata, id, userId }) => {
   return (
     <div className='gallery'>
       <div className='profile-details-title'>
