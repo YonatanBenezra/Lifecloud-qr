@@ -53,6 +53,7 @@ export default function Profile() {
   const { user } = useContext(AuthContext);
   const [hebMemorialDate, setHebMemorialDate] = useState('');
   const location = useLocation();
+  const [yPos, setYPos] = useState(50);
 
   const handleDeathDateBlur = async () => {
     const death = new Date(profiledata?.deathDate);
@@ -130,6 +131,7 @@ export default function Profile() {
     if (res.data.googleLocation) {
       res.data.googleLocation = JSON.parse(res.data.googleLocation);
     }
+    setYPos(res.data.objectYPos);
     setProfileData(res.data);
   };
 
@@ -289,9 +291,9 @@ export default function Profile() {
   //   getGeoLocation();
   // }, [getGeoLocation]);
   // console.log(profiledata);
-  
+
   useEffect(() => {
-    console.log(user)
+    console.log(user);
     if (profiledata.originalUser?.[0]._id === user._id) {
       return;
     }
@@ -313,6 +315,20 @@ export default function Profile() {
       }
     );
   }, [user._id, profiledata._id, profiledata.originalUser]);
+
+  const handleObjectPos = (what) => {
+    if (what === 'up') {
+      setYPos(yPos + 10);
+    } else if (what === 'down') {
+      setYPos(yPos - 10);
+    }
+    axios.patch(
+      `${process.env.REACT_APP_API_URL}/api/profile/updateObjectYPos/${id}`,
+      {
+        objectYPos: yPos,
+      }
+    );
+  };
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
@@ -361,12 +377,36 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <TopBar />
-        <img
-          src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
-          alt=""
-          className="profile-cover"
-        ></img>
+        <div style={{ position: 'relative' }}>
+          <img
+            src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
+            alt=""
+            className="profile-cover"
+            style={{ objectPosition: `0 ${yPos}%` }}
+          ></img>
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              right: '0',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <button
+              onClick={() => handleObjectPos('up')}
+              className="navigation-btn"
+            >
+              ➕
+            </button>
+            <button
+              onClick={() => handleObjectPos('down')}
+              className="navigation-btn"
+            >
+              ➖
+            </button>
+          </div>
+        </div>
         <div className="profile-details-first">
           <img
             src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
@@ -410,10 +450,11 @@ export default function Profile() {
             </div>
             <div
               className={`${
-                profiledata.originalUser[0]._id === user._id ||
-                profiledata.addAdmins.indexOf()
-                  ? 'hidden'
-                  : 'profile-small-btn'
+                // profiledata.originalUser[0]._id === user._id ||
+                // profiledata.addAdmins.indexOf()
+                //   ? 'hidden'
+                //   :
+                'profile-small-btn'
               }`}
               onClick={() => handleAddFriendRequest()}
               style={{ cursor: 'pointer' }}

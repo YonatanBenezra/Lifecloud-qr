@@ -548,5 +548,17 @@ ProfileRouter.post('/graveLocation/:id', async (req, res) => {
     console.log(e);
   }
 });
+ProfileRouter.patch('/updateObjectYPos/:id', async (req, res) => {
+  try {
+    const profile = await profileModel.findByIdAndUpdate(
+      req.params.id,
+      { objectYPos: req.body.objectYPos },
+      { new: true }
+    );
+    res.json(profile);
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 module.exports = { ProfileRouter };

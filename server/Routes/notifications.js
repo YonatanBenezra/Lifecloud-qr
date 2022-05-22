@@ -7,7 +7,7 @@ const NotificationsRouter = Router();
 NotificationsRouter.post('/addnotifications', async (req, res) => {
   try {
     let { profileId, loggedInId, notificationType } = req.body;
-    console.log(loggedInId)
+    console.log(loggedInId);
     let createNotifications = new Notifications({
       memoryCreatorNotification: profileId,
       logedInUser: loggedInId,
@@ -22,6 +22,7 @@ NotificationsRouter.post('/addnotifications', async (req, res) => {
 
 NotificationsRouter.get('/getallNotifications', (req, res) => {
   Notifications.find({})
+    .sort({ createdAt: -1 })
     .populate('memoryCreatorNotification')
     .populate('logedInUser') // key to populate
     .then((resonse) => {
