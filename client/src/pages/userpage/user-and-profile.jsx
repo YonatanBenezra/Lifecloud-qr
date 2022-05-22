@@ -25,9 +25,9 @@ export const UserAndprofiles = () => {
     else if (userNotification.notificationType === 'memoryCreation')
       return `${userNotification.logedInUser[0]?.firstName} יצר זיכרון בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`;
     else if (userNotification.notificationType === 'profileAdmin')
-      return `You are now an admin of ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`;
+      return `אתה עכשיו אדמין וחבר בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`;
     else if (userNotification.notificationType === 'profileFriend')
-      return `You are now a friend of ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`;
+      return `אתה עכשיו חבר של הפרופיל ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`;
   };
 
   useEffect(() => {
@@ -36,7 +36,6 @@ export const UserAndprofiles = () => {
         `${process.env.REACT_APP_API_URL}/api/notification/getallNotifications`
       );
       const currentLoggedUser = JSON.parse(localStorage.getItem('user'));
-      console.log(res.data, '😴');
       setNotifications(
         res.data
           .filter(

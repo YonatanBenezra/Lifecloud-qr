@@ -60,7 +60,7 @@ const Topbar = (props) => {
                 searchData.length > 0 &&
                 searchData.map((item, index) => {
                   return (
-                    <Link to={`/profiledetails/${item._id}`} key={index}>
+                    <a href={`/profiledetails/${item._id}`} key={index} onClick={() => window.location.reload()}>
                       <div className="result-box">
                         <div>
                           <span>
@@ -79,7 +79,7 @@ const Topbar = (props) => {
                           item?.lastName === 'placeholder' ? '' : item?.lastName
                         }`}</span>
                       </div>
-                    </Link>
+                    </a>
                   );
                 })}
             </div>

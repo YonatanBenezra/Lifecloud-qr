@@ -82,6 +82,11 @@ const Memory = ({
                     <p className='comment-text'>{comment.text}</p>
                   </span>
                   <span
+                    className={`${
+                      profiledata.originalUser[0]._id === user._id
+                      ? ''
+                      : 'hidden'
+                    }`}
                     style={{ cursor: 'pointer' }}
                     onClick={() => handleDelete(comment, data._id)}
                   >
@@ -128,15 +133,17 @@ const Memory = ({
                   ביטול
                 </div>
               </div>
-              {isUserAdmin && (
-                <div
-                  className="dlt-comment-btn memory-btn-hover"
-                  onClick={() => handleDellMemory(data)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  מחק זיכרון
-                </div>
-              )}
+              <div
+                className={`${
+                  profiledata.originalUser[0]._id === user._id 
+                  ? 'dlt-comment-btn memory-btn-hover'
+                  : 'hidden'
+                }`}
+                onClick={() => handleDellMemory(data)}
+                style={{ cursor: 'pointer' }}
+              >
+                מחק זיכרון
+              </div>
             </div>
           </div>
         
