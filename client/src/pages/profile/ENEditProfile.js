@@ -411,7 +411,7 @@ export default function ENProfileEdit() {
                   </div>{' '}
                 </div>
                 <input
-                  placeholder="* + על הנפטר"
+                  placeholder="* + ביוגרפיה"
                   ref={description}
                   onChange={handleChangeValue}
                   value={wallInformation.description}

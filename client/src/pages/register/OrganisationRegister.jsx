@@ -59,7 +59,6 @@ export default function OrganisationRegister() {
       }
     }
   };
-  console.log(user, 'user');
   return (
     <>
       <Topbar />

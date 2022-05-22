@@ -17,13 +17,10 @@ export const Gallery = ({ profiledata, id }) => {
               // console.log('profiledata.gallery index, img ', index, img)
               return (
                 <div key={index}>
-                  {index === 3 ? (
-                    <div
-                      className="gallery-img last-image"
-                      style={{backgroundImage: `${process.env.REACT_APP_API_URL}/${img}`}}                      
-                    >
-                      +
-                    </div>
+                  {index === 3 && profiledata?.originalUser[0]?._id === userId ? (
+                    <Link to={`/editprofiles/${profiledata._id}`}>
+                      <div className="gallery-img last-image">+</div>
+                    </Link>
                   ) : (
                     <div className="gallery-img">
                       {!img.endsWith('mp4') ? (
@@ -41,7 +38,7 @@ export const Gallery = ({ profiledata, id }) => {
                                 ? `${process.env.REACT_APP_API_URL}/${img}`
                                 : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
                             }`}
-                            alt="hello"
+                            alt=""
                           />
                         </a>
                       ) : (

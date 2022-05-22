@@ -19,7 +19,6 @@ export const UserAndprofiles = () => {
   const [userId, setId] = useState(id);
 
   const notificationString = (userNotification) => {
-    console.log(userNotification, '😎😎');
     if (userNotification.notificationType === 'profileVisit')
       return `${userNotification.logedInUser[0]?.firstName} ביקר בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}`;
     else if (userNotification.notificationType === 'memoryCreation')
@@ -136,7 +135,6 @@ export const UserAndprofiles = () => {
                     if (userProfiles.isMain) {
                       return (
                         <>
-                          {console.log(id)}
                           <h1>פרופיל ראשי</h1>
                           <Link
                             to={`/mainprofiledetails/${userProfiles._id}`}
@@ -188,7 +186,6 @@ export const UserAndprofiles = () => {
                 {data &&
                   data.length > 0 &&
                   data.map((userProfiles, i) => {
-                    // console.log(data, userProfiles);
                     if (userProfiles.isMain === false) {
                       return (
                         <Link
@@ -279,7 +276,6 @@ export const UserAndprofiles = () => {
             התראות חדשות
           </h3>
           {notifications.map((n) => {
-            console.log(n);
             return (
               <div className="notification-line">
                 <div className="notification-text">
