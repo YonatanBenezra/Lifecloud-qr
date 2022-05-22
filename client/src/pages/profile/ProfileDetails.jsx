@@ -283,13 +283,36 @@ export default function Profile() {
     year: 'numeric',
   };
 
-  const loggedUser = JSON.parse(localStorage.getItem('user'));
   const [map, setMap] = useState(false);
   // const { location, getGeoLocation } = useGeoLocation();
   // useEffect(() => {
   //   getGeoLocation();
   // }, [getGeoLocation]);
-
+  // console.log(profiledata);
+  
+  useEffect(() => {
+    console.log(user)
+    if (profiledata.originalUser?.[0]._id === user._id) {
+      return;
+    }
+    if (!profiledata.originalUser?.[0]._id || !user._id) {
+      return;
+    }
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({
+          profileId: profiledata._id,
+          loggedInId: user._id,
+          notificationType: 'profileVisit',
+        }),
+      }
+    );
+  }, [user._id, profiledata._id, profiledata.originalUser]);
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
@@ -386,13 +409,12 @@ export default function Profile() {
               רשימת חברים
             </div>
             <div
-              className="profile-small-btn"
-              // className={`${
-              //   profiledata.originalUser[0]._id === user._id ||
-              //   profiledata.addAdmins.indexOf()
-              //     ? 'hidden'
-              //     : 'profile-small-btn'
-              // }`}
+              className={`${
+                profiledata.originalUser[0]._id === user._id ||
+                profiledata.addAdmins.indexOf()
+                  ? 'hidden'
+                  : 'profile-small-btn'
+              }`}
               onClick={() => handleAddFriendRequest()}
               style={{ cursor: 'pointer' }}
             >

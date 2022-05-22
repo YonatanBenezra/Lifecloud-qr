@@ -18,6 +18,7 @@ export default function Register() {
   const password = useRef();
   const passwordAgain = useRef();
   const history = useHistory();
+  const [checked, setChecked] = useState(false);
   const [error, setErro] = useState('');
   const [user, setUser] = useState({
     user_type: 'normal',
@@ -87,16 +88,7 @@ export default function Register() {
           <div className="loginRight">
             <div className="RegBox">
               <form className="loginBox" onSubmit={handleClick}>
-                <div className="names-container">
-                  <input
-                    placeholder="* שם משפחה"
-                    required
-                    onChange={handleChange}
-                    ref={lastName}
-                    value={user.lastName}
-                    name="lastName"
-                    className="name-input"
-                  />
+                <div className="names-container rtl">
                   <input
                     placeholder="* שם פרטי"
                     required
@@ -104,6 +96,15 @@ export default function Register() {
                     ref={firstName}
                     value={user.firstName}
                     name="firstName"
+                    className="name-input"
+                  />
+                  <input
+                    placeholder="* שם משפחה"
+                    required
+                    onChange={handleChange}
+                    ref={lastName}
+                    value={user.lastName}
+                    name="lastName"
                     className="name-input"
                   />
                 </div>
@@ -251,17 +252,11 @@ export default function Register() {
                     <input
                       type="checkbox"
                       style={{ marginLeft: '15px' }}
-                    ></input>
-                  </span>
-                  <span style={{ display: 'flex', marginBottom: '1rem' }}>
-                    אני מאשר קבלת מיילים 
-                    <input
-                      type="checkbox"
-                      style={{ marginLeft: '15px' }}
+                      onClick={() => setChecked(!checked)}
                     ></input>
                   </span>
                 </div>
-                <button className="register-button" type="submit">
+                <button className="register-button" type="submit" disabled={!checked}>
                   הרשמה
                 </button>
               </form>
