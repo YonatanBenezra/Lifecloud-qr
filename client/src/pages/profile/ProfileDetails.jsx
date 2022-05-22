@@ -192,6 +192,10 @@ export default function Profile() {
   const handleLike = (e) => {
     console.log(e, 'MEMORY');
     try {
+      const formdata = new FormData();
+      let data = {
+        userId: profiledata.originaluser[0]?._id,
+      };
       fetch(`${process.env.REACT_APP_API_URL}/api/memory/like/${e._id}`, {
         method: 'PUT',
         headers: {
@@ -468,11 +472,8 @@ export default function Profile() {
           <div className="deceased-details">
             <h1 className="profile-h1">{`${profiledata?.degree} ${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
             <p>
-              {profiledata?.deathDate &&
-                moment(profiledata?.deathDate).format('DD-MM-YYYY')}{' '}
-              -{' '}
-              {profiledata?.birthDate &&
-                moment(profiledata?.birthDate).format('DD-MM-YYYY')}
+              {moment(profiledata?.deathDate).format('DD-MM-YYYY')} -{' '}
+              {moment(profiledata?.birthDate).format('DD-MM-YYYY')}
             </p>
             <p>{profiledata?.city}</p>
           </div>
@@ -551,7 +552,7 @@ export default function Profile() {
               onClick={() => setShow('bio')}
               className={`profile-big-btn ${show === 'bio' && 'active'}`}
             >
-              ביוגרפיה
+              אודות
             </div>
             <div
               onClick={() => setShow('wall')}
@@ -572,8 +573,7 @@ export default function Profile() {
               <h3>
                 <span className="separator">| </span>
                 <span className="dash">- </span>
-                {profiledata?.deathDate &&
-                  moment(profiledata?.deathDate).format('DD-MM-YYYY')}
+                {moment(profiledata?.deathDate).format('DD-MM-YYYY')}
               </h3>
               <h3>
                 <span className="separator">| </span>
@@ -813,7 +813,7 @@ export default function Profile() {
                       <div
                         className="axis-bubble"
                         style={{
-                          backgroundImage: `url('${process.env.REACT_APP_API_URL}/picUploader/${axis?.axisImage}')`,
+                          backgroundImage: `url('${process.env.REACT_APP_API_URL}/picUploader/${axis.axisImage}')`,
                           backgroundSize: 'cover',
                           backgroundPosition: 'center',
                           backgroundRepeat: 'no-repeat',

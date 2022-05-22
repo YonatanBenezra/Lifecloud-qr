@@ -8,6 +8,9 @@ import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
 import './main-profile-create.css';
 export default function MainProfileCreate() {
+  /* Organization Creation fix code*/
+  const [isCreating, setIsCreating] = useState(false);
+
   const { user } = useContext(AuthContext);
   const id = useParams().id;
   const [picture, setPicture] = useState(null);
@@ -17,7 +20,6 @@ export default function MainProfileCreate() {
   const [image, setImage] = useState(null);
   const [coverData, setCoverData] = useState(null);
   const [message, setMessage] = useState('');
-  const [submitted, setSubmitted] = useState(false);
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
       console.log('picture: ', e.target.files);
@@ -71,7 +73,7 @@ export default function MainProfileCreate() {
 
   // console.log(hebBirthDate.current.value)
   const handleClick = async (e) => {
-    console.log(id, 'id');
+    setIsCreating(true);
     e.preventDefault();
     const wallInformation = {
       originalUser: id,
@@ -102,6 +104,7 @@ export default function MainProfileCreate() {
           return res.json();
         })
         .then((res) => {
+          setIsCreating(false);
           console.log(res);
           if (res) {
             history.goBack();
@@ -183,7 +186,7 @@ export default function MainProfileCreate() {
                   className="location-container"
                   style={{ marginTop: '70px', marginBottom: '70px' }}
                 >
-                  <h1>העלאת מדיה</h1>
+                  <h1>העלאת מדיה </h1>
                   <div>
                     <div
                       className="profile-creation-names-container"
@@ -306,8 +309,10 @@ export default function MainProfileCreate() {
                   </div>
                 </div>
 
-                {submitted ? (
-                  <button className="create-btn submitted">נשמר</button>
+                {isCreating ? (
+                  <button className="create-btn" disabled>
+                    Creating
+                  </button>
                 ) : (
                   <button className="create-btn" type="submit">
                     שמור

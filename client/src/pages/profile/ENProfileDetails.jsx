@@ -41,8 +41,8 @@ export default function ENProfile() {
   const [commenting, setCommenting] = useState(false);
   const [comment, setComment] = useState();
   const [DellComment, setDelComment] = useState('');
-  const [friendFlagReq, setrfriendReq] = useState([])
-  const [adminFlagReq, setAdminres] = useState([])
+  const [friendFlagReq, setrfriendReq] = useState([]);
+  const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
   const [next, setnext] = useState(1);
   const handleShowMoreMemories = () => {
@@ -50,27 +50,30 @@ export default function ENProfile() {
   };
   console.log(id);
   useEffect(() => {
-  
     setCommenting('');
     setComment('');
     setLikeMessage('');
   }, [likeMessage, comment, DellComment, friendFlagReq, adminFlagReq]);
-  useEffect(()=>{
+  useEffect(() => {
     fetchuserprofiles();
-  },[])
- useEffect(()=>{
-  // if (Object.keys(profiledata).length > 0) {
+  }, []);
+  useEffect(() => {
+    // if (Object.keys(profiledata).length > 0) {
     fetchmemories();
-  // }
- },[])
+    // }
+  }, []);
   const fetchuserprofiles = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`);
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
+    );
     setProfileData(res.data);
-    console.log(res, 'res')
+    console.log(res, 'res');
   };
 
   const fetchmemories = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`);
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/memory/getallmemory/${id}`
+    );
     setmemoryData(res.data);
   };
 
@@ -179,9 +182,12 @@ export default function ENProfile() {
   };
   const handleDellMemory = (e) => {
     console.log(e, 'e');
-    fetch(`${process.env.REACT_APP_API_URL}/api/memory/commentdellOBJ/${e._id}`, {
-      method: 'DELETE',
-    })
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/memory/commentdellOBJ/${e._id}`,
+      {
+        method: 'DELETE',
+      }
+    )
       .then((res) => {
         return res.json();
       })
@@ -207,7 +213,7 @@ export default function ENProfile() {
     month: 'long', //to display the full name of the month
     year: 'numeric',
   };
-  console.log(memoryData)
+  console.log(memoryData);
   if (Object.keys(profiledata).length > 0) {
     return (
       <div>
@@ -226,7 +232,8 @@ export default function ENProfile() {
           <div className="deceased-details">
             <h1>{`${profiledata.firstName} ${profiledata.lastName}`}</h1>
             <p>
-              {profiledata.birthDate && profiledata.birthDate.split('T')[0]} - {profiledata.deathDate && profiledata.deathDate.split('T')[0]}
+              {profiledata.birthDate && profiledata.birthDate.split('T')[0]} -{' '}
+              {profiledata.deathDate && profiledata.deathDate.split('T')[0]}
             </p>
             {/* <p>{profile[0].city}</p> */}
           </div>
@@ -256,7 +263,11 @@ export default function ENProfile() {
             </div>
           </div>
         </div>
-        <div className={`${show === 'wall' && 'display'} d-none wall-main-container`}>
+        <div
+          className={`${
+            show === 'wall' && 'display'
+          } d-none wall-main-container`}
+        >
           <div className="memorial-container">
             <h1 className="memorial-title">Memorial date</h1>
             <div className="details-and-icons">
@@ -290,10 +301,17 @@ export default function ENProfile() {
           <div className="grave-location-container">
             <h1 className="grave-location-title">Graves location</h1>
             <div className="grave-imgs-container">
-              <img src={profiledata.graveImage} alt="" className="grave-img"></img>
+              <img
+                src={profiledata.graveImage}
+                alt=""
+                className="grave-img"
+              ></img>
             </div>
             <div className="navigation-btn">
-              <a href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation}`}></a>לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation}`}
+              ></a>
+              לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
             </div>
           </div>
           <div className="memories-div">
@@ -375,7 +393,9 @@ export default function ENProfile() {
                   )
                 )
               ) : (
-                <p style={{ marginBottom: '40px' }}>Here will be the memories of {profiledata.firstName}</p>
+                <p style={{ marginBottom: '40px' }}>
+                  Here will be the memories of {profiledata.firstName}
+                </p>
               )}
 
               {/* })} */}
@@ -443,7 +463,12 @@ export default function ENProfile() {
         <div
           className={`${show === 'friends' && 'display'} friends-list d-none`}
         >
-          <ENFriendsList proid={id} profiledata={profiledata} setAdminres={setAdminres} setrfriendReq={setrfriendReq} />
+          <ENFriendsList
+            proid={id}
+            profiledata={profiledata}
+            setAdminres={setAdminres}
+            setrfriendReq={setrfriendReq}
+          />
         </div>
         <SnackBar open={open} handleClose={handleClose} message={message} />
         <ENSocialFooter />
