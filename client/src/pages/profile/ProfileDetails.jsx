@@ -185,16 +185,13 @@ export default function Profile() {
     ? profiledata.lifeAxis && JSON.parse(profiledata.lifeAxis)
     : '';
   profiledata?.axisImages?.forEach((element, i) => {
-    if(parseAxios[i]){
-    parseAxios[i].axisImage = element;
-}});
+    if (parseAxios[i]) {
+      parseAxios[i].axisImage = element;
+    }
+  });
   const handleLike = (e) => {
     console.log(e, 'MEMORY');
     try {
-      const formdata = new FormData();
-      let data = {
-        userId: profiledata.originaluser[0]?._id,
-      };
       fetch(`${process.env.REACT_APP_API_URL}/api/memory/like/${e._id}`, {
         method: 'PUT',
         headers: {

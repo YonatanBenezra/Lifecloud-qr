@@ -1,4 +1,5 @@
 import React from 'react';
+import { FacebookShareButton, FacebookIcon } from 'react-share';
 import './memory-page.css';
 import BottomLeftCloud from '../../assets/bottom-left-cloud.png';
 import TopRightCloud from '../../assets/top-right-cloud.png';
@@ -22,6 +23,7 @@ const Memory = ({
   handleDelete,
   handleDellMemory,
   profile,
+  user,
 }) => {
   const isUserAdmin = true;
   console.log(data)
@@ -50,15 +52,17 @@ const Memory = ({
                   {data.likes.length}
                 </div>
               </div>
-              <div className="facebook-container">
+            </div>
+            <div className="facebook-container icon">
+              <FacebookShareButton url="https://lifecloud-qr.com/" quote="">
                 <div className="heart-div">
                   <img className="heart-icon" src={facebook} alt=""></img>
                 </div>
-              </div>
-              <div className="instagram-container">
-                <div className="heart-div">
-                  <img className="heart-icon" src={instagram} alt="" />
-                </div>
+              </FacebookShareButton>
+            </div>
+            <div className="instagram-container icon">
+              <div className="heart-div">
+                <img className="heart-icon" src={instagram} alt="" />
               </div>
             </div>
           </div>
@@ -84,8 +88,8 @@ const Memory = ({
                   <span
                     className={`${
                       profiledata.originalUser[0]._id === user._id
-                      ? ''
-                      : 'hidden'
+                        ? ''
+                        : 'hidden'
                     }`}
                     style={{ cursor: 'pointer' }}
                     onClick={() => handleDelete(comment, data._id)}
@@ -135,9 +139,9 @@ const Memory = ({
               </div>
               <div
                 className={`${
-                  profiledata.originalUser[0]._id === user._id 
-                  ? 'dlt-comment-btn memory-btn-hover'
-                  : 'hidden'
+                  profiledata.originalUser[0]._id === user._id
+                    ? 'dlt-comment-btn memory-btn-hover'
+                    : 'hidden'
                 }`}
                 onClick={() => handleDellMemory(data)}
                 style={{ cursor: 'pointer' }}
