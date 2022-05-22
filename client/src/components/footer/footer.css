@@ -6,7 +6,7 @@
   align-items: center;
   font-size: 16px;
   font-weight: 600;
-  padding: 0 25px;
+  padding: 0 40px;
 }
 .footer img {
   cursor: pointer;
@@ -36,3 +36,12 @@ a {
 .footerBottomImg{width: 140px;}
 .txtColor{color: #6097bf;font-size: 14px;}
 .linePadding{padding: 5px;font-family: arial,sans-serif;}
+.footer-links {
+  font-size: 18px;
+}
+.c-rights-reserved {
+  font-size: 18px;
+}
+.footer-logo-container {
+  width: 315px;
+}

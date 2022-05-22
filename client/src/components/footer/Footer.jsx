@@ -5,9 +5,11 @@ import './footer.css';
 const Footer = () => {
   return (
     <div className="footer">
+      <div className='footer-logo-container'>
       <Link to="/">
         <img className="life-cloud-logo-img-home" src={Logo} alt=""></img>
       </Link>
+      </div>
       <div className="footer-links">
         <Link to="/qa">
           <span>Q&A</span>

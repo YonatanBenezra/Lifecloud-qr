@@ -58,14 +58,7 @@
   .register-plan-type{
     color: #6097BF
   }
-  h3 {
-    color: #ABC9DB;
-    font-size: 25px;
-    margin-left: 15px;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    direction: rtl;
-  }
+
   .plans-logo {
       padding-bottom: 30px;
       font-size: 70px !important;
@@ -115,16 +108,19 @@
     padding-bottom: 75px;
   }
   .plan-container {
-    width: 376px;
-    height: 500px;
-    border: 2px solid #dcecf4;
+    border: 2px solid #FFFFFF;
     box-sizing: border-box;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    margin: 1rem;
+    border-radius: 30px;
     text-align: center;
     padding-top: 3rem;
     padding-bottom: 1rem;
     background-color: #fff;
+    padding: 5rem;
+    margin: 3rem;
+  }
+  .plans-details {
+    color: #6097BF;
+    font-size: 20px;
   }
   .plans-title {
     color: #6097bf;
@@ -144,10 +140,34 @@
     color: #6097bf;
     text-align: center;
   }
+  .plan-subtitle {
+    color: #6097bf;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
   .plan-description {
     margin-top: 30%;
     font-size: 20px;
-    color: #6097bf;
+    color: #fff;
+    background: #6097BF;
+    border-radius: 10px;
+    padding: 2rem;
+    margin: auto;
+    margin-top: 10%;
+    width: 250px;
+  }
+  .important-details {
+    font-size: 25px;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+  .plan-subdescription {
+    color: #6097BF;
+    margin-top: 2.4rem;
+  }
+  .plan-contact-container {
+    margin-top: 42%;
   }
   .link-plans {
     margin-top: 3rem !important;
@@ -166,6 +186,7 @@
   }
   .plans-section a {
     cursor: pointer;
+    color: #fff;
   }
   .plan-link:hover {
     color: #fff;
@@ -193,3 +214,14 @@
   } 
  
 }
+  .plan-contact {
+    font-size: 21px;
+    color: #fff;
+    background: #6097BF;
+    border-radius: 10px;
+    width: 250px;
+    padding-right: 92px;
+    padding-left: 92px;
+    padding-top: 2.5rem;
+    padding-bottom: 2.3rem;
+  }

@@ -1,6 +1,12 @@
-@import '../../../node_modules/video-react/dist/video-react.css';
+/* @import '../../../node_modules/video-react/dist/video-react.css'; */
 .homeContainer {
   display: flex;
+  width: 100%;
+  height: 75vh;
+  overflow: hidden;
+  background-position: bottom;
+  background-repeat: noRepeat;
+  background-size: cover;
 }
 @media only screen and (max-width: 600px) {
   .homeContainer-mobile {
@@ -75,7 +81,7 @@
   margin-top: 50px;
 }
 .top-image {
-  padding: 0 4rem;
+  padding: 0 40px;
 }
 .top-image-container {
   color: #6097bf;
@@ -210,7 +216,18 @@
 }
 .video-react .video-react-video {
   border-radius: 15px;
+  position: absolute;
+  left: 40px;
+  top: 113%;
+  /* padding-top: 319px; */
+  /* height: 450px; */
+  width: 45vw;
+  max-height: 400px;
 }
+.video-react-control-bar {
+  display: none;
+}
+
 .player-wrapper {
   position: relative;
 }
@@ -395,7 +412,7 @@
   bottom: 33%;
   font-size: 0.8rem;
   color: #6097bf;
-  letter-spacing: 1.3px;
+  letter-spacing: 1px;
 }
 @media screen and (max-width: 768px) {
   .desktop {
@@ -608,13 +625,13 @@
     height: 50px;
     border-radius: 15px;
     display: flex;
+    justify-content: center;
     align-items: center;
     margin: 20px 0;
     background-color: #fff;
     border: 0;
   }
   .searchInput-home-desktop {
-    margin-left: 20%;
     direction: rtl;
     color: #6097bf;
     font-size: 25px;
@@ -655,17 +672,10 @@
     margin-top: 20px;
   }
   .react-player-home-desktop {
-    border-radius: 20px;
-    padding-top: 22.5% !important;
-    width: 44% !important;
-    max-width: 580px !important;
-    /* margin-right: 10%;
-    margin-top: -11%; */
-    margin: -11% auto 0;
+    padding-top: 0 !important;
   }
   .bottom-image-container-home-desktop {
-    padding: 0 4rem;
-    height: 200px;
+    padding: 0 40px;
     background-position: center;
     direction: rtl;
     padding-bottom: 2rem;

@@ -41,12 +41,6 @@ const HomeDesktop = (props) => {
         className="homeContainer"
         style={{
           backgroundImage: `url(${mainImage})`,
-          width: '100%',
-          height: '65vh',
-          overflow: 'hidden',
-          backgroundPosition: 'bottom',
-          backgroundRepeat: 'noRepeat',
-          backgroundSize: 'cover',
         }}
       ></div>
       <div className="home-floating-text">
@@ -131,15 +125,14 @@ const HomeDesktop = (props) => {
               <br /> ולשמר לעד
               <br /> מי שהם היו?
             </p>
+            <img alt="" src={rightCloud} className="right-cloud" />
+          </div>
             <Player
               src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
               width="60%"
-              height="60%"
               className="react-player-home-desktop"
               controls={true}
             />
-            <img alt="" src={rightCloud} className="right-cloud" />
-          </div>
         </div>
       </div>
 
