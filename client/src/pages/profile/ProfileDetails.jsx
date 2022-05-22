@@ -48,7 +48,64 @@ export default function Profile() {
   const [friendFlagReq, setrfriendReq] = useState([]);
   const [adminFlagReq, setAdminres] = useState([]);
   const id = useParams().id;
-  const [next, setnext] = useState(4);
+  const [next, setnext] = useState(5);
+  const [users, setUsers] = useState([]);
+  const { user } = useContext(AuthContext);
+  const [hebMemorialDate, setHebMemorialDate] = useState('');
+  const location = useLocation();
+
+  const handleDeathDateBlur = async () => {
+    const death = new Date(profiledata?.deathDate);
+
+    const date = death.getDate();
+    const year = new Date().getFullYear();
+    const month = death.getMonth();
+    try {
+      const response = await fetch(
+        `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${
+          month + 1
+        }&gd=${date}&g2h=1`
+      );
+      const data = await response.json();
+      setHebMemorialDate(data.hebrew);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAddFriendRequest = (e) => {
+    // setuserid(e)
+
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/profile/addFriendRequests/${profiledata._id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({
+          isFriend: false,
+          userId: user._id,
+          // profileImg: user.mainProfilePicture,
+          // firstName: profiledata.firstName,
+          // lastName: profiledata.lastName,
+
+          // userId: e._id,
+          // user: e.user[0]._id,
+          user: user._id,
+        }),
+      }
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setrfriendReq(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleShowMoreMemories = () => {
     setnext(next + 1);
@@ -185,6 +242,9 @@ export default function Profile() {
           // setMessage('like added successfully!')
           // setOpen(true)
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
   const handleDellMemory = (e) => {
@@ -207,6 +267,9 @@ export default function Profile() {
           setMessage('delete successfully!');
           // setOpen(true)
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
   const handleClose = () => {
@@ -310,8 +373,8 @@ export default function Profile() {
               className={`${
                 profiledata.originalUser[0]._id === loggedUser._id ||
                 profiledata.addAdmins.indexOf()
-                  ? 'hidden'
-                  : 'profile-small-btn'
+                  ? 'small-btns-container'
+                  : 'hidden'
               }`}
             >
               הוסף חבר
@@ -321,6 +384,19 @@ export default function Profile() {
               onClick={() => setShow('friends')}
             >
               רשימת חברים
+            </div>
+            <div
+              className="profile-small-btn"
+              // className={`${
+              //   profiledata.originalUser[0]._id === user._id ||
+              //   profiledata.addAdmins.indexOf()
+              //     ? 'hidden'
+              //     : 'profile-small-btn'
+              // }`}
+              onClick={() => handleAddFriendRequest()}
+              style={{ cursor: 'pointer' }}
+            >
+              הוסף פרופיל כחבר{' '}
             </div>
           </div>
           <div className="big-btns-container">
@@ -634,7 +710,19 @@ export default function Profile() {
         <div
           className={`${show === 'friends' && 'display'} friends-list d-none`}
         >
-          <FriendsList />
+          {/* <FriendsList
+            setrfriendReq={setrfriendReq}
+            setAdminres={setAdminres}
+          /> */}
+          <FriendsList
+            proid={id}
+            profiledata={profiledata}
+            setAdminres={setAdminres}
+            setrfriendReq={setrfriendReq}
+            users={users}
+            userId={user._id}
+            fetchuserprofiles={fetchuserprofiles}
+          />
         </div>
         <SnackBar open={open} handleClose={handleClose} message={message} />
         <SocialFooter />
