@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -13,40 +13,176 @@ import facebook from '../../assets/facebook.png';
 import whatsapp from '../../assets/wts.png';
 import Arrow1 from '../../assets/Arrow1.png';
 import moment from 'moment';
+import axios from 'axios';
+import { useHistory } from 'react-router';
 
 import tempMemoryImg from '../../assets/tmpMemoryImg.jpg';
+import { useParams } from 'react-router-dom';
+import { async } from '@firebase/util';
+import { AuthContext } from '../../context/AuthContext';
+// ${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/:id
+// ${process.env.REACT_APP_API_URL}/api/memory/getSingleMemory/:id
+const Memory = () => {
+  const { user } = useContext(AuthContext);
 
-const Memory = ({
-  data,
-  profiledata,
-  close,
-  handleLike,
-  onhandleChangeComment,
-  handleComment,
-  commenting,
-  setCommenting,
-  handleDelete,
-  handleDellMemory,
-  profile,
-  user,
-}) => {
-  const isUserAdmin = true;
-  console.log(data);
+  const [profile, setProfile] = useState({});
+  const [memory, setMemory] = useState({});
+  const [likeMessage, setLikeMessage] = useState('');
+  const [message, setMessage] = useState('');
+  const [open, setOpen] = useState(false);
+  const [DellComment, setDelComment] = useState('');
+  const [commenting, setCommenting] = useState(false);
+  const [comment, setComment] = useState();
+  const [text, setText] = useState({ comments: [{ text: '' }] });
+
+  const { profileId, memoryId } = useParams();
+  const history = useHistory();
+  useEffect(() => {
+    async function getData() {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${profileId}`
+      );
+    }
+
+    getData();
+  }, [profileId]);
+  useEffect(() => {
+    async function getData() {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/memory/getSingleMemory/${memoryId}`
+      );
+    }
+
+    getData();
+  }, [memoryId]);
+  const handleLike = (e) => {
+    console.log(e, 'MEMORY');
+    try {
+      fetch(`${process.env.REACT_APP_API_URL}/api/memory/like/${e._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({
+          userId: JSON.parse(localStorage.getItem('user'))._id,
+        }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          console.log(res);
+
+          if (res) {
+            setLikeMessage(res);
+            // setMessage('like added successfully!')
+            // setOpen(true)
+          }
+        });
+    } catch (err) {
+      console.log(err);
+      setMessage('Something went wrong!');
+      setOpen(true);
+    }
+  };
+  const handleDelete = (e, id) => {
+    fetch(`${process.env.REACT_APP_API_URL}/api/memory/commentdell/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'Application/json',
+      },
+      body: JSON.stringify({ comment: e }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setDelComment(res);
+        if (res) {
+          setCommenting(false);
+          setComment(res);
+          // setMessage('like added successfully!')
+          // setOpen(true)
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const onhandleChangeComment = (e) => {
+    setText({
+      comments: [
+        {
+          text: e.target.value,
+        },
+      ],
+    });
+  };
+  const handleComment = (e) => {
+    try {
+      fetch(`${process.env.REACT_APP_API_URL}/api/memory/comment/${e._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify(text),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          if (res) {
+            setCommenting(false);
+            setComment(res);
+            // setMessage('like added successfully!')
+            // setOpen(true)
+          }
+        });
+    } catch (err) {
+      console.log(err);
+      setMessage('Something went wrong!');
+      setOpen(true);
+    }
+  };
+  const handleDellMemory = (e) => {
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/memory/commentdellOBJ/${e._id}`,
+      {
+        method: 'DELETE',
+      }
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setDelComment(res);
+        if (res) {
+          setCommenting(false);
+          setComment(res);
+          history.push(`/userprofiles/${profile.originaluser[0]?._id}`);
+          setMessage('delete successfully!');
+          // setOpen(true)
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="memory-page">
       <div className="single-memory-content-container">
         <div className="single-memory-subcontainer">
           <h1 className="single-memory-title">
             {profile.firstName} {profile.lastName} |{' '}
-            {moment(data.createdAt).utc().format('DD-MM-YYYY')}
+            {moment(memory.createdAt).utc().format('DD-MM-YYYY')}
           </h1>{' '}
           {/* add the title prome profiledata memory with the memory index */}
           <div className="image-container">
-            {data.file ? (
+            {memory.file ? (
               <img
                 src={
-                  data.file
-                    ? `${process.env.REACT_APP_API_URL}/${data.file}`
+                  memory.file
+                    ? `${process.env.REACT_APP_API_URL}/${memory.file}`
                     : `${tempMemoryImg}`
                 }
                 alt=""
@@ -64,8 +200,8 @@ const Memory = ({
               >
                 <source
                   src={
-                    data?.memoryVideo &&
-                    `${process.env.REACT_APP_API_URL}/${data?.memoryVideo}`
+                    memory?.memoryVideo &&
+                    `${process.env.REACT_APP_API_URL}/${memory?.memoryVideo}`
                   }
                   type="video/mp4"
                 />
@@ -81,9 +217,9 @@ const Memory = ({
                   className="heart-icon"
                   src={heart}
                   alt=""
-                  onClick={() => handleLike(data)}
+                  onClick={() => handleLike(memory)}
                 ></img>
-                {data.likes.length}
+                {memory.likes.length}
               </div>
             </div>
             <div className="facebook-container icon">
@@ -106,35 +242,33 @@ const Memory = ({
               </WhatsappShareButton>
             </div>
           </div>
-          <p className="single-memory-text">{data.description || ''}</p>
+          <p className="single-memory-text">{memory.description || ''}</p>
           <div className="comments-container">
             <div className="subtitle-continer">
               <h2>תגובות</h2>
             </div>
-            {data.comments.map((comment, index) => {
+            {memory.comments.map((comment, index) => {
               return (
                 <div className="comment-container">
                   <span className="comment-subcontainer">
                     <img
-                      src={`${process.env.REACT_APP_API_URL}/${data.file}`}
+                      src={`${process.env.REACT_APP_API_URL}/${memory.file}`}
                       alt=""
                       className="comment-img"
                     />
                     <p>
                       {moment(comment.date).utc().format('DD-MM-YYYY-HHHH')}
                     </p>
-                    |<p>{`${data.firstName} ${data.lastName}`}</p>|
+                    |<p>{`${memory.firstName} ${memory.lastName}`}</p>|
                     {/* <p>{comment.uploaderName}:</p> */}
                     <p className="comment-text">{comment.text}</p>
                   </span>
                   <span
                     className={`${
-                      profiledata.originalUser[0]._id === user._id
-                        ? ''
-                        : 'hidden'
+                      profile.originalUser[0]._id === user._id ? '' : 'hidden'
                     }`}
                     style={{ cursor: 'pointer' }}
-                    onClick={() => handleDelete(comment, data._id)}
+                    onClick={() => handleDelete(comment, memory._id)}
                   >
                     - מחק
                   </span>
@@ -166,7 +300,7 @@ const Memory = ({
               <div className="action-btns">
                 <div
                   className="action-btn memory-btn-hover"
-                  onClick={() => handleComment(data)}
+                  onClick={() => handleComment(memory)}
                   style={{ cursor: 'pointer' }}
                 >
                   פרסם
@@ -181,20 +315,20 @@ const Memory = ({
               </div>
               <div
                 className={`${
-                  profiledata.originalUser[0]._id === user._id
+                  profile.originalUser[0]._id === user._id
                     ? 'dlt-comment-btn memory-btn-hover'
                     : 'hidden'
                 }`}
-                onClick={() => handleDellMemory(data)}
+                onClick={() => handleDellMemory(memory)}
                 style={{ cursor: 'pointer' }}
               >
                 מחק זיכרון
               </div>
             </div>
           </div>
-          <h1 onClick={close} className="close-btn">
+          {/* <h1 onClick={close} className="close-btn">
             <img alt="" className="left-arrow" src={Arrow1} /> חזרה
-          </h1>
+          </h1> */}
         </div>
         <img alt="" src={TopRightCloud} className="top-cloud"></img>
         <img src={BottomLeftCloud} className="bottom-cloud" alt=""></img>

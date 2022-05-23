@@ -407,14 +407,14 @@ const FriendsList = ({
            decline           סרב
                     </span> */}
                     <span
-                      onClick={() => handleAddAdmins(friend.user[0]._id)}
+                      onClick={() => handleAddAdmins(friend.user[0]?._id)}
                       style={{ cursor: 'pointer' }}
                     >
                       הוסף כאדמין
                     </span>
                     <span
                       onClick={() =>
-                        handleRemoveFriendRequest(friend.user[0]._id)
+                        handleRemoveFriendRequest(friend.user[0]?._id)
                       }
                       style={{ cursor: 'pointer' }}
                     >
