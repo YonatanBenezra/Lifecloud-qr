@@ -30,14 +30,13 @@ import ENProfileDetails from './pages/profile/ENProfileDetails';
 import { ENUserAndprofiles } from './pages/userpage/ENUser-and-profile';
 import { AuthContext } from './context/AuthContext';
 import { useContext, useState } from 'react';
+import Memory from './pages/profile/Memory.jsx';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from 'react-router-dom';
-import LanguageContext from './context/LanguageContext';
-import Memory from './components/memory/Memory';
 function App() {
   const { user } = useContext(AuthContext);
   const [language, setLanguage] = useState(

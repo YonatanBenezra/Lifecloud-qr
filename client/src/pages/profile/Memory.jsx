@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -17,7 +17,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router';
 
 import tempMemoryImg from '../../assets/tmpMemoryImg.jpg';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { async } from '@firebase/util';
 import { AuthContext } from '../../context/AuthContext';
 // ${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/:id
@@ -38,25 +38,25 @@ const Memory = () => {
   const { profileId, memoryId } = useParams();
   const history = useHistory();
   useEffect(() => {
-    async function getData() {
-      const res = await axios.get(
+    async function getProfileData() {
+      const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${profileId}`
       );
+      setProfile(response.data);
     }
 
-    getData();
+    getProfileData();
   }, [profileId]);
-  useEffect(() => {
-    async function getData() {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/memory/getSingleMemory/${memoryId}`
-      );
-    }
-
-    getData();
+  const getMemoryData = useCallback(async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/memory/getSingleMemory/${memoryId}`
+    );
+    setMemory(response.data);
   }, [memoryId]);
+  useEffect(() => {
+    getMemoryData();
+  }, [getMemoryData, memoryId]);
   const handleLike = (e) => {
-    console.log(e, 'MEMORY');
     try {
       fetch(`${process.env.REACT_APP_API_URL}/api/memory/like/${e._id}`, {
         method: 'PUT',
@@ -74,6 +74,7 @@ const Memory = () => {
           console.log(res);
 
           if (res) {
+            getMemoryData();
             setLikeMessage(res);
             // setMessage('like added successfully!')
             // setOpen(true)
@@ -99,6 +100,7 @@ const Memory = () => {
       .then((res) => {
         setDelComment(res);
         if (res) {
+          getMemoryData();
           setCommenting(false);
           setComment(res);
           // setMessage('like added successfully!')
@@ -132,6 +134,7 @@ const Memory = () => {
         })
         .then((res) => {
           if (res) {
+            getMemoryData();
             setCommenting(false);
             setComment(res);
             // setMessage('like added successfully!')
@@ -157,6 +160,7 @@ const Memory = () => {
       .then((res) => {
         setDelComment(res);
         if (res) {
+          getMemoryData();
           setCommenting(false);
           setComment(res);
           history.push(`/userprofiles/${profile.originaluser[0]?._id}`);
@@ -168,6 +172,7 @@ const Memory = () => {
         console.log(err);
       });
   };
+  const location = useLocation();
   return (
     <div className="memory-page">
       <div className="single-memory-content-container">
@@ -219,11 +224,13 @@ const Memory = () => {
                   alt=""
                   onClick={() => handleLike(memory)}
                 ></img>
-                {memory.likes.length}
+                {memory.likes?.length}
               </div>
             </div>
             <div className="facebook-container icon">
-              <FacebookShareButton url="https://lifecloud-qr.com/" quote="">
+              <FacebookShareButton
+                url={`https://lifecloud-qr.com/${location.pathname}`}
+              >
                 <div className="heart-div">
                   <img className="heart-icon" src={facebook} alt=""></img>
                 </div>
@@ -235,7 +242,9 @@ const Memory = () => {
               </div>
             </div> */}
             <div className="facebook-container icon">
-              <WhatsappShareButton url="https://lifecloud-qr.com/" quote="">
+              <WhatsappShareButton
+                url={`https://lifecloud-qr.com/${location.pathname}`}
+              >
                 <div className="heart-div">
                   <img className="heart-icon" src={whatsapp} alt=""></img>
                 </div>
@@ -247,7 +256,7 @@ const Memory = () => {
             <div className="subtitle-continer">
               <h2>תגובות</h2>
             </div>
-            {memory.comments.map((comment, index) => {
+            {memory.comments?.map((comment, index) => {
               return (
                 <div className="comment-container">
                   <span className="comment-subcontainer">
@@ -265,7 +274,9 @@ const Memory = () => {
                   </span>
                   <span
                     className={`${
-                      profile.originalUser[0]._id === user._id ? '' : 'hidden'
+                      profile.originalUser?.[0]?._id === user?._id
+                        ? ''
+                        : 'hidden'
                     }`}
                     style={{ cursor: 'pointer' }}
                     onClick={() => handleDelete(comment, memory._id)}
@@ -315,7 +326,7 @@ const Memory = () => {
               </div>
               <div
                 className={`${
-                  profile.originalUser[0]._id === user._id
+                  profile.originalUser?.[0]?._id === user?._id
                     ? 'dlt-comment-btn memory-btn-hover'
                     : 'hidden'
                 }`}

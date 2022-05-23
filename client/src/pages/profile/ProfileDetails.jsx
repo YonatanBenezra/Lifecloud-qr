@@ -190,7 +190,6 @@ export default function Profile() {
     }
   });
   const handleLike = (e) => {
-    console.log(e, 'MEMORY');
     try {
       fetch(`${process.env.REACT_APP_API_URL}/api/memory/like/${e._id}`, {
         method: 'PUT',
@@ -674,40 +673,41 @@ export default function Profile() {
                 <h1 className="memories-title">זכרונות</h1>
                 <div className="memories-container">
                   {memoryData.length > 0 ? (
-                    memoryData.map(
-                      (
-                        imgData,
-                        index //change to memories
-                      ) => (
-                        console.log(profiledata),
-                        (
-                          <Popup
-                            trigger={
-                              <div className="memory-container" key={index}>
-                                {imgData.file ? (
-                                  <img
-                                    src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
-                                    alt=""
-                                    className="memory-img"
-                                  ></img>
-                                ) : (
-                                  <video
-                                    width="100%"
-                                    height="100%"
-                                    srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                    srl_video_caption="A video with a rabbit"
-                                    srl_video_muted="true"
-                                    controls
-                                    className="memory-img"
-                                  >
-                                    <source
-                                      src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
-                                      type="video/mp4"
-                                    />
-                                    Your browser does not support the video tag.
-                                  </video>
-                                )}
-                                {/* {imgData.file.map(item => {
+                    memoryData.map((imgData, index, _id) => {
+                      return (
+                        <div
+                          className="memory-container"
+                          key={index}
+                          onClick={() =>
+                            history.push(
+                              `/profile/${profiledata._id}/memory/${imgData._id}`
+                            )
+                          }
+                        >
+                          {imgData.file ? (
+                            <img
+                              src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
+                              alt="memory"
+                              className="memory-img"
+                            ></img>
+                          ) : (
+                            <video
+                              width="100%"
+                              height="100%"
+                              srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                              srl_video_caption="A video with a rabbit"
+                              srl_video_muted="true"
+                              controls
+                              className="memory-img"
+                            >
+                              <source
+                                src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
+                                type="video/mp4"
+                              />
+                              Your browser does not support the video tag.
+                            </video>
+                          )}
+                          {/* {imgData.file.map(item => {
                           return <img
                             src={`${process.env.REACT_APP_API_URL}/${item}`}
                             alt=""
@@ -715,63 +715,40 @@ export default function Profile() {
                           ></img>
                         })} */}
 
-                                <div className="icons-container">
-                                  <div className="memory-heart-container">
-                                    <div className="heart-div">
-                                      <img
-                                        style={{ cursor: 'pointer' }}
-                                        className="heart-icon"
-                                        src={heart}
-                                        alt=""
-                                      ></img>
-                                      <span>{imgData.likes.length}</span>
-                                    </div>
-                                  </div>
-                                  <div className="facebook-container">
-                                    <div className="heart-div">
-                                      <img
-                                        className="heart-icon"
-                                        src={facebook}
-                                        alt=""
-                                      ></img>
-                                    </div>
-                                  </div>
-                                  <div className="instagram-container">
-                                    <div className="heart-div">
-                                      <img
-                                        className="heart-icon"
-                                        src={instagram}
-                                        alt=""
-                                      ></img>
-                                    </div>
-                                  </div>
-                                </div>
+                          <div className="icons-container">
+                            <div className="memory-heart-container">
+                              <div className="heart-div">
+                                <img
+                                  style={{ cursor: 'pointer' }}
+                                  className="heart-icon"
+                                  src={heart}
+                                  alt=""
+                                ></img>
+                                <span>{imgData.likes.length}</span>
                               </div>
-                            }
-                            modal
-                            nested
-                          >
-                            {(close, item) => (
-                              <Memory
-                                close={close}
-                                data={imgData}
-                                profiledata={profiledata}
-                                index={index}
-                                handleLike={handleLike}
-                                onhandleChangeComment={onhandleChangeComment}
-                                handleComment={handleComment}
-                                setCommenting={setCommenting}
-                                commenting={commenting}
-                                handleDelete={handleDelete}
-                                handleDellMemory={handleDellMemory}
-                                profile={profiledata}
-                                user={user}
-                              /> //change to memories
-                            )}
-                          </Popup>
-                        )
-                      )
-                    )
+                            </div>
+                            <div className="facebook-container">
+                              <div className="heart-div">
+                                <img
+                                  className="heart-icon"
+                                  src={facebook}
+                                  alt=""
+                                ></img>
+                              </div>
+                            </div>
+                            <div className="instagram-container">
+                              <div className="heart-div">
+                                <img
+                                  className="heart-icon"
+                                  src={instagram}
+                                  alt=""
+                                ></img>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
                   ) : (
                     <p style={{ marginBottom: '40px' }}>
                       {' '}
