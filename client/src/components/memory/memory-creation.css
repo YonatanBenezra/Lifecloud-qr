@@ -26,7 +26,7 @@
   min-height: 120px;
   align-items: center;
   justify-content: center;
-  color: #6097BF;
+  color: #6097bf;
 }
 
 .text-input-container {
@@ -44,29 +44,29 @@
   outline: none;
   font-size: 18px;
   padding: 12px;
-  color: #6097BF;
+  color: #6097bf;
 }
 .memory-creation-input::-webkit-input-placeholder {
-  color: #6097BF;
+  color: #6097bf;
 }
 .memory-creation-input:-moz-placeholder {
-  color: #6097BF;
+  color: #6097bf;
 }
 .memory-creation-input::-moz-placeholder {
-  color: #6097BF;
+  color: #6097bf;
 }
 .memory-creation-input:-ms-input-placeholder {
-  color: #6097BF;
+  color: #6097bf;
 }
 .memory-creation-input::placeholder {
-  color: #6097BF;
+  color: #6097bf;
 }
 
 .memory-creation-content .action-container {
   flex: 1;
   display: flex;
   align-items: center;
-  
+
   justify-content: space-evenly;
   color: #fff;
   font-size: 19px;
@@ -78,12 +78,6 @@
   flex-direction: column;
   margin-top: -40px;
 }
-
-
-
-
-
-
 
 /* input[type="file"] {
   display: none;
@@ -108,38 +102,38 @@ label.white-circle .label-text {
 }
 
 .memory-creation-bottom-actions {
-    height: calc(50vh - 60px);
-    display: flex;
-    /* justify-content: center; */
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    padding-top: 28px;
+  height: calc(50vh - 60px);
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 28px;
 }
 
 .publish-btn {
-    width: 80%;
-    height: 40px;
-    font-size: 15px;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    border-radius: 10px;
-    align-items: center;
-    color: #6097BF;
-    margin-bottom: 1rem;
+  width: 80%;
+  height: 40px;
+  font-size: 15px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  align-items: center;
+  color: #6097bf;
+  margin-bottom: 1rem;
 }
 .dlt-btn {
-    width: 80%;
-    /* text-align: center; */
-    height: 40px;
-    font-size: 15px;
-    background-color: #ABC9DB;
-    display: flex;
-    justify-content: center;
-    border-radius: 10px;
-    align-items: center;
-    color: #fff;
+  width: 80%;
+  /* text-align: center; */
+  height: 40px;
+  font-size: 15px;
+  background-color: #abc9db;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  align-items: center;
+  color: #fff;
 }
 
 @media only screen and (max-width: 767px) {
