@@ -376,7 +376,7 @@ export default function Profile() {
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
-        {/* <TopBar /> */}
+        <TopBar />
         <div
           className="modal fade qr-modal"
           id="exampleModal"

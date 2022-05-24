@@ -1,4 +1,3 @@
-
 .topbarContainer {
   height: 60px;
   width: 100%;
@@ -11,7 +10,7 @@
   box-shadow: rgb(149 157 165 / 10%) 0px 8px 24px;
 }
 .searchIcon-topbar-mobile {
-  display:none !important;
+  display: none !important;
 }
 .menu-icon-topbar-mobile {
   display: none;
@@ -40,7 +39,7 @@
   cursor: pointer;
   transition: ease-in-out 500ms;
 }
-.result-box:hover span{
+.result-box:hover span {
   font-weight: 600;
   font-size: 1.05rem;
   color: #6097bf;
@@ -112,8 +111,8 @@
 }
 .topbarCenter-search {
   position: relative;
-   text-align: end;
-   margin-right: 60px;
+  text-align: end;
+  margin-right: 60px;
 }
 
 .topbarLink {
@@ -175,20 +174,19 @@
     margin-left: 30%;
   }
   .searchIcon-topbar-mobile {
-   display: inline-block !important;
-   color:#6097bf;
-   background-color: #ffffff;
-   margin-top: 10px;
-   margin-bottom: 10px;
-   margin-right: 20px;
-   margin-left: 20px;
+    display: inline-block !important;
+    color: #6097bf;
+    background-color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
   }
   .menu-icon-topbar-mobile {
     display: inline-block;
-    color:#6097bf;
+    color: #6097bf;
     margin-right: 20px;
   }
-  
 }
 @media screen and (max-width: 500px) {
   .searchIcon-topbar-mobile {
@@ -198,7 +196,6 @@
     display: none !important;
   }
 }
-
 
 @media only screen and (max-width: 600px) {
   /* .topbarLinks {
@@ -211,4 +208,48 @@
   .topbarCenter {
     display: none;
   }
+}
+
+.sidebarMenu {
+  height: 100px;
+  width: 120px;
+  padding: 2px 0px;
+  background-color: #6097bf;
+  position: absolute;
+  z-index: 50;
+  top: 0px;
+  right: 0px;
+}
+.blueBg {
+  background-color: #6097bf;
+}
+.closeBtn {
+  position: absolute;
+  right: 0px;
+  padding: 0px 2px;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+}
+.menuList {
+  list-style-type: none;
+  padding: 5px 2px;
+  font-size: 16px;
+}
+.srchBox {
+  desplay: flex;
+  background-color: #dcecf4e6;
+  width: 100%;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.topBarSearchBox {
+  padding: 5px;
+  width: 90%;
+  border-radius: 5px;
+  border: 1px solid #f9f9f9;
+  text-align: center;
+  font-size: 14px;
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import axios from 'axios';
 import { useRef, useState } from 'react';
 import './register.css';
@@ -63,13 +63,16 @@ export default function OrganisationRegister() {
     <>
       <Topbar />
       <div className="register">
-        <div className="loginWrapper">
+        <div className="container">
           <div className="loginLeft">
             <h3 className="register-logo">רישום ארגון</h3>
           </div>
           <div className="loginRight">
-            <div className="RegBox">
-              <form className="loginBox" onSubmit={handleClick}>
+            <div className="RegBox w-100">
+              <form
+                className="loginBox register_container"
+                onSubmit={handleClick}
+              >
                 <input
                   placeholder="שם"
                   required
@@ -145,7 +148,7 @@ export default function OrganisationRegister() {
                   </div>
                   <span>I agree to terms and conditions</span>
                 </div> */}
-                <button className="register-button" type="submit">
+                <button className="register-button mt-5" type="submit">
                   Register
                 </button>
               </form>
