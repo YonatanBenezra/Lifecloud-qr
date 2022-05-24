@@ -31,40 +31,58 @@ const Login = () => {
       <Topbar />
       <ToastContainer />
       <div className="login">
-        <div className="loginWrapper">
+        <div className="container">
           <div className="loginLeft">
             <span className="loginDesc">התחברות</span>
           </div>
-          <div></div>
-          <SocialLogin />
-          <div className="loginRight">
+          <div className="row">
+            <div className="col-12 col-lg-6 col-md-10 mx-auto">
+              <SocialLogin />
+            </div>
+          </div>
+
+          <div className="loginRight d-block">
             <div className="loginBox">
               <form className="loginBox" onSubmit={handleClick}>
-                <input
-                  placeholder="מייל*"
-                  type="email"
-                  value={email}
-                  required
-                  className="login-input"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                  placeholder="סיסמא*"
-                  type="password"
-                  value={password}
-                  required
-                  minLength="6"
-                  className="login-input"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <input
-                  placeholder="טלפון"
-                  type="phone"
-                  value={phone}
-                  minLength="6"
-                  className="login-input"
-                  onChange={(e) => setPhone(e.target.value)}
-                />
+                <div className="row">
+                  <div className="col-12 col-lg-6 col-md-10 mx-auto">
+                    <input
+                      placeholder="מייל*"
+                      type="email"
+                      value={email}
+                      required
+                      className="login-input"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12 col-lg-6 col-md-10 mx-auto">
+                    {' '}
+                    <input
+                      placeholder="סיסמא*"
+                      type="password"
+                      value={password}
+                      required
+                      minLength="6"
+                      className="login-input"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-12 col-lg-6 col-md-10 mx-auto">
+                    <input
+                      placeholder="טלפון"
+                      type="phone"
+                      value={phone}
+                      minLength="6"
+                      className="login-input"
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </div>
+                </div>
 
                 <button
                   className="login-button"
