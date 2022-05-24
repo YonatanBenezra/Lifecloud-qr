@@ -466,14 +466,16 @@ export default function Profile() {
           ></img>
           <div className="deceased-details">
             <h1 className="profile-h1">{`${profiledata?.degree} ${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
-            <p>
-              {profiledata?.deathDate &&
-                moment(profiledata?.deathDate).format('DD-MM-YYYY')}{' '}
-              -{' '}
-              {profiledata?.birthDate &&
-                moment(profiledata?.birthDate).format('DD-MM-YYYY')}
-            </p>
-            <p>{profiledata?.city}</p>
+            <div>
+              <p>
+                {profiledata?.deathDate &&
+                  moment(profiledata?.deathDate).format('DD-MM-YYYY')}{' '}
+                -{' '}
+                {profiledata?.birthDate &&
+                  moment(profiledata?.birthDate).format('DD-MM-YYYY')}
+              </p>
+              <p>{profiledata?.city}</p>
+            </div>
           </div>
           <img src={leftCloud} alt="" className="left-cloud" />
         </div>
@@ -568,8 +570,8 @@ export default function Profile() {
           </div>
         </div>
         <div className="memorial-container">
-          <div className="profile-details-title">
-            <h1>תאריך האזכרה</h1>
+          <div className="profile-details-title ">
+            <h1 className="profile_details_section_title">תאריך האזכרה</h1>
           </div>
 
           <div className="details-and-icons">
@@ -632,7 +634,9 @@ export default function Profile() {
                 </div>
               </div>
               <div className="grave-location-container">
-                <h1 className="grave-location-title">מיקום ותמונת הקבר</h1>
+                <h1 className="grave-location-title profile_details_section_title">
+                  מיקום ותמונת הקבר
+                </h1>
                 <div className="grave-imgs-container">
                   <img
                     src={`${process.env.REACT_APP_API_URL}/${profiledata.graveImg}`}
@@ -670,7 +674,9 @@ export default function Profile() {
                 </button>
               </div>
               <div className="memories-div">
-                <h1 className="memories-title">זכרונות</h1>
+                <h1 className="memories-title profile_details_section_title">
+                  זכרונות
+                </h1>
                 <div className="memories-container">
                   {memoryData.length > 0 ? (
                     memoryData.map((imgData, index, _id) => {
@@ -817,7 +823,7 @@ export default function Profile() {
               } full-gallery d-none`}
             >
               <div className="full-gallery-container">
-                <div className="profile-details-title">
+                <div className="profile-details-title profile_details_section_title">
                   <h1>גלריה</h1>
                 </div>
                 <SRLWrapper>
