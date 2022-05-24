@@ -48,7 +48,7 @@ export default function Register() {
     } else {
       setErro('');
       try {
-        fetch((`${process.env.REACT_APP_API_URL}/api/auth/register`), {
+        fetch(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -68,20 +68,20 @@ export default function Register() {
       }
     }
   };
-  const handleDateFocus=(e)=>{
-    let date_button=e.target;
-    date_button.type='date'
-  }
-  const handleDateBlur=(e)=>{
-    let date_button=e.target;
-    date_button.type='text'
-  }
+  const handleDateFocus = (e) => {
+    let date_button = e.target;
+    date_button.type = 'date';
+  };
+  const handleDateBlur = (e) => {
+    let date_button = e.target;
+    date_button.type = 'text';
+  };
   console.log(user, 'user');
   return (
     <>
       <Topbar />
       <div className="register">
-        <div className="register-wrapper">
+        <div className="container">
           <div className="loginLeft">
             <h3 className="register-logo">הרשמה</h3>
           </div>
@@ -256,7 +256,11 @@ export default function Register() {
                     ></input>
                   </span>
                 </div>
-                <button className="register-button" type="submit" disabled={!checked}>
+                <button
+                  className="register-button"
+                  type="submit"
+                  disabled={!checked}
+                >
                   הרשמה
                 </button>
               </form>

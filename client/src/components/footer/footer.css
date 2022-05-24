@@ -1,25 +1,23 @@
 .footer {
-  height: 100px;
   color: #6097bf;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-size: 16px;
   font-weight: 600;
-  padding: 0 40px;
+  text-align: center;
+  padding: 50px 0;
 }
+
 .footer img {
   cursor: pointer;
-  width: 15rem;
+  /* width: 15rem; */
 }
 .footer-links a {
   transition: ease-in-out 1s;
 }
-.footer-links a:hover{
+.footer-links a:hover {
   color: #dcecf4;
 }
 .line-seperator {
- padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 a {
@@ -31,7 +29,4 @@ a {
 }
 .c-rights-reserved {
   font-size: 18px;
-}
-.footer-logo-container {
-  width: 315px;
 }
