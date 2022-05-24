@@ -7,27 +7,26 @@
   font-weight: 600;
 }
 .about-container p {
-  width: 60%;
   margin: auto;
   font-size: 28px;
   text-align: center;
   margin-bottom: 1px;
 }
 .about-container span {
-    margin: auto;
-    font-size: 18px;
-    text-align: center;
-  }
+  margin: auto;
+  font-size: 18px;
+  text-align: center;
+}
 .bottom-about {
   padding-top: 3rem;
   background-color: #f5fcff;
   color: #6097bf;
-  width:100%;
+  width: 100%;
   direction: rtl;
   font-weight: 600;
 }
 .about-container div {
- padding-top: 2rem;
+  padding: 0.75rem 0rem;
 }
 .gali-simha-img {
   display: flex;
@@ -38,7 +37,7 @@
   width: 100px;
 }
 .gali-simha-text {
-  text-align:center;
+  text-align: center;
   padding-top: 0 !important;
   font-size: 15px;
   padding-right: 65px;
