@@ -1,193 +1,207 @@
 .plans-page-container {
-    display: grid;
-    place-items: center;
-    background-color: #dcecf4;
-    cursor: default;
-  }
-  .plan-button {
-    cursor: pointer;
-    color: #fff;
-    border: 2px solid #ffffff;
-    box-sizing: border-box;
-    border-radius: 10px;
-    background: #6097bf;
-    width: 220px;
-    height: 70px;
-    font-size: 32px;
-    margin: auto;
-    margin-top: 4rem;
-    font-weight: 600;
-    transition-duration: 200ms;
-    border: 2px solid transparent;
-  }
-  .plans-section {
-    cursor: default;
-    background-color: #dcecf4;
-  }
-  .pointer {
-    cursor: pointer;
-  }
-  .plan-button:hover {
-    background-color: #fff;
-    color: #6097bf;
-    border: 2px solid #6097bf;
-  }
-  .plans, .payment-method {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .register-plans {
-    text-align: center;
-    direction: rtl;
-    border-radius: 5px;
-    border: 1px solid #fff;
-    font-size: 25px !important;
-    margin: 2px;
-    margin-top: 1%;
-    min-height: 40px;
-    font-weight: 600;
-    width: 400px;
-    background-color: #fff;
-    color: #ABC9DB;
-    padding: 5px 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .register-plan-type{
-    color: #6097BF
-  }
+  display: grid;
+  place-items: center;
+  background-color: #dcecf4;
+  cursor: default;
+}
+.plan-button {
+  cursor: pointer;
+  color: #fff;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background: #6097bf;
+  width: 220px;
+  height: 70px;
+  font-size: 32px;
+  margin: auto;
+  margin-top: 4rem;
+  font-weight: 600;
+  transition-duration: 200ms;
+  border: 2px solid transparent;
+}
 
-  .plans-logo {
-      padding-bottom: 30px;
-      font-size: 70px !important;
-      margin-top: 75px;
-      display: flex;
-      align-items: center;
-      text-align: center;
-      letter-spacing: 3px;
-      color: #6097bf !important;
-  }
-  .payment-logo {
-    padding-bottom: 30px;
-    font-size: 30px !important;
-    margin-top: 35px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    letter-spacing: 3px;
-    color: #6097bf !important;
-  }
-  .register-plans-payment {
-    text-align: center;
-    direction: rtl;
-    border-radius: 5px;
-    border: 1px solid #fff;
-    font-size: 25px !important;
-    padding-left: 20px;
-    margin: 2px;
-    margin-top: 1%;
-    height: 40px;
-    font-weight: 600;
-    width: 400px;
-    background-color: #6097BF;
-    color: white;
-  }
-  .arrow1-plans-payment {
-    margin-bottom: 30px;
-    direction: rtl;
-  }
-  
+.plans-section {
+  cursor: default;
+  background-color: #dcecf4;
+}
+.pointer {
+  cursor: pointer;
+}
+.plan-button:hover {
+  background-color: #fff;
+  color: #6097bf;
+  border: 2px solid #6097bf;
+}
+.plans,
+.payment-method {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.register-plans {
+  text-align: center;
+  direction: rtl;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  font-size: 25px !important;
+  margin: 2px;
+  margin-top: 1%;
+  min-height: 40px;
+  font-weight: 600;
+  width: 400px;
+  background-color: #fff;
+  color: #abc9db;
+  padding: 5px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.register-plan-type {
+  color: #6097bf;
+}
+
+.plans-logo {
+  padding-bottom: 30px;
+  font-size: 70px !important;
+  margin-top: 75px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 3px;
+  color: #6097bf !important;
+}
+.payment-logo {
+  padding-bottom: 30px;
+  font-size: 30px !important;
+  margin-top: 35px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 3px;
+  color: #6097bf !important;
+}
+.register-plans-payment {
+  text-align: center;
+  direction: rtl;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  font-size: 25px !important;
+  padding-left: 20px;
+  margin: 2px;
+  margin-top: 1%;
+  height: 40px;
+  font-weight: 600;
+  width: 400px;
+  background-color: #6097bf;
+  color: white;
+}
+.arrow1-plans-payment {
+  margin-bottom: 30px;
+  direction: rtl;
+}
+
+.plans-container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 75px;
+}
+@media only screen and (max-width: 840px) {
   .plans-container {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 75px;
+    flex-direction: column;
   }
-  .plan-container {
-    border: 2px solid #FFFFFF;
-    box-sizing: border-box;
-    border-radius: 30px;
-    text-align: center;
-    padding: 5rem;
-    margin: 3rem;
-  }
-  .plans-details {
-    color: #6097BF;
-    font-size: 20px;
-  }
-  .plans-title { 
-    color: #6097bf;
-    text-align: center;
-    padding-top: 4rem;
-    margin-bottom: 75px;
-  }
-  .plan-title {
-    margin-top: 3rem;
-    color: #6097bf;
-    text-align: center;
-  }
-  .plan-subtitle {
-    color: #6097bf;
-    text-align: center;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-  }
-  .plan-description {
-    margin-top: 30%;
-    font-size: 20px;
-    color: #fff;
-    background: #6097BF;
-    border-radius: 10px;
-    padding: 2rem;
-    margin: auto;
-    margin-top: 10%;
-    width: 250px;
-  }
-  .important-details {
-    font-size: 25px;
-    font-weight: 600;
-    margin-top: 1rem;
-  }
-  .plan-subdescription {
-    color: #6097BF;
-    margin-top: 2.4rem;
-  }
-  .plan-contact-container {
-    margin-top: 42%;
-  }
-  .link-plans {
-    margin-top: 3rem !important;
-    margin-bottom: 5rem !important;
-    display: flex;
-    width: 774px;
-    height: 60px;
-    background: #6097bf;
-    border-radius: 30px;
-    font-size: 20px;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    cursor: pointer;
-    color: #fff;
-  }
-  .plans-section a {
-    cursor: pointer;
-    color: #fff;
-  }
-  .plan-link:hover {
-    color: #fff;
-    font-weight: 600;
-    transition: ease-in-out 500ms;
-  }
-  .plan-contact {
-    font-size: 21px;
-    color: #fff;
-    background: #6097BF;
-    border-radius: 10px;
-    width: 250px;
-    padding-right: 92px;
-    padding-left: 92px;
-    padding-top: 2.5rem;
-    padding-bottom: 2.3rem;
-  }
+}
+
+.plan-container {
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 30px;
+  text-align: center;
+  padding: 5rem;
+  margin: 1.5rem;
+}
+.plans-details {
+  color: #6097bf;
+  font-size: 20px;
+}
+.plans-title {
+  color: #6097bf;
+  text-align: center;
+  padding-top: 4rem;
+  margin-bottom: 75px;
+}
+.plan-title {
+  margin-top: 3rem;
+  color: #6097bf;
+  text-align: center;
+}
+.plan-subtitle {
+  color: #6097bf;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.plan-description {
+  margin-top: 30%;
+  font-size: 20px;
+  color: #fff;
+  background: #6097bf;
+  border-radius: 10px;
+  padding: 2rem;
+  margin: auto;
+  margin-top: 10%;
+  width: 250px;
+}
+.important-details {
+  font-size: 25px;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+.plan-subdescription {
+  color: #6097bf;
+  margin-top: 2.4rem;
+}
+.plan-contact-container {
+  margin-top: 22%;
+}
+.link-plans {
+  margin-top: 3rem !important;
+  margin-bottom: 5rem !important;
+  display: flex;
+  width: 774px;
+  height: 60px;
+  background: #6097bf;
+  border-radius: 30px;
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  cursor: pointer;
+  color: #fff;
+}
+.plans-section a {
+  cursor: pointer;
+  color: #fff;
+}
+.plan-link:hover {
+  color: #fff;
+  font-weight: 600;
+  transition: ease-in-out 500ms;
+}
+.plan-contact {
+  font-size: 21px;
+  color: #fff;
+  background: #6097bf;
+  border-radius: 10px;
+  width: 250px;
+  padding-right: 92px;
+  padding-left: 92px;
+  padding-top: 2.5rem;
+  padding-bottom: 2.3rem;
+}
+@media only screen and (max-width: 410px) {
+  /* .plan-contact {
+    width: 220px;
+    font-size: 28px;
+  } */
+}
