@@ -7,7 +7,7 @@ export const Gallery = ({ profiledata, id, userId }) => {
   return (
     <div className="gallery">
       <div className="profile-details-title">
-        <h1>גלריה</h1>
+        <h1 className="profile_details_section_title">גלריה</h1>
       </div>
 
       <div className="imgs-container show-in-flex flex-wrap">
@@ -17,7 +17,8 @@ export const Gallery = ({ profiledata, id, userId }) => {
               // console.log('profiledata.gallery index, img ', index, img)
               return (
                 <div key={index}>
-                  {index === 3 && profiledata?.originalUser[0]?._id === userId ? (
+                  {index === 3 &&
+                  profiledata?.originalUser[0]?._id === userId ? (
                     <Link to={`/editprofiles/${profiledata._id}`}>
                       <div className="gallery-img last-image">+</div>
                     </Link>

@@ -87,7 +87,7 @@ export default function Register() {
           </div>
           <div className="loginRight">
             <div className="RegBox">
-              <form className="loginBox" onSubmit={handleClick}>
+              <form className="loginBox register_container" onSubmit={handleClick}>
                 <div className="names-container rtl">
                   <input
                     placeholder="* שם פרטי"

@@ -146,7 +146,7 @@
   .login {
     flex-direction: row;
   }
- 
+
   .loginLeft,
   .loginRight {
     align-items: center;
@@ -178,7 +178,6 @@
   font-weight: 600;
   height: 40px;
   font-size: 25px;
-
 }
 .register-active {
   background: #6097bf;
@@ -194,4 +193,18 @@
 }
 input::placeholder {
   color: #abc9db;
+}
+.register_container {
+  width: 50%;
+  margin: auto;
+}
+@media only screen and (max-width: 992px) {
+  .register_container {
+    width: 75%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .register_container {
+    width: 100%;
+  }
 }
