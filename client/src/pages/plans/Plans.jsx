@@ -65,99 +65,101 @@ const Plans = () => {
         </div>
       ) : (
         <div className="plans-section">
-          <h1 className="plans-title">תוכניות</h1>
-          <div className="plans-container">
-            <div className="plan-container">
-              <img src={basic1} alt=""></img>
-              <h1 className="plan-title">LifeBook</h1>
-              <h3 className="plan-subtitle">לאירגונים</h3>
-              <span className="plans-details">
-                פרטים אישיים -
-                <br />
-                תמונה -
-                <br />
-                מיקום הקבר -
-                <br />
-                ציטוט על המנוח -
-                <br />
-                עץ המשפחה -
-                <br />
-                גלריית תמונות ווידאו -
-                <br />
-                העלאת זכרונות ותגובות -
-                <br />
-                תזכורות לאזכרה ואירועים מיוחדים -
-                <br />
-                אפשרות לשידור חי ואירועים -
-                <br />
-                הוספת עוקבים -
-                <br />
-                הגדרת פרטיות -
-              </span>
-              <h1 className="plan-subdescription">
-                מותאם LifeBook
-                <br />
-                לכל ארגון לפי
-                <br />
-                צרכיו ומאפייניו
-              </h1>
-              <div className="plan-contact-container">
-                <Link to="/contact" className="plan-link plan-contact">
-                  צור קשר
-                </Link>
+          <div className="container">
+            <h1 className="plans-title">תוכניות</h1>
+            <div className="plans-container">
+              <div className="plan-container">
+                <img src={basic1} alt=""></img>
+                <h1 className="plan-title">LifeBook</h1>
+                <h3 className="plan-subtitle">לאירגונים</h3>
+                <span className="plans-details">
+                  פרטים אישיים -
+                  <br />
+                  תמונה -
+                  <br />
+                  מיקום הקבר -
+                  <br />
+                  ציטוט על המנוח -
+                  <br />
+                  עץ המשפחה -
+                  <br />
+                  גלריית תמונות ווידאו -
+                  <br />
+                  העלאת זכרונות ותגובות -
+                  <br />
+                  תזכורות לאזכרה ואירועים מיוחדים -
+                  <br />
+                  אפשרות לשידור חי ואירועים -
+                  <br />
+                  הוספת עוקבים -
+                  <br />
+                  הגדרת פרטיות -
+                </span>
+                <h1 className="plan-subdescription">
+                  מותאם LifeBook
+                  <br />
+                  לכל ארגון לפי
+                  <br />
+                  צרכיו ומאפייניו
+                </h1>
+                <div className="plan-contact-container">
+                  <Link to="/contact" className="plan-link plan-contact">
+                    צור קשר
+                  </Link>
+                </div>
               </div>
-            </div>
-            <div className="plan-container">
-              <img src={basic1} alt=""></img>
-              <h1 className="plan-title">LifeBook</h1>
-              <h3 className="plan-subtitle">עמוד המנוח</h3>
-              <span className="plans-details">
-                פרטים אישיים -
+              <div className="plan-container">
+                <img src={basic1} alt=""></img>
+                <h1 className="plan-title">LifeBook</h1>
+                <h3 className="plan-subtitle">עמוד המנוח</h3>
+                <span className="plans-details">
+                  פרטים אישיים -
+                  <br />
+                  תמונה -
+                  <br />
+                  מיקום הקבר -
+                  <br />
+                  ציטוט על המנוח -
+                  <br />
+                  עץ המשפחה -
+                  <br />
+                  גלריית תמונות ווידאו -
+                  <br />
+                  העלאת זכרונות ותגובות -
+                  <br />
+                  תזכורות לאזכרה ואירועים מיוחדים -
+                  <br />
+                  אפשרות לשידור חי ואירועים -
+                  <br />
+                  הוספת עוקבים -
+                  <br />
+                  הגדרת פרטיות -
+                </span>
                 <br />
-                תמונה -
-                <br />
-                מיקום הקבר -
-                <br />
-                ציטוט על המנוח -
-                <br />
-                עץ המשפחה -
-                <br />
-                גלריית תמונות ווידאו -
-                <br />
-                העלאת זכרונות ותגובות -
-                <br />
-                תזכורות לאזכרה ואירועים מיוחדים -
-                <br />
-                אפשרות לשידור חי ואירועים -
-                <br />
-                הוספת עוקבים -
-                <br />
-                הגדרת פרטיות -
-              </span>
-              <br />
 
-              <div className="plans-details important-details">
-                GB אחסון 1.5 -
-                <br />
-                ליווי ותמיכה -
-                <br />
-                אישי QR -
-              </div>
-              <div className=''>חנות מתנות מעוצבות לאירועים מיוחדים +</div>
-              <div
-                className="pointer plan-description"
-                onClick={() =>
-                  setPlan({
-                    name: 'חינם',
-                    price: 19,
-                    tax: 0,
-                    totalPrice: 19,
-                    description:
-                      'תוכנית זו היא בחינם לשנה שלמה, לאחר מכן התשלום הוא 19 ש"ח לחודש',
-                  })
-                }
-              >
-                <span className="plan-link">חינם לשנה</span>
+                <div className="plans-details important-details">
+                  GB אחסון 1.5 -
+                  <br />
+                  ליווי ותמיכה -
+                  <br />
+                  אישי QR -
+                </div>
+                <div className="">חנות מתנות מעוצבות לאירועים מיוחדים +</div>
+                <div
+                  className="pointer plan-description"
+                  onClick={() =>
+                    setPlan({
+                      name: 'חינם',
+                      price: 19,
+                      tax: 0,
+                      totalPrice: 19,
+                      description:
+                        'תוכנית זו היא בחינם לשנה שלמה, לאחר מכן התשלום הוא 19 ש"ח לחודש',
+                    })
+                  }
+                >
+                  <span className="plan-link">חינם לשנה</span>
+                </div>
               </div>
             </div>
           </div>
