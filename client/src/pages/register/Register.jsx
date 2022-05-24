@@ -86,9 +86,12 @@ export default function Register() {
             <h3 className="register-logo">הרשמה</h3>
           </div>
           <div className="loginRight">
-            <div className="RegBox">
-              <form className="loginBox register_container" onSubmit={handleClick}>
-                <div className="names-container rtl">
+            <div className="RegBox w-100">
+              <form
+                className="loginBox register_container"
+                onSubmit={handleClick}
+              >
+                <div className="flex-md-row  flex-column names-container rtl ">
                   <input
                     placeholder="* שם פרטי"
                     required
@@ -96,7 +99,7 @@ export default function Register() {
                     ref={firstName}
                     value={user.firstName}
                     name="firstName"
-                    className="name-input"
+                    className="name-input w-100"
                   />
                   <input
                     placeholder="* שם משפחה"
@@ -105,7 +108,7 @@ export default function Register() {
                     ref={lastName}
                     value={user.lastName}
                     name="lastName"
-                    className="name-input"
+                    className="name-input w-100"
                   />
                 </div>
                 <input
