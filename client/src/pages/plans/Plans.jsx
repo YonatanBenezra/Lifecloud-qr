@@ -103,7 +103,7 @@ const Plans = () => {
                   צרכיו ומאפייניו
                 </h1>
                 <div className="plan-contact-container">
-                  <Link to="/contact" className="plan-link plan-contact">
+                  <Link to="/contact" className="plan-link plan-description">
                     צור קשר
                   </Link>
                 </div>
@@ -145,7 +145,7 @@ const Plans = () => {
                   אישי QR -
                 </div>
                 <div className="">חנות מתנות מעוצבות לאירועים מיוחדים +</div>
-                <div
+                <button
                   className="pointer plan-description"
                   onClick={() =>
                     setPlan({
@@ -159,7 +159,7 @@ const Plans = () => {
                   }
                 >
                   <span className="plan-link">חינם לשנה</span>
-                </div>
+                </button>
               </div>
             </div>
           </div>

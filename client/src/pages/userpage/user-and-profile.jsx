@@ -255,15 +255,15 @@ export const UserAndprofiles = () => {
                 <h3 className="settings-subtitle">:סוג התוכנית </h3>
                 <h3 className="settings-subtitle">:סיום התוכנית </h3>
               </div> */}
-              <Link to='/'>
-              <button
-                className="logout-btn"
-                style={{ cursor: 'pointer' }}
-                onClick={LoggedUser.myFirebase.logout}
+              <Link to="/">
+                <button
+                  className="logout-btn"
+                  style={{ cursor: 'pointer' }}
+                  onClick={LoggedUser.myFirebase.logout}
                 >
-                התנתק
-              </button>
-                </Link>
+                  התנתק
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -272,30 +272,36 @@ export const UserAndprofiles = () => {
           <div className="notifications-title">
             <h1
               onClick={() => setShow(false)}
-              style={{ cursor: 'pointer', paddingRight: '115px' }}
+              className="notifications-back"
             >
               חזרה
             </h1>
-            <h1 style={{ fontSize: '60px', paddingRight: '160px' }}>התראות</h1>
+            <h1 className="notifications-title-text">התראות</h1>
           </div>
           <h3 style={{ fontSize: '30px', marginBottom: '20px' }}>
             התראות חדשות
           </h3>
-          {notifications.map((n) => {
-            return (
-              <div className="notification-line">
-                <div className="notification-text">
-                  <span>{n.date}</span> | <span>{n.time}</span>{' '}
-                  <span>{n.action}</span>
+          <div className="container">
+            {notifications.map((n) => {
+              return (
+                <div className="row">
+                  <div className="col-lg-8 col-12 mx-auto">
+                    <div className="notification-line">
+                      <div className="notification-text">
+                        <span>{n.date}</span> | <span>{n.time}</span>{' '}
+                        <span>{n.action}</span>
+                      </div>
+                      <img
+                        alt=""
+                        src={n.profileImg}
+                        className="notification-img"
+                      ></img>
+                    </div>
+                  </div>
                 </div>
-                <img
-                  alt=""
-                  src={n.profileImg}
-                  className="notification-img"
-                ></img>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
           <SocialFooter backgroundColor="#DCECF4;" color="#6097BF" />
         </div>
       )}

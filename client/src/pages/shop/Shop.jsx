@@ -266,7 +266,7 @@ const Shop = () => {
               </div>
             </div> */}
 
-          <div className="products-container">
+          <div className="products-container container">
             {products.map((p, i) => (
               <Product
                 product={p}
