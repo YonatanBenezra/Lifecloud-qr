@@ -1,4 +1,3 @@
-
 .profile {
   display: flex;
 }
@@ -85,11 +84,9 @@
   display: flex;
   justify-content: space-between;
   background: #fff;
-  width: 50%;
   margin: auto;
   align-items: center;
   border-radius: 15px;
-  height: 75px;
   margin-bottom: 2rem;
 }
 .notifications-title {
@@ -442,7 +439,7 @@ input::placeholder {
   padding-left: 20px;
   margin: 2px;
   width: 200px;
-  color: #abc9db; 
+  color: #abc9db;
   border: none;
   overflow: auto;
   outline: none;
@@ -460,7 +457,7 @@ input::placeholder {
   align-items: center;
   margin: auto;
   text-align: center;
-    color: #abc9db;  
+  color: #abc9db;
 }
 
 .custom-file-input::-webkit-file-upload-button {
@@ -594,5 +591,21 @@ a {
   user-select: none;
 }
 .user-img-input::before {
-  content: "";
+  content: '';
+}
+.notifications-back {
+  cursor: pointer;
+  padding-right: 115px;
+}
+.notifications-title-text {
+  font-size: 60px;
+  padding-right: 160px;
+}
+@media screen and (max-width: 576px) {
+  .notifications-back {
+    padding-right: 50px;
+  }
+  .notifications-title-text {
+    padding-right: 95px;
+  }
 }

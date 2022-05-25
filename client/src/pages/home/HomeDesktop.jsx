@@ -41,6 +41,12 @@ const HomeDesktop = (props) => {
         className="homeContainer"
         style={{
           backgroundImage: `url(${mainImage})`,
+          width: '100%',
+          height: '65vh',
+          overflow: 'hidden',
+          backgroundPosition: 'bottom',
+          backgroundRepeat: 'noRepeat',
+          backgroundSize: 'cover',
         }}
       ></div>
       <div className="home-floating-text">
@@ -95,7 +101,7 @@ const HomeDesktop = (props) => {
 
       <div className="vid-text-container">
         <div className="vid-text-title">
-          {/* <h1 className="mb-3"> 
+          {/* <h1 className="mb-3">
             <strong>״החיים אינם הימים שחלפו, אלא אלה שזוכרים״</strong>
             <span style={{ fontSize: '20px', marginTop: '17px', marginRight: '15px' }}>
               {' '}
@@ -125,14 +131,15 @@ const HomeDesktop = (props) => {
               <br /> ולשמר לעד
               <br /> מי שהם היו?
             </p>
-            <img alt="" src={rightCloud} className="right-cloud" />
-          </div>
             <Player
               src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
               width="60%"
+              height="60%"
               className="react-player-home-desktop"
               controls={true}
             />
+            <img alt="" src={rightCloud} className="right-cloud" />
+          </div>
         </div>
       </div>
 
@@ -145,63 +152,9 @@ const HomeDesktop = (props) => {
       <div className="imgs-container">
         <div>
           <div>
-            <div className="img-300 fourteen">
-              <p className="img-300-text">
-                קוד QR החרוט במקום ייחודי ועמיד שתבחרו, יחבר כל סמארטפון ישירות
-                לספר החיים של המנוח{' '}
-              </p>
-              <div className="read-more-home">
-                <span className="read-more-home-desktop">
-                  <p>+</p>
-                  <p>קרא עוד</p>{' '}
-                </span>
-              </div>
-            </div>{' '}
-            <h1 className="h1-home-desktop">ייחודי QR </h1>
-          </div>
-        </div>
-        <div>
-          <div>
-            <div className="img-300 twelve">
-              <p className="img-300-text">
-                קיו אר יחודי ועמיד, הניתן להניח בכל מקום שתבחרו ויחבר כל
-                סמארטפון ישירות לספר החיים.
-              </p>
-              <div className="read-more-home">
-                <span className="read-more-home-desktop">
-                  <p>+</p>
-                  <p>קרא עוד</p>{' '}
-                </span>
-              </div>
-            </div>{' '}
-            <h1 className="h1-home-desktop">העלאת תמונות וסרטונים</h1>
-          </div>
-        </div>
-        <div>
-          <div>
-            <div className="img-300 sixteen">
-              <p className="img-300-text">
-                ניתן להוסיף תגובות, לשתף זיכרונות ותמונות עם משפחה, חברים
-                ומכרים.{' '}
-              </p>
-              <div className="read-more-home">
-                <span className="read-more-home-desktop">
-                  <p>+</p>
-                  <p>קרא עוד</p>{' '}
-                </span>
-              </div>
-            </div>{' '}
-            <h1 className="h1-home-desktop">LifeCloud Wall </h1>
-          </div>
-        </div>
-      </div>
-      <div className="imgs-container">
-        <div>
-          <div>
             <div className="img-300 thirteen">
               <p className="img-300-text">
-                ספר החיים של LifeCloud ניתן לצרף חברים, לשתף זכרונות ותמונות
-                ולהוסיף תגובות.
+                חיבור עמודי המנוח ברשתות החברתיות הקיימות.
               </p>
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
@@ -215,6 +168,62 @@ const HomeDesktop = (props) => {
         </div>
         <div>
           <div>
+            <div className="img-300 fourteen">
+              <p className="img-300-text">
+                קוד QR החרוט במקום ייחודי ועמיד שתבחרו, יחבר כל סמארטפון ישירות
+                לספר החיים של המנוח{' '}
+              </p>
+              <div className="read-more-home">
+                <span className="read-more-home-desktop">
+                  <p>+</p>
+                  <p>קרא עמודי </p>{' '}
+                </span>
+              </div>
+            </div>{' '}
+            <h1 className="h1-home-desktop">ייחודי QR קוד</h1>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div className="img-300 twelve">
+              <p className="img-300-text">
+                בדרך קלה, ידידותית ויעילה, ניתן להעלות סרטונים ותמונות, ליצור
+                אלבומים, ולשתף חברים, משפחה וקהילה
+              </p>
+              <div className="read-more-home">
+                <span className="read-more-home-desktop">
+                  <p>+</p>
+                  <p>קרא עמודי </p>{' '}
+                </span>
+              </div>
+            </div>{' '}
+            <h1 className="h1-home-desktop">העלאת תמונות וסרטונים</h1>
+          </div>
+        </div>
+      </div>
+      <div className="imgs-container">
+        <div>
+          <div>
+            <div className="img-300 sixteen">
+              <p className="img-300-text">
+                ניתן להוסיף תגובות, לשתף זיכרונות ותמונות עם משפחה, חברים
+                ומכרים.{' '}
+              </p>
+              <div className="read-more-home">
+                <span className="read-more-home-desktop">
+                  <p>+</p>
+                  <p>קרא עמודי </p>{' '}
+                </span>
+              </div>
+            </div>{' '}
+            <h1 className="h1-home-desktop">כתיבה </h1>
+            <h1 className="h1-home-desktop" style={{ marginTop: '0' }}>
+              ושיתוף זכרונות
+            </h1>
+          </div>
+        </div>
+        <div>
+          <div>
             <div className="img-300 seventeen">
               <p className="img-300-text">
                 לוח שנה –ציון ימים חשובים, שליחת הזמנות לאירועי אזכרה ומפגשים.{' '}
@@ -222,7 +231,7 @@ const HomeDesktop = (props) => {
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
                   <p>+</p>
-                  <p>קרא עוד</p>{' '}
+                  <p>קרא עמודי </p>{' '}
                 </span>
               </div>
             </div>{' '}
@@ -274,7 +283,7 @@ const HomeDesktop = (props) => {
         </Slider>
       </div>
       <Link
-        to="/profiledetails/626d2e23014f9cacc1158d52"
+        to="/profiledetails/622ccc5b81cdc2a0a86e2827"
         className="creation-btn"
       >
         <div className="profile-div">+ צפייה בעמוד לדוגמה</div>
