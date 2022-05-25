@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import axios from 'axios'
+import React, { useState } from 'react';
+import axios from 'axios';
 import { useSearch } from '../../context/SearchContext';
 import './home.css';
 import { useContext } from 'react';
@@ -103,17 +103,28 @@ const Home = () => {
   };
   return (
     <div>
+      <div style={{ cursor: 'default' }} className="desktop">
+        <HomeDesktop
+          handleSearch={handleSearch}
+          user={user}
+          testimonialSettings={testimonialSettings}
+          settings={settings}
+          searchData={searchData}
+          setSearchData={setSearchData}
+        />
+      </div>
 
-    <div style={{ cursor: 'default' }} className="desktop">
-      <HomeDesktop handleSearch={handleSearch} user={user} testimonialSettings={testimonialSettings} settings={settings} searchData={searchData} setSearchData={setSearchData} />
+      <div style={{ cursor: 'default' }} className="mobile">
+        <HomeMobile
+          handleSearch={handleSearch}
+          user={user}
+          testimonialSettings={testimonialSettings}
+          settings={settings}
+          searchData={searchData}
+          setSearchData={setSearchData}
+        />
+      </div>
     </div>
-
-
-<div style={{ cursor: 'default' }} className="mobile">
-<HomeMobile handleSearch={handleSearch} user={user} testimonialSettings={testimonialSettings} settings={settings} searchData={searchData} setSearchData={setSearchData}/>
-</div>
-</div>
-
   );
 };
 
