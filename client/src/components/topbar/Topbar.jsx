@@ -101,7 +101,7 @@ const Topbar = (props) => {
                 </Link>
 
                 <Link
-                  to={`/createprofile/${LoggedUser.user._id}`}
+                  to={`/createprofile/${LoggedUser.user?._id}`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className={`${
                     clicked === 'createprofile' && 'topbar-active'

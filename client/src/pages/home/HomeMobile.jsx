@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import Topbar from '../../components/topbar/MobileTopbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import mainImage from '../../assets/Rectangle.png';
@@ -10,8 +10,6 @@ import exampleProfileImage from '../../assets/exampleProfileImage.png';
 import { Player } from 'video-react';
 import Slider from 'react-slick';
 
-// import MobileFooter from '../../components/footer/MobileFooter';
-// import SocialFooter from '../../components/socialFooter/MobileSocialFooter';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
@@ -21,12 +19,28 @@ import f14 from '../../assets/Rectangle14.png';
 import f15 from '../../assets/Rectangle15.png';
 import f16 from '../../assets/Rectangle16.png';
 import f17 from '../../assets/Rectangle17.png';
+import Footer from '../../components/footer/Footer';
+import SocialFooter from '../../components/socialFooter/socialFooter';
+import axios from 'axios';
 const HomeMobile = (props) => {
   const user = props.user;
   const testimonialSettings = props.testimonialSettings;
   const settings = props.settings;
-  const searchText = props.searchText;
-  const setSearchText = props.setSearchText;
+  const [searchData, setSearchData] = useState([]);
+  const [value, setValue] = useState('');
+
+  const handleSearch = async (e) => {
+    const { value } = e.target;
+    setValue(value);
+    if (value.length === 0 || value.trim() === '' || value === null) {
+      return false;
+    } else {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/profile/searchProfile/${value}`
+      );
+      setSearchData(res.data);
+    }
+  };
   return (
     <div className="home-mobile-whole-page">
       {/* <Topbar /> */}
@@ -85,12 +99,42 @@ const HomeMobile = (props) => {
             type="text"
             placeholder="חיפוש מנוח / עמותה..."
             className="searchBox searchBoxTxt"
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={handleSearch}
             style={{ fontSize: '16px' }}
           />
           <div className="p-2 bg-white">
             <Search />
           </div>
+          {value && searchData && searchData.length > 0 && (
+            <div className="home-result-box-main">
+              {searchData &&
+                searchData.length > 0 &&
+                searchData.map((item, index) => {
+                  return (
+                    <Link to={`/profiledetails/${item._id}`} key={index}>
+                      <div className="result-box">
+                        <div>
+                          <span>
+                            <img
+                              style={{
+                                width: '30px',
+                                height: '30px',
+                                borderRadius: '30px',
+                              }}
+                              src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                              alt=""
+                            />
+                          </span>
+                        </div>
+                        <span>{`${item?.firstName} ${
+                          item?.lastName === 'placeholder' ? '' : item?.lastName
+                        }`}</span>
+                      </div>
+                    </Link>
+                  );
+                })}
+            </div>
+          )}
         </div>
         {/* </div> */}
         <Sidebar> </Sidebar>
@@ -453,8 +497,8 @@ const HomeMobile = (props) => {
           style={{ height: '100px', top: '-50px', position: 'relative' }}
         ></img>
       </div>
-      {/* <SocialFooter /> */}
-      {/* <MobileFooter /> */}
+      <SocialFooter />
+      <Footer />
     </div>
   );
 };

@@ -82,7 +82,7 @@ export const UserAndprofiles = () => {
     profileImageRef.current.src = src;
     const formData = new FormData();
     formData.append('mainProfilePicture', event.target.files[0]);
-    formData.append('_id', LoggedUser.user._id);
+    formData.append('_id', LoggedUser.user?._id);
     const response = await axios.patch(
       `${process.env.REACT_APP_API_URL}/updateUserProfilePicture`,
       formData,
@@ -94,6 +94,7 @@ export const UserAndprofiles = () => {
     );
     LoggedUser.dispatch({ type: 'FIREBASE_LOGIN', payload: response.data });
   };
+  console.log(user.user_type == 'organisation', '😂');
   return (
     <>
       <Topbar />
@@ -108,9 +109,9 @@ export const UserAndprofiles = () => {
                 <img
                   alt=""
                   src={
-                    LoggedUser.user.mainProfilePicture
-                      ? `${process.env.REACT_APP_API_URL}/picUploader/${LoggedUser.user.mainProfilePicture}`
-                      : LoggedUser.user.profilePicture
+                    LoggedUser.user?.mainProfilePicture
+                      ? `${process.env.REACT_APP_API_URL}/picUploader/${LoggedUser.user?.mainProfilePicture}`
+                      : LoggedUser.user?.profilePicture
                   }
                   className="user-img"
                   ref={profileImageRef}
@@ -121,7 +122,7 @@ export const UserAndprofiles = () => {
                   onChange={onChangePicture}
                   className="user-img-input"
                 />
-                שלום {LoggedUser.user.firstName}
+                שלום {LoggedUser.user?.firstName}
               </h1>
               <div className="notifications-btn" onClick={() => setShow(true)}>
                 התראות
@@ -134,7 +135,7 @@ export const UserAndprofiles = () => {
             </div>
             <div className="profiles-container">
               {user.user_type == 'organisation' &&
-                (data?.length > 0 ? (
+                (data?.find(userProfiles=>userProfiles.isMain) ? (
                   data?.map((userProfiles, i) => {
                     if (userProfiles.isMain) {
                       return (
@@ -172,7 +173,7 @@ export const UserAndprofiles = () => {
                 ) : (
                   <>
                     <h1>פרופיל ראשי</h1>
-                    <Link to={`/createmainprofile/${LoggedUser.user._id}`}>
+                    <Link to={`/createmainprofile/${LoggedUser.user?._id}`}>
                       <div className="profile-container">
                         <div className="profile-image create-profile-container">
                           <div className="inner-btn">
@@ -220,7 +221,7 @@ export const UserAndprofiles = () => {
                       );
                     }
                   })}
-                <Link to={`/createprofile/${LoggedUser.user._id}`}>
+                <Link to={`/createprofile/${LoggedUser.user?._id}`}>
                   <div className="profile-container">
                     <div className="profile-image create-profile-container">
                       <div className="inner-btn">
@@ -270,10 +271,7 @@ export const UserAndprofiles = () => {
       ) : (
         <div className="notifications-container">
           <div className="notifications-title">
-            <h1
-              onClick={() => setShow(false)}
-              className="notifications-back"
-            >
+            <h1 onClick={() => setShow(false)} className="notifications-back">
               חזרה
             </h1>
             <h1 className="notifications-title-text">התראות</h1>
