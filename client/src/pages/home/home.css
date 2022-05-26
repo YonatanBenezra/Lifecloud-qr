@@ -827,6 +827,12 @@
   margin-top: 57px;
 }
 
+@media screen and (max-width: 480px) {
+  .home-result-box-main {
+    width: 238px;
+    margin-left: -6px;
+  }
+}
 .MobileH2 {
   color: #6097bf;
   font-weight: bold;

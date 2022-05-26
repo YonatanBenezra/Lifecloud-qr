@@ -445,13 +445,13 @@ export default function Profile() {
               >
                 <button
                   onClick={() => handleObjectPos('up')}
-                  className="navigation-btn"
+                  className="navigation-btn up_down_btn"
                 >
                   ➕
                 </button>
                 <button
                   onClick={() => handleObjectPos('down')}
-                  className="navigation-btn"
+                  className="navigation-btn up_down_btn"
                 >
                   ➖
                 </button>

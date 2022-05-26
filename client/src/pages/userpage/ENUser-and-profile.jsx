@@ -25,7 +25,9 @@ export const ENUserAndprofiles = () => {
     fetchuserprofiles();
   }, []);
   const fetchuserprofiles = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${id}`);
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${id}`
+    );
     setData(res);
     console.log(res, 'res, user Notification');
   };
@@ -71,7 +73,7 @@ export const ENUserAndprofiles = () => {
             <div className="profileRight">
               <div className="user-main">
                 <h1 className="user-name">
-                  Hello, {LoggedUser.user.firstName}!
+                  Hello, {LoggedUser.user?.firstName}!
                 </h1>
                 <div
                   className="notifications-btn"
@@ -154,7 +156,7 @@ export const ENUserAndprofiles = () => {
                       <ProgressBar />
                     </div>
                   )}
-                  <Link to={`/createprofile/${LoggedUser.user._id}`}>
+                  <Link to={`/createprofile/${LoggedUser.user?._id}`}>
                     <div className="profile-container">
                       <div className="profile-image create-profile-container">
                         +
