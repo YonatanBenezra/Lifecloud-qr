@@ -530,10 +530,14 @@
 }
 @media only screen and (max-width: 520px) {
   .dotted-seperator {
-    margin-left: 50%;
+    margin-left: 49%;
   }
 }
-
+@media only screen and (max-width: 480px) {
+  .dotted-seperator {
+    margin-left: 47%;
+  }
+}
 .axis-sub-container {
   width: 15%;
   display: flex;
@@ -822,5 +826,24 @@ input[type='date']:valid::before {
   .profile-small-btn {
     padding: 0.5rem 1.5rem;
     font-size: 1.4rem;
+  }
+}
+.up_down_btn {
+  margin-top: 0;
+}
+.up_down_btn:first-of-type {
+  margin-bottom: 16px;
+}
+@media only screen and (max-width: 768px) {
+  .up_down_btn {
+    height: 38px;
+    width: 90px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .up_down_btn {
+    height: 32px;
+    width: 60px;
   }
 }

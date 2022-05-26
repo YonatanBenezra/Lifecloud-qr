@@ -13,6 +13,12 @@
   padding-right: 1rem;
   padding-left: 1rem;
 }
+@media screen and (max-width: 768px) {
+  .friend-request {
+    width: 95%;
+  }
+}
+
 .friend-request-details {
   display: flex;
   align-items: center;
