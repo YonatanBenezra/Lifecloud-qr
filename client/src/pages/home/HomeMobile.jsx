@@ -216,19 +216,25 @@ const HomeMobile = (props) => {
         <div className="">
           <div className="gridBar">
             <div className="bx">
-              <img src={f13} width="100%" height="150px" />
+              <div className="life_book">
+                <img src={f13} width="100%" height="150px" alt="profile" />
+                <div className="life_book_overlay">
+                  <p>קיבור עמודי המנוח ברשתות החברתיות הקיימות.</p>
+                </div>
+              </div>
               <div className="gridTxt">
-                <h1 className="gridTxtH">
-                  קיבור עמודי המנוח ברשתות החברתיות הקיימות.{' '}
-                </h1>
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עוד</h1>
               </div>
             </div>
             <div className="bx">
-              <img src={f14} width="100%" height="150px" />
+              <div className="life_book">
+                <img src={f14} width="100%" height="150px" alt="profile" />
+                <div className="life_book_overlay">
+                  <p> קישור לרשתות חברתיות</p>
+                </div>
+              </div>
               <div className="gridTxt">
-                <h1 className="gridTxtH"> קישור לרשתות חברתיות</h1>
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עמודי </h1>
               </div>
@@ -236,17 +242,26 @@ const HomeMobile = (props) => {
           </div>
           <div className="gridBar">
             <div className="bx">
-              <img src={f15} width="100%" height="150px" />
+              <div className="life_book">
+                <img src={f15} width="100%" height="150px" alt="profile" />
+
+                <div className="life_book_overlay">
+                  <p>ייחודי QR קוד</p>
+                </div>
+              </div>
               <div className="gridTxt">
-                <h1 className="gridTxtH">ייחודי QR קוד</h1>
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עמודי </h1>
               </div>
             </div>
             <div className="bx">
-              <img src={f16} width="100%" height="150px" />
+              <div className="life_book">
+                <img src={f16} width="100%" height="150px" alt="profile" />
+                <div className="life_book_overlay">
+                  <p>העלאת תמונות וסרטונים</p>
+                </div>
+              </div>
               <div className="gridTxt">
-                <h1 className="gridTxtH">העלאת תמונות וסרטונים</h1>
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עמודי </h1>
               </div>
@@ -254,17 +269,25 @@ const HomeMobile = (props) => {
           </div>
           <div className="gridBar">
             <div className="bx">
-              <img src={f17} width="100%" height="150px" />
+              <div className="life_book">
+                <img src={f17} width="100%" height="150px" alt="profile" />
+                <div className="life_book_overlay">
+                  <p>ושיתוף זכרונות</p>
+                </div>
+              </div>
               <div className="gridTxt">
-                <h1 className="gridTxtH">ושיתוף זכרונות</h1>
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עמודי </h1>
               </div>
             </div>
             <div className="bx">
-              <img src={f12} width="100%" height="150px" />
+              <div className="life_book">
+                <img src={f12} width="100%" height="150px" alt="profile" />
+                <div className="life_book_overlay">
+                  <p>ניהול מועדים</p>
+                </div>
+              </div>
               <div className="gridTxt">
-                <h1 className="gridTxtH">ניהול מועדים</h1>
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עמודי </h1>
               </div>
@@ -400,7 +423,7 @@ const HomeMobile = (props) => {
       </div>*/}
 
       {/*<div className="mobile-example-profile">*/}
-      <div className="mobile-example-profile">
+      <div className="mobile-example-profile overflow-hidden">
         {/*<div>
         <img src={exampleProfileImage} className="mobileSlide"/>
       </div>*/}

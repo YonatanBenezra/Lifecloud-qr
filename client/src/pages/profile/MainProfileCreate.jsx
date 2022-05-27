@@ -131,7 +131,7 @@ export default function MainProfileCreate() {
   return (
     <div className="profile-creation-container">
       <Topbar />
-      <div className="profile-creation">
+      <div className="profile-creation main_profile_creation">
         <div className="">
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
             <h3 className="profile-creation-title">צור פרופיל ראשי</h3>
@@ -203,9 +203,9 @@ export default function MainProfileCreate() {
                           className="media-upload-button with-text"
                         />
                       </div>
-                      <div>
+                      <div className="d-flex flex-wrap justify-content-center">
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             multiFiles && multiFiles.length > 0
                               ? multiFiles[0].imagePreview
@@ -214,7 +214,7 @@ export default function MainProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             multiFiles && multiFiles.length > 1
                               ? multiFiles[1].imagePreview
@@ -223,7 +223,7 @@ export default function MainProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             multiFiles && multiFiles.length > 2
                               ? multiFiles[2].imagePreview
@@ -232,7 +232,7 @@ export default function MainProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             multiFiles && multiFiles.length > 3
                               ? multiFiles[3].imagePreview
@@ -241,7 +241,7 @@ export default function MainProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             multiFiles && multiFiles.length > 4
                               ? multiFiles[4].imagePreview

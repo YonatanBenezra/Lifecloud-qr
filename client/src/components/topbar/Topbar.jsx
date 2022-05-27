@@ -60,7 +60,11 @@ const Topbar = (props) => {
                 searchData.length > 0 &&
                 searchData.map((item, index) => {
                   return (
-                    <a href={`/profiledetails/${item._id}`} key={index} onClick={() => window.location.reload()}>
+                    <Link
+                      to={`/profiledetails/${item._id}`}
+                      key={index}
+                      // onClick={() => window.location.reload()}
+                    >
                       <div className="result-box">
                         <div>
                           <span>
@@ -79,7 +83,7 @@ const Topbar = (props) => {
                           item?.lastName === 'placeholder' ? '' : item?.lastName
                         }`}</span>
                       </div>
-                    </a>
+                    </Link>
                   );
                 })}
             </div>
@@ -133,7 +137,7 @@ const Topbar = (props) => {
                   צור קשר{' '}
                 </Link>
 
-                <div onClick={() => setClicked('shop')}>
+                {/* <div onClick={() => setClicked('shop')}>
                   <Link
                     to={`/shop`}
                     style={{ textDecoration: 'none', color: '#6097BF' }}
@@ -143,7 +147,7 @@ const Topbar = (props) => {
                   >
                     חנות{' '}
                   </Link>
-                </div>
+                </div> */}
                 <Link
                   to={`/userprofiles/${user._id}`}
                   className={`${
