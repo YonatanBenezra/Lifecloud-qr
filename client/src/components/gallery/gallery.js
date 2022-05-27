@@ -16,7 +16,7 @@ export const Gallery = ({ profiledata, id, userId }) => {
             profiledata.gallery.slice(0, 4).map((img, index) => {
               // console.log('profiledata.gallery index, img ', index, img)
               return (
-                <div key={index}>
+                <div key={index} className="mb-3">
                   {index === 3 &&
                   profiledata?.originalUser[0]?._id === userId ? (
                     <Link to={`/editprofiles/${profiledata._id}`}>

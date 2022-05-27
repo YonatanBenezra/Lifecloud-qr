@@ -722,9 +722,14 @@ input::placeholder {
 }
 .organisation-name {
   margin-top: 45px;
-  width: 90%;
+  width: 100%;
 }
-
+@media screen and (max-width: 1050px) {
+  .organisation-name {
+    margin: auto;
+    width: 90%;
+  }
+}
 .press-change-container {
   display: flex;
   align-items: center;

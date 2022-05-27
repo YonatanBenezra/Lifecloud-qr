@@ -216,7 +216,7 @@ const HomeMobile = (props) => {
         <div className="">
           <div className="gridBar">
             <div className="bx">
-              <img src={f13} width="100%" height="150px" />
+              <img src={f13} width="100%" height="150px" alt="profile" />
               <div className="gridTxt">
                 <h1 className="gridTxtH">
                   קיבור עמודי המנוח ברשתות החברתיות הקיימות.{' '}
@@ -226,7 +226,7 @@ const HomeMobile = (props) => {
               </div>
             </div>
             <div className="bx">
-              <img src={f14} width="100%" height="150px" />
+              <img src={f14} width="100%" height="150px" alt="profile" />
               <div className="gridTxt">
                 <h1 className="gridTxtH"> קישור לרשתות חברתיות</h1>
                 <p className="gridPlus">+</p>
@@ -236,7 +236,7 @@ const HomeMobile = (props) => {
           </div>
           <div className="gridBar">
             <div className="bx">
-              <img src={f15} width="100%" height="150px" />
+              <img src={f15} width="100%" height="150px" alt="profile" />
               <div className="gridTxt">
                 <h1 className="gridTxtH">ייחודי QR קוד</h1>
                 <p className="gridPlus">+</p>
@@ -244,7 +244,7 @@ const HomeMobile = (props) => {
               </div>
             </div>
             <div className="bx">
-              <img src={f16} width="100%" height="150px" />
+              <img src={f16} width="100%" height="150px" alt="profile" />
               <div className="gridTxt">
                 <h1 className="gridTxtH">העלאת תמונות וסרטונים</h1>
                 <p className="gridPlus">+</p>
@@ -254,7 +254,7 @@ const HomeMobile = (props) => {
           </div>
           <div className="gridBar">
             <div className="bx">
-              <img src={f17} width="100%" height="150px" />
+              <img src={f17} width="100%" height="150px" alt="profile" />
               <div className="gridTxt">
                 <h1 className="gridTxtH">ושיתוף זכרונות</h1>
                 <p className="gridPlus">+</p>
@@ -262,7 +262,7 @@ const HomeMobile = (props) => {
               </div>
             </div>
             <div className="bx">
-              <img src={f12} width="100%" height="150px" />
+              <img src={f12} width="100%" height="150px" alt="profile" />
               <div className="gridTxt">
                 <h1 className="gridTxtH">ניהול מועדים</h1>
                 <p className="gridPlus">+</p>

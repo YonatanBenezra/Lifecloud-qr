@@ -14,6 +14,7 @@ initializeAuthentication();
 
 const useFirebase = (dispatch) => {
   //All state
+  const [redirectPath, setRedirectPath] = useState(null);
   const history = useHistory();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -73,6 +74,8 @@ const useFirebase = (dispatch) => {
     signInUsingFacebook,
     logout,
     saveUser,
+    redirectPath,
+    setRedirectPath,
   };
 };
 

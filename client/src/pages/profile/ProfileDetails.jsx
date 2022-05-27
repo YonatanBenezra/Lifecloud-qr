@@ -33,16 +33,18 @@ import Map from './Map';
 import Direction from './Direction';
 
 export default function Profile() {
-  const { user } = useContext(AuthContext);
+  const { user, myFirebase } = useContext(AuthContext);
   const history = useHistory();
   const location = useLocation();
 
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem('user'))) {
-      window.localStorage.setItem('redirectPath', location.pathname);
+      myFirebase.setRedirectPath(location.pathname);
       history.replace('/login');
+    } else {
+      myFirebase.setRedirectPath(null);
     }
-  }, [history, location, user]);
+  }, [history, location.pathname, myFirebase]);
 
   const [profiledata, setProfileData] = useState([]);
   const { dispatch } = useContext(AuthContext);
@@ -329,6 +331,11 @@ export default function Profile() {
   useEffect(() => {
     sendNotification('profileVisit');
   }, [sendNotification]);
+  useEffect(() => {
+    if (localStorage.getItem('redirectPath')) {
+      localStorage.removeItem('redirectPath');
+    }
+  }, []);
 
   const handleObjectPos = (what) => {
     if (yPos <= 90 && what === 'up') {

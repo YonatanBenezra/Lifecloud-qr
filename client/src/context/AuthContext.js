@@ -14,10 +14,11 @@ export const AuthContext = createContext(INITIAL_STATE);
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
-  const userAsArray = []
+  const userAsArray = [];
   useEffect(() => {
     if (state.user) localStorage.setItem('user', JSON.stringify(state.user));
-    if (state.user) localStorage.setItem('userArray', JSON.stringify([state.user]));
+    if (state.user)
+      localStorage.setItem('userArray', JSON.stringify([state.user]));
   }, [state.user]);
   const myFirebase = useFirebase(dispatch);
   return (

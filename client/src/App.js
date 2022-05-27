@@ -38,11 +38,11 @@ import {
   Redirect,
 } from 'react-router-dom';
 function App() {
-  const { user } = useContext(AuthContext);
+  const { user, myFirebase } = useContext(AuthContext);
   const [language, setLanguage] = useState(
     localStorage.getItem('lang') || 'heb'
   );
-  const redirectPath = window.localStorage.getItem('redirectPath') || '/';
+  const redirectPath = myFirebase.redirectPath || '/';
   return (
     <>
       <Router>
@@ -81,9 +81,9 @@ function App() {
             <Route exact path="/memorycreation/:profileid">
               <MemoryCreation />
             </Route>
-            <Route exact path="/shop">
+            {/* <Route exact path="/shop">
               <Shop />
-            </Route>
+            </Route> */}
             <Route exact path="/organisationregister">
               <OrganisationRegister />
             </Route>
@@ -126,9 +126,9 @@ function App() {
             <Route exact path="/plans">
               <ENPlans />
             </Route>
-            <Route exact path="/shop">
+            {/* <Route exact path="/shop">
               <ENShop />
-            </Route>
+            </Route> */}
             <Route exact path="/createprofile/:id">
               <ENProfileCreate />
             </Route>
