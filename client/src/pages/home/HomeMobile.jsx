@@ -244,7 +244,6 @@ const HomeMobile = (props) => {
             <div className="bx">
               <div className="life_book">
                 <img src={f15} width="100%" height="150px" alt="profile" />
-
                 <div className="life_book_overlay">
                   <p>ייחודי QR קוד</p>
                 </div>
