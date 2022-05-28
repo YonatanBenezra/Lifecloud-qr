@@ -335,7 +335,7 @@ export default function ProfileCreate() {
         when={loading}
         message="You have unsaved changes, are you sure you want to leave?"
       />
-      <div className="profile-creation">
+      <div className="profile-creation regular_profile_creation">
         <div className="">
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
             <h3 className="profile-creation-title">צור פרופיל</h3>
@@ -540,9 +540,9 @@ export default function ProfileCreate() {
                           className="media-upload-button with-text"
                         />
                       </div>
-                      <div>
+                      <div className="d-flex flex-wrap justify-content-center">
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             multiFiles && multiFiles.length > 0
                               ? multiFiles[0].imagePreview
@@ -551,7 +551,7 @@ export default function ProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             multiFiles && multiFiles.length > 1
                               ? multiFiles[1].imagePreview
@@ -560,7 +560,7 @@ export default function ProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             multiFiles && multiFiles.length > 2
                               ? multiFiles[2].imagePreview
@@ -569,7 +569,7 @@ export default function ProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             multiFiles && multiFiles.length > 3
                               ? multiFiles[3].imagePreview
@@ -578,7 +578,7 @@ export default function ProfileCreate() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             multiFiles && multiFiles.length > 4
                               ? multiFiles[4].imagePreview

@@ -284,7 +284,7 @@ export default function ProfileEdit() {
   return (
     <div className="profile-creation-container">
       <Topbar />
-      <div className="profile-creation">
+      <div className="profile-creation regular_profile_creation">
         <div className="">
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
             {/* <h3 className="profile-creation-title">ערוך פרופיל</h3> */}
@@ -515,9 +515,9 @@ export default function ProfileEdit() {
                           className="media-upload-button"
                         />
                       </div>
-                      <div>
+                      <div className="d-flex flex-wrap justify-content-center">
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             profiledata.gallery &&
                             profiledata.gallery.length > 0
@@ -529,7 +529,7 @@ export default function ProfileEdit() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             profiledata.gallery &&
                             profiledata.gallery.length > 1
@@ -541,7 +541,7 @@ export default function ProfileEdit() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             profiledata.gallery &&
                             profiledata.gallery.length > 2
@@ -553,7 +553,7 @@ export default function ProfileEdit() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             profiledata.gallery &&
                             profiledata.gallery.length > 3
@@ -565,7 +565,7 @@ export default function ProfileEdit() {
                           alt=""
                         ></img>
                         <img
-                          className="profile-creation-gallery-img"
+                          className="profile-creation-gallery-img mb-3"
                           src={
                             profiledata.gallery &&
                             profiledata.gallery.length > 4
@@ -668,7 +668,7 @@ export default function ProfileEdit() {
                         onChange={handleChangeValue}
                         value={wallInformation.wazeLocation}
                         name="wazeLocation"
-                        className="nameInput"
+                        className="nameInput google_input"
                       />
                       {/* <input
                         placeholder="הוספת מיקום גוגל"

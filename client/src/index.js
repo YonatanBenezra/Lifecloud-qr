@@ -11,9 +11,9 @@ ReactDOM.render(
   <React.StrictMode>
     <SearchProvider>
       <AuthContextProvider>
-      <SimpleReactLightbox>
+        <SimpleReactLightbox>
           <App />
-          </SimpleReactLightbox>
+        </SimpleReactLightbox>
       </AuthContextProvider>
     </SearchProvider>
   </React.StrictMode>,

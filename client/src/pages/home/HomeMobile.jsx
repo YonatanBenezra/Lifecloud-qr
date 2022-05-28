@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import Topbar from '../../components/topbar/MobileTopbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import mainImage from '../../assets/Rectangle.png';
 import { useSearch } from '../../context/SearchContext';
@@ -22,6 +21,7 @@ import f17 from '../../assets/Rectangle17.png';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import axios from 'axios';
+import Topbar from '../../components/topbar/Topbar';
 const HomeMobile = (props) => {
   const user = props.user;
   const testimonialSettings = props.testimonialSettings;
@@ -43,7 +43,7 @@ const HomeMobile = (props) => {
   };
   return (
     <div className="home-mobile-whole-page">
-      {/* <Topbar /> */}
+      <Topbar />
       <div
         className="homeContainer-mobile"
         style={{

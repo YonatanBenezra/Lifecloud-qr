@@ -150,3 +150,8 @@ label.white-circle .label-text {
     justify-content: center;
   }
 }
+@media only screen and (max-width: 576px) {
+  .action-container .btn-container {
+    font-size: 15px;
+  }
+}
