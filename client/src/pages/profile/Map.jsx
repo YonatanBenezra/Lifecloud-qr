@@ -2,11 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import useGeoLocation from '../../hooks/useGeoLocation';
 
-const containerStyle = {
-  width: '800px',
-  height: '600px',
-};
-
 function Map({ position, setPosition }) {
   const { location, getGeoLocation } = useGeoLocation(null);
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -30,7 +25,7 @@ function Map({ position, setPosition }) {
     <React.Fragment>
       <LoadScript googleMapsApiKey="AIzaSyD9pgeqLi_nElWfwzmIOH9g_SNe5vKhhLk">
         <GoogleMap
-          mapContainerStyle={containerStyle}
+          mapContainerClassName="google_map mt-3"
           center={position}
           zoom={currentLocation ? 12 : 8}
           onClick={onLoad}
@@ -39,7 +34,7 @@ function Map({ position, setPosition }) {
         </GoogleMap>
       </LoadScript>
       <button
-        className="nameInput"
+        className="nameInput mt-3"
         onClick={getCurrentGeoLocation}
         type="button"
       >

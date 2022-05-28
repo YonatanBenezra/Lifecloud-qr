@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './topbar.css';
+import './DesktopTopbar.css';
 import blueLogo from '../../assets/logo-blue.png';
 import { Link, useHistory } from 'react-router-dom';
 import { useContext } from 'react';
@@ -12,19 +12,21 @@ import LanguageButton from '../languageButton/LanguageButton';
 const Topbar = (props) => {
   const history = useHistory();
   // const { searchText, setSearchText } = useSearch();
-  const [searchData, setSeachData] = useState([])
+  const [searchData, setSeachData] = useState([]);
   // console.log(searchText)
   const { user } = useContext(AuthContext);
   const handleSearch = async (e) => {
-    const { value } = e.target
-    console.log(value)
+    const { value } = e.target;
+    console.log(value);
     if (value.length === 0 || value.trim() === '' || value === null) {
-      return false
+      return false;
     } else {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/profile/searchProfile/${value}`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/profile/searchProfile/${value}`
+      );
       setSeachData(res.data);
     }
-  }
+  };
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -43,19 +45,38 @@ const Topbar = (props) => {
             className="SearchInput top-search"
             onChange={handleSearch}
           />
-          {searchData && searchData.length > 0 ? <div className='ResultBoxMain'>
-            {searchData && searchData.length > 0 ? searchData.map(item => {
-              return <Link to={`profiledetails/${item._id}`}><div className='ResultBox'>
-                <div>
-                  <span><img style={{ width: '30px', height: '30px', borderRadius: '30px' }} src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`} alt="" /></span>
-                </div>
-                <div>
-                  {`${item.firstName} ${item.lastName}`}
-                </div>
-              </div></Link>
-            }) : <div style={{ textAlign: 'center' }}>No Data</div>}
-          </div> : ''}
-
+          {searchData && searchData.length > 0 ? (
+            <div className="ResultBoxMain">
+              {searchData && searchData.length > 0 ? (
+                searchData.map((item) => {
+                  return (
+                    <Link to={`profiledetails/${item._id}`}>
+                      <div className="ResultBox">
+                        <div>
+                          <span>
+                            <img
+                              style={{
+                                width: '30px',
+                                height: '30px',
+                                borderRadius: '30px',
+                              }}
+                              src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                              alt=""
+                            />
+                          </span>
+                        </div>
+                        <div>{`${item.firstName} ${item.lastName}`}</div>
+                      </div>
+                    </Link>
+                  );
+                })
+              ) : (
+                <div style={{ textAlign: 'center' }}>No Data</div>
+              )}
+            </div>
+          ) : (
+            ''
+          )}
         </div>
         <div className="topbarRight">
           <div className="topbarLinks">
