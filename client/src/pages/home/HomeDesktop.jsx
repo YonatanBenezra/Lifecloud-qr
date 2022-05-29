@@ -207,7 +207,7 @@ const HomeDesktop = (props) => {
                 </span>
               </div>
             </div>{' '}
-            <h1 className="h1-home-desktop">הדלקת נר והנחת זר וירטאלי</h1>
+            <h1 className="h1-home-desktop">הדלקת נר והנחת זר וירטאלי +</h1>
           </div>
         </div>
         <div>
@@ -272,7 +272,7 @@ const HomeDesktop = (props) => {
         </Slider>
       </div>
       <Link
-        to="/profiledetails/622ccc5b81cdc2a0a86e2827"
+        to="/profiledetails/629227f40fc791cf90ac1844"
         className="creation-btn"
       >
         <div className="profile-div">+ צפייה בעמוד לדוגמה</div>
@@ -283,6 +283,14 @@ const HomeDesktop = (props) => {
       >
         <div className="profile-div" style={{ backgroundColor: '#6097BF' }}>
           + יצירת פרופיל חדש - ללא עלות!
+        </div>
+      </Link>
+      <Link
+        to='#'
+        className="creation-btn"
+      >
+        <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
+          להדלקת נר או הנחת זר וירטאלי
         </div>
       </Link>
       {/* <Link to="/shop" className="creation-btn">
