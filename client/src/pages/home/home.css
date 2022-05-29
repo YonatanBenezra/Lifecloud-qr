@@ -660,9 +660,8 @@
     padding-top: 22.5% !important;
     width: 44% !important;
     max-width: 580px !important;
-    /* margin-right: 10%;
-    margin-top: -11%; */
     margin: -16% auto 0 0;
+    margin-left: 7rem;
   }
   .bottom-image-container-home-desktop {
     padding: 0 4rem;
