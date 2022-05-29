@@ -75,7 +75,7 @@
   margin-top: 50px;
 }
 .top-image {
-  padding: 0 4rem;
+  padding: 0 11rem;
 }
 .top-image-container {
   color: #6097bf;
@@ -128,7 +128,7 @@
   background: #6097bf !important;
 }
 .img-300-text {
-  font-size: 2vw;
+  font-size: 1.5rem;
   display: none;
   color: #fff;
   width: 80%;
@@ -298,14 +298,14 @@
   color: #dcecf4;
 }
 .pilKahol {
-  font-family: 'pilkahol' !important;
+  font-family: 'alefalef' !important;
 }
 .MobilePilKahol {
-  font-family: 'pilkahol' !important;
+  font-family: 'alefalef' !important;
   font-size: 16px;
 }
 .testimonials {
-  font-family: 'pilkahol';
+  font-family: 'alefalef';
   text-align: center;
   color: #6097bf;
   display: flex;
@@ -653,6 +653,7 @@
     color: #ffff;
     font-size: 2rem;
     margin-top: 20px;
+    padding-right: 7rem;
   }
   .react-player-home-desktop {
     border-radius: 20px;
@@ -661,16 +662,16 @@
     max-width: 580px !important;
     /* margin-right: 10%;
     margin-top: -11%; */
-    margin: -11% auto 0 0;
+    margin: -16% auto 0 0;
   }
   .bottom-image-container-home-desktop {
     padding: 0 4rem;
     height: 200px;
     background-position: center;
     direction: rtl;
-    padding-bottom: 2rem;
     background-color: #6097bf;
     display: flex;
+    align-items: center;
     position: relative;
   }
   .text-container-home-desktop-emphasis {
@@ -698,7 +699,7 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 20%;
+  width: 15%;
 }
 
 /*############*/
@@ -766,7 +767,7 @@
 }
 
 .MobileTestimonials {
-  font-family: 'pilkahol';
+  font-family: 'alefalef';
   color: #6097bf;
   width: 100%;
   height: 80px;
@@ -837,7 +838,6 @@
   color: #6097bf;
   font-weight: bold;
   font-size: 16px;
-  font-family: arial, sans-serif;
   line-height: 1.5;
 }
 
@@ -852,7 +852,6 @@
   line-height: 1.5;
   display: flex;
   font-weight: bold;
-  font-family: arial, sans-serif;
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -865,12 +864,10 @@
 }
 .searchBoxTxt {
   font-size: 16px;
-  font-family: arial, sans-serif;
 }
 
 .mobile-home-mobile-heading-strong {
   font-weight: bolder;
-  font-family: arial, sans-serif;
   direction: rtl;
   font-size: 32px;
 }
@@ -881,7 +878,6 @@
   font-size: 20px;
   direction: rtl;
   font-weight: semibold;
-  font-family: arial, sans-serif;
 }
 
 .mobile-homeMobile-moments-legacy-community {
@@ -889,13 +885,11 @@
   font-size: 13px;
   margin: 2rem 0;
   font-weight: normal;
-  font-family: arial, sans-serif;
 }
 .mobile-text-container-home {
   direction: rtl;
   width: 95%;
   font-size: 22px;
-  font-family: arial, sans-serif;
   font-weight: 300;
   color: #6097bf;
 }
@@ -905,19 +899,16 @@
   font-weight: 600;
   color: #ffff;
   font-size: 28px;
-  font-family: arial, sans-serif;
 }
 
 .mobile-life-cloud-explaination-container-home {
   font-size: 32px !important;
   color: #6097bf;
-  font-family: arial, sans-serif;
   direction: rtl;
   font-weight: 50;
 }
 .txtBold {
   font-weight: bold;
-  font-family: arial, sans-serif;
 }
 .mobileSlide {
   width: 100%;
@@ -936,16 +927,13 @@
 }
 .gridTxtH {
   font-weight: bold;
-  font-family: arial, sans-serif;
 }
 .gridPlus {
   font-weight: bold;
   font-size: 16px;
-  font-family: arial, sans-serif;
 }
 .grtidTxtP {
   font-weight: normal;
-  font-family: arial, sans-serif;
 }
 .life_book {
   position: relative;
@@ -971,4 +959,7 @@
   font-size: 2rem;
   color: #fff;
   text-align: center;
+}
+.slogan {
+  font-size: 3rem;
 }

@@ -50,7 +50,7 @@ const HomeDesktop = (props) => {
         }}
       ></div>
       <div className="home-floating-text">
-        <h2>יוצרים בית חדש לחיים שאחרי</h2>
+        <h2 className="slogan">בית חדש לחיים שאחרי</h2>
         <Link to={user ? `/createprofile/${user._id}` : '/register'}>
           <div className="home-profile-creation-btn">יצירת פרופיל ללא עלות</div>
         </Link>
@@ -109,7 +109,7 @@ const HomeDesktop = (props) => {
             </span>
           </h1> */}
           <h2 style={{ fontSize: '35px' }}>
-            .כל אדם הוא עולם ומלואו שראוי שסיפור חייו ייזכר ויונצח לעד
+            .אדם הוא עולם ומלואו, סיפור חייו ראוי שיוזכר ויונצח לעד
           </h2>
           <h2 style={{ color: '#ABC9DB', fontSize: '30px', marginTop: '1rem' }}>
             MOMENTS. COMMUNITY. LEGACY
@@ -128,8 +128,7 @@ const HomeDesktop = (props) => {
             <p className="text-container-home-desktop">
               {/* איך נוכל לחבר את <br></br>החלקים ולספר מי הם היו?{' '} */}
               איך נוכל לחבר את החלקים
-              <br /> ולשמר לעד
-              <br /> מי שהם היו?
+              <br /> ולשמר לעד מי שהם היו?
             </p>
             <Player
               src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
@@ -146,19 +145,16 @@ const HomeDesktop = (props) => {
       <div className="popups-container">
         <h1 className="text-container-home-desktop-emphasis">
           מאפשר לנו LifeCloud ספר החיים של
-          <br></br> לחבר ולשתף את הסיפורים, המורשת והחוויות
+          <br></br> להתחבר ולשתף את הרגעים, הסיפורים והמורשת של מי שאינו איתנו
         </h1>
       </div>
       <div className="imgs-container">
         <div>
           <div>
             <div className="img-300 thirteen">
-              <p className="img-300-text">
-                חיבור עמודי המנוח ברשתות החברתיות הקיימות.
-              </p>
+              <p className="img-300-text">חיבור לרשתות החברתיות של המנוח</p>
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
-                  <p>+</p>
                   <p>קרא עוד</p>{' '}
                 </span>
               </div>
@@ -170,68 +166,59 @@ const HomeDesktop = (props) => {
           <div>
             <div className="img-300 fourteen">
               <p className="img-300-text">
-                קוד QR החרוט במקום ייחודי ועמיד שתבחרו, יחבר כל סמארטפון ישירות
-                לספר החיים של המנוח{' '}
+                ייחודי ועמיד הניתן QR להניח בכל מקום שתבחרו ולחבר כל סמארטפון
+                ישירות לספר LifeCloud החיים של{' '}
               </p>
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
-                  <p>+</p>
-                  <p>קרא עמודי </p>{' '}
+                  <p>קרא עוד </p>{' '}
                 </span>
               </div>
             </div>{' '}
-            <h1 className="h1-home-desktop">ייחודי QR קוד</h1>
+            <h1 className="h1-home-desktop">ייחודי QR</h1>
           </div>
         </div>
         <div>
           <div>
-            <div className="img-300 twelve">
+            <div className="img-300 sixteen">
               <p className="img-300-text">
-                בדרך קלה, ידידותית ויעילה, ניתן להעלות סרטונים ותמונות, ליצור
-                אלבומים, ולשתף חברים, משפחה וקהילה
+                ניתן להוסיף תגובות, לשתף זיכרונות ותמונות עם משפחה, חברים ומכרים{' '}
               </p>
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
-                  <p>+</p>
-                  <p>קרא עמודי </p>{' '}
+                  <p>קרא עוד </p>{' '}
                 </span>
               </div>
             </div>{' '}
-            <h1 className="h1-home-desktop">העלאת תמונות וסרטונים</h1>
+            <h1 className="h1-home-desktop">Lifecloud wall </h1>
           </div>
         </div>
       </div>
       <div className="imgs-container">
         <div>
           <div>
-            <div className="img-300 sixteen">
+            <div className="img-300 twelve">
               <p className="img-300-text">
-                ניתן להוסיף תגובות, לשתף זיכרונות ותמונות עם משפחה, חברים
-                ומכרים.{' '}
+                הדלקת נר או הנחת זר וירטאלי בלחיצת כפתור
               </p>
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
-                  <p>+</p>
-                  <p>קרא עמודי </p>{' '}
+                  <p>קרא עוד </p>{' '}
                 </span>
               </div>
             </div>{' '}
-            <h1 className="h1-home-desktop">כתיבה </h1>
-            <h1 className="h1-home-desktop" style={{ marginTop: '0' }}>
-              ושיתוף זכרונות
-            </h1>
+            <h1 className="h1-home-desktop">הדלקת נר והנחת זר וירטאלי</h1>
           </div>
         </div>
         <div>
           <div>
             <div className="img-300 seventeen">
               <p className="img-300-text">
-                לוח שנה –ציון ימים חשובים, שליחת הזמנות לאירועי אזכרה ומפגשים.{' '}
+                לוח שנה – ציון ימים חשובים, שליחת הזמנות לאירועי אזכרה ומפגשים{' '}
               </p>
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
-                  <p>+</p>
-                  <p>קרא עמודי </p>{' '}
+                  <p>קרא עוד </p>{' '}
                 </span>
               </div>
             </div>{' '}
@@ -241,10 +228,12 @@ const HomeDesktop = (props) => {
         <div>
           <div>
             <div className="img-300 fifteen">
-              <p className="img-300-text">מיקום הקבר </p>
+              <p className="img-300-text">
+                {' '}
+                ניתן להגיע למיקום מדויק ולשתף בקלות
+              </p>
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
-                  <p>+</p>
                   <p>קרא עוד</p>{' '}
                 </span>
               </div>
@@ -312,7 +301,7 @@ const HomeDesktop = (props) => {
           </div>
           <div>
             <h3 className="pilKahol">
-              "הבנתי שאם אני לא עושה לייף בוק לאמא שלי, נכדיי לא יכירו אותה"
+              "הבנתי שאם אני לא עושה לאמא שלי, נכדיי לא יכירו אותה Lifebook"
               אידית צעירי
             </h3>
             <h5 style={{ marginBottom: '15px' }}>-עידית צעירי-</h5>
@@ -326,7 +315,7 @@ const HomeDesktop = (props) => {
           </div>
           <div>
             <h3 className="pilKahol">
-              ״הלייף בוק נראה ממש כמו הפרופיל שלעולם לא היה לאמא בפייסבוק.״
+              נראה ממש כמו הפרופיל שלעולם לא היה לאמא בפייסבוק.״ ״ה-Lifebook
             </h3>
             <h5 style={{ marginBottom: '15px' }}>-אריאל-</h5>
           </div>

@@ -12,9 +12,9 @@
 }
 
 @font-face {
-  font-family: 'pilkahol'; /*Can be any text*/
-  src: local('FtPilKahol-1.00-400-Regular'),
-    url('./fonts/FtPilKahol-1.00-400-Regular.otf') format('truetype');
+  font-family: 'alefalef'; /*Can be any text*/
+  src: local('DanaYadAlefAlefAlef-Normal'),
+    url('./fonts/DanaYadAlefAlefAlef-Normal.otf') format('truetype');
 }
 * {
   font-family: 'almoni';
