@@ -331,11 +331,7 @@ export default function Profile() {
   useEffect(() => {
     sendNotification('profileVisit');
   }, [sendNotification]);
-  useEffect(() => {
-    if (localStorage.getItem('redirectPath')) {
-      localStorage.removeItem('redirectPath');
-    }
-  }, []);
+
 
   const handleObjectPos = (what) => {
     if (yPos <= 90 && what === 'up') {

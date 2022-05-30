@@ -173,6 +173,18 @@ const Memory = () => {
       });
   };
   const location = useLocation();
+const deleteButton = (profile?.originalUser?.[0]?._id === user?._id ||
+  profile?.addAdmins?.find(
+    (admins) => admins?.user?.[0]?._id === user?._id
+  )) && (
+    <div
+      className={`${'dlt-comment-btn memory-btn-hover'}`}
+      onClick={() => handleDellMemory(memory)}
+      style={{ cursor: 'pointer' }}
+    >
+      מחק זיכרון
+    </div>
+  );
   return (
     <div className="memory-page">
       <div className="single-memory-content-container">
@@ -229,7 +241,7 @@ const Memory = () => {
             </div>
             <div className="facebook-container icon">
               <FacebookShareButton
-                url={`https://lifecloud-qr.com/${location.pathname}`}
+                url={`https://lifecloud-qr.com${location.pathname}`}
               >
                 <div className="heart-div">
                   <img className="heart-icon" src={facebook} alt=""></img>
@@ -243,7 +255,7 @@ const Memory = () => {
             </div> */}
             <div className="facebook-container icon">
               <WhatsappShareButton
-                url={`https://lifecloud-qr.com/${location.pathname}`}
+                url={`https://lifecloud-qr.com${location.pathname}`}
               >
                 <div className="heart-div">
                   <img className="heart-icon" src={whatsapp} alt=""></img>
@@ -272,17 +284,17 @@ const Memory = () => {
                     {/* <p>{comment.uploaderName}:</p> */}
                     <p className="comment-text">{comment.text}</p>
                   </span>
-                  <span
-                    className={`${
-                      profile.originalUser?.[0]?._id === user?._id
-                        ? ''
-                        : 'hidden'
-                    }`}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => handleDelete(comment, memory._id)}
-                  >
-                    - מחק
-                  </span>
+                  {(profile?.originalUser[0]?._id === user?._id ||
+                    profile?.addAdmins.find(
+                      (admins) => admins?.user?.[0]?._id === user?._id
+                    )) && (
+                    <span
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleDelete(comment, memory._id)}
+                    >
+                      - מחק
+                    </span>
+                  )}
                 </div>
               );
             })}
@@ -324,17 +336,8 @@ const Memory = () => {
                   ביטול
                 </div>
               </div>
-              <div
-                className={`${
-                  profile.originalUser?.[0]?._id === user?._id
-                    ? 'dlt-comment-btn memory-btn-hover'
-                    : 'hidden'
-                }`}
-                onClick={() => handleDellMemory(memory)}
-                style={{ cursor: 'pointer' }}
-              >
-                מחק זיכרון
-              </div>
+
+              {deleteButton}
             </div>
           </div>
           {/* <h1 onClick={close} className="close-btn">
