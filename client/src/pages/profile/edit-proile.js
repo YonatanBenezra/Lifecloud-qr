@@ -298,15 +298,10 @@ export default function ProfileEdit() {
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
             {/* <h3 className="profile-creation-title">ערוך פרופיל</h3> */}
             <div className="notifications-title">
-              <h1
-                onClick={() => history.goBack()}
-                style={{ cursor: 'pointer', paddingRight: '115px' }}
-              >
+              <h1 onClick={() => history.goBack()} className="back_button">
                 חזרה
               </h1>
-              <h1 style={{ fontSize: '60px', paddingRight: '160px' }}>
-                ערוך פרופיל
-              </h1>
+              <h1 className="page_title">ערוך פרופיל</h1>
             </div>
             {/* <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div> */}
           </div>
@@ -691,7 +686,7 @@ export default function ProfileEdit() {
                             : wallInformation.wazeLocation
                         }
                         name="wazeLocation"
-                        className="nameInput google_input"
+                        className="nameInput google_input mx-auto"
                       />
                       {/* <input
                         placeholder="הוספת מיקום גוגל"

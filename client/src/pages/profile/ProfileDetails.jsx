@@ -332,7 +332,6 @@ export default function Profile() {
     sendNotification('profileVisit');
   }, [sendNotification]);
 
-
   const handleObjectPos = (what) => {
     if (yPos <= 90 && what === 'up') {
       setYPos(yPos + 10);
