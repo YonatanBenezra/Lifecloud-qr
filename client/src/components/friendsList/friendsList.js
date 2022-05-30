@@ -304,15 +304,20 @@ const FriendsList = ({
                       הוסף חבר
                     </span>
                     | */}
-                  <span
-                    style={{ cursor: 'pointer' }}
-                    // onClick={() =>
-                    //   handleAddAcceptFrined2(friend)
-                    // }
-                    onClick={() => handleDeleteFriend(friend.user[0]._id)}
-                  >
-                    הסר
-                  </span>
+                  {(profiledata?.originalUser[0]?._id === user?._id ||
+                    profiledata?.addAdmins.find(
+                      (admins) => admins?.user[0]?._id === user?._id
+                    )) && (
+                    <span
+                      style={{ cursor: 'pointer' }}
+                      // onClick={() =>
+                      //   handleAddAcceptFrined2(friend)
+                      // }
+                      onClick={() => handleDeleteFriend(friend.user[0]._id)}
+                    >
+                      הסר
+                    </span>
+                  )}
                 </div>
               </div>
             );

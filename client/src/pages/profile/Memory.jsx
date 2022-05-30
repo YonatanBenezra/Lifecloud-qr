@@ -158,12 +158,13 @@ const Memory = () => {
         return res.json();
       })
       .then((res) => {
+        console.log(res);
         setDelComment(res);
         if (res) {
           getMemoryData();
           setCommenting(false);
           setComment(res);
-          history.push(`/userprofiles/${profile.originaluser[0]?._id}`);
+          history.push(`/userprofiles/${user?._id}`);
           setMessage('delete successfully!');
           // setOpen(true)
         }
@@ -173,26 +174,20 @@ const Memory = () => {
       });
   };
   const location = useLocation();
-const deleteButton = (profile?.originalUser?.[0]?._id === user?._id ||
-  profile?.addAdmins?.find(
-    (admins) => admins?.user?.[0]?._id === user?._id
-  )) && (
-    <div
-      className={`${'dlt-comment-btn memory-btn-hover'}`}
-      onClick={() => handleDellMemory(memory)}
-      style={{ cursor: 'pointer' }}
-    >
-      מחק זיכרון
-    </div>
-  );
+
   return (
     <div className="memory-page">
       <div className="single-memory-content-container">
         <div className="single-memory-subcontainer">
-          <h1 className="single-memory-title">
-            {profile.firstName} {profile.lastName} |{' '}
-            {moment(memory.createdAt).utc().format('DD-MM-YYYY')}
-          </h1>{' '}
+          <div className="d-flex justify-content-center">
+            <h1 onClick={() => history.goBack()} style={{ cursor: 'pointer' }}>
+              חזרה
+            </h1>
+            <h1 className="single-memory-title mx-5">
+              {profile.firstName} {profile.lastName} |{' '}
+              {moment(memory.createdAt).utc().format('DD-MM-YYYY')}
+            </h1>
+          </div>
           {/* add the title prome profiledata memory with the memory index */}
           <div className="image-container">
             {memory.file ? (
@@ -337,7 +332,18 @@ const deleteButton = (profile?.originalUser?.[0]?._id === user?._id ||
                 </div>
               </div>
 
-              {deleteButton}
+              {(profile?.originalUser?.[0]?._id === user?._id ||
+                profile?.addAdmins?.find(
+                  (admins) => admins?.user?.[0]?._id === user?._id
+                )) && (
+                <div
+                  className={`${'dlt-comment-btn memory-btn-hover'}`}
+                  onClick={() => handleDellMemory(memory)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  מחק זיכרון
+                </div>
+              )}
             </div>
           </div>
           {/* <h1 onClick={close} className="close-btn">

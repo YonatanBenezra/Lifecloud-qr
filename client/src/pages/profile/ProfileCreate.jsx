@@ -825,10 +825,61 @@ export default function ProfileCreate() {
                     ></span>
                   </button>
                 ) : (
-                  <button className="create-btn" type="submit">
+                  <button
+                    className="create-btn"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#profileCreateModal"
+                  >
                     שמור
                   </button>
                 )}
+                <div
+                  className="modal fade qr-modal"
+                  id="profileCreateModal"
+                  tabIndex="-1"
+                  aria-labelledby="profileCreateModalLabel"
+                  aria-hidden="true"
+                  style={{ direction: 'initial' }}
+                >
+                  <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5
+                          className="modal-title"
+                          id="profileCreateModalLabel"
+                        >
+                          Create a profile
+                        </h5>
+                        <button
+                          type="button"
+                          className="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+
+                      <div className="modal-footer">
+                        <button
+                          className="logout-btn mt-0"
+                          type="submit"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          לקבלת QR במייל
+                        </button>
+                        <button
+                          className="logout-btn mt-0"
+                          type="button"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          לרכישת QR ייחודי
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
