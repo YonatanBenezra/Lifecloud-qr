@@ -86,7 +86,17 @@ export default function ProfileEdit() {
     description: Object.keys(profiledata).length ? profiledata.description : '',
     // gallery: picture,
   });
-
+  useEffect(() => {
+    if (
+      profiledata?.originalUser &&
+      profiledata?.originalUser?.[0]?._id !== user?._id &&
+      !profiledata?.addAdmins?.find(
+        (admins) => admins?.user?.[0]?._id === user?._id
+      )
+    ) {
+      history.replace('/');
+    }
+  }, [history, profiledata?.addAdmins, profiledata?.originalUser, user?._id]);
   const handleChangeValue = (e) => {
     setWallInformation({
       ...wallInformation,
@@ -118,7 +128,6 @@ export default function ProfileEdit() {
 
   const onChangeCover = (e) => {
     if (e.target.files[0]) {
-      console.log('picture: ', e.target.files);
       setImage(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener('load', () => {
@@ -130,7 +139,6 @@ export default function ProfileEdit() {
 
   const onChangeGrave = (e) => {
     if (e.target.files[0]) {
-      console.log('picture: ', e.target.files);
       setGraveImage(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener('load', () => {
@@ -154,9 +162,10 @@ export default function ProfileEdit() {
     setSelectedGender(e.target.value);
   };
   useEffect(() => {
-    console.log(profiledata);
     if (Object.keys(profiledata).length) {
-      setGooglePosition(JSON.parse(profiledata.googleLocation));
+      if (profiledata.googleLocation) {
+        setGooglePosition(JSON.parse(profiledata.googleLocation));
+      }
       setWallInformation({
         originalUser: profiledata.originalUser[0]._id,
         profileImg: profiledata.profileImg,
@@ -171,12 +180,14 @@ export default function ProfileEdit() {
         wazeLocation: profiledata.wazeLocation,
         googleLocation: profiledata.googleLocation,
         description: profiledata.description,
-        lifeAxis: Object.keys(profiledata).length
-          ? JSON.parse(profiledata.lifeAxis)
-          : inputList,
+        lifeAxis:
+          Object.keys(profiledata)?.length &&
+          profiledata.lifeAxis !== 'undefined'
+            ? JSON.parse(profiledata.lifeAxis)
+            : inputList,
       });
       setInputList(
-        Object.keys(profiledata).length
+        Object.keys(profiledata)?.length && profiledata.lifeAxis !== 'undefined'
           ? JSON.parse(profiledata.lifeAxis)
           : [{ axisTitle: '', axisDate: '', axisDescription: '' }]
       );
@@ -184,7 +195,6 @@ export default function ProfileEdit() {
   }, [profiledata]);
   // handle input change
   const handleInputChange = (e, index) => {
-    console.log(e.target.value, index);
     const { name, value } = e.target;
     const list = [...inputList];
     list[index][name] = value;
@@ -246,7 +256,6 @@ export default function ProfileEdit() {
           return res.json();
         })
         .then((res) => {
-          console.log(res);
           if (res) {
             setMessage('Profile updated successfully!');
             setOpen(true);
@@ -254,7 +263,6 @@ export default function ProfileEdit() {
           }
         });
       // let res = await axios.post('api/profile/createProfile', formdata);
-      // console.log('res', res)
       // history.push('/login');
     } catch (err) {
       console.log(err);
@@ -281,6 +289,7 @@ export default function ProfileEdit() {
     setAxisImagesNames(copyAxisImagesNames);
     setInputList(copyArray);
   };
+
   return (
     <div className="profile-creation-container">
       <Topbar />
@@ -377,7 +386,8 @@ export default function ProfileEdit() {
                   <h1>תאריך פטירה</h1>
                 </div>
                 <div className="profile-creation-names-container">
-                  {wallInformation.birthDate ? (
+                  {wallInformation.birthDate &&
+                  wallInformation.birthDate !== 'undefined' ? (
                     <input
                       placeholder="* לועזי"
                       ref={birthDate}
@@ -400,7 +410,8 @@ export default function ProfileEdit() {
                       name="birthDate"
                     />
                   )}
-                  {wallInformation.deathDate ? (
+                  {wallInformation.deathDate &&
+                  wallInformation.deathDate !== 'undefined' ? (
                     <input
                       placeholder="* לועזי"
                       ref={deathDate}
@@ -431,7 +442,11 @@ export default function ProfileEdit() {
                     placeholder="עיר"
                     ref={city}
                     onChange={handleChangeValue}
-                    value={wallInformation.city}
+                    value={
+                      wallInformation.city === 'undefined'
+                        ? ''
+                        : wallInformation.city
+                    }
                     name="city"
                     className="nameInput"
                     type="text"
@@ -441,7 +456,11 @@ export default function ProfileEdit() {
                     type="text"
                     ref={degree}
                     onChange={handleChangeValue}
-                    value={wallInformation.degree}
+                    value={
+                      wallInformation.degree === 'undefined'
+                        ? ''
+                        : wallInformation.degree
+                    }
                     name="degree"
                     className="nameInput"
                   />
@@ -596,7 +615,7 @@ export default function ProfileEdit() {
                 </div>
                 <div>
                   <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
-                  {inputList.map((x, i) => {
+                  {inputList?.map((x, i) => {
                     return (
                       <div className="box" key={i}>
                         <div className="inner-box">
@@ -666,7 +685,11 @@ export default function ProfileEdit() {
                         placeholder="הוספת מיקום ווייז "
                         ref={wazeLocation}
                         onChange={handleChangeValue}
-                        value={wallInformation.wazeLocation}
+                        value={
+                          wallInformation.wazeLocation === 'undefined'
+                            ? ''
+                            : wallInformation.wazeLocation
+                        }
                         name="wazeLocation"
                         className="nameInput google_input"
                       />
