@@ -598,14 +598,14 @@ export default function ProfileCreate() {
                   </div>{' '}
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <h1>ביוגרפיה</h1>
+                  <h1>סיפור חיים</h1>
                   <textarea
                     ref={description}
                     className="profile-creation-description"
                   />
                 </div>
                 <div>
-                  <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
+                  <h1 style={{ textAlign: 'center' }}>נקודות ציון</h1>
                   <Popup
                     trigger={
                       <div className="press-explain-4 pointer">+ לחץ להסבר</div>
@@ -727,7 +727,8 @@ export default function ProfileCreate() {
                   <div className="location-semicontainer">
                     <div className="profile-creation-names-container">
                       <input
-                        placeholder="הוספת מיקום ווייז "
+                        placeholder="הוספת מיקום בית העלמין
+                        ב-Waze"
                         ref={wazeLocation}
                         className="nameInput"
                       />
@@ -741,7 +742,7 @@ export default function ProfileCreate() {
                         onClick={() => setMap(!map)}
                         type="button"
                       >
-                        הוספת מיקום גוגל
+                        הוספת מיקום מדויק{' '}
                       </button>
                     </div>
                   </div>

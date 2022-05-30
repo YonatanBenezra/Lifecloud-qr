@@ -761,7 +761,11 @@ input::placeholder {
 .press-explain-3 {
   font-size: 18px;
   direction: rtl;
+  width: 100%;
   color: #abc9db;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 46%;
 }
 .press-explain-4 {
   font-size: 18px;

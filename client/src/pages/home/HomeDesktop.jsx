@@ -120,7 +120,7 @@ const HomeDesktop = (props) => {
             <div className="top-image">
               <p className="text-home-desktop">
                 סיפור חייהם של יקירנו מורכבים מחלקים השלובים בחייהם של בני
-                משפחתם, חברים ומכרים. אם לכתם מן העולם, סיפורם נעלם איתם.
+                משפחתם, חברים ומכרים. עם לכתם מן העולם, סיפורם נעלם איתם.
               </p>
             </div>
           </div>
@@ -207,7 +207,7 @@ const HomeDesktop = (props) => {
                 </span>
               </div>
             </div>{' '}
-            <h1 className="h1-home-desktop">הדלקת נר והנחת זר וירטאלי +</h1>
+            <h1 className="h1-home-desktop">הדלקת נר והנחת זר וירטאלי</h1>
           </div>
         </div>
         <div>
@@ -230,7 +230,7 @@ const HomeDesktop = (props) => {
             <div className="img-300 fifteen">
               <p className="img-300-text">
                 {' '}
-                ניתן להגיע למיקום מדויק ולשתף בקלות
+                בדרך קלה ויעילה נקבל מיקום מדויק של בית העלמין והמצבה{' '}
               </p>
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
@@ -285,12 +285,9 @@ const HomeDesktop = (props) => {
           + יצירת פרופיל חדש - ללא עלות!
         </div>
       </Link>
-      <Link
-        to='#'
-        className="creation-btn"
-      >
+      <Link to="#" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
-          להדלקת נר או הנחת זר וירטאלי
+           + להדלקת נר או הנחת זר וירטאלי
         </div>
       </Link>
       {/* <Link to="/shop" className="creation-btn">
@@ -310,20 +307,13 @@ const HomeDesktop = (props) => {
           <div>
             <h3 className="pilKahol">
               "הבנתי שאם אני לא עושה לאמא שלי, נכדיי לא יכירו אותה Lifebook"
-              אידית צעירי
+              עידית צעירי
             </h3>
             <h5 style={{ marginBottom: '15px' }}>-עידית צעירי-</h5>
           </div>
           <div>
             <h3 className="pilKahol">
-              "חיילי גולני הצעירים זכו לראשונה להכיר את בני צחי, בזכות ה-QR שעל
-              המצבה"{' '}
-            </h3>
-            <h5 style={{ marginBottom: '15px' }}>-שולה דאלי-</h5>
-          </div>
-          <div>
-            <h3 className="pilKahol">
-              נראה ממש כמו הפרופיל שלעולם לא היה לאמא בפייסבוק.״ ״ה-Lifebook
+              נראה ממש כמו הפרופיל שלעולם לא היה לאמא בפייסבוק.״-Lifebook"
             </h3>
             <h5 style={{ marginBottom: '15px' }}>-אריאל-</h5>
           </div>

@@ -522,7 +522,7 @@ export default function Profile() {
                   onClick={() => handleRemoveFriendRequest(user?._id)}
                   style={{ cursor: 'pointer' }}
                 >
-                  הסר חבר
+                  הסר חברות
                 </div>
               ) : profiledata?.friendRequests.find(
                   (friendRequest) => friendRequest.user[0]?._id === user?._id
@@ -539,7 +539,7 @@ export default function Profile() {
                   onClick={() => handleAddFriendRequest()}
                   style={{ cursor: 'pointer' }}
                 >
-                  הוסף פרופיל כחבר
+                  בקשת חברות
                 </div>
               ))}
           </div>
@@ -550,19 +550,19 @@ export default function Profile() {
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
-              QR
+              שתף פרופיל
             </div>
             <div
               onClick={() => setShow('bio')}
               className={`profile-big-btn ${show === 'bio' && 'active'}`}
             >
-              ביוגרפיה
+              סיפור חיים
             </div>
             <div
               onClick={() => setShow('wall')}
               className={`${show === 'wall' && 'active'} profile-big-btn`}
             >
-              קיר
+              Wall
               {profiledata.privacy === 'private' &&
                 !(
                   profiledata?.originalUser[0]?._id === user?._id ||
