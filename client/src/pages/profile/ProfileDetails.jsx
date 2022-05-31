@@ -583,7 +583,12 @@ export default function Profile() {
                 <span className="separator">| </span>
                 <span className="dash">- </span>
                 {profiledata?.deathDate &&
-                  moment(profiledata?.deathDate).format('DD-MM-YYYY')}
+                  moment(profiledata?.deathDate)
+                    .format('DD-MM-YYYY')
+                    .replace(
+                      new Date(profiledata?.deathDate).getFullYear(),
+                      new Date().getFullYear()
+                    )}
               </h3>
               <h3>
                 <span className="separator">| </span>
@@ -777,9 +782,17 @@ export default function Profile() {
                   >
                     + עוד זכרונות
                   </div>
-                  <Link to={`/memorycreation/${profileId}`}>
-                    <div className="full-memory-btn">+ הוסף זיכרון</div>
-                  </Link>
+                  {(profiledata?.originalUser[0]?._id === user?._id ||
+                    profiledata?.addAdmins.find(
+                      (admins) => admins?.user[0]?._id === user?._id
+                    ) ||
+                    profiledata?.addFriends.find(
+                      (friends) => friends?.user[0]?._id === user?._id
+                    )) && (
+                    <Link to={`/memorycreation/${profileId}`}>
+                      <div className="full-memory-btn">+ הוסף זיכרון</div>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
