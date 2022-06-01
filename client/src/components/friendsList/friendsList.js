@@ -290,25 +290,7 @@ const FriendsList = ({
                         ? `${process.env.REACT_APP_API_URL}/picUploader/${friend.user[0].mainProfilePicture}`
                         : friend?.user[0]?.profilePicture
                     }
-                    alt="profile"
-                  />
-                  <p>
-                    {friend.user && friend.user[0] && friend.user[0].firstName}
-                  </p>
-                </div>
-                <div>
-                  {/* <span
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => handleAddAcceptFrined(friend)}
-                    >
-                      הוסף חבר
-                    </span>
-                    | */}
-                  {(profiledata?.originalUser[0]?._id === user?._id ||
-                    profiledata?.addAdmins.find(
-                      (admins) => admins?.user[0]?._id === user?._id
-                    )) && (
-                    <span
+
                       style={{ cursor: 'pointer' }}
                       // onClick={() =>
                       //   handleAddAcceptFrined2(friend)
