@@ -28,6 +28,7 @@ export default function ProfileEdit() {
   const [message, setMessage] = useState('');
   const [multiFiles, setMultiFiles] = useState([]);
   const [googlePosition, setGooglePosition] = useState({});
+  const [loading, setLoading] = useState(false);
   const [inputList, setInputList] = useState([
     { axisTitle: '', axisDate: '', axisDescription: '' },
   ]);
@@ -216,6 +217,7 @@ export default function ProfileEdit() {
     ]);
   };
   const handleClick = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const formdata = new FormData();
@@ -257,6 +259,7 @@ export default function ProfileEdit() {
         })
         .then((res) => {
           if (res) {
+            setLoading(false);
             setMessage('Profile updated successfully!');
             setOpen(true);
             history.goBack();
@@ -771,10 +774,20 @@ export default function ProfileEdit() {
                     <label for="public">פומבי</label>
                   </div>
                 </div>
-
-                <button className="create-btn" type="submit">
-                  שמור
-                </button>
+                {loading ? (
+                  <button className="create-btn" type="button" disabled>
+                    ...Updating
+                    <span
+                      className="spinner-border spinner-border-lg"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
+                ) : (
+                  <button className="create-btn" type="submit">
+                    שמור
+                  </button>
+                )}
               </form>
             </div>
           </div>
