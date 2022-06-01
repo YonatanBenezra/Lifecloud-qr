@@ -179,7 +179,7 @@ const Memory = () => {
     <div className="memory-page">
       <div className="single-memory-content-container">
         <div className="single-memory-subcontainer">
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center my-4">
             <h1 onClick={() => history.goBack()} style={{ cursor: 'pointer' }}>
               חזרה
             </h1>
@@ -198,17 +198,18 @@ const Memory = () => {
                     : `${tempMemoryImg}`
                 }
                 alt=""
-                className="single-memory-img"
+                className="ratio ratio-16x memory_media
+                "
               ></img>
             ) : (
               <video
                 width="100%"
                 height="100%"
                 srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                srl_video_caption="A video with a rabbit"
+                srl_video_caption="Memory Video"
                 srl_video_muted="true"
                 controls
-                className="single-memory-img"
+                className="ratio ratio-16x memory_media"
               >
                 <source
                   src={
