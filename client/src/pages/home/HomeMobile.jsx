@@ -22,6 +22,7 @@ import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import axios from 'axios';
 import Topbar from '../../components/topbar/Topbar';
+import FullWidthVideo from '../../components/fullWidthVideo/FullWidthVideo';
 const HomeMobile = (props) => {
   const user = props.user;
   const testimonialSettings = props.testimonialSettings;
@@ -479,6 +480,7 @@ const HomeMobile = (props) => {
         </div>
       </a>
 
+      <FullWidthVideo />
       <div className="seperation-div-home-mobile-try1"></div>
       <div className="sldrBoxx">
         <div className="MobileTestimonials">

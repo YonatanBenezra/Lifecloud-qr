@@ -34,6 +34,12 @@ const PostSchema = new mongoose.Schema(
     profileImg: {
       type: String,
     },
+    facebookUrl: {
+      type: String,
+    },
+    instagramUrl: {
+      type: String,
+    },
     privacy: {
       type: String,
     },

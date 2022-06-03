@@ -44,6 +44,8 @@ ProfileRouter.post(
         lastName: req.body.lastName,
         privacy: req.body.privacy,
         gender: req.body.gender,
+        facebookUrl: req.body.facebookUrl,
+        instagramUrl: req.body.instagramUrl,
         birthDate: req.body.birthDate,
         deathDate: req.body.deathDate,
         hebBirthDate: req.body.hebBirthDate,

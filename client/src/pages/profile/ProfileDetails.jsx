@@ -939,7 +939,10 @@ export default function Profile() {
             <SnackBar open={open} handleClose={handleClose} message={message} />
           </>
         )}
-        <SocialFooter />
+        <SocialFooter
+          facebookUrl={profiledata.facebookUrl}
+          instagramUrl={profiledata.instagramUrl}
+        />
         <Footer />
       </div>
     );

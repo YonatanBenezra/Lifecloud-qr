@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { useRef, useState, useContext, useEffect } from 'react';
+import facebook from '../../assets/facebook.png';
+import instagram from '../../assets/instagram.png';
 import { useHistory, Prompt } from 'react-router';
 import Topbar from '../../components/topbar/Topbar';
 import './profile.css';
@@ -33,6 +35,10 @@ export default function ProfileCreate() {
   const [submitted, setSubmitted] = useState(false);
   const [uploaded, setUploaded] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showFacebookInput, setShowFacebookInput] = useState(false);
+  const [showInstagramInput, setShowInstagramInput] = useState(false);
+  const facebookUrlRef = useRef(null);
+  const instagramUrlRef = useRef(null);
 
   useEffect(() => {});
   const onChangePicture = (e) => {
@@ -206,10 +212,9 @@ export default function ProfileCreate() {
   // console.log(hebBirthDate.current.value)
   const handleClick = async (e) => {
     setLoading(true);
-    const controller = new AbortController();
-    const signal = controller.signal;
 
     e.preventDefault();
+
     const wallInformation = {
       originalUser: id,
       profileImg: picture,
@@ -226,6 +231,8 @@ export default function ProfileCreate() {
       degree: degree.current.value,
       deathDate: deathDate.current.value,
       gender: selectedGender,
+      facebookUrl: facebookUrlRef.current.value,
+      instagramUrl: instagramUrlRef.current.value,
       // privacy: selectedPrivacy,
       wazeLocation: wazeLocation.current.value,
       googleLocation: JSON.stringify(position),
@@ -254,6 +261,8 @@ export default function ProfileCreate() {
       formdata.append('wazeLocation', wallInformation.wazeLocation);
       formdata.append('googleLocation', wallInformation.googleLocation);
       formdata.append('description', wallInformation.description);
+      formdata.append('facebookUrl', wallInformation.facebookUrl);
+      formdata.append('instagramUrl', wallInformation.instagramUrl);
       formdata.append('lifeAxis', JSON.stringify(wallInformation.lifeAxis));
       formdata.append('isMain', false);
       for (let i = 0; i < multiFiles.length; i++) {
@@ -282,7 +291,6 @@ export default function ProfileCreate() {
                 profileId: res.originalUser[0],
                 loggedInId: userData._id,
               }),
-              signal: signal,
             }
           )
             .then((res) => {
@@ -329,7 +337,7 @@ export default function ProfileCreate() {
   };
 
   return (
-    <div className="profile-creation-container">
+    <div className="profile-creation-container overflow-hidden">
       <Topbar />
       <Prompt
         when={loading}
@@ -641,7 +649,7 @@ export default function ProfileCreate() {
                           </div>
                         )}
 
-                        <div className="inner-box">
+                        <div className="inner-box mx-4 mx-sm-0">
                           <input
                             name="axisTitle"
                             placeholder="כותרת"
@@ -697,6 +705,55 @@ export default function ProfileCreate() {
                       </div>
                     );
                   })}
+                </div>
+                <div style={{ marginTop: '65px' }}>
+                  <h1 className="text-center mb-5">Add Social Media</h1>
+                  <div className="container media_link_container">
+                    <div className="row text-center gy-5">
+                      <div className="col-sm-6">
+                        <button
+                          className="btn heart-div social-footer-icon mb-3"
+                          type="button"
+                          onClick={() => setShowFacebookInput((prev) => !prev)}
+                        >
+                          <img
+                            className="heart-icon"
+                            src={facebook}
+                            alt=""
+                          ></img>
+                        </button>
+                        {showFacebookInput && (
+                          <input
+                            placeholder="facebook url"
+                            type="text"
+                            className="nameInput d-block w-100"
+                            ref={facebookUrlRef}
+                          />
+                        )}
+                      </div>
+                      <div className="col-sm-6">
+                        <button
+                          className="btn heart-div social-footer-icon  mb-3"
+                          type="button"
+                          onClick={() => setShowInstagramInput((prev) => !prev)}
+                        >
+                          <img
+                            className="heart-icon"
+                            src={instagram}
+                            alt="instagram"
+                          />
+                        </button>
+                        {showInstagramInput && (
+                          <input
+                            placeholder="instagram url"
+                            type="text"
+                            className="nameInput d-block w-100 w-100"
+                            ref={instagramUrlRef}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div
                   className="location-container"
