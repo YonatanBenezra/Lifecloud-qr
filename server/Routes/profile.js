@@ -3,6 +3,16 @@ const { profileModel } = require('./../models/Profile');
 const ProfileRouter = Router();
 const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
+const qr = require('qrcode');
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  secure: false,
+  auth: {
+    user: 'life.cloud.fiverr@gmail.com',
+    pass: 'wfaguxqqiiziybkq',
+  },
+});
 
 var storage = multer.diskStorage({
   destination: './server/picUploader/',
@@ -63,7 +73,26 @@ ProfileRouter.post(
       });
 
       //save and response
-      newUser.save().then((resp) => {
+      newUser.save().then(async (resp) => {
+        const qrUrl = `http://localhost:8801/profiledetails/${resp._id}`;
+        if (qrUrl.length === 0) res.send('Empty Data!');
+        var img = await qr.toDataURL(qrUrl);
+        var mailOptions = {
+          from: 'life.cloud.fiverr@gmail.com',
+          to: req.body.email,
+          subject: `QR For ${req.body.firstName} ${req.body.lastName}`,
+          text: 'LifeCloud-QR',
+          attachDataUrls: true,
+          html: '<img src="' + img + '" alt="qr">',
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
         res.send(resp);
       });
     } catch (err) {
