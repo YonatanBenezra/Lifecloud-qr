@@ -231,8 +231,8 @@ export default function ProfileCreate() {
       degree: degree.current.value,
       deathDate: deathDate.current.value,
       gender: selectedGender,
-      facebookUrl: facebookUrlRef.current.value,
-      instagramUrl: instagramUrlRef.current.value,
+      facebookUrl: facebookUrlRef.current?.value,
+      instagramUrl: instagramUrlRef.current?.value,
       // privacy: selectedPrivacy,
       wazeLocation: wazeLocation.current.value,
       googleLocation: JSON.stringify(position),
@@ -244,6 +244,7 @@ export default function ProfileCreate() {
     try {
       const formdata = new FormData();
       formdata.append('profileImg', picture);
+      formdata.append('email', user.email);
       formdata.append('graveImg', graveImage);
       formdata.append('wallImg', image);
       formdata.append('privacy', selectedPrivacy);
@@ -260,6 +261,7 @@ export default function ProfileCreate() {
       formdata.append('gender', wallInformation.gender);
       formdata.append('wazeLocation', wallInformation.wazeLocation);
       formdata.append('googleLocation', wallInformation.googleLocation);
+      formdata.append('email', wallInformation.googleLocation);
       formdata.append('description', wallInformation.description);
       formdata.append('facebookUrl', wallInformation.facebookUrl);
       formdata.append('instagramUrl', wallInformation.instagramUrl);
