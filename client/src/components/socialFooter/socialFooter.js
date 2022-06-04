@@ -4,7 +4,12 @@ import rightCloud from '../../assets/rightCloud.png';
 import facebook from '../../assets/facebook.png';
 import instagram from '../../assets/instagram.png';
 
-const SocialFooter = ({ links, backgroundColor, color }) => {
+const SocialFooter = ({
+  instagramUrl,
+  facebookUrl,
+  backgroundColor,
+  color,
+}) => {
   return (
     <div
       className="social-footer"
@@ -15,7 +20,11 @@ const SocialFooter = ({ links, backgroundColor, color }) => {
         <div className="facebook-container social-footer-facebook">
           <a
             className="heart-div social-footer-icon"
-            href="https://www.facebook.com/lifecloud.co.il/"
+            href={`${
+              facebookUrl
+                ? facebookUrl
+                : 'https://www.facebook.com/lifecloud.co.il/'
+            }`}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -25,7 +34,11 @@ const SocialFooter = ({ links, backgroundColor, color }) => {
         <div className="instagram-container">
           <a
             className="heart-div social-footer-icon"
-            href="https://www.instagram.com/lifecloud.co.il/"
+            href={`${
+              instagramUrl
+                ? instagramUrl
+                : 'https://www.instagram.com/lifecloud.co.il/'
+            }`}
             target="_blank"
             rel="noopener noreferrer"
           >

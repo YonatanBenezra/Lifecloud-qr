@@ -31,6 +31,15 @@
   height: 40vh;
   width: 60vw;
 }
+.memory_media {
+  border-radius: 15px;
+  width: 60vw;
+}
+@media screen and (max-width: 576px) {
+  .memory_media {
+    width: 90%;
+  }
+}
 .single-memory-content-container {
   z-index: 1;
   position: relative;
@@ -150,4 +159,3 @@ input.comment-input {
   justify-content: center;
   align-items: center;
 }
-

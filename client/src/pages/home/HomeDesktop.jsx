@@ -15,6 +15,7 @@ import SocialFooter from '../../components/socialFooter/socialFooter';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import FullWidthVideo from '../../components/fullWidthVideo/FullWidthVideo';
 const HomeDesktop = (props) => {
   const user = props.user;
   const testimonialSettings = props.testimonialSettings;
@@ -287,7 +288,7 @@ const HomeDesktop = (props) => {
       </Link>
       <Link to="#" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
-           + להדלקת נר או הנחת זר וירטאלי
+          + להדלקת נר או הנחת זר וירטאלי
         </div>
       </Link>
       {/* <Link to="/shop" className="creation-btn">
@@ -295,6 +296,7 @@ const HomeDesktop = (props) => {
           + LifeCloud חנות
         </div>
       </Link> */}
+      <FullWidthVideo />
       <div className="testimonials">
         <Slider {...testimonialSettings}>
           <div>

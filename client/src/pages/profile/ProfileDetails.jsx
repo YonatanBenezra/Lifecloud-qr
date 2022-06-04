@@ -704,21 +704,39 @@ export default function Profile() {
                               className="memory-img"
                             ></img>
                           ) : (
-                            <video
-                              width="100%"
-                              height="100%"
-                              srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                              srl_video_caption="A video with a rabbit"
-                              srl_video_muted="true"
-                              controls
-                              className="memory-img"
-                            >
-                              <source
-                                src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
-                                type="video/mp4"
-                              />
-                              Your browser does not support the video tag.
-                            </video>
+                            <React.Fragment>
+                              <video
+                                width="100%"
+                                height="100%"
+                                srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                srl_video_caption="A video with a rabbit"
+                                srl_video_muted="true"
+                                controls
+                                className="memory-img d-none d-sm-block"
+                              >
+                                <source
+                                  src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
+                                  type="video/mp4"
+                                />
+                                Your browser does not support the video tag.
+                              </video>
+                              <video
+                                width="100%"
+                                height="100%"
+                                poster="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                                srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                                srl_video_caption="A video with a rabbit"
+                                srl_video_muted="true"
+                                controls={false}
+                                className="memory-img d-block d-sm-none"
+                              >
+                                <source
+                                  src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
+                                  type="video/mp4"
+                                />
+                                Your browser does not support the video tag.
+                              </video>
+                            </React.Fragment>
                           )}
                           {/* {imgData.file.map(item => {
                           return <img
@@ -921,7 +939,10 @@ export default function Profile() {
             <SnackBar open={open} handleClose={handleClose} message={message} />
           </>
         )}
-        <SocialFooter />
+        <SocialFooter
+          facebookUrl={profiledata.facebookUrl}
+          instagramUrl={profiledata.instagramUrl}
+        />
         <Footer />
       </div>
     );

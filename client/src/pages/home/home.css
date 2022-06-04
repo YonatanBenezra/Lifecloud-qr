@@ -962,3 +962,15 @@
 .slogan {
   font-size: 3rem;
 }
+.full_width_video_container {
+  margin-top: 75px;
+}
+.full_width_video_container video {
+  width: 100vw;
+  height: 65vh;
+}
+@media screen and (max-width: 1200px) {
+  .full_width_video_container video {
+    height: auto;
+  }
+}
