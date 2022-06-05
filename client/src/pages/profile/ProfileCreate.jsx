@@ -19,6 +19,7 @@ import LifeAxisImg from '../../assets/ציר-חיים.jpg';
 export default function ProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
+  const [qr, setQr] = useState(false);
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
   const [open, setOpen] = useState(false);
@@ -43,7 +44,6 @@ export default function ProfileCreate() {
   useEffect(() => {});
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
-      console.log('picture: ', e.target.files);
       setPicture(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener('load', () => {
@@ -88,7 +88,6 @@ export default function ProfileCreate() {
   };
   const onChangeCover = (e) => {
     if (e.target.files[0]) {
-      console.log('picture: ', e.target.files);
       setImage(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener('load', () => {
@@ -100,7 +99,6 @@ export default function ProfileCreate() {
 
   const onChangeGrave = (e) => {
     if (e.target.files[0]) {
-      console.log('picture: ', e.target.files);
       setGraveImage(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener('load', () => {
@@ -161,7 +159,6 @@ export default function ProfileCreate() {
   const handlePrivacyChange = (e) => {
     setSelectedPrivacy(e.target.value);
   };
-  // console.log(hebBirthDate,'hebBirthDate')
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -178,7 +175,6 @@ export default function ProfileCreate() {
       `${process.env.REACT_APP_API_URL}/api/users/${id}`
     );
     setUserData(res.data);
-    console.log(res, 'res usrDaata');
   };
   // handle click event of the Remove button
   const handleRemoveClick = (index) => {
@@ -209,7 +205,6 @@ export default function ProfileCreate() {
 
     setInputList(newArray);
   };
-  // console.log(hebBirthDate.current.value)
   const handleClick = async (e) => {
     setLoading(true);
 
@@ -244,7 +239,7 @@ export default function ProfileCreate() {
     try {
       const formdata = new FormData();
       formdata.append('profileImg', picture);
-      formdata.append('email', user.email);
+      if (qr) formdata.append('email', user.email);
       formdata.append('graveImg', graveImage);
       formdata.append('wallImg', image);
       formdata.append('privacy', selectedPrivacy);
@@ -273,7 +268,6 @@ export default function ProfileCreate() {
       for (let i = 0; i < axisImages.length; i++) {
         formdata.append('axisImages', axisImages[i]);
       }
-      console.log(formdata, 'formdata');
       fetch(`${process.env.REACT_APP_API_URL}/api/profile/createProfile`, {
         method: 'POST',
         body: formdata,
@@ -920,6 +914,7 @@ export default function ProfileCreate() {
 
                       <div className="modal-footer">
                         <button
+                          onClick={() => setQr(true)}
                           className="logout-btn mt-0"
                           type="submit"
                           data-bs-dismiss="modal"
@@ -928,8 +923,9 @@ export default function ProfileCreate() {
                           לקבלת QR במייל
                         </button>
                         <button
+                          onClick={() => setQr(false)}
                           className="logout-btn mt-0"
-                          type="button"
+                          type="submit"
                           data-bs-dismiss="modal"
                           aria-label="Close"
                         >

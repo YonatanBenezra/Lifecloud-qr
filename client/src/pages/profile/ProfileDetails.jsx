@@ -117,6 +117,14 @@ export default function Profile() {
         return res.json();
       })
       .then((res) => {
+        axios.post(
+          `${process.env.REACT_APP_API_URL}/api/notification/sendNotificationEmail`,
+          {
+            profileName: `${profiledata.firstName} ${profiledata.lastName}`,
+            email: profiledata.originalUser[0].email,
+            userName: `${user.firstName} ${user.lastName}`,
+          }
+        );
         setrfriendReq(res);
       })
       .catch((err) => {

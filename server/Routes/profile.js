@@ -75,7 +75,7 @@ ProfileRouter.post(
       //save and response
       newUser.save().then(async (resp) => {
         const qrUrl = `http://localhost:8801/profiledetails/${resp._id}`;
-        if (qrUrl.length === 0) res.send('Empty Data!');
+        if (!req.body.email) return res.send(resp);
         var img = await qr.toDataURL(qrUrl);
         var mailOptions = {
           from: 'life.cloud.fiverr@gmail.com',
