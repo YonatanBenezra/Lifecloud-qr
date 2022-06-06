@@ -286,11 +286,11 @@ const HomeDesktop = (props) => {
           + יצירת פרופיל חדש - ללא עלות!
         </div>
       </Link>
-      <Link to="#" className="creation-btn">
+      {/* <Link to="#" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
           + להדלקת נר או הנחת זר וירטאלי
         </div>
-      </Link>
+      </Link> */}
       {/* <Link to="/shop" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
           + LifeCloud חנות

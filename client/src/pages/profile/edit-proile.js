@@ -776,7 +776,7 @@ export default function ProfileEdit() {
                 </div>
                 {loading ? (
                   <button className="create-btn" type="button" disabled>
-                    ...Updating
+                    ...מעדכן
                     <span
                       className="spinner-border spinner-border-lg"
                       role="status"
