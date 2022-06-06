@@ -39,11 +39,11 @@ const MobileTopbar = (props) => {
     <div>
       <div className="topbarContainer">
         <div className="headerFlex">
-          <div className="languageBox">
+          {/* <div className="languageBox">
             <WithLanguage>
               <LanguageButton />
             </WithLanguage>
-          </div>
+          </div> */}
           <div className="logoBox">
             <Link
               to="/"

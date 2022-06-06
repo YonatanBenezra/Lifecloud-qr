@@ -939,6 +939,7 @@
 }
 
 .life_book_overlay {
+  display: flex;
   position: absolute;
   top: 0;
   left: 0;
@@ -955,7 +956,7 @@
   opacity: 1;
 }
 .life_book_overlay p {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #fff;
   text-align: center;
 }
