@@ -109,6 +109,7 @@ const FriendsList = ({
       .then(fetchuserprofiles)
       .catch(console.log);
   };
+
   const sendNotification = (userId, type) => {
     fetch(
       `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
