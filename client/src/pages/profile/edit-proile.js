@@ -605,7 +605,7 @@ export default function ProfileEdit() {
                   </div>{' '}
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <h1>ביוגרפיה</h1>
+                  <h1>סיפור חיים</h1>
                   <input
                     ref={description}
                     className="profile-creation-description"
