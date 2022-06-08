@@ -31,6 +31,22 @@ const PostSchema = new mongoose.Schema(
         },
       },
     ],
+    profileCandle: [
+      {
+        user: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+        requested: {
+          type: Boolean,
+        },
+      },
+    ],
+    profileFlower: [
+      {
+        user: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+        requested: {
+          type: Boolean,
+        },
+      },
+    ],
     profileImg: {
       type: String,
     },

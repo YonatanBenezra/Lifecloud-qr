@@ -33,6 +33,11 @@ import Map from './Map';
 import Direction from './Direction';
 import ProfileFooter from './ProfileFooter';
 
+import lightCandle from '../../assets/light_candle.png';
+import darkCandle from '../../assets/dark_candle.png';
+import lightFlower from '../../assets/light_flower.png';
+import darkFlower from '../../assets/dark_flower.png';
+
 export default function Profile() {
   const { user, myFirebase } = useContext(AuthContext);
   const history = useHistory();
@@ -468,6 +473,38 @@ export default function Profile() {
                 </button>
               </div>
             )}
+          {/* <div className="d-flex flex-column position-absolute candle_flower">
+            <div className="candle_flower_item">
+              <div className="candle_flower_count">2</div>
+              <div className="d-flex align-items-center">
+                <img src={lightCandle} alt="light candle" />
+                <div className="candle_flower_user_list ">
+                  <ul>
+                    <li>HELLO-1</li>
+                    <li>HELLO-2</li>
+                    <li>HELLO-3</li>
+                    <li>HELLO-4</li>
+                    <li>HELLO-5</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="candle_flower_item">
+              <div className="candle_flower_count">2</div>
+              <div className="d-flex align-items-center">
+                <img src={lightFlower} alt="light flower" />
+                <div className="candle_flower_user_list ">
+                  <ul>
+                    <li>HELLO-1</li>
+                    <li>HELLO-2</li>
+                    <li>HELLO-3</li>
+                    <li>HELLO-4</li>
+                    <li>HELLO-5</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div> */}
         </div>
         <div className="profile-details-first">
           <img
@@ -602,7 +639,7 @@ export default function Profile() {
               <h3>
                 <span className="separator">| </span>
                 <span className="dash">- </span>
-                {hebMemorialDate}
+                {profiledata.hebDeathDate}
               </h3>
               <h3>
                 <span className="separator">| </span>
@@ -950,8 +987,7 @@ export default function Profile() {
             <SnackBar open={open} handleClose={handleClose} message={message} />
           </>
         )}
-        {(profiledata.facebookUrl !== 'undefined' ||
-          profiledata.instagramUrl !== 'undefined') && (
+        {(profiledata.facebookUrl || profiledata.instagramUrl) && (
           <ProfileFooter
             facebookUrl={profiledata.facebookUrl}
             instagramUrl={profiledata.instagramUrl}
