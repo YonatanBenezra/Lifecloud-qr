@@ -605,7 +605,7 @@ export default function ProfileEdit() {
                   </div>{' '}
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <h1>ביוגרפיה</h1>
+                  <h1>סיפור חיים</h1>
                   <input
                     ref={description}
                     className="profile-creation-description"
@@ -776,7 +776,7 @@ export default function ProfileEdit() {
                 </div>
                 {loading ? (
                   <button className="create-btn" type="button" disabled>
-                    ...Updating
+                    ...מעדכן
                     <span
                       className="spinner-border spinner-border-lg"
                       role="status"

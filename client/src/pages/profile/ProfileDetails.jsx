@@ -61,7 +61,7 @@ export default function Profile() {
   const [friendFlagReq, setrfriendReq] = useState([]);
   const [adminFlagReq, setAdminres] = useState([]);
   const profileId = useParams().id;
-  const [next, setnext] = useState(5);
+  const [memoryCount, setMemoryCount] = useState(3);
   const [users, setUsers] = useState([]);
   const [hebMemorialDate, setHebMemorialDate] = useState('');
   const [yPos, setYPos] = useState(50);
@@ -135,7 +135,7 @@ export default function Profile() {
   };
 
   const handleShowMoreMemories = () => {
-    setnext(next + 1);
+    setMemoryCount(memoryCount + 3);
   };
   const fetchuserprofiles = useCallback(async () => {
     try {
@@ -697,6 +697,7 @@ export default function Profile() {
                   {memoryData.length > 0 ? (
                     memoryData.map((imgData, index, _id) => {
                       return (
+                        index < memoryCount && (
                         <div
                           className="memory-container"
                           key={index}
@@ -706,6 +707,7 @@ export default function Profile() {
                             )
                           }
                         >
+                          
                           {imgData.file ? (
                             <img
                               src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
@@ -787,7 +789,7 @@ export default function Profile() {
                             </div>
                           </div>
                         </div>
-                      );
+                      ));
                     })
                   ) : (
                     <p style={{ marginBottom: '40px' }}>
@@ -801,7 +803,7 @@ export default function Profile() {
                 <div className="memory-actions">
                   <div
                     className={
-                      next > memoryData.length
+                      memoryCount > memoryData.length
                         ? ' hideBtn '
                         : ` full-memory-btn`
                     }

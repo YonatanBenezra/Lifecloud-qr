@@ -175,7 +175,7 @@ const MemoryCreation = () => {
             <div className="memory-creation-bottom-actions">
               {loading ? (
                 <button className="publish-btn" type="button" disabled>
-                  ...Creating
+                  ...יוצר זיכרון
                   <span
                     className="spinner-border spinner-border-lg"
                     role="status"

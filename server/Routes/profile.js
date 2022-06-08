@@ -45,9 +45,9 @@ ProfileRouter.post(
         originalUser: req.body.originalUser,
         gallery: multiFiles,
         profileImg:
-          req.files.profileImg?.[0].path.slice(7) || 'picUploader/avatar.png',
+          req.files.profileImg?.[0].path.slice(7) || 'picUploader/avatar-zslkjdgskejrgbksjdrbgkdjxbrgdjk.png',
         wallImg:
-          req.files.wallImg?.[0].path.slice(7) || 'picUploader/cover.png',
+          req.files.wallImg?.[0].path.slice(7) || 'picUploader/cover-aslkdgfbakrgbksjrbglskbgkdbg.png',
         graveImg:
           req.files.graveImg?.[0].path.slice(7) || 'picUploader/grave.jpg',
         firstName: req.body.firstName,
