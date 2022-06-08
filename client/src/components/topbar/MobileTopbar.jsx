@@ -317,11 +317,13 @@ const MobileTopbar = (props) => {
                         אודות
                       </Link>
                     </li>
-                    <li className="p-2 border-b border-white">
+
+                   {/* <li className="p-2 border-b border-white">
                       <Link to="/plans" className="text-white">
                         תוכניות
                       </Link>
-                    </li>
+                    </li> */}
+
                     <li className="p-2 border-b border-white">
                       <Link to="/login" className="text-white">
                         כניסה
