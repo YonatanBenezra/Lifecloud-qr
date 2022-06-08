@@ -164,7 +164,7 @@ const Memory = () => {
           getMemoryData();
           setCommenting(false);
           setComment(res);
-          history.push(`/userprofiles/${user?._id}`);
+          history.push(`/userprofiles/${profileId}`);
           setMessage('delete successfully!');
           // setOpen(true)
         }
@@ -214,7 +214,7 @@ const Memory = () => {
                 <source
                   src={
                     memory?.memoryVideo &&
-                    `${process.env.REACT_APP_API_URL}/${memory?.memoryVideo}`
+                    `${process.env.REACT_APP_API_URL}/picUploader/${memory?.memoryVideo}`
                   }
                   type="video/mp4"
                 />
