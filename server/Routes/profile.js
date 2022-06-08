@@ -109,6 +109,7 @@ ProfileRouter.put(
     { name: 'wallImg', maxCount: 1 },
     { name: 'multiplefiles', maxCount: 20 },
     { name: 'axisImages', maxCount: 99 },
+    { name: 'graveImg', maxCount: 1 },
   ]),
   async (req, res) => {
     try {
@@ -147,6 +148,30 @@ ProfileRouter.put(
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
           axisImages: req.body.axisImagesNames.split(','),
+          facebookUrl: req.body.facebookUrl,
+          instagramUrl: req.body.instagramUrl,
+        };
+      } else if (req.files.graveImg) {
+        var dataSource = {
+          graveImg: req.files.graveImg[0].path.slice(7),
+          originalUser: req.body.originalUser,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          privacy: req.body.privacy,
+          gender: req.body.gender,
+          birthDate: req.body.birthDate,
+          deathDate: req.body.deathDate,
+          hebDeathDate: req.body.hebDeathDate,
+          degree: req.body.degree,
+          city: req.body.city,
+          wazeLocation: req.body.wazeLocation,
+          description: req.body.description,
+          googleLocation: req.body.googleLocation,
+          lifeAxis: req.body.lifeAxis,
+          isMain: req.body.isMain,
+          axisImages: req.body.axisImagesNames.split(','),
+          facebookUrl: req.body.facebookUrl,
+          instagramUrl: req.body.instagramUrl,
         };
       } else if (req.files.wallImg) {
         var dataSource = {
@@ -168,6 +193,8 @@ ProfileRouter.put(
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
           axisImages: req.body.axisImagesNames.split(','),
+          facebookUrl: req.body.facebookUrl,
+          instagramUrl: req.body.instagramUrl,
         };
       } else if (req.files.profileImg) {
         var dataSource = {
@@ -189,6 +216,8 @@ ProfileRouter.put(
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
           axisImages: req.body.axisImagesNames.split(','),
+          facebookUrl: req.body.facebookUrl,
+          instagramUrl: req.body.instagramUrl,
         };
       } else {
         var dataSource = {
@@ -208,6 +237,8 @@ ProfileRouter.put(
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
           axisImages: req.body.axisImagesNames.split(','),
+          facebookUrl: req.body.facebookUrl,
+          instagramUrl: req.body.instagramUrl,
         };
       }
       profileModel.findOneAndUpdate(
@@ -459,6 +490,27 @@ ProfileRouter.patch('/addFriends/:id', async (req, res) => {
     {
       $push: {
         addFriends: { user: req.body.userId, isFriend: req.body.isFriend },
+      },
+    },
+    { new: true }
+  );
+
+  res.send(response);
+});
+ProfileRouter.patch('/addAdmins/:id', async (req, res) => {
+  const profiles = await profileModel.findById(req.params.id);
+
+  const admin = profiles.addAdmins.find(
+    (admin) => admin.user == req.body.userId
+  );
+
+  if (admin) return;
+  const response = await profileModel.findByIdAndUpdate(
+    req.params.id,
+
+    {
+      $push: {
+        addAdmins: { user: req.body.userId, isAdmin: req.body.isAdmin },
       },
     },
     { new: true }

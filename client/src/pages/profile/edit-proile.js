@@ -10,6 +10,8 @@ import { useParams } from 'react-router';
 import moment from 'moment';
 import SnackBar from '../../components/snackbar/SnackBar';
 import Map from './Map';
+import facebook from '../../assets/facebook.png';
+import instagram from '../../assets/instagram.png';
 export default function ProfileEdit() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
@@ -17,8 +19,8 @@ export default function ProfileEdit() {
   const [imgData, setImgData] = useState(null);
   const [open, setOpen] = useState(false);
   const [profiledata, setProfileData] = useState({});
-  const [hebBirthDate, sethebBirthDate] = useState('');
-  const [hebDeathDate, sethebDeathDate] = useState('');
+  /*  const [hebBirthDate, sethebBirthDate] = useState('');
+  const [hebDeathDate, sethebDeathDate] = useState(''); */
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedPrivacy, setSelectedPrivacy] = useState('public');
   const [image, setImage] = useState(null);
@@ -32,6 +34,10 @@ export default function ProfileEdit() {
   const [inputList, setInputList] = useState([
     { axisTitle: '', axisDate: '', axisDescription: '' },
   ]);
+  const [showFacebookInput, setShowFacebookInput] = useState(false);
+  const [showInstagramInput, setShowInstagramInput] = useState(false);
+  const facebookUrlRef = useRef(null);
+  const instagramUrlRef = useRef(null);
   const firstName = useRef();
   const lastName = useRef();
   const companyName = useRef();
@@ -59,7 +65,7 @@ export default function ProfileEdit() {
       ? profiledata.originalUser[0]._id
       : '',
     profileImg: Object.keys(profiledata).length ? profiledata.profileImg : '',
-    graveImg: Object.keys(profiledata).length ? profiledata.profileImage : '',
+    graveImg: Object.keys(profiledata).length ? profiledata.graveImg : '',
     wallImg: Object.keys(profiledata).length ? profiledata.wallImg : '',
     firstName: Object.keys(profiledata).length ? profiledata.firstName : '',
     lastName: Object.keys(profiledata).length ? profiledata.lastName : '',
@@ -72,9 +78,7 @@ export default function ProfileEdit() {
     hebBirthDate: Object.keys(profiledata).length
       ? moment(profiledata.hebBirthDate).format('YYYY-DD-MM')
       : '',
-    hebDeathDate: Object.keys(profiledata).length
-      ? moment(profiledata.hebDeathDate).format('YYYY-DD-MM')
-      : '',
+    hebDeathDate: profiledata.hebDeathDate || '',
     gender: Object.keys(profiledata).length ? profiledata.gender : '',
     city: Object.keys(profiledata).length ? profiledata.city : '',
     degree: Object.keys(profiledata).length ? profiledata.degree : '',
@@ -85,6 +89,8 @@ export default function ProfileEdit() {
       ? profiledata.googleLocation
       : '',
     description: Object.keys(profiledata).length ? profiledata.description : '',
+    facebookUrl: facebookUrlRef.current?.value || '',
+    instagramUrl: instagramUrlRef.current?.value || '',
     // gallery: picture,
   });
   useEffect(() => {
@@ -181,6 +187,9 @@ export default function ProfileEdit() {
         wazeLocation: profiledata.wazeLocation,
         googleLocation: profiledata.googleLocation,
         description: profiledata.description,
+        facebookUrl: profiledata.facebookUrl,
+        instagramUrl: profiledata.instagramUrl,
+        hebDeathDate: profiledata.hebDeathDate,
         lifeAxis:
           Object.keys(profiledata)?.length &&
           profiledata.lifeAxis !== 'undefined'
@@ -228,6 +237,7 @@ export default function ProfileEdit() {
       formdata.append('firstName', wallInformation.firstName);
       formdata.append('city', wallInformation.city);
       formdata.append('degree', wallInformation.degree);
+      formdata.append('hebDeathDate', wallInformation.hebDeathDate);
       formdata.append('originalUser', wallInformation.originalUser);
       formdata.append('lastName', wallInformation.lastName);
       formdata.append('birthDate', wallInformation.birthDate);
@@ -238,7 +248,9 @@ export default function ProfileEdit() {
       formdata.append('description', wallInformation.description);
       formdata.append('lifeAxis', JSON.stringify(inputList));
       formdata.append('axisImagesNames', axisImagesNames);
-
+      formdata.append('graveImg', graveImage);
+      formdata.append('facebookUrl', wallInformation.facebookUrl);
+      formdata.append('instagramUrl', wallInformation.instagramUrl);
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
@@ -292,6 +304,7 @@ export default function ProfileEdit() {
     setAxisImagesNames(copyAxisImagesNames);
     setInputList(copyArray);
   };
+  console.log(profiledata);
 
   return (
     <div className="profile-creation-container">
@@ -431,6 +444,19 @@ export default function ProfileEdit() {
                       name="deathDate"
                     />
                   )}
+                </div>
+                <div
+                  className="profile-creation-names-container"
+                  style={{ marginTop: '3rem' }}
+                >
+                  <input
+                    placeholder="עברי"
+                    type="text"
+                    name="hebDeathDate"
+                    value={wallInformation.hebDeathDate}
+                    onChange={handleChangeValue}
+                    className="nameInput"
+                  />
                 </div>
                 <div
                   className="profile-creation-names-container"
@@ -671,6 +697,61 @@ export default function ProfileEdit() {
                       </div>
                     );
                   })}
+                </div>
+                <div style={{ marginTop: '65px' }}>
+                  <h1 className="text-center mb-5">Edit Social Media</h1>
+                  <div className="container media_link_container">
+                    <div className="row text-center gy-5">
+                      <div className="col-sm-6">
+                        <button
+                          className="btn heart-div social-footer-icon mb-3"
+                          type="button"
+                          onClick={() => setShowFacebookInput((prev) => !prev)}
+                        >
+                          <img
+                            className="heart-icon"
+                            src={facebook}
+                            alt="facebook"
+                          ></img>
+                        </button>
+                        {showFacebookInput && (
+                          <input
+                            name="facebookUrl"
+                            placeholder="facebook url"
+                            type="text"
+                            className="nameInput d-block w-100"
+                            ref={facebookUrlRef}
+                            value={wallInformation.facebookUrl}
+                            onChange={handleChangeValue}
+                          />
+                        )}
+                      </div>
+                      <div className="col-sm-6">
+                        <button
+                          className="btn heart-div social-footer-icon  mb-3"
+                          type="button"
+                          onClick={() => setShowInstagramInput((prev) => !prev)}
+                        >
+                          <img
+                            className="heart-icon"
+                            src={instagram}
+                            alt="instagram"
+                          />
+                        </button>
+                        {showInstagramInput && (
+                          <input
+                            name="instagramUrl"
+                            placeholder="instagram url"
+                            type="text"
+                            className="nameInput d-block w-100 w-100"
+                            ref={instagramUrlRef}
+                            value={wallInformation.instagramUrl}
+                            onChange={handleChangeValue}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div
                   className="location-container"

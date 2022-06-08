@@ -67,7 +67,7 @@ export default function ProfileCreate() {
     const data = await response.json();
     sethebBirthDate(data.hebrew);
   };
-  const handleDeathDateBlur = async () => {
+  /*   const handleDeathDateBlur = async () => {
     const death = new Date(deathDate.current.value);
 
     const date = death.getDate();
@@ -81,7 +81,7 @@ export default function ProfileCreate() {
     );
     const data = await response.json();
     sethebDeathDate(data.hebrew);
-  };
+  }; */
   const readImage = (e, num) => {
     const reader = new FileReader();
     return reader.readAsDataURL(e[num]);
@@ -226,8 +226,8 @@ export default function ProfileCreate() {
       degree: degree.current.value,
       deathDate: deathDate.current.value,
       gender: selectedGender,
-      facebookUrl: facebookUrlRef.current?.value,
-      instagramUrl: instagramUrlRef.current?.value,
+      facebookUrl: facebookUrlRef.current?.value || '',
+      instagramUrl: instagramUrlRef.current?.value || '',
       // privacy: selectedPrivacy,
       wazeLocation: wazeLocation.current.value,
       googleLocation: JSON.stringify(position),
@@ -430,7 +430,20 @@ export default function ProfileCreate() {
                     type="date"
                     ref={deathDate}
                     className="nameInput"
-                    onBlur={handleDeathDateBlur}
+                    /* onBlur={handleDeathDateBlur} */
+                  />
+                </div>
+
+                <div
+                  className="profile-creation-names-container"
+                  style={{ marginTop: '3rem' }}
+                >
+                  <input
+                    placeholder="עברי"
+                    type="text"
+                    value={hebDeathDate}
+                    onChange={(e) => sethebDeathDate(e.target.value)}
+                    className="nameInput"
                   />
                 </div>
                 {/* <div className="profile-creation-names-container">
@@ -451,7 +464,6 @@ export default function ProfileCreate() {
                     className="nameInput"
                   />
                 </div> */}
-
                 <div
                   className="profile-creation-names-container"
                   style={{ marginTop: '3rem' }}
@@ -819,7 +831,6 @@ export default function ProfileCreate() {
                     />
                   </div>
                 </div>
-
                 <div className="radio-container-register">
                   <h3 style={{ color: '#6097BF' }}>פרטיות</h3>
                   <div
@@ -867,7 +878,6 @@ export default function ProfileCreate() {
                     <label htmlFor="public">פומבי</label>
                   </div>
                 </div>
-
                 {loading ? (
                   <button className="create-btn" type="button" disabled>
                     ...Loading

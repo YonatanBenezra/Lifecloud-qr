@@ -14,7 +14,7 @@ const ProfileFooter = ({
     <div className="social-footer" style={{ backgroundColor, color }}>
       <h1>עקבו אחרינו</h1>
       <div className="icons-container social-footer-icons">
-        {facebookUrl !== 'undefined' && (
+        {facebookUrl && (
           <div className="facebook-container social-footer-facebook">
             <a
               className="heart-div social-footer-icon"
@@ -26,7 +26,7 @@ const ProfileFooter = ({
             </a>
           </div>
         )}
-        {instagramUrl !== 'undefined' && (
+        {instagramUrl && (
           <div className="instagram-container">
             <a
               className="heart-div social-footer-icon"
