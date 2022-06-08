@@ -31,6 +31,7 @@ import moment from 'moment';
 
 import Map from './Map';
 import Direction from './Direction';
+import ProfileFooter from './ProfileFooter';
 
 export default function Profile() {
   const { user, myFirebase } = useContext(AuthContext);
@@ -949,10 +950,13 @@ export default function Profile() {
             <SnackBar open={open} handleClose={handleClose} message={message} />
           </>
         )}
-        <SocialFooter
-          facebookUrl={profiledata.facebookUrl}
-          instagramUrl={profiledata.instagramUrl}
-        />
+        {(profiledata.facebookUrl !== 'undefined' ||
+          profiledata.instagramUrl !== 'undefined') && (
+          <ProfileFooter
+            facebookUrl={profiledata.facebookUrl}
+            instagramUrl={profiledata.instagramUrl}
+          />
+        )}
         <Footer />
       </div>
     );

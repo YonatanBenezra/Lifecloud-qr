@@ -49,7 +49,7 @@ ProfileRouter.post(
         wallImg:
           req.files.wallImg?.[0].path.slice(7) || 'picUploader/cover-aslkdgfbakrgbksjrbglskbgkdbg.png',
         graveImg:
-          req.files.graveImg?.[0].path.slice(7) || 'picUploader/grave-kjafsdsfsdgjkrgbkjsndkgj.png',
+          req.files.graveImg?.[0].path.slice(7) || 'picUploader/grave.jpg',
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         privacy: req.body.privacy,

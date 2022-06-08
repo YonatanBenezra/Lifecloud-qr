@@ -1,6 +1,6 @@
-const Router = require('express')
-const {Post} = require('../models/Post')
-const {User} = require('../models/User')
+const Router = require('express');
+const { Post } = require('../models/Post');
+const { User } = require('../models/User');
 const PostRouter = Router();
 
 //create a post
@@ -102,4 +102,4 @@ PostRouter.get('/profile/:username', async (req, res) => {
   }
 });
 
-module.exports = {PostRouter};
+module.exports = { PostRouter };
