@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useRef, useState, useContext, useEffect } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Topbar from '../../components/topbar/Topbar';
@@ -190,6 +190,7 @@ export default function ProfileEdit() {
         facebookUrl: profiledata.facebookUrl,
         instagramUrl: profiledata.instagramUrl,
         hebDeathDate: profiledata.hebDeathDate,
+        gallery: profiledata.gallery,
         lifeAxis:
           Object.keys(profiledata)?.length &&
           profiledata.lifeAxis !== 'undefined'
@@ -251,6 +252,9 @@ export default function ProfileEdit() {
       formdata.append('graveImg', graveImage);
       formdata.append('facebookUrl', wallInformation.facebookUrl);
       formdata.append('instagramUrl', wallInformation.instagramUrl);
+      for (let i = 0; i < wallInformation.gallery.length; i++) {
+        formdata.append('gallery', wallInformation.gallery[i]);
+      }
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
@@ -304,26 +308,106 @@ export default function ProfileEdit() {
     setAxisImagesNames(copyAxisImagesNames);
     setInputList(copyArray);
   };
-  console.log(profiledata);
 
+  const removeGalleryDB = (file, i) => {
+    setProfileData((prev) => ({
+      ...prev,
+      gallery: profiledata.gallery.filter((img) => img !== file),
+    }));
+  };
+  const removeGalleryCur = (index) => {
+    setMultiFiles(multiFiles.filter((file, i) => i !== index));
+  };
+  console.log(profiledata);
   return (
-    <div className="profile-creation-container">
-      <Topbar />
-      <div className="profile-creation regular_profile_creation">
-        <div className="">
-          <div className="loginLeft" style={{ marginBottom: '3rem' }}>
-            {/* <h3 className="profile-creation-title">ערוך פרופיל</h3> */}
-            <div className="notifications-title">
-              <h1 onClick={() => history.goBack()} className="back_button">
-                חזרה
-              </h1>
-              <h1 className="page_title">ערוך פרופיל</h1>
+    <React.Fragment>
+      {' '}
+      <div
+        className="modal fade qr-modal"
+        id="editGalleryImage"
+        tabIndex="-1"
+        aria-labelledby="editGalleryImageLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="editGalleryImageLabel">
+                Edit Gallery Image
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
-            {/* <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div> */}
+
+            <div className="modal-body text-center">
+              <div className="row g-4">
+                {profiledata.gallery?.map((img, i) => (
+                  <div class="col-lg-4 col-sm-6" key={i}>
+                    <button
+                      type="button"
+                      className="btn-close position-absolute"
+                      onClick={() => removeGalleryDB(img)}
+                    ></button>
+                    <img
+                      src={`${process.env.REACT_APP_API_URL}/${img}`}
+                      alt="gallery"
+                      style={{ height: '120px', width: '100%' }}
+                    />
+                  </div>
+                ))}
+
+                {multiFiles.map((file, i) => {
+                  if (!file?.imagePreview) return null;
+                  return (
+                    <div class="col-lg-4 col-sm-6" key={i}>
+                      <button
+                        type="button"
+                        className="btn-close position-absolute"
+                        onClick={() => removeGalleryCur(i)}
+                      ></button>
+                      <img
+                        src={file.imagePreview}
+                        alt="gallery"
+                        style={{ height: '120px', width: '100%' }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
           </div>
-          <div className="profile-images">
-            {/* <div className="register_profile_image"></div> */}
-            {/* <div className="profile-image-container">
+        </div>
+      </div>
+      <div className="profile-creation-container">
+        <Topbar />
+        <div className="profile-creation regular_profile_creation">
+          <div className="">
+            <div className="loginLeft" style={{ marginBottom: '3rem' }}>
+              {/* <h3 className="profile-creation-title">ערוך פרופיל</h3> */}
+              <div className="notifications-title">
+                <h1 onClick={() => history.goBack()} className="back_button">
+                  חזרה
+                </h1>
+                <h1 className="page_title">ערוך פרופיל</h1>
+              </div>
+              {/* <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div> */}
+            </div>
+            <div className="profile-images">
+              {/* <div className="register_profile_image"></div> */}
+              {/* <div className="profile-image-container">
                 <img
                   className="profile-image"
                   src={
@@ -333,446 +417,459 @@ export default function ProfileEdit() {
                   alt=""
                 />
               </div> */}
-            <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  imgData
-                    ? imgData
-                    : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
-                }
-                alt=""
-              ></img>
-              <input
-                className="custom-file-input"
-                type="file"
-                name="profileImg"
-                onChange={onChangePicture}
-              />
+              <div className="profile-image-container">
+                <img
+                  className="profile-image"
+                  src={
+                    imgData
+                      ? imgData
+                      : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
+                  }
+                  alt=""
+                ></img>
+                <input
+                  className="custom-file-input"
+                  type="file"
+                  name="profileImg"
+                  onChange={onChangePicture}
+                />
+              </div>
+              <div className="profile-image-container">
+                <img
+                  className="profile-image"
+                  src={
+                    coverData
+                      ? coverData
+                      : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
+                  }
+                  alt=""
+                ></img>
+                <input
+                  className="custom-file-input-cover"
+                  type="file"
+                  onChange={onChangeCover}
+                  name="coverImg"
+                />
+              </div>
             </div>
-            <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  coverData
-                    ? coverData
-                    : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
-                }
-                alt=""
-              ></img>
-              <input
-                className="custom-file-input-cover"
-                type="file"
-                onChange={onChangeCover}
-                name="coverImg"
-              />
-            </div>
-          </div>
-          <div className="loginRight">
-            <div className="RegBox">
-              <form className="profile-creation-box" onSubmit={handleClick}>
-                <div
-                  className="profile-creation-names-container"
-                  style={{ marginBottom: '3rem' }}
-                >
-                  <input
-                    placeholder="* שם פרטי"
-                    value={wallInformation.firstName}
-                    ref={firstName}
-                    onChange={handleChangeValue}
-                    name="firstName"
-                    className="nameInput"
-                  />
-                  <input
-                    placeholder="* שם משפחה"
-                    value={wallInformation.lastName}
-                    ref={lastName}
-                    onChange={handleChangeValue}
-                    name="lastName"
-                    className="nameInput"
-                  />
-                </div>
-                <div className="birth-date-container">
-                  <h1>תאריך לידה</h1>
-                  <h1>תאריך פטירה</h1>
-                </div>
-                <div className="profile-creation-names-container">
-                  {wallInformation.birthDate &&
-                  wallInformation.birthDate !== 'undefined' ? (
+            <div className="loginRight">
+              <div className="RegBox">
+                <form className="profile-creation-box" onSubmit={handleClick}>
+                  <div
+                    className="profile-creation-names-container"
+                    style={{ marginBottom: '3rem' }}
+                  >
                     <input
-                      placeholder="* לועזי"
-                      ref={birthDate}
+                      placeholder="* שם פרטי"
+                      value={wallInformation.firstName}
+                      ref={firstName}
                       onChange={handleChangeValue}
-                      name="birthDate"
-                      value={moment(wallInformation.birthDate).format(
-                        'DD-MM-YYYY'
-                      )}
+                      name="firstName"
+                      className="nameInput"
+                    />
+                    <input
+                      placeholder="* שם משפחה"
+                      value={wallInformation.lastName}
+                      ref={lastName}
+                      onChange={handleChangeValue}
+                      name="lastName"
+                      className="nameInput"
+                    />
+                  </div>
+                  <div className="birth-date-container">
+                    <h1>תאריך לידה</h1>
+                    <h1>תאריך פטירה</h1>
+                  </div>
+                  <div className="profile-creation-names-container">
+                    {wallInformation.birthDate &&
+                    wallInformation.birthDate !== 'undefined' ? (
+                      <input
+                        placeholder="* לועזי"
+                        ref={birthDate}
+                        onChange={handleChangeValue}
+                        name="birthDate"
+                        value={moment(wallInformation.birthDate).format(
+                          'DD-MM-YYYY'
+                        )}
+                        className="nameInput"
+                        type="text"
+                      />
+                    ) : (
+                      <input
+                        ref={birthDate}
+                        placeholder="* לועזי"
+                        pattern="\d{4}-\d{2}-\d{2}"
+                        onChange={handleChangeValue}
+                        className="nameInput"
+                        type="date"
+                        name="birthDate"
+                      />
+                    )}
+                    {wallInformation.deathDate &&
+                    wallInformation.deathDate !== 'undefined' ? (
+                      <input
+                        placeholder="* לועזי"
+                        ref={deathDate}
+                        onChange={handleChangeValue}
+                        name="deathDate"
+                        value={moment(wallInformation.deathDate).format(
+                          'DD-MM-YYYY'
+                        )}
+                        className="nameInput"
+                      />
+                    ) : (
+                      <input
+                        placeholder="* לועזי"
+                        ref={deathDate}
+                        pattern="\d{4}-\d{2}-\d{2}"
+                        onChange={handleChangeValue}
+                        className="nameInput"
+                        type="date"
+                        name="deathDate"
+                      />
+                    )}
+                  </div>
+                  <div
+                    className="profile-creation-names-container"
+                    style={{ marginTop: '3rem' }}
+                  >
+                    <input
+                      placeholder="עברי"
+                      type="text"
+                      name="hebDeathDate"
+                      value={wallInformation.hebDeathDate}
+                      onChange={handleChangeValue}
+                      className="nameInput"
+                    />
+                  </div>
+                  <div
+                    className="profile-creation-names-container"
+                    style={{ marginTop: '3rem' }}
+                  >
+                    <input
+                      placeholder="עיר"
+                      ref={city}
+                      onChange={handleChangeValue}
+                      value={
+                        wallInformation.city === 'undefined'
+                          ? ''
+                          : wallInformation.city
+                      }
+                      name="city"
                       className="nameInput"
                       type="text"
                     />
-                  ) : (
                     <input
-                      ref={birthDate}
-                      placeholder="* לועזי"
-                      pattern="\d{4}-\d{2}-\d{2}"
+                      placeholder="תואר"
+                      type="text"
+                      ref={degree}
                       onChange={handleChangeValue}
-                      className="nameInput"
-                      type="date"
-                      name="birthDate"
-                    />
-                  )}
-                  {wallInformation.deathDate &&
-                  wallInformation.deathDate !== 'undefined' ? (
-                    <input
-                      placeholder="* לועזי"
-                      ref={deathDate}
-                      onChange={handleChangeValue}
-                      name="deathDate"
-                      value={moment(wallInformation.deathDate).format(
-                        'DD-MM-YYYY'
-                      )}
+                      value={
+                        wallInformation.degree === 'undefined'
+                          ? ''
+                          : wallInformation.degree
+                      }
+                      name="degree"
                       className="nameInput"
                     />
-                  ) : (
-                    <input
-                      placeholder="* לועזי"
-                      ref={deathDate}
-                      pattern="\d{4}-\d{2}-\d{2}"
-                      onChange={handleChangeValue}
-                      className="nameInput"
-                      type="date"
-                      name="deathDate"
-                    />
-                  )}
-                </div>
-                <div
-                  className="profile-creation-names-container"
-                  style={{ marginTop: '3rem' }}
-                >
-                  <input
-                    placeholder="עברי"
-                    type="text"
-                    name="hebDeathDate"
-                    value={wallInformation.hebDeathDate}
-                    onChange={handleChangeValue}
-                    className="nameInput"
-                  />
-                </div>
-                <div
-                  className="profile-creation-names-container"
-                  style={{ marginTop: '3rem' }}
-                >
-                  <input
-                    placeholder="עיר"
-                    ref={city}
-                    onChange={handleChangeValue}
-                    value={
-                      wallInformation.city === 'undefined'
-                        ? ''
-                        : wallInformation.city
-                    }
-                    name="city"
-                    className="nameInput"
-                    type="text"
-                  />
-                  <input
-                    placeholder="תואר"
-                    type="text"
-                    ref={degree}
-                    onChange={handleChangeValue}
-                    value={
-                      wallInformation.degree === 'undefined'
-                        ? ''
-                        : wallInformation.degree
-                    }
-                    name="degree"
-                    className="nameInput"
-                  />
-                </div>
-                <div className="radio-container">
-                  <h3>מין</h3>
-                  <div
-                    className={`${
-                      wallInformation.gender === 'male' && 'register-active'
-                    } radio-input-container-register`}
-                  >
-                    <input
-                      type="radio"
-                      value="male"
-                      id="male"
-                      onChange={handleChangeValue}
-                      name="gender"
-                      className="radio"
-                    />
-                    <label for="male">ז</label>
                   </div>
-                  <div
-                    className={`${
-                      wallInformation.gender === 'female' && 'register-active'
-                    } radio-input-container-register`}
-                  >
-                    <input
-                      type="radio"
-                      value="female"
-                      id="female"
-                      onChange={handleChangeValue}
-                      name="gender"
-                      className="radio"
-                    />
-                    <label for="female">נ</label>
-                  </div>
-                  <div
-                    className={`${
-                      wallInformation.gender === 'other' && 'register-active'
-                    } radio-input-container-register`}
-                  >
-                    <input
-                      type="radio"
-                      value="other"
-                      id="other"
-                      onChange={handleChangeValue}
-                      name="gender"
-                      className="radio"
-                    />
-                    <label for="other">אחר</label>
-                  </div>
-                </div>
-                <div
-                  className="location-container"
-                  style={{ marginTop: '70px', marginBottom: '70px' }}
-                >
-                  <h1>העלאת מדיה</h1>
-                  <div>
+                  <div className="radio-container">
+                    <h3>מין</h3>
                     <div
-                      className="profile-creation-names-container"
-                      style={{ flexDirection: 'column' }}
+                      className={`${
+                        wallInformation.gender === 'male' && 'register-active'
+                      } radio-input-container-register`}
                     >
-                      <div className="form-group multi-preview"></div>
-                      <div className="media-upload-button-container">
-                        <input
-                          id="profilePic"
-                          type="file"
-                          name="multiplefiles"
-                          multiple
-                          onChange={onChangeMultiplePicture}
-                          className="media-upload-button"
-                        />
-                      </div>
-                      <div className="d-flex flex-wrap justify-content-center">
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            profiledata.gallery &&
-                            profiledata.gallery.length > 0
-                              ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[0]}`
-                              : multiFiles && multiFiles.length > 0
-                              ? multiFiles[0].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            profiledata.gallery &&
-                            profiledata.gallery.length > 1
-                              ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[1]}`
-                              : multiFiles && multiFiles.length > 1
-                              ? multiFiles[1].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            profiledata.gallery &&
-                            profiledata.gallery.length > 2
-                              ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[2]}`
-                              : multiFiles && multiFiles.length > 2
-                              ? multiFiles[2].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            profiledata.gallery &&
-                            profiledata.gallery.length > 3
-                              ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[3]}`
-                              : multiFiles && multiFiles.length > 3
-                              ? multiFiles[3].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            profiledata.gallery &&
-                            profiledata.gallery.length > 4
-                              ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[4]}`
-                              : multiFiles && multiFiles.length > 4
-                              ? multiFiles[4].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                      </div>
-                      {/* <div className="previewProfilePic"> */}
-                      {/* <img
+                      <input
+                        type="radio"
+                        value="male"
+                        id="male"
+                        onChange={handleChangeValue}
+                        name="gender"
+                        className="radio"
+                      />
+                      <label for="male">ז</label>
+                    </div>
+                    <div
+                      className={`${
+                        wallInformation.gender === 'female' && 'register-active'
+                      } radio-input-container-register`}
+                    >
+                      <input
+                        type="radio"
+                        value="female"
+                        id="female"
+                        onChange={handleChangeValue}
+                        name="gender"
+                        className="radio"
+                      />
+                      <label for="female">נ</label>
+                    </div>
+                    <div
+                      className={`${
+                        wallInformation.gender === 'other' && 'register-active'
+                      } radio-input-container-register`}
+                    >
+                      <input
+                        type="radio"
+                        value="other"
+                        id="other"
+                        onChange={handleChangeValue}
+                        name="gender"
+                        className="radio"
+                      />
+                      <label for="other">אחר</label>
+                    </div>
+                  </div>
+                  <div
+                    className="location-container"
+                    style={{ marginTop: '70px', marginBottom: '70px' }}
+                  >
+                    <h1>העלאת מדיה</h1>
+                    <div>
+                      <div
+                        className="profile-creation-names-container"
+                        style={{ flexDirection: 'column' }}
+                      >
+                        <div className="form-group multi-preview"></div>
+                        <div className="media-upload-button-container">
+                          <input
+                            id="profilePic"
+                            type="file"
+                            name="multiplefiles"
+                            multiple
+                            onChange={onChangeMultiplePicture}
+                            className="media-upload-button"
+                          />
+                        </div>
+                        <div className="d-flex flex-wrap justify-content-center">
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              profiledata.gallery &&
+                              profiledata.gallery.length > 0
+                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[0]}`
+                                : multiFiles && multiFiles.length > 0
+                                ? multiFiles[0].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          ></img>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              profiledata.gallery &&
+                              profiledata.gallery.length > 1
+                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[1]}`
+                                : multiFiles && multiFiles.length > 1
+                                ? multiFiles[1].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          ></img>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              profiledata.gallery &&
+                              profiledata.gallery.length > 2
+                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[2]}`
+                                : multiFiles && multiFiles.length > 2
+                                ? multiFiles[2].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          ></img>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              profiledata.gallery &&
+                              profiledata.gallery.length > 3
+                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[3]}`
+                                : multiFiles && multiFiles.length > 3
+                                ? multiFiles[3].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          ></img>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              profiledata.gallery &&
+                              profiledata.gallery.length > 4
+                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[4]}`
+                                : multiFiles && multiFiles.length > 4
+                                ? multiFiles[4].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          ></img>
+                        </div>
+                        {/* <div className="previewProfilePic"> */}
+                        {/* <img
                             className="playerProfilePic_home_tile"
                             src={imgData}
                             alt=""
                           /> */}
-                      {/* </div> */}
-                    </div>
-                  </div>{' '}
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <h1>סיפור חיים</h1>
-                  <input
-                    ref={description}
-                    className="profile-creation-description"
-                  />
-                </div>
-                <div>
-                  <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
-                  {inputList?.map((x, i) => {
-                    return (
-                      <div className="box" key={i}>
-                        <div className="inner-box">
-                          <input
-                            name="axisTitle"
-                            placeholder="כותרת"
-                            value={x.axisTitle}
-                            onChange={(e) => handleInputChange(e, i)}
-                            className="axis-input"
-                          />
-                          <input
-                            name="axisDate"
-                            placeholder="תאריך"
-                            value={x.axisDate}
-                            onChange={(e) => handleInputChange(e, i)}
-                            className="axis-input"
-                          />
-                          <textarea
-                            name="axisDescription"
-                            placeholder="טקסט"
-                            value={x.axisDescription}
-                            onChange={(e) => handleInputChange(e, i)}
-                            className="axis-description"
-                          />
-                          <label class="file-label">
-                            הוסף תמונה
+                        {/* </div> */}
+                      </div>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editGalleryImage"
+                      >
+                        Edit gallery image
+                      </button>
+                    </div>{' '}
+                  </div>
+                  <div style={{ textAlign: 'center' }}>
+                    <h1>ביוגרפיה</h1>
+                    <input
+                      ref={description}
+                      className="profile-creation-description"
+                    />
+                  </div>
+                  <div>
+                    <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
+                    {inputList?.map((x, i) => {
+                      return (
+                        <div className="box" key={i}>
+                          <div className="inner-box">
+
                             <input
-                              type="file"
-                              name="axisImage"
-                              placeholder="Image"
-                              onChange={(e) => handleAxisImage(e, i)}
-                              className="axis-input-image"
+                              name="axisTitle"
+                              placeholder="כותרת"
+                              value={x.axisTitle}
+                              onChange={(e) => handleInputChange(e, i)}
+                              className="axis-input"
                             />
-                            <span class="file-custom"></span>
-                          </label>
-                          <div className="btn-box">
-                            {inputList.length !== 1 && (
-                              <p
-                                className="delete-btn"
-                                onClick={() => handleRemoveClick(i)}
-                              >
-                                - הסר
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                        {inputList.length - 1 === i && (
-                          <div className="add-btn" onClick={handleAddClick}>
-                            <div className="inner-btn">
-                              <div className="line-1"></div>
-                              <div className="line-2"></div>
+                            <input
+                              name="axisDate"
+                              placeholder="תאריך"
+                              value={x.axisDate}
+                              onChange={(e) => handleInputChange(e, i)}
+                              className="axis-input"
+                            />
+                            <textarea
+                              name="axisDescription"
+                              placeholder="טקסט"
+                              value={x.axisDescription}
+                              onChange={(e) => handleInputChange(e, i)}
+                              className="axis-description"
+                            />
+                            <label className="file-label">
+                              הוסף תמונה
+                              <input
+                                type="file"
+                                name="axisImage"
+                                placeholder="Image"
+                                onChange={(e) => handleAxisImage(e, i)}
+                                className="axis-input-image"
+                              />
+                              <span className="file-custom"></span>
+                            </label>
+                            <div className="btn-box">
+                              {inputList.length !== 1 && (
+                                <p
+                                  className="delete-btn"
+                                  onClick={() => handleRemoveClick(i)}
+                                >
+                                  - הסר
+                                </p>
+                              )}
                             </div>
                           </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-                <div style={{ marginTop: '65px' }}>
-                  <h1 className="text-center mb-5">Edit Social Media</h1>
-                  <div className="container media_link_container">
-                    <div className="row text-center gy-5">
-                      <div className="col-sm-6">
-                        <button
-                          className="btn heart-div social-footer-icon mb-3"
-                          type="button"
-                          onClick={() => setShowFacebookInput((prev) => !prev)}
-                        >
-                          <img
-                            className="heart-icon"
-                            src={facebook}
-                            alt="facebook"
-                          ></img>
-                        </button>
-                        {showFacebookInput && (
-                          <input
-                            name="facebookUrl"
-                            placeholder="facebook url"
-                            type="text"
-                            className="nameInput d-block w-100"
-                            ref={facebookUrlRef}
-                            value={wallInformation.facebookUrl}
-                            onChange={handleChangeValue}
-                          />
-                        )}
-                      </div>
-                      <div className="col-sm-6">
-                        <button
-                          className="btn heart-div social-footer-icon  mb-3"
-                          type="button"
-                          onClick={() => setShowInstagramInput((prev) => !prev)}
-                        >
-                          <img
-                            className="heart-icon"
-                            src={instagram}
-                            alt="instagram"
-                          />
-                        </button>
-                        {showInstagramInput && (
-                          <input
-                            name="instagramUrl"
-                            placeholder="instagram url"
-                            type="text"
-                            className="nameInput d-block w-100 w-100"
-                            ref={instagramUrlRef}
-                            value={wallInformation.instagramUrl}
-                            onChange={handleChangeValue}
-                          />
-                        )}
+                          {inputList.length - 1 === i && (
+                            <div className="add-btn" onClick={handleAddClick}>
+                              <div className="inner-btn">
+                                <div className="line-1"></div>
+                                <div className="line-2"></div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div style={{ marginTop: '65px' }}>
+                    <h1 className="text-center mb-5">Edit Social Media</h1>
+                    <div className="container media_link_container">
+                      <div className="row text-center gy-5">
+                        <div className="col-sm-6">
+                          <button
+                            className="btn heart-div social-footer-icon mb-3"
+                            type="button"
+                            onClick={() =>
+                              setShowFacebookInput((prev) => !prev)
+                            }
+                          >
+                            <img
+                              className="heart-icon"
+                              src={facebook}
+                              alt="facebook"
+                            ></img>
+                          </button>
+                          {showFacebookInput && (
+                            <input
+                              name="facebookUrl"
+                              placeholder="facebook url"
+                              type="text"
+                              className="nameInput d-block w-100"
+                              ref={facebookUrlRef}
+                              value={wallInformation.facebookUrl}
+                              onChange={handleChangeValue}
+                            />
+                          )}
+                        </div>
+                        <div className="col-sm-6">
+                          <button
+                            className="btn heart-div social-footer-icon  mb-3"
+                            type="button"
+                            onClick={() =>
+                              setShowInstagramInput((prev) => !prev)
+                            }
+                          >
+                            <img
+                              className="heart-icon"
+                              src={instagram}
+                              alt="instagram"
+                            />
+                          </button>
+                          {showInstagramInput && (
+                            <input
+                              name="instagramUrl"
+                              placeholder="instagram url"
+                              type="text"
+                              className="nameInput d-block w-100 w-100"
+                              ref={instagramUrlRef}
+                              value={wallInformation.instagramUrl}
+                              onChange={handleChangeValue}
+                            />
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  className="location-container"
-                  style={{ marginTop: '70px' }}
-                >
-                  <h1>מיקום הקבר</h1>
-                  <div className="location-semicontainer">
-                    <div className="profile-creation-names-container">
-                      <input
-                        placeholder="הוספת מיקום ווייז "
-                        ref={wazeLocation}
-                        onChange={handleChangeValue}
-                        value={
-                          wallInformation.wazeLocation === 'undefined'
-                            ? ''
-                            : wallInformation.wazeLocation
-                        }
-                        name="wazeLocation"
-                        className="nameInput google_input mx-auto"
-                      />
-                      {/* <input
+                  <div
+                    className="location-container"
+                    style={{ marginTop: '70px' }}
+                  >
+                    <h1>מיקום הקבר</h1>
+                    <div className="location-semicontainer">
+                      <div className="profile-creation-names-container">
+                        <input
+                          placeholder="הוספת מיקום ווייז "
+                          ref={wazeLocation}
+                          onChange={handleChangeValue}
+                          value={
+                            wallInformation.wazeLocation === 'undefined'
+                              ? ''
+                              : wallInformation.wazeLocation
+                          }
+                          name="wazeLocation"
+                          className="nameInput google_input mx-auto"
+                        />
+                        {/* <input
                         placeholder="הוספת מיקום גוגל"
                         ref={googleLocation}
                         onChange={handleChangeValue}
@@ -780,101 +877,103 @@ export default function ProfileEdit() {
                         name="googleLocation"
                         className="nameInput"
                       /> */}
-                      {wallInformation.googleLocation && (
-                        <Map
-                          position={googlePosition}
-                          setPosition={setGooglePosition}
-                        />
-                      )}
+                        {wallInformation.googleLocation && (
+                          <Map
+                            position={googlePosition}
+                            setPosition={setGooglePosition}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div className="profile-image-container">
+                      <img
+                        className="profile-image"
+                        src={
+                          graveData
+                            ? graveData
+                            : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                        }
+                        alt=""
+                      ></img>
+                      <input
+                        className="custom-file-grave"
+                        type="file"
+                        onChange={onChangeGrave}
+                        name="coverImg"
+                        style={{ marginRight: '38%' }}
+                      />
                     </div>
                   </div>
-                  <div className="profile-image-container">
-                    <img
-                      className="profile-image"
-                      src={
-                        graveData
-                          ? graveData
-                          : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                      }
-                      alt=""
-                    ></img>
-                    <input
-                      className="custom-file-grave"
-                      type="file"
-                      onChange={onChangeGrave}
-                      name="coverImg"
-                      style={{ marginRight: '38%' }}
-                    />
-                  </div>
-                </div>
 
-                <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>פרטיות</h3>
-                  <div
-                    style={{
-                      width: 'unset',
-                      paddingRight: '10px',
-                      paddingLeft: '10px',
-                    }}
-                    className={`${
-                      selectedPrivacy === 'private' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedPrivacy('private')}
-                  >
-                    <input
-                      type="radio"
-                      value="private"
-                      id="private"
-                      onChange={handlePrivacyChange}
-                      checked={user.privacy === 'private'}
-                      name="privacy"
-                      className="radio"
-                    />
-                    <label for="private">פרטי</label>
+                  <div className="radio-container-register">
+                    <h3 style={{ color: '#6097BF' }}>פרטיות</h3>
+                    <div
+                      style={{
+                        width: 'unset',
+                        paddingRight: '10px',
+                        paddingLeft: '10px',
+                      }}
+                      className={`${
+                        selectedPrivacy === 'private' && 'register-active'
+                      } radio-input-container-register`}
+                      onClick={() => setSelectedPrivacy('private')}
+                    >
+                      <input
+                        type="radio"
+                        value="private"
+                        id="private"
+                        onChange={handlePrivacyChange}
+                        checked={user.privacy === 'private'}
+                        name="privacy"
+                        className="radio"
+                      />
+                      <label for="private">פרטי</label>
+                    </div>
+                    <div
+                      style={{
+                        width: 'unset',
+                        paddingRight: '10px',
+                        paddingLeft: '10px',
+                      }}
+                      className={`${
+                        selectedPrivacy === 'public' && 'register-active'
+                      } radio-input-container-register`}
+                      onClick={() => setSelectedPrivacy('public')}
+                    >
+                      <input
+                        type="radio"
+                        value="public"
+                        id="public"
+                        onChange={handlePrivacyChange}
+                        checked={user.privacy === 'public'}
+                        name="privacy"
+                        className="radio"
+                      />
+                      <label for="public">פומבי</label>
+                    </div>
                   </div>
-                  <div
-                    style={{
-                      width: 'unset',
-                      paddingRight: '10px',
-                      paddingLeft: '10px',
-                    }}
-                    className={`${
-                      selectedPrivacy === 'public' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedPrivacy('public')}
-                  >
-                    <input
-                      type="radio"
-                      value="public"
-                      id="public"
-                      onChange={handlePrivacyChange}
-                      checked={user.privacy === 'public'}
-                      name="privacy"
-                      className="radio"
-                    />
-                    <label for="public">פומבי</label>
-                  </div>
-                </div>
-                {loading ? (
-                  <button className="create-btn" type="button" disabled>
-                    ...מעדכן
-                    <span
-                      className="spinner-border spinner-border-lg"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
-                  </button>
-                ) : (
-                  <button className="create-btn" type="submit">
-                    שמור
-                  </button>
-                )}
-              </form>
+                  {loading ? (
+                    <button className="create-btn" type="button" disabled>
+                      ...Updating
+                      <span
+                        className="spinner-border spinner-border-lg"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    </button>
+                  ) : (
+                    <button className="create-btn" type="submit">
+                      שמור
+                    </button>
+                  )}
+                </form>
+              </div>
+
             </div>
           </div>
+          <SnackBar open={open} handleClose={handleClose} message={message} />
         </div>
-        <SnackBar open={open} handleClose={handleClose} message={message} />
       </div>
-    </div>
+    </React.Fragment>
   );
 }

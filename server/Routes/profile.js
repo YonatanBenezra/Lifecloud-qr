@@ -127,7 +127,13 @@ ProfileRouter.put(
       const axisImages = req.files.axisImages?.map((res) => {
         return res.filename;
       });
+      const prevGalleryImg = Array.isArray(req.body.gallery)
+        ? req.body.gallery
+        : [];
+      const newGalleryImg = Array.isArray(multiFiles) ? multiFiles : [];
 
+      console.log(newGalleryImg, 'HELLO');
+      console.log(prevGalleryImg, 'WORLD');
       if (req.files.profileImg && req.files.wallImg) {
         var dataSource = {
           originalUser: req.body.originalUser,
@@ -243,15 +249,7 @@ ProfileRouter.put(
       }
       profileModel.findOneAndUpdate(
         { _id: req.body._id },
-        {
-          $set: dataSource,
-          $push: {
-            gallery: {
-              $each: multiFiles || [],
-              $position: 0,
-            },
-          },
-        },
+        { ...dataSource, gallery: [...newGalleryImg, ...prevGalleryImg] },
 
         { upsert: true },
         (err, doc) => {

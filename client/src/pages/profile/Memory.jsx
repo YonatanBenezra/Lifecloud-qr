@@ -198,28 +198,25 @@ const Memory = () => {
                     : `${tempMemoryImg}`
                 }
                 alt=""
-                className="ratio ratio-16x memory_media
-                "
+                className="ratio ratio-16x memory_media"
               ></img>
             ) : (
-              <video
-                width="100%"
-                height="100%"
-                srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                srl_video_caption="Memory Video"
-                srl_video_muted="true"
-                controls
-                className="ratio ratio-16x memory_media"
-              >
-                <source
-                  src={
-                    memory?.memoryVideo &&
-                    `${process.env.REACT_APP_API_URL}/picUploader/${memory?.memoryVideo}`
-                  }
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
-              </video>
+              memory?.memoryVideo && (
+                <video
+                  width="100%"
+                  height="100%"
+                  srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                  srl_video_caption="Memory Video"
+                  controls
+                  className="ratio ratio-16x memory_media"
+                >
+                  <source
+                    src={`${process.env.REACT_APP_API_URL}/${memory?.memoryVideo}`}
+                    type="video/mp4"
+                  />
+                  Your browser does not support the video tag.
+                </video>
+              )
             )}
           </div>
           <div className="memory-icons-container">
