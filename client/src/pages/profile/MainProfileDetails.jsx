@@ -284,7 +284,7 @@ export default function MainProfile(props) {
             <SRLWrapper>
               {profiledata?.gallery?.map((img, index) => (
                 <div className="full-gallery-img-container" key={index}>
-                  {!img.endsWith('mp4') ? (
+                  {!img?.endsWith?.('mp4') ? (
                     <img
                       src={`${process.env.REACT_APP_API_URL}/${img}`}
                       alt=""

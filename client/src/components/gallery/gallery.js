@@ -24,7 +24,7 @@ export const Gallery = ({ profiledata, id, userId }) => {
                     </Link>
                   ) : (
                     <div className="gallery-img">
-                      {!img.endsWith('mp4') ? (
+                      {!img?.endsWith?.('mp4') ? (
                         <a
                           href={`${
                             img

@@ -754,11 +754,12 @@ export default function Profile() {
                               <video
                                 width="100%"
                                 height="100%"
-                                srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                srl_video_caption="A video with a rabbit"
-                                srl_video_muted="true"
-                                controls
+                                poster="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                                srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                                srl_video_caption="Memory Video"
                                 className="memory-img d-none d-sm-block"
+                                controls
+                                muted
                               >
                                 <source
                                   src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
@@ -772,9 +773,9 @@ export default function Profile() {
                                 poster="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
                                 srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
                                 srl_video_caption="A video with a rabbit"
-                                srl_video_muted="true"
-                                controls={false}
                                 className="memory-img d-block d-sm-none"
+                                controls={false}
+                                muted
                               >
                                 <source
                                   src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
@@ -909,7 +910,7 @@ export default function Profile() {
                   {profiledata?.gallery?.map((img, index) => (
                     <div className="full-gallery-img-container" key={index}>
                       <div className="full-gallery-img-inner-container">
-                        {!img.endsWith('mp4') ? (
+                        {!img?.endsWith?.('mp4') ? (
                           <img
                             src={`${process.env.REACT_APP_API_URL}/${img}`}
                             alt=""
@@ -919,9 +920,8 @@ export default function Profile() {
                           <video
                             width="100%"
                             height="100%"
-                            srl_video_thumbnail="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                            srl_video_caption="A video with a rabbit"
-                            srl_video_muted="true"
+                            srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                            srl_video_caption="Profile Video"
                             controls
                             className="full-gallery-img"
                           >
