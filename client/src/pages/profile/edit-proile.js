@@ -318,7 +318,14 @@ export default function ProfileEdit() {
   const removeGalleryCur = (index) => {
     setMultiFiles(multiFiles.filter((file, i) => i !== index));
   };
-  console.log(profiledata);
+  console.log(
+    profiledata.gallery?.length > 1
+    // profiledata.gallery && profiledata.gallery.length > 1
+    //   ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[1]}`
+    //   : multiFiles && multiFiles.length > 1
+    //   ? multiFiles[1].imagePreview
+    //   : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+  );
   return (
     <React.Fragment>
       {' '}
@@ -646,60 +653,65 @@ export default function ProfileEdit() {
                           <img
                             className="profile-creation-gallery-img mb-3"
                             src={
-                              profiledata.gallery &&
+                              (profiledata.gallery &&
                               profiledata.gallery.length > 0
                                 ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[0]}`
                                 : multiFiles && multiFiles.length > 0
                                 ? multiFiles[0].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
+                              'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
                             }
                             alt=""
                           ></img>
                           <img
                             className="profile-creation-gallery-img mb-3"
                             src={
-                              profiledata.gallery &&
+                              (profiledata.gallery &&
                               profiledata.gallery.length > 1
                                 ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[1]}`
                                 : multiFiles && multiFiles.length > 1
                                 ? multiFiles[1].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
+                              'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
                             }
                             alt=""
                           ></img>
                           <img
                             className="profile-creation-gallery-img mb-3"
                             src={
-                              profiledata.gallery &&
+                              (profiledata.gallery &&
                               profiledata.gallery.length > 2
                                 ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[2]}`
                                 : multiFiles && multiFiles.length > 2
                                 ? multiFiles[2].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
+                              'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
                             }
                             alt=""
                           ></img>
                           <img
                             className="profile-creation-gallery-img mb-3"
                             src={
-                              profiledata.gallery &&
+                              (profiledata.gallery &&
                               profiledata.gallery.length > 3
                                 ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[3]}`
                                 : multiFiles && multiFiles.length > 3
                                 ? multiFiles[3].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
+                              'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
                             }
                             alt=""
                           ></img>
                           <img
                             className="profile-creation-gallery-img mb-3"
                             src={
-                              profiledata.gallery &&
+                              (profiledata.gallery &&
                               profiledata.gallery.length > 4
                                 ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[4]}`
                                 : multiFiles && multiFiles.length > 4
                                 ? multiFiles[4].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
+                              'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
                             }
                             alt=""
                           ></img>
@@ -712,15 +724,15 @@ export default function ProfileEdit() {
                           /> */}
                         {/* </div> */}
                       </div>
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#editGalleryImage"
-                      >
-                        Edit gallery image
-                      </button>
                     </div>{' '}
+                    <button
+                      type="button"
+                      className="logout-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editGalleryImage"
+                    >
+                      Edit gallery image
+                    </button>
                   </div>
                   <div style={{ textAlign: 'center' }}>
                     <h1>ביוגרפיה</h1>
@@ -735,7 +747,6 @@ export default function ProfileEdit() {
                       return (
                         <div className="box" key={i}>
                           <div className="inner-box">
-
                             <input
                               name="axisTitle"
                               placeholder="כותרת"
@@ -968,7 +979,6 @@ export default function ProfileEdit() {
                   )}
                 </form>
               </div>
-
             </div>
           </div>
           <SnackBar open={open} handleClose={handleClose} message={message} />

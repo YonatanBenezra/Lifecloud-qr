@@ -45,9 +45,11 @@ ProfileRouter.post(
         originalUser: req.body.originalUser,
         gallery: multiFiles,
         profileImg:
-          req.files.profileImg?.[0].path.slice(7) || 'picUploader/avatar-zslkjdgskejrgbksjdrbgkdjxbrgdjk.png',
+          req.files.profileImg?.[0].path.slice(7) ||
+          'picUploader/avatar-zslkjdgskejrgbksjdrbgkdjxbrgdjk.png',
         wallImg:
-          req.files.wallImg?.[0].path.slice(7) || 'picUploader/cover-aslkdgfbakrgbksjrbglskbgkdbg.png',
+          req.files.wallImg?.[0].path.slice(7) ||
+          'picUploader/cover-aslkdgfbakrgbksjrbglskbgkdbg.png',
         graveImg:
           req.files.graveImg?.[0].path.slice(7) || 'picUploader/grave.jpg',
         firstName: req.body.firstName,
@@ -129,11 +131,15 @@ ProfileRouter.put(
       });
       const prevGalleryImg = Array.isArray(req.body.gallery)
         ? req.body.gallery
+        : req.body.gallery
+        ? [req.body.gallery]
         : [];
-      const newGalleryImg = Array.isArray(multiFiles) ? multiFiles : [];
+      const newGalleryImg = Array.isArray(multiFiles)
+        ? multiFiles
+        : multiFiles
+        ? [multiFiles]
+        : [];
 
-      console.log(newGalleryImg, 'HELLO');
-      console.log(prevGalleryImg, 'WORLD');
       if (req.files.profileImg && req.files.wallImg) {
         var dataSource = {
           originalUser: req.body.originalUser,
