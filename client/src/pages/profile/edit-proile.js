@@ -735,6 +735,7 @@ export default function ProfileEdit() {
                       return (
                         <div className="box" key={i}>
                           <div className="inner-box">
+
                             <input
                               name="axisTitle"
                               placeholder="כותרת"
@@ -967,6 +968,7 @@ export default function ProfileEdit() {
                   )}
                 </form>
               </div>
+
             </div>
           </div>
           <SnackBar open={open} handleClose={handleClose} message={message} />

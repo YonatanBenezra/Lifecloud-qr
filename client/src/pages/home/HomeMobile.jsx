@@ -67,8 +67,7 @@ const HomeMobile = (props) => {
           }}
         >
           <div className="" style={{ textAlign: 'center' }}>
-            <h2 className="MobileH2"> יצירת קהילת הנצחה</h2>
-            <h2 className="MobileH2"> מותאמת אישית</h2>
+            <h2 className="MobileH2">בית חדש לחיים שאחרי</h2>
             {console.log(user)}
             {user ? (
               <Link
@@ -98,7 +97,7 @@ const HomeMobile = (props) => {
         <div className="flex items-center bg-white w-6/12 p-2 rounded-sm">
           <input
             type="text"
-            placeholder="חיפוש מנוח / עמותה..."
+            placeholder="...חיפוש מנוח / עמותה"
             className="searchBox searchBoxTxt"
             onChange={handleSearch}
             style={{ fontSize: '16px' }}
@@ -143,12 +142,8 @@ const HomeMobile = (props) => {
 
       <div className="mobile-vid-text-container">
         <div className="vid-text-title">
-          <h1 className="mobile-home-mobile-heading-strong">
-            כל אדם מיוחד במינו.
-          </h1>
-          <h2 className="mobile-home-mobile-heading">כל אדם ראוי לכך שסיפור</h2>
           <h2 className="mobile-home-mobile-heading">
-            חייו יהיה מונצח ומונגש לעד.
+            אדם הוא עולם ומלואו, סיפור חייו ראוי שיוזכר ויונצח לעד.
           </h2>
           <h2 className="mobile-homeMobile-moments-legacy-community">
             MOMENTS. LEGACY. COMMUNITY.
@@ -163,28 +158,18 @@ const HomeMobile = (props) => {
           <div className="top-image-container">
             <div className="top-image">
               <p className="mobile-text-container-home">
-                סיפור חייו של אדם הינו פאזל
-              </p>
-              <p className="mobile-text-container-home">
-                המורכב מחלקים השלובים בחייהם
-              </p>
-              <p className="mobile-text-container-home">
-                של בני משפחה, חברים ומכרים.
-              </p>
-              <p className="mobile-text-container-home">
-                עם לכתו של אדם מהעולם,
-              </p>
-              <p className="mobile-text-container-home">
-                סיפור חייו הולך עימו.
+                סיפור חייהם של יקירנו מורכבים מחלקים השלובים בחייהם של בני
+                משפחתם, חברים ומכרים. עם לכתם מן העולם, סיפורם נעלם איתם.
               </p>
             </div>
           </div>
           <div className="bottom-image-container">
-            <p className="mobile-text-container-home-bottom">האם אפשר לחבר</p>
-            <p className="mobile-text-container-home-bottom">את הפאזל בחזרה </p>
+            <p className="mobile-text-container-home-bottom">איך נוכל לחבר</p>
             <p className="mobile-text-container-home-bottom">
-              או להחיות את הסיפור?
+              {' '}
+              את החלקים ולשמר לעד{' '}
             </p>
+            <p className="mobile-text-container-home-bottom">מי שהם היו?</p>
 
             <img
               alt=""
@@ -206,10 +191,16 @@ const HomeMobile = (props) => {
           ספר החיים של Life Cloud
         </p>
         <p className="mobile-life-cloud-explaination-container-home">
-          מאפשר לנו
+          להתחבר מאפשר לנו
         </p>
         <h1 className="mobile-life-cloud-explaination-container-home">
-          להרכיב את הפאזל <span className="txtBold"> באמצעות</span>
+          ולשתף את הרגעים,{' '}
+        </h1>
+        <h1 className="mobile-life-cloud-explaination-container-home">
+          הסיפורים והמורשת
+        </h1>
+        <h1 className="mobile-life-cloud-explaination-container-home">
+          של מי שאינו איתנו
         </h1>
       </div>
 
@@ -220,7 +211,7 @@ const HomeMobile = (props) => {
               <div className="life_book">
                 <img src={f13} width="100%" height="150px" alt="profile" />
                 <div className="life_book_overlay">
-                  <p>קיבור עמודי המנוח ברשתות החברתיות הקיימות.</p>
+                  <p>חיבור לרשתות החברתיות של המנוח</p>
                 </div>
               </div>
               <div className="gridTxt">
@@ -232,12 +223,17 @@ const HomeMobile = (props) => {
               <div className="life_book">
                 <img src={f14} width="100%" height="150px" alt="profile" />
                 <div className="life_book_overlay">
-                  <p> קישור לרשתות חברתיות</p>
+                  <p>
+                  QR
+                     ייחודי ועמיד הניתן
+                     להניח בכל מקום שתבחרו ולחבר כל
+                    סמארטפון ישירות לספר LifeCloud החיים של
+                  </p>
                 </div>
               </div>
               <div className="gridTxt">
                 <p className="gridPlus">+</p>
-                <h1 className="grtidTxtP">קרא עמודי </h1>
+                <h1 className="grtidTxtP">קרא עוד </h1>
               </div>
             </div>
           </div>
@@ -246,24 +242,27 @@ const HomeMobile = (props) => {
               <div className="life_book">
                 <img src={f15} width="100%" height="150px" alt="profile" />
                 <div className="life_book_overlay">
-                  <p>ייחודי QR קוד</p>
+                  <p>בדרך קלה ויעילה נקבל מיקום מדויק של בית העלמין והמצבה</p>
                 </div>
               </div>
               <div className="gridTxt">
                 <p className="gridPlus">+</p>
-                <h1 className="grtidTxtP">קרא עמודי </h1>
+                <h1 className="grtidTxtP">קרא עוד </h1>
               </div>
             </div>
             <div className="bx">
               <div className="life_book">
                 <img src={f16} width="100%" height="150px" alt="profile" />
                 <div className="life_book_overlay">
-                  <p>העלאת תמונות וסרטונים</p>
+                  <p>
+                    ניתן להוסיף תגובות, לשתף זיכרונות ותמונות עם משפחה, חברים
+                    ומכרים
+                  </p>
                 </div>
               </div>
               <div className="gridTxt">
                 <p className="gridPlus">+</p>
-                <h1 className="grtidTxtP">קרא עמודי </h1>
+                <h1 className="grtidTxtP">קרא עוד </h1>
               </div>
             </div>
           </div>
@@ -272,24 +271,27 @@ const HomeMobile = (props) => {
               <div className="life_book">
                 <img src={f17} width="100%" height="150px" alt="profile" />
                 <div className="life_book_overlay">
-                  <p>ושיתוף זכרונות</p>
+                  <p>
+                    לוח שנה – ציון ימים חשובים, שליחת הזמנות לאירועי אזכרה
+                    ומפגשים
+                  </p>
                 </div>
               </div>
               <div className="gridTxt">
                 <p className="gridPlus">+</p>
-                <h1 className="grtidTxtP">קרא עמודי </h1>
+                <h1 className="grtidTxtP">קרא עוד </h1>
               </div>
             </div>
             <div className="bx">
               <div className="life_book">
                 <img src={f12} width="100%" height="150px" alt="profile" />
                 <div className="life_book_overlay">
-                  <p>ניהול מועדים</p>
+                  <p>הדלקת נר או הנחת זר וירטאלי בלחיצת כפתור</p>
                 </div>
               </div>
               <div className="gridTxt">
                 <p className="gridPlus">+</p>
-                <h1 className="grtidTxtP">קרא עמודי </h1>
+                <h1 className="grtidTxtP">קרא עוד </h1>
               </div>
             </div>
           </div>
@@ -470,15 +472,15 @@ const HomeMobile = (props) => {
 
       <a href="/createprofile" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#6097BF' }}>
-          + לחץ כאן ליצור פרופיל
+          + יצירת פרופיל חדש - ללא עלות!
         </div>
       </a>
-
+{/* 
       <a href="/createprofile" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
           + לעמוד תוכניות ורכישה
         </div>
-      </a>
+      </a> */}
 
       <FullWidthVideo />
       <div className="seperation-div-home-mobile-try1"></div>

@@ -880,7 +880,7 @@ export default function ProfileCreate() {
                 </div>
                 {loading ? (
                   <button className="create-btn" type="button" disabled>
-                    ...Loading
+                    ...טוען
                     <span
                       className="spinner-border spinner-border-lg"
                       role="status"
@@ -909,10 +909,10 @@ export default function ProfileCreate() {
                     <div className="modal-content">
                       <div className="modal-header">
                         <h5
-                          className="modal-title"
+                        className="modal-title"
                           id="profileCreateModalLabel"
                         >
-                          Create a profile
+                          יצירת הפרופיל וקבלת הקוד
                         </h5>
                         <button
                           type="button"
@@ -930,9 +930,9 @@ export default function ProfileCreate() {
                           data-bs-dismiss="modal"
                           aria-label="Close"
                         >
-                          לקבלת QR במייל
+                          למייל QR לקבלת{' '}
                         </button>
-                        <button
+                        {/* <button
                           onClick={() => setQr(false)}
                           className="logout-btn mt-0"
                           type="submit"
@@ -940,7 +940,7 @@ export default function ProfileCreate() {
                           aria-label="Close"
                         >
                           לרכישת QR ייחודי
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   </div>

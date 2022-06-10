@@ -39,11 +39,11 @@ const MobileTopbar = (props) => {
     <div>
       <div className="topbarContainer">
         <div className="headerFlex">
-          <div className="languageBox">
+          {/* <div className="languageBox">
             <WithLanguage>
               <LanguageButton />
             </WithLanguage>
-          </div>
+          </div> */}
           <div className="logoBox">
             <Link
               to="/"
@@ -317,11 +317,13 @@ const MobileTopbar = (props) => {
                         אודות
                       </Link>
                     </li>
-                    <li className="p-2 border-b border-white">
+
+                   {/* <li className="p-2 border-b border-white">
                       <Link to="/plans" className="text-white">
                         תוכניות
                       </Link>
-                    </li>
+                    </li> */}
+
                     <li className="p-2 border-b border-white">
                       <Link to="/login" className="text-white">
                         כניסה
