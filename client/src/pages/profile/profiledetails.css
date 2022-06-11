@@ -860,9 +860,13 @@ input[type='date']:valid::before {
     width: 60px;
   }
 }
+.candle_flower_item {
+  position: relative;
+}
 .candle_flower {
   z-index: 99;
-  top: 38%;
+  top: 25%;
+  left: 5%;
 }
 .candle_flower img {
   width: 300px;
@@ -879,12 +883,31 @@ input[type='date']:valid::before {
   font-size: 20px;
   color: #fff;
   position: absolute;
-  right: 25%;
+  right: 8%;
+  top: 18%;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.candle_flower_user_list {
+  position: absolute;
+  top: 15%;
+  right: -60%;
+  background-color: #6097bf;
+  border-radius: 30px;
+  padding: 15px;
+  color: #fff;
+  height: 220px;
+  overflow-y: auto;
+  text-align: center;
+  max-width: 175px;
+  font-size: 18px;
+}
+.candle_flower_user_list ul {
+  list-style: none;
+  padding-left: 0;
 }
 @media only screen and (max-width: 992px) {
   .candle_flower {
-    top: 53%;
+    top: 33%;
   }
   .candle_flower img {
     width: 220px;
@@ -897,14 +920,22 @@ input[type='date']:valid::before {
 }
 @media only screen and (max-width: 768px) {
   .candle_flower {
-    top: 66%;
+    top: 37%;
   }
   .candle_flower img {
-    width: 160px;
+    width: 180px;
   }
 }
 @media only screen and (max-width: 576px) {
+  .candle_flower {
+    top: 43%;
+  }
   .candle_flower img {
     width: 120px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .candle_flower {
+    top: 28%;
   }
 }

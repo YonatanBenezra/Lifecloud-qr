@@ -33,10 +33,7 @@ import Map from './Map';
 import Direction from './Direction';
 import ProfileFooter from './ProfileFooter';
 
-import lightCandle from '../../assets/light_candle.png';
-import darkCandle from '../../assets/dark_candle.png';
-import lightFlower from '../../assets/light_flower.png';
-import darkFlower from '../../assets/dark_flower.png';
+import CandleFlower from './CandleFlower';
 
 export default function Profile() {
   const { user, myFirebase } = useContext(AuthContext);
@@ -473,38 +470,7 @@ export default function Profile() {
                 </button>
               </div>
             )}
-          {/* <div className="d-flex flex-column position-absolute candle_flower">
-            <div className="candle_flower_item">
-              <div className="candle_flower_count">2</div>
-              <div className="d-flex align-items-center">
-                <img src={lightCandle} alt="light candle" />
-                <div className="candle_flower_user_list ">
-                  <ul>
-                    <li>HELLO-1</li>
-                    <li>HELLO-2</li>
-                    <li>HELLO-3</li>
-                    <li>HELLO-4</li>
-                    <li>HELLO-5</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className="candle_flower_item">
-              <div className="candle_flower_count">2</div>
-              <div className="d-flex align-items-center">
-                <img src={lightFlower} alt="light flower" />
-                <div className="candle_flower_user_list ">
-                  <ul>
-                    <li>HELLO-1</li>
-                    <li>HELLO-2</li>
-                    <li>HELLO-3</li>
-                    <li>HELLO-4</li>
-                    <li>HELLO-5</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div> */}
+          <CandleFlower profileId={profiledata._id} userId={user._id} />
         </div>
         <div className="profile-details-first">
           <img
@@ -735,59 +701,58 @@ export default function Profile() {
                     memoryData.map((imgData, index, _id) => {
                       return (
                         index < memoryCount && (
-                        <div
-                          className="memory-container"
-                          key={index}
-                          onClick={() =>
-                            history.push(
-                              `/profile/${profiledata._id}/memory/${imgData._id}`
-                            )
-                          }
-                        >
-                          
-                          {imgData.file ? (
-                            <img
-                              src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
-                              alt="memory"
-                              className="memory-img"
-                            ></img>
-                          ) : (
-                            <React.Fragment>
-                              <video
-                                width="100%"
-                                height="100%"
-                                poster="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
-                                srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
-                                srl_video_caption="Memory Video"
-                                className="memory-img d-none d-sm-block"
-                                controls
-                                muted
-                              >
-                                <source
-                                  src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
-                                  type="video/mp4"
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                              <video
-                                width="100%"
-                                height="100%"
-                                poster="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
-                                srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
-                                srl_video_caption="A video with a rabbit"
-                                className="memory-img d-block d-sm-none"
-                                controls={false}
-                                muted
-                              >
-                                <source
-                                  src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
-                                  type="video/mp4"
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                            </React.Fragment>
-                          )}
-                          {/* {imgData.file.map(item => {
+                          <div
+                            className="memory-container"
+                            key={index}
+                            onClick={() =>
+                              history.push(
+                                `/profile/${profiledata._id}/memory/${imgData._id}`
+                              )
+                            }
+                          >
+                            {imgData.file ? (
+                              <img
+                                src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
+                                alt="memory"
+                                className="memory-img"
+                              ></img>
+                            ) : (
+                              <React.Fragment>
+                                <video
+                                  width="100%"
+                                  height="100%"
+                                  poster="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                                  srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                                  srl_video_caption="Memory Video"
+                                  className="memory-img d-none d-sm-block"
+                                  controls
+                                  muted
+                                >
+                                  <source
+                                    src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
+                                    type="video/mp4"
+                                  />
+                                  Your browser does not support the video tag.
+                                </video>
+                                <video
+                                  width="100%"
+                                  height="100%"
+                                  poster="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                                  srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                                  srl_video_caption="A video with a rabbit"
+                                  className="memory-img d-block d-sm-none"
+                                  controls={false}
+                                  muted
+                                >
+                                  <source
+                                    src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
+                                    type="video/mp4"
+                                  />
+                                  Your browser does not support the video tag.
+                                </video>
+                              </React.Fragment>
+                            )}
+                            {/* {imgData.file.map(item => {
                           return <img
                             src={`${process.env.REACT_APP_API_URL}/${item}`}
                             alt=""
@@ -795,39 +760,40 @@ export default function Profile() {
                           ></img>
                         })} */}
 
-                          <div className="icons-container">
-                            <div className="memory-heart-container">
-                              <div className="heart-div">
-                                <img
-                                  style={{ cursor: 'pointer' }}
-                                  className="heart-icon"
-                                  src={heart}
-                                  alt=""
-                                ></img>
-                                <span>{imgData.likes.length}</span>
+                            <div className="icons-container">
+                              <div className="memory-heart-container">
+                                <div className="heart-div">
+                                  <img
+                                    style={{ cursor: 'pointer' }}
+                                    className="heart-icon"
+                                    src={heart}
+                                    alt=""
+                                  ></img>
+                                  <span>{imgData.likes.length}</span>
+                                </div>
                               </div>
-                            </div>
-                            <div className="facebook-container">
-                              <div className="heart-div">
-                                <img
-                                  className="heart-icon"
-                                  src={facebook}
-                                  alt=""
-                                ></img>
+                              <div className="facebook-container">
+                                <div className="heart-div">
+                                  <img
+                                    className="heart-icon"
+                                    src={facebook}
+                                    alt=""
+                                  ></img>
+                                </div>
                               </div>
-                            </div>
-                            <div className="instagram-container">
-                              <div className="heart-div">
-                                <img
-                                  className="heart-icon"
-                                  src={instagram}
-                                  alt=""
-                                ></img>
+                              <div className="instagram-container">
+                                <div className="heart-div">
+                                  <img
+                                    className="heart-icon"
+                                    src={instagram}
+                                    alt=""
+                                  ></img>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      ));
+                        )
+                      );
                     })
                   ) : (
                     <p style={{ marginBottom: '40px' }}>
