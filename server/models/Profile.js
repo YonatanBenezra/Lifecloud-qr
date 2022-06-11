@@ -11,10 +11,7 @@ const PostSchema = new mongoose.Schema(
         },
       },
     ],
-    // addAdmins: {
-    //     user: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    //     isAdmin: Boolean
-    // },
+
     addFriends: [
       {
         user: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
@@ -31,22 +28,7 @@ const PostSchema = new mongoose.Schema(
         },
       },
     ],
-    profileCandle: [
-      {
-        user: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-        requested: {
-          type: Boolean,
-        },
-      },
-    ],
-    profileFlower: [
-      {
-        user: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-        requested: {
-          type: Boolean,
-        },
-      },
-    ],
+
     profileImg: {
       type: String,
     },

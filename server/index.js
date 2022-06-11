@@ -10,6 +10,7 @@ const { AuthRouter } = require('./Routes/auth');
 const { PostRouter } = require('./Routes/posts');
 const { NotificationsRouter } = require('./Routes/notifications');
 const { ProfileRouter, uploadpic } = require('./Routes/profile');
+const { CandleFlowerRouter } = require('./Routes/candleFlower');
 var cors = require('cors');
 dotenv.config();
 mongoose.connect(process.env.MONGO_URL, (err, data) => {
@@ -84,6 +85,7 @@ app.use('/api/notification', NotificationsRouter);
 app.use('/api/auth', AuthRouter);
 app.use('/api/posts', PostRouter);
 app.use('/api/profile', ProfileRouter);
+app.use('/api/candleFlower', CandleFlowerRouter);
 
 //Error handling middleware
 app.use((err, req, res, next) => {
