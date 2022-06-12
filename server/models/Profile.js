@@ -49,6 +49,7 @@ const PostSchema = new mongoose.Schema(
     },
     graveImg: {
       type: String,
+      default: 'picUploader/grave.png',
     },
     firstName: {
       type: String,

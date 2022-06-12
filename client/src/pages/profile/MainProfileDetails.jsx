@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import profile from './dummy-profiles.json';
@@ -49,28 +49,40 @@ export default function MainProfile(props) {
   const [friendFlagReq, setrfriendReq] = useState([]);
   const [adminFlagReq, setAdminres] = useState([]);
   const [map, setMap] = useState(false);
-  const id = useParams().id;
+  const { id } = useParams();
   const [data, setData] = useState([]);
   const [next, setnext] = useState(1);
   const { user } = useContext(AuthContext);
 
-  const fetchuserprofiles = async () => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
-    );
-    setProfileData(res.data);
-  };
-  const fetchallprofiles = async () => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${user._id}`
-    );
-    setData(res.data);
-  };
+  const fetchuserprofiles = useCallback(async (id) => {
+    if (id) {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/${id}`
+        );
+        setProfileData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
+  const fetchallprofiles = useCallback(async (userId) => {
+    if (userId) {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${userId}`
+        );
+        setData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
 
   useEffect(() => {
-    fetchuserprofiles();
-    fetchallprofiles();
-  }, []);
+    fetchuserprofiles(id);
+    fetchallprofiles(user._id);
+  }, [fetchallprofiles, fetchuserprofiles, id, user._id]);
 
   const handleClose = () => {
     setOpen(false);
@@ -142,7 +154,7 @@ export default function MainProfile(props) {
           </div>
         </div>
         <div className="btns-container">
-          <div>
+          <div className="d-flex">
             {profiledata.originalUser[0]._id === loggedUser._id && (
               <Link to={`/editprofiles/${id}`}>
                 <span className="profile-small-btn">ערוך פרופיל</span>
