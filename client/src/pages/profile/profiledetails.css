@@ -865,11 +865,11 @@ input[type='date']:valid::before {
 }
 .candle_flower {
   z-index: 99;
-  top: 25%;
+  top: 16%;
   left: 5%;
 }
 .candle_flower img {
-  width: 300px;
+  width: 20vw;
   cursor: pointer;
 }
 .candle_flower_count {
@@ -907,11 +907,9 @@ input[type='date']:valid::before {
 }
 @media only screen and (max-width: 992px) {
   .candle_flower {
-    top: 33%;
+    top: 35%;
   }
-  .candle_flower img {
-    width: 220px;
-  }
+
   .candle_flower_count {
     width: 35px;
     height: 35px;
@@ -920,22 +918,14 @@ input[type='date']:valid::before {
 }
 @media only screen and (max-width: 768px) {
   .candle_flower {
-    top: 37%;
-  }
-  .candle_flower img {
-    width: 180px;
+    top: 40%;
   }
 }
 @media only screen and (max-width: 576px) {
-  .candle_flower {
-    top: 43%;
-  }
   .candle_flower img {
-    width: 120px;
+    width: 28vw;
   }
-}
-@media only screen and (max-width: 500px) {
   .candle_flower {
-    top: 28%;
+    top: 40%;
   }
 }
