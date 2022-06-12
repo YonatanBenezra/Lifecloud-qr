@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useRef, useState } from 'react';
 import lightCandle from '../../assets/light_candle.png';
 import darkCandle from '../../assets/dark_candle.png';
 import lightFlower from '../../assets/light_flower.png';
@@ -56,6 +56,7 @@ const reducer = (state, action) => {
 };
 
 const CandleFlower = ({ profileId, userId }) => {
+  const candleRef = useRef();
   const [candleFlowerState, dispatch] = useReducer(reducer, initialState);
   const [candleFlower, setCandleFlower] = useState([]);
   const totalCandles = candleFlower.reduce((acc, curr) => acc + curr.candle, 0);
@@ -63,7 +64,6 @@ const CandleFlower = ({ profileId, userId }) => {
   const [showCandleList, setShowCandleList] = useState(false);
   const [showFlowerList, setShowFlowerList] = useState(false);
 
-  console.log(candleFlower);
   const getAllCandleFlower = useCallback(async () => {
     const allCandleFlower = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/candleFlower/${profileId}`
@@ -89,6 +89,13 @@ const CandleFlower = ({ profileId, userId }) => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    const scrollEvent = () => {
+      candleRef.current.click();
+      window.removeEventListener('scroll', scrollEvent);
+    };
+    window.addEventListener('scroll', scrollEvent);
+  }, []);
   return (
     <React.Fragment>
       <div
@@ -247,6 +254,7 @@ const CandleFlower = ({ profileId, userId }) => {
             data-bs-target="#candleFlower"
             src={totalCandles > 0 ? lightCandle : darkCandle}
             alt="light candle"
+            ref={candleRef}
           />
           {showCandleList && totalCandles > 0 && (
             <div className="candle_flower_user_list">
