@@ -112,7 +112,11 @@ const MobileTopbar = (props) => {
                 {searchData && searchData.length > 0 ? (
                   searchData.map((item) => {
                     return (
-                      <Link to={`/profiledetails/${item._id}`}>
+                      <Link
+                        to={`/${
+                          item.isMain ? 'mainprofiledetails' : 'profiledetails'
+                        }/${item._id}`}
+                      >
                         <div className="ResultBox">
                           <div>
                             <span>
@@ -318,7 +322,7 @@ const MobileTopbar = (props) => {
                       </Link>
                     </li>
 
-                   {/* <li className="p-2 border-b border-white">
+                    {/* <li className="p-2 border-b border-white">
                       <Link to="/plans" className="text-white">
                         תוכניות
                       </Link>

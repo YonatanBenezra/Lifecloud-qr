@@ -61,9 +61,10 @@ const DesktopTopbar = (props) => {
                 searchData.map((item, index) => {
                   return (
                     <Link
-                      to={`/profiledetails/${item._id}`}
+                      to={`/${
+                        item.isMain ? 'mainprofiledetails' : 'profiledetails'
+                      }/${item._id}`}
                       key={index}
-                      // onClick={() => window.location.reload()}
                     >
                       <div className="result-box">
                         <div>

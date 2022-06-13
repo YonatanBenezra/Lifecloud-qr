@@ -35,6 +35,8 @@ import GraveMap from './GraveMap';
 
 export default function MainProfile(props) {
   const { dispatch } = useContext(AuthContext);
+  const [users, setUsers] = useState([]);
+  const profileId = useParams().id;
   const [profiledata, setProfileData] = useState([]);
   const [memoryData, setmemoryData] = useState([]);
   const [open, setOpen] = useState(false);
@@ -54,7 +56,7 @@ export default function MainProfile(props) {
   const [next, setnext] = useState(1);
   const { user } = useContext(AuthContext);
 
-  const fetchuserprofiles = useCallback(async (id) => {
+  const fetchuserprofiles = useCallback(async () => {
     if (id) {
       try {
         const res = await axios.get(
@@ -65,7 +67,7 @@ export default function MainProfile(props) {
         console.log(error);
       }
     }
-  }, []);
+  }, [id]);
   const fetchallprofiles = useCallback(async (userId) => {
     if (userId) {
       try {
@@ -80,7 +82,7 @@ export default function MainProfile(props) {
   }, []);
 
   useEffect(() => {
-    fetchuserprofiles(id);
+    fetchuserprofiles();
     fetchallprofiles(user._id);
   }, [fetchallprofiles, fetchuserprofiles, id, user._id]);
 
@@ -88,7 +90,105 @@ export default function MainProfile(props) {
     setOpen(false);
     setMessage('');
   };
+
   const loggedUser = JSON.parse(localStorage.getItem('user'));
+  const sendNotification = useCallback(
+    (notificationType) => {
+      if (profiledata?.originalUser?.[0]?._id === user?._id) {
+        return;
+      }
+      if (!profiledata?.originalUser?.[0]?._id || !user?._id) {
+        return;
+      }
+      fetch(
+        `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'Application/json',
+          },
+          body: JSON.stringify({
+            profileId: profiledata._id,
+            loggedInId: user?._id,
+            notificationType,
+          }),
+        }
+      );
+    },
+    [profiledata._id, profiledata.originalUser, user?._id]
+  );
+  const handleDeleteFriend = (userId) => {
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/profile/removeFriend/${profileId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({ userId }),
+      }
+    )
+      .then(fetchuserprofiles)
+      .catch(console.log);
+  };
+  const handleRemoveFriendRequest = (userId) => {
+    handleDeleteFriend(userId);
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/profile/removeFriendRequest/${profileId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({ userId }),
+      }
+    )
+      .then(fetchuserprofiles)
+      .catch(console.log);
+  };
+  const handleAddFriendRequest = (e) => {
+    // setuserid(e)
+
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/profile/addFriendRequests/${profiledata._id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        body: JSON.stringify({
+          isFriend: false,
+          userId: user?._id,
+          // profileImg: user.mainProfilePicture,
+          // firstName: profiledata.firstName,
+          // lastName: profiledata.lastName,
+
+          // userId: e._id,
+          // user: e.user[0]?._id,
+          user: user?._id,
+        }),
+      }
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        axios.post(
+          `${process.env.REACT_APP_API_URL}/api/notification/sendNotificationEmail`,
+          {
+            profileName: `${profiledata.firstName} ${profiledata.lastName}`,
+            email: profiledata.originalUser[0].email,
+            userName: `${user.firstName} ${user.lastName}`,
+          }
+        );
+        setrfriendReq(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    sendNotification('friendRequest');
+  };
+
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
@@ -156,12 +256,12 @@ export default function MainProfile(props) {
         <div className="btns-container">
           <div className="d-flex">
             {profiledata.originalUser[0]._id === loggedUser._id && (
-              <Link to={`/editprofiles/${id}`}>
-                <span className="profile-small-btn">ערוך פרופיל</span>
+              <Link to={`/editprofiles/${id}`} className="profile-small-btn">
+                <span>ערוך פרופיל</span>
               </Link>
             )}
 
-            <div
+            {/* <div
               className={`${
                 profiledata.originalUser[0]._id === loggedUser._id
                   ? 'hidden'
@@ -169,13 +269,45 @@ export default function MainProfile(props) {
               }`}
             >
               הוסף חבר
-            </div>
+            </div> */}
             <span
               className="profile-small-btn"
               onClick={() => setShow('friends')}
             >
               רשימת חברים
             </span>
+            {profiledata?.originalUser[0]?._id !== user?._id &&
+              !profiledata?.addAdmins.find(
+                (admins) => admins?.user[0]?._id === user?._id
+              ) &&
+              (profiledata?.addFriends.find(
+                (friends) => friends?.user[0]?._id === user?._id
+              ) ? (
+                <div
+                  className={`${'profile-small-btn'}`}
+                  onClick={() => handleRemoveFriendRequest(user?._id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  הסר חברות
+                </div>
+              ) : profiledata?.friendRequests.find(
+                  (friendRequest) => friendRequest.user[0]?._id === user?._id
+                ) ? (
+                <div
+                  className={`${'profile-small-btn'}`}
+                  style={{ cursor: 'pointer' }}
+                >
+                  בקשת חברות נשלחה
+                </div>
+              ) : (
+                <div
+                  className={`${'profile-small-btn'}`}
+                  onClick={() => handleAddFriendRequest()}
+                  style={{ cursor: 'pointer' }}
+                >
+                  בקשת חברות
+                </div>
+              ))}
           </div>
           <div className="profile-big-btns-container d-flex">
             <div
@@ -333,12 +465,20 @@ export default function MainProfile(props) {
             </SRLWrapper>
           </div>
         </div>
-        {console.log(data)}
 
         <div
           className={`${show === 'friends' && 'display'} friends-list d-none`}
         >
-          <FriendsList />
+          {/* <FriendsList /> */}
+          <FriendsList
+            proid={profileId}
+            profiledata={profiledata}
+            setAdminres={setAdminres}
+            setrfriendReq={setrfriendReq}
+            users={users}
+            userId={user?._id}
+            fetchuserprofiles={fetchuserprofiles}
+          />
         </div>
         <div className={`${show === 'deceased' && 'display'} d-none`}>
           <div className="profile-details-title">

@@ -307,6 +307,7 @@ ProfileRouter.get('/getallprofileofSingleUser/:id', (req, res, next) => {
 });
 
 ProfileRouter.get('/getSingleProfileDetails/:id', (req, res, next) => {
+  console.log(req.params.id, 'PRAMS ID FORM  SERVER');
   profileModel
     .findById(req.params.id)
     .populate('originalUser')

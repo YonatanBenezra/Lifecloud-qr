@@ -111,7 +111,12 @@ const HomeMobile = (props) => {
                 searchData.length > 0 &&
                 searchData.map((item, index) => {
                   return (
-                    <Link to={`/profiledetails/${item._id}`} key={index}>
+                    <Link
+                      to={`/${
+                        item.isMain ? 'mainprofiledetails' : 'profiledetails'
+                      }/${item._id}`}
+                      key={index}
+                    >
                       <div className="result-box">
                         <div>
                           <span>
@@ -224,9 +229,7 @@ const HomeMobile = (props) => {
                 <img src={f14} width="100%" height="150px" alt="profile" />
                 <div className="life_book_overlay">
                   <p>
-                  QR
-                     ייחודי ועמיד הניתן
-                     להניח בכל מקום שתבחרו ולחבר כל
+                    QR ייחודי ועמיד הניתן להניח בכל מקום שתבחרו ולחבר כל
                     סמארטפון ישירות לספר LifeCloud החיים של
                   </p>
                 </div>
@@ -475,7 +478,7 @@ const HomeMobile = (props) => {
           + יצירת פרופיל חדש - ללא עלות!
         </div>
       </a>
-{/* 
+      {/* 
       <a href="/createprofile" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
           + לעמוד תוכניות ורכישה
