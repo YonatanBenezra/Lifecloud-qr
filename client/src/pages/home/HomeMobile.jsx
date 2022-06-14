@@ -221,6 +221,7 @@ const HomeMobile = (props) => {
                 </div>
               </div>
               <div className="gridTxt">
+                <h1 className="h1-home-desktop">קישור לרשתות חברתיות</h1>
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עוד</h1>
               </div>
@@ -236,6 +237,7 @@ const HomeMobile = (props) => {
                 </div>
               </div>
               <div className="gridTxt">
+                <h1 className="h1-home-desktop">ייחודי QR</h1>
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עוד </h1>
               </div>
@@ -250,6 +252,8 @@ const HomeMobile = (props) => {
                 </div>
               </div>
               <div className="gridTxt">
+                <h1 className="h1-home-desktop">Lifecloud wall</h1>
+
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עוד </h1>
               </div>
@@ -265,6 +269,8 @@ const HomeMobile = (props) => {
                 </div>
               </div>
               <div className="gridTxt">
+                <h1 className="h1-home-desktop">הדלקת נר והנחת זר וירטאלי</h1>
+
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עוד </h1>
               </div>
@@ -282,6 +288,8 @@ const HomeMobile = (props) => {
                 </div>
               </div>
               <div className="gridTxt">
+                <h1 className="h1-home-desktop">ניהול מועדים</h1>
+
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עוד </h1>
               </div>
@@ -294,6 +302,8 @@ const HomeMobile = (props) => {
                 </div>
               </div>
               <div className="gridTxt">
+                <h1 className="h1-home-desktop">מיקום הקבר</h1>
+
                 <p className="gridPlus">+</p>
                 <h1 className="grtidTxtP">קרא עוד </h1>
               </div>
