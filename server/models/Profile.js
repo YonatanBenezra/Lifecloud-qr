@@ -31,6 +31,7 @@ const PostSchema = new mongoose.Schema(
 
     profileImg: {
       type: String,
+      default: 'picUploader/avatar.png',
     },
     facebookUrl: {
       type: String,
@@ -46,9 +47,11 @@ const PostSchema = new mongoose.Schema(
     },
     wallImg: {
       type: String,
+      default: 'picUploader/cover.png',
     },
     graveImg: {
       type: String,
+      default: 'picUploader/grave.png',
     },
     firstName: {
       type: String,

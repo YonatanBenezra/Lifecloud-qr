@@ -31,7 +31,7 @@ const Footer = () => {
               <span>ABOUT</span>
             </Link>
             <span className="line-seperator">|</span>
-            <Link to="/contact">
+            <Link to="/contact-us">
               <span>CONTACT</span>
             </Link>
           </div>

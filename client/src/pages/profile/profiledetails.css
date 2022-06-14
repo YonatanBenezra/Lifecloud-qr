@@ -865,11 +865,11 @@ input[type='date']:valid::before {
 }
 .candle_flower {
   z-index: 99;
-  top: 16%;
+  top: 26%;
   left: 5%;
 }
 .candle_flower img {
-  width: 20vw;
+  width: 18vw;
   cursor: pointer;
 }
 .candle_flower_count {
@@ -883,8 +883,8 @@ input[type='date']:valid::before {
   font-size: 20px;
   color: #fff;
   position: absolute;
-  right: 8%;
-  top: 18%;
+  right: 2%;
+  top: 8%;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 .candle_flower_user_list {
@@ -909,7 +909,10 @@ input[type='date']:valid::before {
   .candle_flower {
     top: 35%;
   }
-
+  .candle_flower img {
+    width: 24vw;
+    cursor: pointer;
+  }
   .candle_flower_count {
     width: 35px;
     height: 35px;
@@ -923,7 +926,7 @@ input[type='date']:valid::before {
 }
 @media only screen and (max-width: 576px) {
   .candle_flower img {
-    width: 28vw;
+    width: 32vw;
   }
   .candle_flower {
     top: 40%;

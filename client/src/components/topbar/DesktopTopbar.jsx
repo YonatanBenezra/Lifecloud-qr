@@ -61,9 +61,10 @@ const DesktopTopbar = (props) => {
                 searchData.map((item, index) => {
                   return (
                     <Link
-                      to={`/profiledetails/${item._id}`}
+                      to={`/${
+                        item.isMain ? 'mainprofiledetails' : 'profiledetails'
+                      }/${item._id}`}
                       key={index}
-                      // onClick={() => window.location.reload()}
                     >
                       <div className="result-box">
                         <div>
@@ -127,7 +128,7 @@ const DesktopTopbar = (props) => {
                 </Link>
 
                 <Link
-                  to={`/contact`}
+                  to={`/contact-us`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className={`${
                     clicked === 'contact' && 'topbar-active'

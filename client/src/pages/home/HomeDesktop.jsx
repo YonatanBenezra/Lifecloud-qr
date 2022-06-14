@@ -74,7 +74,12 @@ const HomeDesktop = (props) => {
               searchData.length > 0 &&
               searchData.map((item, index) => {
                 return (
-                  <Link to={`/profiledetails/${item._id}`} key={index}>
+                  <Link
+                    to={`/${
+                      item.isMain ? 'mainprofiledetails' : 'profiledetails'
+                    }/${item._id}`}
+                    key={index}
+                  >
                     <div className="result-box">
                       <div>
                         <span>

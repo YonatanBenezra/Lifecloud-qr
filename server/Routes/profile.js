@@ -44,14 +44,9 @@ ProfileRouter.post(
       let newUser = new profileModel({
         originalUser: req.body.originalUser,
         gallery: multiFiles,
-        profileImg:
-          req.files.profileImg?.[0].path.slice(7) ||
-          'picUploader/avatar-zslkjdgskejrgbksjdrbgkdjxbrgdjk.png',
-        wallImg:
-          req.files.wallImg?.[0].path.slice(7) ||
-          'picUploader/cover-aslkdgfbakrgbksjrbglskbgkdbg.png',
-        graveImg:
-          req.files.graveImg?.[0].path.slice(7) || 'picUploader/grave.jpg',
+        profileImg: req.files.profileImg?.[0].path.slice(7),
+        wallImg: req.files.wallImg?.[0].path.slice(7),
+        graveImg: req.files.graveImg?.[0].path.slice(7),
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         privacy: req.body.privacy,
@@ -364,13 +359,11 @@ ProfileRouter.get('/getSingleProfileDetails/:id', (req, res, next) => {
 // });
 
 ProfileRouter.put('/addFriendRequests/:id', async (req, res) => {
-  console.log(req.params.id, 'req');
   let profileAccess = await profileModel.findById(req.params.id);
   let pullreq = profileAccess.friendRequests.find((friendRequest) => {
     console.log(friendRequest.user, 'friend');
     return friendRequest.user == req.body.userId;
   });
-  console.log(pullreq, req.body.userId, 'pro');
   if (pullreq && pullreq.user == req.body.userId) {
     // return false
     // let result = await profileAccess.updateOne(
@@ -482,7 +475,6 @@ ProfileRouter.put('/addAcceptFriends/:id', async (req, res) => {
 //   }
 // });
 ProfileRouter.patch('/addFriends/:id', async (req, res) => {
-  console.log(req.body);
   const profiles = await profileModel.findById(req.params.id);
   const friend = profiles.addFriends.find(
     (friend) => friend.user == req.body.userId

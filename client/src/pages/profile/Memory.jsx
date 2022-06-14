@@ -15,7 +15,7 @@ import Arrow1 from '../../assets/Arrow1.png';
 import moment from 'moment';
 import axios from 'axios';
 import { useHistory } from 'react-router';
-
+import defaultVideoImg from '../../assets/video.jpg';
 import tempMemoryImg from '../../assets/tmpMemoryImg.jpg';
 import { useParams, useLocation } from 'react-router-dom';
 import { async } from '@firebase/util';
@@ -205,7 +205,8 @@ const Memory = () => {
                 <video
                   width="100%"
                   height="100%"
-                  srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                  poster={defaultVideoImg}
+                  srl_video_thumbnail={defaultVideoImg}
                   srl_video_caption="Memory Video"
                   controls
                   className="ratio ratio-16x memory_media"

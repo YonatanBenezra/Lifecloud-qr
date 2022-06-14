@@ -112,7 +112,11 @@ const MobileTopbar = (props) => {
                 {searchData && searchData.length > 0 ? (
                   searchData.map((item) => {
                     return (
-                      <Link to={`/profiledetails/${item._id}`}>
+                      <Link
+                        to={`/${
+                          item.isMain ? 'mainprofiledetails' : 'profiledetails'
+                        }/${item._id}`}
+                      >
                         <div className="ResultBox">
                           <div>
                             <span>
@@ -170,7 +174,7 @@ const MobileTopbar = (props) => {
                   </Link>
 
                   <Link
-                    to={`/contact`}
+                    to={`/contact-us`}
                     style={{ textDecoration: 'none', color: '#6097BF' }}
                     className="topbarLink"
                   >
@@ -287,7 +291,7 @@ const MobileTopbar = (props) => {
                     </li>
 
                     <li className="p-2 border-b border-white">
-                      <Link to="/contact" className="text-white">
+                      <Link to="/contact-us" className="text-white">
                         צור קשר
                       </Link>
                     </li>
@@ -318,7 +322,7 @@ const MobileTopbar = (props) => {
                       </Link>
                     </li>
 
-                   {/* <li className="p-2 border-b border-white">
+                    {/* <li className="p-2 border-b border-white">
                       <Link to="/plans" className="text-white">
                         תוכניות
                       </Link>

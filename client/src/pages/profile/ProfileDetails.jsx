@@ -32,7 +32,7 @@ import moment from 'moment';
 import Map from './Map';
 import Direction from './Direction';
 import ProfileFooter from './ProfileFooter';
-
+import defaultVideoImg from '../../assets/video.jpg';
 import CandleFlower from './CandleFlower';
 
 export default function Profile() {
@@ -721,8 +721,8 @@ export default function Profile() {
                                 <video
                                   width="100%"
                                   height="100%"
-                                  poster="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
-                                  srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                                  poster={defaultVideoImg}
+                                  srl_video_thumbnail={defaultVideoImg}
                                   srl_video_caption="Memory Video"
                                   className="memory-img d-none d-sm-block"
                                   controls
@@ -737,8 +737,8 @@ export default function Profile() {
                                 <video
                                   width="100%"
                                   height="100%"
-                                  poster="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
-                                  srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                                  poster={defaultVideoImg}
+                                  srl_video_thumbnail={defaultVideoImg}
                                   srl_video_caption="A video with a rabbit"
                                   className="memory-img d-block d-sm-none"
                                   controls={false}
@@ -888,7 +888,8 @@ export default function Profile() {
                           <video
                             width="100%"
                             height="100%"
-                            srl_video_thumbnail="https://www.geirangerfjord.no/upload/images/2018_general/film-and-vid.jpg"
+                            poster={defaultVideoImg}
+                            srl_video_thumbnail={defaultVideoImg}
                             srl_video_caption="Profile Video"
                             controls
                             className="full-gallery-img"
