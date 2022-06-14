@@ -869,7 +869,7 @@ input[type='date']:valid::before {
   left: 5%;
 }
 .candle_flower img {
-  width: 18vw;
+  width: 16vw;
   cursor: pointer;
 }
 .candle_flower_count {
