@@ -583,7 +583,11 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <div className="memorial-container">
+        <div
+          className={`${
+            show === 'wall' ? 'd-block' : 'd-none'
+          } memorial-container`}
+        >
           <div className="profile-details-title ">
             <h1 className="profile_details_section_title">תאריך האזכרה</h1>
           </div>

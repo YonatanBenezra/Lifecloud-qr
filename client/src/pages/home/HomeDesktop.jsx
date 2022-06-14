@@ -7,6 +7,7 @@ import { Search } from '@material-ui/icons';
 import leftCloud from '../../assets/light-blue-left-cloud.png';
 import rightCloud from '../../assets/rightCloud.png';
 import exampleProfileImage from '../../assets/exampleProfileImage.png';
+import exampleProfileImage2 from '../../assets/asi.jpg';
 import { Player } from 'video-react';
 import Slider from 'react-slick';
 import './home.css';
@@ -259,19 +260,7 @@ const HomeDesktop = (props) => {
           </a>
           <a href="#">
             <div
-              style={{ backgroundImage: `url(${exampleProfileImage})` }}
-              className="example-profile-image"
-            ></div>
-          </a>
-          <a href="#">
-            <div
-              style={{ backgroundImage: `url(${exampleProfileImage})` }}
-              className="example-profile-image"
-            ></div>
-          </a>
-          <a href="#">
-            <div
-              style={{ backgroundImage: `url(${exampleProfileImage})` }}
+              style={{ backgroundImage: `url(${exampleProfileImage2})` }}
               className="example-profile-image"
             ></div>
           </a>

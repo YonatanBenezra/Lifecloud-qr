@@ -91,7 +91,7 @@ const CandleFlower = ({ profileId, userId }) => {
   };
   useEffect(() => {
     const scrollEvent = () => {
-      candleRef.current.click();
+      candleRef?.current?.click();
       window.removeEventListener('scroll', scrollEvent);
     };
     window.addEventListener('scroll', scrollEvent);

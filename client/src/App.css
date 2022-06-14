@@ -53,3 +53,10 @@ html {
     font-size: 7px;
   }
 }
+.accessibility_component {
+  display: none;
+}
+.accessibility_component .btn_accessibility {
+  width: auto;
+  padding: 10px;
+}
