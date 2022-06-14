@@ -174,7 +174,7 @@ const MobileTopbar = (props) => {
                   </Link>
 
                   <Link
-                    to={`/contact`}
+                    to={`/contact-us`}
                     style={{ textDecoration: 'none', color: '#6097BF' }}
                     className="topbarLink"
                   >
@@ -291,7 +291,7 @@ const MobileTopbar = (props) => {
                     </li>
 
                     <li className="p-2 border-b border-white">
-                      <Link to="/contact" className="text-white">
+                      <Link to="/contact-us" className="text-white">
                         צור קשר
                       </Link>
                     </li>

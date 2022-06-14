@@ -87,7 +87,7 @@ function App() {
             <Route exact path="/organisationregister">
               <OrganisationRegister />
             </Route>
-            <Route exact path="/contact">
+            <Route exact path="/contact-us">
               <Contact />
             </Route>
             <Route exact path="/policy">

@@ -103,7 +103,7 @@ const Plans = () => {
                   צרכיו ומאפייניו
                 </h1>
                 <div className="plan-contact-container">
-                  <Link to="/contact" className="plan-link plan-description">
+                  <Link to="/contact-us" className="plan-link plan-description">
                     צור קשר
                   </Link>
                 </div>

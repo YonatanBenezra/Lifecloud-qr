@@ -255,6 +255,7 @@ const CandleFlower = ({ profileId, userId }) => {
             src={totalCandles > 0 ? lightCandle : darkCandle}
             alt="light candle"
             ref={candleRef}
+            className="mb-4"
           />
           {showCandleList && totalCandles > 0 && (
             <div className="candle_flower_user_list">

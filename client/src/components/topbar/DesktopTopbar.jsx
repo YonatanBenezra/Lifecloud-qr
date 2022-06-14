@@ -128,7 +128,7 @@ const DesktopTopbar = (props) => {
                 </Link>
 
                 <Link
-                  to={`/contact`}
+                  to={`/contact-us`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className={`${
                     clicked === 'contact' && 'topbar-active'
