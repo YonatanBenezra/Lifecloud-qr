@@ -8,6 +8,7 @@ import rightCloud from '../../assets/rightCloud.png';
 import exampleProfileImage from '../../assets/exampleProfileImage.png';
 import { Player } from 'video-react';
 import Slider from 'react-slick';
+import exampleProfileImage2 from '../../assets/asi.jpg';
 
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
@@ -445,23 +446,7 @@ const HomeMobile = (props) => {
           <a href="#">
             <div className="">
               <img
-                src={exampleProfileImage}
-                className="mobile-example-profile-image"
-              />
-            </div>
-          </a>
-          <a href="#">
-            <div className="">
-              <img
-                src={exampleProfileImage}
-                className="mobile-example-profile-image"
-              />
-            </div>
-          </a>
-          <a href="#">
-            <div className="mobile-example-profile-image">
-              <img
-                src={exampleProfileImage}
+                src={exampleProfileImage2}
                 className="mobile-example-profile-image"
               />
             </div>
