@@ -445,7 +445,8 @@ const HomeMobile = (props) => {
       </div>*/}
 
         <Slider {...settings} style={{ width: '90%', height: '280px' }}>
-          <a href="#">
+       {/*
+       <a href="#">
             <div>
               <img
                 src={exampleProfileImage}
@@ -453,26 +454,30 @@ const HomeMobile = (props) => {
               />
             </div>
           </a>
-          <a href="#">
+          */}
+          <Link to="/profiledetails/62930e650fc791cf90ac210c">
             <div className="">
               <img
                 src={exampleProfileImage2}
                 className="mobile-example-profile-image"
               />
             </div>
-          </a>
+          </Link>
         </Slider>
       </div>
 
-      <a href="/createprofile" className="creation-btn">
+      <Link to="/profiledetails/62930e650fc791cf90ac210c" className="creation-btn">
         <div className="profile-div">+ לצפייה בפרופיל לדוגמה</div>
-      </a>
+      </Link>
 
-      <a href="/createprofile" className="creation-btn">
+      <Link
+       to={user ? `/createprofile/${user._id}` : '/register'}
+       className="creation-btn"
+       >
         <div className="profile-div" style={{ backgroundColor: '#6097BF' }}>
           + יצירת פרופיל חדש - ללא עלות!
         </div>
-      </a>
+      </Link>
       {/* 
       <a href="/createprofile" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
