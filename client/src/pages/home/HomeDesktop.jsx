@@ -267,7 +267,7 @@ const HomeDesktop = (props) => {
         </Slider>
       </div>
       <Link
-        to="/profiledetails/629227f40fc791cf90ac1844"
+        to="/profiledetails/62930e650fc791cf90ac210c"
         className="creation-btn"
       >
         <div className="profile-div">+ צפייה בעמוד לדוגמה</div>
