@@ -252,12 +252,12 @@ const HomeDesktop = (props) => {
 
       <div className="example-profile">
         <Slider {...settings}>
-          <a href="#">
-            <div
-              style={{ backgroundImage: `url(${exampleProfileImage})` }}
-              className="example-profile-image"
-            ></div>
-          </a>
+//           <a href="#">
+//             <div
+//               style={{ backgroundImage: `url(${exampleProfileImage})` }}
+//               className="example-profile-image"
+//             ></div>
+//           </a>
           <a href="#">
             <div
               style={{ backgroundImage: `url(${exampleProfileImage2})` }}
