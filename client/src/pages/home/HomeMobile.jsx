@@ -445,24 +445,24 @@ const HomeMobile = (props) => {
       </div>*/}
 
         <Slider {...settings} style={{ width: '90%', height: '280px' }}>
-       {/*
+       
        <a href="#">
             <div>
               <img
-                src={exampleProfileImage}
+                src={exampleProfileImage2}
                 className="mobile-example-profile-image"
               />
             </div>
           </a>
-          */}
-          <Link to="/profiledetails/62930e650fc791cf90ac210c">
+          
+          <a href="#">
             <div className="">
               <img
                 src={exampleProfileImage2}
                 className="mobile-example-profile-image"
               />
             </div>
-          </Link>
+          </a>
         </Slider>
       </div>
 
