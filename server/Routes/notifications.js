@@ -2,37 +2,16 @@ const Router = require('express');
 const { Memory } = require('../models/Memory');
 const { Notifications } = require('../models/Notifications');
 const NotificationsRouter = Router();
-var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  secure: false,
-  auth: {
-    user: 'life.cloud.fiverr@gmail.com',
-    pass: 'wfaguxqqiiziybkq',
-  },
-});
+const Email = require('../utils/email');
 
 //Send Notification
 NotificationsRouter.post('/sendNotificationEmail', async (req, res) => {
   try {
-    var mailOptions = {
-      from: 'life.cloud.fiverr@gmail.com',
-      to: req.body.email,
-      subject: `Fried request notification on ${req.body.profileName}`,
-      text: 'LifeCloud-QR',
-      attachDataUrls: true,
-      html: `Your have a fried request notification on ${req.body.profileName}. Request sent by ${req.body.userName}`,
-    };
+    await new Email({email:req.body.email}).sendFriendNotification(
+      req.body.userName,
+      req.body.profileName
+    );
 
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-        res.send(error);
-      } else {
-        res.send(info);
-        console.log('Email sent: ' + info.response);
-      }
-    });
   } catch (error) {
     res.send(error);
   }

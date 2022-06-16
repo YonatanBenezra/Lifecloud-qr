@@ -4,6 +4,8 @@ const ProfileRouter = Router();
 const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const qr = require('qrcode');
+const Email = require('../utils/email');
+
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -74,7 +76,11 @@ ProfileRouter.post(
         const qrUrl = `http://localhost:8801/profiledetails/${resp._id}`;
         if (!req.body.email) return res.send(resp);
         var img = await qr.toDataURL(qrUrl);
-        var mailOptions = {
+        await new Email({ email: req.body.email }).sendProfileQR(
+          req.body.firstName,
+          img
+        );
+        /* var mailOptions = {
           from: 'life.cloud.fiverr@gmail.com',
           to: req.body.email,
           subject: `QR For ${req.body.firstName} ${req.body.lastName}`,
@@ -89,7 +95,7 @@ ProfileRouter.post(
           } else {
             console.log('Email sent: ' + info.response);
           }
-        });
+        }); */
         res.send(resp);
       });
     } catch (err) {
