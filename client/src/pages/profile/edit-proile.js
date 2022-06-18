@@ -329,7 +329,6 @@ export default function ProfileEdit() {
   );
   return (
     <React.Fragment>
-      {' '}
       <div
         className="modal fade qr-modal"
         id="editGalleryImage"
@@ -360,13 +359,12 @@ export default function ProfileEdit() {
                       className="btn-close position-absolute"
                       onClick={() => removeGalleryDB(img)}
                     ></button>
-                    <LazyLoad>
-                      <img
-                        src={`${process.env.REACT_APP_API_URL}/${img}`}
-                        alt="gallery"
-                        style={{ height: '120px', width: '100%' }}
-                      />
-                    </LazyLoad>
+
+                    <img
+                      src={`${process.env.REACT_APP_API_URL}/${img}`}
+                      alt="gallery"
+                      style={{ height: '120px', width: '100%' }}
+                    />
                   </div>
                 ))}
 

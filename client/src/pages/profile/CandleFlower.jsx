@@ -126,9 +126,7 @@ const CandleFlower = ({ profileId, userId }) => {
             <div className="modal-body text-center pt-0">
               <div className="row">
                 <div className="col-6 p-0">
-                  <LazyLoad>
-                    <img className="img-fluid" src={candle} alt="FlowerLight" />
-                  </LazyLoad>
+                  <img className="img-fluid" src={candle} alt="FlowerLight" />
 
                   <button
                     className="profile-small-btn border-0"
@@ -139,9 +137,7 @@ const CandleFlower = ({ profileId, userId }) => {
                   </button>
                 </div>
                 <div className=" col-6 p-0">
-                  <LazyLoad>
-                    <img className="img-fluid" src={flower} alt="FlowerLight" />
-                  </LazyLoad>
+                  <img className="img-fluid" src={flower} alt="FlowerLight" />
 
                   <button
                     className="profile-small-btn border-0"

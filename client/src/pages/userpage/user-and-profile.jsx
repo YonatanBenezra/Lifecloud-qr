@@ -42,12 +42,12 @@ export const UserAndprofiles = () => {
           .filter(
             (notification) =>
               (notification?.memoryCreatorNotification[0]?.originalUser[0] ===
-                currentLoggedUser._id &&
+                currentLoggedUser?._id &&
                 notification.notificationType !== 'profileAdmin' &&
                 notification.notificationType !== 'profileFriend') ||
               (notification?.memoryCreatorNotification[0]?.originalUser[0] !==
-                currentLoggedUser._id &&
-                notification?.logedInUser[0]?._id === currentLoggedUser._id &&
+                currentLoggedUser?._id &&
+                notification?.logedInUser[0]?._id === currentLoggedUser?._id &&
                 (notification.notificationType === 'profileAdmin' ||
                   notification.notificationType === 'profileFriend'))
           )
