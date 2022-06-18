@@ -5,6 +5,7 @@ import SocialFooter from '../../components/socialFooter/socialFooter';
 import Topbar from '../../components/topbar/Topbar';
 import whiteLogo from '../../assets/whiteLogo.png';
 import signatureGali from '../../assets/גג 1.png';
+import LazyLoad from 'react-lazyload';
 
 const About = () => {
   return (
@@ -15,7 +16,10 @@ const About = () => {
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <img src={whiteLogo} alt="" style={{ height: '12rem' }} />
+                <LazyLoad>
+                  <img src={whiteLogo} alt="" style={{ height: '12rem' }} />
+                </LazyLoad>
+
                 <div>
                   <p>
                     מיזם LifeCloud הוקם על ידי קבוצת חברים שהגיעו כל אחד מתחומו

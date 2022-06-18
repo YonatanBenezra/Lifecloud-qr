@@ -3,6 +3,7 @@ import '../../components/socialFooter/social-footer.css';
 import rightCloud from '../../assets/rightCloud.png';
 import facebook from '../../assets/facebook.png';
 import instagram from '../../assets/instagram.png';
+import LazyLoad from 'react-lazyload';
 
 const ProfileFooter = ({
   instagramUrl,
@@ -22,7 +23,9 @@ const ProfileFooter = ({
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img className="heart-icon" src={facebook} alt="facebook"></img>
+              <LazyLoad>
+                <img className="heart-icon" src={facebook} alt="facebook" />
+              </LazyLoad>
             </a>
           </div>
         )}
@@ -34,12 +37,16 @@ const ProfileFooter = ({
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img className="heart-icon" src={instagram} alt="instagram" />
+              <LazyLoad>
+                <img className="heart-icon" src={instagram} alt="instagram" />
+              </LazyLoad>
             </a>
           </div>
         )}
       </div>
-      <img src={rightCloud} alt="" className="right-bottom-cloud"></img>
+      <LazyLoad>
+        <img src={rightCloud} alt="" className="right-bottom-cloud" />
+      </LazyLoad>
     </div>
   );
 };

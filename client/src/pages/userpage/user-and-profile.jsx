@@ -9,6 +9,7 @@ import Lock from '../../assets/Lock.png';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import { useRef } from 'react';
+import LazyLoad from 'react-lazyload';
 export const UserAndprofiles = () => {
   const LoggedUser = useContext(AuthContext);
   const [show, setShow] = useState(false);
@@ -106,16 +107,18 @@ export const UserAndprofiles = () => {
                 className="user-name"
                 style={{ direction: 'rtl', flexDirection: 'column' }}
               >
-                <img
-                  alt=""
-                  src={
-                    LoggedUser.user?.mainProfilePicture
-                      ? `${process.env.REACT_APP_API_URL}/picUploader/${LoggedUser.user?.mainProfilePicture}`
-                      : LoggedUser.user?.profilePicture
-                  }
-                  className="user-img"
-                  ref={profileImageRef}
-                />
+                <LazyLoad>
+                  <img
+                    alt=""
+                    src={
+                      LoggedUser.user?.mainProfilePicture
+                        ? `${process.env.REACT_APP_API_URL}/picUploader/${LoggedUser.user?.mainProfilePicture}`
+                        : LoggedUser.user?.profilePicture
+                    }
+                    className="user-img"
+                    ref={profileImageRef}
+                  />
+                </LazyLoad>
                 <input
                   type="file"
                   name="profileImg"
@@ -135,7 +138,7 @@ export const UserAndprofiles = () => {
             </div>
             <div className="profiles-container">
               {user.user_type == 'organisation' &&
-                (data?.find(userProfiles=>userProfiles.isMain) ? (
+                (data?.find((userProfiles) => userProfiles.isMain) ? (
                   data?.map((userProfiles, i) => {
                     if (userProfiles.isMain) {
                       return (
@@ -149,11 +152,13 @@ export const UserAndprofiles = () => {
                           >
                             <div className="profile-container" key={i}>
                               <div className="profile-image-div">
-                                <img
-                                  className="profile-image"
-                                  src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
-                                  alt=""
-                                />
+                                <LazyLoad>
+                                  <img
+                                    className="profile-image"
+                                    src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                                    alt=""
+                                  />
+                                </LazyLoad>
                               </div>
                               <div className="profile-name">
                                 {userProfiles.firstName}
@@ -201,11 +206,13 @@ export const UserAndprofiles = () => {
                         >
                           <div className="profile-container" key={i}>
                             <div className="profile-image-div">
-                              <img
-                                className="profile-image"
-                                src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
-                                alt=""
-                              />
+                              <LazyLoad>
+                                <img
+                                  className="profile-image"
+                                  src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                                  alt=""
+                                />
+                              </LazyLoad>
                             </div>
                             <div className="profile-name">
                               {userProfiles.firstName} {userProfiles.lastName}
@@ -289,11 +296,13 @@ export const UserAndprofiles = () => {
                         <span>{n.date}</span> | <span>{n.time}</span>{' '}
                         <span>{n.action}</span>
                       </div>
-                      <img
-                        alt=""
-                        src={n.profileImg}
-                        className="notification-img"
-                      ></img>
+                      <LazyLoad>
+                        <img
+                          alt=""
+                          src={n.profileImg}
+                          className="notification-img"
+                        />
+                      </LazyLoad>
                     </div>
                   </div>
                 </div>

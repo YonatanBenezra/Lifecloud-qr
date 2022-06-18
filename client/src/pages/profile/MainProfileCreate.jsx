@@ -7,6 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
 import './main-profile-create.css';
+import LazyLoad from 'react-lazyload';
 export default function MainProfileCreate() {
   /* Organization Creation fix code*/
   const [isCreating, setIsCreating] = useState(false);
@@ -138,15 +139,18 @@ export default function MainProfileCreate() {
           </div>
           <div className="profile-images">
             <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  imgData
-                    ? imgData
-                    : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                }
-                alt=""
-              ></img>
+              <LazyLoad>
+                <img
+                  className="profile-image"
+                  src={
+                    imgData
+                      ? imgData
+                      : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                  }
+                  alt=""
+                />
+              </LazyLoad>
+
               <input
                 className="custom-file-input"
                 type="file"
@@ -155,15 +159,18 @@ export default function MainProfileCreate() {
               />
             </div>
             <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  coverData
-                    ? coverData
-                    : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                }
-                alt=""
-              ></img>
+              <LazyLoad>
+                <img
+                  className="profile-image"
+                  src={
+                    coverData
+                      ? coverData
+                      : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                  }
+                  alt=""
+                />
+              </LazyLoad>
+
               <input
                 className="custom-file-input-cover"
                 type="file"
@@ -204,51 +211,65 @@ export default function MainProfileCreate() {
                         />
                       </div>
                       <div className="d-flex flex-wrap justify-content-center">
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            multiFiles && multiFiles.length > 0
-                              ? multiFiles[0].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            multiFiles && multiFiles.length > 1
-                              ? multiFiles[1].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            multiFiles && multiFiles.length > 2
-                              ? multiFiles[2].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            multiFiles && multiFiles.length > 3
-                              ? multiFiles[3].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            multiFiles && multiFiles.length > 4
-                              ? multiFiles[4].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
+                        <LazyLoad>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              multiFiles && multiFiles.length > 0
+                                ? multiFiles[0].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          />
+                        </LazyLoad>
+
+                        <LazyLoad>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              multiFiles && multiFiles.length > 1
+                                ? multiFiles[1].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          />
+                        </LazyLoad>
+
+                        <LazyLoad>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              multiFiles && multiFiles.length > 2
+                                ? multiFiles[2].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          />
+                        </LazyLoad>
+
+                        <LazyLoad>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              multiFiles && multiFiles.length > 3
+                                ? multiFiles[3].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          />
+                        </LazyLoad>
+
+                        <LazyLoad>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              multiFiles && multiFiles.length > 4
+                                ? multiFiles[4].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          />
+                        </LazyLoad>
                       </div>
                     </div>
                   </div>{' '}

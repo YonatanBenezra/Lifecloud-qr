@@ -9,6 +9,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
 import ENTopbar from '../../components/topbar/ENTopBar';
+import LazyLoad from 'react-lazyload';
 export default function ENProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
@@ -16,8 +17,8 @@ export default function ENProfileCreate() {
   const [imgData, setImgData] = useState(null);
   const [userData, setUserData] = useState([]);
   const [open, setOpen] = useState(false);
-  const [hebBirthDate,sethebBirthDate] = useState('')
-  const [hebDeathDate,sethebDeathDate] = useState('')
+  const [hebBirthDate, sethebBirthDate] = useState('');
+  const [hebDeathDate, sethebDeathDate] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedPrivacy, setSelectedPrivacy] = useState('public');
   const [image, setImage] = useState(null);
@@ -40,7 +41,7 @@ export default function ENProfileCreate() {
   useEffect(() => {
     fetchuserData();
   }, []);
-  console.log(id,'id')
+  console.log(id, 'id');
   const fetchuserData = async () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/users/${id}`
@@ -82,8 +83,7 @@ export default function ENProfileCreate() {
   const [inputList, setInputList] = useState([
     { axisTitle: '', axisDate: '', axisDescription: '' },
   ]);
-  
- 
+
   const firstName = useRef();
   const lastName = useRef();
   const companyName = useRef();
@@ -106,14 +106,14 @@ export default function ENProfileCreate() {
   const axisTitle = useRef();
   const axisDate = useRef();
   const history = useHistory();
-  
+
   const handleChange = (e) => {
     setSelectedGender(e.target.value);
   };
   const handlePrivacyChange = (e) => {
     setSelectedPrivacy(e.target.value);
   };
-// console.log(hebBirthDate,'hebBirthDate')
+  // console.log(hebBirthDate,'hebBirthDate')
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -163,7 +163,7 @@ export default function ENProfileCreate() {
 
     setAxisImages(inputList.map((list) => list.axisImage));
   };
-console.log(userData,'userData')
+  console.log(userData, 'userData');
   const handleClick = async (e) => {
     console.log(id, 'id');
     e.preventDefault();
@@ -196,7 +196,7 @@ console.log(userData,'userData')
       formdata.append('profileImg', picture);
       formdata.append('graveImg', graveImage);
       formdata.append('wallImg', image);
-      formdata.append('privacy',selectedPrivacy);
+      formdata.append('privacy', selectedPrivacy);
       formdata.append('firstName', wallInformation.firstName);
       formdata.append('originalUser', wallInformation.originalUser);
       formdata.append('lastName', wallInformation.lastName);
@@ -214,7 +214,7 @@ console.log(userData,'userData')
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
-      
+
       fetch(`${process.env.REACT_APP_API_URL}/api/profile/createProfile`, {
         method: 'POST',
         body: formdata,
@@ -242,7 +242,7 @@ console.log(userData,'userData')
             .then((res) => {
               console.log('notification->', res);
             });
-          console.log(res,'resonse create profile');
+          console.log(res, 'resonse create profile');
           if (res) {
             setMessage('Profile made successfully');
             setOpen(true);
@@ -282,15 +282,18 @@ console.log(userData,'userData')
               />
             </div> */}
             <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  imgData
-                    ? imgData
-                    : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                }
-                alt=""
-              ></img>
+              <LazyLoad>
+                <img
+                  className="profile-image"
+                  src={
+                    imgData
+                      ? imgData
+                      : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                  }
+                  alt=""
+                />
+              </LazyLoad>
+
               <input
                 className="custom-file-input"
                 type="file"
@@ -299,15 +302,18 @@ console.log(userData,'userData')
               />
             </div>
             <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  coverData
-                    ? coverData
-                    : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                }
-                alt=""
-              ></img>
+              <LazyLoad>
+                <img
+                  className="profile-image"
+                  src={
+                    coverData
+                      ? coverData
+                      : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                  }
+                  alt=""
+                />
+              </LazyLoad>
+
               <input
                 className="custom-file-input-cover"
                 type="file"
@@ -361,7 +367,7 @@ console.log(userData,'userData')
                     type="text"
                     // ref={hebBirthDate}\
                     value={hebBirthDate}
-                    onChange={(e)=>sethebBirthDate(e.target.value)}
+                    onChange={(e) => sethebBirthDate(e.target.value)}
                     className="nameInput"
                   />
                   <input
@@ -369,7 +375,7 @@ console.log(userData,'userData')
                     type="text"
                     // ref={hebBirthDate}\
                     value={hebDeathDate}
-                    onChange={(e)=>sethebDeathDate(e.target.value)}
+                    onChange={(e) => sethebDeathDate(e.target.value)}
                     className="nameInput"
                   />
                 </div>
@@ -455,7 +461,7 @@ console.log(userData,'userData')
                           id="profilePic"
                           type="file"
                           name="multiplefiles"
-                          className='with-text'
+                          className="with-text"
                           multiple
                           onChange={onChangeMultiplePicture}
                         />
@@ -547,15 +553,18 @@ console.log(userData,'userData')
                     </div>
                   </div>
                   <div className="profile-image-container">
-                    <img
-                      className="profile-image"
-                      src={
-                        graveData
-                          ? graveData
-                          : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                      }
-                      alt=""
-                    ></img>
+                    <LazyLoad>
+                      <img
+                        className="profile-image"
+                        src={
+                          graveData
+                            ? graveData
+                            : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                        }
+                        alt=""
+                      />
+                    </LazyLoad>
+
                     <input
                       className="custom-file-grave"
                       type="file"

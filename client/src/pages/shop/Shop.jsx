@@ -17,6 +17,7 @@ import woodPrintImg from '../../assets/product_wood_print.jpg';
 import qrImg from '../../assets/product_qr.jpg';
 import emailjs from '@emailjs/browser';
 import SnackBar from '../../components/snackbar/SnackBar';
+import LazyLoad from 'react-lazyload';
 
 const Shop = () => {
   const form = useRef();
@@ -242,7 +243,9 @@ const Shop = () => {
             <h3 className="payment-logo">אמצעי תשלום</h3>
           </div>
           <button className="register-shop-payment">המשך לתשלום</button>
-          <img src={Arrow1} className="arrow1-shop-payment" alt=""></img>
+          <LazyLoad>
+            <img src={Arrow1} className="arrow1-shop-payment" alt="" />
+          </LazyLoad>
         </div>
       ) : (
         <div className="shop-section">

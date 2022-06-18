@@ -3,6 +3,7 @@ import './social-footer.css';
 import rightCloud from '../../assets/rightCloud.png';
 import facebook from '../../assets/facebook.png';
 import instagram from '../../assets/instagram.png';
+import LazyLoad from 'react-lazyload';
 
 const SocialFooter = ({ backgroundColor, color }) => {
   return (
@@ -19,7 +20,9 @@ const SocialFooter = ({ backgroundColor, color }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img className="heart-icon" src={facebook} alt=""></img>
+            <LazyLoad>
+              <img className="heart-icon" src={facebook} alt="" />
+            </LazyLoad>
           </a>
         </div>
         <div className="instagram-container">
@@ -29,11 +32,15 @@ const SocialFooter = ({ backgroundColor, color }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img className="heart-icon" src={instagram} alt="" />
+            <LazyLoad>
+              <img className="heart-icon" src={instagram} alt="" />
+            </LazyLoad>
           </a>
         </div>
       </div>
-      <img src={rightCloud} alt="" className="right-bottom-cloud"></img>
+      <LazyLoad>
+        <img src={rightCloud} alt="" className="right-bottom-cloud"></img>
+      </LazyLoad>
     </div>
   );
 };

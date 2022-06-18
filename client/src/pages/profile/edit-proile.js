@@ -12,6 +12,7 @@ import SnackBar from '../../components/snackbar/SnackBar';
 import Map from './Map';
 import facebook from '../../assets/facebook.png';
 import instagram from '../../assets/instagram.png';
+import LazyLoad from 'react-lazyload';
 export default function ProfileEdit() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
@@ -359,11 +360,13 @@ export default function ProfileEdit() {
                       className="btn-close position-absolute"
                       onClick={() => removeGalleryDB(img)}
                     ></button>
-                    <img
-                      src={`${process.env.REACT_APP_API_URL}/${img}`}
-                      alt="gallery"
-                      style={{ height: '120px', width: '100%' }}
-                    />
+                    <LazyLoad>
+                      <img
+                        src={`${process.env.REACT_APP_API_URL}/${img}`}
+                        alt="gallery"
+                        style={{ height: '120px', width: '100%' }}
+                      />
+                    </LazyLoad>
                   </div>
                 ))}
 
@@ -376,11 +379,13 @@ export default function ProfileEdit() {
                         className="btn-close position-absolute"
                         onClick={() => removeGalleryCur(i)}
                       ></button>
-                      <img
-                        src={file.imagePreview}
-                        alt="gallery"
-                        style={{ height: '120px', width: '100%' }}
-                      />
+                      <LazyLoad>
+                        <img
+                          src={file.imagePreview}
+                          alt="gallery"
+                          style={{ height: '120px', width: '100%' }}
+                        />
+                      </LazyLoad>
                     </div>
                   );
                 })}
@@ -425,15 +430,18 @@ export default function ProfileEdit() {
                 />
               </div> */}
               <div className="profile-image-container">
-                <img
-                  className="profile-image"
-                  src={
-                    imgData
-                      ? imgData
-                      : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
-                  }
-                  alt=""
-                ></img>
+                <LazyLoad>
+                  <img
+                    className="profile-image"
+                    src={
+                      imgData
+                        ? imgData
+                        : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
+                    }
+                    alt=""
+                  />
+                </LazyLoad>
+
                 <input
                   className="custom-file-input"
                   type="file"
@@ -442,15 +450,18 @@ export default function ProfileEdit() {
                 />
               </div>
               <div className="profile-image-container">
-                <img
-                  className="profile-image"
-                  src={
-                    coverData
-                      ? coverData
-                      : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
-                  }
-                  alt=""
-                ></img>
+                <LazyLoad>
+                  <img
+                    className="profile-image"
+                    src={
+                      coverData
+                        ? coverData
+                        : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
+                    }
+                    alt=""
+                  />
+                </LazyLoad>
+
                 <input
                   className="custom-file-input-cover"
                   type="file"
@@ -650,71 +661,85 @@ export default function ProfileEdit() {
                           />
                         </div>
                         <div className="d-flex flex-wrap justify-content-center">
-                          <img
-                            className="profile-creation-gallery-img mb-3"
-                            src={
-                              (profiledata.gallery &&
-                              profiledata.gallery.length > 0
-                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[0]}`
-                                : multiFiles && multiFiles.length > 0
-                                ? multiFiles[0].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
-                              'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
-                            }
-                            alt=""
-                          ></img>
-                          <img
-                            className="profile-creation-gallery-img mb-3"
-                            src={
-                              (profiledata.gallery &&
-                              profiledata.gallery.length > 1
-                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[1]}`
-                                : multiFiles && multiFiles.length > 1
-                                ? multiFiles[1].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
-                              'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
-                            }
-                            alt=""
-                          ></img>
-                          <img
-                            className="profile-creation-gallery-img mb-3"
-                            src={
-                              (profiledata.gallery &&
-                              profiledata.gallery.length > 2
-                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[2]}`
-                                : multiFiles && multiFiles.length > 2
-                                ? multiFiles[2].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
-                              'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
-                            }
-                            alt=""
-                          ></img>
-                          <img
-                            className="profile-creation-gallery-img mb-3"
-                            src={
-                              (profiledata.gallery &&
-                              profiledata.gallery.length > 3
-                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[3]}`
-                                : multiFiles && multiFiles.length > 3
-                                ? multiFiles[3].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
-                              'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
-                            }
-                            alt=""
-                          ></img>
-                          <img
-                            className="profile-creation-gallery-img mb-3"
-                            src={
-                              (profiledata.gallery &&
-                              profiledata.gallery.length > 4
-                                ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[4]}`
-                                : multiFiles && multiFiles.length > 4
-                                ? multiFiles[4].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
-                              'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
-                            }
-                            alt=""
-                          ></img>
+                          <LazyLoad>
+                            <img
+                              className="profile-creation-gallery-img mb-3"
+                              src={
+                                (profiledata.gallery &&
+                                profiledata.gallery.length > 0
+                                  ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[0]}`
+                                  : multiFiles && multiFiles.length > 0
+                                  ? multiFiles[0].imagePreview
+                                  : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
+                                'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
+                              }
+                              alt=""
+                            />
+                          </LazyLoad>
+
+                          <LazyLoad>
+                            <img
+                              className="profile-creation-gallery-img mb-3"
+                              src={
+                                (profiledata.gallery &&
+                                profiledata.gallery.length > 1
+                                  ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[1]}`
+                                  : multiFiles && multiFiles.length > 1
+                                  ? multiFiles[1].imagePreview
+                                  : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
+                                'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
+                              }
+                              alt=""
+                            />
+                          </LazyLoad>
+
+                          <LazyLoad>
+                            <img
+                              className="profile-creation-gallery-img mb-3"
+                              src={
+                                (profiledata.gallery &&
+                                profiledata.gallery.length > 2
+                                  ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[2]}`
+                                  : multiFiles && multiFiles.length > 2
+                                  ? multiFiles[2].imagePreview
+                                  : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
+                                'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
+                              }
+                              alt=""
+                            />
+                          </LazyLoad>
+
+                          <LazyLoad>
+                            <img
+                              className="profile-creation-gallery-img mb-3"
+                              src={
+                                (profiledata.gallery &&
+                                profiledata.gallery.length > 3
+                                  ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[3]}`
+                                  : multiFiles && multiFiles.length > 3
+                                  ? multiFiles[3].imagePreview
+                                  : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
+                                'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
+                              }
+                              alt=""
+                            />
+                          </LazyLoad>
+
+                          <LazyLoad>
+                            <img
+                              className="profile-creation-gallery-img mb-3"
+                              src={
+                                (profiledata.gallery &&
+                                profiledata.gallery.length > 4
+                                  ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[4]}`
+                                  : multiFiles && multiFiles.length > 4
+                                  ? multiFiles[4].imagePreview
+                                  : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
+                                'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg'
+                              }
+                              alt=""
+                            />
+                          </LazyLoad>
                         </div>
                         {/* <div className="previewProfilePic"> */}
                         {/* <img
@@ -814,11 +839,13 @@ export default function ProfileEdit() {
                               setShowFacebookInput((prev) => !prev)
                             }
                           >
-                            <img
-                              className="heart-icon"
-                              src={facebook}
-                              alt="facebook"
-                            ></img>
+                            <LazyLoad>
+                              <img
+                                className="heart-icon"
+                                src={facebook}
+                                alt="facebook"
+                              />
+                            </LazyLoad>
                           </button>
                           {showFacebookInput && (
                             <input
@@ -840,11 +867,13 @@ export default function ProfileEdit() {
                               setShowInstagramInput((prev) => !prev)
                             }
                           >
-                            <img
-                              className="heart-icon"
-                              src={instagram}
-                              alt="instagram"
-                            />
+                            <LazyLoad>
+                              <img
+                                className="heart-icon"
+                                src={instagram}
+                                alt="instagram"
+                              />
+                            </LazyLoad>
                           </button>
                           {showInstagramInput && (
                             <input
@@ -897,15 +926,18 @@ export default function ProfileEdit() {
                       </div>
                     </div>
                     <div className="profile-image-container">
-                      <img
-                        className="profile-image"
-                        src={
-                          graveData
-                            ? graveData
-                            : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                        }
-                        alt=""
-                      ></img>
+                      <LazyLoad>
+                        <img
+                          className="profile-image"
+                          src={
+                            graveData
+                              ? graveData
+                              : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                          }
+                          alt=""
+                        />
+                      </LazyLoad>
+
                       <input
                         className="custom-file-grave"
                         type="file"

@@ -4,6 +4,8 @@ import Rectangle7 from '../../assets/Rectangle7.png';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import userIcon from '../../assets/userIcon.png';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import LazyLoad from 'react-lazyload';
 
 const FriendsList = ({
   proid,
@@ -285,14 +287,17 @@ const FriendsList = ({
             return (
               <div className="friend-request" key={i}>
                 <div className="friend-request-details">
-                  <img
-                    src={
-                      friend?.user[0]?.mainProfilePicture
-                        ? `${process.env.REACT_APP_API_URL}/picUploader/${friend.user[0].mainProfilePicture}`
-                        : friend?.user[0]?.profilePicture
-                    }
-                    alt="profile"
-                  />
+                  <LazyLoad>
+                    <img
+                      src={
+                        friend?.user[0]?.mainProfilePicture
+                          ? `${process.env.REACT_APP_API_URL}/picUploader/${friend.user[0].mainProfilePicture}`
+                          : friend?.user[0]?.profilePicture
+                      }
+                      alt="profile"
+                    />
+                  </LazyLoad>
+
                   <p>
                     {friend.user && friend.user[0] && friend.user[0].firstName}
                   </p>
@@ -382,14 +387,17 @@ const FriendsList = ({
                   key={friend.user && friend.user[0] && friend.user[0]._id}
                 >
                   <div className="friend-request-details">
-                    <img
-                      src={
-                        friend?.user[0]?.mainProfilePicture
-                          ? `${process.env.REACT_APP_API_URL}/picUploader/${friend.user[0].mainProfilePicture}`
-                          : friend?.user[0]?.profilePicture
-                      }
-                      alt="profile"
-                    />
+                    <LazyLoad>
+                      <img
+                        src={
+                          friend?.user[0]?.mainProfilePicture
+                            ? `${process.env.REACT_APP_API_URL}/picUploader/${friend.user[0].mainProfilePicture}`
+                            : friend?.user[0]?.profilePicture
+                        }
+                        alt="profile"
+                      />
+                    </LazyLoad>
+
                     <p>
                       {friend.user &&
                         friend.user[0] &&
@@ -452,14 +460,17 @@ const FriendsList = ({
                   key={admin.user && admin.user[0]._id}
                 >
                   <div className="friend-request-details">
-                    <img
-                      src={
-                        admin?.user[0]?.mainProfilePicture
-                          ? `${process.env.REACT_APP_API_URL}/picUploader/${admin.user[0].mainProfilePicture}`
-                          : admin?.user[0]?.profilePicture
-                      }
-                      alt="profile"
-                    />
+                    <LazyLoad>
+                      <img
+                        src={
+                          admin?.user[0]?.mainProfilePicture
+                            ? `${process.env.REACT_APP_API_URL}/picUploader/${admin.user[0].mainProfilePicture}`
+                            : admin?.user[0]?.profilePicture
+                        }
+                        alt="profile"
+                      />
+                    </LazyLoad>
+
                     <p>{admin.user && admin.user[0].firstName}</p>
                   </div>
                   <div>
