@@ -16,6 +16,7 @@ import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import graveLocationImg from '../../assets/מיקום-הקבר.jpg';
 import LifeAxisImg from '../../assets/ציר-חיים.jpg';
+import LazyLoad from 'react-lazyload';
 export default function ProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
@@ -358,15 +359,18 @@ export default function ProfileCreate() {
               />
             </div> */}
             <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  imgData
-                    ? imgData
-                    : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                }
-                alt=""
-              ></img>
+              <LazyLoad>
+                <img
+                  className="profile-image"
+                  src={
+                    imgData
+                      ? imgData
+                      : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                  }
+                  alt=""
+                />
+              </LazyLoad>
+
               <input
                 className="custom-file-input"
                 type="file"
@@ -375,15 +379,18 @@ export default function ProfileCreate() {
               />
             </div>
             <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  coverData
-                    ? coverData
-                    : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                }
-                alt=""
-              ></img>
+              <LazyLoad>
+                <img
+                  className="profile-image"
+                  src={
+                    coverData
+                      ? coverData
+                      : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                  }
+                  alt=""
+                />
+              </LazyLoad>
+
               <input
                 className="custom-file-input-cover"
                 type="file"
@@ -557,51 +564,65 @@ export default function ProfileCreate() {
                         />
                       </div>
                       <div className="d-flex flex-wrap justify-content-center">
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            multiFiles && multiFiles.length > 0
-                              ? multiFiles[0].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            multiFiles && multiFiles.length > 1
-                              ? multiFiles[1].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            multiFiles && multiFiles.length > 2
-                              ? multiFiles[2].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            multiFiles && multiFiles.length > 3
-                              ? multiFiles[3].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
-                        <img
-                          className="profile-creation-gallery-img mb-3"
-                          src={
-                            multiFiles && multiFiles.length > 4
-                              ? multiFiles[4].imagePreview
-                              : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                          }
-                          alt=""
-                        ></img>
+                        <LazyLoad>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              multiFiles && multiFiles.length > 0
+                                ? multiFiles[0].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          />
+                        </LazyLoad>
+
+                        <LazyLoad>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              multiFiles && multiFiles.length > 1
+                                ? multiFiles[1].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          />
+                        </LazyLoad>
+
+                        <LazyLoad>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              multiFiles && multiFiles.length > 2
+                                ? multiFiles[2].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          />
+                        </LazyLoad>
+
+                        <LazyLoad>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              multiFiles && multiFiles.length > 3
+                                ? multiFiles[3].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          />
+                        </LazyLoad>
+
+                        <LazyLoad>
+                          <img
+                            className="profile-creation-gallery-img mb-3"
+                            src={
+                              multiFiles && multiFiles.length > 4
+                                ? multiFiles[4].imagePreview
+                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                            }
+                            alt=""
+                          />
+                        </LazyLoad>
                       </div>
                       {/* <div className="previewProfilePic"> */}
                       {/* <img
@@ -634,11 +655,13 @@ export default function ProfileCreate() {
                         <button className="close" onClick={close}>
                           &times;
                         </button>
-                        <img
-                          src={LifeAxisImg}
-                          className="life-axis-img"
-                          alt=""
-                        ></img>
+                        <LazyLoad>
+                          <img
+                            src={LifeAxisImg}
+                            className="life-axis-img"
+                            alt=""
+                          />
+                        </LazyLoad>
                       </div>
                     )}
                   </Popup>
@@ -724,11 +747,9 @@ export default function ProfileCreate() {
                           type="button"
                           onClick={() => setShowFacebookInput((prev) => !prev)}
                         >
-                          <img
-                            className="heart-icon"
-                            src={facebook}
-                            alt=""
-                          ></img>
+                          <LazyLoad>
+                            <img className="heart-icon" src={facebook} alt="" />
+                          </LazyLoad>
                         </button>
                         {showFacebookInput && (
                           <input
@@ -745,11 +766,13 @@ export default function ProfileCreate() {
                           type="button"
                           onClick={() => setShowInstagramInput((prev) => !prev)}
                         >
-                          <img
-                            className="heart-icon"
-                            src={instagram}
-                            alt="instagram"
-                          />
+                          <LazyLoad>
+                            <img
+                              className="heart-icon"
+                              src={instagram}
+                              alt="instagram"
+                            />
+                          </LazyLoad>
                         </button>
                         {showInstagramInput && (
                           <input
@@ -781,11 +804,13 @@ export default function ProfileCreate() {
                         <button className="close" onClick={close}>
                           &times;
                         </button>
-                        <img
-                          src={graveLocationImg}
-                          className="grave-location-img"
-                          alt=""
-                        ></img>
+                        <LazyLoad>
+                          <img
+                            src={graveLocationImg}
+                            className="grave-location-img"
+                            alt=""
+                          />
+                        </LazyLoad>
                       </div>
                     )}
                   </Popup>
@@ -813,15 +838,18 @@ export default function ProfileCreate() {
                   </div>
                   {map && <Map position={position} setPosition={setPosition} />}
                   <div className="profile-image-container">
-                    <img
-                      className="profile-image"
-                      src={
-                        graveData
-                          ? graveData
-                          : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                      }
-                      alt=""
-                    ></img>
+                    <LazyLoad>
+                      <img
+                        className="profile-image"
+                        src={
+                          graveData
+                            ? graveData
+                            : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                        }
+                        alt=""
+                      />
+                    </LazyLoad>
+
                     <input
                       className="custom-file-grave"
                       type="file"
@@ -909,7 +937,7 @@ export default function ProfileCreate() {
                     <div className="modal-content">
                       <div className="modal-header">
                         <h5
-                        className="modal-title"
+                          className="modal-title"
                           id="profileCreateModalLabel"
                         >
                           יצירת הפרופיל וקבלת הקוד

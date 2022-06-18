@@ -34,6 +34,7 @@ import Direction from './Direction';
 import ProfileFooter from './ProfileFooter';
 import defaultVideoImg from '../../assets/video.jpg';
 import CandleFlower from './CandleFlower';
+import LazyLoad from 'react-lazyload';
 
 export default function Profile() {
   const { user, myFirebase } = useContext(AuthContext);
@@ -436,12 +437,15 @@ export default function Profile() {
           </div>
         </div>
         <div style={{ position: 'relative' }}>
-          <img
-            src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
-            alt=""
-            className="profile-cover"
-            style={{ objectPosition: `0 ${yPos}%` }}
-          ></img>
+          <LazyLoad>
+            <img
+              src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
+              alt=""
+              className="profile-cover"
+              style={{ objectPosition: `0 ${yPos}%` }}
+            />
+          </LazyLoad>
+
           {user &&
             (profiledata?.originalUser[0]?._id === user?._id ||
               profiledata?.addAdmins.find(
@@ -473,11 +477,14 @@ export default function Profile() {
           <CandleFlower profileId={profiledata._id} userId={user._id} />
         </div>
         <div className="profile-details-first">
-          <img
-            src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
-            alt=""
-            className="profile-img"
-          ></img>
+          <LazyLoad>
+            <img
+              src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
+              alt=""
+              className="profile-img"
+            />
+          </LazyLoad>
+
           <div className="deceased-details">
             <h1 className="profile-h1">{`${profiledata?.degree} ${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
             <div>
@@ -491,7 +498,9 @@ export default function Profile() {
               <p>{profiledata?.city}</p>
             </div>
           </div>
-          <img src={leftCloud} alt="" className="left-cloud" />
+          <LazyLoad>
+            <img src={leftCloud} alt="" className="left-cloud" />
+          </LazyLoad>
         </div>
         <div className="btns-container">
           <div className="small-btns-container">
@@ -618,13 +627,18 @@ export default function Profile() {
               </h3>
             </div>
             <div className="profile-icons-container">
-              <img
-                src={zoom}
-                alt=""
-                className={`${!profiledata.zoomLink && 'disabled'} icon-btn`}
-              />
+              <LazyLoad>
+                <img
+                  src={zoom}
+                  alt=""
+                  className={`${!profiledata.zoomLink && 'disabled'} icon-btn`}
+                />
+              </LazyLoad>
+
               <a href={`https://www.waze.com/ul?q=${profiledata.wazeLocation}`}>
-                <img src={waze} alt="" className="icon-btn"></img>
+                <LazyLoad>
+                  <img src={waze} alt="" className="icon-btn" />
+                </LazyLoad>
               </a>
             </div>
           </div>
@@ -661,11 +675,13 @@ export default function Profile() {
                   מיקום ותמונת הקבר
                 </h1>
                 <div className="grave-imgs-container">
-                  <img
-                    src={`${process.env.REACT_APP_API_URL}/${profiledata.graveImg}`}
-                    alt=""
-                    className="grave-img"
-                  ></img>
+                  <LazyLoad>
+                    <img
+                      src={`${process.env.REACT_APP_API_URL}/${profiledata.graveImg}`}
+                      alt=""
+                      className="grave-img"
+                    />
+                  </LazyLoad>
 
                   {map && (
                     <React.Fragment>
@@ -693,7 +709,10 @@ export default function Profile() {
                   className="navigation-btn"
                   onClick={() => setMap((prevState) => !prevState)}
                 >
-                  פתח מפה <img src={google} alt=""></img>
+                  פתח מפה
+                  <LazyLoad>
+                    <img src={google} alt="" />
+                  </LazyLoad>
                 </button>
               </div>
               <div className="memories-div">
@@ -715,11 +734,13 @@ export default function Profile() {
                             }
                           >
                             {imgData.file ? (
-                              <img
-                                src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
-                                alt="memory"
-                                className="memory-img"
-                              ></img>
+                              <LazyLoad>
+                                <img
+                                  src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
+                                  alt="memory"
+                                  className="memory-img"
+                                />
+                              </LazyLoad>
                             ) : (
                               <React.Fragment>
                                 <video
@@ -767,31 +788,38 @@ export default function Profile() {
                             <div className="icons-container">
                               <div className="memory-heart-container">
                                 <div className="heart-div">
-                                  <img
-                                    style={{ cursor: 'pointer' }}
-                                    className="heart-icon"
-                                    src={heart}
-                                    alt=""
-                                  ></img>
+                                  <LazyLoad>
+                                    <img
+                                      style={{ cursor: 'pointer' }}
+                                      className="heart-icon"
+                                      src={heart}
+                                      alt=""
+                                    />
+                                  </LazyLoad>
+
                                   <span>{imgData.likes.length}</span>
                                 </div>
                               </div>
                               <div className="facebook-container">
                                 <div className="heart-div">
-                                  <img
-                                    className="heart-icon"
-                                    src={facebook}
-                                    alt=""
-                                  ></img>
+                                  <LazyLoad>
+                                    <img
+                                      className="heart-icon"
+                                      src={facebook}
+                                      alt=""
+                                    />
+                                  </LazyLoad>
                                 </div>
                               </div>
                               <div className="instagram-container">
                                 <div className="heart-div">
-                                  <img
-                                    className="heart-icon"
-                                    src={instagram}
-                                    alt=""
-                                  ></img>
+                                  <LazyLoad>
+                                    <img
+                                      className="heart-icon"
+                                      src={instagram}
+                                      alt=""
+                                    />
+                                  </LazyLoad>
                                 </div>
                               </div>
                             </div>
@@ -883,11 +911,13 @@ export default function Profile() {
                     <div className="full-gallery-img-container" key={index}>
                       <div className="full-gallery-img-inner-container">
                         {!img?.endsWith?.('mp4') ? (
-                          <img
-                            src={`${process.env.REACT_APP_API_URL}/${img}`}
-                            alt=""
-                            className="full-gallery-img"
-                          ></img>
+                          <LazyLoad>
+                            <img
+                              src={`${process.env.REACT_APP_API_URL}/${img}`}
+                              alt=""
+                              className="full-gallery-img"
+                            />
+                          </LazyLoad>
                         ) : (
                           <video
                             width="100%"
@@ -932,7 +962,10 @@ export default function Profile() {
                   className="full-btn back-btn"
                 >
                   {' '}
-                  חזרה <img src={`${arrowRightLong}`} />
+                  חזרה
+                  <LazyLoad>
+                    <img src={`${arrowRightLong}`} alt="" />
+                  </LazyLoad>
                 </div>
               </div>
             </div>

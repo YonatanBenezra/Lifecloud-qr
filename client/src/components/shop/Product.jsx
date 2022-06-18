@@ -3,6 +3,7 @@ import './product.css';
 import arrowUp from '../../assets/Arrow_up.png';
 import arrowDown from '../../assets/Arrow_down.png';
 import SubmitBtn from '../submitBtn/SubmitBtn';
+import LazyLoad from 'react-lazyload';
 
 const Product = ({
   product,
@@ -55,7 +56,9 @@ const Product = ({
         className="text-center"
         // style={{ backgroundImage: `url(${img})` }}
       >
-        <img src={img} alt="" className="img-fluid" />
+        <LazyLoad>
+          <img src={img} alt="" className="img-fluid" />
+        </LazyLoad>
       </div>
       {options && (
         <div>

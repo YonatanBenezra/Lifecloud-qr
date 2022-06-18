@@ -9,6 +9,7 @@ import LanguageContext from '../../context/LanguageContext';
 import axios from 'axios';
 import WithLanguage from '../languageButton/WithLanguage';
 import LanguageButton from '../languageButton/LanguageButton';
+import LazyLoad from 'react-lazyload';
 const Topbar = (props) => {
   const history = useHistory();
   // const { searchText, setSearchText } = useSearch();
@@ -31,7 +32,9 @@ const Topbar = (props) => {
     <div className="topbarContainer">
       <div className="topbarLeft">
         <Link to="/" style={{ textDecoration: 'none', color: '#6097BF' }}>
-          <img className="logo" src={blueLogo} alt="" />
+          <LazyLoad>
+            <img className="logo" src={blueLogo} alt="" />
+          </LazyLoad>
         </Link>
         <WithLanguage>
           <LanguageButton />
@@ -54,15 +57,17 @@ const Topbar = (props) => {
                       <div className="ResultBox">
                         <div>
                           <span>
-                            <img
-                              style={{
-                                width: '30px',
-                                height: '30px',
-                                borderRadius: '30px',
-                              }}
-                              src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
-                              alt=""
-                            />
+                            <LazyLoad>
+                              <img
+                                style={{
+                                  width: '30px',
+                                  height: '30px',
+                                  borderRadius: '30px',
+                                }}
+                                src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                                alt=""
+                              />
+                            </LazyLoad>
                           </span>
                         </div>
                         <div>{`${item.firstName} ${item.lastName}`}</div>
@@ -92,15 +97,17 @@ const Topbar = (props) => {
                   style={{ marginRight: '15px' }}
                   to={`/userprofiles/${user._id}`}
                 >
-                  <img
-                    src={
-                      user.profilePicture
-                        ? user.profilePicture
-                        : 'https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png'
-                    }
-                    alt=""
-                    className="topbarImg"
-                  />
+                  <LazyLoad>
+                    <img
+                      src={
+                        user.profilePicture
+                          ? user.profilePicture
+                          : 'https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png'
+                      }
+                      alt=""
+                      className="topbarImg"
+                    />
+                  </LazyLoad>
                 </Link>
               </div>
             ) : (

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Add, Remove, Edit } from '@material-ui/icons';
 import './rightbar.css';
 import { AuthContext } from '../../context/AuthContext';
+import LazyLoad from 'react-lazyload';
 
 export default function Rightbar({ user }) {
   const [friends, setFriends] = useState([]);
@@ -47,12 +48,18 @@ export default function Rightbar({ user }) {
     return (
       <>
         <div className="birthdayContainer">
-          <img className="birthdayImg" src="assets/gift.png" alt="" />
+          <LazyLoad>
+            <img className="birthdayImg" src="assets/gift.png" alt="" />
+          </LazyLoad>
+
           <span className="birthdayText">
             <b>Pola Foster</b> and <b>3 other friends</b> have a birhday today.
           </span>
         </div>
-        <img className="rightbarAd" src="assets/ad.png" alt="" />
+        <LazyLoad>
+          <img className="rightbarAd" src="assets/ad.png" alt="" />
+        </LazyLoad>
+
         {/* <h4 className="rightbarTitle">People You follow</h4> */}
         {/* <ul className="rightbarFriendList">
           {friends.map((user) => (
@@ -188,15 +195,18 @@ export default function Rightbar({ user }) {
               style={{ textDecoration: 'none' }}
             >
               <div key={friend.username} className="rightbarFollowing">
-                <img
-                  src={
-                    friend.profilePicture
-                      ? friend.profilePicture
-                      : 'https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png'
-                  }
-                  alt=""
-                  className="rightbarFollowingImg"
-                />
+                <LazyLoad>
+                  <img
+                    src={
+                      friend.profilePicture
+                        ? friend.profilePicture
+                        : 'https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png'
+                    }
+                    alt=""
+                    className="rightbarFollowingImg"
+                  />
+                </LazyLoad>
+
                 <span className="rightbarFollowingName">{friend.username}</span>
               </div>
             </Link>

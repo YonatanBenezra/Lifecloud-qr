@@ -9,6 +9,7 @@ import WithLanguage from '../languageButton/WithLanguage';
 import LanguageButton from '../languageButton/LanguageButton';
 import userIcon from '../../assets/userIcon.png';
 import { Search } from '@material-ui/icons';
+import LazyLoad from 'react-lazyload';
 
 const MobileTopbar = (props) => {
   const LoggedUser = useContext(AuthContext);
@@ -50,7 +51,9 @@ const MobileTopbar = (props) => {
               className=""
               style={{ textDecoration: 'none', color: '#6097BF' }}
             >
-              <img className="logoImg" src={blueLogo} alt="" />
+              <LazyLoad>
+                <img className="logoImg" src={blueLogo} alt="" />
+              </LazyLoad>
             </Link>
           </div>
           <div className="menuBox">
@@ -120,15 +123,17 @@ const MobileTopbar = (props) => {
                         <div className="ResultBox">
                           <div>
                             <span>
-                              <img
-                                style={{
-                                  width: '30px',
-                                  height: '30px',
-                                  borderRadius: '30px',
-                                }}
-                                src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
-                                alt=""
-                              />
+                              <LazyLoad>
+                                <img
+                                  style={{
+                                    width: '30px',
+                                    height: '30px',
+                                    borderRadius: '30px',
+                                  }}
+                                  src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                                  alt=""
+                                />
+                              </LazyLoad>
                             </span>
                           </div>
                           <div>{`${item.firstName} ${item.lastName}`}</div>
@@ -194,17 +199,19 @@ const MobileTopbar = (props) => {
                     to={`/userprofiles/${user._id}`}
                     className="topbarLink"
                   >
-                    <img
-                      src={
-                        user.mainProfilePicture
-                          ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
-                          : user.profilePicture
-                          ? user.profilePicture
-                          : userIcon
-                      }
-                      alt=""
-                      className="topbarImg"
-                    />
+                    <LazyLoad>
+                      <img
+                        src={
+                          user.mainProfilePicture
+                            ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
+                            : user.profilePicture
+                            ? user.profilePicture
+                            : userIcon
+                        }
+                        alt=""
+                        className="topbarImg"
+                      />
+                    </LazyLoad>
                   </Link>
                 </div>
               ) : (
@@ -300,17 +307,19 @@ const MobileTopbar = (props) => {
                         to={`/userprofiles/${user._id}`}
                         className="text-white"
                       >
-                        <img
-                          src={
-                            user.mainProfilePicture
-                              ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
-                              : user.profilePicture
-                              ? user.profilePicture
-                              : userIcon
-                          }
-                          alt=""
-                          className="topbarImg"
-                        />
+                        <LazyLoad>
+                          <img
+                            src={
+                              user.mainProfilePicture
+                                ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
+                                : user.profilePicture
+                                ? user.profilePicture
+                                : userIcon
+                            }
+                            alt=""
+                            className="topbarImg"
+                          />
+                        </LazyLoad>
                       </Link>
                     </li>
                   </React.Fragment>
@@ -359,15 +368,17 @@ const MobileTopbar = (props) => {
                     <div className="result-box">
                       <div>
                         <span>
-                          <img
-                            style={{
-                              width: '30px',
-                              height: '30px',
-                              borderRadius: '30px',
-                            }}
-                            src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
-                            alt=""
-                          />
+                          <LazyLoad>
+                            <img
+                              style={{
+                                width: '30px',
+                                height: '30px',
+                                borderRadius: '30px',
+                              }}
+                              src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                              alt=""
+                            />
+                          </LazyLoad>
                         </span>
                       </div>
                       <div>{`${item.firstName} ${item.lastName}`}</div>

@@ -9,6 +9,7 @@ import {
 import { useContext, useRef, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
+import LazyLoad from 'react-lazyload';
 
 export default function Share() {
   const { user } = useContext(AuthContext);
@@ -59,15 +60,18 @@ export default function Share() {
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img
-            className="shareProfileImg"
-            src={
-              user.profilePicture
-                ? user.profilePicture
-                : "https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png"
-            }
-            alt=""
-          />
+          <LazyLoad>
+            <img
+              className="shareProfileImg"
+              src={
+                user.profilePicture
+                  ? user.profilePicture
+                  : 'https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png'
+              }
+              alt=""
+            />
+          </LazyLoad>
+
           <input
             placeholder={"What's in your mind " + user.username + '?'}
             className="shareInput"
@@ -77,7 +81,14 @@ export default function Share() {
         <hr className="shareHr" />
         {file && (
           <div className="shareImgContainer">
-            <img className="shareImg" src={URL.createObjectURL(file)} alt="" />
+            <LazyLoad>
+              <img
+                className="shareImg"
+                src={URL.createObjectURL(file)}
+                alt=""
+              />
+            </LazyLoad>
+
             <Cancel className="shareCancelImg" onClick={() => setFile(null)} />
           </div>
         )}

@@ -9,6 +9,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import SnackBar from '../../components/snackbar/SnackBar';
 import ENTopbar from '../../components/topbar/ENTopBar';
+import LazyLoad from 'react-lazyload';
 export default function ENProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
@@ -184,15 +185,18 @@ export default function ENProfileCreate() {
               />
             </div> */}
             <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  imgData
-                    ? imgData
-                    : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                }
-                alt=""
-              ></img>
+              <LazyLoad>
+                <img
+                  className="profile-image"
+                  src={
+                    imgData
+                      ? imgData
+                      : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                  }
+                  alt=""
+                />
+              </LazyLoad>
+
               <input
                 className="custom-file-input"
                 type="file"
@@ -201,15 +205,18 @@ export default function ENProfileCreate() {
               />
             </div>
             <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  coverData
-                    ? coverData
-                    : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                }
-                alt=""
-              ></img>
+              <LazyLoad>
+                <img
+                  className="profile-image"
+                  src={
+                    coverData
+                      ? coverData
+                      : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                  }
+                  alt=""
+                />
+              </LazyLoad>
+
               <input
                 className="custom-file-input-cover"
                 type="file"
@@ -297,15 +304,18 @@ export default function ENProfileCreate() {
                     </div>
                   </div>
                   <div className="profile-image-container">
-                    <img
-                      className="profile-image"
-                      src={
-                        graveData
-                          ? graveData
-                          : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                      }
-                      alt=""
-                    ></img>
+                    <LazyLoad>
+                      <img
+                        className="profile-image"
+                        src={
+                          graveData
+                            ? graveData
+                            : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                        }
+                        alt=""
+                      />
+                    </LazyLoad>
+
                     <input
                       className="custom-file-grave"
                       type="file"

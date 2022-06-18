@@ -20,6 +20,7 @@ import tempMemoryImg from '../../assets/tmpMemoryImg.jpg';
 import { useParams, useLocation } from 'react-router-dom';
 import { async } from '@firebase/util';
 import { AuthContext } from '../../context/AuthContext';
+import LazyLoad from 'react-lazyload';
 // ${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/:id
 // ${process.env.REACT_APP_API_URL}/api/memory/getSingleMemory/:id
 const Memory = () => {
@@ -191,15 +192,17 @@ const Memory = () => {
           {/* add the title prome profiledata memory with the memory index */}
           <div className="image-container">
             {memory.file ? (
-              <img
-                src={
-                  memory.file
-                    ? `${process.env.REACT_APP_API_URL}/${memory.file}`
-                    : `${tempMemoryImg}`
-                }
-                alt=""
-                className="ratio ratio-16x memory_media"
-              ></img>
+              <LazyLoad>
+                <img
+                  src={
+                    memory.file
+                      ? `${process.env.REACT_APP_API_URL}/${memory.file}`
+                      : `${tempMemoryImg}`
+                  }
+                  alt=""
+                  className="ratio ratio-16x memory_media"
+                />
+              </LazyLoad>
             ) : (
               memory?.memoryVideo && (
                 <video
@@ -223,13 +226,16 @@ const Memory = () => {
           <div className="memory-icons-container">
             <div className="memory-heart-container">
               <div className="heart-div icon">
-                <img
-                  style={{ cursor: 'pointer' }}
-                  className="heart-icon"
-                  src={heart}
-                  alt=""
-                  onClick={() => handleLike(memory)}
-                ></img>
+                <LazyLoad>
+                  <img
+                    style={{ cursor: 'pointer' }}
+                    className="heart-icon"
+                    src={heart}
+                    alt=""
+                    onClick={() => handleLike(memory)}
+                  />
+                </LazyLoad>
+
                 {memory.likes?.length}
               </div>
             </div>
@@ -238,7 +244,9 @@ const Memory = () => {
                 url={`https://lifecloud-qr.com${location.pathname}`}
               >
                 <div className="heart-div">
-                  <img className="heart-icon" src={facebook} alt=""></img>
+                  <LazyLoad>
+                    <img className="heart-icon" src={facebook} alt="" />
+                  </LazyLoad>
                 </div>
               </FacebookShareButton>
             </div>
@@ -252,7 +260,9 @@ const Memory = () => {
                 url={`https://lifecloud-qr.com${location.pathname}`}
               >
                 <div className="heart-div">
-                  <img className="heart-icon" src={whatsapp} alt=""></img>
+                  <LazyLoad>
+                    <img className="heart-icon" src={whatsapp} alt="" />
+                  </LazyLoad>
                 </div>
               </WhatsappShareButton>
             </div>
@@ -266,11 +276,13 @@ const Memory = () => {
               return (
                 <div className="comment-container">
                   <span className="comment-subcontainer">
-                    <img
-                      src={`${process.env.REACT_APP_API_URL}/${memory.file}`}
-                      alt=""
-                      className="comment-img"
-                    />
+                    <LazyLoad>
+                      <img
+                        src={`${process.env.REACT_APP_API_URL}/${memory.file}`}
+                        alt=""
+                        className="comment-img"
+                      />
+                    </LazyLoad>
                     <p>
                       {moment(comment.date).utc().format('DD-MM-YYYY-HHHH')}
                     </p>
@@ -349,8 +361,12 @@ const Memory = () => {
             <img alt="" className="left-arrow" src={Arrow1} /> חזרה
           </h1> */}
         </div>
-        <img alt="" src={TopRightCloud} className="top-cloud"></img>
-        <img src={BottomLeftCloud} className="bottom-cloud" alt=""></img>
+        <LazyLoad>
+          <img alt="" src={TopRightCloud} className="top-cloud" />
+        </LazyLoad>
+        <LazyLoad>
+          <img src={BottomLeftCloud} className="bottom-cloud" alt="" />
+        </LazyLoad>
       </div>
     </div>
   );
