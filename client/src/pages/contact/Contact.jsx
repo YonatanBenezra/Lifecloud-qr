@@ -7,6 +7,7 @@ import whiteLogo from '../../assets/whiteLogo.png';
 import Arrow1 from '../../assets/Arrow1.png';
 import emailjs from '@emailjs/browser';
 import SnackBar from '../../components/snackbar/SnackBar';
+import LazyLoad from 'react-lazyload';
 
 const Contact = () => {
   const form = useRef();
@@ -128,7 +129,9 @@ const Contact = () => {
 
           <div className="row">
             <div className="col-12 text-center">
-              <img src={Arrow1} className="arrow " alt=""></img>
+              <LazyLoad>
+                <img src={Arrow1} className="arrow " alt="" />
+              </LazyLoad>
             </div>
           </div>
         </div>

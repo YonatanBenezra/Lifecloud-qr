@@ -10,6 +10,7 @@ import { useParams } from 'react-router';
 import moment from 'moment';
 import SnackBar from '../../components/snackbar/SnackBar';
 import ENTopbar from '../../components/topbar/ENTopBar';
+import LazyLoad from 'react-lazyload';
 export default function ENProfileEdit() {
   const { user } = useContext(AuthContext);
   const [image, setImage] = useState(null);
@@ -241,15 +242,18 @@ export default function ENProfileEdit() {
               />
             </div> */}
             <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  imgData
-                    ? imgData
-                    : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
-                }
-                alt=""
-              ></img>
+              <LazyLoad>
+                <img
+                  className="profile-image"
+                  src={
+                    imgData
+                      ? imgData
+                      : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
+                  }
+                  alt=""
+                />
+              </LazyLoad>
+
               <input
                 className="custom-file-input"
                 type="file"
@@ -258,15 +262,18 @@ export default function ENProfileEdit() {
               />
             </div>
             <div className="profile-image-container">
-              <img
-                className="profile-image"
-                src={
-                  coverData
-                    ? coverData
-                    : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
-                }
-                alt=""
-              ></img>
+              <LazyLoad>
+                <img
+                  className="profile-image"
+                  src={
+                    coverData
+                      ? coverData
+                      : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
+                  }
+                  alt=""
+                />
+              </LazyLoad>
+
               <input
                 className="custom-file-input-cover"
                 type="file"

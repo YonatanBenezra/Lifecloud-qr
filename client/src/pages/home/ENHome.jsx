@@ -12,6 +12,7 @@ import Slider from 'react-slick';
 import './home.css';
 import Footer from '../../components/footer/Footer';
 import ENSocialFooter from '../../components/socialFooter/ENSocialFooter';
+import LazyLoad from 'react-lazyload';
 
 const ENHome = () => {
   const settings = {
@@ -107,7 +108,7 @@ const ENHome = () => {
           overflow: 'hidden',
           backgroundPosition: 'bottom',
           backgroundRepeat: 'noRepeat',
-          backgroundSize: 'cover'
+          backgroundSize: 'cover',
         }}
       ></div>
       <div className="home-floating-text">
@@ -174,11 +175,13 @@ const ENHome = () => {
               className="react-player"
               controls={true}
             />
-            <img
-              alt=""
-              src={rightCloud}
-              style={{ position: 'absolute', right: 0, height: '275px' }}
-            ></img>
+            <lazyLoad>
+              <img
+                alt=""
+                src={rightCloud}
+                style={{ position: 'absolute', right: 0, height: '275px' }}
+              />
+            </lazyLoad>
           </div>
         </div>
       </div>
@@ -420,11 +423,13 @@ const ENHome = () => {
             <h5 style={{ marginBottom: '15px' }}>-אריאל-</h5>
           </div>
         </Slider>
-        <img
-          alt=""
-          src={leftCloud}
-          style={{ position: 'absolute', left: 0 }}
-        ></img>
+        <lazyLoad>
+          <img
+            alt=""
+            src={leftCloud}
+            style={{ position: 'absolute', left: 0 }}
+          />
+        </lazyLoad>
       </div>
       <ENSocialFooter />
       <Footer />

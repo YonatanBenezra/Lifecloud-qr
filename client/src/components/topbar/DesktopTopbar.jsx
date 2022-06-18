@@ -9,6 +9,7 @@ import WithLanguage from '../languageButton/WithLanguage';
 import LanguageButton from '../languageButton/LanguageButton';
 import userIcon from '../../assets/userIcon.png';
 import { Search } from '@material-ui/icons';
+import LazyLoad from 'react-lazyload';
 
 const DesktopTopbar = (props) => {
   const LoggedUser = useContext(AuthContext);
@@ -38,7 +39,9 @@ const DesktopTopbar = (props) => {
           className="life-cloud-logo-image-topbar-mobile"
           style={{ textDecoration: 'none', color: '#6097BF' }}
         >
-          <img className="logo" src={blueLogo} alt="" />
+          <LazyLoad>
+            <img className="logo" src={blueLogo} alt="" />
+          </LazyLoad>
         </Link>
         {/* <WithLanguage>
           <LanguageButton />
@@ -69,15 +72,17 @@ const DesktopTopbar = (props) => {
                       <div className="result-box">
                         <div>
                           <span>
-                            <img
-                              style={{
-                                width: '30px',
-                                height: '30px',
-                                borderRadius: '30px',
-                              }}
-                              src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
-                              alt=""
-                            />
+                            <LazyLoad>
+                              <img
+                                style={{
+                                  width: '30px',
+                                  height: '30px',
+                                  borderRadius: '30px',
+                                }}
+                                src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                                alt=""
+                              />
+                            </LazyLoad>
                           </span>
                         </div>
                         <span>{`${item.firstName} ${
@@ -156,17 +161,19 @@ const DesktopTopbar = (props) => {
                   } topbarLink`}
                   onClick={() => setClicked('userprofiles')}
                 >
-                  <img
-                    src={
-                      user.mainProfilePicture
-                        ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
-                        : user.profilePicture
-                        ? user.profilePicture
-                        : userIcon
-                    }
-                    alt=""
-                    className="topbarImg"
-                  />
+                  <LazyLoad>
+                    <img
+                      src={
+                        user.mainProfilePicture
+                          ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
+                          : user.profilePicture
+                          ? user.profilePicture
+                          : userIcon
+                      }
+                      alt=""
+                      className="topbarImg"
+                    />
+                  </LazyLoad>
                 </Link>
               </div>
             ) : (

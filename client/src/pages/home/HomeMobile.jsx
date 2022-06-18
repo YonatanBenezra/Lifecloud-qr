@@ -24,6 +24,7 @@ import SocialFooter from '../../components/socialFooter/socialFooter';
 import axios from 'axios';
 import Topbar from '../../components/topbar/Topbar';
 import FullWidthVideo from '../../components/fullWidthVideo/FullWidthVideo';
+import LazyLoad from 'react-lazyload';
 const HomeMobile = (props) => {
   const user = props.user;
   const testimonialSettings = props.testimonialSettings;
@@ -121,15 +122,17 @@ const HomeMobile = (props) => {
                       <div className="result-box">
                         <div>
                           <span>
-                            <img
-                              style={{
-                                width: '30px',
-                                height: '30px',
-                                borderRadius: '30px',
-                              }}
-                              src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
-                              alt=""
-                            />
+                            <LazyLoad>
+                              <img
+                                style={{
+                                  width: '30px',
+                                  height: '30px',
+                                  borderRadius: '30px',
+                                }}
+                                src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                                alt=""
+                              />
+                            </LazyLoad>
                           </span>
                         </div>
                         <span>{`${item?.firstName} ${
@@ -176,18 +179,19 @@ const HomeMobile = (props) => {
               את החלקים ולשמר לעד{' '}
             </p>
             <p className="mobile-text-container-home-bottom">מי שהם היו?</p>
-
-            <img
-              alt=""
-              src={rightCloud}
-              style={{
-                position: 'relative',
-                right: 0,
-                height: '150px',
-                width: '150px',
-                top: '-48px',
-              }}
-            ></img>
+            <LazyLoad>
+              <img
+                alt=""
+                src={rightCloud}
+                style={{
+                  position: 'relative',
+                  right: 0,
+                  height: '150px',
+                  width: '150px',
+                  top: '-48px',
+                }}
+              />
+            </LazyLoad>
           </div>
         </div>
       </div>
@@ -215,7 +219,10 @@ const HomeMobile = (props) => {
           <div className="gridBar">
             <div className="bx">
               <div className="life_book">
-                <img src={f13} width="100%" height="150px" alt="profile" />
+                <LazyLoad>
+                  <img src={f13} width="100%" height="150px" alt="profile" />
+                </LazyLoad>
+
                 <div className="life_book_overlay">
                   <p>חיבור לרשתות החברתיות של המנוח</p>
                 </div>
@@ -228,7 +235,10 @@ const HomeMobile = (props) => {
             </div>
             <div className="bx">
               <div className="life_book">
-                <img src={f14} width="100%" height="150px" alt="profile" />
+                <LazyLoad>
+                  <img src={f14} width="100%" height="150px" alt="profile" />
+                </LazyLoad>
+
                 <div className="life_book_overlay">
                   <p>
                     QR ייחודי ועמיד הניתן להניח בכל מקום שתבחרו ולחבר כל
@@ -246,7 +256,10 @@ const HomeMobile = (props) => {
           <div className="gridBar">
             <div className="bx">
               <div className="life_book">
-                <img src={f15} width="100%" height="150px" alt="profile" />
+                <LazyLoad>
+                  <img src={f15} width="100%" height="150px" alt="profile" />
+                </LazyLoad>
+
                 <div className="life_book_overlay">
                   <p>בדרך קלה ויעילה נקבל מיקום מדויק של בית העלמין והמצבה</p>
                 </div>
@@ -260,7 +273,10 @@ const HomeMobile = (props) => {
             </div>
             <div className="bx">
               <div className="life_book">
-                <img src={f16} width="100%" height="150px" alt="profile" />
+                <LazyLoad>
+                  <img src={f16} width="100%" height="150px" alt="profile" />
+                </LazyLoad>
+
                 <div className="life_book_overlay">
                   <p>
                     ניתן להוסיף תגובות, לשתף זיכרונות ותמונות עם משפחה, חברים
@@ -279,7 +295,10 @@ const HomeMobile = (props) => {
           <div className="gridBar">
             <div className="bx">
               <div className="life_book">
-                <img src={f17} width="100%" height="150px" alt="profile" />
+                <LazyLoad>
+                  <img src={f17} width="100%" height="150px" alt="profile" />
+                </LazyLoad>
+
                 <div className="life_book_overlay">
                   <p>
                     לוח שנה – ציון ימים חשובים, שליחת הזמנות לאירועי אזכרה
@@ -296,7 +315,10 @@ const HomeMobile = (props) => {
             </div>
             <div className="bx">
               <div className="life_book">
-                <img src={f12} width="100%" height="150px" alt="profile" />
+                <LazyLoad>
+                  <img src={f12} width="100%" height="150px" alt="profile" />
+                </LazyLoad>
+
                 <div className="life_book_overlay">
                   <p>הדלקת נר או הנחת זר וירטאלי בלחיצת כפתור</p>
                 </div>
@@ -447,32 +469,45 @@ const HomeMobile = (props) => {
         <Slider {...settings} style={{ width: '90%', height: '280px' }}>
           <a href="#">
             <div>
-              <img
-                src={exampleProfileImage}
-                className="mobile-example-profile-image"
-              />
+              <LazyLoad>
+                <img
+                  src={exampleProfileImage2}
+                  className="mobile-example-profile-image"
+                  alt=""
+                />
+              </LazyLoad>
             </div>
           </a>
+
           <a href="#">
             <div className="">
-              <img
-                src={exampleProfileImage2}
-                className="mobile-example-profile-image"
-              />
+              <LazyLoad>
+                <img
+                  src={exampleProfileImage2}
+                  className="mobile-example-profile-image"
+                  alt=""
+                />
+              </LazyLoad>
             </div>
           </a>
         </Slider>
       </div>
 
-      <a href="/createprofile" className="creation-btn">
+      <Link
+        to="/profiledetails/62930e650fc791cf90ac210c"
+        className="creation-btn"
+      >
         <div className="profile-div">+ לצפייה בפרופיל לדוגמה</div>
-      </a>
+      </Link>
 
-      <a href="/createprofile" className="creation-btn">
+      <Link
+        to={user ? `/createprofile/${user._id}` : '/register'}
+        className="creation-btn"
+      >
         <div className="profile-div" style={{ backgroundColor: '#6097BF' }}>
           + יצירת פרופיל חדש - ללא עלות!
         </div>
-      </a>
+      </Link>
       {/* 
       <a href="/createprofile" className="creation-btn">
         <div className="profile-div" style={{ backgroundColor: '#46779B' }}>
@@ -514,12 +549,13 @@ const HomeMobile = (props) => {
             </div>
           </Slider>
         </div>
-
-        <img
-          alt=""
-          src={leftCloud}
-          style={{ height: '100px', top: '-50px', position: 'relative' }}
-        ></img>
+        <LazyLoad>
+          <img
+            alt=""
+            src={leftCloud}
+            style={{ height: '100px', top: '-50px', position: 'relative' }}
+          />
+        </LazyLoad>
       </div>
       <SocialFooter />
       <Footer />

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import facebook from '../../assets/facebook.png';
 import instagram from '../../assets/instagram.png';
+import LazyLoad from 'react-lazyload';
 
 const ProfileMedia = () => {
   const [showFacebookInput, setShowFacebookInput] = React.useState(false);
@@ -18,7 +19,9 @@ const ProfileMedia = () => {
               type="button"
               onClick={() => setShowFacebookInput((prev) => !prev)}
             >
-              <img className="heart-icon" src={facebook} alt=""></img>
+              <LazyLoad>
+                <img className="heart-icon" src={facebook} alt="" />
+              </LazyLoad>
             </button>
             {showFacebookInput && (
               <input
@@ -35,7 +38,9 @@ const ProfileMedia = () => {
               type="button"
               onClick={() => setShowInstagramInput((prev) => !prev)}
             >
-              <img className="heart-icon" src={instagram} alt="instagram" />
+              <LazyLoad>
+                <img className="heart-icon" src={instagram} alt="instagram" />
+              </LazyLoad>
             </button>
             {showInstagramInput && (
               <input

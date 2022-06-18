@@ -8,6 +8,7 @@ import flower from '../../assets/flower.png';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
+import LazyLoad from 'react-lazyload';
 const initialState = {
   candle: 0,
   flower: 0,
@@ -125,7 +126,10 @@ const CandleFlower = ({ profileId, userId }) => {
             <div className="modal-body text-center pt-0">
               <div className="row">
                 <div className="col-6 p-0">
-                  <img className="img-fluid" src={candle} alt="FlowerLight" />
+                  <LazyLoad>
+                    <img className="img-fluid" src={candle} alt="FlowerLight" />
+                  </LazyLoad>
+
                   <button
                     className="profile-small-btn border-0"
                     style={{ transform: 'translateY(-50px)' }}
@@ -135,7 +139,10 @@ const CandleFlower = ({ profileId, userId }) => {
                   </button>
                 </div>
                 <div className=" col-6 p-0">
-                  <img className="img-fluid" src={flower} alt="FlowerLight" />
+                  <LazyLoad>
+                    <img className="img-fluid" src={flower} alt="FlowerLight" />
+                  </LazyLoad>
+
                   <button
                     className="profile-small-btn border-0"
                     style={{ transform: 'translateY(-50px)' }}
@@ -249,14 +256,17 @@ const CandleFlower = ({ profileId, userId }) => {
           >
             {totalCandles}
           </div>
-          <img
-            data-bs-toggle="modal"
-            data-bs-target="#candleFlower"
-            src={totalCandles > 0 ? lightCandle : darkCandle}
-            alt="light candle"
-            ref={candleRef}
-            className="mb-4"
-          />
+          <LazyLoad>
+            <img
+              data-bs-toggle="modal"
+              data-bs-target="#candleFlower"
+              src={totalCandles > 0 ? lightCandle : darkCandle}
+              alt="light candle"
+              ref={candleRef}
+              className="mb-4"
+            />
+          </LazyLoad>
+
           {showCandleList && totalCandles > 0 && (
             <div className="candle_flower_user_list">
               <ul>
@@ -278,12 +288,15 @@ const CandleFlower = ({ profileId, userId }) => {
           >
             {totalFlowers}
           </div>
-          <img
-            data-bs-toggle="modal"
-            data-bs-target="#candleFlower"
-            src={totalFlowers > 0 ? lightFlower : darkFlower}
-            alt="light flower"
-          />
+          <LazyLoad>
+            <img
+              data-bs-toggle="modal"
+              data-bs-target="#candleFlower"
+              src={totalFlowers > 0 ? lightFlower : darkFlower}
+              alt="light flower"
+            />
+          </LazyLoad>
+
           {showFlowerList && totalFlowers > 0 && (
             <div className="candle_flower_user_list ">
               <ul>

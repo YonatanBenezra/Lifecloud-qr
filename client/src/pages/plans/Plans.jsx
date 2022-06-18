@@ -7,6 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
 import Arrow1 from '../../assets/Arrow1.png';
 import basic1 from '../../assets/basic1.png';
+import LazyLoad from 'react-lazyload';
 
 const Plans = () => {
   const [plan, setPlan] = useState();
@@ -61,7 +62,9 @@ const Plans = () => {
             <h3 className="payment-logo">אמצעי תשלום</h3>
           </div>
           <button className="register-plans-payment">המשך לתשלום</button>
-          <img src={Arrow1} className="arrow1-plans-payment" alt=""></img>
+          <LazyLoad>
+            <img src={Arrow1} className="arrow1-plans-payment" alt="" />
+          </LazyLoad>
         </div>
       ) : (
         <div className="plans-section">
@@ -69,7 +72,10 @@ const Plans = () => {
             <h1 className="plans-title">תוכניות</h1>
             <div className="plans-container">
               <div className="plan-container">
-                <img src={basic1} alt=""></img>
+                <LazyLoad>
+                  <img src={basic1} alt="" />
+                </LazyLoad>
+
                 <h1 className="plan-title">LifeBook</h1>
                 <h3 className="plan-subtitle">לאירגונים</h3>
                 <span className="plans-details">
@@ -109,7 +115,10 @@ const Plans = () => {
                 </div>
               </div>
               <div className="plan-container">
-                <img src={basic1} alt=""></img>
+                <LazyLoad>
+                  <img src={basic1} alt="" />
+                </LazyLoad>
+
                 <h1 className="plan-title">LifeBook</h1>
                 <h3 className="plan-subtitle">עמוד המנוח</h3>
                 <span className="plans-details">

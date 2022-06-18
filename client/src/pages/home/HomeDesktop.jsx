@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import FullWidthVideo from '../../components/fullWidthVideo/FullWidthVideo';
+import LazyLoad from 'react-lazyload';
 const HomeDesktop = (props) => {
   const user = props.user;
   const testimonialSettings = props.testimonialSettings;
@@ -84,15 +85,17 @@ const HomeDesktop = (props) => {
                     <div className="result-box">
                       <div>
                         <span>
-                          <img
-                            style={{
-                              width: '30px',
-                              height: '30px',
-                              borderRadius: '30px',
-                            }}
-                            src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
-                            alt=""
-                          />
+                          <LazyLoad>
+                            <img
+                              style={{
+                                width: '30px',
+                                height: '30px',
+                                borderRadius: '30px',
+                              }}
+                              src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                              alt=""
+                            />
+                          </LazyLoad>
                         </span>
                       </div>
                       <span>{`${item?.firstName} ${
@@ -144,7 +147,9 @@ const HomeDesktop = (props) => {
               className="react-player-home-desktop"
               controls={true}
             />
-            <img alt="" src={rightCloud} className="right-cloud" />
+            <LazyLoad>
+              <img alt="" src={rightCloud} className="right-cloud" />
+            </LazyLoad>
           </div>
         </div>
       </div>
@@ -254,20 +259,20 @@ const HomeDesktop = (props) => {
         <Slider {...settings}>
           <a href="#">
             <div
-              style={{ backgroundImage: `url(${exampleProfileImage})` }}
-              className="example-profile-image"
-            ></div>
-          </a>
-          <a href="#">
-            <div
               style={{ backgroundImage: `url(${exampleProfileImage2})` }}
               className="example-profile-image"
             ></div>
           </a>
+          <Link href="/profiledetails/62930e650fc791cf90ac210c">
+            <div
+              style={{ backgroundImage: `url(${exampleProfileImage2})` }}
+              className="example-profile-image"
+            ></div>
+          </Link>
         </Slider>
       </div>
       <Link
-        to="/profiledetails/629227f40fc791cf90ac1844"
+        to="/profiledetails/62930e650fc791cf90ac210c"
         className="creation-btn"
       >
         <div className="profile-div">+ צפייה בעמוד לדוגמה</div>
@@ -314,7 +319,9 @@ const HomeDesktop = (props) => {
             <h5 style={{ marginBottom: '15px' }}>-אריאל-</h5>
           </div>
         </Slider>
-        <img alt="" src={leftCloud} className="testemonials-left-cloud"></img>
+        <LazyLoad>
+          <img alt="" src={leftCloud} className="testemonials-left-cloud"></img>
+        </LazyLoad>
       </div>
       <SocialFooter />
       <Footer />

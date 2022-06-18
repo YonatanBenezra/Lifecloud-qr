@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../../pages/profile/profiledetails.css';
 import { Link } from 'react-router-dom';
 import { SRLWrapper } from 'simple-react-lightbox';
+import LazyLoad from 'react-lazyload';
 
 export const Gallery = ({ profiledata, id, userId }) => {
   return (
@@ -32,15 +33,17 @@ export const Gallery = ({ profiledata, id, userId }) => {
                               : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
                           }`}
                         >
-                          <img
-                            className="image-gallery-section"
-                            src={`${
-                              img
-                                ? `${process.env.REACT_APP_API_URL}/${img}`
-                                : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
-                            }`}
-                            alt=""
-                          />
+                          <LazyLoad>
+                            <img
+                              className="image-gallery-section"
+                              src={`${
+                                img
+                                  ? `${process.env.REACT_APP_API_URL}/${img}`
+                                  : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
+                              }`}
+                              alt=""
+                            />
+                          </LazyLoad>
                         </a>
                       ) : (
                         <video

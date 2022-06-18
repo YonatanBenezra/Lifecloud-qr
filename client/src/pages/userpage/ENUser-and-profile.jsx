@@ -15,6 +15,7 @@ import SocialFooter from '../../components/socialFooter/socialFooter';
 import ENTopbar from '../../components/topbar/ENTopBar';
 import ENSocialFooter from '../../components/socialFooter/ENSocialFooter';
 import { Notifications } from '@material-ui/icons';
+import LazyLoad from 'react-lazyload';
 export const ENUserAndprofiles = () => {
   const LoggedUser = useContext(AuthContext);
   const [show, setShow] = useState(false);
@@ -127,11 +128,14 @@ export const ENUserAndprofiles = () => {
                           style={{ cursor: 'hover' }}
                         >
                           <div className="profile-container" key={i}>
-                            <img
-                              className="profile-image"
-                              src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
-                              alt=""
-                            />
+                            <LazyLoad>
+                              <img
+                                className="profile-image"
+                                src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                                alt=""
+                              />
+                            </LazyLoad>
+
                             <div className="profile-name">
                               {userProfiles.firstName} {userProfiles.lastName}
                             </div>
@@ -170,11 +174,13 @@ export const ENUserAndprofiles = () => {
                 <h1 className="profile-title">Account settings</h1>
                 <div className="btns-container">
                   <div className="big-button">
-                    <img
-                      src={Lock}
-                      alt=""
-                      style={{ height: '15px', width: '15px' }}
-                    ></img>
+                    <LazyLoad>
+                      <img
+                        src={Lock}
+                        alt=""
+                        style={{ height: '15px', width: '15px' }}
+                      />
+                    </LazyLoad>
                     פרטי{' '}
                   </div>
                   <div className="big-button">Payments</div>
@@ -218,11 +224,9 @@ export const ENUserAndprofiles = () => {
                   <span>{n.date}</span> | <span>{n.time}</span>{' '}
                   <span>{n.action}</span>
                 </div>
-                <img
-                  alt=""
-                  src={n.profileImg}
-                  className="notification-img"
-                ></img>
+                <LazyLoad>
+                  <img alt="" src={n.profileImg} className="notification-img" />
+                </LazyLoad>
               </div>
             );
           })}

@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { format } from 'timeago.js';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import LazyLoad from 'react-lazyload';
 
 export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
@@ -37,15 +38,17 @@ export default function Post({ post }) {
         <div className="postTop">
           <div className="postTopLeft">
             <Link to={`/profile/${user.username}`}>
-              <img
-                className="postProfileImg"
-                src={
-                  user.profilePicture
-                    ? user.profilePicture
-                    : "https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png"
-                }
-                alt=""
-              />
+              <LazyLoad>
+                <img
+                  className="postProfileImg"
+                  src={
+                    user.profilePicture
+                      ? user.profilePicture
+                      : 'https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png'
+                  }
+                  alt=""
+                />
+              </LazyLoad>
             </Link>
             <span className="postUsername">{user.username}</span>
             <span className="postDate">{format(post.createdAt)}</span>
@@ -56,20 +59,23 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          <img className="postImg" src={post.img} alt="" />
+          <LazyLoad>
+            <img className="postImg" src={post.img} alt="" />
+          </LazyLoad>
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            <img
-              className="likeIcon"
-              src="https://res.cloudinary.com/social-media-appwe/image/upload/v1633782263/social/assets/like_kw61xh.png"
-              onClick={likeHandler}
-              alt=""
-            />
-           
+            <LazyLoad>
+              <img
+                className="likeIcon"
+                src="https://res.cloudinary.com/social-media-appwe/image/upload/v1633782263/social/assets/like_kw61xh.png"
+                onClick={likeHandler}
+                alt=""
+              />
+            </LazyLoad>
+
             <span className="postLikeCounter">{like} people like it</span>
           </div>
-         
         </div>
       </div>
     </div>

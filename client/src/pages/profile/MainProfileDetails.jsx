@@ -32,7 +32,7 @@ import Map from './Map';
 import Direction from './Direction';
 import { QRCodeSVG } from 'qrcode.react';
 import GraveMap from './GraveMap';
-
+import LazyLoad from 'react-lazyload';
 export default function MainProfile(props) {
   const { dispatch } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
@@ -238,17 +238,23 @@ export default function MainProfile(props) {
           </div>
         </div>
         <TopBar />
-        <img
-          src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
-          alt=""
-          className="profile-cover"
-        ></img>
-        <div className="profile-details-first">
+        <LazyLoad>
           <img
-            src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
+            src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
             alt=""
-            className="profile-img"
-          ></img>
+            className="profile-cover"
+          />
+        </LazyLoad>
+
+        <div className="profile-details-first">
+          <LazyLoad>
+            <img
+              src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
+              alt=""
+              className="profile-img"
+            />
+          </LazyLoad>
+
           <div className="deceased-details">
             <h1>{`${profiledata.firstName}`}</h1>
           </div>
@@ -348,11 +354,13 @@ export default function MainProfile(props) {
           <div className="grave-location-container">
             <h1 className="grave-location-title">מיקום ותמונת הקבר</h1>
             <div className="grave-imgs-container">
-              <img
-                src={`${process.env.REACT_APP_API_URL}/${profiledata.graveImg}`}
-                alt=""
-                className="grave-img"
-              ></img>
+              <LazyLoad>
+                <img
+                  src={`${process.env.REACT_APP_API_URL}/${profiledata.graveImg}`}
+                  alt=""
+                  className="grave-img"
+                />
+              </LazyLoad>
 
               {map && (
                 <React.Fragment>
@@ -380,7 +388,10 @@ export default function MainProfile(props) {
               className="navigation-btn"
               onClick={() => setMap((prevState) => !prevState)}
             >
-              פתח מפה <img src={google} alt=""></img>
+              פתח מפה
+              <LazyLoad>
+                <img src={google} alt="" />
+              </LazyLoad>
             </button>
           </div>
           <div className="profile-details-title">
@@ -400,11 +411,13 @@ export default function MainProfile(props) {
                       >
                         <div className="profile-container" key={i}>
                           <div className="profile-image-div">
-                            <img
-                              className="profile-image"
-                              src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
-                              alt=""
-                            />
+                            <LazyLoad>
+                              <img
+                                className="profile-image"
+                                src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                                alt=""
+                              />
+                            </LazyLoad>
                           </div>
                           <div className="profile-name">
                             {userProfiles.firstName} {userProfiles.lastName}
@@ -429,11 +442,13 @@ export default function MainProfile(props) {
               {profiledata?.gallery?.map((img, index) => (
                 <div className="full-gallery-img-container" key={index}>
                   {!img?.endsWith?.('mp4') ? (
-                    <img
-                      src={`${process.env.REACT_APP_API_URL}/${img}`}
-                      alt=""
-                      className="full-gallery-img"
-                    ></img>
+                    <LazyLoad>
+                      <img
+                        src={`${process.env.REACT_APP_API_URL}/${img}`}
+                        alt=""
+                        className="full-gallery-img"
+                      />
+                    </LazyLoad>
                   ) : (
                     <video
                       width="100%"
@@ -497,11 +512,13 @@ export default function MainProfile(props) {
                     >
                       <div className="profile-container" key={i}>
                         <div className="profile-image-div">
-                          <img
-                            className="profile-image"
-                            src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
-                            alt=""
-                          />
+                          <LazyLoad>
+                            <img
+                              className="profile-image"
+                              src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                              alt=""
+                            />
+                          </LazyLoad>
                         </div>
                         <div className="profile-name">
                           {userProfiles.firstName} {userProfiles.lastName}

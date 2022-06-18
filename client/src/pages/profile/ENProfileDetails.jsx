@@ -26,6 +26,7 @@ import ENSocialFooter from '../../components/socialFooter/ENSocialFooter';
 import ENFriendsList from '../../components/friendsList/ENFriendsList';
 import Footer from '../../components/footer/Footer';
 import ENTopbar from '../../components/topbar/ENTopBar';
+import LazyLoad from 'react-lazyload';
 
 // import { useParams } from 'react-router-dom';
 export default function ENProfile() {
@@ -218,17 +219,23 @@ export default function ENProfile() {
     return (
       <div>
         <ENTopbar />
-        <img
-          src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
-          alt=""
-          className="profile-cover"
-        ></img>
-        <div className="profile-details">
+        <LazyLoad>
           <img
-            src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
+            src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
             alt=""
-            className="profile-img"
-          ></img>
+            className="profile-cover"
+          />
+        </LazyLoad>
+
+        <div className="profile-details">
+          <LazyLoad>
+            <img
+              src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
+              alt=""
+              className="profile-img"
+            />
+          </LazyLoad>
+
           <div className="deceased-details">
             <h1>{`${profiledata.firstName} ${profiledata.lastName}`}</h1>
             <p>
@@ -277,17 +284,24 @@ export default function ENProfile() {
                 <h3>| {profiledata.wazeLocation}</h3>
               </div>
               <div className="profile-icons-container">
-                <img
-                  src={waze}
-                  alt=""
-                  className="icon"
-                  href={`https://www.waze.com/ul?q=${profiledata.wazeLocation}`}
-                ></img>
-                <img
-                  src={zoom}
-                  alt=""
-                  className={`${!profiledata.zoomLink && 'no-link-icon'} icon`}
-                ></img>
+                <LazyLoad>
+                  <img
+                    src={waze}
+                    alt=""
+                    className="icon"
+                    href={`https://www.waze.com/ul?q=${profiledata.wazeLocation}`}
+                  />
+                </LazyLoad>
+
+                <LazyLoad>
+                  <img
+                    src={zoom}
+                    alt=""
+                    className={`${
+                      !profiledata.zoomLink && 'no-link-icon'
+                    } icon`}
+                  />
+                </LazyLoad>
               </div>
             </div>
           </div>
@@ -301,17 +315,22 @@ export default function ENProfile() {
           <div className="grave-location-container">
             <h1 className="grave-location-title">Graves location</h1>
             <div className="grave-imgs-container">
-              <img
-                src={profiledata.graveImage}
-                alt=""
-                className="grave-img"
-              ></img>
+              <LazyLoad>
+                <img
+                  src={profiledata.graveImage}
+                  alt=""
+                  className="grave-img"
+                />
+              </LazyLoad>
             </div>
             <div className="navigation-btn">
               <a
                 href={`https://www.google.com/maps/search/?api=1&query=${profiledata.googleLocation}`}
               ></a>
-              לחץ כאן כדי לנווט לקבר <img src={google} alt=""></img>
+              לחץ כאן כדי לנווט לקבר
+              <LazyLoad>
+                <img src={google} alt="" />
+              </LazyLoad>
             </div>
           </div>
           <div className="memories-div">
@@ -326,11 +345,14 @@ export default function ENProfile() {
                     <Popup
                       trigger={
                         <div className="memory-container" key={index}>
-                          <img
-                            src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
-                            alt=""
-                            className="memory-img"
-                          ></img>
+                          <LazyLoad>
+                            <img
+                              src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
+                              alt=""
+                              className="memory-img"
+                            />
+                          </LazyLoad>
+
                           {/* {imgData.file.map(item => {
                           return <img
                             src={`${process.env.REACT_APP_API_URL}/${item}`}
@@ -342,31 +364,38 @@ export default function ENProfile() {
                           <div className="icons-container">
                             <div className="memory-heart-container">
                               <div className="heart-div">
-                                <img
-                                  style={{ cursor: 'pointer' }}
-                                  className="heart-icon"
-                                  src={heart}
-                                  alt=""
-                                ></img>
+                                <LazyLoad>
+                                  <img
+                                    style={{ cursor: 'pointer' }}
+                                    className="heart-icon"
+                                    src={heart}
+                                    alt=""
+                                  />
+                                </LazyLoad>
+
                                 <span>{imgData.likes.length}</span>
                               </div>
                             </div>
                             <div className="facebook-container">
                               <div className="heart-div">
-                                <img
-                                  className="heart-icon"
-                                  src={facebook}
-                                  alt=""
-                                ></img>
+                                <LazyLoad>
+                                  <img
+                                    className="heart-icon"
+                                    src={facebook}
+                                    alt=""
+                                  />
+                                </LazyLoad>
                               </div>
                             </div>
                             <div className="instagram-container">
                               <div className="heart-div">
-                                <img
-                                  className="heart-icon"
-                                  src={instagram}
-                                  alt=""
-                                ></img>
+                                <LazyLoad>
+                                  <img
+                                    className="heart-icon"
+                                    src={instagram}
+                                    alt=""
+                                  />
+                                </LazyLoad>
                               </div>
                             </div>
                           </div>
@@ -446,14 +475,19 @@ export default function ENProfile() {
           <div className="full-gallery-container">
             {profiledata.gallery.map((img, index) => (
               <div className="full-gallery-img-container" key={index}>
-                <img
-                  src={`${process.env.REACT_APP_API_URL}/${img}`}
-                  alt=""
-                  className="full-gallery-img"
-                ></img>
+                <LazyLoad>
+                  <img
+                    src={`${process.env.REACT_APP_API_URL}/${img}`}
+                    alt=""
+                    className="full-gallery-img"
+                  />
+                </LazyLoad>
+
                 <div className="heart-container">
                   <div className="heart-div">
-                    <img className="heart-icon" src={heart} alt=""></img>
+                    <LazyLoad>
+                      <img className="heart-icon" src={heart} alt="" />
+                    </LazyLoad>
                   </div>
                 </div>
               </div>
