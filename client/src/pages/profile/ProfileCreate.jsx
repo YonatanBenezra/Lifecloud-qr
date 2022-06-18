@@ -290,14 +290,15 @@ export default function ProfileCreate() {
               }),
             }
           )
-            .then((res) => {
-              return res.json();
+            .then((res2) => {
+              return res2.json();
             })
-            .then((res) => {
-              console.log('notification->', res);
+            .then((res3) => {
+              console.log('notification->', res3);
+              history.push(`/profiledetails/${res._id}`);
             });
           if (res) {
-            history.goBack();
+            // history.goBack();
             setMessage('Profile made successfully');
             setOpen(true);
             setLoading(false);

@@ -411,7 +411,7 @@ const FriendsList = ({
                     >
                       הוסף כחבר
                     </span>
-                    |
+                    <span className="mx-2">|</span>
                     {/* <span
                       style={{ cursor: 'pointer' }}
                       onClick={() =>
@@ -426,6 +426,7 @@ const FriendsList = ({
                     >
                       הוסף כאדמין
                     </span>
+                    <span className="mx-2">|</span>
                     <span
                       onClick={() =>
                         handleRemoveFriendRequest(friend.user[0]?._id)
