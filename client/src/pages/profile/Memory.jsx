@@ -21,6 +21,8 @@ import { useParams, useLocation } from 'react-router-dom';
 import { async } from '@firebase/util';
 import { AuthContext } from '../../context/AuthContext';
 import LazyLoad from 'react-lazyload';
+import ReactPlayer from 'react-player';
+
 // ${process.env.REACT_APP_API_URL}/api/profile/getSingleProfileDetails/:id
 // ${process.env.REACT_APP_API_URL}/api/memory/getSingleMemory/:id
 const Memory = () => {
@@ -205,21 +207,29 @@ const Memory = () => {
               </LazyLoad>
             ) : (
               memory?.memoryVideo && (
-                <video
-                  width="100%"
-                  height="100%"
-                  poster={defaultVideoImg}
-                  srl_video_thumbnail={defaultVideoImg}
-                  srl_video_caption="Memory Video"
+                // <video
+                //   width="100%"
+                //   height="100%"
+                //   poster={defaultVideoImg}
+                //   srl_video_thumbnail={defaultVideoImg}
+                //   srl_video_caption="Memory Video"
+                //   controls
+                //   className="ratio ratio-16x memory_media"
+                // >
+                //   <source
+                //     src={`${process.env.REACT_APP_API_URL}/${memory?.memoryVideo}`}
+                //     type="video/mp4"
+                //   />
+                //   Your browser does not support the video tag.
+                // </video>
+                <ReactPlayer
+                  url={`${process.env.REACT_APP_API_URL}/${memory?.memoryVideo}`}
+                  width="60vw"
+                  height="60vh"
                   controls
-                  className="ratio ratio-16x memory_media"
-                >
-                  <source
-                    src={`${process.env.REACT_APP_API_URL}/${memory?.memoryVideo}`}
-                    type="video/mp4"
-                  />
-                  Your browser does not support the video tag.
-                </video>
+                  className="mx-auto overflow-hidden"
+                  style={{ borderRadius: '15px' }}
+                />
               )
             )}
           </div>
