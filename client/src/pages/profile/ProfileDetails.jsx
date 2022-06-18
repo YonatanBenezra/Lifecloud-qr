@@ -665,8 +665,10 @@ export default function Profile() {
                   id={profileId}
                   userId={user?._id}
                 />
-                <div onClick={() => setShow('gallery')} className="full-btn">
-                  {' '}
+                <div
+                  onClick={() => setShow('gallery')}
+                  className="full-btn bg-white"
+                >
                   לכל הגלריה +
                 </div>
               </div>
@@ -706,7 +708,7 @@ export default function Profile() {
                   )}
                 </div>
                 <button
-                  className="navigation-btn"
+                  className="navigation-btn position-relative"
                   onClick={() => setMap((prevState) => !prevState)}
                 >
                   פתח מפה
@@ -855,7 +857,9 @@ export default function Profile() {
                       (friends) => friends?.user[0]?._id === user?._id
                     )) && (
                     <Link to={`/memorycreation/${profileId}`}>
-                      <div className="full-memory-btn">+ הוסף זיכרון</div>
+                      <div className="full-memory-btn position-relative bg-white">
+                        + הוסף זיכרון
+                      </div>
                     </Link>
                   )}
                 </div>

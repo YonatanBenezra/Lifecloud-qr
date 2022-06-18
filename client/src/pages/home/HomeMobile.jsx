@@ -179,19 +179,18 @@ const HomeMobile = (props) => {
               את החלקים ולשמר לעד{' '}
             </p>
             <p className="mobile-text-container-home-bottom">מי שהם היו?</p>
-            <LazyLoad>
-              <img
-                alt=""
-                src={rightCloud}
-                style={{
-                  position: 'relative',
-                  right: 0,
-                  height: '150px',
-                  width: '150px',
-                  top: '-48px',
-                }}
-              />
-            </LazyLoad>
+
+            <img
+              alt=""
+              src={rightCloud}
+              style={{
+                position: 'relative',
+                right: 0,
+                height: '150px',
+                width: '150px',
+                top: '-48px',
+              }}
+            />
           </div>
         </div>
       </div>
