@@ -87,6 +87,7 @@
   font-weight: 600;
   font-size: 1rem;
   min-width: 4rem;
+  z-index: 200;
 }
 
 .list-of-deceased {
@@ -113,6 +114,7 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 1.5rem;
+  z-index: 200;
 }
 
 .d-none {
@@ -225,6 +227,7 @@
   margin: auto;
   align-items: center;
   transition: ease-in-out 0.5s;
+  z-index: 200;
 }
 .full-btn:hover {
   background-color: #6097bf;
@@ -264,6 +267,7 @@
   justify-content: center;
   align-items: center;
   transition: ease-in-out 0.5s;
+  z-index: 200;
 }
 @media only screen and (max-width: 768px) {
   .full-memory-btn {
@@ -329,6 +333,7 @@
   border: none;
   font-size: 1rem;
   font-weight: bold;
+  z-index: 200;
 }
 .navigation-btn img {
   width: 28px;
