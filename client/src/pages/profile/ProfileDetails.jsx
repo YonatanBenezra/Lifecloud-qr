@@ -995,10 +995,21 @@ export default function Profile() {
             <SnackBar open={open} handleClose={handleClose} message={message} />
           </>
         )}
-        {(profiledata.facebookUrl || profiledata.instagramUrl) && (
+        {((profiledata.facebookUrl &&
+          profiledata.facebookUrl !== 'undefined') ||
+          (profiledata.instagramUrl &&
+            profiledata.instagramUrl !== 'undefined')) && (
           <ProfileFooter
-            facebookUrl={profiledata.facebookUrl}
-            instagramUrl={profiledata.instagramUrl}
+            facebookUrl={
+              profiledata.facebookUrl !== 'undefined'
+                ? profiledata.facebookUrl
+                : undefined
+            }
+            instagramUrl={
+              profiledata.instagramUrl !== 'undefined'
+                ? profiledata.instagramUrl
+                : undefined
+            }
           />
         )}
         <Footer />
