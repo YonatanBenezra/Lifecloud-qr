@@ -64,7 +64,9 @@ const About = () => {
                   להמשיך ולעצב לכם את המקום הכי נכון עבור היקרים לכם ומקווים
                   שתאהבו את מה שבנינו כאן, עבורכם.
                 </p>
-                <div className="gali-simha-text">שלכם, צוות LifeCloud </div>
+                <div className="gali-simha-text about_lifecloud">
+                  שלכם, צוות LifeCloud{' '}
+                </div>
               </div>
             </div>
           </div>
