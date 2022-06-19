@@ -285,7 +285,7 @@ const FriendsList = ({
         {profiledata && profiledata.addFriends.length > 0 ? (
           profiledata.addFriends.map((friend, i) => {
             return (
-              <div className="friend-request" key={i}>
+              <div className="friend-request mb-3" key={i}>
                 <div className="friend-request-details">
                   <LazyLoad>
                     <img
@@ -383,7 +383,7 @@ const FriendsList = ({
             profiledata.friendRequests.map((friend, i) => {
               return (
                 <div
-                  className="friend-request"
+                  className="friend-request mb-3"
                   key={friend.user && friend.user[0] && friend.user[0]._id}
                 >
                   <div className="friend-request-details">
@@ -411,7 +411,7 @@ const FriendsList = ({
                     >
                       הוסף כחבר
                     </span>
-                    |
+                    <span className="mx-2">|</span>
                     {/* <span
                       style={{ cursor: 'pointer' }}
                       onClick={() =>
@@ -426,6 +426,7 @@ const FriendsList = ({
                     >
                       הוסף כאדמין
                     </span>
+                    <span className="mx-2">|</span>
                     <span
                       onClick={() =>
                         handleRemoveFriendRequest(friend.user[0]?._id)
@@ -456,7 +457,7 @@ const FriendsList = ({
             profiledata.addAdmins.map((admin, i) => {
               return (
                 <div
-                  className="friend-request"
+                  className="friend-request mb-3"
                   key={admin.user && admin.user[0]._id}
                 >
                   <div className="friend-request-details">

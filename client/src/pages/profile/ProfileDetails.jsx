@@ -612,7 +612,7 @@ export default function Profile() {
                     .format('DD-MM-YYYY')
                     .replace(
                       new Date(profiledata?.deathDate).getFullYear(),
-                      new Date().getFullYear()
+                      new Date().getFullYear() + 1
                     )}
               </h3>
               <h3>
