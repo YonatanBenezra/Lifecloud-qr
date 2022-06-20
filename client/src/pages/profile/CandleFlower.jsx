@@ -114,7 +114,7 @@ const CandleFlower = ({ profileId, userId }) => {
                 className="modal-title text-align-center"
                 id="candleFlowerLabel"
               >
-                Light the candle or give the flower
+                להדליק נר או להניח זר
               </h5>
               <button
                 type="button"
