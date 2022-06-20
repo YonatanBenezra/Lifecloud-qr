@@ -347,6 +347,7 @@
   margin: auto;
   overflow: hidden;
   justify-content: center;
+  background-repeat: round;
 }
 .profile-div {
   direction: rtl;

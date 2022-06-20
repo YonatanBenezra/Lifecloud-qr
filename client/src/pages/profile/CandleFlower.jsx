@@ -86,6 +86,7 @@ const CandleFlower = ({ profileId, userId }) => {
         user: userId,
       });
       getAllCandleFlower();
+      dispatch({ type: 'RESET' });
     } catch (error) {
       console.log(error);
     }
@@ -113,7 +114,7 @@ const CandleFlower = ({ profileId, userId }) => {
                 className="modal-title text-align-center"
                 id="candleFlowerLabel"
               >
-                Light the candle or give the flower
+                להדליק נר או להניח זר
               </h5>
               <button
                 type="button"
