@@ -86,6 +86,7 @@ const CandleFlower = ({ profileId, userId }) => {
         user: userId,
       });
       getAllCandleFlower();
+      dispatch({ type: 'RESET' });
     } catch (error) {
       console.log(error);
     }

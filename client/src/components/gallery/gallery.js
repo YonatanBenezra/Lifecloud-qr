@@ -33,17 +33,15 @@ export const Gallery = ({ profiledata, id, userId }) => {
                               : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
                           }`}
                         >
-                          <LazyLoad>
-                            <img
-                              className="image-gallery-section"
-                              src={`${
-                                img
-                                  ? `${process.env.REACT_APP_API_URL}/${img}`
-                                  : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
-                              }`}
-                              alt=""
-                            />
-                          </LazyLoad>
+                          <img
+                            className="image-gallery-section"
+                            src={`${
+                              img
+                                ? `${process.env.REACT_APP_API_URL}/${img}`
+                                : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
+                            }`}
+                            alt=""
+                          />
                         </a>
                       ) : (
                         <video
