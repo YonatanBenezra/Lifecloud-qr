@@ -140,6 +140,11 @@ ProfileRouter.put(
         : multiFiles
         ? [multiFiles]
         : [];
+      console.log(
+        req.files.axisImages?.map((res) => {
+          return res.filename;
+        })
+      );
 
       if (req.files.profileImg && req.files.wallImg) {
         var dataSource = {
@@ -160,7 +165,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: req.body.axisImagesNames.split(','),
+          axisImages: req.files.axisImages?.map((res) => {
+            return res.filename;
+          }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -182,7 +189,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: req.body.axisImagesNames.split(','),
+          axisImages: req.files.axisImages?.map((res) => {
+            return res.filename;
+          }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -205,7 +214,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: req.body.axisImagesNames.split(','),
+          axisImages: req.files.axisImages?.map((res) => {
+            return res.filename;
+          }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -228,7 +239,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: req.body.axisImagesNames.split(','),
+          axisImages: req.files.axisImages?.map((res) => {
+            return res.filename;
+          }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -249,7 +262,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: req.body.axisImagesNames.split(','),
+          axisImages: req.files.axisImages?.map((res) => {
+            return res.filename;
+          }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
