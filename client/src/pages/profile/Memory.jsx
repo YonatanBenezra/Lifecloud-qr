@@ -167,7 +167,7 @@ const Memory = () => {
           getMemoryData();
           setCommenting(false);
           setComment(res);
-          history.push(`/userprofiles/${profileId}`);
+          history.replace(`/profiledetails/${profileId}`);
           setMessage('delete successfully!');
           // setOpen(true)
         }

@@ -12,8 +12,8 @@ class Email {
     return nodemailer.createTransport({
       service: 'SendGrid',
       auth: {
-        user: 'apikey',
-        pass: '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',
+        user: process.env.SENDGRID_USER,
+        pass: process.env.SENDGRID_PASSWORD,
       },
     });
   }
