@@ -10,6 +10,8 @@ import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import { useRef } from 'react';
 import LazyLoad from 'react-lazyload';
+import userIcon from '../../assets/userIcon.png';
+
 export const UserAndprofiles = () => {
   const LoggedUser = useContext(AuthContext);
   const [show, setShow] = useState(false);
@@ -60,12 +62,15 @@ export const UserAndprofiles = () => {
               .slice(11, 16),
             profileImg: userNotification.logedInUser[0]?.mainProfilePicture
               ? `${process.env.REACT_APP_API_URL}/picUploader/${userNotification.logedInUser[0]?.mainProfilePicture}`
-              : userNotification.logedInUser[0]?.profilePicture,
+              : userNotification.logedInUser[0]?.profilePicture
+              ? userNotification.logedInUser[0]?.profilePicture
+              : userIcon,
             action: notificationString(userNotification),
           }))
       );
     })();
   }, []);
+
   useEffect(() => {
     fetchuserprofiles();
   }, []);
@@ -73,7 +78,6 @@ export const UserAndprofiles = () => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/api/profile/getallprofileofSingleUser/${id}`
     );
-    console.log(res.data);
     setData(res.data);
   };
 
@@ -95,7 +99,7 @@ export const UserAndprofiles = () => {
     );
     LoggedUser.dispatch({ type: 'FIREBASE_LOGIN', payload: response.data });
   };
-  console.log(user.user_type == 'organisation', '😂');
+  console.log(notifications);
   return (
     <>
       <Topbar />
@@ -111,9 +115,11 @@ export const UserAndprofiles = () => {
                   <img
                     alt=""
                     src={
-                      LoggedUser.user?.mainProfilePicture
-                        ? `${process.env.REACT_APP_API_URL}/picUploader/${LoggedUser.user?.mainProfilePicture}`
-                        : LoggedUser.user?.profilePicture
+                      user.mainProfilePicture
+                        ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
+                        : user.profilePicture
+                        ? user.profilePicture
+                        : userIcon
                     }
                     className="user-img"
                     ref={profileImageRef}
