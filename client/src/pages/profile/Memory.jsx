@@ -193,12 +193,12 @@ const Memory = () => {
           </div>
           {/* add the title prome profiledata memory with the memory index */}
           <div className="image-container">
-            {memory.file ? (
+            {memory?.file ? (
               <LazyLoad>
                 <img
                   src={
-                    memory.file
-                      ? `${process.env.REACT_APP_API_URL}/${memory.file}`
+                    memory?.file
+                      ? `${process.env.REACT_APP_API_URL}/${memory?.file}`
                       : `${tempMemoryImg}`
                   }
                   alt=""
@@ -282,13 +282,13 @@ const Memory = () => {
             <div className="subtitle-continer">
               <h2>תגובות</h2>
             </div>
-            {memory.comments?.map((comment, index) => {
+            {memory?.comments?.map((comment, index) => {
               return (
                 <div className="comment-container">
                   <span className="comment-subcontainer">
                     <LazyLoad>
                       <img
-                        src={`${process.env.REACT_APP_API_URL}/${memory.file}`}
+                        src={`${process.env.REACT_APP_API_URL}/${memory?.file}`}
                         alt=""
                         className="comment-img"
                       />
@@ -300,8 +300,8 @@ const Memory = () => {
                     {/* <p>{comment.uploaderName}:</p> */}
                     <p className="comment-text">{comment.text}</p>
                   </span>
-                  {(profile?.originalUser[0]?._id === user?._id ||
-                    profile?.addAdmins.find(
+                  {(profile?.originalUser?.[0]?._id === user?._id ||
+                    profile?.addAdmins?.find(
                       (admins) => admins?.user?.[0]?._id === user?._id
                     )) && (
                     <span

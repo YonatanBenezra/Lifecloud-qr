@@ -221,6 +221,19 @@ export default function ProfileEdit() {
   };
 
   // handle click event of the Add button
+  const addSingleDiv = (i) => {
+    const copyArray = [...inputList];
+    const prevAllData = copyArray.slice(0, i);
+    const nextAllData = copyArray.slice(i);
+
+    const newArray = [
+      ...prevAllData,
+      { axisTitle: '', axisDate: '', axisDescription: '' },
+      ...nextAllData,
+    ];
+
+    setInputList(newArray);
+  };
   const handleAddClick = () => {
     setInputList([
       ...inputList,
@@ -308,6 +321,8 @@ export default function ProfileEdit() {
     setAxisImages([...axisImages, file]);
     setAxisImagesNames(copyAxisImagesNames);
     setInputList(copyArray);
+    event.target.closest('label').style.backgroundColor = '#5ca08e';
+    event.target.closest('label').textContent = 'תמונה הועלתה';
   };
 
   const removeGalleryDB = (file, i) => {
@@ -655,7 +670,7 @@ export default function ProfileEdit() {
                             name="multiplefiles"
                             multiple
                             onChange={onChangeMultiplePicture}
-                            className="media-upload-button"
+                            className="media-upload-button with-text"
                           />
                         </div>
                         <div className="d-flex flex-wrap justify-content-center">
@@ -769,14 +784,27 @@ export default function ProfileEdit() {
                     {inputList?.map((x, i) => {
                       return (
                         <div className="box" key={i}>
+                          {inputList.length !== 1 && (
+                            <div
+                              className="middle-axis-btn"
+                              onClick={() => addSingleDiv(i)}
+                            >
+                              <div className="inner-btn">
+                                <div className="line-1"></div>
+                                <div className="line-2"></div>
+                              </div>
+                            </div>
+                          )}
                           <div className="inner-box">
-                            <input
+                            <textarea
                               name="axisTitle"
                               placeholder="כותרת"
                               value={x.axisTitle}
                               onChange={(e) => handleInputChange(e, i)}
-                              className="axis-input"
-                            />
+                              className="axis-description"
+                            >
+                              כותרת
+                            </textarea>
                             <input
                               name="axisDate"
                               placeholder="תאריך"

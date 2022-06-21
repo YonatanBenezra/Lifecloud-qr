@@ -339,7 +339,7 @@ export default function MainProfile(props) {
         >
           <div className="display">
             <div className="bio-content">
-              <h1 className="bio-name">{profiledata.firstName}.</h1>
+              <h1 className="bio-name">.{profiledata.firstName}</h1>
               <pre className="bio-bio">{profiledata.description}</pre>
             </div>
           </div>
