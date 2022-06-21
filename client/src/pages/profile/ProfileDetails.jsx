@@ -612,7 +612,10 @@ export default function Profile() {
                     .format('DD-MM-YYYY')
                     .replace(
                       new Date(profiledata?.deathDate).getFullYear(),
-                      new Date().getFullYear() + 1
+                      new Date().getFullYear() +
+                        (new Date(profiledata?.deathDate) - new Date() > 0
+                          ? 0
+                          : 1)
                     )}
               </h3>
               <h3>
@@ -724,6 +727,7 @@ export default function Profile() {
                 <div className="memories-container">
                   {memoryData.length > 0 ? (
                     memoryData.map((imgData, index, _id) => {
+                      console.log(imgData);
                       return (
                         index < memoryCount && (
                           <div
@@ -743,7 +747,7 @@ export default function Profile() {
                                   className="memory-img"
                                 />
                               </LazyLoad>
-                            ) : (
+                            ) : imgData.memoryVideo ? (
                               <React.Fragment>
                                 <video
                                   width="100%"
@@ -778,6 +782,10 @@ export default function Profile() {
                                   Your browser does not support the video tag.
                                 </video>
                               </React.Fragment>
+                            ) : (
+                              <div className="memory-text-description memory-img">
+                                {imgData.description}
+                              </div>
                             )}
                             {/* {imgData.file.map(item => {
                           return <img
@@ -939,12 +947,12 @@ export default function Profile() {
                             Your browser does not support the video tag.
                           </video>
                         )}
-                        <div className="heart-container">
+                        {/* <div className="heart-container">
                           <div
                             className="heart-icon"
                             style={{ backgroundImage: `url(${heart})` }}
                           />
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   ))}

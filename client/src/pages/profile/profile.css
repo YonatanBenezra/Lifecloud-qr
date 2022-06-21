@@ -431,8 +431,11 @@ input::placeholder {
   width: 100%;
 }
 .media-upload-button {
+  /* background-color: #1775ee; */
   width: 125px;
   margin-bottom: 1.5rem;
+  /* color: #000; */
+  /* z-index: 1000; */
 }
 .media-upload-button-container {
   text-align: center;
@@ -854,4 +857,13 @@ input::placeholder {
   .google_input {
     margin: auto;
   }
+}
+.memory-text-description {
+  background-color: #dcecf4;
+  color: #6097bf;
+  font-size: 22px;
+  padding: 10px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

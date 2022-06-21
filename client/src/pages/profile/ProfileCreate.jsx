@@ -682,13 +682,15 @@ export default function ProfileCreate() {
                         )}
 
                         <div className="inner-box mx-4 mx-sm-0">
-                          <input
+                          <textarea
                             name="axisTitle"
                             placeholder="כותרת"
                             value={x.axisTitle}
                             onChange={(e) => handleInputChange(e, i)}
-                            className="axis-input"
-                          />
+                            className="axis-description"
+                          >
+                            כותרת
+                          </textarea>
                           <input
                             name="axisDate"
                             placeholder="תאריך"

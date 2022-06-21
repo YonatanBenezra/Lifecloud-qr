@@ -92,11 +92,10 @@ const CandleFlower = ({ profileId, userId }) => {
     }
   };
   useEffect(() => {
-    const scrollEvent = () => {
+    const myTimeout = setTimeout(() => {
       candleRef?.current?.click();
-      window.removeEventListener('scroll', scrollEvent);
-    };
-    window.addEventListener('scroll', scrollEvent);
+    }, 30000);
+    return () => clearTimeout(myTimeout);
   }, []);
   return (
     <React.Fragment>
