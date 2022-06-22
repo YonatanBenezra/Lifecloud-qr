@@ -39,13 +39,13 @@ class Email {
 
   async sendFriendNotification(firstName, profileName) {
     await this.send(
-      'New friend request',
-      `${firstName} has sent you a friend request on ${profileName}`
+      'בקשת חברות חדשה',
+      `${firstName} שלח/ה לך בקשת חברות לפרופיל - ${profileName}`
     );
   }
 
   async sendProfileQR(profileName, img) {
-    await this.send(`QR Code of ${profileName}`, 'Here is your QR Code', img);
+        await this.send(`.הושלם בהצלחה ,${profileName} של LIFEBOOK שלום, יצירת`, img);
   }
 }
 
