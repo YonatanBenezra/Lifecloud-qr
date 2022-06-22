@@ -211,6 +211,25 @@ export default function ProfileCreate() {
 
     e.preventDefault();
 
+    if (
+      facebookUrlRef.current?.value &&
+      !/^(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?$/.test(
+        facebookUrlRef.current?.value
+      )
+    ) {
+      setLoading(false);
+      return alert('Facebook url is not valid!');
+    }
+    if (
+      instagramUrlRef.current?.value &&
+      !/(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)/.test(
+        instagramUrlRef.current?.value
+      )
+    ) {
+      setLoading(false);
+      return alert('Instagram url is not valid!');
+    }
+
     const wallInformation = {
       originalUser: id,
       profileImg: picture,
@@ -741,7 +760,9 @@ export default function ProfileCreate() {
                   })}
                 </div>
                 <div style={{ marginTop: '65px' }}>
-                  <h1 className="text-center mb-5">הספת קישורים לרשתות החברתיות</h1>
+                  <h1 className="text-center mb-5">
+                    הספת קישורים לרשתות החברתיות
+                  </h1>
                   <div className="container media_link_container">
                     <div className="row text-center gy-5">
                       <div className="col-sm-6">
