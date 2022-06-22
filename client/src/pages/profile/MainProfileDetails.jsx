@@ -83,8 +83,8 @@ export default function MainProfile(props) {
 
   useEffect(() => {
     fetchuserprofiles();
-    fetchallprofiles(user._id);
-  }, [fetchallprofiles, fetchuserprofiles, id, user._id]);
+    fetchallprofiles(profiledata.originalUser?.[0]?._id);
+  }, [fetchallprofiles, fetchuserprofiles, profiledata.originalUser, user._id]);
 
   const handleClose = () => {
     setOpen(false);
@@ -146,6 +146,7 @@ export default function MainProfile(props) {
       .then(fetchuserprofiles)
       .catch(console.log);
   };
+
   const handleAddFriendRequest = (e) => {
     // setuserid(e)
 
@@ -350,6 +351,45 @@ export default function MainProfile(props) {
               + לכל הגלריה
             </div>
           </div>
+          <div className="profile-details-title">
+            <h1>חללי {profiledata.firstName}</h1>
+          </div>
+          <div className="list-of-deceased-container">
+            <div className="list-of-deceased">
+              {data &&
+                data.length > 0 &&
+                data.map((userProfiles, i) => {
+                  if (userProfiles.isMain === false) {
+                    return (
+                      <Link
+                        to={`/profiledetails/${userProfiles._id}`}
+                        key={i}
+                        style={{ cursor: 'hover' }}
+                      >
+                        <div className="profile-container" key={i}>
+                          <div className="profile-image-div">
+                            <LazyLoad>
+                              <img
+                                className="profile-image"
+                                src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                                alt=""
+                              />
+                            </LazyLoad>
+                          </div>
+                          <div className="profile-name">
+                            {userProfiles.firstName} {userProfiles.lastName}
+                          </div>
+                        </div>
+                      </Link>
+                    );
+                  }
+                })}
+            </div>
+            {/* <div onClick={() => setShow('deceased')} className="full-btn">
+              {' '}
+              + לעמוד החללים
+            </div> */}
+          </div>
           {/* Google location */}
           <div className="grave-location-container">
             <h1 className="grave-location-title">מיקום ותמונת אתר ההנצחה</h1>
@@ -393,45 +433,6 @@ export default function MainProfile(props) {
                 <img src={google} alt="" />
               </LazyLoad>
             </button>
-          </div>
-          <div className="profile-details-title">
-            <h1>חללי {profiledata.firstName}</h1>
-          </div>
-          <div className="list-of-deceased-container">
-            <div className="list-of-deceased">
-              {data &&
-                data.length > 0 &&
-                data.map((userProfiles, i) => {
-                  if (userProfiles.isMain === false) {
-                    return (
-                      <Link
-                        to={`/profiledetails/${userProfiles._id}`}
-                        key={i}
-                        style={{ cursor: 'hover' }}
-                      >
-                        <div className="profile-container" key={i}>
-                          <div className="profile-image-div">
-                            <LazyLoad>
-                              <img
-                                className="profile-image"
-                                src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
-                                alt=""
-                              />
-                            </LazyLoad>
-                          </div>
-                          <div className="profile-name">
-                            {userProfiles.firstName} {userProfiles.lastName}
-                          </div>
-                        </div>
-                      </Link>
-                    );
-                  }
-                })}
-            </div>
-            {/* <div onClick={() => setShow('deceased')} className="full-btn">
-              {' '}
-              + לעמוד החללים
-            </div> */}
           </div>
         </div>
         <div
