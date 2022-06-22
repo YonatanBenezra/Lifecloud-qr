@@ -99,7 +99,6 @@ export const UserAndprofiles = () => {
     );
     LoggedUser.dispatch({ type: 'FIREBASE_LOGIN', payload: response.data });
   };
-  console.log(notifications);
   return (
     <>
       <Topbar />

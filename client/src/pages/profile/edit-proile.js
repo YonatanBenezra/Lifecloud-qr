@@ -355,7 +355,7 @@ export default function ProfileEdit() {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="editGalleryImageLabel">
-                Edit Gallery Image
+                ערוך תמונות גלריה
               </h5>
               <button
                 type="button"
@@ -769,12 +769,12 @@ export default function ProfileEdit() {
                       data-bs-toggle="modal"
                       data-bs-target="#editGalleryImage"
                     >
-                      Edit gallery image
+                      ערוך תמונות גלריה
                     </button>
                   </div>
                   <div style={{ textAlign: 'center' }}>
-                    <h1>ביוגרפיה</h1>
-                    <input
+                    <h1>סיפור חיים</h1>
+                    <textarea
                       ref={description}
                       className="profile-creation-description"
                     />
@@ -854,7 +854,7 @@ export default function ProfileEdit() {
                     })}
                   </div>
                   <div style={{ marginTop: '65px' }}>
-                    <h1 className="text-center mb-5">Edit Social Media</h1>
+                    <h1 className="text-center mb-5">הוסף רשתות חברתיות</h1>
                     <div className="container media_link_container">
                       <div className="row text-center gy-5">
                         <div className="col-sm-6">
@@ -876,7 +876,7 @@ export default function ProfileEdit() {
                           {showFacebookInput && (
                             <input
                               name="facebookUrl"
-                              placeholder="facebook url"
+                              placeholder="לינק לפייסבוק"
                               type="text"
                               className="nameInput d-block w-100"
                               ref={facebookUrlRef}
@@ -904,7 +904,7 @@ export default function ProfileEdit() {
                           {showInstagramInput && (
                             <input
                               name="instagramUrl"
-                              placeholder="instagram url"
+                              placeholder="לינק לאינסטגרם"
                               type="text"
                               className="nameInput d-block w-100 w-100"
                               ref={instagramUrlRef}
