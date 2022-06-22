@@ -36,7 +36,9 @@ const Memory = () => {
   const [DellComment, setDelComment] = useState('');
   const [commenting, setCommenting] = useState(false);
   const [comment, setComment] = useState();
-  const [text, setText] = useState({ comments: [{ text: '' }] });
+  const [text, setText] = useState({
+    comments: [{ text: '', userPicture: '' }],
+  });
 
   const { profileId, memoryId } = useParams();
   const history = useHistory();
@@ -119,6 +121,11 @@ const Memory = () => {
       comments: [
         {
           text: e.target.value,
+          userPicture: user.mainProfilePicture
+            ? user.mainProfilePicture
+            : user.profilePicture
+            ? user.profilePicture
+            : 'avatar.png',
         },
       ],
     });
@@ -177,7 +184,7 @@ const Memory = () => {
       });
   };
   const location = useLocation();
-
+  console.log(memory?.comments);
   return (
     <div className="memory-page">
       <div className="single-memory-content-container">
@@ -283,20 +290,17 @@ const Memory = () => {
               <h2>תגובות</h2>
             </div>
             {memory?.comments?.map((comment, index) => {
+              const userPic = comment?.userPicture?.startsWith('http')
+                ? comment?.userPicture
+                : `${process.env.REACT_APP_API_URL}/picUploader/${comment?.userPicture}`;
               return (
                 <div className="comment-container">
                   <span className="comment-subcontainer">
                     <LazyLoad>
-                      <img
-                        src={`${process.env.REACT_APP_API_URL}/${memory?.file}`}
-                        alt=""
-                        className="comment-img"
-                      />
+                      <img src={userPic} alt="" className="comment-img" />
                     </LazyLoad>
-                    <p>
-                      {moment(comment.date).utc().format('DD-MM-YYYY-HHHH')}
-                    </p>
-                    |<p>{`${memory.firstName} ${memory.lastName}`}</p>|
+                    <p>{moment(comment.date).utc().format('DD-MM-YYYY')}</p>|
+                    <p>{`${memory.firstName} ${memory.lastName}`}</p>|
                     {/* <p>{comment.uploaderName}:</p> */}
                     <p className="comment-text">{comment.text}</p>
                   </span>

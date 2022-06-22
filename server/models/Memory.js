@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema(
     lastName: {
       type: String,
     },
+
     file: {
       type: String,
     },
@@ -25,6 +26,7 @@ const UserSchema = new mongoose.Schema(
         text: String,
         id: Number,
         date: Date,
+        userPicture: String,
       },
       { timestamps: true },
     ],
