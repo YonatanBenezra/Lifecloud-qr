@@ -32,7 +32,6 @@ const MobileTopbar = (props) => {
   const [show, toggleShow] = useState(false);
   const [sidebar, toggleSidebar] = useState(false);
   const option = () => {
-    console.log('SIdebar');
     document.querySelector('.sidebar').classList.toggle('-translate-x-full');
   };
 
@@ -364,7 +363,11 @@ const MobileTopbar = (props) => {
             <div className="result-box-main mobile_result_box">
               {searchData?.map((item) => {
                 return (
-                  <Link to={`/profiledetails/${item._id}`}>
+                  <Link
+                    to={`/${
+                      item.isMain ? 'mainprofiledetails' : 'profiledetails'
+                    }/${item._id}`}
+                  >
                     <div className="result-box">
                       <div>
                         <span>
