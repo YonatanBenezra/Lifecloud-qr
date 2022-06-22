@@ -423,8 +423,14 @@ export default function Profile() {
                 >
                   סגור
                 </button>
+
                 <a
-                  href={`https://api.whatsapp.com/send/?text=https://lifecloud-qr.com${location.pathname}`}
+                  href={`https://api.whatsapp.com/send/?text=' 
+ שלום, אני מזמין אותך להצטרף לקהילת
+ LIFECLOUD,
+ להנציח ולשמר לעד את זיכרם של
+ ${profiledata.firstName} ${profiledata.lastName} 
+ https://lifecloud-qr.com${location.pathname} :כאן `}
                   type="button"
                   className="btn btn-success"
                   target={'_blank'}
