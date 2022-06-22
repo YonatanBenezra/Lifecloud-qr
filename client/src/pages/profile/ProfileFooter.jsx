@@ -13,7 +13,7 @@ const ProfileFooter = ({
 }) => {
   return (
     <div className="social-footer" style={{ backgroundColor, color }}>
-      <h1>עקבו אחרינו</h1>
+      <h1>עקבו אחריי</h1>
       <div className="icons-container social-footer-icons">
         {facebookUrl && (
           <div className="facebook-container social-footer-facebook">

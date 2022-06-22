@@ -345,7 +345,7 @@ export default function ProfileCreate() {
         <div className="">
           <div className="loginLeft" style={{ marginBottom: '3rem' }}>
             <h3 className="profile-creation-title">צור פרופיל</h3>
-            <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div>
+            {/* <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div> */}
           </div>
           <div className="profile-images">
             {/* <div className="register_profile_image"></div> */}
@@ -741,7 +741,7 @@ export default function ProfileCreate() {
                   })}
                 </div>
                 <div style={{ marginTop: '65px' }}>
-                  <h1 className="text-center mb-5">Add Social Media</h1>
+                  <h1 className="text-center mb-5">הספת קישורים לרשתות החברתיות</h1>
                   <div className="container media_link_container">
                     <div className="row text-center gy-5">
                       <div className="col-sm-6">
@@ -756,7 +756,7 @@ export default function ProfileCreate() {
                         </button>
                         {showFacebookInput && (
                           <input
-                            placeholder="facebook url"
+                            placeholder="לינק לפייסבוק"
                             type="text"
                             className="nameInput d-block w-100"
                             ref={facebookUrlRef}
@@ -779,7 +779,7 @@ export default function ProfileCreate() {
                         </button>
                         {showInstagramInput && (
                           <input
-                            placeholder="instagram url"
+                            placeholder="לינק לאינסטגרם"
                             type="text"
                             className="nameInput d-block w-100 w-100"
                             ref={instagramUrlRef}

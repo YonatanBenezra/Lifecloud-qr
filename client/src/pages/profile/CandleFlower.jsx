@@ -133,7 +133,7 @@ const CandleFlower = ({ profileId, userId }) => {
                     style={{ transform: 'translateY(-50px)' }}
                     onClick={() => dispatch({ type: 'INCREASE_CANDLE' })}
                   >
-                    Buy Candle
+                    קניית נר
                   </button>
                 </div>
                 <div className=" col-6 p-0">
@@ -144,7 +144,7 @@ const CandleFlower = ({ profileId, userId }) => {
                     style={{ transform: 'translateY(-50px)' }}
                     onClick={() => dispatch({ type: 'INCREASE_FLOWER' })}
                   >
-                    Buy Flower
+                    קניית פרח
                   </button>
                 </div>
               </div>
@@ -152,7 +152,7 @@ const CandleFlower = ({ profileId, userId }) => {
               {(candleFlowerState.candle > 0 ||
                 candleFlowerState.flower > 0) && (
                 <form className="container" onSubmit={handleFormSubmit}>
-                  <h4 className="fw-bold mb-3">Cart</h4>
+                  <h4 className="fw-bold mb-3">מוצרים</h4>
                   {candleFlowerState.candle > 0 && (
                     <div className="d-flex justify-content-between align-items-center">
                       <div
@@ -181,7 +181,7 @@ const CandleFlower = ({ profileId, userId }) => {
                           </span>
                         </div>
                         <div>
-                          <h5 className="text-white m-0">Candle</h5>
+                          <h5 className="text-white m-0">נר</h5>
                         </div>
                       </div>
                       <button
@@ -219,7 +219,7 @@ const CandleFlower = ({ profileId, userId }) => {
                           </span>
                         </div>
                         <div>
-                          <h5 className="text-white m-0">Flower</h5>
+                          <h5 className="text-white m-0">פרח</h5>
                         </div>
                       </div>
                       <button
@@ -236,7 +236,7 @@ const CandleFlower = ({ profileId, userId }) => {
                     style={{ backgroundColor: '#6097bf', fontSize: '20px' }}
                     type="submit"
                   >
-                    Submit
+                    המשך
                   </button>
                 </form>
               )}
@@ -270,7 +270,8 @@ const CandleFlower = ({ profileId, userId }) => {
                   .filter((cf) => cf.candle > 0)
                   .map((cf) => (
                     <li>
-                      {cf.user.firstName} lit up {cf.candle} candle
+                      ה/הדליק {cf.user.firstName} <br />
+                      {cf.candle} נרות
                     </li>
                   ))}
               </ul>
@@ -300,7 +301,8 @@ const CandleFlower = ({ profileId, userId }) => {
                   .filter((cf) => cf.flower > 0)
                   .map((cf) => (
                     <li>
-                      {cf.user.firstName} has given {cf.flower} flower
+                      הניח/ה {cf.user.firstName} <br />
+                      {cf.flower} פרחים
                     </li>
                   ))}
               </ul>

@@ -316,14 +316,14 @@ export default function MainProfile(props) {
               ))}
           </div>
           <div className="profile-big-btns-container d-flex">
-            <div
+            {/* <div
               type="button"
               className="profile-big-btn"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
               QR
-            </div>
+            </div> */}
             <div
               onClick={() => setShow('wall')}
               className={`${show === 'wall' && 'active'} profile-big-btn`}
@@ -352,7 +352,7 @@ export default function MainProfile(props) {
           </div>
           {/* Google location */}
           <div className="grave-location-container">
-            <h1 className="grave-location-title">מיקום ותמונת הקבר</h1>
+            <h1 className="grave-location-title">מיקום ותמונת אתר ההנצחה</h1>
             <div className="grave-imgs-container">
               <LazyLoad>
                 <img
@@ -395,7 +395,7 @@ export default function MainProfile(props) {
             </button>
           </div>
           <div className="profile-details-title">
-            <h1>רשימת חללים</h1>
+            <h1>חללי {profiledata.firstName}</h1>
           </div>
           <div className="list-of-deceased-container">
             <div className="list-of-deceased">
@@ -428,10 +428,10 @@ export default function MainProfile(props) {
                   }
                 })}
             </div>
-            <div onClick={() => setShow('deceased')} className="full-btn">
+            {/* <div onClick={() => setShow('deceased')} className="full-btn">
               {' '}
               + לעמוד החללים
-            </div>
+            </div> */}
           </div>
         </div>
         <div
