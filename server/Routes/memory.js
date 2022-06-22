@@ -77,6 +77,7 @@ MemoryRouter.put('/comment/:id', async (req, res) => {
             $each: [
               {
                 text: req.body.comments[0].text,
+                userPicture: req.body.comments[0].userPicture,
                 id: Math.ceil(Math.random() * 1000),
                 date: Date.now(),
               },
