@@ -724,17 +724,21 @@ export default function ProfileCreate() {
                             onChange={(e) => handleInputChange(e, i)}
                             className="axis-description"
                           />
-                          <label className="file-label">
-                            הוסף תמונה
+                          <label
+                            className={`${
+                              inputList[i]?.axisImage && 'bg-success'
+                            } file-label`}
+                          >
+                            {inputList[i]?.axisImage
+                              ? 'Uploaded'
+                              : 'הוסף תמונה'}
                             <input
                               type="file"
                               name="axisImage"
                               placeholder="Image"
                               onChange={(e) => handleAxisImage(e, i)}
                               className="axis-input-image"
-                              
                             />
-                            <span className="file-custom"></span>
                           </label>
                           <div className="btn-box">
                             {inputList.length !== 1 && (
