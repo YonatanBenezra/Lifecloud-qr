@@ -512,53 +512,24 @@ export default function ProfileEdit() {
                     <h1>תאריך פטירה</h1>
                   </div>
                   <div className="profile-creation-names-container">
-                    {wallInformation.birthDate &&
-                    wallInformation.birthDate !== 'undefined' ? (
-                      <input
-                        placeholder="* לועזי"
-                        ref={birthDate}
-                        onChange={handleChangeValue}
-                        name="birthDate"
-                        value={moment(wallInformation.birthDate).format(
-                          'DD-MM-YYYY'
-                        )}
-                        className="nameInput"
-                        type="text"
-                      />
-                    ) : (
-                      <input
-                        ref={birthDate}
-                        placeholder="* לועזי"
-                        pattern="\d{4}-\d{2}-\d{2}"
-                        onChange={handleChangeValue}
-                        className="nameInput"
-                        type="date"
-                        name="birthDate"
-                      />
-                    )}
-                    {wallInformation.deathDate &&
-                    wallInformation.deathDate !== 'undefined' ? (
-                      <input
-                        placeholder="* לועזי"
-                        ref={deathDate}
-                        onChange={handleChangeValue}
-                        name="deathDate"
-                        value={moment(wallInformation.deathDate).format(
-                          'DD-MM-YYYY'
-                        )}
-                        className="nameInput"
-                      />
-                    ) : (
-                      <input
-                        placeholder="* לועזי"
-                        ref={deathDate}
-                        pattern="\d{4}-\d{2}-\d{2}"
-                        onChange={handleChangeValue}
-                        className="nameInput"
-                        type="date"
-                        name="deathDate"
-                      />
-                    )}
+                    <input
+                      placeholder="* לועזי"
+                      ref={birthDate}
+                      onChange={handleChangeValue}
+                      name="birthDate"
+                      value={wallInformation.birthDate || ''}
+                      className="nameInput"
+                      type="date"
+                    />
+                    <input
+                      placeholder="* לועזי"
+                      ref={deathDate}
+                      onChange={handleChangeValue}
+                      name="deathDate"
+                      value={wallInformation.deathDate || ''}
+                      type="date"
+                      className="nameInput"
+                    />
                   </div>
                   <div
                     className="profile-creation-names-container"

@@ -58,12 +58,12 @@
   height: 40px;
   font-weight: 600;
 }
-[type='date']::-webkit-inner-spin-button {
+/* [type='date']::-webkit-inner-spin-button {
   display: none;
 }
 [type='date']::-webkit-calendar-picker-indicator {
   display: none;
-}
+} */
 .name-input {
   text-align: center;
   direction: rtl;
