@@ -68,6 +68,7 @@ export default function Profile() {
   const [users, setUsers] = useState([]);
   const [hebMemorialDate, setHebMemorialDate] = useState('');
   const [yPos, setYPos] = useState(50);
+  const [map, setMap] = useState(false);
 
   const sendNotification = useCallback(
     (notificationType) => {
@@ -151,8 +152,11 @@ export default function Profile() {
 
       const death = new Date(profiledata?.deathDate);
       const date = death.getDate();
-      const year = new Date().getFullYear();
+      const year =
+        new Date().getFullYear() +
+        (new Date(profiledata?.deathDate) - new Date() > 0 ? 0 : 1);
       const month = death.getMonth();
+
       const response = await fetch(
         `https://www.hebcal.com/converter?cfg=json&gy=${year}&gm=${
           month + 1
@@ -173,6 +177,10 @@ export default function Profile() {
     );
     setmemoryData(res.data);
   }, [profileId]);
+  useEffect(() => {
+    sendNotification('profileVisit');
+  }, [sendNotification]);
+
   useEffect(() => {
     setCommenting('');
     setComment('');
@@ -333,16 +341,11 @@ export default function Profile() {
     year: 'numeric',
   };
 
-  const [map, setMap] = useState(false);
   // const { location, getGeoLocation } = useGeoLocation();
   // useEffect(() => {
   //   getGeoLocation();
   // }, [getGeoLocation]);
   // console.log(profiledata);
-
-  useEffect(() => {
-    sendNotification('profileVisit');
-  }, [sendNotification]);
 
   const handleObjectPos = (what) => {
     if (yPos <= 90 && what === 'up') {
@@ -613,7 +616,7 @@ export default function Profile() {
               <h3>
                 <span className="separator">| </span>
                 <span className="dash">- </span>
-                {profiledata?.deathDate &&
+                {/* {profiledata?.deathDate &&
                   moment(profiledata?.deathDate)
                     .format('DD-MM-YYYY')
                     .replace(
@@ -622,7 +625,8 @@ export default function Profile() {
                         (new Date(profiledata?.deathDate) - new Date() > 0
                           ? 0
                           : 1)
-                    )}
+                    )} */}
+                {hebMemorialDate}
               </h3>
               <h3>
                 <span className="separator">| </span>
