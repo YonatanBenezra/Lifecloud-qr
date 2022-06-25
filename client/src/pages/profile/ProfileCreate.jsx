@@ -192,20 +192,6 @@ export default function ProfileCreate() {
     ]);
   };
 
-  // handle click event of the Add button
-  const addSingleDiv = (i) => {
-    const copyArray = [...inputList];
-    const prevAllData = copyArray.slice(0, i);
-    const nextAllData = copyArray.slice(i);
-
-    const newArray = [
-      ...prevAllData,
-      { axisTitle: '', axisDate: '', axisDescription: '' },
-      ...nextAllData,
-    ];
-
-    setInputList(newArray);
-  };
   const handleClick = async (e) => {
     setLoading(true);
 
@@ -339,7 +325,20 @@ export default function ProfileCreate() {
     lng: 34.81864101562498,
   });
   const [axisImages, setAxisImages] = useState([]);
+  // handle click event of the Add button
+  const addSingleDiv = (i) => {
+    const copyArray = [...inputList];
+    const prevAllData = copyArray.slice(0, i);
+    const nextAllData = copyArray.slice(i);
 
+    const newArray = [
+      ...prevAllData,
+      { axisTitle: '', axisDate: '', axisDescription: '' },
+      ...nextAllData,
+    ];
+
+    setInputList(newArray);
+  };
   const handleAxisImage = (event, i) => {
     const copyArray = [...inputList];
     const files = event.target.files[0];
@@ -349,8 +348,8 @@ export default function ProfileCreate() {
     setInputList(copyArray);
 
     setAxisImages(inputList.map((list) => list.axisImage));
-    event.target.closest('label').style.backgroundColor = '#5ca08e';
-    event.target.closest('label').textContent = 'תמונה הועלתה';
+    // event.target.closest('label').style.backgroundColor = '#5ca08e';
+    // event.target.closest('label').textContent = 'תמונה הועלתה';
   };
 
   return (
@@ -733,6 +732,7 @@ export default function ProfileCreate() {
                               placeholder="Image"
                               onChange={(e) => handleAxisImage(e, i)}
                               className="axis-input-image"
+                              
                             />
                             <span className="file-custom"></span>
                           </label>
