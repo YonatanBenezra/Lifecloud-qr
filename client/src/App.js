@@ -31,6 +31,7 @@ import { ENUserAndprofiles } from './pages/userpage/ENUser-and-profile';
 import { AuthContext } from './context/AuthContext';
 import { useContext, useState } from 'react';
 import Memory from './pages/profile/Memory.jsx';
+import TranzillaTest from './pages/tranzilla/TranzillaTest.jsx';
 import {
   BrowserRouter as Router,
   Switch,
@@ -104,6 +105,9 @@ function App() {
             </Route>
             <Route exact path="/qa">
               <Qa />
+            </Route>
+            <Route exact path="/tranzillatest">
+              <TranzillaTest />
             </Route>
           </Switch>
         ) : (
