@@ -75,6 +75,7 @@ ProfileRouter.post(
       newUser.save().then(async (resp) => {
         const qrUrl = `http://localhost:8801/profiledetails/${resp._id}`;
         if (!req.body.email) return res.send(resp);
+
         var img = await qr.toDataURL(qrUrl);
         await new Email({ email: req.body.email }).sendProfileQR(
           req.body.firstName,

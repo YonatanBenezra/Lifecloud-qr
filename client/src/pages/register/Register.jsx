@@ -99,7 +99,7 @@ export default function Register() {
                     ref={firstName}
                     value={user.firstName}
                     name="firstName"
-                    className="name-input w-100"
+                    className="name-input w-100 ms-3"
                   />
                   <input
                     placeholder="* שם משפחה"
@@ -108,7 +108,7 @@ export default function Register() {
                     ref={lastName}
                     value={user.lastName}
                     name="lastName"
-                    className="name-input w-100"
+                    className="name-input w-100 me-3"
                   />
                 </div>
                 <input
