@@ -462,7 +462,7 @@ export default function ProfileCreate() {
 
                 <div
                   className="profile-creation-names-container"
-                  style={{ marginTop: '3rem' }}
+                  style={{ marginTop: '2rem' }}
                 >
                   <input
                     placeholder="עברי"
@@ -492,7 +492,7 @@ export default function ProfileCreate() {
                 </div> */}
                 <div
                   className="profile-creation-names-container"
-                  style={{ marginTop: '3rem' }}
+                  style={{ marginTop: '2rem' }}
                 >
                   <input
                     placeholder="עיר"
@@ -671,9 +671,10 @@ export default function ProfileCreate() {
                   >
                     {(close) => (
                       <div className="popup-modal">
-                        <button className="close" onClick={close}>
-                          &times;
-                        </button>
+                        <button
+                          className="close position-absolute btn btn-close"
+                          onClick={close}
+                        ></button>
                         <LazyLoad>
                           <img
                             src={LifeAxisImg}
@@ -709,14 +710,14 @@ export default function ProfileCreate() {
                           >
                             כותרת
                           </textarea>
-                          <input
+
+                          <textarea
                             name="axisDate"
                             placeholder="תאריך"
                             value={x.axisDate}
                             onChange={(e) => handleInputChange(e, i)}
-                            className="axis-input"
+                            className="axis-description mx-3"
                           />
-
                           <textarea
                             name="axisDescription"
                             placeholder="טקסט"
@@ -743,7 +744,7 @@ export default function ProfileCreate() {
                           <div className="btn-box">
                             {inputList.length !== 1 && (
                               <p
-                                className="delete-btn"
+                                className="delete-btn axis-delete-button"
                                 onClick={() => handleRemoveClick(i)}
                               >
                                 - הסר
@@ -768,8 +769,8 @@ export default function ProfileCreate() {
                     הספת קישורים לרשתות החברתיות
                   </h1>
                   <div className="container media_link_container">
-                    <div className="row text-center gy-5">
-                      <div className="col-sm-6">
+                    <div className="row text-center gy-5 justify-content-center">
+                      <div className="col-sm-6 col-lg-3 ">
                         <button
                           className="btn heart-div social-footer-icon mb-3"
                           type="button"
@@ -788,7 +789,7 @@ export default function ProfileCreate() {
                           />
                         )}
                       </div>
-                      <div className="col-sm-6">
+                      <div className="col-sm-6 col-lg-3">
                         <button
                           className="btn heart-div social-footer-icon  mb-3"
                           type="button"
