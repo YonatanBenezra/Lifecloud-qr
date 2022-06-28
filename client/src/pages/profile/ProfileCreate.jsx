@@ -262,7 +262,6 @@ export default function ProfileCreate() {
       formdata.append('gender', wallInformation.gender);
       formdata.append('wazeLocation', wallInformation.wazeLocation);
       formdata.append('googleLocation', wallInformation.googleLocation);
-      formdata.append('email', wallInformation.googleLocation);
       formdata.append('description', wallInformation.description);
       formdata.append('facebookUrl', wallInformation.facebookUrl);
       formdata.append('instagramUrl', wallInformation.instagramUrl);
@@ -274,6 +273,12 @@ export default function ProfileCreate() {
       for (let i = 0; i < axisImages.length; i++) {
         formdata.append('axisImages', axisImages[i]);
       }
+      if (!qr) {
+        window.location.assign(
+          `https://direct.tranzila.com/icloud/iframenew.php?sum=${100}`
+        );
+      }
+
       fetch(`${process.env.REACT_APP_API_URL}/api/profile/createProfile`, {
         method: 'POST',
         body: formdata,
@@ -989,7 +994,7 @@ export default function ProfileCreate() {
                         >
                           למייל QR לקבלת{' '}
                         </button>
-                        {/* <button
+                        <button
                           onClick={() => setQr(false)}
                           className="logout-btn mt-0"
                           type="submit"
@@ -997,7 +1002,7 @@ export default function ProfileCreate() {
                           aria-label="Close"
                         >
                           לרכישת QR ייחודי
-                        </button> */}
+                        </button>
                       </div>
                     </div>
                   </div>

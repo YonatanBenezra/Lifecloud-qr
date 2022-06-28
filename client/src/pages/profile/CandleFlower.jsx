@@ -83,8 +83,7 @@ const CandleFlower = ({ profileId, userId }) => {
     window.location.assign(
       `https://direct.tranzila.com/icloud/iframenew.php?sum=${
         (candleFlowerState.flower + candleFlowerState.candle) * 5
-      }`,
-      '_blank'
+      }`
     );
 
     try {
