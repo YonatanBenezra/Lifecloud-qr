@@ -603,9 +603,10 @@
     display: flex;
     justify-content: center;
     background-color: #abc9db;
+    padding: 30px 0;
   }
   .searchbar-container-home-desktop {
-    width: 450px;
+    width: 50%;
     height: 50px;
     border-radius: 15px;
     display: flex;
@@ -615,7 +616,7 @@
     border: 0;
   }
   .searchInput-home-desktop {
-    margin-left: 20%;
+    margin-left: 38%;
     direction: rtl;
     color: #6097bf;
     font-size: 25px;
@@ -653,7 +654,6 @@
   .text-container-home-desktop {
     color: #ffff;
     font-size: 2rem;
-    margin-top: 20px;
     padding-right: 7rem;
   }
   .react-player-home-desktop {
@@ -820,7 +820,7 @@
 }
 
 .home-result-box-main {
-  width: 450px;
+  width: 50%;
   background: #fff;
   position: absolute;
   max-height: 120px;
@@ -964,9 +964,7 @@
 .slogan {
   font-size: 3rem;
 }
-.full_width_video_container {
-  margin-top: 75px;
-}
+
 .full_width_video_container video {
   width: 100vw;
   height: 65vh;

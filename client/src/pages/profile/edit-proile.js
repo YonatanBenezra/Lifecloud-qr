@@ -14,6 +14,9 @@ import facebook from '../../assets/facebook.png';
 import instagram from '../../assets/instagram.png';
 import LazyLoad from 'react-lazyload';
 export default function ProfileEdit() {
+  function isObject(obj) {
+    return obj != null && obj.constructor.name === 'Object';
+  }
   const { user } = useContext(AuthContext);
   const id = useParams().id;
   const [picture, setPicture] = useState(null);
@@ -194,12 +197,15 @@ export default function ProfileEdit() {
         gallery: profiledata.gallery,
         lifeAxis:
           Object.keys(profiledata)?.length &&
-          profiledata.lifeAxis !== 'undefined'
+          profiledata.lifeAxis !== 'undefined' &&
+          isObject(profiledata.lifeAxis)
             ? JSON.parse(profiledata.lifeAxis)
             : inputList,
       });
       setInputList(
-        Object.keys(profiledata)?.length && profiledata.lifeAxis !== 'undefined'
+        Object.keys(profiledata)?.length &&
+          profiledata.lifeAxis !== 'undefined' &&
+          isObject(profiledata.lifeAxis)
           ? JSON.parse(profiledata.lifeAxis)
           : [{ axisTitle: '', axisDate: '', axisDescription: '' }]
       );
@@ -746,9 +752,12 @@ export default function ProfileEdit() {
                   <div style={{ textAlign: 'center' }}>
                     <h1>סיפור חיים</h1>
                     <textarea
-                      ref={description}
+                      name="description"
+                      onChange={handleChangeValue}
                       className="profile-creation-description"
-                    />
+                    >
+                      {profiledata.description}
+                    </textarea>
                   </div>
                   <div>
                     <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
