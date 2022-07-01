@@ -80,11 +80,11 @@ const CandleFlower = ({ profileId, userId }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    window.location.assign(
-      `https://direct.tranzila.com/icloud/iframenew.php?sum=${
-        (candleFlowerState.flower + candleFlowerState.candle) * 5
-      }`
-    );
+    // window.location.assign(
+    //   `https://direct.tranzila.com/icloud/iframenew.php?sum=${
+    //     (candleFlowerState.flower + candleFlowerState.candle) * 5
+    //   }`
+    // );
 
     try {
       await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
@@ -131,9 +131,9 @@ const CandleFlower = ({ profileId, userId }) => {
               ></button>
             </div>
 
-            <div className="modal-body text-center px-0 pt-0 overflow-hidden">
+            <div className="modal-body text-center p-0 overflow-hidden profile_candle_modal">
               <div className="row">
-                <div className="col-6 p-0 position-relative">
+                <div className="col-6 p-0 position-relative overflow-hidden">
                   <div className="popup-image-text">
                     <h3>הדלק נר וירטאולי</h3>
                     <p>בעלות של 2 ש״ח</p>
@@ -141,14 +141,13 @@ const CandleFlower = ({ profileId, userId }) => {
                   <img className="img-fluid" src={candle} alt="FlowerLight" />
 
                   <button
-                    className="profile-small-btn border-0"
-                    style={{ transform: 'translateY(-50px)' }}
+                    className="profile-small-btn border-0 profile_candle_btn w-50"
                     onClick={() => dispatch({ type: 'INCREASE_CANDLE' })}
                   >
                     קניית נר
                   </button>
                 </div>
-                <div className=" col-6 p-0 position-relative">
+                <div className=" col-6 p-0 position-relative overflow-hidden">
                   <div className="popup-image-text">
                     <h3>הנח זר וירטאולי</h3>
                     <p>בעלות של 2 ש״ח</p>
@@ -156,8 +155,7 @@ const CandleFlower = ({ profileId, userId }) => {
                   <img className="img-fluid" src={flower} alt="FlowerLight" />
 
                   <button
-                    className="profile-small-btn border-0"
-                    style={{ transform: 'translateY(-50px)' }}
+                    className="profile-small-btn border-0 profile_candle_btn w-50"
                     onClick={() => dispatch({ type: 'INCREASE_FLOWER' })}
                   >
                     קניית פרח
@@ -248,7 +246,7 @@ const CandleFlower = ({ profileId, userId }) => {
                   <button
                     data-bs-dismiss="modal"
                     aria-label="Close"
-                    className={`border-0 w-50 mt-4 py-2 fw-bold text-white rounded-3 `}
+                    className={`border-0 w-50 my-4 py-2 fw-bold text-white rounded-3 `}
                     style={{ backgroundColor: '#6097bf', fontSize: '20px' }}
                     type="submit"
                   >
