@@ -108,7 +108,7 @@ const Contact = () => {
             <div className="col-md-10 col-lg-8 col-12 mx-auto">
               <textarea
                 id="free-text"
-                className="register-contact"
+                className="register-contact register-textarea"
                 name="message"
                 required
                 placeholder=" טקסט חופשי..."

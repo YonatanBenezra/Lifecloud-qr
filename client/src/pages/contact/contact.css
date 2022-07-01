@@ -17,8 +17,8 @@
 }
 
 #free-text {
-  padding-top: 18px;
-  padding-bottom: 18px;
+  padding-top: 38px;
+  padding-bottom: 0;
 }
 .contact-send {
   text-align: center;
@@ -26,7 +26,7 @@
   border-radius: 5px;
   border: 1px solid #fff;
   font-size: 25px !important;
-  padding-left: 20px;
+  padding: 0 20px;
   margin: 2px;
   margin-top: 50px;
   height: 50px;
@@ -62,3 +62,19 @@
 .register-contact::placeholder {
   color: #6097bf;
 }
+.register-textarea {
+  color: #6097bf;
+}
+.register-textarea:focus {
+  border: none;
+  outline: none;
+}
+/* .register-textarea::-moz-placeholder {
+  line-height: 70px;
+}
+.register-textarea::-webkit-input-placeholder {
+  line-height: 70px;
+}
+.register-textarea:-ms-input-placeholder {
+  line-height: 70px;
+} */

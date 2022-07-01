@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import LazyLoad from 'react-lazyload';
+import { useHistory } from 'react-router-dom';
 const initialState = {
   candle: 0,
   flower: 0,
@@ -57,6 +58,7 @@ const reducer = (state, action) => {
 };
 
 const CandleFlower = ({ profileId, userId }) => {
+  const history = useHistory();
   const candleRef = useRef();
   const [candleFlowerState, dispatch] = useReducer(reducer, initialState);
   const [candleFlower, setCandleFlower] = useState([]);
@@ -78,6 +80,12 @@ const CandleFlower = ({ profileId, userId }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    window.location.assign(
+      `https://direct.tranzila.com/icloud/iframenew.php?sum=${
+        (candleFlowerState.flower + candleFlowerState.candle) * 5
+      }`
+    );
+
     try {
       await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
         flower: candleFlowerState.flower,
