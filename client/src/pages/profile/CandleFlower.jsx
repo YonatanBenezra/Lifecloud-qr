@@ -1,8 +1,8 @@
 import React, { useReducer, useRef, useState } from 'react';
-import lightCandle from '../../assets/light_candle.png';
-import darkCandle from '../../assets/dark_candle.png';
-import lightFlower from '../../assets/light_flower.png';
-import darkFlower from '../../assets/dark_flower.png';
+import roundCandle from '../../assets/roundCandle.png';
+
+import roundFlower from '../../assets/roundFlower.png';
+
 import candle from '../../assets/candle.png';
 import flower from '../../assets/flower.png';
 import axios from 'axios';
@@ -106,14 +106,14 @@ const CandleFlower = ({ profileId, userId }) => {
         aria-labelledby="candleFlowerLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-dialog modal-dialog-centered modal-md">
           <div className="modal-content">
             <div className="modal-header">
               <h5
                 className="modal-title text-align-center"
                 id="candleFlowerLabel"
               >
-                להדליק נר או להניח זר
+                ...רגע לפני שיוצאים
               </h5>
               <button
                 type="button"
@@ -123,9 +123,13 @@ const CandleFlower = ({ profileId, userId }) => {
               ></button>
             </div>
 
-            <div className="modal-body text-center pt-0">
+            <div className="modal-body text-center px-0 pt-0 overflow-hidden">
               <div className="row">
-                <div className="col-6 p-0">
+                <div className="col-6 p-0 position-relative">
+                  <div className="popup-image-text">
+                    <h3>הדלק נר וירטאולי</h3>
+                    <p>בעלות של 2 ש״ח</p>
+                  </div>
                   <img className="img-fluid" src={candle} alt="FlowerLight" />
 
                   <button
@@ -136,7 +140,11 @@ const CandleFlower = ({ profileId, userId }) => {
                     קניית נר
                   </button>
                 </div>
-                <div className=" col-6 p-0">
+                <div className=" col-6 p-0 position-relative">
+                  <div className="popup-image-text">
+                    <h3>הנח זר וירטאולי</h3>
+                    <p>בעלות של 2 ש״ח</p>
+                  </div>
                   <img className="img-fluid" src={flower} alt="FlowerLight" />
 
                   <button
@@ -245,23 +253,32 @@ const CandleFlower = ({ profileId, userId }) => {
         </div>
       </div>
       <div className="d-flex flex-column position-fixed candle_flower">
-        <div className="candle_flower_item">
+        <div
+          className={`candle_flower_item ${
+            totalCandles > 0 ? 'with_tribute' : 'without_tribute'
+          }`}
+        >
           <div
             className="candle_flower_count pointer"
             onClick={() => setShowCandleList((prev) => !prev)}
           >
             {totalCandles}
           </div>
-          <LazyLoad>
-            <img
-              data-bs-toggle="modal"
-              data-bs-target="#candleFlower"
-              src={totalCandles > 0 ? lightCandle : darkCandle}
-              alt="light candle"
-              ref={candleRef}
-              className="mb-4"
-            />
-          </LazyLoad>
+          <div
+            className={`fc_image_container`}
+            data-bs-toggle="modal"
+            data-bs-target="#candleFlower"
+          >
+            <LazyLoad>
+              <img
+                src={roundCandle}
+                alt="light candle"
+                ref={candleRef}
+                className="rounded-circle"
+              />
+            </LazyLoad>
+            <p className="tributeText">הדלק נר</p>
+          </div>
 
           {showCandleList && totalCandles > 0 && (
             <div className="candle_flower_user_list">
@@ -278,21 +295,31 @@ const CandleFlower = ({ profileId, userId }) => {
             </div>
           )}
         </div>
-        <div className="candle_flower_item">
+        <div
+          className={`candle_flower_item ${
+            totalFlowers > 0 ? 'with_tribute' : 'without_tribute'
+          }`}
+        >
           <div
             className="candle_flower_count pointer"
             onClick={() => setShowFlowerList((prev) => !prev)}
           >
             {totalFlowers}
           </div>
-          <LazyLoad>
-            <img
-              data-bs-toggle="modal"
-              data-bs-target="#candleFlower"
-              src={totalFlowers > 0 ? lightFlower : darkFlower}
-              alt="light flower"
-            />
-          </LazyLoad>
+          <div
+            className={`fc_image_container `}
+            data-bs-toggle="modal"
+            data-bs-target="#candleFlower"
+          >
+            <LazyLoad>
+              <img
+                src={roundFlower}
+                alt="light flower"
+                className="rounded-circle"
+              />
+            </LazyLoad>
+            <p className="tributeText">הנח פרח</p>
+          </div>
 
           {showFlowerList && totalFlowers > 0 && (
             <div className="candle_flower_user_list ">
