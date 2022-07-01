@@ -871,7 +871,7 @@ input[type='date']:valid::before {
 }
 .candle_flower {
   z-index: 99;
-  top: 20%;
+  top: 16%;
   left: 10%;
   gap: 25px;
 }
@@ -891,23 +891,25 @@ input[type='date']:valid::before {
   font-size: 20px;
   color: #fff;
   position: absolute;
-  right: 2%;
-  top: 8%;
+  right: -40px;
+  top: -10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 .candle_flower_user_list {
   position: absolute;
-  top: 15%;
-  right: -60%;
+  top: -12px;
+  right: -195px;
   background-color: #6097bf;
   border-radius: 30px;
   padding: 15px;
   color: #fff;
-  height: 220px;
+  height: 120px;
   overflow-y: auto;
   text-align: center;
-  max-width: 175px;
+  width: 168px;
+  border: 1px solid #fff;
   font-size: 18px;
+  z-index: -1;
 }
 .candle_flower_user_list ul {
   list-style: none;
@@ -931,6 +933,7 @@ input[type='date']:valid::before {
   background-color: rgba(70, 119, 155, 0.7);
   position: absolute;
   border-radius: 50%;
+  cursor: pointer;
 }
 .tributeText {
   color: #fff;
@@ -953,38 +956,6 @@ input[type='date']:valid::before {
   display: none;
 }
 
-/* @media only screen and (max-width: 992px) {
-  .candle_flower {
-    top: 35%;
-  }
-  .candle_flower img {
-    width: 18vw;
-    cursor: pointer;
-  }
-  .candle_flower_count {
-    width: 35px;
-    height: 35px;
-    font-size: 18px;
-  }
-}
-@media only screen and (max-width: 768px) {
-  .candle_flower {
-    top: 40%;
-  }
-}
-@media only screen and (max-width: 576px) {
-  .candle_flower img {
-    width: 24vw;
-  }
-  .candle_flower {
-    top: 40%;
-  }
-}
-@media only screen and (max-width: 400px) {
-  .candle_flower {
-    top: 43%;
-  }
-} */
 /* Flower Candle Modal CSS */
 .modal-title {
   font-size: 45px;
@@ -997,4 +968,58 @@ input[type='date']:valid::before {
   width: 100%;
   position: absolute;
   text-align: center;
+  margin-top: 30px;
+}
+.popup-image-text h3 {
+  font-weight: bold;
+}
+.profile_candle_btn {
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.profile_candle_modal {
+  border-radius: 10px;
+}
+@media only screen and (max-width: 992px) {
+  .candle_flower {
+    top: 14%;
+  }
+  .candle_flower img {
+    width: 120px;
+    height: 120px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .candle_flower img {
+    width: 90px;
+    height: 90px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .candle_flower {
+    top: 11%;
+  }
+  .candle_flower img {
+    width: 70px;
+    height: 70px;
+  }
+  .candle_flower_count {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .candle_flower {
+    top: 9%;
+    gap: 15px;
+  }
+  .candle_flower img {
+    width: 60px;
+    height: 60px;
+  }
+  .tributeText {
+    left: 56%;
+  }
 }
