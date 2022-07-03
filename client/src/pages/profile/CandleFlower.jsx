@@ -80,11 +80,11 @@ const CandleFlower = ({ profileId, userId }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    // window.location.assign(
-    //   `https://direct.tranzila.com/icloud/iframenew.php?sum=${
-    //     (candleFlowerState.flower + candleFlowerState.candle) * 5
-    //   }`
-    // );
+    window.location.assign(
+      `https://direct.tranzila.com/icloud/iframenew.php?sum=${
+        (candleFlowerState.flower + candleFlowerState.candle) * 5
+      }`
+    );
 
     try {
       await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
