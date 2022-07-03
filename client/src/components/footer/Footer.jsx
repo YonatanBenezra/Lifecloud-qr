@@ -22,24 +22,24 @@ const Footer = () => {
         </div>
         <div className="col-lg-4 order-1 order-lg-2">
           <div className="footer-links">
-            <Link to="/qa">
-              <span>שאלות ותשובות</span>
-            </Link>
-            <span className="line-seperator">|</span>
             <Link to="/policy">
               <span>מדיניות</span>
+            </Link>
+            <span className="line-seperator">|</span>
+            <Link to="/">
+              <span>פרטיות</span>
             </Link>
             <span className="line-seperator">|</span>
             <Link to="/about">
               <span>אודות</span>
             </Link>
             <span className="line-seperator">|</span>
-            <Link to="/contact-us">
-              <span>צור קשר</span>
+            <Link to="/qa">
+              <span>שאלות ותשובות</span>
             </Link>
-<span className="line-seperator">|</span>
-            <Link to="/">
-              <span>פרטיות</span>
+             <span className="line-seperator">|</span>
+              <Link to="/contact-us">
+              <span>צור קשר</span>
             </Link>
           </div>
         </div>
