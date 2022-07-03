@@ -160,7 +160,7 @@ const HomeMobile = (props) => {
         </div>
         <div className="text-section-container">
           <Player
-            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+            src="https://youtu.be/GthRGhlesKY"
             className="home-mobile-video"
             controls={true}
           />
