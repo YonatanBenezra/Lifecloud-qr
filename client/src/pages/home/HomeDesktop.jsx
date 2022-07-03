@@ -141,7 +141,7 @@ const HomeDesktop = (props) => {
               <br /> ולשמר לעד מי שהם היו?
             </p>
             <Player
-              src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+              src="/assets/Lifecloud-video.mp4"
               width="60%"
               height="60%"
               fluid={false}
