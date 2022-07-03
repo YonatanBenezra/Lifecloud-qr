@@ -134,6 +134,8 @@ const Contact = () => {
               </LazyLoad>
             </div>
           </div>
+           <p>פרטי החברה: מספר טלפון 0523753750 כתובת: רחוב השדה 101 כפר חיטים, כתובת מייל
+             office@lifecloud-qr.com<p>
         </div>
       </form>
       <SnackBar open={open} handleClose={handleClose} message={message} />
