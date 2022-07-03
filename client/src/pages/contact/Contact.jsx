@@ -134,8 +134,12 @@ const Contact = () => {
               </LazyLoad>
             </div>
           </div>
-           <p>פרטי החברה: מספר טלפון 0523753750 כתובת: רחוב השדה 101 כפר חיטים, כתובת מייל
-             office@lifecloud-qr.com<p>
+          <div className="row">
+            <div className="col-12 text-center contact-blue">
+          <p>מספר טלפון 0523753750 | כתובת: רחוב השדה 101 כפר חיטים |
+          office@lifecloud-qr.com :כתובת מייל </p>
+            </div>
+          </div>
         </div>
       </form>
       <SnackBar open={open} handleClose={handleClose} message={message} />
