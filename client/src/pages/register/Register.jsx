@@ -173,6 +173,7 @@ export default function Register() {
                       selectedGender === 'other' && 'register-active'
                     } radio-input-container-register`}
                     onClick={() => setSelectedGender('other')}
+                    style={{ padding: 10 }}
                   >
                     <input
                       type="radio"
@@ -183,7 +184,7 @@ export default function Register() {
                       name="gender"
                       className="radio"
                     />
-                    <label htmlFor="other">א</label>
+                    <label htmlFor="other">אחר</label>
                   </div>
                 </div>
                 <input

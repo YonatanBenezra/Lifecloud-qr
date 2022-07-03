@@ -848,10 +848,7 @@ export default function Profile() {
                       );
                     })
                   ) : (
-                    <p style={{ marginBottom: '40px' }}>
-                      {' '}
-
-                    </p>
+                    <p style={{ marginBottom: '40px' }}> </p>
                   )}
 
                   {/* })} */}

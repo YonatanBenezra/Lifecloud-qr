@@ -73,19 +73,7 @@ html {
 .accessibility_component .btn_accessibility {
   width: auto;
   padding: 10px;
-  left: 85px;
-}
-
-@media only screen and (max-width: 600px) {
-  .accessibility_component .btn_accessibility {
-    left: 65px
-  }
-}
-
-@media only screen and (max-width: 400px) {
-  .accessibility_component .btn_accessibility {
-    left: 10%;
-  }
+  right: 35px
 }
 
 ::placeholder {
