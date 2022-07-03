@@ -666,7 +666,9 @@ export default function ProfileCreate() {
                   />
                 </div>
                 <div>
-                  <h1 style={{ textAlign: 'center' }}>נקודות ציון</h1>
+                  <h1 style={{ textAlign: 'center', paddingBottom: '70px' }}>
+                    נקודות ציון
+                  </h1>
                   <Popup
                     trigger={
                       <div className="press-explain-4 pointer">+ לחץ להסבר</div>
@@ -771,7 +773,7 @@ export default function ProfileCreate() {
                 </div>
                 <div style={{ marginTop: '65px' }}>
                   <h1 className="text-center mb-5">
-                    הספת קישורים לרשתות החברתיות
+                    הוספת קישורים לרשתות החברתיות
                   </h1>
                   <div className="container media_link_container">
                     <div className="row text-center gy-5 justify-content-center">

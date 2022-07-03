@@ -60,15 +60,19 @@
     max-width: 405px;
     margin-top: 10px;
   }
+
   .sidebar {
     height: auto;
   }
+
   .sidebarFriendList {
     display: none;
   }
+
   .sidebarWrapper {
     display: none;
   }
+
   .rightbarWrapper {
     display: none;
   }
@@ -77,6 +81,7 @@
     padding: 2px;
   }
 }
+
 .notification-line {
   padding-left: 30px;
   padding-right: 30px;
@@ -89,6 +94,7 @@
   border-radius: 15px;
   margin-bottom: 2rem;
 }
+
 .notifications-title {
   display: flex;
   justify-content: center;
@@ -96,21 +102,25 @@
   margin-bottom: 40px;
   align-items: center;
 }
+
 .notifications-container {
   text-align: center;
   color: #6097bf;
   background: #dcecf4;
 }
+
 .notification-text {
   font-size: 25px;
   font-weight: 600;
 }
+
 .notification-img {
   height: 50px;
   width: 50px;
   margin-right: 3rem;
   border-radius: 100%;
 }
+
 .user-main {
   background-color: #f5fcff;
   color: #6097bf;
@@ -121,6 +131,7 @@
   align-items: center;
   padding-bottom: 75px;
 }
+
 .notifications-btn {
   height: 50px;
   width: 200px;
@@ -136,18 +147,21 @@
   transition-duration: 500ms !important;
   transition: ease-in-out;
 }
+
 .user-img {
   height: 200px;
   width: 200px;
   border-radius: 100%;
   margin-bottom: 20px;
 }
+
 .user-description {
   width: 45%;
   width: 66%;
   font-size: 20px;
   padding-bottom: 5rem;
 }
+
 .user-name {
   font-size: 60px;
   display: flex;
@@ -172,12 +186,15 @@
   padding-right: 50px;
   padding-left: 50px;
 }
+
 .profile-image-cont .profile-image:hover {
   transform: scale(1.5);
 }
+
 .profiles-title {
   margin-top: 2rem;
 }
+
 .profile-image {
   height: 150px;
   width: 150px;
@@ -206,6 +223,7 @@
   font-weight: 600;
   padding-top: 15px;
 }
+
 .profiles {
   display: flex;
   width: 100%;
@@ -254,6 +272,7 @@
   margin: 2px;
   margin-top: 4%;
 }
+
 .nameInput {
   height: 40px;
   border-radius: 10px;
@@ -263,6 +282,7 @@
   margin: 2px;
   width: 41%;
 }
+
 .loginInput:focus {
   outline: none;
 }
@@ -304,11 +324,13 @@
   .loginRight {
     align-items: center;
   }
+
   .loginDesc {
     text-align: center;
     margin-bottom: 10px;
   }
 }
+
 .radio-container {
   font-size: 35px;
   display: flex;
@@ -316,31 +338,38 @@
   margin-bottom: 2rem;
   margin-top: 2rem;
 }
+
 .radio-input-container {
   margin: 0 2rem 0 2rem;
 }
+
 .names-container {
   display: flex;
   justify-content: space-between;
 }
+
 .loginBox {
   height: auto;
 }
+
 .profile-images {
   display: flex;
   justify-content: space-between;
   padding-right: 16%;
   padding-left: 17%;
 }
+
 .profile-image-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   color: #6097bf;
 }
+
 .profile-image-container p {
   margin-top: 2rem;
 }
+
 .profile-image-div {
   height: 150px;
   width: 150px;
@@ -349,34 +378,42 @@
   overflow: hidden;
   transition-duration: 200ms;
 }
+
 .profile-image-div img {
   transition-duration: 200ms;
 }
+
 .profile-image-div:hover img {
   transform: scale(1.2);
 }
+
 input::placeholder {
   color: #abc9db;
 }
+
 .notifications-button {
   width: 200px;
   height: 75px;
   background: #dcecf4;
   border-radius: 10px;
 }
+
 .notifications-btn:hover {
   background: #abc9db;
   color: #fff;
 }
+
 .location-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .description {
   width: 95% !important;
   height: 153px !important;
 }
+
 .create-profile-container {
   background-color: #f0f2f5;
   color: #6097bf;
@@ -389,6 +426,7 @@ input::placeholder {
 .radio {
   display: none;
 }
+
 .input-label {
   background: #ffffff;
   border-radius: 10px;
@@ -396,12 +434,15 @@ input::placeholder {
   padding: 0.5rem;
   font-size: 20px;
 }
+
 .active {
   color: #6097bf;
 }
+
 .location-semicontainer {
   width: 100%;
 }
+
 .add-btn {
   margin: auto;
   display: flex;
@@ -413,15 +454,18 @@ input::placeholder {
   border-radius: 10px;
   margin-top: 40px;
 }
+
 .inner-box {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
 }
+
 .delete-btn {
   color: #abc9db;
 }
+
 .axis-input {
   height: 35px;
   border-radius: 10px;
@@ -431,8 +475,9 @@ input::placeholder {
   margin: 2px;
   width: 20%;
 }
+
 .axis-description {
-  height: 80px;
+  height: 80px !important;
   border-radius: 10px;
   border: 1px solid #fff;
   font-size: 18px;
@@ -448,8 +493,10 @@ input::placeholder {
   -moz-box-shadow: none;
   box-shadow: none;
 
-  resize: none; /*remove the resize handle on the bottom right*/
+  resize: none;
+  /*remove the resize handle on the bottom right*/
 }
+
 .axis-description::placeholder {
   padding-top: 30px;
   display: flex;
@@ -463,12 +510,15 @@ input::placeholder {
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
 }
+
 .custom-file-input:hover::before {
   border-color: black;
 }
+
 .custom-file-input:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
+
 .d-none {
   display: none;
 }
@@ -484,9 +534,11 @@ input::placeholder {
   transition-duration: 500ms !important;
   transition: ease-in-out;
 }
+
 a {
   text-decoration: none;
 }
+
 .big-button {
   display: flex;
   background: #dcecf4;
@@ -505,9 +557,11 @@ a {
   transition-duration: 500ms;
   transition: ease-in-out;
 }
+
 .big-button:hover {
   opacity: 0.8;
 }
+
 .settings-container {
   color: #6097bf;
   display: flex;
@@ -516,17 +570,20 @@ a {
   padding: 75px 15px 75px 15px;
   background: #f5fcff;
 }
+
 .btns-container {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   margin-top: 2rem;
 }
+
 .settings-subtitle {
   text-align: center;
   font-size: 21px;
   font-weight: 600;
 }
+
 .logout-btn {
   width: 200px;
   margin-top: 2rem;
@@ -544,15 +601,18 @@ a {
   transition: ease-in-out;
   border: 1px solid #6097bf;
 }
+
 .logout-btn:hover {
   color: #6097bf;
   background-color: #fff;
   border: 1px solid #6097bf;
 }
+
 .profile-title {
   font-size: 50px;
   margin-bottom: 2rem;
 }
+
 .white-footer {
   margin-top: 4rem;
   display: flex;
@@ -561,6 +621,7 @@ a {
   justify-content: center;
   color: #6097bf;
 }
+
 .user-line {
   border: 1px solid #fff !important;
 }
@@ -568,9 +629,11 @@ a {
 .create-profile-container:hover {
   background-color: #6097bf;
 }
+
 .create-profile-container:hover .user-line {
   width: 65px;
 }
+
 .user-img-input {
   height: 200px;
   width: 200px;
@@ -579,32 +642,40 @@ a {
   cursor: pointer;
   opacity: 0;
 }
+
 .user-img-input:focus {
   opacity: 0 !important;
 }
+
 .user-img-input::-webkit-file-upload-button {
   visibility: hidden;
   user-select: none;
 }
+
 .user-img-input::-webkit-file-upload {
   visibility: hidden;
   user-select: none;
 }
+
 .user-img-input::before {
   content: '';
 }
+
 .notifications-back {
   cursor: pointer;
   padding-right: 115px;
 }
+
 .notifications-title-text {
   font-size: 60px;
   padding-right: 160px;
 }
+
 @media screen and (max-width: 576px) {
   .notifications-back {
     padding-right: 50px;
   }
+
   .notifications-title-text {
     padding-right: 95px;
   }
