@@ -144,6 +144,7 @@ const HomeDesktop = (props) => {
               src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
               width="60%"
               height="60%"
+              fluid={false}
               className="react-player-home-desktop"
               controls={true}
             />
