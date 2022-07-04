@@ -483,7 +483,7 @@ export default function Profile() {
                 </button>
               </div>
             )}
-          <CandleFlower profileId={profiledata._id} userId={user._id} />
+          <CandleFlower profileId={profiledata._id} userId={user._id} profileName={profiledata.firstName}/>
         </div>
         <div className="profile-details-first">
           <LazyLoad>

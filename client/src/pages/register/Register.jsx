@@ -207,7 +207,7 @@ export default function Register() {
                   type="email"
                 />
                 <input
-                  placeholder="* בחר סיסמא"
+                  placeholder="*בחר סיסמא (שישה תוים לפחות)"
                   required
                   value={user.password}
                   name="password"
@@ -251,7 +251,13 @@ export default function Register() {
                     </Link>
                   </div>
                   <span style={{ marginBottom: '1rem' }}>
-                    אני מאשר את תנאי השימוש ופרטיות{' '}
+                    אני מאשר את
+                    <a href="https://www.lifecloud-qr.com/termsofuse">
+                    תנאי השימוש
+                    </a>
+                    <a href="https://www.lifecloud-qr.com/privacy">
+                    ומדיניות הפרטיות{' '}
+                    </a>
                     <input
                       type="checkbox"
                       style={{ marginLeft: '15px' }}

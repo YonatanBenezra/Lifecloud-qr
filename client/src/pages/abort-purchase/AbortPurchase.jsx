@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import './contact.css';
+import './abort-purchase.css';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import Topbar from '../../components/topbar/Topbar';
@@ -9,7 +9,7 @@ import emailjs from '@emailjs/browser';
 import SnackBar from '../../components/snackbar/SnackBar';
 import LazyLoad from 'react-lazyload';
 
-const Contact = () => {
+const AbortPurchase = () => {
   const form = useRef();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -23,7 +23,7 @@ const Contact = () => {
     emailjs
       .sendForm(
         'service_1unhwqh',
-        'template_c5vu8up',
+        'template_zpo9bmp',
         form.current,
         'Vvq3N8J0fr4iu32Gs'
       )
@@ -45,7 +45,7 @@ const Contact = () => {
       <form className="contact-container" ref={form} onSubmit={sendEmail}>
         <div className="container">
           <div className="contact">
-            <h3 className="contact-title ">צור קשר</h3>
+            <h3 className="contact-title ">בקשה לביטול עסקה</h3>
           </div>
           <div className="row">
             <div className="col-md-10 col-lg-8 col-12 mx-auto ">
@@ -53,9 +53,9 @@ const Contact = () => {
                 <div className="col-md-6">
                   <input
                     id="first-name"
-                    className="register-contact-inline register-contact"
+                    className="abortPurchase-contact-inline abortPurchase-contact"
                     required
-                    placeholder="*שם פרטי"
+                    placeholder="* שם פרטי"
                     name="firstName"
                     type="text"
                   />
@@ -63,9 +63,9 @@ const Contact = () => {
                 <div className="col-md-6">
                   <input
                     id="last-name"
-                    className="register-contact-inline register-contact"
+                    className="abortPurchase-contact-inline abortPurchase-contact"
                     required
-                    placeholder="*שם משפחה"
+                    placeholder="* שם משפחה"
                     name="lastName"
                     type="text"
                   />
@@ -76,9 +76,31 @@ const Contact = () => {
           <div className="row">
             <div className="col-md-10 col-lg-8 col-12 mx-auto">
               <input
-                className="register-contact"
+                className="abortPurchase-contact"
                 required
-                placeholder="אימייל*"
+                placeholder="* תעודת זהות"
+                name="id"
+                type="number"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-10 col-lg-8 col-12 mx-auto">
+              <input
+                className="abortPurchase-contact"
+                required
+                placeholder="* טלפון"
+                name="phone"
+                type="phone"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-10 col-lg-8 col-12 mx-auto">
+              <input
+                className="abortPurchase-contact"
+                required
+                placeholder="* אימייל"
                 name="email"
                 type="email"
               />
@@ -87,20 +109,11 @@ const Contact = () => {
           <div className="row">
             <div className="col-md-10 col-lg-8 col-12 mx-auto">
               <input
-                className="register-contact"
-                placeholder="שם החברה (אופציונלי)"
-                name="company"
-                type="text"
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-10 col-lg-8 col-12 mx-auto">
-              <input
-                className="register-contact"
-                placeholder="טלפון "
-                name="phone"
-                type="phone"
+                className="abortPurchase-contact"
+                required
+                placeholder="* מספר הזמנה לביטול"
+                name="abortNumber"
+                type="abortNumber"
               />
             </div>
           </div>
@@ -108,10 +121,10 @@ const Contact = () => {
             <div className="col-md-10 col-lg-8 col-12 mx-auto">
               <textarea
                 id="free-text"
-                className="register-contact register-textarea"
-                name="message"
+                className="abortPurchase-contact abortPurchase-textarea"
                 required
-                placeholder=" טקסט חופשי..."
+                name="message"
+                placeholder="* סיבת הביטול"
                 type="textarea"
               />
             </div>
@@ -149,4 +162,4 @@ const Contact = () => {
     </>
   );
 };
-export default Contact;
+export default AbortPurchase;

@@ -57,7 +57,7 @@ const reducer = (state, action) => {
   }
 };
 
-const CandleFlower = ({ profileId, userId }) => {
+const CandleFlower = ({ profileId, userId, profileName }) => {
   const history = useHistory();
   const candleRef = useRef();
   const [candleFlowerState, dispatch] = useReducer(reducer, initialState);
@@ -121,7 +121,7 @@ const CandleFlower = ({ profileId, userId }) => {
                 className="modal-title text-align-center"
                 id="candleFlowerLabel"
               >
-                ...רגע לפני שיוצאים
+               זוכרים את {profileName}
               </h5>
               <button
                 type="button"
@@ -136,7 +136,8 @@ const CandleFlower = ({ profileId, userId }) => {
                 <div className="col-6 p-0 position-relative overflow-hidden">
                   <div className="popup-image-text">
                     <h3>הדלק נר וירטאולי</h3>
-                    <p>בעלות של 2 ש״ח</p>
+                    <h6>ל-72 שעות</h6>
+                    <p>בעלות של 5 ש״ח</p>
                   </div>
                   <img className="img-fluid" src={candle} alt="FlowerLight" />
 
@@ -144,13 +145,14 @@ const CandleFlower = ({ profileId, userId }) => {
                     className="profile-small-btn border-0 profile_candle_btn w-50"
                     onClick={() => dispatch({ type: 'INCREASE_CANDLE' })}
                   >
-                    קניית נר
+                    לרכישת נר
                   </button>
                 </div>
                 <div className=" col-6 p-0 position-relative overflow-hidden">
                   <div className="popup-image-text">
-                    <h3>הנח זר וירטאולי</h3>
-                    <p>בעלות של 2 ש״ח</p>
+                    <h3>הנחת פרח וירטאולי</h3>
+                    <h6>ל-72 שעות</h6>
+                    <p>בעלות של 5 ש״ח</p>
                   </div>
                   <img className="img-fluid" src={flower} alt="FlowerLight" />
 
@@ -158,7 +160,7 @@ const CandleFlower = ({ profileId, userId }) => {
                     className="profile-small-btn border-0 profile_candle_btn w-50"
                     onClick={() => dispatch({ type: 'INCREASE_FLOWER' })}
                   >
-                    קניית פרח
+                    לרכישת פרח
                   </button>
                 </div>
               </div>
