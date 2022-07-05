@@ -301,9 +301,9 @@ const HomeDesktop = (props) => {
           <div>
             <h3 className="pilKahol">
               "בזכות העלאה ושיתוף תמונות, סיפורים וסרטונים של חברים ומכרים,
-              נחשפתי לצדדים חדשים ומרגשים [של אהובי]{' '}
+              נחשפתי לצדדים חדשים ומרגשים [של אבי]{' '}
             </h3>
-            <h5 style={{ marginBottom: '15px' }}>-ס״א-</h5>
+            <h5 style={{ marginBottom: '15px' }}>-סיגל אהרונוביץ-</h5>
           </div>
           <div>
             <h3 className="pilKahol">

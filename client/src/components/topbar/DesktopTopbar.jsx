@@ -206,7 +206,7 @@ const DesktopTopbar = (props) => {
                   } topbarLink`}
                   onClick={() => setClicked('login')}
                 >
-                  כניסה
+                  התחברות לחשבון
                 </Link>
               </div>
             )}

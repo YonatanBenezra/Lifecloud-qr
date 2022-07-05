@@ -23,11 +23,11 @@ const Footer = () => {
         <div className="col-lg-4 order-1 order-lg-2">
           <div className="footer-links">
             <Link to="/policy">
-              <span>מדיניות</span>
+              <span>מדיניות פרטיות</span>
             </Link>
             <span className="line-seperator">|</span>
             <Link to="/">
-              <span>פרטיות</span>
+              <span>תנאי שימוש</span>
             </Link>
             <span className="line-seperator">|</span>
             <Link to="/about">
@@ -40,6 +40,10 @@ const Footer = () => {
              <span className="line-seperator">|</span>
               <Link to="/contact-us">
               <span>צור קשר</span>
+            </Link>
+             <span className="line-seperator">|</span>
+              <Link to="/abort-purchase">
+              <span>בקשה לביטול עסקה</span>
             </Link>
           </div>
         </div>

@@ -13,6 +13,7 @@ import Shop from './pages/shop/Shop';
 import Plans from './pages/plans/Plans';
 import Qa from './pages/qa/Qa';
 import Contact from './pages/contact/Contact';
+import AbortPurchase from './pages/abort-purchase/AbortPurchase';
 import Policy from './pages/policy/Policy';
 import { UserAndprofiles } from './pages/userpage/user-and-profile';
 import ENHome from './pages/home/ENHome';
@@ -104,6 +105,9 @@ function App() {
             </Route>
             <Route exact path="/qa">
               <Qa />
+            </Route>
+            <Route exact path="/abort-purchase">
+              <AbortPurchase />
             </Route>
           </Switch>
         ) : (
