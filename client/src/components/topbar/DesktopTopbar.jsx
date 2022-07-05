@@ -10,6 +10,7 @@ import LanguageButton from '../languageButton/LanguageButton';
 import userIcon from '../../assets/userIcon.png';
 import { Search } from '@material-ui/icons';
 import LazyLoad from 'react-lazyload';
+import ImageCloud from '../../components/imageCloud/imageCloud';
 
 const DesktopTopbar = (props) => {
   const LoggedUser = useContext(AuthContext);
@@ -39,9 +40,12 @@ const DesktopTopbar = (props) => {
           className="life-cloud-logo-image-topbar-mobile"
           style={{ textDecoration: 'none', color: '#6097BF' }}
         >
-          <LazyLoad>
-            <img className="logo" src={blueLogo} alt="" />
-          </LazyLoad>
+          <ImageCloud
+            ClassName="logo"
+            imageType="logoImage"
+            maxHeight={35}
+            maxWidth={150}
+          ></ImageCloud>
         </Link>
         {/* <WithLanguage>
           <LanguageButton />

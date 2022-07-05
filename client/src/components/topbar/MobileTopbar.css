@@ -9,9 +9,11 @@
   z-index: 999;
   box-shadow: rgb(149 157 165 / 10%) 0px 8px 24px;
 }
+
 .searchIcon-topbar-mobile {
   display: none !important;
 }
+
 .menu-icon-topbar-mobile {
   display: none;
 }
@@ -22,12 +24,14 @@
   display: flex;
   align-items: center;
 }
+
 .ResultBoxMain {
   width: 120%;
   border-radius: 8px;
   background: aquamarine;
   position: absolute;
 }
+
 .ResultBox {
   display: flex;
   justify-content: space-between;
@@ -38,7 +42,7 @@
 }
 
 .logo {
-  height: 35px;
+  height: 30px;
   font-size: 24px;
   margin-left: 20px;
   margin-right: 10px;
@@ -61,6 +65,7 @@
   display: flex;
   align-items: center;
 }
+
 .logged-nav {
   display: flex;
   align-items: center;
@@ -68,6 +73,7 @@
   min-width: 200px;
   font-size: 18px;
 }
+
 .searchIcon {
   font-size: 20px !important;
   margin-left: 10px;
@@ -76,6 +82,7 @@
   direction: ltr;
   transform: rotate(90deg);
 }
+
 .top-search {
   border: 0px;
   width: 100% !important;
@@ -90,10 +97,12 @@
 .SearchInput:focus {
   outline: none;
 }
+
 .SearchInput::placeholder {
   color: #6097bf;
   font-weight: bolder;
 }
+
 .topbarRight {
   display: flex;
   align-items: center;
@@ -102,6 +111,7 @@
   /* margin-left: 3rem;
     margin-right: 3rem; */
 }
+
 .topbarCenter-search {
   position: relative;
   text-align: end;
@@ -152,10 +162,12 @@
   .topbarCenter {
     display: none;
   }
+
   .life-cloud-logo-image-topbar-mobile {
     position: absolute;
     margin-left: 30%;
   }
+
   .searchIcon-topbar-mobile {
     display: inline-block !important;
     color: #6097bf;
@@ -165,16 +177,19 @@
     margin-right: 20px;
     margin-left: 20px;
   }
+
   .menu-icon-topbar-mobile {
     display: inline-block;
     color: #6097bf;
     margin-right: 20px;
   }
 }
+
 @media screen and (max-width: 500px) {
   .searchIcon-topbar-mobile {
     display: none !important;
   }
+
   .menu-icon-topbar-mobile {
     display: none !important;
   }
@@ -188,6 +203,7 @@
   .searchbar {
     display: none;
   }
+
   .topbarCenter {
     display: none;
   }
@@ -200,16 +216,19 @@
   padding: 2px;
   width: 100%;
 }
+
 .languageBox {
   width: 25%;
   text-align: left;
   padding: 2px;
 }
+
 .logoBox {
   width: 100%;
   padding: 2px;
   text-align: center;
 }
+
 .menuBox {
   width: 100%;
   color: #6097bf;
@@ -219,13 +238,16 @@
   justify-content: end;
   align-items: center;
 }
+
 .logoImg {
-  width: 130px;
+  width: 170px;
 }
+
 .srchIco {
   padding: 10px;
   color: #6097bf;
 }
+
 .mobile_result_box {
   margin-top: 155px;
   width: 90%;

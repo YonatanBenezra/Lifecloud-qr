@@ -10,6 +10,7 @@ import LanguageButton from '../languageButton/LanguageButton';
 import userIcon from '../../assets/userIcon.png';
 import { Search } from '@material-ui/icons';
 import LazyLoad from 'react-lazyload';
+import ImageCloud from '../../components/imageCloud/imageCloud';
 
 const MobileTopbar = (props) => {
   const LoggedUser = useContext(AuthContext);
@@ -51,7 +52,12 @@ const MobileTopbar = (props) => {
               style={{ textDecoration: 'none', color: '#6097BF' }}
             >
               <LazyLoad>
-                <img className="logoImg" src={blueLogo} alt="" />
+                <ImageCloud
+                  ClassName={'logoImg'}
+                  imageType="logoImage"
+                  maxHeight={20}
+                  maxWidth={150}
+                />
               </LazyLoad>
             </Link>
           </div>
