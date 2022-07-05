@@ -21,9 +21,11 @@ jobs:
             cd /var/www/qa.lifecloud-qr.com
             git pull origin QA --allow-unrelated-histories
             cd /var/www/qa.lifecloud-qr.com/server
+            rm -rf package-lock.json
             npm install
             pm2 restart all --update-env
             cd /var/www/qa.lifecloud-qr.com/client
+            rm -rf package-lock.json
             npm install && npm run build
             chown -R www-data:www-data /var/www/qa.lifecloud-qr.com/client/build
             service nginx restart
