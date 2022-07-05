@@ -144,6 +144,7 @@ const HomeDesktop = (props) => {
               src="/assets/Lifecloud-video.mp4"
               width="60%"
               height="60%"
+              fluid={false}
               className="react-player-home-desktop"
               controls={true}
             />

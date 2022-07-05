@@ -188,7 +188,7 @@ const HomeMobile = (props) => {
                 right: 0,
                 height: '150px',
                 width: '150px',
-                top: '-48px',
+                top: '-83px',
               }}
             />
           </div>

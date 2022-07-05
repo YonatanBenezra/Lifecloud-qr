@@ -1,35 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Alef&display=swap');
+
 @font-face {
-  font-family: 'os-luizi'; /*Can be any text*/
+  font-family: 'os-luizi';
+  /*Can be any text*/
   src: local('OS_Luizi'),
     url('./fonts/OS_Luizi\ Round-FFC.otf') format('truetype');
 }
 
 @font-face {
-  font-family: 'almoni'; /*Can be any text*/
+  font-family: 'almoni';
+  /*Can be any text*/
   src: local('almoni'),
     url('./fonts/almoni-dl-aaa-regular.otf') format('truetype');
 }
 
 @font-face {
-  font-family: 'alefalef'; /*Can be any text*/
+  font-family: 'alefalef';
+  /*Can be any text*/
   src: local('DanaYadAlefAlefAlef-Normal'),
     url('./fonts/DanaYadAlefAlefAlef-Normal.otf') format('truetype');
 }
+
 * {
   font-family: 'almoni';
   margin: 0;
 }
+
 p {
   margin: 0;
 }
+
 input {
   color: #6097bf;
 }
+
 input:focus {
   outline: none;
   opacity: 0.9;
 }
+
 img,
 video {
   object-fit: cover;
@@ -38,28 +47,35 @@ video {
 html {
   font-size: 18px;
 }
+
 @media only screen and (max-width: 1366px) {
   html {
     font-size: 14px;
   }
 }
+
 @media only screen and (max-width: 767px) {
   html {
     font-size: 11px;
   }
 }
+
 @media only screen and (max-width: 375px) {
   html {
     font-size: 7px;
   }
 }
+
 .accessibility_component {
   display: none;
 }
+
 .accessibility_component .btn_accessibility {
   width: auto;
   padding: 10px;
+  right: 35px
 }
+
 ::placeholder {
   text-align: center;
 }

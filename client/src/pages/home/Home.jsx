@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import HomeDesktop from './HomeDesktop';
 import HomeMobile from './HomeMobile';
+
 const Home = () => {
   const { user } = useContext(AuthContext);
   const settings = {
@@ -17,6 +18,7 @@ const Home = () => {
     cssEase: 'linear',
     lazyLoad: true,
     speed: 750,
+    pauseOnHover: true,
     slidesToShow: 1,
     initialSlide: 2,
     fontSize: '1.5em',
@@ -56,10 +58,12 @@ const Home = () => {
     autoplaySpeed: 3000,
     cssEase: 'linear',
     lazyLoad: true,
+    pauseOnHover: true,
     speed: 750,
     slidesToShow: 1,
     initialSlide: 2,
     fontSize: '1.5em',
+    pauseOnHover: true,
     responsive: [
       // {
       //   breakpoint: 1024,
