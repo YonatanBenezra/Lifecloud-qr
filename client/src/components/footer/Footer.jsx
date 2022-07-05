@@ -41,7 +41,7 @@ const Footer = () => {
               <Link to="/contact-us">
               <span>צור קשר</span>
             </Link>
-             <span className="line-seperator">|</span>
+             <span className=" line-seperator">|</span>
               <Link to="/abort-purchase">
               <span>בקשה לביטול עסקה</span>
             </Link>
