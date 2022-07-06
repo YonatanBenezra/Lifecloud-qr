@@ -13,6 +13,7 @@ import Map from './Map';
 import facebook from '../../assets/facebook.png';
 import instagram from '../../assets/instagram.png';
 import LazyLoad from 'react-lazyload';
+
 export default function ProfileEdit() {
   function isObject(obj) {
     return obj != null && obj.constructor.name === 'Object';
@@ -159,10 +160,33 @@ export default function ProfileEdit() {
     }
   };
 
-  const onChangeMultiplePicture = (e) => {
+  const onChangeMultiplePicture = async (e) => {
     const files = [...e.target.files];
-    files.forEach((file) => (file.imagePreview = URL.createObjectURL(file)));
-    setMultiFiles((prev) => [...prev, ...files]);
+    const filesName = await Promise.all(
+      files.map(async (file) => {
+        try {
+          const data = new FormData();
+          data.append('file', file);
+          data.append('upload_preset', `client`);
+          const res = await axios
+            .post(
+              'https://api.cloudinary.com/v1_1/lifecloud-qr/image/upload',
+              data
+            )
+            .catch((err) => {
+              console.error('Error :', err);
+            });
+          return res.data.public_id;
+        } catch (error) {
+          console.error('Error :', error);
+        }
+      })
+    );
+    console.log('filesName', filesName);
+    // setMultiFiles((prev) => [...prev, ...files]);
+    // const files = [...e.target.files];
+    // files.forEach((file) => (file.imagePreview = URL.createObjectURL(file)));
+    // setMultiFiles((prev) => [...prev, ...files]);
   };
 
   const handlePrivacyChange = (e) => {
@@ -375,6 +399,7 @@ export default function ProfileEdit() {
               <div className="row g-4">
                 {profiledata.gallery?.map((img, i) => (
                   <div class="col-lg-4 col-sm-6" key={i}>
+                    {console.log('img', img)}
                     <button
                       type="button"
                       className="btn-close position-absolute"
@@ -388,8 +413,9 @@ export default function ProfileEdit() {
                     />
                   </div>
                 ))}
-
-                {multiFiles.map((file, i) => {
+                {/* NOT WORK !! */}
+                {/* {multiFiles.map((file, i) => {
+                  console.log('file', !file?.imagePreview);
                   if (!file?.imagePreview) return null;
                   return (
                     <div class="col-lg-4 col-sm-6" key={i}>
@@ -407,7 +433,7 @@ export default function ProfileEdit() {
                       </LazyLoad>
                     </div>
                   );
-                })}
+                })} */}
               </div>
             </div>
             <div className="modal-footer">

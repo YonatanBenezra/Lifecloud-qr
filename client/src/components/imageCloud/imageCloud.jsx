@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image } from 'cloudinary-react';
-import { Placeholder } from 'cloudinary-react';
+import { Image, Placeholder } from 'cloudinary-react';
 
 const ImageCloud = (props) => {
   if (!Object.keys(props).length) {
@@ -64,7 +63,7 @@ const imageTypes = {
 };
 ImageCloud.defaultProps = {
   maxHeight: 250,
-  maxWidth: 250,
+  maxWidth: 'auto',
   alt: 'photo',
   ClassName: ' ',
   imageId: '',
