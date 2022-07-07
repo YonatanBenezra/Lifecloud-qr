@@ -945,11 +945,10 @@ export default function ProfileEdit() {
                       </LazyLoad>
 
                       <input
-                        className="custom-file-grave"
+                        className="custom-file-grave margin_btn_add_grave"
                         type="file"
                         onChange={onChangeGrave}
                         name="coverImg"
-                        style={{ marginRight: '38%' }}
                       />
                     </div>
                   </div>
