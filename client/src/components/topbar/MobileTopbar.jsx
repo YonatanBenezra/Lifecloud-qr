@@ -273,7 +273,7 @@ const MobileTopbar = (props) => {
               <ul className="menuList">
                 {user ? (
                   <React.Fragment>
-                    <li className="p-2 border-b border-white">
+                    <li className="p-2 border-white">
                       <Link
                         to={`/`}
                         className="text-white"
@@ -282,7 +282,7 @@ const MobileTopbar = (props) => {
                         התנתק
                       </Link>
                     </li>
-                    <li className="p-2 border-b border-white">
+                    <li className="p-2 border-white">
                       <Link
                         to={`/createprofile/${LoggedUser.user?._id}`}
                         className="text-white"
@@ -290,18 +290,18 @@ const MobileTopbar = (props) => {
                         צור פרופיל
                       </Link>
                     </li>
-                    <li className="p-2 border-b border-white">
+                    <li className="p-2 border-white">
                       <Link to={`/about`} className="text-white">
                         אודות
                       </Link>
                     </li>
 
-                    <li className="p-2 border-b border-white">
+                    <li className="p-2 border-white">
                       <Link to="/contact-us" className="text-white">
                         צור קשר
                       </Link>
                     </li>
-                    <li className="p-2 border-b border-white">
+                    <li className="p-2 border-white">
                       <Link
                         to={`/userprofiles/${user._id}`}
                         className="text-white"

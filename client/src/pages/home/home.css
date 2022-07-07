@@ -886,6 +886,14 @@
   padding: 2px;
 }
 
+.menuList>* {
+  border-bottom: 1px solid white;
+}
+
+.menuList :last-child {
+  border-bottom: 0px
+}
+
 .p-4 {
   padding: 4px;
 }
@@ -1047,6 +1055,11 @@
   .home-result-box-main {
     width: 238px;
     margin-left: -6px;
+  }
+
+  .MobileTestimonials {
+    width: 80%;
+    margin-left: 10%;
   }
 }
 
