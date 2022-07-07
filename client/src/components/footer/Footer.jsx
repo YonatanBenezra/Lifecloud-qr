@@ -26,7 +26,7 @@ const Footer = () => {
               <span>מדיניות פרטיות</span>
             </Link>
             <span className="line-seperator">|</span>
-            <Link to="/">
+            <Link to="/termsofuse">
               <span>תנאי שימוש</span>
             </Link>
             <span className="line-seperator">|</span>
