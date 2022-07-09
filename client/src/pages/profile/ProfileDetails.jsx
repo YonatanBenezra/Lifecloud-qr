@@ -488,7 +488,7 @@ export default function Profile() {
                 </button>
               </div>
             )}
-          <CandleFlower profileId={profiledata._id} userId={user._id} />
+          <CandleFlower profileId={profiledata._id} userId={user._id} profileName={profiledata.firstName}/>
         </div>
         <div className="profile-details-first">
           <LazyLoad>
@@ -508,10 +508,10 @@ export default function Profile() {
             <div>
               <p>
                 {profiledata?.deathDate &&
-                  moment(profiledata?.deathDate).format('DD-MM-YYYY')}{' '}
+                  moment(profiledata?.deathDate).format('DD.MM.YYYY')}{' '}
                 -{' '}
                 {profiledata?.birthDate &&
-                  moment(profiledata?.birthDate).format('DD-MM-YYYY')}
+                  moment(profiledata?.birthDate).format('DD.MM.YYYY')}
               </p>
               <p>{profiledata?.city}</p>
             </div>
@@ -869,10 +869,7 @@ export default function Profile() {
                       );
                     })
                   ) : (
-                    <p style={{ marginBottom: '40px' }}>
-                      {' '}
-                      {profiledata.firstName} כאן יהיו הזכרונות שלנו מ
-                    </p>
+                    <p style={{ marginBottom: '40px' }}> </p>
                   )}
 
                   {/* })} */}

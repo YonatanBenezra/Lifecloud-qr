@@ -49,7 +49,7 @@ const Contact = () => {
           </div>
           <div className="row">
             <div className="col-md-10 col-lg-8 col-12 mx-auto ">
-              <div className="row">
+              <div className="row rtl">
                 <div className="col-md-6">
                   <input
                     id="first-name"
@@ -112,6 +112,7 @@ const Contact = () => {
                 name="message"
                 required
                 placeholder=" טקסט חופשי..."
+                type="textarea"
               />
             </div>
           </div>
@@ -132,6 +133,12 @@ const Contact = () => {
               <LazyLoad>
                 <img src={Arrow1} className="arrow " alt="" />
               </LazyLoad>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12 text-center contact-blue">
+          <p>מספר טלפון 0523753750 | כתובת: רחוב השדה 101 כפר חיטים |
+          office@lifecloud-qr.com :כתובת מייל </p>
             </div>
           </div>
         </div>

@@ -13,7 +13,9 @@ import Shop from './pages/shop/Shop';
 import Plans from './pages/plans/Plans';
 import Qa from './pages/qa/Qa';
 import Contact from './pages/contact/Contact';
+import AbortPurchase from './pages/abort-purchase/AbortPurchase';
 import Policy from './pages/policy/Policy';
+import TermsOfUse from './pages/terms-of-use/TermsOfUse';
 import { UserAndprofiles } from './pages/userpage/user-and-profile';
 import ENHome from './pages/home/ENHome';
 import ENPlans from './pages/plans/ENPlans';
@@ -93,6 +95,9 @@ function App() {
             <Route exact path="/policy">
               <Policy />
             </Route>
+            <Route exact path="/termsofuse">
+              <TermsOfUse />
+            </Route>
             <Route exact path="/createmainprofile/:id">
               <MainProfileCreate />
             </Route>
@@ -104,6 +109,9 @@ function App() {
             </Route>
             <Route exact path="/qa">
               <Qa />
+            </Route>
+            <Route exact path="/abort-purchase">
+              <AbortPurchase />
             </Route>
           </Switch>
         ) : (

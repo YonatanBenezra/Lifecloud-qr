@@ -65,6 +65,9 @@
 .register-textarea {
   color: #6097bf;
 }
+.contact-blue {
+  color: #6097bf;
+}
 .register-textarea:focus {
   border: none;
   outline: none;

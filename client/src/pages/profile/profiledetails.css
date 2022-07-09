@@ -452,6 +452,7 @@
   white-space: pre-wrap;
   max-height: 400px;
   unicode-bidi: embed;
+  font-family: 'almoni';
 }
 @media screen and (max-width: 768px) {
   .bio-bio {

@@ -802,7 +802,7 @@ export default function ProfileEdit() {
                               placeholder="תאריך"
                               value={x.axisDate}
                               onChange={(e) => handleInputChange(e, i)}
-                              className="axis-input"
+                              className="axis-description"
                             />
                             <textarea
                               name="axisDescription"

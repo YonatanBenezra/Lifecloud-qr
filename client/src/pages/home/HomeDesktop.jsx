@@ -141,9 +141,10 @@ const HomeDesktop = (props) => {
               <br /> ולשמר לעד מי שהם היו?
             </p>
             <Player
-              src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+              src="/assets/Lifecloud-video.mp4"
               width="60%"
               height="60%"
+              fluid={false}
               className="react-player-home-desktop"
               controls={true}
             />
@@ -301,9 +302,9 @@ const HomeDesktop = (props) => {
           <div>
             <h3 className="pilKahol">
               "בזכות העלאה ושיתוף תמונות, סיפורים וסרטונים של חברים ומכרים,
-              נחשפתי לצדדים חדשים ומרגשים [של אהובי]{' '}
+              נחשפתי לצדדים חדשים ומרגשים [של אבי]{' '}
             </h3>
-            <h5 style={{ marginBottom: '15px' }}>-ס״א-</h5>
+            <h5 style={{ marginBottom: '15px' }}>-סיגל אהרונוביץ-</h5>
           </div>
           <div>
             <h3 className="pilKahol">

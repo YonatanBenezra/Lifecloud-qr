@@ -173,6 +173,7 @@ export default function Register() {
                       selectedGender === 'other' && 'register-active'
                     } radio-input-container-register`}
                     onClick={() => setSelectedGender('other')}
+                    style={{ padding: 10 }}
                   >
                     <input
                       type="radio"
@@ -183,7 +184,7 @@ export default function Register() {
                       name="gender"
                       className="radio"
                     />
-                    <label htmlFor="other">א</label>
+                    <label htmlFor="other">אחר</label>
                   </div>
                 </div>
                 <input
@@ -207,7 +208,7 @@ export default function Register() {
                   type="email"
                 />
                 <input
-                  placeholder="* בחר סיסמא"
+                  placeholder="*בחר סיסמא (שישה תוים לפחות)"
                   required
                   value={user.password}
                   name="password"
@@ -251,7 +252,13 @@ export default function Register() {
                     </Link>
                   </div>
                   <span style={{ marginBottom: '1rem' }}>
-                    אני מאשר את תנאי השימוש ופרטיות{' '}
+                    אני מאשר את
+                    <a href="https://www.lifecloud-qr.com/termsofuse">
+                    תנאי השימוש
+                    </a>
+                    <a href="https://www.lifecloud-qr.com/privacy">
+                    ומדיניות הפרטיות{' '}
+                    </a>
                     <input
                       type="checkbox"
                       style={{ marginLeft: '15px' }}

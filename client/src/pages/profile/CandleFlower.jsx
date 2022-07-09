@@ -57,7 +57,7 @@ const reducer = (state, action) => {
   }
 };
 
-const CandleFlower = ({ profileId, userId }) => {
+const CandleFlower = ({ profileId, userId, profileName }) => {
   const history = useHistory();
   const candleRef = useRef();
   const [candleFlowerState, dispatch] = useReducer(reducer, initialState);
@@ -83,8 +83,11 @@ const CandleFlower = ({ profileId, userId }) => {
     window.location.assign(
       `https://direct.tranzila.com/icloud/iframenew.php?sum=${
         (candleFlowerState.flower + candleFlowerState.candle) * 5
-      }`
+
+      }&currency=1&cred_type=1&ppnewwin=2&ppnewwin=2`
     );
+    // currency = 1 for shekel, 2 for dollar
+    // cred-type = 1 for direct, 6 for credit, 8 for payments 
 
     try {
       await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
@@ -121,7 +124,8 @@ const CandleFlower = ({ profileId, userId }) => {
                 className="modal-title text-align-center"
                 id="candleFlowerLabel"
               >
-                להדליק נר או להניח זר
+
+               זוכרים את {profileName}
               </h5>
               <button
                 type="button"
@@ -133,7 +137,13 @@ const CandleFlower = ({ profileId, userId }) => {
 
             <div className="modal-body text-center pt-0">
               <div className="row">
-                <div className="col-6 p-0">
+
+                <div className="col-6 p-0 position-relative overflow-hidden">
+                  <div className="popup-image-text">
+                    <h3>הדלק נר וירטאולי</h3>
+                    <h6>ל-72 שעות</h6>
+                    <p>בעלות של 5 ש״ח</p>
+                  </div>
                   <img className="img-fluid" src={candle} alt="FlowerLight" />
 
                   <button
@@ -141,10 +151,16 @@ const CandleFlower = ({ profileId, userId }) => {
                     style={{ transform: 'translateY(-50px)' }}
                     onClick={() => dispatch({ type: 'INCREASE_CANDLE' })}
                   >
-                    קניית נר
+                    לרכישת נר
                   </button>
                 </div>
-                <div className=" col-6 p-0">
+
+                <div className=" col-6 p-0 position-relative overflow-hidden">
+                  <div className="popup-image-text">
+                    <h3>הנחת פרח וירטאולי</h3>
+                    <h6>ל-72 שעות</h6>
+                    <p>בעלות של 5 ש״ח</p>
+                  </div>
                   <img className="img-fluid" src={flower} alt="FlowerLight" />
 
                   <button
@@ -152,7 +168,7 @@ const CandleFlower = ({ profileId, userId }) => {
                     style={{ transform: 'translateY(-50px)' }}
                     onClick={() => dispatch({ type: 'INCREASE_FLOWER' })}
                   >
-                    קניית פרח
+                    לרכישת פרח
                   </button>
                 </div>
               </div>

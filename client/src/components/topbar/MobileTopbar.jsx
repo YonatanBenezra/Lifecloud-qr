@@ -338,7 +338,7 @@ const MobileTopbar = (props) => {
 
                     <li className="p-2 border-b border-white">
                       <Link to="/login" className="text-white">
-                        כניסה
+                        התחברות לחשבון
                       </Link>
                     </li>
                   </React.Fragment>

@@ -22,27 +22,30 @@ const Footer = () => {
         </div>
         <div className="col-lg-4 order-1 order-lg-2">
           <div className="footer-links">
-            <Link to="/qa">
-              <span>Q&A</span>
+            <Link to="/policy">
+              <span>מדיניות פרטיות</span>
             </Link>
             <span className="line-seperator">|</span>
-            <Link to="/policy">
-              <span>POLICY</span>
+            <Link to="/termsofuse">
+              <span>תנאי שימוש</span>
             </Link>
             <span className="line-seperator">|</span>
             <Link to="/about">
-              <span>ABOUT</span>
+              <span>אודות</span>
             </Link>
             <span className="line-seperator">|</span>
-            <Link to="/contact-us">
-              <span>CONTACT</span>
+            <Link to="/qa">
+              <span>שאלות ותשובות</span>
+            </Link>
+             <span className="line-seperator">|</span>
+              <Link to="/contact-us">
+              <span>צור קשר</span>
+            </Link>
+             <span className="line-seperator">|</span>
+              <Link to="/abort-purchase">
+              <span>בקשה לביטול עסקה</span>
             </Link>
           </div>
-        </div>
-        <div className="col-6 col-lg-4 order-2 order-lg-3">
-          <p className="c-rights-reserved">
-            (C) all rights reserved to lifecloud-qr.co.il
-          </p>
         </div>
       </div>
     </div>
