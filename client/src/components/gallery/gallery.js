@@ -27,19 +27,27 @@ export const Gallery = ({ profiledata, id, userId }) => {
                     <div className="gallery-img">
                       {!img?.endsWith?.('mp4') ? (
                         <a
-                          href={`${
-                            img
-                              ? `${process.env.REACT_APP_API_URL}/${img}`
-                              : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
-                          }`}
+                          href={
+                            img?.startsWith?.('http')
+                              ? img
+                              : `${
+                                  img
+                                    ? `${process.env.REACT_APP_API_URL}/${img}`
+                                    : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
+                                }`
+                          }
                         >
                           <img
                             className="image-gallery-section"
-                            src={`${
-                              img
-                                ? `${process.env.REACT_APP_API_URL}/${img}`
-                                : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
-                            }`}
+                            src={
+                              img?.startsWith?.('http')
+                                ? img
+                                : `${
+                                    img
+                                      ? `${process.env.REACT_APP_API_URL}/${img}`
+                                      : 'https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg'
+                                  }`
+                            }
                             alt=""
                           />
                         </a>
@@ -54,7 +62,11 @@ export const Gallery = ({ profiledata, id, userId }) => {
                           className="full-gallery-img"
                         >
                           <source
-                            src={`${process.env.REACT_APP_API_URL}/${img}`}
+                            src={
+                              img?.startsWith?.('http')
+                                ? img
+                                : `${process.env.REACT_APP_API_URL}/${img}`
+                            }
                             type="video/mp4"
                           />
                           Your browser does not support the video tag.

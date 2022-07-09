@@ -1,18 +1,11 @@
 const Router = require('express');
 const { Memory } = require('./../models/Memory');
+var { cloudinary, storage } = require('../utils/cloudinary');
 const MemoryRouter = Router();
 const multer = require('multer');
-const { v4: uuidv4 } = require('uuid');
 
-var storage = multer.diskStorage({
-  destination: './server/picUploader/',
-  filename: function (req, file, cb) {
-    const ext = file.mimetype.split('/')[1];
-    cb(null, `${file.originalname.split('.')[0]}-${uuidv4()}.${ext}`);
-  },
-});
 let uploadpic = multer({ storage: storage });
-// create profile
+
 MemoryRouter.post(
   '/createMemory',
   uploadpic.fields([
@@ -21,18 +14,24 @@ MemoryRouter.post(
   ]),
   async (req, res) => {
     try {
-      //gen new password
-      const url = req.protocol + '://' + req.get('host');
-      console.log(req.body, 'body');
-      console.log(req.files, 'file');
-      // let multiFiles = req.files.memoryImges.map(res => {
-      //     return res.path.slice(7)
-      // })
-      // console.log(multiFiles, 'multiFiles')
+      let resultImage;
+      if (req.files.memoryImges?.[0]?.path) {
+        resultImage = await cloudinary.uploader.upload(
+          req.files.memoryImges[0].path
+        );
+      }
+      let resultVideo;
+      if (req.files.memoryVideo?.[0]?.path) {
+        resultVideo = await cloudinary.uploader.upload(
+          req.files.memoryVideo[0].path,
+          { resource_type: 'video' }
+        );
+      }
+
       let newUser = new Memory({
         originalUser: req.body.originalUser,
-        file: req.files.memoryImges?.[0].path.slice(7),
-        memoryVideo: req.files.memoryVideo?.[0].path.slice(7),
+        file: resultImage?.secure_url,
+        memoryVideo: resultVideo?.secure_url,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         description: req.body.description,
@@ -40,7 +39,6 @@ MemoryRouter.post(
         comments: [],
       });
 
-      //save and response
       newUser.save().then((resp) => {
         res.send(resp);
       });
@@ -99,8 +97,6 @@ MemoryRouter.put('/comment/:id', async (req, res) => {
 MemoryRouter.delete('/commentdell/:id', async (req, res) => {
   try {
     console.log(req.params.id, req.body);
-    // const memory = await Memory.findById(req.params.id);
-    // console.log(memory, 'memory')
     await Memory.updateOne(
       { _id: req.params.id },
       { $pull: { comments: req.body.comment } }
@@ -114,8 +110,6 @@ MemoryRouter.delete('/commentdell/:id', async (req, res) => {
 MemoryRouter.delete('/commentdellOBJ/:id', async (req, res) => {
   try {
     console.log(req.params.id, req.body);
-    // const memory = await Memory.findById(req.params.id);
-    // console.log(memory, 'memory')
     await Memory.deleteOne({ _id: req.params.id });
     res.status(200).json('Comment Deleted');
   } catch (err) {
@@ -124,27 +118,25 @@ MemoryRouter.delete('/commentdellOBJ/:id', async (req, res) => {
 });
 
 MemoryRouter.get('/getallmemory/:id', (req, res) => {
-  Memory.find({ originalUser: req.params.id }) // key to populate
-    .then((resonse) => {
-      if (!resonse) {
-        return res.status(404).json({
-          message: 'data not found',
-        });
-      }
-      res.json(resonse);
-    });
+  Memory.find({ originalUser: req.params.id }).then((resonse) => {
+    if (!resonse) {
+      return res.status(404).json({
+        message: 'data not found',
+      });
+    }
+    res.json(resonse);
+  });
 });
 
 MemoryRouter.get('/getSingleMemory/:id', (req, res) => {
-  Memory.findById(req.params.id) // key to populate
-    .then((resonse) => {
-      if (!resonse) {
-        return res.status(404).json({
-          message: 'data not found',
-        });
-      }
-      res.json(resonse);
-    });
+  Memory.findById(req.params.id).then((resonse) => {
+    if (!resonse) {
+      return res.status(404).json({
+        message: 'data not found',
+      });
+    }
+    res.json(resonse);
+  });
 });
 
 module.exports = { MemoryRouter };

@@ -340,14 +340,7 @@ export default function ProfileEdit() {
   const removeGalleryCur = (index) => {
     setMultiFiles(multiFiles.filter((file, i) => i !== index));
   };
-  console.log(
-    profiledata.gallery?.length > 1
-    // profiledata.gallery && profiledata.gallery.length > 1
-    //   ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[1]}`
-    //   : multiFiles && multiFiles.length > 1
-    //   ? multiFiles[1].imagePreview
-    //   : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-  );
+
   return (
     <React.Fragment>
       <div
@@ -382,7 +375,11 @@ export default function ProfileEdit() {
                     ></button>
 
                     <img
-                      src={`${process.env.REACT_APP_API_URL}/${img}`}
+                      src={
+                        img?.startsWith?.('http')
+                          ? img
+                          : `${process.env.REACT_APP_API_URL}/${img}`
+                      }
                       alt="gallery"
                       style={{ height: '120px', width: '100%' }}
                     />
@@ -398,13 +395,11 @@ export default function ProfileEdit() {
                         className="btn-close position-absolute"
                         onClick={() => removeGalleryCur(i)}
                       ></button>
-                      <LazyLoad>
-                        <img
-                          src={file.imagePreview}
-                          alt="gallery"
-                          style={{ height: '120px', width: '100%' }}
-                        />
-                      </LazyLoad>
+                      <img
+                        src={file.imagePreview}
+                        alt="gallery"
+                        style={{ height: '120px', width: '100%' }}
+                      />
                     </div>
                   );
                 })}
@@ -455,6 +450,8 @@ export default function ProfileEdit() {
                     src={
                       imgData
                         ? imgData
+                        : wallInformation?.profileimg?.startsWith?.('http')
+                        ? wallInformation?.profileImg
                         : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
                     }
                     alt=""
@@ -475,18 +472,23 @@ export default function ProfileEdit() {
                     src={
                       coverData
                         ? coverData
+                        : wallInformation.wallimg?.startsWith?.('http')
+                        ? wallInformation.wallImg
                         : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
                     }
                     alt=""
                   />
                 </LazyLoad>
 
-                <input
-                  className="custom-file-input-cover"
-                  type="file"
-                  onChange={onChangeCover}
-                  name="coverImg"
-                />
+                {(!profiledata.isMain ||
+                  profiledata?.originalUser?.[0]?._id === user?._id) && (
+                  <input
+                    className="custom-file-input-cover"
+                    type="file"
+                    onChange={onChangeCover}
+                    name="coverImg"
+                  />
+                )}
               </div>
             </div>
             <div className="loginRight">
@@ -657,7 +659,9 @@ export default function ProfileEdit() {
                               src={
                                 (profiledata.gallery &&
                                 profiledata.gallery.length > 0
-                                  ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[0]}`
+                                  ? profiledata.gallery[0]?.startsWith?.('http')
+                                    ? profiledata.gallery[0]
+                                    : `${process.env.REACT_APP_API_URL}/${profiledata.gallery[0]}`
                                   : multiFiles && multiFiles.length > 0
                                   ? multiFiles[0].imagePreview
                                   : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
@@ -673,7 +677,9 @@ export default function ProfileEdit() {
                               src={
                                 (profiledata.gallery &&
                                 profiledata.gallery.length > 1
-                                  ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[1]}`
+                                  ? profiledata.gallery[1]?.startsWith?.('http')
+                                    ? profiledata.gallery[1]
+                                    : `${process.env.REACT_APP_API_URL}/${profiledata.gallery[1]}`
                                   : multiFiles && multiFiles.length > 1
                                   ? multiFiles[1].imagePreview
                                   : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
@@ -689,7 +695,9 @@ export default function ProfileEdit() {
                               src={
                                 (profiledata.gallery &&
                                 profiledata.gallery.length > 2
-                                  ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[2]}`
+                                  ? profiledata.gallery[2]?.startsWith?.('http')
+                                    ? profiledata.gallery[2]
+                                    : `${process.env.REACT_APP_API_URL}/${profiledata.gallery[2]}`
                                   : multiFiles && multiFiles.length > 2
                                   ? multiFiles[2].imagePreview
                                   : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
@@ -705,7 +713,9 @@ export default function ProfileEdit() {
                               src={
                                 (profiledata.gallery &&
                                 profiledata.gallery.length > 3
-                                  ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[3]}`
+                                  ? profiledata.gallery[3]?.startsWith?.('http')
+                                    ? profiledata.gallery[3]
+                                    : `${process.env.REACT_APP_API_URL}/${profiledata.gallery[3]}`
                                   : multiFiles && multiFiles.length > 3
                                   ? multiFiles[3].imagePreview
                                   : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||
@@ -721,7 +731,9 @@ export default function ProfileEdit() {
                               src={
                                 (profiledata.gallery &&
                                 profiledata.gallery.length > 4
-                                  ? `${process.env.REACT_APP_API_URL}/${profiledata.gallery[4]}`
+                                  ? profiledata.gallery[4].startsWith('http')
+                                    ? profiledata.gallery[4]
+                                    : `${process.env.REACT_APP_API_URL}/${profiledata.gallery[4]}`
                                   : multiFiles && multiFiles.length > 4
                                   ? multiFiles[4].imagePreview
                                   : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`) ||

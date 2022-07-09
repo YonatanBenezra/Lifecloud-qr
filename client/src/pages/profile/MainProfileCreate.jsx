@@ -94,6 +94,7 @@ export default function MainProfileCreate() {
       formdata.append('lastName', 'placeholder');
       formdata.append('description', wallInformation.description);
       formdata.append('isMain', true);
+      formdata.append('email', user.email);
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }

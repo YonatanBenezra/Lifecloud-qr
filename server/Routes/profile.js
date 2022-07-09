@@ -1,29 +1,25 @@
 const Router = require('express');
 const { profileModel } = require('./../models/Profile');
 const ProfileRouter = Router();
-const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const qr = require('qrcode');
 const Email = require('../utils/email');
+var { cloudinary, storage } = require('../utils/cloudinary');
+const { addRow } = require('../utils/googleSheet');
+const { User } = require('../models/User');
 
-var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  secure: false,
-  auth: {
-    user: 'life.cloud.fiverr@gmail.com',
-    pass: 'wfaguxqqiiziybkq',
-  },
-});
-
-var storage = multer.diskStorage({
-  destination: './server/picUploader/',
-  filename: function (req, file, cb) {
-    const ext = file.mimetype.split('/')[1];
-    cb(null, `${file.originalname.split('.')[0]}-${uuidv4()}.${ext}`);
-  },
-});
 let uploadpic = multer({ storage: storage });
+const cloudinaryImageUploadMethod = async (file) => {
+  return new Promise((resolve) => {
+    cloudinary.uploader.upload(file, (err, res) => {
+      if (err) return res.status(500).send('upload image error');
+      resolve({
+        res: res.secure_url,
+      });
+    });
+  });
+};
+
 // create profile
 ProfileRouter.post(
   '/createProfile',
@@ -36,19 +32,52 @@ ProfileRouter.post(
   ]),
   async (req, res) => {
     try {
-      //gen new password
-      const url = req.protocol + '://' + req.get('host');
+      let resultProfileImage;
+      if (req.files.profileImg?.[0]?.path) {
+        resultProfileImage = await cloudinary.uploader.upload(
+          req.files.profileImg[0].path
+        );
+      }
 
-      let multiFiles = req.files.multiplefiles?.map((res) => {
-        return res.path.slice(7);
-      });
+      let resultWallImage;
+      if (req.files.wallImg?.[0]?.path) {
+        resultWallImage = await cloudinary.uploader.upload(
+          req.files.wallImg[0].path
+        );
+      }
+
+      let resultgraveImage;
+      if (req.files.graveImg?.[0]?.path) {
+        resultgraveImage = await cloudinary.uploader.upload(
+          req.files.graveImg[0].path
+        );
+      }
+
+      const multiFilesurls = [];
+      const multifiles = req.files.multiplefiles || [];
+      for (const file of multifiles) {
+        const { path } = file;
+        const newPath = await cloudinaryImageUploadMethod(path);
+        multiFilesurls.push(newPath);
+      }
+
+      const axisurls = [];
+      const axisImagesObj = req.files.axisImages || [];
+      for (const file of axisImagesObj) {
+        const { path } = file;
+        const newPath = await cloudinaryImageUploadMethod(path);
+        axisurls.push(newPath);
+      }
+
       //new user
       let newUser = new profileModel({
         originalUser: req.body.originalUser,
-        gallery: multiFiles,
-        profileImg: req.files.profileImg?.[0].path.slice(7),
-        wallImg: req.files.wallImg?.[0].path.slice(7),
-        graveImg: req.files.graveImg?.[0].path.slice(7),
+        gallery: multiFilesurls.map((url) => {
+          return url.res;
+        }),
+        profileImg: resultProfileImage?.secure_url,
+        wallImg: resultWallImage?.secure_url,
+        graveImg: resultgraveImage?.secure_url,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         privacy: req.body.privacy,
@@ -66,38 +95,36 @@ ProfileRouter.post(
         googleLocation: req.body.googleLocation,
         lifeAxis: req.body.lifeAxis,
         isMain: req.body.isMain,
-        axisImages: req.files.axisImages?.map((res) => {
-          return res.filename;
+
+        axisImages: axisurls.map((url) => {
+          return url.res;
         }),
       });
 
       //save and response
       newUser.save().then(async (resp) => {
-        const qrUrl = `http://localhost:8801/profiledetails/${resp._id}`;
-        if (!req.body.email) return res.send(resp);
+        res.send(resp);
+        const qrUrl = `https://lifecloud-qr.com/profiledetails/${resp._id}`;
+        const user = await User.findById(resp.originalUser[0]);
+        addRow({
+          ID: resp._id,
+          'Profile Name': resp.firstName + ' ' + resp.lastName,
+          'User Name': user.firstName + ' ' + user.lastName,
+          Email: user.email,
+          Phone: user.phone,
+          QR: qrUrl,
+          'Creation Date': new Date().toLocaleDateString(),
+          'Death Date': resp.deathDate,
+        });
+        if (!req.body.email) {
+          return;
+        }
 
         var img = await qr.toDataURL(qrUrl);
         await new Email({ email: req.body.email }).sendProfileQR(
           req.body.firstName,
           img
         );
-        /* var mailOptions = {
-          from: 'life.cloud.fiverr@gmail.com',
-          to: req.body.email,
-          subject: `QR For ${req.body.firstName} ${req.body.lastName}`,
-          text: 'LifeCloud-QR',
-          attachDataUrls: true,
-          html: '<img src="' + img + '" alt="qr">',
-        };
-
-        transporter.sendMail(mailOptions, function (error, info) {
-          if (error) {
-            console.log(error);
-          } else {
-            console.log('Email sent: ' + info.response);
-          }
-        }); */
-        res.send(resp);
       });
     } catch (err) {
       console.log(err);
@@ -117,41 +144,62 @@ ProfileRouter.put(
   ]),
   async (req, res) => {
     try {
-      //gen new password
+      let resultProfileImage;
+      if (req.files.profileImg?.[0]?.path) {
+        resultProfileImage = await cloudinary.uploader.upload(
+          req.files.profileImg[0].path
+        );
+      }
 
-      const url = req.protocol + '://' + req.get('host');
-      //new user
-      let multiFiles =
-        req.files &&
-        req.files.multiplefiles &&
-        req.files.multiplefiles.map((res) => {
-          return res.path.slice(7);
-        });
+      let resultWallImage;
+      if (req.files.wallImg?.[0]?.path) {
+        resultWallImage = await cloudinary.uploader.upload(
+          req.files.wallImg[0].path
+        );
+      }
 
-      const axisImages = req.files.axisImages?.map((res) => {
-        return res.filename;
-      });
+      let resultgraveImage;
+      if (req.files.graveImg?.[0]?.path) {
+        resultgraveImage = await cloudinary.uploader.upload(
+          req.files.graveImg[0].path
+        );
+      }
+
+      const multiFilesurls = [];
+      const multifiles = req.files.multiplefiles || [];
+      for (const file of multifiles) {
+        const { path } = file;
+        const newPath = await cloudinaryImageUploadMethod(path);
+        multiFilesurls.push(newPath);
+      }
+
+      const axisurls = [];
+      const axisImagesObj = req.files.axisImages || [];
+      for (const file of axisImagesObj) {
+        const { path } = file;
+        const newPath = await cloudinaryImageUploadMethod(path);
+        axisurls.push(newPath);
+      }
+
       const prevGalleryImg = Array.isArray(req.body.gallery)
         ? req.body.gallery
         : req.body.gallery
         ? [req.body.gallery]
         : [];
-      const newGalleryImg = Array.isArray(multiFiles)
-        ? multiFiles
-        : multiFiles
-        ? [multiFiles]
-        : [];
-      console.log(
-        req.files.axisImages?.map((res) => {
-          return res.filename;
-        })
-      );
 
+      const galleryUrls = multiFilesurls.map((url) => url.res);
+      const newGalleryImg = Array.isArray(galleryUrls)
+        ? galleryUrls
+        : galleryUrls
+        ? [galleryUrls]
+        : [];
+
+      console.log(newGalleryImg);
       if (req.files.profileImg && req.files.wallImg) {
         var dataSource = {
           originalUser: req.body.originalUser,
-          profileImg: req.files.profileImg[0].path.slice(7),
-          wallImg: req.files.wallImg[0].path.slice(7),
+          profileImg: resultProfileImage?.secure_url,
+          wallImg: resultWallImage?.secure_url,
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           privacy: req.body.privacy,
@@ -166,15 +214,15 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: req.files.axisImages?.map((res) => {
-            return res.filename;
+          axisImages: axisurls.map((url) => {
+            return url.res;
           }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
       } else if (req.files.graveImg) {
         var dataSource = {
-          graveImg: req.files.graveImg[0].path.slice(7),
+          graveImg: resultgraveImage?.secure_url,
           originalUser: req.body.originalUser,
           firstName: req.body.firstName,
           lastName: req.body.lastName,
@@ -190,8 +238,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: req.files.axisImages?.map((res) => {
-            return res.filename;
+
+          axisImages: axisurls.map((url) => {
+            return url.res;
           }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
@@ -199,8 +248,7 @@ ProfileRouter.put(
       } else if (req.files.wallImg) {
         var dataSource = {
           originalUser: req.body.originalUser,
-          // profileImg: req.files.profileImg[0].path.slice(7),
-          wallImg: req.files.wallImg[0].path.slice(7),
+          wallImg: resultWallImage?.secure_url,
           firstName: req.body.firstName,
           privacy: req.body.privacy,
           lastName: req.body.lastName,
@@ -215,8 +263,8 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: req.files.axisImages?.map((res) => {
-            return res.filename;
+          axisImages: axisurls.map((url) => {
+            return url.res;
           }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
@@ -224,8 +272,7 @@ ProfileRouter.put(
       } else if (req.files.profileImg) {
         var dataSource = {
           originalUser: req.body.originalUser,
-          profileImg: req.files.profileImg[0].path.slice(7),
-          // wallImg: req.files.wallImg[0].path.slice(7),
+          profileImg: resultProfileImage?.secure_url,
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           privacy: req.body.privacy,
@@ -240,8 +287,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: req.files.axisImages?.map((res) => {
-            return res.filename;
+
+          axisImages: axisurls.map((url) => {
+            return url.res;
           }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
@@ -263,8 +311,8 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: req.files.axisImages?.map((res) => {
-            return res.filename;
+          axisImages: axisurls.map((url) => {
+            return url.res;
           }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
