@@ -865,19 +865,16 @@ input[type='date']:valid::before {
     width: 60px;
   }
 }
-/* Candle & Flower Css Starts */
 .candle_flower_item {
   position: relative;
 }
 .candle_flower {
   z-index: 99;
-  top: 16%;
-  left: 10%;
-  gap: 25px;
+  top: 35%;
+  left: 5%;
 }
 .candle_flower img {
-  width: 150px;
-  height: 150px;
+  width: 12vw;
   cursor: pointer;
 }
 .candle_flower_count {
@@ -891,135 +888,57 @@ input[type='date']:valid::before {
   font-size: 20px;
   color: #fff;
   position: absolute;
-  right: -40px;
-  top: -10px;
+  right: 2%;
+  top: 8%;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 .candle_flower_user_list {
   position: absolute;
-  top: -12px;
-  right: -195px;
+  top: 15%;
+  right: -60%;
   background-color: #6097bf;
   border-radius: 30px;
   padding: 15px;
   color: #fff;
-  height: 120px;
+  height: 220px;
   overflow-y: auto;
   text-align: center;
-  width: 168px;
-  border: 1px solid #fff;
+  max-width: 175px;
   font-size: 18px;
-  z-index: -1;
 }
 .candle_flower_user_list ul {
   list-style: none;
   padding-left: 0;
 }
-.without_tribute .fc_image_container {
-  position: relative;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-}
-.without_tribute .fc_image_container::after {
-  content: '';
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 100;
-  background-color: rgba(70, 119, 155, 0.7);
-  position: absolute;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.tributeText {
-  color: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 999;
-}
-.without_tribute .tributeText {
-  display: block;
-}
-.with_tribute .tributeText {
-  display: none;
-}
-.with_tribute .candle_flower_count {
-  display: flex;
-}
-.without_tribute .candle_flower_count {
-  display: none;
-}
-
-/* Flower Candle Modal CSS */
-.modal-title {
-  font-size: 45px;
-  font-weight: 400;
-  line-height: 70px;
-  margin-left: auto;
-  display: block;
-}
-.popup-image-text {
-  width: 100%;
-  position: absolute;
-  text-align: center;
-  margin-top: 30px;
-}
-.popup-image-text h3 {
-  font-weight: bold;
-}
-.profile_candle_btn {
-  position: absolute;
-  bottom: 2%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.profile_candle_modal {
-  border-radius: 10px;
-}
 @media only screen and (max-width: 992px) {
   .candle_flower {
-    top: 14%;
+    top: 35%;
   }
   .candle_flower img {
-    width: 120px;
-    height: 120px;
+    width: 18vw;
+    cursor: pointer;
+  }
+  .candle_flower_count {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
   }
 }
 @media only screen and (max-width: 768px) {
-  .candle_flower img {
-    width: 90px;
-    height: 90px;
+  .candle_flower {
+    top: 40%;
   }
 }
 @media only screen and (max-width: 576px) {
-  .candle_flower {
-    top: 11%;
-  }
   .candle_flower img {
-    width: 70px;
-    height: 70px;
+    width: 24vw;
   }
-  .candle_flower_count {
-    width: 30px;
-    height: 30px;
+  .candle_flower {
+    top: 40%;
   }
 }
 @media only screen and (max-width: 400px) {
   .candle_flower {
-    top: 9%;
-    gap: 15px;
-  }
-  .candle_flower img {
-    width: 60px;
-    height: 60px;
-  }
-  .tributeText {
-    left: 56%;
+    top: 43%;
   }
 }

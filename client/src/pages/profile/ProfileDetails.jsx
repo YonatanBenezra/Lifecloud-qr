@@ -390,6 +390,7 @@ export default function Profile() {
       .catch(console.log);
   };
 
+  console.log(parseAxios, 'LOLOLLO');
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
@@ -448,7 +449,11 @@ export default function Profile() {
         <div style={{ position: 'relative' }}>
           <LazyLoad>
             <img
-              src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
+              src={
+                profiledata.wallImg?.startsWith?.('http')
+                  ? profiledata.wallImg
+                  : `${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`
+              }
               alt=""
               className="profile-cover"
               style={{ objectPosition: `0 ${yPos}%` }}
@@ -488,7 +493,11 @@ export default function Profile() {
         <div className="profile-details-first">
           <LazyLoad>
             <img
-              src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
+              src={
+                profiledata.profileImg?.startsWith?.('http')
+                  ? profiledata.profileImg
+                  : `${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`
+              }
               alt=""
               className="profile-img"
             />
@@ -692,7 +701,11 @@ export default function Profile() {
                 <div className="grave-imgs-container">
                   <LazyLoad>
                     <img
-                      src={`${process.env.REACT_APP_API_URL}/${profiledata.graveImg}`}
+                      src={
+                        profiledata.graveImg?.startsWith?.('http')
+                          ? profiledata.graveImg
+                          : `${process.env.REACT_APP_API_URL}/${profiledata.graveImg}`
+                      }
                       alt=""
                       className="grave-img"
                     />
@@ -752,7 +765,11 @@ export default function Profile() {
                             {imgData.file ? (
                               <LazyLoad>
                                 <img
-                                  src={`${process.env.REACT_APP_API_URL}/${imgData.file}`}
+                                  src={
+                                    imgData.file?.startsWith('http')
+                                      ? imgData.file
+                                      : `${process.env.REACT_APP_API_URL}/${imgData.file}`
+                                  }
                                   alt="memory"
                                   className="memory-img"
                                 />
@@ -786,7 +803,11 @@ export default function Profile() {
                                   muted
                                 >
                                   <source
-                                    src={`${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`}
+                                    src={
+                                      imgData.memoryVideo?.startsWith('http')
+                                        ? imgData.memoryVideo
+                                        : `${process.env.REACT_APP_API_URL}/${imgData.memoryVideo}`
+                                    }
                                     type="video/mp4"
                                   />
                                   Your browser does not support the video tag.
@@ -905,7 +926,9 @@ export default function Profile() {
                       <div
                         className="axis-bubble"
                         style={{
-                          backgroundImage: `url('${process.env.REACT_APP_API_URL}/picUploader/${axis?.axisImage}')`,
+                          backgroundImage: axis?.axisImage?.startsWith?.('http')
+                            ? `url('${axis?.axisImage}')`
+                            : `url('${process.env.REACT_APP_API_URL}/picUploader/${axis?.axisImage}')`,
                           backgroundSize: 'cover',
                           backgroundPosition: 'center',
                           backgroundRepeat: 'no-repeat',
@@ -935,7 +958,11 @@ export default function Profile() {
                         {!img?.endsWith?.('mp4') ? (
                           <LazyLoad>
                             <img
-                              src={`${process.env.REACT_APP_API_URL}/${img}`}
+                              src={
+                                img?.startsWith?.('http')
+                                  ? img
+                                  : `${process.env.REACT_APP_API_URL}/${img}`
+                              }
                               alt=""
                               className="full-gallery-img"
                             />
@@ -951,7 +978,11 @@ export default function Profile() {
                             className="full-gallery-img"
                           >
                             <source
-                              src={`${process.env.REACT_APP_API_URL}/${img}`}
+                              src={
+                                img.startsWith('http')
+                                  ? img
+                                  : `${process.env.REACT_APP_API_URL}/${img}`
+                              }
                               type="video/mp4"
                             />
                             Your browser does not support the video tag.
