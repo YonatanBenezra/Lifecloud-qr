@@ -9,13 +9,18 @@ const { UserRouter } = require('./Routes/users');
 const { AuthRouter } = require('./Routes/auth');
 const { PostRouter } = require('./Routes/posts');
 const { NotificationsRouter } = require('./Routes/notifications');
-const { ProfileRouter, uploadpic } = require('./Routes/profile');
+const { ProfileRouter } = require('./Routes/profile');
 const { CandleFlowerRouter } = require('./Routes/candleFlower');
-var cors = require('cors');
+const { cloudinary, storage } = require('./utils/cloudinary');
+const cors = require('cors');
 dotenv.config();
-mongoose.connect(process.env.MONGO_URL, (err, data) => {
-  console.log('mongodb  connected');
-});
+
+mongoose
+  .connect(process.env.MONGO_URL, { useNewUrlParser: true })
+  .then((con) => {
+    console.log('DB Connected Successfully');
+  });
+
 app.use(cors());
 app.use(
   bodyParser.urlencoded({
@@ -32,28 +37,16 @@ const { User } = require('./models/User');
 const multer = require('multer');
 const { ObjectId } = require('mongodb');
 
-const multerStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'server/picUploader');
-  },
-  filename: (req, file, cb) => {
-    const ext = file.mimetype.split('/')[1];
-    cb(null, `profile-${Date.now()}.${ext}`);
-  },
-});
-const upload = multer({ storage: multerStorage });
+const upload = multer({ storage: storage });
 app.patch(
   '/updateUserProfilePicture',
   upload.single('mainProfilePicture'),
   async (req, res) => {
-    console.log(req.body);
-
     const { _id: userId } = req.body;
-    const { filename } = req.file;
-
+    const result = await cloudinary.uploader.upload(req.file.path);
     const response = await User.findOneAndUpdate(
       { _id: ObjectId(userId) },
-      { mainProfilePicture: filename },
+      { mainProfilePicture: result.secure_url },
       { new: true }
     );
 

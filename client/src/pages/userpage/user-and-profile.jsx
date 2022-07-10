@@ -115,7 +115,9 @@ export const UserAndprofiles = () => {
                     alt=""
                     src={
                       user.mainProfilePicture
-                        ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
+                        ? user.mainProfilePicture?.startsWith('http')
+                          ? user.mainProfilePicture
+                          : `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
                         : user.profilePicture
                         ? user.profilePicture
                         : userIcon
@@ -214,7 +216,11 @@ export const UserAndprofiles = () => {
                               <LazyLoad>
                                 <img
                                   className="profile-image"
-                                  src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                                  src={
+                                    userProfiles.profileImg?.startsWith('http')
+                                      ? userProfiles.profileImg
+                                      : `${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`
+                                  }
                                   alt=""
                                 />
                               </LazyLoad>

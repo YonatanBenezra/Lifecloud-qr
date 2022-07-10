@@ -46,6 +46,7 @@ class Email {
 
   async sendProfileQR(profileName, img) {
     await this.send(
+      `קוד QR לפרופיל ${profileName}`,
       `.הושלם בהצלחה ,${profileName} של LIFEBOOK שלום, יצירת`,
       img
     );

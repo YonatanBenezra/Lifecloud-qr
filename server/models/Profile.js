@@ -110,6 +110,7 @@ const PostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+PostSchema.index({profileImg: 1, wallImg: 1,axisImages: 1,graveImg: 1})
 const profileModel = mongoose.model('Profile', PostSchema);
 
 module.exports = { profileModel };
