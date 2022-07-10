@@ -9,7 +9,6 @@ import exampleProfileImage from '../../assets/exampleProfileImage.png';
 import { Player } from 'video-react';
 import Slider from 'react-slick';
 import exampleProfileImage2 from '../../assets/asi.jpg';
-
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
