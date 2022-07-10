@@ -163,13 +163,15 @@ const DesktopTopbar = (props) => {
                 >
                   <LazyLoad>
                     <img
-                      src={
-                        user.mainProfilePicture
-                          ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
-                          : user.profilePicture
-                          ? user.profilePicture
-                          : userIcon
-                      }
+                     src={
+                      user.mainProfilePicture
+                        ? user.mainProfilePicture?.startsWith('http')
+                          ? user.mainProfilePicture
+                          : `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
+                        : user.profilePicture
+                        ? user.profilePicture
+                        : userIcon
+                    }
                       alt=""
                       className="topbarImg"
                     />
