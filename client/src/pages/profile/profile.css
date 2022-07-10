@@ -706,7 +706,7 @@ input::placeholder {
 }
 
 .custom-file-grave::before {
-  content: 'הוסף תמונה של הקבר + ';
+  /* content: 'הוסף תמונה של הקבר+'; */
   display: inline-block;
   /* border: 1px solid #999; */
   border-radius: 3px;
