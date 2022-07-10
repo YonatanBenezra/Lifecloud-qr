@@ -450,7 +450,7 @@ export default function ProfileEdit() {
                     src={
                       imgData
                         ? imgData
-                        : wallInformation?.profileimg?.startsWith?.('http')
+                        : wallInformation?.profileImg?.startsWith?.('http')
                         ? wallInformation?.profileImg
                         : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
                     }
@@ -472,9 +472,9 @@ export default function ProfileEdit() {
                     src={
                       coverData
                         ? coverData
-                        : wallInformation.wallimg?.startsWith?.('http')
+                        : wallInformation.wallImg?.startsWith?.('http')
                         ? wallInformation.wallImg
-                        : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
+                        : `${process.env.REACT_APP_API_URL}/lol/${wallInformation.wallImg}`
                     }
                     alt=""
                   />

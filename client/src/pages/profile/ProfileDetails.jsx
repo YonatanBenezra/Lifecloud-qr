@@ -35,6 +35,10 @@ import ProfileFooter from './ProfileFooter';
 import defaultVideoImg from '../../assets/video.jpg';
 import CandleFlower from './CandleFlower';
 import LazyLoad from 'react-lazyload';
+import {
+  gregorianToHebDay,
+  gregorianToHebMonth,
+} from '../../hooks/gregorianDate';
 
 export default function Profile() {
   const { user, myFirebase } = useContext(AuthContext);
@@ -67,9 +71,25 @@ export default function Profile() {
   const [memoryCount, setMemoryCount] = useState(3);
   const [users, setUsers] = useState([]);
   const [hebMemorialDate, setHebMemorialDate] = useState('');
+  const [gregorianMemorialDate, setGregorianMemorialDate] = useState('');
   const [yPos, setYPos] = useState(50);
   const [map, setMap] = useState(false);
 
+  useEffect(() => {
+    (async () => {
+      const dateArr = hebMemorialDate?.split(' ');
+      const firstParameter = gregorianToHebDay(dateArr?.[0]);
+      const secondParameter = gregorianToHebMonth(dateArr?.[1]?.slice(1));
+
+      const response = await fetch(
+        `https://www.hebcal.com/converter?cfg=json&hy=${
+          new Date().getFullYear() + 3761
+        }&hm=${secondParameter}&hd=${firstParameter}&h2g=1&strict=1`
+      );
+      const date = await response.json();
+      setGregorianMemorialDate(`${date.gm}-${date.gd}-${date.gy}`);
+    })();
+  }, [hebMemorialDate]);
   const sendNotification = useCallback(
     (notificationType) => {
       if (profiledata?.originalUser?.[0]?._id === user?._id) {
@@ -390,7 +410,6 @@ export default function Profile() {
       .catch(console.log);
   };
 
-  console.log(parseAxios, 'LOLOLLO');
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
@@ -488,7 +507,11 @@ export default function Profile() {
                 </button>
               </div>
             )}
-          <CandleFlower profileId={profiledata._id} userId={user._id} profileName={profiledata.firstName}/>
+          <CandleFlower
+            profileId={profiledata._id}
+            userId={user._id}
+            profileName={profiledata.firstName}
+          />
         </div>
         <div className="profile-details-first">
           <LazyLoad>
@@ -625,17 +648,16 @@ export default function Profile() {
               <h3>
                 <span className="separator">| </span>
                 <span className="dash">- </span>
-                {/* {profiledata?.deathDate &&
-                  moment(profiledata?.deathDate)
+                {gregorianMemorialDate &&
+                  moment(gregorianMemorialDate)
                     .format('DD-MM-YYYY')
                     .replace(
-                      new Date(profiledata?.deathDate).getFullYear(),
-                      new Date().getFullYear() +
-                        (new Date(profiledata?.deathDate) - new Date() > 0
+                      new Date(gregorianMemorialDate).getFullYear(),
+                      new Date(gregorianMemorialDate).getFullYear() +
+                        (new Date(gregorianMemorialDate) - new Date() > 0
                           ? 0
                           : 1)
-                    )} */}
-                {hebMemorialDate}
+                    )}
               </h3>
               <h3>
                 <span className="separator">| </span>
