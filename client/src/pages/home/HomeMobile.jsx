@@ -12,12 +12,12 @@ import exampleProfileImage2 from '../../assets/asi.jpg';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import f12 from '../../assets/Rectangle12.png';
-import f13 from '../../assets/Rectangle13.png';
-import f14 from '../../assets/Rectangle14.png';
-import f15 from '../../assets/Rectangle15.png';
-import f16 from '../../assets/Rectangle16.png';
-import f17 from '../../assets/Rectangle17.png';
+import f13 from '../../assets/Rectangle13.svg';
+import f14 from '../../assets/Rectangle14.svg';
+import f15 from '../../assets/Rectangle15.svg';
+import f16 from '../../assets/Rectangle16.svg';
+import f18 from '../../assets/Rectangle18.svg';
+import f17 from '../../assets/Rectangle17.svg';
 import Footer from '../../components/footer/Footer';
 import SocialFooter from '../../components/socialFooter/socialFooter';
 import axios from 'axios';
@@ -151,7 +151,8 @@ const HomeMobile = (props) => {
       <div className="mobile-vid-text-container">
         <div className="vid-text-title">
           <h2 className="mobile-home-mobile-heading">
-            אדם הוא עולם ומלואו, סיפור חייו ראוי שיוזכר ויונצח לעד.
+            אדם הוא עולם ומלואו,
+            <br /> סיפור חייו ראוי שיוזכר ויונצח לעד.
           </h2>
           <h2 className="mobile-homeMobile-moments-legacy-community">
             MOMENTS. LEGACY. COMMUNITY.
@@ -179,83 +180,28 @@ const HomeMobile = (props) => {
             </p>
             <p className="mobile-text-container-home-bottom">מי שהם היו?</p>
 
-            <img
-              alt=""
-              src={rightCloud}
-              style={{
-                position: 'relative',
-                right: 0,
-                height: '150px',
-                width: '150px',
-                top: '-83px',
-              }}
-            />
+            <img alt="" src={rightCloud} className="cloud-img-section" />
           </div>
         </div>
       </div>
 
       <div className="popups-container">
-        <p className="mobile-life-cloud-explaination-container-home">
-          ספר החיים של Life Cloud
+        <p>
+          <span style={{ direction: 'rtl' }}>
+            <span>Life Cloud</span> ספר החיים של
+          </span>
+          <br /> ,להתחבר מאפשר לנו ולשתף את הרגעים <br />
+          הסיפורים והמורשת של מי שאינו איתנו
         </p>
-        <p className="mobile-life-cloud-explaination-container-home">
-          להתחבר מאפשר לנו
-        </p>
-        <h1 className="mobile-life-cloud-explaination-container-home">
-          ולשתף את הרגעים,{' '}
-        </h1>
-        <h1 className="mobile-life-cloud-explaination-container-home">
-          הסיפורים והמורשת
-        </h1>
-        <h1 className="mobile-life-cloud-explaination-container-home">
-          של מי שאינו איתנו
-        </h1>
       </div>
 
       <div className="">
         <div className="">
-          <div className="gridBar">
+          <div className="gridBar" style={{ flexDirection: 'row-reverse' }}>
             <div className="bx">
               <div className="life_book">
                 <LazyLoad>
-                  <img src={f13} width="100%" height="150px" alt="profile" />
-                </LazyLoad>
-
-                <div className="life_book_overlay">
-                  <p>חיבור לרשתות החברתיות של המנוח</p>
-                </div>
-              </div>
-              <div className="gridTxt">
-                <h1 className="h1-home-desktop">קישור לרשתות חברתיות</h1>
-                <p className="gridPlus">+</p>
-                <h1 className="grtidTxtP">קרא עוד</h1>
-              </div>
-            </div>
-            <div className="bx">
-              <div className="life_book">
-                <LazyLoad>
-                  <img src={f14} width="100%" height="150px" alt="profile" />
-                </LazyLoad>
-
-                <div className="life_book_overlay">
-                  <p>
-                    QR ייחודי ועמיד הניתן להניח בכל מקום שתבחרו ולחבר כל
-                    סמארטפון ישירות לספר LifeCloud החיים של
-                  </p>
-                </div>
-              </div>
-              <div className="gridTxt">
-                <h1 className="h1-home-desktop">ייחודי QR</h1>
-                <p className="gridPlus">+</p>
-                <h1 className="grtidTxtP">קרא עוד </h1>
-              </div>
-            </div>
-          </div>
-          <div className="gridBar">
-            <div className="bx">
-              <div className="life_book">
-                <LazyLoad>
-                  <img src={f15} width="100%" height="150px" alt="profile" />
+                  <img src={f17} width="100%" height="100%" alt="profile" />
                 </LazyLoad>
 
                 <div className="life_book_overlay">
@@ -266,13 +212,13 @@ const HomeMobile = (props) => {
                 <h1 className="h1-home-desktop">Lifecloud wall</h1>
 
                 <p className="gridPlus">+</p>
-                <h1 className="grtidTxtP">קרא עוד </h1>
+                <h1 className="gridTxtP">קרא עוד </h1>
               </div>
             </div>
             <div className="bx">
               <div className="life_book">
                 <LazyLoad>
-                  <img src={f16} width="100%" height="150px" alt="profile" />
+                  <img src={f18} width="100%" height="100%" alt="profile" />
                 </LazyLoad>
 
                 <div className="life_book_overlay">
@@ -284,17 +230,17 @@ const HomeMobile = (props) => {
               </div>
               <div className="gridTxt">
                 <h1 className="h1-home-desktop">הדלקת נר והנחת זר וירטאלי</h1>
-
                 <p className="gridPlus">+</p>
-                <h1 className="grtidTxtP">קרא עוד </h1>
+                <h1 className="gridTxtP">קרא עוד </h1>
               </div>
             </div>
           </div>
+
           <div className="gridBar">
             <div className="bx">
               <div className="life_book">
                 <LazyLoad>
-                  <img src={f17} width="100%" height="150px" alt="profile" />
+                  <img src={f16} width="100%" height="100%" alt="profile" />
                 </LazyLoad>
 
                 <div className="life_book_overlay">
@@ -308,13 +254,13 @@ const HomeMobile = (props) => {
                 <h1 className="h1-home-desktop">ניהול מועדים</h1>
 
                 <p className="gridPlus">+</p>
-                <h1 className="grtidTxtP">קרא עוד </h1>
+                <h1 className="gridTxtP">קרא עוד </h1>
               </div>
             </div>
             <div className="bx">
               <div className="life_book">
                 <LazyLoad>
-                  <img src={f12} width="100%" height="150px" alt="profile" />
+                  <img src={f15} width="100%" height="100%" alt="profile" />
                 </LazyLoad>
 
                 <div className="life_book_overlay">
@@ -325,138 +271,49 @@ const HomeMobile = (props) => {
                 <h1 className="h1-home-desktop">מיקום הקבר</h1>
 
                 <p className="gridPlus">+</p>
-                <h1 className="grtidTxtP">קרא עוד </h1>
+                <h1 className="gridTxtP">קרא עוד </h1>
               </div>
             </div>
           </div>
         </div>
-        {/*<div className='openers-mobile'>
-          <div>
-            <div className="img-300 twelve">
-              <p className="img-300-text">
-                בדרך קלה, ידידותית ויעילה, ניתן להעלות סרטונים ותמונות, ליצור
-                אלבומים, ולשתף חברים, משפחה וקהילה
-              </p>
-              <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
-                  <p>+</p>
-                  <p>קרא עוד</p>{' '}
-                </span>
-              </div>
-            </div>{' '}
-            <h1 className="h1-home-mobile">
-              העלאת תמונות וסרטונים
-            </h1>
-          </div>
+        <div className="gridBar">
+          <div className="bx">
+            <div className="life_book">
+              <LazyLoad>
+                <img src={f13} width="100%" height="100%" alt="profile" />
+              </LazyLoad>
 
-        </div>*/}
+              <div className="life_book_overlay">
+                <p>חיבור לרשתות החברתיות של המנוח</p>
+              </div>
+            </div>
+            <div className="gridTxt">
+              <h1 className="h1-home-desktop">קישור לרשתות חברתיות</h1>
+              <p className="gridPlus">+</p>
+              <h1 className="gridTxtP">קרא עוד</h1>
+            </div>
+          </div>
+          <div className="bx">
+            <div className="life_book">
+              <LazyLoad>
+                <img src={f14} width="100%" height="100%" alt="profile" />
+              </LazyLoad>
+
+              <div className="life_book_overlay">
+                <p>
+                  QR ייחודי ועמיד הניתן להניח בכל מקום שתבחרו ולחבר כל סמארטפון
+                  ישירות לספר LifeCloud החיים של
+                </p>
+              </div>
+            </div>
+            <div className="gridTxt">
+              <h1 className="h1-home-desktop">ייחודי QR</h1>
+              <p className="gridPlus">+</p>
+              <h1 className="gridTxtP">קרא עוד </h1>
+            </div>
+          </div>
+        </div>
       </div>
-
-      {/*<div className="imgs-container-middle">
-        <div className='openers-mobile'>
-          <div>
-            <div className="img-300 thirteen">
-              <p className="img-300-text">
-                חיבור עמודי המנוח ברשתות החברתיות הקיימות.
-              </p>
-              <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
-                  <p>+</p>
-                  <p>קרא עוד</p>{' '}
-                </span>
-              </div>
-            </div>{' '}
-            <h1 className="h1-home-mobile" >
-              קישור לרשתות חברתיות
-            </h1>
-          </div>
-        </div>
-        <div className='openers-mobile'>
-          <div>
-            <div className="img-300 sixteen">
-              <p className="img-300-text">
-                ניתן להוסיף תגובות, לשתף זיכרונות ותמונות עם משפחה, חברים
-                ומכרים.{' '}
-              </p>
-              <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
-                  <p>+</p>
-                  <p>קרא עוד</p>{' '}
-                </span>
-              </div>
-            </div>{' '}
-            <h1 className="h1-home-mobile">
-              כתיבה ושיתוף זכרונות
-            </h1>
-          </div>
-
-        </div>
-      </div>*/}
-
-      {/* <div className="imgs-container">
-        <div className='openers-mobile'>
-          <div>
-            <div className="img-300 seventeen">
-              <p className="img-300-text">
-                לוח שנה –ציון ימים חשובים, שליחת הזמנות לאירועי אזכרה ומפגשים.{' '}
-              </p>
-              <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
-                  <p>+</p>
-                  <p>קרא עוד</p>{' '}
-                </span>
-              </div>
-            </div>{' '}
-            <h1 className="h1-home-mobile">
-              ניהול מועדים
-            </h1>
-          </div>
-        </div>
-        <div className='openers-mobile'>
-          <div>
-            <div className="img-300 fifteen">
-              <p className="img-300-text">מיקום הקבר </p>
-              <div className="read-more-home">
-                <span
-                  style={{
-                    background: '#6097bf',
-                    padding: '1rem',
-                    borderRadius: '15px',
-                  }}
-                >
-                  <p>+</p>
-                  <p>קרא עוד</p>{' '}
-                </span>
-              </div>
-            </div>{' '}
-            <h1 className="h1-home-mobile">מיקום הקבר</h1>
-          </div>
-        </div>
-      </div>*/}
 
       {/*<div className="mobile-example-profile">*/}
       <div className="mobile-example-profile overflow-hidden">
