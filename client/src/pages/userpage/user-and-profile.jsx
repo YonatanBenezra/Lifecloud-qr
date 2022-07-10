@@ -115,7 +115,9 @@ export const UserAndprofiles = () => {
                     alt=""
                     src={
                       user.mainProfilePicture
-                        ? `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
+                        ? user.mainProfilePicture?.startsWith('http')
+                          ? user.mainProfilePicture
+                          : `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
                         : user.profilePicture
                         ? user.profilePicture
                         : userIcon
