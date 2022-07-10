@@ -946,6 +946,7 @@ export default function ProfileEdit() {
 
                       <input
                         className="custom-file-grave"
+                        id="margin_btn_add_grave"
                         type="file"
                         onChange={onChangeGrave}
                         name="coverImg"
