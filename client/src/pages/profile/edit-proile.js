@@ -955,13 +955,24 @@ export default function ProfileEdit() {
                           alt=""
                         />
                       </LazyLoad>
-
+                      <label
+                        for="margin_btn_add_grave"
+                        style={{
+                          textAlign: 'center',
+                          fontSize: '20px',
+                          marginTop: '15px',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        הוסף תמונה של הקבר +
+                      </label>
                       <input
                         className="custom-file-grave"
+                        id="margin_btn_add_grave"
                         type="file"
                         onChange={onChangeGrave}
                         name="coverImg"
-                        style={{ marginRight: '38%' }}
+                        style={{ marginRight: '38%', visibility: 'hidden' }}
                       />
                     </div>
                   </div>
