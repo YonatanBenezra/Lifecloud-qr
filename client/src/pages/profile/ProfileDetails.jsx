@@ -77,7 +77,7 @@ export default function Profile() {
 
   useEffect(() => {
     (async () => {
-      const dateArr = hebMemorialDate?.split(' ');
+      const dateArr = profiledata?.hebDeathDate?.split(' ');
       const firstParameter = gregorianToHebDay(dateArr?.[0]);
       const secondParameter = gregorianToHebMonth(dateArr?.[1]?.slice(1));
 
@@ -89,7 +89,7 @@ export default function Profile() {
       const date = await response.json();
       setGregorianMemorialDate(`${date.gm}-${date.gd}-${date.gy}`);
     })();
-  }, [hebMemorialDate]);
+  }, [profiledata?.hebDeathDate]);
   const sendNotification = useCallback(
     (notificationType) => {
       if (profiledata?.originalUser?.[0]?._id === user?._id) {
