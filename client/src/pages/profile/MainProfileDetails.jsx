@@ -371,7 +371,11 @@ export default function MainProfile(props) {
                             <LazyLoad>
                               <img
                                 className="profile-image"
-                                src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                                src={
+                                  userProfiles?.profileImg?.startsWith?.('http')
+                                    ? userProfiles.profileImg
+                                    : `${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`
+                                }
                                 alt=""
                               />
                             </LazyLoad>
