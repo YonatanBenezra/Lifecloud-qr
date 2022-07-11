@@ -1,0 +1,140 @@
+.payment-form-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.payment-form-input {
+  text-align: center;
+  border-bottom-color: #6097bf !important;
+  margin-bottom: 10px !important;
+  border-radius: 5% !important;
+}
+
+.pay-btn {
+  border-color: transparent;
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 10%;
+  color: #6097bf;
+  border: 1px solid #6097bf;
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media only screen and (max-width:742px) {
+  .payment-form-input {
+    height: 20px !important;
+    font-size: 12px !important;
+    padding-left: 10px !important;
+    width: 35% !important;
+  }
+
+  .rccs__card--front {
+    height: 80% !important;
+    width: 80% !important;
+  }
+
+  .rccs__name {
+    font-size: 10px !important;
+  }
+
+  .rccs__number {
+    font-size: 10px !important;
+  }
+
+  .rccs__expiry__value {
+    font-size: 10px !important;
+  }
+
+  .rccs__card--front,
+  .rccs__card--back {
+    left: initial !important;
+    position: initial !important;
+    top: initial !important;
+    margin: 0 auto !important;
+  }
+}
+
+@media only screen and (max-width:590px) {
+  .payment-form-container {
+    flex-direction: column;
+  }
+
+  .payment-form-input {
+    height: 15px !important;
+    font-size: 16px !important;
+    margin-left: 30px !important;
+    width: 70% !important;
+  }
+
+  .rccs__card--front {
+    height: 80% !important;
+    width: 60% !important;
+  }
+
+  .rccs__card {
+    width: 100% !important;
+  }
+
+  .rccs {
+    width: 240px !important;
+  }
+
+}
+
+@media only screen and (max-width:480px) {
+  .payment-form-input {
+    height: 10px !important;
+    font-size: 12px !important;
+    margin-left: 5px !important;
+    width: 60% !important;
+  }
+
+  .rccs__card--front {
+    height: 80% !important;
+    width: 60% !important;
+  }
+
+  .rccs__card {
+    margin-right: 50px !important;
+    width: 83% !important;
+  }
+
+  .rccs {
+    width: 240px !important;
+  }
+
+  .rccs__name {
+    font-size: 7px !important;
+  }
+
+  .rccs__number {
+    font-size: 7px !important;
+  }
+
+  .rccs__expiry__value {
+    font-size: 7px !important;
+  }
+
+}
+
+@media only screen and (max-width:480px) {
+  .payment-form-input {
+    height: 10px !important;
+    font-size: 8px !important;
+    margin-left: 5px !important;
+    width: 50% !important;
+  }
+
+  .rccs__card--front {
+    width: 55% !important
+  }
+
+  .rccs__card {
+    width: 80% !important
+  }
+
+}
