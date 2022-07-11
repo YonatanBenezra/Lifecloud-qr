@@ -125,7 +125,6 @@ const HomeDesktop = (props) => {
           <h2 style={{ color: '#ABC9DB', fontSize: '30px', marginTop: '1rem' }}>
             MOMENTS. COMMUNITY. LEGACY
           </h2>
-          <MethodsPayment isOpen={true} />
         </div>
         <div className="text-section-container-desktop-home">
           <div className="top-image-container-desktop-home">
