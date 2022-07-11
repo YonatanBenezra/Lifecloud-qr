@@ -367,7 +367,7 @@ export default function ProfileEdit() {
             <div className="modal-body text-center">
               <div className="row g-4">
                 {profiledata.gallery?.map((img, i) => (
-                  <div class="col-lg-4 col-sm-6" key={i}>
+                  <div className="col-lg-4 col-sm-6" key={i}>
                     <button
                       type="button"
                       className="btn-close position-absolute"
@@ -389,7 +389,7 @@ export default function ProfileEdit() {
                 {multiFiles.map((file, i) => {
                   if (!file?.imagePreview) return null;
                   return (
-                    <div class="col-lg-4 col-sm-6" key={i}>
+                    <div className="col-lg-4 col-sm-6" key={i}>
                       <button
                         type="button"
                         className="btn-close position-absolute"

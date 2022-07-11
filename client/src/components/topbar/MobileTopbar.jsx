@@ -60,7 +60,7 @@ const MobileTopbar = (props) => {
             <div className="srchIco">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-search"
+                className="icon icon-tabler icon-tabler-search"
                 width="20"
                 height="20"
                 viewBox="0 0 24 24"
@@ -81,7 +81,7 @@ const MobileTopbar = (props) => {
             <h1 className="">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-menu-2"
+                className="icon icon-tabler icon-tabler-menu-2"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -254,7 +254,7 @@ const MobileTopbar = (props) => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="font-bold"
+                  className="font-bold"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"

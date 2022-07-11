@@ -18,7 +18,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import FullWidthVideo from '../../components/fullWidthVideo/FullWidthVideo';
 import LazyLoad from 'react-lazyload';
-import { MethodsPayment } from '../../components/methodsPayment/methodsPayment';
+
 const HomeDesktop = (props) => {
   const user = props.user;
   const testimonialSettings = props.testimonialSettings;
