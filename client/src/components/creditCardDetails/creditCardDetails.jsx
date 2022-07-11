@@ -3,7 +3,7 @@ import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/es/styles-compiled.css';
 import './credit-card-details.css';
 
-export const CreditCardDetails = () => {
+export const CreditCardDetails = ({ setIsOpen, setIsPaid, setIsNext }) => {
   const [creditCard, setCreditCard] = useState({
     cvc: '',
     expiry: '',
@@ -23,6 +23,10 @@ export const CreditCardDetails = () => {
     const { name, value } = e.target;
     console.log(name, value);
     setCreditCard({ ...creditCard, [name]: value });
+  };
+  const onClickPay = () => {
+    setIsOpen(false);
+    setIsNext(false);
   };
 
   return (
@@ -68,7 +72,19 @@ export const CreditCardDetails = () => {
           onFocus={(event) => handleInputFocus(event)}
         />
       </form>
-      <button className="pay-btn">תשלום</button>
+      <div className="pay-btn-container">
+        <button
+          type="submit"
+          className="pay-btn"
+          onClick={() => {
+            onClickPay();
+            setIsPaid(true);
+            setIsNext(false);
+          }}
+        >
+          תשלום
+        </button>
+      </div>
     </div>
   );
 };

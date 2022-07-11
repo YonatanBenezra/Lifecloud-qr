@@ -17,10 +17,11 @@ import SocialFooter from '../../components/socialFooter/socialFooter';
 import graveLocationImg from '../../assets/מיקום-הקבר.jpg';
 import LifeAxisImg from '../../assets/ציר-חיים.jpg';
 import LazyLoad from 'react-lazyload';
+import { MethodsPayment } from '../../components/methodsPayment/methodsPayment';
 export default function ProfileCreate() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
-  const [qr, setQr] = useState(false);
+  const [qr, setQr] = useState(null);
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
   const [open, setOpen] = useState(false);
@@ -273,11 +274,13 @@ export default function ProfileCreate() {
         formdata.append('axisImages', axisImages[i]);
       }
 
-      if (qr) formdata.append('email', user.email);
-      else
-        window.location.assign(
-          `https://direct.tranzila.com/icloud/iframenew.php?sum=${100}`
-        );
+      if (qr) {
+        formdata.append('email', user.email);
+      } else {
+        // window.location.assign(
+        //   `https://direct.tranzila.com/icloud/iframenew.php?sum=${100}`
+        // );
+      }
 
       fetch(`${process.env.REACT_APP_API_URL}/api/profile/createProfile`, {
         method: 'POST',
@@ -990,7 +993,7 @@ export default function ProfileCreate() {
                         <button
                           onClick={() => setQr(true)}
                           className="logout-btn mt-0"
-                          type="submit"
+                          type="button"
                           data-bs-dismiss="modal"
                           aria-label="Close"
                         >
@@ -999,7 +1002,7 @@ export default function ProfileCreate() {
                         <button
                           onClick={() => setQr(false)}
                           className="logout-btn mt-0"
-                          type="submit"
+                          type="button"
                           data-bs-dismiss="modal"
                           aria-label="Close"
                         >
@@ -1009,6 +1012,7 @@ export default function ProfileCreate() {
                     </div>
                   </div>
                 </div>
+                {qr === false && <MethodsPayment isOpen={true} />}
               </form>
             </div>
           </div>
