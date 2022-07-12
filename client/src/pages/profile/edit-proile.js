@@ -125,6 +125,7 @@ export default function ProfileEdit() {
     setProfileData(res.data);
     setAxisImagesNames(res.data.axisImages);
     setMultiFiles(res.data.gallery);
+    setInputList(JSON.parse(res.data.lifeAxis));
   };
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
@@ -788,7 +789,7 @@ export default function ProfileEdit() {
                     {inputList?.map((x, i) => {
                       return (
                         <div className="box" key={i}>
-                          {inputList.length !== 1 && (
+                          {x && Object.keys(x).length > 0 && (
                             <div
                               className="middle-axis-btn"
                               onClick={() => addSingleDiv(i)}
