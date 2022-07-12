@@ -101,12 +101,12 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
       console.log(error);
     }
   };
-  useEffect(() => {
+  /* useEffect(() => {
     const myTimeout = setTimeout(() => {
       candleRef?.current?.click();
     }, 30000);
     return () => clearTimeout(myTimeout);
-  }, []);
+  }, []); */
   return (
     <React.Fragment>
       <div
