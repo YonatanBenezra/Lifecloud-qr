@@ -27,6 +27,7 @@ const UserSchema = new mongoose.Schema(
         id: Number,
         date: Date,
         userPicture: String,
+        username: String,
       },
       { timestamps: true },
     ],

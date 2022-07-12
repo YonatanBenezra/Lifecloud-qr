@@ -27,7 +27,6 @@ import ReactPlayer from 'react-player';
 // ${process.env.REACT_APP_API_URL}/api/memory/getSingleMemory/:id
 const Memory = () => {
   const { user } = useContext(AuthContext);
-
   const [profile, setProfile] = useState({});
   const [memory, setMemory] = useState({});
   const [likeMessage, setLikeMessage] = useState('');
@@ -37,7 +36,7 @@ const Memory = () => {
   const [commenting, setCommenting] = useState(false);
   const [comment, setComment] = useState();
   const [text, setText] = useState({
-    comments: [{ text: '', userPicture: '' }],
+    comments: [{ text: '', userPicture: '', userName: '' }],
   });
 
   const { profileId, memoryId } = useParams();
@@ -126,6 +125,7 @@ const Memory = () => {
             : user.profilePicture
             ? user.profilePicture
             : 'avatar.png',
+          username: user.firstName + ' ' + user.lastName,
         },
       ],
     });
@@ -184,7 +184,6 @@ const Memory = () => {
       });
   };
   const location = useLocation();
-  console.log(memory?.comments);
   return (
     <div className="memory-page">
       <div className="single-memory-content-container">
@@ -205,7 +204,9 @@ const Memory = () => {
                 <img
                   src={
                     memory?.file
-                      ? `${process.env.REACT_APP_API_URL}/${memory?.file}`
+                      ? memory?.file?.startsWith?.('http')
+                        ? memory?.file
+                        : `${process.env.REACT_APP_API_URL}/${memory?.file}`
                       : `${tempMemoryImg}`
                   }
                   alt=""
@@ -230,7 +231,11 @@ const Memory = () => {
                 //   Your browser does not support the video tag.
                 // </video>
                 <ReactPlayer
-                  url={`${process.env.REACT_APP_API_URL}/${memory?.memoryVideo}`}
+                  url={
+                    memory?.memoryVideo.startsWith('http')
+                      ? memory?.memoryVideo
+                      : `${process.env.REACT_APP_API_URL}/${memory?.memoryVideo}`
+                  }
                   width="60vw"
                   height="60vh"
                   controls
@@ -300,7 +305,7 @@ const Memory = () => {
                       <img src={userPic} alt="" className="comment-img" />
                     </LazyLoad>
                     <p>{moment(comment.date).utc().format('DD-MM-YYYY')}</p>|
-                    <p>{`${memory.firstName} ${memory.lastName}`}</p>|
+                    <p>{`${comment.username ? comment.username : ''}`}</p>|
                     {/* <p>{comment.uploaderName}:</p> */}
                     <p className="comment-text">{comment.text}</p>
                   </span>
