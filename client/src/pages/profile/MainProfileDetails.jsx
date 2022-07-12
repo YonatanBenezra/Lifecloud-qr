@@ -250,7 +250,11 @@ export default function MainProfile(props) {
         <div className="profile-details-first">
           <LazyLoad>
             <img
-              src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
+              src={
+                profiledata.profileImg.startsWith('http')
+                  ? profiledata.profileImg
+                  : `${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`
+              }
               alt=""
               className="profile-img"
             />
@@ -262,7 +266,10 @@ export default function MainProfile(props) {
         </div>
         <div className="btns-container">
           <div className="d-flex">
-            {profiledata.originalUser[0]._id === loggedUser._id && (
+            {(profiledata.originalUser[0]._id === loggedUser._id ||
+              profiledata.addAdmins.find(
+                (admins) => admins.user[0]?._id === user?._id
+              )) && (
               <Link to={`/editprofiles/${id}`} className="profile-small-btn">
                 <span>ערוך פרופיל</span>
               </Link>

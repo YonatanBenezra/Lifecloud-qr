@@ -89,9 +89,7 @@ const PostSchema = new mongoose.Schema(
     lifeAxis: {
       type: String,
     },
-    privacy: {
-      type: String,
-    },
+
     degree: {
       type: String,
     },
@@ -100,6 +98,10 @@ const PostSchema = new mongoose.Schema(
     },
     isMain: {
       type: Boolean,
+    },
+    organizationProfile: {
+      type: Boolean,
+      default: false,
     },
     objectYPos: {
       type: Number,
@@ -110,7 +112,7 @@ const PostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-PostSchema.index({profileImg: 1, wallImg: 1,axisImages: 1,graveImg: 1})
+PostSchema.index({ profileImg: 1, wallImg: 1, axisImages: 1, graveImg: 1 });
 const profileModel = mongoose.model('Profile', PostSchema);
 
 module.exports = { profileModel };

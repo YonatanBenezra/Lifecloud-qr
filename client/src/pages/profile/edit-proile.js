@@ -196,17 +196,17 @@ export default function ProfileEdit() {
         hebDeathDate: profiledata.hebDeathDate,
         gallery: profiledata.gallery,
         lifeAxis:
-          Object.keys(profiledata)?.length &&
-          profiledata.lifeAxis !== 'undefined' &&
-          isObject(profiledata.lifeAxis)
-            ? JSON.parse(profiledata.lifeAxis)
+          Object.keys(profiledata)?.length && profiledata.lifeAxis !== undefined
+            ? //  &&
+              // isObject(profiledata.lifeAxis)
+              JSON.parse(profiledata.lifeAxis)
             : inputList,
       });
       setInputList(
-        Object.keys(profiledata)?.length &&
-          profiledata.lifeAxis !== 'undefined' &&
-          isObject(profiledata.lifeAxis)
-          ? JSON.parse(profiledata.lifeAxis)
+        Object.keys(profiledata)?.length && profiledata.lifeAxis !== undefined
+          ? // &&
+            // isObject(profiledata.lifeAxis)
+            JSON.parse(profiledata.lifeAxis)
           : [{ axisTitle: '', axisDate: '', axisDescription: '' }]
       );
     }
@@ -474,14 +474,26 @@ export default function ProfileEdit() {
                         ? coverData
                         : wallInformation.wallImg?.startsWith?.('http')
                         ? wallInformation.wallImg
-                        : `${process.env.REACT_APP_API_URL}/lol/${wallInformation.wallImg}`
+                        : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
                     }
                     alt=""
                   />
                 </LazyLoad>
-
-                {(!profiledata.isMain ||
-                  profiledata?.originalUser?.[0]?._id === user?._id) && (
+                {/* {!profiledata.isMain &&
+                  profiledata.organizationProfile &&
+                  profiledata?.originalUser?.[0]?._id === user?._id && (
+                    <input
+                      className="custom-file-input-cover"
+                      type="file"
+                      onChange={onChangeCover}
+                      name="coverImg"
+                    />
+                  )} */}
+                {((!profiledata.organizationProfile && !profiledata.isMain) ||
+                  (profiledata.isMain &&
+                    profiledata?.originalUser?.[0]?._id === user?._id) ||
+                  (profiledata.organizationProfile &&
+                    profiledata?.originalUser?.[0]?._id === user?._id)) && (
                   <input
                     className="custom-file-input-cover"
                     type="file"
