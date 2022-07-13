@@ -780,9 +780,8 @@ export default function ProfileEdit() {
                       name="description"
                       onChange={handleChangeValue}
                       className="profile-creation-description"
-                    >
-                      {profiledata.description}
-                    </textarea>
+                      value={wallInformation.description}
+                    ></textarea>
                   </div>
                   <div>
                     <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
@@ -824,7 +823,11 @@ export default function ProfileEdit() {
                               onChange={(e) => handleInputChange(e, i)}
                               className="axis-description"
                             />
-                            <label className="file-label">
+                            <label
+                              className={`file-label ${
+                                x.axisImage && 'bg-success'
+                              }`}
+                            >
                               הוסף תמונה
                               <input
                                 type="file"
