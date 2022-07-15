@@ -116,6 +116,7 @@ ProfileRouter.post(
           QR: qrUrl,
           'Creation Date': new Date().toLocaleDateString(),
           'Death Date': resp.deathDate,
+          'Physical QR': req.body.email ? 0 : 1,
         });
         if (!req.body.email) {
           return;
