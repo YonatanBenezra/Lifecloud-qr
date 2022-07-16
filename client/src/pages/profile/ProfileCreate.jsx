@@ -1079,40 +1079,41 @@ export default function ProfileCreate() {
                           ></button>
                         </div>
 
-                      <div className="modal-footer">
-                        <button
-                          onClick={() => setQr(true)}
-                          className="logout-btn mt-0"
-                          type="button"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        >
-                          למייל QR לקבלת
-                        </button>
-                        <button
-                          onClick={() => setQr(false)}
-                          className="logout-btn mt-0"
-                          type="button"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        >
-                          לרכישת QR ייחודי
-                        </button>
+                        <div className="modal-footer">
+                          <button
+                            onClick={() => setQr(true)}
+                            className="logout-btn mt-0"
+                            type="button"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          >
+                            למייל QR לקבלת
+                          </button>
+                          <button
+                            onClick={() => setQr(false)}
+                            className="logout-btn mt-0"
+                            type="button"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          >
+                            לרכישת QR ייחודי
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                {qr === false && (
-                  <MethodsPayment
-                    isOpen={true}
-                    setIsPaid={setIsPaid}
-                    dataForPay={{ userId: user._id }}
-                  />
-                )}
-              </form>
+                  {qr === false && (
+                    <MethodsPayment
+                      isOpen={true}
+                      setIsPaid={setIsPaid}
+                      dataForPay={{ userId: user._id }}
+                    />
+                  )}
+                </form>
+              </div>
             </div>
+            <SnackBar open={open} handleClose={handleClose} message={message} />
           </div>
-          <SnackBar open={open} handleClose={handleClose} message={message} />
         </div>
       </div>
     </React.Fragment>
