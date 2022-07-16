@@ -32,7 +32,7 @@ export const MethodsPayment = (props) => {
   const setStyleByIsOpen = (open) => {
     if (open) {
       setIsOpen(true);
-      setStyle({ 'z-index': 9999999 });
+      setStyle({ zIndex: 9999999 });
     } else {
       setIsOpen(false);
       setStyle({
