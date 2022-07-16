@@ -40,6 +40,7 @@ export default function ProfileCreate() {
   const [loading, setLoading] = useState(false);
   const [showFacebookInput, setShowFacebookInput] = useState(false);
   const [showInstagramInput, setShowInstagramInput] = useState(false);
+  const [isPaid, setIsPaid] = useState(null);
   const facebookUrlRef = useRef(null);
   const instagramUrlRef = useRef(null);
 
@@ -192,11 +193,17 @@ export default function ProfileCreate() {
       { axisTitle: '', axisDate: '', axisDescription: '' },
     ]);
   };
+  useEffect(() => {
+    if (isPaid === true || isPaid == false) {
+      handleClick();
+    }
+  }, isPaid);
 
   const handleClick = async (e) => {
     setLoading(true);
-
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
 
     if (
       facebookUrlRef.current?.value &&
@@ -1012,7 +1019,13 @@ export default function ProfileCreate() {
                     </div>
                   </div>
                 </div>
-                {qr === false && <MethodsPayment isOpen={true} />}
+                {qr === false && (
+                  <MethodsPayment
+                    isOpen={true}
+                    setIsPaid={setIsPaid}
+                    dataForPay={{ userId: user._id }}
+                  />
+                )}
               </form>
             </div>
           </div>

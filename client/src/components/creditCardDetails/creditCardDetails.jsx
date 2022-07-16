@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/es/styles-compiled.css';
+import { postPay, postPayQr } from '../../apiCalls';
 import './credit-card-details.css';
 
-export const CreditCardDetails = ({ setIsOpen, setIsPaid, setIsNext }) => {
+export const CreditCardDetails = ({
+  setIsOpen,
+  setIsPaid,
+  setIsNext,
+  dataForPay,
+}) => {
   const [creditCard, setCreditCard] = useState({
     cvc: '',
     expiry: '',
     focus: '',
     name: '',
     number: '',
+    myid: '',
   });
-
+  const [errorPayment, setErrorPayment] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const handleInputFocus = (e) => {
     console.log(e);
     if (e.target) {
@@ -24,9 +32,34 @@ export const CreditCardDetails = ({ setIsOpen, setIsPaid, setIsNext }) => {
     console.log(name, value);
     setCreditCard({ ...creditCard, [name]: value });
   };
-  const onClickPay = () => {
-    setIsOpen(false);
-    setIsNext(false);
+  const onClickPay = async () => {
+    try {
+      let res = null;
+      if (dataForPay.userId) {
+        res = await postPayQr({ ...dataForPay, creditCard }).catch((err) =>
+          setErrorMessage(err)
+        );
+      } else {
+        res = await postPay({ ...dataForPay, creditCard }).catch((err) =>
+          setErrorMessage(err)
+        );
+      }
+      if (res) {
+        setIsOpen(false);
+        if (setIsNext) {
+          setIsNext(false);
+        }
+        if (res === true) {
+          setIsPaid(true);
+        } else {
+          setIsPaid(false);
+          setErrorMessage(res);
+          setErrorPayment(true);
+        }
+      }
+    } catch (error) {
+      setErrorMessage(error);
+    }
   };
 
   return (
@@ -71,20 +104,21 @@ export const CreditCardDetails = ({ setIsOpen, setIsPaid, setIsNext }) => {
           onChange={(event) => handleInputChange(event)}
           onFocus={(event) => handleInputFocus(event)}
         />
+        <input
+          className="nameInput payment-form-input"
+          type="number"
+          name="myid"
+          placeholder="תעודת זהות"
+          onChange={(event) => handleInputChange(event)}
+          onFocus={(event) => handleInputFocus(event)}
+        />
       </form>
       <div className="pay-btn-container">
-        <button
-          type="submit"
-          className="pay-btn"
-          onClick={() => {
-            onClickPay();
-            setIsPaid(true);
-            setIsNext(false);
-          }}
-        >
+        <button type="button" className="pay-btn" onClick={() => onClickPay()}>
           תשלום
         </button>
       </div>
+      {errorMessage.length > 0 && <div>Error Payment: {errorMessage}</div>}
     </div>
   );
 };

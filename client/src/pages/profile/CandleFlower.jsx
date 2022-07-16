@@ -271,6 +271,12 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
                       setIsPaid={setIsPaid}
                       isOpen={true}
                       setIsNext={setIsNext}
+                      dataForPay={{
+                        flower: candleFlowerState.flower,
+                        candle: candleFlowerState.candle,
+                        profile: profileId,
+                        user: userId,
+                      }}
                     />
                   )}
                 </form>

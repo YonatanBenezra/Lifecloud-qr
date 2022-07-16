@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { CreditCardDetails } from '../creditCardDetails/creditCardDetails';
 
 export const MethodsPayment = (props) => {
-  const { setIsPaid, setIsNext } = props;
+  const { setIsPaid, setIsNext, dataForPay } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [isCreditCard, setIsCreditCard] = useState(false);
   const [style, setStyle] = useState({
@@ -111,7 +111,12 @@ export const MethodsPayment = (props) => {
             >
               x
             </button>
-            <CreditCardDetails setIsOpen={setIsOpen} setIsPaid={setIsPaid} setIsNext={setIsNext} />
+            <CreditCardDetails
+              setIsOpen={setIsOpen}
+              setIsPaid={setIsPaid}
+              setIsNext={setIsNext}
+              dataForPay={dataForPay}
+            />
             <h6
               onClick={() => backFromCreditCard()}
               style={{ marginTop: '15px' }}
