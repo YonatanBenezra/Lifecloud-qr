@@ -8,6 +8,7 @@ const { MemoryRouter } = require('./Routes/memory');
 const { UserRouter } = require('./Routes/users');
 const { AuthRouter } = require('./Routes/auth');
 const { PostRouter } = require('./Routes/posts');
+const { PaymentRouter } = require('./Routes/payment');
 const { NotificationsRouter } = require('./Routes/notifications');
 const { ProfileRouter } = require('./Routes/profile');
 const { CandleFlowerRouter } = require('./Routes/candleFlower');
@@ -79,6 +80,7 @@ app.use('/api/auth', AuthRouter);
 app.use('/api/posts', PostRouter);
 app.use('/api/profile', ProfileRouter);
 app.use('/api/candleFlower', CandleFlowerRouter);
+app.use('/api/payment', PaymentRouter);
 
 //Error handling middleware
 app.use((err, req, res, next) => {
