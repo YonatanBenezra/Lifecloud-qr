@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useRef, useState, useContext, useEffect } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import facebook from '../../assets/facebook.png';
 import instagram from '../../assets/instagram.png';
 import { useHistory, Prompt } from 'react-router';
@@ -274,6 +274,10 @@ export default function ProfileCreate() {
       formdata.append('instagramUrl', wallInformation.instagramUrl);
       formdata.append('lifeAxis', JSON.stringify(wallInformation.lifeAxis));
       formdata.append('isMain', false);
+      formdata.append(
+        'organizationProfile',
+        user?.user_type === 'organisation'
+      );
       for (let i = 0; i < multiFiles.length; i++) {
         formdata.append('multiplefiles', multiFiles[i]);
       }
@@ -366,23 +370,80 @@ export default function ProfileCreate() {
     // event.target.closest('label').style.backgroundColor = '#5ca08e';
     // event.target.closest('label').textContent = 'תמונה הועלתה';
   };
-
+  const removeGalleryCur = (index) => {
+    setMultiFiles(multiFiles.filter((file, i) => i !== index));
+  };
   return (
-    <div className="profile-creation-container overflow-hidden">
-      <Topbar />
-      <Prompt
-        when={loading}
-        message="You have unsaved changes, are you sure you want to leave?"
-      />
-      <div className="profile-creation regular_profile_creation">
-        <div className="">
-          <div className="loginLeft" style={{ marginBottom: '3rem' }}>
-            <h3 className="profile-creation-title">צור פרופיל</h3>
-            {/* <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div> */}
+    <React.Fragment>
+      <div
+        className="modal fade qr-modal"
+        id="editGalleryImage"
+        tabIndex="-1"
+        aria-labelledby="editGalleryImageLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="editGalleryImageLabel">
+                ערוך תמונות גלריה
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div className="modal-body text-center">
+              <div className="row g-4">
+                {multiFiles.map((file, i) => {
+                  if (!file?.imagePreview) return null;
+                  return (
+                    <div class="col-lg-4 col-sm-6" key={i}>
+                      <button
+                        type="button"
+                        className="btn-close position-absolute"
+                        onClick={() => removeGalleryCur(i)}
+                      ></button>
+                      <img
+                        src={file.imagePreview}
+                        alt="gallery"
+                        style={{ height: '120px', width: '100%' }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
           </div>
-          <div className="profile-images">
-            {/* <div className="register_profile_image"></div> */}
-            {/* <div className="profile-image-container">
+        </div>
+      </div>
+      <div className="profile-creation-container overflow-hidden">
+        <Topbar />
+        <Prompt
+          when={loading}
+          message="You have unsaved changes, are you sure you want to leave?"
+        />
+        <div className="profile-creation regular_profile_creation">
+          <div className="">
+            <div className="loginLeft" style={{ marginBottom: '3rem' }}>
+              <h3 className="profile-creation-title">צור פרופיל</h3>
+              {/* <div className="profile-example-btn">לחץ לפרופיל לדוגמה</div> */}
+            </div>
+            <div className="profile-images">
+              {/* <div className="register_profile_image"></div> */}
+              {/* <div className="profile-image-container">
               <img
                 className="profile-image"
                 src={
@@ -392,102 +453,102 @@ export default function ProfileCreate() {
                 alt=""
               />
             </div> */}
-            <div className="profile-image-container">
-              <LazyLoad>
-                <img
-                  className="profile-image"
-                  src={
-                    imgData
-                      ? imgData
-                      : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                  }
-                  alt=""
+              <div className="profile-image-container">
+                <LazyLoad>
+                  <img
+                    className="profile-image"
+                    src={
+                      imgData
+                        ? imgData
+                        : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                    }
+                    alt=""
+                  />
+                </LazyLoad>
+
+                <input
+                  className="custom-file-input"
+                  type="file"
+                  name="profileImg"
+                  onChange={onChangePicture}
                 />
-              </LazyLoad>
+              </div>
+              <div className="profile-image-container">
+                <LazyLoad>
+                  <img
+                    className="profile-image"
+                    src={
+                      coverData
+                        ? coverData
+                        : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                    }
+                    alt=""
+                  />
+                </LazyLoad>
 
-              <input
-                className="custom-file-input"
-                type="file"
-                name="profileImg"
-                onChange={onChangePicture}
-              />
-            </div>
-            <div className="profile-image-container">
-              <LazyLoad>
-                <img
-                  className="profile-image"
-                  src={
-                    coverData
-                      ? coverData
-                      : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                  }
-                  alt=""
+                <input
+                  className="custom-file-input-cover"
+                  type="file"
+                  onChange={onChangeCover}
+                  name="coverImg"
                 />
-              </LazyLoad>
-
-              <input
-                className="custom-file-input-cover"
-                type="file"
-                onChange={onChangeCover}
-                name="coverImg"
-              />
+              </div>
             </div>
-          </div>
-          <div className="loginRight">
-            <div className="RegBox">
-              <form className="profile-creation-box" onSubmit={handleClick}>
-                <div
-                  className="profile-creation-names-container"
-                  style={{ marginBottom: '3rem' }}
-                >
-                  <input
-                    placeholder="* שם פרטי"
-                    ref={firstName}
-                    required
-                    className="nameInput"
-                  />
-                  <input
-                    placeholder="* שם משפחה"
-                    ref={lastName}
-                    required
-                    className="nameInput"
-                  />
-                </div>
-                <div className="birth-date-container">
-                  <h1>תאריך לידה</h1>
-                  <h1>תאריך פטירה</h1>
-                </div>
-                <div className="profile-creation-names-container">
-                  <input
-                    placeholder="* לועזי"
-                    pattern="\d{4}-\d{2}-\d{2}"
-                    ref={birthDate}
-                    className="nameInput"
-                    type="date"
-                    onBlur={handleBirthDateBlur}
-                  />
-                  <input
-                    placeholder="* לועזי"
-                    type="date"
-                    ref={deathDate}
-                    className="nameInput"
-                    /* onBlur={handleDeathDateBlur} */
-                  />
-                </div>
+            <div className="loginRight">
+              <div className="RegBox">
+                <form className="profile-creation-box" onSubmit={handleClick}>
+                  <div
+                    className="profile-creation-names-container"
+                    style={{ marginBottom: '3rem' }}
+                  >
+                    <input
+                      placeholder="* שם פרטי"
+                      ref={firstName}
+                      required
+                      className="nameInput"
+                    />
+                    <input
+                      placeholder="* שם משפחה"
+                      ref={lastName}
+                      required
+                      className="nameInput"
+                    />
+                  </div>
+                  <div className="birth-date-container">
+                    <h1>תאריך לידה</h1>
+                    <h1>תאריך פטירה</h1>
+                  </div>
+                  <div className="profile-creation-names-container">
+                    <input
+                      placeholder="* לועזי"
+                      pattern="\d{4}-\d{2}-\d{2}"
+                      ref={birthDate}
+                      className="nameInput"
+                      type="date"
+                      onBlur={handleBirthDateBlur}
+                    />
+                    <input
+                      placeholder="* לועזי"
+                      type="date"
+                      ref={deathDate}
+                      className="nameInput"
+                      /* onBlur={handleDeathDateBlur} */
+                    />
+                  </div>
 
-                <div
-                  className="profile-creation-names-container"
-                  style={{ marginTop: '2rem' }}
-                >
-                  <input
-                    placeholder="עברי"
-                    type="text"
-                    value={hebDeathDate}
-                    onChange={(e) => sethebDeathDate(e.target.value)}
-                    className="nameInput"
-                  />
-                </div>
-                {/* <div className="profile-creation-names-container">
+                  <div
+                    className="profile-creation-names-container"
+                    style={{ marginTop: '2rem' }}
+                  >
+                    <input
+                      placeholder="עברי"
+                      type="text"
+                      value={hebDeathDate}
+                      onChange={(e) => sethebDeathDate(e.target.value)}
+                      className="nameInput"
+                    />
+                  </div>
+                  {/* <div className="profile-creation-names-container">
                   <input
                     placeholder="עברי"
                     type="text"
@@ -505,496 +566,518 @@ export default function ProfileCreate() {
                     className="nameInput"
                   />
                 </div> */}
-                <div
-                  className="profile-creation-names-container"
-                  style={{ marginTop: '2rem' }}
-                >
-                  <input
-                    placeholder="עיר"
-                    ref={city}
-                    className="nameInput"
-                    type="text"
-                  />
-                  <input
-                    placeholder="תואר (דוקטור, חתן פרס נובל...)"
-                    type="text"
-                    ref={degree}
-                    className="nameInput"
-                  />
-                </div>
-                <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>מין *</h3>
                   <div
-                    className={`${
-                      selectedGender === 'male' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedGender('male')}
+                    className="profile-creation-names-container"
+                    style={{ marginTop: '2rem' }}
                   >
                     <input
-                      type="radio"
-                      value="male"
-                      id="male"
-                      onChange={handleChange}
-                      name="gender"
-                      checked={user.gender === 'male'}
-                      className="radio"
+                      placeholder="עיר"
+                      ref={city}
+                      className="nameInput"
+                      type="text"
                     />
-                    <label htmlFor="male">ז</label>
-                  </div>
-                  <div
-                    className={`${
-                      selectedGender === 'female' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedGender('female')}
-                  >
                     <input
-                      type="radio"
-                      value="female"
-                      id="female"
-                      onChange={handleChange}
-                      checked={user.gender === 'female'}
-                      name="gender"
-                      className="radio"
+                      placeholder="תואר (דוקטור, חתן פרס נובל...)"
+                      type="text"
+                      ref={degree}
+                      className="nameInput"
                     />
-                    <label htmlFor="female">נ</label>
                   </div>
-                  <div
-                    className={`${
-                      selectedGender === 'other' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedGender('other')}
-                  >
-                    <input
-                      type="radio"
-                      value="other"
-                      id="other"
-                      onChange={handleChange}
-                      checked={user.gender === 'other'}
-                      name="gender"
-                      className="radio"
-                    />
-                    <label htmlFor="other">אחר</label>
-                  </div>
-                </div>
-                <div
-                  className="location-container"
-                  style={{ marginTop: '70px', marginBottom: '70px' }}
-                >
-                  <h1>העלאת מדיה</h1>
-                  <div>
+                  <div className="radio-container-register">
+                    <h3 style={{ color: '#6097BF' }}>מין *</h3>
                     <div
-                      className="profile-creation-names-container"
-                      style={{ flexDirection: 'column' }}
+                      className={`${
+                        selectedGender === 'male' && 'register-active'
+                      } radio-input-container-register`}
+                      onClick={() => setSelectedGender('male')}
                     >
-                      <div className="form-group multi-preview"></div>
-                      <div className="media-upload-button-container">
-                        <input
-                          id="profilePic"
-                          type="file"
-                          name="multiplefiles"
-                          multiple
-                          onChange={onChangeMultiplePicture}
-                          className="media-upload-button with-text"
-                        />
-                      </div>
-                      <div className="d-flex flex-wrap justify-content-center">
-                        <LazyLoad>
-                          <img
-                            className="profile-creation-gallery-img mb-3"
-                            src={
-                              multiFiles && multiFiles.length > 0
-                                ? multiFiles[0].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                            }
-                            alt=""
+                      <input
+                        type="radio"
+                        value="male"
+                        id="male"
+                        onChange={handleChange}
+                        name="gender"
+                        checked={user.gender === 'male'}
+                        className="radio"
+                      />
+                      <label htmlFor="male">ז</label>
+                    </div>
+                    <div
+                      className={`${
+                        selectedGender === 'female' && 'register-active'
+                      } radio-input-container-register`}
+                      onClick={() => setSelectedGender('female')}
+                    >
+                      <input
+                        type="radio"
+                        value="female"
+                        id="female"
+                        onChange={handleChange}
+                        checked={user.gender === 'female'}
+                        name="gender"
+                        className="radio"
+                      />
+                      <label htmlFor="female">נ</label>
+                    </div>
+                    <div
+                      className={`${
+                        selectedGender === 'other' && 'register-active'
+                      } radio-input-container-register`}
+                      onClick={() => setSelectedGender('other')}
+                    >
+                      <input
+                        type="radio"
+                        value="other"
+                        id="other"
+                        onChange={handleChange}
+                        checked={user.gender === 'other'}
+                        name="gender"
+                        className="radio"
+                      />
+                      <label htmlFor="other">אחר</label>
+                    </div>
+                  </div>
+                  <div
+                    className="location-container"
+                    style={{ marginTop: '70px', marginBottom: '70px' }}
+                  >
+                    <h1>העלאת מדיה</h1>
+                    <div>
+                      <div
+                        className="profile-creation-names-container"
+                        style={{ flexDirection: 'column' }}
+                      >
+                        <div className="form-group multi-preview"></div>
+                        <div className="media-upload-button-container">
+                          <input
+                            id="profilePic"
+                            type="file"
+                            name="multiplefiles"
+                            multiple
+                            onChange={onChangeMultiplePicture}
+                            className="media-upload-button with-text"
                           />
-                        </LazyLoad>
+                        </div>
+                        <div className="d-flex flex-wrap justify-content-center">
+                          <LazyLoad>
+                            <img
+                              className="profile-creation-gallery-img mb-3"
+                              src={
+                                multiFiles && multiFiles.length > 0
+                                  ? multiFiles[0].imagePreview
+                                  : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                              }
+                              alt=""
+                            />
+                          </LazyLoad>
 
-                        <LazyLoad>
-                          <img
-                            className="profile-creation-gallery-img mb-3"
-                            src={
-                              multiFiles && multiFiles.length > 1
-                                ? multiFiles[1].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                            }
-                            alt=""
-                          />
-                        </LazyLoad>
+                          <LazyLoad>
+                            <img
+                              className="profile-creation-gallery-img mb-3"
+                              src={
+                                multiFiles && multiFiles.length > 1
+                                  ? multiFiles[1].imagePreview
+                                  : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                              }
+                              alt=""
+                            />
+                          </LazyLoad>
 
-                        <LazyLoad>
-                          <img
-                            className="profile-creation-gallery-img mb-3"
-                            src={
-                              multiFiles && multiFiles.length > 2
-                                ? multiFiles[2].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                            }
-                            alt=""
-                          />
-                        </LazyLoad>
+                          <LazyLoad>
+                            <img
+                              className="profile-creation-gallery-img mb-3"
+                              src={
+                                multiFiles && multiFiles.length > 2
+                                  ? multiFiles[2].imagePreview
+                                  : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                              }
+                              alt=""
+                            />
+                          </LazyLoad>
 
-                        <LazyLoad>
-                          <img
-                            className="profile-creation-gallery-img mb-3"
-                            src={
-                              multiFiles && multiFiles.length > 3
-                                ? multiFiles[3].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                            }
-                            alt=""
-                          />
-                        </LazyLoad>
+                          <LazyLoad>
+                            <img
+                              className="profile-creation-gallery-img mb-3"
+                              src={
+                                multiFiles && multiFiles.length > 3
+                                  ? multiFiles[3].imagePreview
+                                  : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                              }
+                              alt=""
+                            />
+                          </LazyLoad>
 
-                        <LazyLoad>
-                          <img
-                            className="profile-creation-gallery-img mb-3"
-                            src={
-                              multiFiles && multiFiles.length > 4
-                                ? multiFiles[4].imagePreview
-                                : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
-                            }
-                            alt=""
-                          />
-                        </LazyLoad>
-                      </div>
-                      {/* <div className="previewProfilePic"> */}
-                      {/* <img
+                          <LazyLoad>
+                            <img
+                              className="profile-creation-gallery-img mb-3"
+                              src={
+                                multiFiles && multiFiles.length > 4
+                                  ? multiFiles[4].imagePreview
+                                  : `https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg`
+                              }
+                              alt=""
+                            />
+                          </LazyLoad>
+                        </div>
+                        {/* <div className="previewProfilePic"> */}
+                        {/* <img
                           className="playerProfilePic_home_tile"
                           src={imgData}
                           alt=""
                         /> */}
-                      {/* </div> */}
-                    </div>
-                  </div>{' '}
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <h1>סיפור חיים</h1>
-                  <textarea
-                    ref={description}
-                    className="profile-creation-description"
-                  />
-                </div>
-                <div>
-                  <h1 style={{ textAlign: 'center', paddingBottom: '70px' }}>
-                    נקודות ציון
-                  </h1>
-                  <Popup
-                    trigger={
-                      <div className="press-explain-4 pointer">+ לחץ להסבר</div>
-                    }
-                    modal
-                    nested
-                  >
-                    {(close) => (
-                      <div className="popup-modal">
-                        <button
-                          className="close position-absolute btn btn-close"
-                          onClick={close}
-                        ></button>
-                        <LazyLoad>
-                          <img
-                            src={LifeAxisImg}
-                            className="life-axis-img"
-                            alt=""
-                          />
-                        </LazyLoad>
+                        {/* </div> */}
                       </div>
-                    )}
-                  </Popup>
-                  {inputList.map((x, i) => {
-                    return (
-                      <div className="box" key={i}>
-                        {inputList.length !== 1 && (
-                          <div
-                            className="middle-axis-btn"
-                            onClick={() => addSingleDiv(i)}
-                          >
-                            <div className="inner-btn">
-                              <div className="line-1"></div>
-                              <div className="line-2"></div>
-                            </div>
-                          </div>
-                        )}
-
-                        <div className="inner-box mx-4 mx-sm-0">
-                          <textarea
-                            name="axisTitle"
-                            placeholder="כותרת"
-                            value={x.axisTitle}
-                            onChange={(e) => handleInputChange(e, i)}
-                            className="axis-description"
-                          >
-                            כותרת
-                          </textarea>
-
-                          <textarea
-                            name="axisDate"
-                            placeholder="תאריך"
-                            value={x.axisDate}
-                            onChange={(e) => handleInputChange(e, i)}
-                            className="axis-description mx-3"
-                          />
-                          <textarea
-                            name="axisDescription"
-                            placeholder="טקסט"
-                            value={x.axisDescription}
-                            onChange={(e) => handleInputChange(e, i)}
-                            className="axis-description"
-                          />
-                          <label
-                            className={`${
-                              inputList[i]?.axisImage && 'bg-success'
-                            } file-label`}
-                          >
-                            {inputList[i]?.axisImage
-                              ? 'Uploaded'
-                              : 'הוסף תמונה'}
-                            <input
-                              type="file"
-                              name="axisImage"
-                              placeholder="Image"
-                              onChange={(e) => handleAxisImage(e, i)}
-                              className="axis-input-image"
-                            />
-                          </label>
-                          <div className="btn-box">
-                            {inputList.length !== 1 && (
-                              <p
-                                className="delete-btn axis-delete-button"
-                                onClick={() => handleRemoveClick(i)}
-                              >
-                                - הסר
-                              </p>
-                            )}
-                          </div>
+                    </div>{' '}
+                    <button
+                      type="button"
+                      className="logout-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editGalleryImage"
+                    >
+                      ערוך תמונות גלריה
+                    </button>
+                  </div>
+                  <div style={{ textAlign: 'center' }}>
+                    <h1>סיפור חיים</h1>
+                    <textarea
+                      ref={description}
+                      className="profile-creation-description"
+                    />
+                  </div>
+                  <div>
+                    <h1 style={{ textAlign: 'center', paddingBottom: '70px' }}>
+                      נקודות ציון
+                    </h1>
+                    <Popup
+                      trigger={
+                        <div className="press-explain-4 pointer">
+                          + לחץ להסבר
                         </div>
-                        {inputList.length - 1 === i && (
-                          <div className="add-btn" onClick={handleAddClick}>
-                            <div className="inner-btn">
-                              <div className="line-1"></div>
-                              <div className="line-2"></div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-                <div style={{ marginTop: '65px' }}>
-                  <h1 className="text-center mb-5">
-                    הוספת קישורים לרשתות החברתיות
-                  </h1>
-                  <div className="container media_link_container">
-                    <div className="row text-center gy-5 justify-content-center">
-                      <div className="col-sm-6 col-lg-3 ">
-                        <button
-                          className="btn heart-div social-footer-icon mb-3"
-                          type="button"
-                          onClick={() => setShowFacebookInput((prev) => !prev)}
-                        >
-                          <LazyLoad>
-                            <img className="heart-icon" src={facebook} alt="" />
-                          </LazyLoad>
-                        </button>
-                        {showFacebookInput && (
-                          <input
-                            placeholder="לינק לפייסבוק"
-                            type="text"
-                            className="nameInput d-block w-100"
-                            ref={facebookUrlRef}
-                          />
-                        )}
-                      </div>
-                      <div className="col-sm-6 col-lg-3">
-                        <button
-                          className="btn heart-div social-footer-icon  mb-3"
-                          type="button"
-                          onClick={() => setShowInstagramInput((prev) => !prev)}
-                        >
+                      }
+                      modal
+                      nested
+                    >
+                      {(close) => (
+                        <div className="popup-modal">
+                          <button
+                            className="close position-absolute btn btn-close"
+                            onClick={close}
+                          ></button>
                           <LazyLoad>
                             <img
-                              className="heart-icon"
-                              src={instagram}
-                              alt="instagram"
+                              src={LifeAxisImg}
+                              className="life-axis-img"
+                              alt=""
                             />
                           </LazyLoad>
-                        </button>
-                        {showInstagramInput && (
-                          <input
-                            placeholder="לינק לאינסטגרם"
-                            type="text"
-                            className="nameInput d-block w-100 w-100"
-                            ref={instagramUrlRef}
-                          />
-                        )}
+                        </div>
+                      )}
+                    </Popup>
+                    {inputList.map((x, i) => {
+                      return (
+                        <div className="box" key={i}>
+                          {inputList.length !== 1 && (
+                            <div
+                              className="middle-axis-btn"
+                              onClick={() => addSingleDiv(i)}
+                            >
+                              <div className="inner-btn">
+                                <div className="line-1"></div>
+                                <div className="line-2"></div>
+                              </div>
+                            </div>
+                          )}
+
+                          <div className="inner-box mx-4 mx-sm-0">
+                            <textarea
+                              name="axisTitle"
+                              placeholder="כותרת"
+                              value={x.axisTitle}
+                              onChange={(e) => handleInputChange(e, i)}
+                              className="axis-description"
+                            >
+                              כותרת
+                            </textarea>
+
+                            <textarea
+                              name="axisDate"
+                              placeholder="תאריך"
+                              value={x.axisDate}
+                              onChange={(e) => handleInputChange(e, i)}
+                              className="axis-description mx-3"
+                            />
+                            <textarea
+                              name="axisDescription"
+                              placeholder="טקסט"
+                              value={x.axisDescription}
+                              onChange={(e) => handleInputChange(e, i)}
+                              className="axis-description"
+                            />
+                            <label
+                              className={`${
+                                inputList[i]?.axisImage && 'bg-success'
+                              } file-label`}
+                            >
+                              {inputList[i]?.axisImage
+                                ? 'Uploaded'
+                                : 'הוסף תמונה'}
+                              <input
+                                type="file"
+                                name="axisImage"
+                                placeholder="Image"
+                                onChange={(e) => handleAxisImage(e, i)}
+                                className="axis-input-image"
+                              />
+                            </label>
+                            <div className="btn-box">
+                              {inputList.length !== 1 && (
+                                <p
+                                  className="delete-btn axis-delete-button"
+                                  onClick={() => handleRemoveClick(i)}
+                                >
+                                  - הסר
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          {inputList.length - 1 === i && (
+                            <div className="add-btn" onClick={handleAddClick}>
+                              <div className="inner-btn">
+                                <div className="line-1"></div>
+                                <div className="line-2"></div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div style={{ marginTop: '65px' }}>
+                    <h1 className="text-center mb-5">
+                      הוספת קישורים לרשתות החברתיות
+                    </h1>
+                    <div className="container media_link_container">
+                      <div className="row text-center gy-5 justify-content-center">
+                        <div className="col-sm-6 col-lg-3 ">
+                          <button
+                            className="btn heart-div social-footer-icon mb-3"
+                            type="button"
+                            onClick={() =>
+                              setShowFacebookInput((prev) => !prev)
+                            }
+                          >
+                            <LazyLoad>
+                              <img
+                                className="heart-icon"
+                                src={facebook}
+                                alt=""
+                              />
+                            </LazyLoad>
+                          </button>
+                          {showFacebookInput && (
+                            <input
+                              placeholder="לינק לפייסבוק"
+                              type="text"
+                              className="nameInput d-block w-100"
+                              ref={facebookUrlRef}
+                            />
+                          )}
+                        </div>
+                        <div className="col-sm-6 col-lg-3">
+                          <button
+                            className="btn heart-div social-footer-icon  mb-3"
+                            type="button"
+                            onClick={() =>
+                              setShowInstagramInput((prev) => !prev)
+                            }
+                          >
+                            <LazyLoad>
+                              <img
+                                className="heart-icon"
+                                src={instagram}
+                                alt="instagram"
+                              />
+                            </LazyLoad>
+                          </button>
+                          {showInstagramInput && (
+                            <input
+                              placeholder="לינק לאינסטגרם"
+                              type="text"
+                              className="nameInput d-block w-100 w-100"
+                              ref={instagramUrlRef}
+                            />
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  className="location-container"
-                  style={{ marginTop: '70px' }}
-                >
-                  <h1>מיקום הקבר</h1>
-                  <Popup
-                    className="pop"
-                    trigger={
-                      <div className="press-explain-3 pointer">+ לחץ להסבר</div>
-                    }
-                    modal
-                    nested
+                  <div
+                    className="location-container"
+                    style={{ marginTop: '70px' }}
                   >
-                    {(close) => (
-                      <div className="popup-modal">
-                        <button className="close" onClick={close}>
-                          &times;
-                        </button>
-                        <LazyLoad>
-                          <img
-                            src={graveLocationImg}
-                            className="grave-location-img"
-                            alt=""
-                          />
-                        </LazyLoad>
-                      </div>
-                    )}
-                  </Popup>
-                  <div className="location-semicontainer">
-                    <div className="profile-creation-names-container">
-                      <input
-                        placeholder="הוספת מיקום בית העלמין
+                    <h1>מיקום הקבר</h1>
+                    <Popup
+                      className="pop"
+                      trigger={
+                        <div className="press-explain-3 pointer">
+                          + לחץ להסבר
+                        </div>
+                      }
+                      modal
+                      nested
+                    >
+                      {(close) => (
+                        <div className="popup-modal">
+                          <button className="close" onClick={close}>
+                            &times;
+                          </button>
+                          <LazyLoad>
+                            <img
+                              src={graveLocationImg}
+                              className="grave-location-img"
+                              alt=""
+                            />
+                          </LazyLoad>
+                        </div>
+                      )}
+                    </Popup>
+                    <div className="location-semicontainer">
+                      <div className="profile-creation-names-container">
+                        <input
+                          placeholder="הוספת מיקום בית העלמין
                         ב-Waze"
-                        ref={wazeLocation}
-                        className="nameInput"
-                      />
-                      {/* <input
+                          ref={wazeLocation}
+                          className="nameInput"
+                        />
+                        {/* <input
                         placeholder="הוספת מיקום גוגל"
                         ref={googleLocation}
                         className="nameInput"
                       /> */}
-                      <button
-                        className="nameInput"
-                        onClick={() => setMap(!map)}
-                        type="button"
-                      >
-                        הוספת מיקום מדויק{' '}
-                      </button>
+                        <button
+                          className="nameInput"
+                          onClick={() => setMap(!map)}
+                          type="button"
+                        >
+                          הוספת מיקום מדויק{' '}
+                        </button>
+                      </div>
+                    </div>
+                    {map && (
+                      <Map position={position} setPosition={setPosition} />
+                    )}
+                    <div className="profile-image-container">
+                      <LazyLoad>
+                        <img
+                          className="profile-image"
+                          src={
+                            graveData
+                              ? graveData
+                              : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
+                          }
+                          alt=""
+                        />
+                      </LazyLoad>
+
+                      <input
+                        className="custom-file-grave"
+                        type="file"
+                        onChange={onChangeGrave}
+                        name="coverImg"
+                        style={{ width: '300px' }}
+                      />
                     </div>
                   </div>
-                  {map && <Map position={position} setPosition={setPosition} />}
-                  <div className="profile-image-container">
-                    <LazyLoad>
-                      <img
-                        className="profile-image"
-                        src={
-                          graveData
-                            ? graveData
-                            : `https://res.cloudinary.com/social-media-appwe/image/upload/v1633782265/social/assets/person/noAvatar_f5amkd.png`
-                        }
-                        alt=""
+                  <div className="radio-container-register">
+                    <h3 style={{ color: '#6097BF' }}>פרטיות</h3>
+                    <div
+                      style={{
+                        width: 'unset',
+                        paddingRight: '10px',
+                        paddingLeft: '10px',
+                      }}
+                      className={`${
+                        selectedPrivacy === 'private' && 'register-active'
+                      } radio-input-container-register`}
+                      onClick={() => setSelectedPrivacy('private')}
+                    >
+                      <input
+                        type="radio"
+                        value="private"
+                        id="private"
+                        onChange={handlePrivacyChange}
+                        checked={user.privacy === 'private'}
+                        name="privacy"
+                        className="radio"
                       />
-                    </LazyLoad>
-
-                    <input
-                      className="custom-file-grave"
-                      type="file"
-                      onChange={onChangeGrave}
-                      name="coverImg"
-                      style={{ width: '300px' }}
-                    />
+                      <label htmlFor="private">פרטי</label>
+                    </div>
+                    <div
+                      style={{
+                        width: 'unset',
+                        paddingRight: '10px',
+                        paddingLeft: '10px',
+                      }}
+                      className={`${
+                        selectedPrivacy === 'public' && 'register-active'
+                      } radio-input-container-register`}
+                      onClick={() => setSelectedPrivacy('public')}
+                    >
+                      <input
+                        type="radio"
+                        value="public"
+                        id="public"
+                        onChange={handlePrivacyChange}
+                        checked={user.privacy === 'public'}
+                        name="privacy"
+                        className="radio"
+                      />
+                      <label htmlFor="public">פומבי</label>
+                    </div>
                   </div>
-                </div>
-                <div className="radio-container-register">
-                  <h3 style={{ color: '#6097BF' }}>פרטיות</h3>
+                  {loading ? (
+                    <button className="create-btn" type="button" disabled>
+                      ...טוען
+                      <span
+                        className="spinner-border spinner-border-lg"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    </button>
+                  ) : (
+                    <button
+                      className="create-btn"
+                      type="button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#profileCreateModal"
+                    >
+                      שמור
+                    </button>
+                  )}
                   <div
-                    style={{
-                      width: 'unset',
-                      paddingRight: '10px',
-                      paddingLeft: '10px',
-                    }}
-                    className={`${
-                      selectedPrivacy === 'private' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedPrivacy('private')}
+                    className="modal fade qr-modal"
+                    id="profileCreateModal"
+                    tabIndex="-1"
+                    aria-labelledby="profileCreateModalLabel"
+                    aria-hidden="true"
+                    style={{ direction: 'initial' }}
                   >
-                    <input
-                      type="radio"
-                      value="private"
-                      id="private"
-                      onChange={handlePrivacyChange}
-                      checked={user.privacy === 'private'}
-                      name="privacy"
-                      className="radio"
-                    />
-                    <label htmlFor="private">פרטי</label>
-                  </div>
-                  <div
-                    style={{
-                      width: 'unset',
-                      paddingRight: '10px',
-                      paddingLeft: '10px',
-                    }}
-                    className={`${
-                      selectedPrivacy === 'public' && 'register-active'
-                    } radio-input-container-register`}
-                    onClick={() => setSelectedPrivacy('public')}
-                  >
-                    <input
-                      type="radio"
-                      value="public"
-                      id="public"
-                      onChange={handlePrivacyChange}
-                      checked={user.privacy === 'public'}
-                      name="privacy"
-                      className="radio"
-                    />
-                    <label htmlFor="public">פומבי</label>
-                  </div>
-                </div>
-                {loading ? (
-                  <button className="create-btn" type="button" disabled>
-                    ...טוען
-                    <span
-                      className="spinner-border spinner-border-lg"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
-                  </button>
-                ) : (
-                  <button
-                    className="create-btn"
-                    type="button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#profileCreateModal"
-                  >
-                    שמור
-                  </button>
-                )}
-                <div
-                  className="modal fade qr-modal"
-                  id="profileCreateModal"
-                  tabIndex="-1"
-                  aria-labelledby="profileCreateModalLabel"
-                  aria-hidden="true"
-                  style={{ direction: 'initial' }}
-                >
-                  <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5
-                          className="modal-title"
-                          id="profileCreateModalLabel"
-                        >
-                          יצירת הפרופיל וקבלת הקוד
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
+                    <div className="modal-dialog modal-dialog-centered">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5
+                            className="modal-title"
+                            id="profileCreateModalLabel"
+                          >
+                            יצירת הפרופיל וקבלת הקוד
+                          </h5>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
 
                       <div className="modal-footer">
                         <button
@@ -1029,9 +1112,9 @@ export default function ProfileCreate() {
               </form>
             </div>
           </div>
+          <SnackBar open={open} handleClose={handleClose} message={message} />
         </div>
-        <SnackBar open={open} handleClose={handleClose} message={message} />
       </div>
-    </div>
+    </React.Fragment>
   );
 }

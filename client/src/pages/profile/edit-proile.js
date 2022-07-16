@@ -125,6 +125,7 @@ export default function ProfileEdit() {
     setProfileData(res.data);
     setAxisImagesNames(res.data.axisImages);
     setMultiFiles(res.data.gallery);
+    setInputList(JSON.parse(res.data.lifeAxis));
   };
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
@@ -196,17 +197,17 @@ export default function ProfileEdit() {
         hebDeathDate: profiledata.hebDeathDate,
         gallery: profiledata.gallery,
         lifeAxis:
-          Object.keys(profiledata)?.length &&
-          profiledata.lifeAxis !== 'undefined' &&
-          isObject(profiledata.lifeAxis)
-            ? JSON.parse(profiledata.lifeAxis)
+          Object.keys(profiledata)?.length && profiledata.lifeAxis !== undefined
+            ? //  &&
+              // isObject(profiledata.lifeAxis)
+              JSON.parse(profiledata.lifeAxis)
             : inputList,
       });
       setInputList(
-        Object.keys(profiledata)?.length &&
-          profiledata.lifeAxis !== 'undefined' &&
-          isObject(profiledata.lifeAxis)
-          ? JSON.parse(profiledata.lifeAxis)
+        Object.keys(profiledata)?.length && profiledata.lifeAxis !== undefined
+          ? // &&
+            // isObject(profiledata.lifeAxis)
+            JSON.parse(profiledata.lifeAxis)
           : [{ axisTitle: '', axisDate: '', axisDescription: '' }]
       );
     }
@@ -474,14 +475,26 @@ export default function ProfileEdit() {
                         ? coverData
                         : wallInformation.wallImg?.startsWith?.('http')
                         ? wallInformation.wallImg
-                        : `${process.env.REACT_APP_API_URL}/lol/${wallInformation.wallImg}`
+                        : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
                     }
                     alt=""
                   />
                 </LazyLoad>
-
-                {(!profiledata.isMain ||
-                  profiledata?.originalUser?.[0]?._id === user?._id) && (
+                {/* {!profiledata.isMain &&
+                  profiledata.organizationProfile &&
+                  profiledata?.originalUser?.[0]?._id === user?._id && (
+                    <input
+                      className="custom-file-input-cover"
+                      type="file"
+                      onChange={onChangeCover}
+                      name="coverImg"
+                    />
+                  )} */}
+                {((!profiledata.organizationProfile && !profiledata.isMain) ||
+                  (profiledata.isMain &&
+                    profiledata?.originalUser?.[0]?._id === user?._id) ||
+                  (profiledata.organizationProfile &&
+                    profiledata?.originalUser?.[0]?._id === user?._id)) && (
                   <input
                     className="custom-file-input-cover"
                     type="file"
@@ -767,16 +780,15 @@ export default function ProfileEdit() {
                       name="description"
                       onChange={handleChangeValue}
                       className="profile-creation-description"
-                    >
-                      {profiledata.description}
-                    </textarea>
+                      value={wallInformation.description}
+                    ></textarea>
                   </div>
                   <div>
                     <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
                     {inputList?.map((x, i) => {
                       return (
                         <div className="box" key={i}>
-                          {inputList.length !== 1 && (
+                          {x && Object.keys(x).length > 0 && (
                             <div
                               className="middle-axis-btn"
                               onClick={() => addSingleDiv(i)}
@@ -811,7 +823,11 @@ export default function ProfileEdit() {
                               onChange={(e) => handleInputChange(e, i)}
                               className="axis-description"
                             />
-                            <label className="file-label">
+                            <label
+                              className={`file-label ${
+                                x.axisImage && 'bg-success'
+                              }`}
+                            >
                               הוסף תמונה
                               <input
                                 type="file"

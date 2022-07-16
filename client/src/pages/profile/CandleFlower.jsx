@@ -110,12 +110,12 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
       }
     }
   };
-  useEffect(() => {
+  /* useEffect(() => {
     const myTimeout = setTimeout(() => {
       candleRef?.current?.click();
     }, 30000);
     return () => clearTimeout(myTimeout);
-  }, []);
+  }, []); */
   return (
     <React.Fragment>
       <div
@@ -300,7 +300,7 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
           <div
             className={`fc_image_container`}
             // data-bs-toggle="modal"
-            data-bs-target="#candleFlower"
+            // data-bs-target="#candleFlower"
           >
             <LazyLoad>
               <img
@@ -341,8 +341,8 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
           </div>
           <div
             className={`fc_image_container `}
-            data-bs-toggle="modal"
-            data-bs-target="#candleFlower"
+            // data-bs-toggle="modal"
+            // data-bs-target="#candleFlower"
           >
             <LazyLoad>
               <img

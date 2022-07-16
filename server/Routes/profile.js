@@ -75,6 +75,7 @@ ProfileRouter.post(
         gallery: multiFilesurls.map((url) => {
           return url.res;
         }),
+        organizationProfile: req.body.organizationProfile,
         profileImg: resultProfileImage?.secure_url,
         wallImg: resultWallImage?.secure_url,
         graveImg: resultgraveImage?.secure_url,
@@ -115,6 +116,7 @@ ProfileRouter.post(
           QR: qrUrl,
           'Creation Date': new Date().toLocaleDateString(),
           'Death Date': resp.deathDate,
+          'Physical QR': req.body.email ? 0 : 1,
         });
         if (!req.body.email) {
           return;
@@ -214,9 +216,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: axisurls.map((url) => {
-            return url.res;
-          }),
+          // axisImages: axisurls.map((url) => {
+          //   return url.res;
+          // }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -239,9 +241,9 @@ ProfileRouter.put(
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
 
-          axisImages: axisurls.map((url) => {
-            return url.res;
-          }),
+          // axisImages: axisurls.map((url) => {
+          //   return url.res;
+          // }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -263,9 +265,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: axisurls.map((url) => {
-            return url.res;
-          }),
+          // axisImages: axisurls.map((url) => {
+          //   return url.res;
+          // }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -288,9 +290,9 @@ ProfileRouter.put(
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
 
-          axisImages: axisurls.map((url) => {
-            return url.res;
-          }),
+          // axisImages: axisurls.map((url) => {
+          //   return url.res;
+          // }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -311,9 +313,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: axisurls.map((url) => {
-            return url.res;
-          }),
+          // axisImages: axisurls.map((url) => {
+          //   return url.res;
+          // }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
