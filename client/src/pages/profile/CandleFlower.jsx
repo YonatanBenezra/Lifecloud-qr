@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import LazyLoad from 'react-lazyload';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { MethodsPayment } from '../../components/methodsPayment/methodsPayment';
 const initialState = {
   candle: 0,
@@ -58,7 +58,16 @@ const reducer = (state, action) => {
   }
 };
 
-const CandleFlower = ({ candleFlower, handleFormSubmit, profileName }) => {
+const CandleFlower = ({
+  candleFlower,
+  handleFormSubmit,
+  profileName,
+  setIsNext,
+  isNext,
+  setIsPaid,
+  userId,
+}) => {
+  const { id: profileId } = useParams();
   const history = useHistory();
   const candleRef = useRef();
   const [candleFlowerState, dispatch] = useReducer(reducer, initialState);
@@ -67,7 +76,6 @@ const CandleFlower = ({ candleFlower, handleFormSubmit, profileName }) => {
   const totalFlowers = candleFlower.reduce((acc, curr) => acc + curr.flower, 0);
   const [showCandleList, setShowCandleList] = useState(false);
   const [showFlowerList, setShowFlowerList] = useState(false);
-
 
   /* useEffect(() => {
     const myTimeout = setTimeout(() => {
