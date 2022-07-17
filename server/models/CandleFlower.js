@@ -15,7 +15,7 @@ const CandleFlowerSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-CandleFlowerSchema.index({ expireAt: 1 }, { expireAfterSeconds: 500 });
+CandleFlowerSchema.index({ expireAt: 1 }, { expireAfterSeconds: 50000 });
 
 const CandleFlowerModel = mongoose.model('CandleFlower', CandleFlowerSchema);
 

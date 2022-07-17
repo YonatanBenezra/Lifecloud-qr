@@ -28,7 +28,8 @@ import useGeoLocation from '../../hooks/useGeoLocation';
 import GraveMap from './GraveMap';
 import { QRCodeSVG } from 'qrcode.react';
 import moment from 'moment';
-
+import candles from '../../assets/candles.png';
+import flowers from '../../assets/flowers.jpg';
 import Map from './Map';
 import Direction from './Direction';
 import ProfileFooter from './ProfileFooter';
@@ -39,6 +40,7 @@ import {
   gregorianToHebDay,
   gregorianToHebMonth,
 } from '../../hooks/gregorianDate';
+import VirtualMemory from './VirtualMemory';
 
 export default function Profile() {
   const { user, myFirebase } = useContext(AuthContext);
@@ -410,6 +412,80 @@ export default function Profile() {
       .catch(console.log);
   };
 
+  /* Candle Flower Functionality */
+  function shuffle(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
+  const [candleFlower, setCandleFlower] = useState([]);
+  const [cf, setCf] = useState([]);
+  const getAllCandleFlower = useCallback(async () => {
+    const allCandleFlower = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/candleFlower/${profileId}`
+    );
+    const cf = [];
+    allCandleFlower.data.forEach((candleFlower) => {
+      for (let i = 0; i < candleFlower.flower; i++) {
+        cf.push({
+          type: flowers,
+          username: `${candleFlower.user.firstName} ${candleFlower.user.lastName}`,
+          userImg: candleFlower.user.mainProfilePicture,
+        });
+      }
+      for (let i = 0; i < candleFlower.candle; i++) {
+        cf.push({
+          type: candles,
+          username: `${candleFlower.user.firstName} ${candleFlower.user.lastName}`,
+          userImg: candleFlower.user.mainProfilePicture,
+        });
+      }
+    });
+
+    setCf(shuffle(cf));
+    setCandleFlower(allCandleFlower.data);
+  }, [profileId]);
+
+  useEffect(() => {
+    getAllCandleFlower();
+  }, [getAllCandleFlower]);
+
+  const handleFormSubmit = async (event, candleFlowerState, dispatch) => {
+    event.preventDefault();
+    // window.location.assign(
+    //   `https://direct.tranzila.com/icloud/iframenew.php?sum=${
+    //     (candleFlowerState.flower + candleFlowerState.candle) * 5
+    //   }&currency=1&cred_type=1&ppnewwin=2&ppnewwin=2`
+    // );
+    // currency = 1 for shekel, 2 for dollar
+    // cred-type = 1 for direct, 6 for credit, 8 for payments
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
+        flower: candleFlowerState.flower,
+        candle: candleFlowerState.candle,
+        profile: profileId,
+        user: user._id,
+      });
+      getAllCandleFlower();
+      dispatch({ type: 'RESET' });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   if (Object.keys(profiledata).length > 0) {
     return (
       <div className="profile-details">
@@ -508,8 +584,8 @@ export default function Profile() {
               </div>
             )}
           <CandleFlower
-            profileId={profiledata._id}
-            userId={user._id}
+            candleFlower={candleFlower}
+            handleFormSubmit={handleFormSubmit}
             profileName={profiledata.firstName}
           />
         </div>
@@ -716,6 +792,14 @@ export default function Profile() {
                   לכל הגלריה +
                 </div>
               </div>
+              <VirtualMemory
+                candleFlower={cf}
+                coverImg={
+                  profiledata.wallImg?.startsWith?.('http')
+                    ? profiledata.wallImg
+                    : `${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`
+                }
+              />
               <div className="grave-location-container">
                 <h1 className="grave-location-title profile_details_section_title">
                   מיקום ותמונת הקבר
