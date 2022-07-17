@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import LazyLoad from 'react-lazyload';
 import { useHistory } from 'react-router-dom';
+import { MethodsPayment } from '../../components/methodsPayment/methodsPayment';
 const initialState = {
   candle: 0,
   flower: 0,
@@ -61,10 +62,12 @@ const CandleFlower = ({ candleFlower, handleFormSubmit, profileName }) => {
   const history = useHistory();
   const candleRef = useRef();
   const [candleFlowerState, dispatch] = useReducer(reducer, initialState);
+
   const totalCandles = candleFlower.reduce((acc, curr) => acc + curr.candle, 0);
   const totalFlowers = candleFlower.reduce((acc, curr) => acc + curr.flower, 0);
   const [showCandleList, setShowCandleList] = useState(false);
   const [showFlowerList, setShowFlowerList] = useState(false);
+
 
   /* useEffect(() => {
     const myTimeout = setTimeout(() => {
@@ -218,14 +221,28 @@ const CandleFlower = ({ candleFlower, handleFormSubmit, profileName }) => {
                     </div>
                   )}
                   <button
-                    data-bs-dismiss="modal"
+                    // data-bs-dismiss="modal"
                     aria-label="Close"
                     className={`border-0 w-50 my-4 py-2 fw-bold text-white rounded-3 `}
                     style={{ backgroundColor: '#6097bf', fontSize: '20px' }}
-                    type="submit"
+                    type="button"
+                    onClick={() => setIsNext(true)}
                   >
                     המשך
                   </button>
+                  {isNext && (
+                    <MethodsPayment
+                      setIsPaid={setIsPaid}
+                      isOpen={true}
+                      setIsNext={setIsNext}
+                      dataForPay={{
+                        flower: candleFlowerState.flower,
+                        candle: candleFlowerState.candle,
+                        profile: profileId,
+                        user: userId,
+                      }}
+                    />
+                  )}
                 </form>
               )}
             </div>

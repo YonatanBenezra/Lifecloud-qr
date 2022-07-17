@@ -36,3 +36,36 @@ export const fetchuserprofiles = async (id, dispatch) => {
     console.log(err);
   }
 };
+
+export const postPay = async (data) => {
+  try {
+    const res = await axios
+      .post(`${process.env.REACT_APP_API_URL}/api/payment/pay`, data)
+      .catch((err) => {
+        throw err;
+      });
+    if (res.data && res.data.isPaid) {
+      return res.data.isPaid;
+    } else if (res.data && res.data.error) {
+      throw res.data.error;
+    }
+  } catch (err) {
+    return err;
+  }
+};
+export const postPayQr = async (data) => {
+  try {
+    const res = await axios
+      .post(`${process.env.REACT_APP_API_URL}/api/payment/pay-qr`, data)
+      .catch((err) => {
+        throw err;
+      });
+    if (res.data && res.data.isPaid) {
+      return res.data.isPaid;
+    } else if (res.data && res.data.error) {
+      throw res.data.error;
+    }
+  } catch (err) {
+    return err;
+  }
+};
