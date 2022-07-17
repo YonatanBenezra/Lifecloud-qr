@@ -792,14 +792,14 @@ export default function Profile() {
                   לכל הגלריה +
                 </div>
               </div>
-              <VirtualMemory
+              {/* <VirtualMemory
                 candleFlower={cf}
                 coverImg={
                   profiledata.wallImg?.startsWith?.('http')
                     ? profiledata.wallImg
                     : `${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`
                 }
-              />
+              /> */}
               <div className="grave-location-container">
                 <h1 className="grave-location-title profile_details_section_title">
                   מיקום ותמונת הקבר
