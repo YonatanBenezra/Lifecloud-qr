@@ -6,7 +6,7 @@
   right: 0;
   background: rgba(0, 0, 0, 0.4);
   transition: opacity 500ms;
-  z-index: 100;
+  z-index: 99999;
 }
 
 .modal-container {
@@ -100,6 +100,12 @@
   border-radius: 10%;
   color: #46779B;
   border: 1px solid white;
+}
+
+.exit-btn-methods-payment {
+  position: inherit;
+  top: initial;
+  left: initial;
 }
 
 @media only screen and (max-width:935px) {

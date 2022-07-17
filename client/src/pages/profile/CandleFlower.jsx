@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import LazyLoad from 'react-lazyload';
 import { useHistory } from 'react-router-dom';
+import { MethodsPayment } from '../../components/methodsPayment/methodsPayment';
 const initialState = {
   candle: 0,
   flower: 0,
@@ -62,6 +63,8 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
   const candleRef = useRef();
   const [candleFlowerState, dispatch] = useReducer(reducer, initialState);
   const [candleFlower, setCandleFlower] = useState([]);
+  const [isNext, setIsNext] = useState(false);
+  const [isPaid, setIsPaid] = useState(false);
   const totalCandles = candleFlower.reduce((acc, curr) => acc + curr.candle, 0);
   const totalFlowers = candleFlower.reduce((acc, curr) => acc + curr.flower, 0);
   const [showCandleList, setShowCandleList] = useState(false);
@@ -77,28 +80,34 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
   useEffect(() => {
     getAllCandleFlower();
   }, [getAllCandleFlower]);
+  useEffect(() => handleFormSubmit(), [isPaid === true]);
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    window.location.assign(
-      `https://direct.tranzila.com/icloud/iframenew.php?sum=${
-        (candleFlowerState.flower + candleFlowerState.candle) * 5
-      }&currency=1&cred_type=1&ppnewwin=2&ppnewwin=2`
-    );
-    // currency = 1 for shekel, 2 for dollar
-    // cred-type = 1 for direct, 6 for credit, 8 for payments
+  const handleFormSubmit = async (event = null) => {
+    if (isPaid) {
+      if (event) {
+        event.preventDefault();
+      }
+      // window.location.assign(
+      //   `https://direct.tranzila.com/icloud/iframenew.php?sum=${
+      //     (candleFlowerState.flower + candleFlowerState.candle) * 5
+      //   }&currency=1&cred_type=1&ppnewwin=2&ppnewwin=2`
+      // );
+      // currency = 1 for shekel, 2 for dollar
+      // cred-type = 1 for direct, 6 for credit, 8 for payments
 
-    try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
-        flower: candleFlowerState.flower,
-        candle: candleFlowerState.candle,
-        profile: profileId,
-        user: userId,
-      });
-      getAllCandleFlower();
-      dispatch({ type: 'RESET' });
-    } catch (error) {
-      console.log(error);
+      try {
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
+          flower: candleFlowerState.flower,
+          candle: candleFlowerState.candle,
+          profile: profileId,
+          user: userId,
+        });
+        getAllCandleFlower();
+        dispatch({ type: 'RESET' });
+        setIsPaid(false);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   /* useEffect(() => {
@@ -248,14 +257,28 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
                     </div>
                   )}
                   <button
-                    data-bs-dismiss="modal"
+                    // data-bs-dismiss="modal"
                     aria-label="Close"
                     className={`border-0 w-50 my-4 py-2 fw-bold text-white rounded-3 `}
                     style={{ backgroundColor: '#6097bf', fontSize: '20px' }}
-                    type="submit"
+                    type="button"
+                    onClick={() => setIsNext(true)}
                   >
                     המשך
                   </button>
+                  {isNext && (
+                    <MethodsPayment
+                      setIsPaid={setIsPaid}
+                      isOpen={true}
+                      setIsNext={setIsNext}
+                      dataForPay={{
+                        flower: candleFlowerState.flower,
+                        candle: candleFlowerState.candle,
+                        profile: profileId,
+                        user: userId,
+                      }}
+                    />
+                  )}
                 </form>
               )}
             </div>

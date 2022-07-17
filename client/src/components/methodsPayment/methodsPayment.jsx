@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { CreditCardDetails } from '../creditCardDetails/creditCardDetails';
 
 export const MethodsPayment = (props) => {
+  const { setIsPaid, setIsNext, dataForPay } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [isCreditCard, setIsCreditCard] = useState(false);
   const [style, setStyle] = useState({
@@ -31,7 +32,7 @@ export const MethodsPayment = (props) => {
   const setStyleByIsOpen = (open) => {
     if (open) {
       setIsOpen(true);
-      setStyle({});
+      setStyle({ zIndex: 9999999 });
     } else {
       setIsOpen(false);
       setStyle({
@@ -59,6 +60,12 @@ export const MethodsPayment = (props) => {
       paymentsMethodModal[i].style.display = 'block';
     }
   };
+  const closeModal = () => {
+    setIsOpen(false);
+    if (setIsNext) {
+      setIsNext(false);
+    }
+  };
 
   return (
     <div className="payments-method-container" style={{ ...style }}>
@@ -67,6 +74,7 @@ export const MethodsPayment = (props) => {
           <button
             onClick={() => setStyleByIsOpen(!isOpen)}
             className="exit-btn"
+            type="submit"
           >
             x
           </button>
@@ -85,24 +93,36 @@ export const MethodsPayment = (props) => {
               כרטיס אשראי
             </div>
           </div>
-          <h6 onClick={() => setStyleByIsOpen(!isOpen)}>
-            חזרה <ArrowRightAltIcon />
-          </h6>
+          <button
+            className="exit-btn exit-btn-methods-payment"
+            type="submit"
+            onClick={() => closeModal()}
+          >
+            <ArrowRightAltIcon />
+            חזרה{' '}
+          </button>
         </div>
         {isCreditCard && (
           <div className="credit-card-container">
             <button
               onClick={() => setStyleByIsOpen(!isOpen)}
               className="exit-btn"
+              type="submit"
             >
               x
             </button>
-            <CreditCardDetails />
+            <CreditCardDetails
+              setIsOpen={setIsOpen}
+              setIsPaid={setIsPaid}
+              setIsNext={setIsNext}
+              dataForPay={dataForPay}
+            />
             <h6
               onClick={() => backFromCreditCard()}
               style={{ marginTop: '15px' }}
             >
-              חזרה <ArrowRightAltIcon />
+              <ArrowRightAltIcon />
+              חזרה{' '}
             </h6>
           </div>
         )}
@@ -113,4 +133,6 @@ export const MethodsPayment = (props) => {
 
 MethodsPayment.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  setIsPaid: PropTypes.func.isRequired,
+  setIsNext: PropTypes.func,
 };
