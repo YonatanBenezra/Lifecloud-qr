@@ -5,9 +5,6 @@ import roundFlower from '../../assets/roundFlower.png';
 
 import candle from '../../assets/candle.png';
 import flower from '../../assets/flower.png';
-import axios from 'axios';
-import { useEffect } from 'react';
-import { useCallback } from 'react';
 import LazyLoad from 'react-lazyload';
 import { useHistory, useParams } from 'react-router-dom';
 import { MethodsPayment } from '../../components/methodsPayment/methodsPayment';
