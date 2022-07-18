@@ -5,7 +5,7 @@
   overflow: hidden;
   display: flex;
 
-  background-image: url('https://i.ibb.co/CnSgncn/overlay.png');
+  background-image: url('../../assets/overlay.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -148,14 +148,9 @@
 }
 
 .temporary .memorial {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 250px;
-  align-items: center;
-  justify-items: center;
+  overflow: hidden;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 200px;
   margin-bottom: 200px;
   padding: 0 30px;
   max-width: 800px;
@@ -169,18 +164,19 @@
 
 .temporary figure {
   position: relative;
-  width: 70%;
+  width: 20%;
   height: 0;
-  padding-top: 70%;
+  padding-top: 20%;
   transition: transform 0.3s ease;
   z-index: 1;
+  margin: 0;
+  /* transform: scale(1); */
 }
-@media screen and (min-width: 576px) {
+/* @media screen and (min-width: 576px) {
   .temporary figure {
-    width: 40%;
-    padding-top: 40%;
+      transform: scale(1);
   }
-}
+} */
 
 .temporary figure .img-lg {
   position: absolute;
@@ -216,9 +212,10 @@
   font-size: 14px;
 
   white-space: nowrap;
-  overflow: hidden;
+  /* overflow: hidden; */
   text-overflow: ellipsis;
   text-align: center;
+  flex: 1;
 }
 .temporary figcaption .comment::first-letter {
   text-transform: uppercase;
@@ -227,172 +224,11 @@
 .temporary figcaption .img-sm {
   margin-top: -6px;
   margin-bottom: -6px;
-  transform: translateX(50%);
+  /* transform: translateX(50%); */
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
-
-.position-1 {
-  top: -15%;
-  left: 14%;
-}
-.position-2 {
-  right: -22%;
-  top: 6%;
-}
-.position-3 {
-  top: 2%;
-  left: -25%;
-}
-.position-4 {
-  left: -10%;
-  top: 18%;
-}
-.position-5 {
-  left: 10%;
-}
-.position-6 {
-  top: 31%;
-  left: 18%;
-}
-.position-7 {
-  left: -16%;
-}
-.position-8 {
-  left: -12%;
-}
-.position-9 {
-  left: 0%;
-}
-.position-10 {
-  left: 10%;
-}
-.position-11 {
-  top: 43%;
-  left: -25%;
-}
-.position-12 {
-  left: -1%;
-  top: 15%;
-}
-.position-second-1 {
-  left: -4%;
-  top: 26%;
-}
-.position-second-2 {
-  left: -4%;
-  top: 14%;
-}
-.position-second-3 {
-  top: 10%;
-  left: 14%;
-}
-.position-second-4 {
-  top: -5%;
-  left: 27%;
-}
-.position-second-5 {
-  left: -21%;
-}
-.position-second-6 {
-  top: 50%;
-}
-.position-second-7 {
-  top: 14%;
-  left: 18%;
-}
-.position-second-8 {
-  top: 20%;
-  left: 28%;
-}
-
-.position-second-9 {
-  left: -20%;
-}
-.position-second-10 {
-  left: 3%;
-  top: -17%;
-}
-.position-second-11 {
-}
-.position-second-12 {
-  left: 10%;
-}
-
-/* WAVE */
-.wave {
-  position: absolute;
-  top: 80px;
-}
-
-.wave-left {
-  left: 100px;
-}
-.wave-right {
-  right: 100px;
-}
-
-.wave-row-2 {
-  transform: rotateY(180deg);
-  top: 1547px;
-}
-.wave-row-3 {
-  top: 3080px;
-}
-.wave-row-4,
-.wave-row-6 {
-  transform: rotateY(180deg);
-}
-
-@media screen and (max-width: 768px) {
-  .temporary .wave {
-    width: 100px;
-  }
-
-  .temporary #wave-1,
-  .temporary #wave-3,
-  .temporary #wave-5,
-  .temporary #wave-7,
-  .temporary #wave-9,
-  .temporary #wave-11 {
-    left: 82px;
-  }
-  .temporary #wave-2,
-  .temporary #wave-4,
-  .temporary #wave-6,
-  .temporary #wave-8,
-  .temporary #wave-10,
-  .temporary #wave-12 {
-    right: 40px;
-  }
-  .temporary #wave-1,
-  .temporary #wave-2 {
-    top: 80px;
-  }
-  .temporary #wave-3,
-  .temporary #wave-4 {
-    top: 909px;
-  }
-  .temporary #wave-5,
-  .temporary #wave-6 {
-    top: 1654px;
-  }
-  .temporary #wave-7,
-  .temporary #wave-8 {
-    top: 2384px;
-  }
-  .temporary #wave-9,
-  .temporary #wave-10 {
-    top: 3108px;
-  }
-  .temporary #wave-11,
-  .temporary #wave-12 {
-    top: 3882px;
-  }
-}
-
-/*  */
 
 .temporary .arrow {
   position: absolute;
@@ -423,6 +259,163 @@
     transform: none;
   }
 }
+
+@media screen and (min-width: 576px) {
+  .display-none-sm {
+    display: none;
+  }
+}
+
+/* CAROUSEL */
+
+.temporary .layers-group {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 400%;
+}
+
+.temporary .layers-group .spiral {
+  position: absolute;
+  width: auto;
+  height: 50%;
+  object-fit: contain;
+}
+.temporary .layers-group .spiral-top-left {
+  top: 0;
+  left: 15%;
+}
+.temporary .layers-group .spiral-bottom-left {
+  bottom: 0;
+  left: 15%;
+  transform: rotatex(190deg);
+}
+.temporary .layers-group .spiral-top-right {
+  top: 0;
+  right: 15%;
+}
+.temporary .layers-group .spiral-bottom-right {
+  bottom: 0;
+  right: 15%;
+  transform: rotatex(190deg);
+}
+
+.temporary figure {
+  position: absolute;
+}
+.temporary .position-1 {
+  top: 0%;
+  left: 29%;
+}
+.temporary .position-2 {
+  top: 1.7%;
+  left: 64.7%;
+}
+.temporary .position-3 {
+  top: 6.7%;
+  left: 5.7%;
+}
+.temporary .position-4 {
+  top: 9.7%;
+  left: 49.7%;
+}
+.temporary .position-5 {
+  top: 12.7%;
+  left: 20.7%;
+}
+.temporary .position-6 {
+  top: 14.7%;
+  left: 71.7%;
+}
+.temporary .position-7 {
+  top: 19%;
+  left: 33%;
+}
+.temporary .position-8 {
+  top: 23%;
+  left: 59%;
+}
+.temporary .position-9 {
+  top: 25%;
+  left: 9%;
+}
+.temporary .position-10 {
+  top: 29%;
+  left: 48%;
+}
+.temporary .position-11 {
+  top: 32%;
+  left: 15%;
+}
+.temporary .position-12 {
+  top: 35%;
+  left: 72%;
+}
+.temporary .position-13 {
+  top: 39%;
+  left: 31%;
+}
+.temporary .position-14 {
+  top: 44%;
+  left: 53%;
+}
+.temporary .position-15 {
+  top: 45%;
+  left: 8%;
+}
+.temporary .position-16 {
+  top: 50%;
+  left: 49%;
+}
+.temporary .position-17 {
+  top: 54%;
+  left: 25%;
+}
+.temporary .position-18 {
+  top: 57%;
+  left: 74%;
+}
+.temporary .position-19 {
+  top: 61%;
+  left: 26%;
+}
+.temporary .position-20 {
+  top: 68%;
+  left: 47%;
+}
+.temporary .position-21 {
+  top: 72%;
+  left: 16%;
+}
+.temporary .position-22 {
+  top: 74%;
+  left: 67%;
+}
+.temporary .position-23 {
+  top: 78%;
+  left: 32%;
+}
+.temporary .position-24 {
+  top: 82%;
+  left: 65%;
+}
+.temporary .position-25 {
+  top: 85%;
+  left: 7%;
+}
+.temporary .position-26 {
+  top: 88%;
+  left: 47%;
+}
+.temporary .position-27 {
+  top: 92%;
+  left: 17%;
+}
+.temporary .position-28 {
+  top: 94%;
+  left: 67%;
+}
+
 [data-scale] {
   transition: transform 1s ease !important;
   will-change: transform;
@@ -430,12 +423,7 @@
 [data-scale='small'] {
   transform: scale(0.4);
 }
+
 [data-scale='large'] {
   transform: scale(0.8);
-}
-
-@media screen and (min-width: 576px) {
-  .display-none-sm {
-    display: none;
-  }
 }
