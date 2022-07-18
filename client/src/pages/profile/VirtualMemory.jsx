@@ -65,11 +65,16 @@ export default function VirtualMemory({ candleFlower, coverImg }) {
   };
 
   const setMemorialHeight = () => {
-    const lastImage = items[items.length - 1];
-    console.log(lastImage);
+    const groups = document.querySelectorAll('.layers-group');
+    if (!groups || !groups.length) return;
+    const lastGroup = groups[groups.length - 1];
+    const images = lastGroup.querySelectorAll('.temporary figure');
+    const lastImage = images[images.length - 1];
+    const groupHeight = groups[0].offsetHeight;
+    const unnecessaryHeight = groupHeight - lastImage.offsetTop;
 
-    if (!lastImage) return;
-    memorial.current.style.height = lastImage.offsetTop + 200 + 'px';
+    memorial.current.style.height =
+      groups.length * groupHeight - unnecessaryHeight + 200 + 'px';
   };
 
   useEffect(() => {

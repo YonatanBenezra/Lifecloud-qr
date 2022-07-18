@@ -140,11 +140,14 @@ ProfileRouter.put(
   uploadpic.fields([
     { name: 'profileImg', maxCount: 1 },
     { name: 'wallImg', maxCount: 1 },
-    { name: 'multiplefiles', maxCount: 20 },
+    { name: 'multiplefiles', maxCount: 99 },
     { name: 'axisImages', maxCount: 99 },
     { name: 'graveImg', maxCount: 1 },
   ]),
   async (req, res) => {
+    // const axisImageChangeIndex = JSON.parse(
+    //   req.body.axisImageChangeIndex
+    // )?.sort();
     try {
       let resultProfileImage;
       if (req.files.profileImg?.[0]?.path) {
@@ -196,7 +199,6 @@ ProfileRouter.put(
         ? [galleryUrls]
         : [];
 
-      console.log(newGalleryImg);
       if (req.files.profileImg && req.files.wallImg) {
         var dataSource = {
           originalUser: req.body.originalUser,
@@ -320,9 +322,48 @@ ProfileRouter.put(
           instagramUrl: req.body.instagramUrl,
         };
       }
+      const updateStr = {
+        ...dataSource,
+        gallery: [...newGalleryImg, ...prevGalleryImg],
+      };
+      if (axisurls.length > 0) {
+        updateStr.axisImages = axisurls.map((url) => {
+          return url.res;
+        });
+      }
+
+      // if (axisurls.length > 0) {
+      //   const userProfile = await profileModel.findById(req.body._id);
+      //   if (userProfile.axisImages.length > 0) {
+      //     let count = -1;
+
+      //     updateStr.axisImages = [
+      //       ...userProfile.axisImages.map((axisImage, index) => {
+      //         if (axisImageChangeIndex.includes(index)) {
+      //           count++;
+      //           return axisurls[count].res;
+      //         }
+      //         return axisImage;
+      //       }),
+      //       ...axisurls.slice(count + 1).map((url, i) => {
+      //         return url.res;
+      //       }),
+      //     ];
+      //   } else {
+      //     updateStr.axisImages = [
+      //       ...axisurls.map((url, i) => {
+      //         if (axisImageChangeIndex.includes(index)) {
+      //           return url.res;
+      //         }
+      //         return null;
+      //       }),
+      //     ];
+      //   }
+      // }
+
       profileModel.findOneAndUpdate(
         { _id: req.body._id },
-        { ...dataSource, gallery: [...newGalleryImg, ...prevGalleryImg] },
+        updateStr,
 
         { upsert: true },
         (err, doc) => {
