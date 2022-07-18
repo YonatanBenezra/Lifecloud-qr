@@ -79,7 +79,11 @@ const DesktopTopbar = (props) => {
                                   height: '30px',
                                   borderRadius: '30px',
                                 }}
-                                src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                                src={
+                                  item.profileImg?.startsWith('http')
+                                    ? item.profileImg
+                                    : `${process.env.REACT_APP_API_URL}/${item.profileImg}`
+                                }
                                 alt=""
                               />
                             </LazyLoad>
@@ -163,15 +167,15 @@ const DesktopTopbar = (props) => {
                 >
                   <LazyLoad>
                     <img
-                     src={
-                      user.mainProfilePicture
-                        ? user.mainProfilePicture?.startsWith('http')
-                          ? user.mainProfilePicture
-                          : `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
-                        : user.profilePicture
-                        ? user.profilePicture
-                        : userIcon
-                    }
+                      src={
+                        user.mainProfilePicture
+                          ? user.mainProfilePicture?.startsWith('http')
+                            ? user.mainProfilePicture
+                            : `${process.env.REACT_APP_API_URL}/picUploader/${user.mainProfilePicture}`
+                          : user.profilePicture
+                          ? user.profilePicture
+                          : userIcon
+                      }
                       alt=""
                       className="topbarImg"
                     />
