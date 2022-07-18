@@ -1102,11 +1102,12 @@ export default function ProfileCreate() {
                       </div>
                     </div>
                   </div>
-                  {qr === false && (
+                  {qr === null && (
                     <MethodsPayment
                       isOpen={true}
                       setIsPaid={setIsPaid}
                       dataForPay={{ userId: user._id }}
+                      type="qr"
                     />
                   )}
                 </form>

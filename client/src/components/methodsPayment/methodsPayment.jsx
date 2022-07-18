@@ -6,11 +6,14 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CreditCardDetails } from '../creditCardDetails/creditCardDetails';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 export const MethodsPayment = (props) => {
-  const { setIsPaid, setIsNext, dataForPay } = props;
+  const { setIsPaid, setIsNext, dataForPay, type } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [isCreditCard, setIsCreditCard] = useState(false);
+  const [isPaypal, setIsPaypal] = useState(false);
+  const [purchaseUnits, setPurchaseUnits] = useState([]);
   const [style, setStyle] = useState({
     display: 'none',
   });
@@ -20,6 +23,25 @@ export const MethodsPayment = (props) => {
       setStyleByIsOpen(props.isOpen);
     }
   }, []);
+  useEffect(() => {
+    if (type === 'qr') {
+      setPurchaseUnits([
+        {
+          amount: {
+            value: 100,
+          },
+        },
+      ]);
+    } else if (type === 'candalOrFlower') {
+      setPurchaseUnits([
+        {
+          amount: {
+            value: dataForPay.candal * 5 + dataForPay.flower * 5,
+          },
+        },
+      ]);
+    }
+  }, [isPaypal === true]);
 
   useEffect(() => {
     setStyleByIsOpen(isOpen);
@@ -82,7 +104,23 @@ export const MethodsPayment = (props) => {
           <div className="icons-container-payment">
             <div className="icon-payment-method bit"></div>
             <div className="icon-payment-method apple-pay-icon"></div>
-            <div className="icon-payment-method paypal-icon"></div>
+
+            <div
+              className="icon-payment-method"
+              onClick={() => setIsPaypal(true)}
+            >
+              <PayPalScriptProvider
+                deferLoading={false}
+                createOrder={(data, actions) => {
+                  return actions.order.create({
+                    purchase_units: [...purchaseUnits],
+                  });
+                }}
+                options={{ 'client-id': 'test' }}
+              >
+                <PayPalButtons style={{ layout: 'horizontal' }} />
+              </PayPalScriptProvider>
+            </div>
             <div
               className="icon-payment-method credit-card-icon"
               onClick={() => onClickCreditCard()}
@@ -135,4 +173,5 @@ MethodsPayment.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   setIsPaid: PropTypes.func.isRequired,
   setIsNext: PropTypes.func,
+  type: PropTypes.string.isRequired,
 };

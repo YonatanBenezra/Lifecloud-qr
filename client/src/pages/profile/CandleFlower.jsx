@@ -277,6 +277,7 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
                         profile: profileId,
                         user: userId,
                       }}
+                      type="candalOrFlower"
                     />
                   )}
                 </form>
