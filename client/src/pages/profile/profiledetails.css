@@ -298,10 +298,10 @@
   }
 }
 
-.full-memory-btn:hover {
+/* .full-memory-btn:hover {
   background-color: #6097bf;
   color: #fff;
-}
+} */
 
 .grave-location-container {
   margin-top: 5rem;
@@ -657,7 +657,7 @@
   margin-bottom: 2rem;
 }
 
-.full-gallery-container>div:not(.profile-details-title) {
+.full-gallery-container > div:not(.profile-details-title) {
   display: flex;
   flex-wrap: wrap;
   /* width: calc(100vw - 192px); */
@@ -773,7 +773,6 @@ input[type='date']:valid::before {
 }
 
 @media only screen and (max-width: 1200px) {
-
   .memorial-container,
   .gallery-container {
     padding: 2rem;

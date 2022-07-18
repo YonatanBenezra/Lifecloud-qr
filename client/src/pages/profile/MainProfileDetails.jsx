@@ -241,7 +241,11 @@ export default function MainProfile(props) {
         <TopBar />
         <LazyLoad>
           <img
-            src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
+            src={
+              profiledata.wallImg?.startsWith('http')
+                ? profiledata.wallImg
+                : `${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`
+            }
             alt=""
             className="profile-cover"
           />
@@ -261,7 +265,7 @@ export default function MainProfile(props) {
           </LazyLoad>
 
           <div className="deceased-details">
-            <h1>{`${profiledata.firstName}`}</h1>
+            <h1>{`${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
           </div>
         </div>
         <div className="btns-container">

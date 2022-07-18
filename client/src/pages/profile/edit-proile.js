@@ -17,6 +17,7 @@ export default function ProfileEdit() {
   function isObject(obj) {
     return obj != null && obj.constructor.name === 'Object';
   }
+  const [lifeAxisChangeIndex, setLifeAxisChangeIndex] = useState([]);
   const { user } = useContext(AuthContext);
   const id = useParams().id;
   const [picture, setPicture] = useState(null);
@@ -272,6 +273,10 @@ export default function ProfileEdit() {
       formdata.append('axisImagesNames', axisImagesNames);
       formdata.append('graveImg', graveImage);
       formdata.append('facebookUrl', wallInformation.facebookUrl);
+      formdata.append(
+        'axisImageChangeIndex',
+        JSON.stringify(lifeAxisChangeIndex)
+      );
       formdata.append('instagramUrl', wallInformation.instagramUrl);
       for (let i = 0; i < wallInformation.gallery.length; i++) {
         formdata.append('gallery', wallInformation.gallery[i]);
@@ -326,6 +331,7 @@ export default function ProfileEdit() {
     copyAxisImagesNames[i] = file.name;
 
     setAxisImages([...axisImages, file]);
+    setLifeAxisChangeIndex([...lifeAxisChangeIndex, i]);
     setAxisImagesNames(copyAxisImagesNames);
     setInputList(copyArray);
     event.target.closest('label').style.backgroundColor = '#5ca08e';
