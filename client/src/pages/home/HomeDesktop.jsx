@@ -93,7 +93,11 @@ const HomeDesktop = (props) => {
                                 height: '30px',
                                 borderRadius: '30px',
                               }}
-                              src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                              src={
+                                item.profileImg?.startsWith('http')
+                                  ? item.profileImg
+                                  : `${process.env.REACT_APP_API_URL}/${item.profileImg}`
+                              }
                               alt=""
                             />
                           </LazyLoad>
