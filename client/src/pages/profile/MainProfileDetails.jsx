@@ -351,7 +351,9 @@ export default function MainProfile(props) {
         >
           <div className="display">
             <div className="bio-content">
-              <h1 className="bio-name">.{profiledata.firstName}</h1>
+              <h1 className="bio-name">
+                .{profiledata.firstName} {profiledata.lastName}
+              </h1>
               <pre className="bio-bio">{profiledata.description}</pre>
             </div>
           </div>
@@ -363,7 +365,7 @@ export default function MainProfile(props) {
             </div>
           </div>
           <div className="profile-details-title">
-            <h1>חללי {profiledata.firstName}</h1>
+            <h1>חללי {profiledata.firstName} {profiledata.lastName}</h1>
           </div>
           <div className="list-of-deceased-container">
             <div className="list-of-deceased">

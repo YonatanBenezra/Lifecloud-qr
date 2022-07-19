@@ -477,27 +477,27 @@ export default function Profile() {
 
   const handleFormSubmit = async (event, candleFlowerState, dispatch) => {
     if (isPaid) {
-    event.preventDefault();
-    // window.location.assign(
-    //   `https://direct.tranzila.com/icloud/iframenew.php?sum=${
-    //     (candleFlowerState.flower + candleFlowerState.candle) * 5
-    //   }&currency=1&cred_type=1&ppnewwin=2&ppnewwin=2`
-    // );
-    // currency = 1 for shekel, 2 for dollar
-    // cred-type = 1 for direct, 6 for credit, 8 for payments
-    try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
-        flower: candleFlowerState.flower,
-        candle: candleFlowerState.candle,
-        profile: profileId,
-        user: user._id,
-      });
-      getAllCandleFlower();
-      dispatch({ type: 'RESET' });
-      setIsPaid(false);
-    } catch (error) {
-      console.log(error);
-    }
+      event.preventDefault();
+      // window.location.assign(
+      //   `https://direct.tranzila.com/icloud/iframenew.php?sum=${
+      //     (candleFlowerState.flower + candleFlowerState.candle) * 5
+      //   }&currency=1&cred_type=1&ppnewwin=2&ppnewwin=2`
+      // );
+      // currency = 1 for shekel, 2 for dollar
+      // cred-type = 1 for direct, 6 for credit, 8 for payments
+      try {
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
+          flower: candleFlowerState.flower,
+          candle: candleFlowerState.candle,
+          profile: profileId,
+          user: user._id,
+        });
+        getAllCandleFlower();
+        dispatch({ type: 'RESET' });
+        setIsPaid(false);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   if (Object.keys(profiledata).length > 0) {

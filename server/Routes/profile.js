@@ -145,9 +145,7 @@ ProfileRouter.put(
     { name: 'graveImg', maxCount: 1 },
   ]),
   async (req, res) => {
-    // const axisImageChangeIndex = JSON.parse(
-    //   req.body.axisImageChangeIndex
-    // )?.sort();
+    const axisImageChangeIndex = JSON.parse(req.body.axisImageChangeIndex);
     try {
       let resultProfileImage;
       if (req.files.profileImg?.[0]?.path) {
@@ -326,10 +324,14 @@ ProfileRouter.put(
         ...dataSource,
         gallery: [...newGalleryImg, ...prevGalleryImg],
       };
+
+      const userProfile = await profileModel.findById(req.body._id);
       if (axisurls.length > 0) {
-        updateStr.axisImages = axisurls.map((url) => {
-          return url.res;
+        const copyAxisImages = [...userProfile.axisImages];
+        axisImageChangeIndex.forEach((index, i) => {
+          copyAxisImages[index] = axisurls[i].res;
         });
+        updateStr.axisImages = copyAxisImages;
       }
 
       // if (axisurls.length > 0) {
