@@ -164,7 +164,7 @@ const HomeMobile = (props) => {
         </div>
         <div className="text-section-container">
           <Player
-            src="https://youtu.be/GthRGhlesKY"
+            src="https://res.cloudinary.com/lifecloud-qr/video/upload/v1658269642/LIFECLOUD_FIX_SUBS_1_1_askdfkjasbhdffn_f_glhqbq.mp4"
             className="home-mobile-video"
             controls={true}
           />
