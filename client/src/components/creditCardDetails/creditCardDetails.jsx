@@ -1,64 +1,48 @@
 import React, { useState } from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/es/styles-compiled.css';
+import { ToastContainer } from 'react-toastify';
 import { postPay, postPayQr } from '../../apiCalls';
+import toastCreator from '../../hooks/toastifyCreator';
 import './credit-card-details.css';
 
 export const CreditCardDetails = ({
-  setIsOpen,
   setIsPaid,
-  setIsNext,
   dataForPay,
+  setShowPaymentModal,
+  handleClick,
 }) => {
   const [creditCard, setCreditCard] = useState({
     cvc: '',
     expiry: '',
-    focus: '',
     name: '',
     number: '',
     myid: '',
   });
-  const [errorPayment, setErrorPayment] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const handleInputFocus = (e) => {
-    console.log(e);
-    if (e.target) {
-      setCreditCard({ ...creditCard, focus: e.target.name });
-    }
-  };
+  /*  const [errorMessage, setErrorMessage] = useState(''); */
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setCreditCard({ ...creditCard, [name]: value });
   };
   const onClickPay = async () => {
     try {
-      let res = null;
-      if (dataForPay.userId) {
-        res = await postPayQr({ ...dataForPay, creditCard }).catch((err) =>
-          setErrorMessage(err)
-        );
+      const response = await postPayQr({ ...dataForPay, creditCard });
+      console.log(response);
+      if (
+        response.statusCode === '400' ||
+        response.message?.startsWith('Unable')
+      ) {
+        toastCreator(response.message, 'error');
+        setIsPaid(false);
       } else {
-        res = await postPay({ ...dataForPay, creditCard }).catch((err) =>
-          setErrorMessage(err)
-        );
-      }
-      if (res) {
-        setIsOpen(false);
-        if (setIsNext) {
-          setIsNext(false);
-        }
-        if (res === true) {
-          setIsPaid(true);
-        } else {
-          setIsPaid(false);
-          setErrorMessage(res);
-          setErrorPayment(true);
-        }
+        setShowPaymentModal(false);
+        toastCreator(response.message, 'success');
+        setIsPaid(true);
+        handleClick();
       }
     } catch (error) {
-      setErrorMessage(error);
+      console.log(error);
     }
   };
 
@@ -78,7 +62,6 @@ export const CreditCardDetails = ({
           name="number"
           placeholder="מספר כרטיס"
           onChange={(event) => handleInputChange(event)}
-          onFocus={(event) => handleInputFocus(event)}
         />
         <input
           className="nameInput payment-form-input"
@@ -86,7 +69,6 @@ export const CreditCardDetails = ({
           name="expiry"
           placeholder="תוקף"
           onChange={(event) => handleInputChange(event)}
-          onFocus={(event) => handleInputFocus(event)}
         />
         <input
           className="nameInput payment-form-input"
@@ -94,7 +76,6 @@ export const CreditCardDetails = ({
           name="name"
           placeholder="שם בעל הכרטיס"
           onChange={(event) => handleInputChange(event)}
-          onFocus={(event) => handleInputFocus(event)}
         />
         <input
           className="nameInput payment-form-input"
@@ -102,7 +83,6 @@ export const CreditCardDetails = ({
           name="cvc"
           placeholder="קוד אימות כרטיס"
           onChange={(event) => handleInputChange(event)}
-          onFocus={(event) => handleInputFocus(event)}
         />
         <input
           className="nameInput payment-form-input"
@@ -110,7 +90,6 @@ export const CreditCardDetails = ({
           name="myid"
           placeholder="תעודת זהות"
           onChange={(event) => handleInputChange(event)}
-          onFocus={(event) => handleInputFocus(event)}
         />
       </form>
       <div className="pay-btn-container">
@@ -118,7 +97,8 @@ export const CreditCardDetails = ({
           תשלום
         </button>
       </div>
-      {errorMessage.length > 0 && <div>Error Payment: {errorMessage}</div>}
+      {/* {errorMessage && <div>Error Payment: {errorMessage}</div>} */}
+      <ToastContainer />
     </div>
   );
 };

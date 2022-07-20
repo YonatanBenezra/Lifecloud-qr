@@ -15,11 +15,11 @@ PaymentRouter.post('/pay-qr', async (req, res) => {
       !userId.length ||
       !tranzilaPW.length
     ) {
-      throw 'missing param';
+      throw { message: 'Missing param', statusCode: '033' };
     }
     Object.keys(creditCard).map((key) => {
       if (!creditCard[key].length) {
-        throw 'credit card details missing';
+        throw { message: 'Credit card details missing!', statusCode: '400' };
       }
     });
     const responsePayment = await get(
