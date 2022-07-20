@@ -1012,3 +1012,8 @@ input[type='date']::-webkit-calendar-picker-indicator {
 .axis-delete-button {
   font-size: 15px;
 }
+
+.title-grave-image {
+  margin-bottom: 20px !important;
+  text-align: center;
+}
