@@ -78,7 +78,7 @@ export const MethodsPayment = (props) => {
           >
             x
           </button>
-          <h3 className="title">:בחר אמצעי תשלום</h3>
+          <h3 className="title">בחר אמצעי תשלום:</h3>
           <div className="icons-container-payment">
             <div className="icon-payment-method bit"></div>
             <div className="icon-payment-method apple-pay-icon"></div>
