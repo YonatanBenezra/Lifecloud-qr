@@ -30,3 +30,7 @@ a {
 .c-rights-reserved {
   font-size: 18px;
 }
+.footer-container {
+  display: flex;
+  justify-content: center;
+}

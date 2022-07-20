@@ -251,6 +251,7 @@
 
 .video-react .video-react-video {
   border-radius: 15px;
+  object-fit: fill;
 }
 
 .player-wrapper {
@@ -1034,7 +1035,7 @@
   display: flex;
   align-items: center;
   text-align: center;
-
+  justify-content: center;
 }
 
 .gridTxt:first {
@@ -1224,7 +1225,8 @@
 
 .full_width_video_container video {
   width: 100vw;
-  height: 65vh;
+  height: 75vh;
+  object-fit: fill;  
 }
 
 @media screen and (max-width: 1200px) {

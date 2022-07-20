@@ -146,7 +146,7 @@ const HomeDesktop = (props) => {
               <br /> ולשמר לעד מי שהם היו?
             </p>
             <Player
-              src="/assets/Lifecloud-video.mp4"
+              src="https://res.cloudinary.com/lifecloud-qr/video/upload/v1658269642/LIFECLOUD_FIX_SUBS_1_1_askdfkjasbhdffn_f_glhqbq.mp4"
               width="60%"
               height="60%"
               fluid={false}
