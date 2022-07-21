@@ -1110,7 +1110,7 @@ export default function ProfileCreate() {
                       setIsPaid={setIsPaid}
                       dataForPay={{ userId: user._id }}
                       setShowPaymentModal={setShowPaymentModal}
-                      handleClick={handleClick}
+                      handleFormSubmit={handleClick}
                     />
                   )}
                 </form>

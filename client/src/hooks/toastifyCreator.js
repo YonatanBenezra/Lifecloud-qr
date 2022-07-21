@@ -1,12 +1,12 @@
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
 //Toastify generator
 const toastCreator = (message, status) => {
   toast[status](message, {
-    position: "bottom-center",
+    position: 'bottom-center',
     autoClose: 3000,
     toastId: "unique",
-    theme: "light",
+    theme: 'light',
   });
 };
 

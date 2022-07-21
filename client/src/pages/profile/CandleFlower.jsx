@@ -58,11 +58,11 @@ const reducer = (state, action) => {
 const CandleFlower = ({
   candleFlower,
   handleFormSubmit,
-  profileName,
-  setIsNext,
-  isNext,
   setIsPaid,
   userId,
+  profileName,
+  setShowPaymentModal,
+  showPaymentModal,
 }) => {
   const { id: profileId } = useParams();
   const history = useHistory();
@@ -226,26 +226,30 @@ const CandleFlower = ({
                     </div>
                   )}
                   <button
-                    // data-bs-dismiss="modal"
-                    aria-label="Close"
                     className={`border-0 w-50 my-4 py-2 fw-bold text-white rounded-3 `}
                     style={{ backgroundColor: '#6097bf', fontSize: '20px' }}
                     type="button"
-                    onClick={() => setIsNext(true)}
+                    onClick={() => setShowPaymentModal(true)}
                   >
                     המשך
                   </button>
-                  {isNext && (
+
+                  {showPaymentModal && (
                     <MethodsPayment
                       setIsPaid={setIsPaid}
-                      isOpen={true}
-                      setIsNext={setIsNext}
                       dataForPay={{
                         flower: candleFlowerState.flower,
                         candle: candleFlowerState.candle,
                         profile: profileId,
                         user: userId,
                       }}
+                      setShowPaymentModal={setShowPaymentModal}
+                      handleFormSubmit={handleFormSubmit.bind(
+                        null,
+                        null,
+                        candleFlowerState,
+                        dispatch
+                      )}
                     />
                   )}
                 </form>
@@ -268,8 +272,8 @@ const CandleFlower = ({
           </div>
           <div
             className={`fc_image_container`}
-            // data-bs-toggle="modal"
-            // data-bs-target="#candleFlower"
+            data-bs-toggle="modal"
+            data-bs-target="#candleFlower"
           >
             <LazyLoad>
               <img

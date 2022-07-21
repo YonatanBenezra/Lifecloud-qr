@@ -6,7 +6,8 @@ import { useState } from 'react';
 import { CreditCardDetails } from '../creditCardDetails/creditCardDetails';
 
 export const MethodsPayment = (props) => {
-  const { setIsPaid, dataForPay, setShowPaymentModal, handleClick } = props;
+  const { setIsPaid, dataForPay, setShowPaymentModal, handleFormSubmit } =
+    props;
   const [showCreditCardDetails, setShowCreditCardDetails] = useState(false);
 
   return (
@@ -58,7 +59,7 @@ export const MethodsPayment = (props) => {
               setIsPaid={setIsPaid}
               dataForPay={dataForPay}
               setShowPaymentModal={setShowPaymentModal}
-              handleClick={handleClick}
+              handleFormSubmit={handleFormSubmit}
             />
             <h6
               onClick={() => setShowCreditCardDetails(false)}

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/es/styles-compiled.css';
-import { ToastContainer } from 'react-toastify';
-import { postPay, postPayQr } from '../../apiCalls';
+import { toast, ToastContainer } from 'react-toastify';
+import { postPayCandleFlower, postPayQr } from '../../apiCalls';
 import toastCreator from '../../hooks/toastifyCreator';
 import './credit-card-details.css';
 
@@ -10,7 +10,7 @@ export const CreditCardDetails = ({
   setIsPaid,
   dataForPay,
   setShowPaymentModal,
-  handleClick,
+  handleFormSubmit,
 }) => {
   const [creditCard, setCreditCard] = useState({
     cvc: '',
@@ -25,21 +25,26 @@ export const CreditCardDetails = ({
     const { name, value } = e.target;
     setCreditCard({ ...creditCard, [name]: value });
   };
+
   const onClickPay = async () => {
     try {
-      const response = await postPayQr({ ...dataForPay, creditCard });
+      let response;
+      if (dataForPay.candle || dataForPay.flower) {
+        response = await postPayCandleFlower({ ...dataForPay, creditCard });
+      } else {
+        response = await postPayQr({ ...dataForPay, creditCard });
+      }
       console.log(response);
-      if (
-        response.statusCode === '400' ||
-        response.message?.startsWith('Unable')
-      ) {
+      if (response?.status === 'error') {
         toastCreator(response.message, 'error');
         setIsPaid(false);
       } else {
-        setShowPaymentModal(false);
         toastCreator(response.message, 'success');
-        setIsPaid(true);
-        handleClick();
+        setTimeout(() => {
+          setShowPaymentModal(false);
+          setIsPaid(true);
+          handleFormSubmit();
+        }, 2000);
       }
     } catch (error) {
       console.log(error);
