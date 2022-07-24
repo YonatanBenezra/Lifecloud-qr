@@ -3,11 +3,13 @@
   font-weight: 600;
   text-align: center;
 }
+
 .profile-creation-box h1 {
   font-size: 28px;
   /* margin-bottom: 1.5rem; */
   margin: 0;
 }
+
 .profile {
   display: flex;
 }
@@ -20,6 +22,7 @@
   height: 320px;
   position: relative;
 }
+
 .middle-axis-btn {
   height: 60px;
   width: 60px;
@@ -34,27 +37,33 @@
   cursor: pointer;
   transition: ease-in-out 500ms;
 }
+
 .middle-axis-btn:hover {
   border: 1px solid #abc9db;
   background-color: #fff;
   color: #abc9db;
 }
+
 .middle-axis-btn:hover .line-1 {
   width: 25px;
   border: 1px solid #abc9db;
 }
+
 .middle-axis-btn:hover .line-2 {
   width: 25px;
   border: 1px solid #abc9db;
 }
+
 .middle-axis-btn .line-1 {
   width: 25px;
   border: 1px solid #fff;
 }
+
 .middle-axis-btn .line-2 {
   width: 25px;
   border: 1px solid #fff;
 }
+
 .profileCoverImg {
   width: 102%;
   height: 250px;
@@ -104,15 +113,19 @@
     max-width: 405px;
     margin-top: 10px;
   }
+
   .sidebar {
     height: auto;
   }
+
   .sidebarFriendList {
     display: none;
   }
+
   .sidebarWrapper {
     display: none;
   }
+
   .rightbarWrapper {
     display: none;
   }
@@ -135,6 +148,7 @@
   font-size: 20px;
   padding-bottom: 5rem;
 }
+
 .user-name {
   font-size: 28px;
 }
@@ -155,15 +169,18 @@
   align-items: center;
   padding-top: 2rem;
 }
+
 .profiles-title {
   margin-top: 2rem;
 }
+
 .profile-image {
   height: 150px;
   width: 150px;
   border-radius: 100%;
   margin: 0rem;
 }
+
 .profile-creation-gallery-img {
   width: 100%;
   height: 100%;
@@ -194,6 +211,7 @@
   color: #6097bf;
   font-size: 18px;
 }
+
 .profiles {
   display: flex;
   width: 100%;
@@ -242,6 +260,7 @@
   margin: 2px;
   margin-top: 4%;
 }
+
 .profile-creation-description {
   height: 153px !important;
   height: 50px;
@@ -258,14 +277,18 @@
   -moz-box-shadow: none;
   box-shadow: none;
   padding: 1%;
-  resize: none; /*remove the resize handle on the bottom right*/
+  resize: none;
+  /*remove the resize handle on the bottom right*/
 }
+
 .profile-creation-description::placeholder {
   color: #abc9db;
 }
+
 .loginInput:focus {
   outline: none;
 }
+
 .popup-modal {
   font-size: 12px;
   background-color: #fff;
@@ -273,6 +296,7 @@
   color: #6097bf;
   width: 50vw;
 }
+
 .loginButton {
   height: 50px;
   border-radius: 10px;
@@ -300,6 +324,7 @@
   text-align: center;
   color: #ffffff;
 }
+
 .profile-example-btn {
   background: #fff;
   /* padding-top: 0.5rem; */
@@ -311,10 +336,12 @@
   transition: all 500ms ease-in-out;
   cursor: pointer;
 }
+
 .profile-example-btn:hover {
   background: #6097bf;
   color: #fff;
 }
+
 @media only screen and (max-width: 600px) {
   .login {
     flex-direction: row;
@@ -324,18 +351,22 @@
   .loginRight {
     align-items: center;
   }
+
   .loginDesc {
     text-align: center;
     margin-bottom: 10px;
   }
 }
+
 .profile-create-about-container {
   margin-bottom: 75px;
   text-align: center;
 }
+
 .center-text {
   text-align: center;
 }
+
 .radio-input-container-profile {
   background: #fff;
   margin: 0 1rem 0 1rem;
@@ -352,6 +383,7 @@
   font-size: 25px;
   padding: 0 3px;
 }
+
 .radio-container {
   font-size: 35px;
   display: flex;
@@ -359,21 +391,26 @@
   margin-bottom: 2rem;
   margin-top: 2rem;
 }
+
 .radio-input-container {
   margin: 0 2rem 0 2rem;
 }
+
 .profile-creation-names-container {
   display: flex;
   justify-content: space-evenly;
 }
+
 .icons-container {
   display: flex;
   justify-content: space-evenly;
   margin-top: -65px;
 }
+
 .loginBox {
   height: auto;
 }
+
 .profile-creation-box {
   height: auto;
   border-radius: 10px;
@@ -383,10 +420,12 @@
   direction: rtl;
   padding-bottom: 70px;
 }
+
 .add-profile-images {
   display: flex;
   justify-content: space-evenly;
 }
+
 .profile-image-container {
   display: flex;
   flex-direction: column;
@@ -394,9 +433,11 @@
   color: #6097bf;
   margin-top: 40px;
 }
+
 .profile-image-container p {
   margin-top: 2rem;
 }
+
 input::placeholder {
   color: #abc9db;
 }
@@ -406,17 +447,21 @@ input::placeholder {
   flex-direction: column;
   align-items: center;
 }
+
 .description {
   width: 95% !important;
   height: 153px !important;
 }
+
 .create-profile-container {
   background-color: #f0f2f5;
   color: #6097bf;
 }
+
 .radio {
   display: none;
 }
+
 .input-label {
   background: #ffffff;
   border-radius: 10px;
@@ -424,13 +469,16 @@ input::placeholder {
   padding: 0.5rem;
   font-size: 20px;
 }
+
 .active {
   color: #6097bf;
   background-color: #6097bf;
 }
+
 .location-semicontainer {
   width: 100%;
 }
+
 .media-upload-button {
   /* background-color: #1775ee; */
   width: 160px;
@@ -438,9 +486,11 @@ input::placeholder {
   /* color: #000; */
   /* z-index: 1000; */
 }
+
 .media-upload-button-container {
   text-align: center;
 }
+
 .add-btn {
   margin: auto;
   display: flex;
@@ -454,6 +504,7 @@ input::placeholder {
   cursor: pointer;
   transition-duration: 500ms;
 }
+
 .add-btn-middle {
   margin: auto;
   display: flex;
@@ -467,25 +518,31 @@ input::placeholder {
   cursor: pointer;
   transition: 500ms ease-in-out;
 }
+
 .add-btn-middle:hover {
   background: #ffff;
   color: #abc9db;
 }
+
 .add-btn:hover {
   background: #abc9db;
   color: #ffffff;
 }
+
 .add-btn:hover .inner-btn .line-1 {
   border: 1px solid #fff !important;
 }
+
 .add-btn:hover .inner-btn .line-2 {
   border: 1px solid #fff !important;
 }
+
 .inner-btn {
   display: flex;
   position: absolute;
   justify-content: center;
 }
+
 .line-1 {
   position: absolute;
   width: 45px;
@@ -493,12 +550,14 @@ input::placeholder {
   border: 1px solid #abc9db;
   transform: rotate(90deg);
 }
+
 .line-2 {
   position: absolute;
   width: 45px;
   height: 0px;
   border: 1px solid #abc9db;
 }
+
 .line-1-middle {
   position: absolute;
   width: 25px;
@@ -506,24 +565,28 @@ input::placeholder {
   border: 1px solid #abc9db;
   transform: rotate(90deg);
 }
+
 .line-2-middle {
   position: absolute;
   width: 25px;
   height: 0px;
   border: 1px solid #abc9db;
 }
+
 .inner-box {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
 }
+
 .delete-btn {
   font-size: 25px;
   color: #6097bf;
   font-weight: 600;
   margin-right: 10px;
 }
+
 .axis-input {
   height: 35px;
   border-radius: 10px;
@@ -533,9 +596,11 @@ input::placeholder {
   margin: 2px;
   width: 20%;
 }
+
 .axis-input-image {
   display: none;
 }
+
 .file-label {
   width: 100px;
   height: 30px;
@@ -551,14 +616,17 @@ input::placeholder {
   cursor: pointer;
   transition: ease-in-out 500ms;
 }
+
 .file-label:hover {
   background: #abc9db;
   color: #ffffff;
 }
+
 .file-label:active {
   background: green;
   color: #ffffff;
 }
+
 .axis-description {
   height: 80px;
   border-radius: 10px;
@@ -570,6 +638,7 @@ input::placeholder {
   line-height: 1;
   padding: 0 !important;
 }
+
 .create-btn {
   display: flex;
   box-sizing: border-box;
@@ -588,6 +657,7 @@ input::placeholder {
   align-items: center;
   justify-content: center;
 }
+
 .create-btn:hover {
   color: #ffffff;
   border: 1px solid #6097bf;
@@ -597,16 +667,20 @@ input::placeholder {
   color: #ffffff;
   background: #6097bf;
 }
+
 .create-btn:hover {
   background: #ffffff;
   color: #6097bf;
 }
+
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
 }
+
 .custom-file-input-cover::-webkit-file-upload-button {
   visibility: hidden;
 }
+
 .custom-file-input::before {
   content: 'הוסף תמונת פרופיל + ';
   display: inline-block;
@@ -622,14 +696,17 @@ input::placeholder {
   font-size: 25px;
   margin-top: 10px;
 }
+
 .custom-file-grave::-webkit-file-upload-button {
   visibility: hidden;
 }
+
 .custom-file-grave-cover::-webkit-file-upload-button {
   visibility: hidden;
 }
+
 .custom-file-grave::before {
-  content: 'הוסף תמונה של הקבר + ';
+  /* content: 'הוסף תמונה של הקבר+'; */
   display: inline-block;
   /* border: 1px solid #999; */
   border-radius: 3px;
@@ -643,9 +720,11 @@ input::placeholder {
   font-size: 24px;
   margin: 20px 0;
 }
+
 #profilePic::-webkit-file-upload-button {
   visibility: hidden;
 }
+
 #profilePic.with-text::before {
   content: '+ הוסף תמונות לגלריה';
   display: inline-block;
@@ -664,6 +743,7 @@ input::placeholder {
 #memoryVideo::-webkit-file-upload-button {
   visibility: hidden;
 }
+
 #memoryVideo.with-text::before {
   content: '+ הוסף תמונות לגלריה';
   display: inline-block;
@@ -678,6 +758,7 @@ input::placeholder {
   font-weight: 700;
   font-size: 10pt;
 }
+
 .custom-file-input-cover::before {
   content: 'הוסף תמונת קאבר + ';
   display: inline-block;
@@ -693,21 +774,27 @@ input::placeholder {
   font-size: 25px;
   margin-top: 10px;
 }
+
 .custom-file-input-cover {
   width: 200px;
 }
+
 .custom-file-input:hover::before {
   border-color: black;
 }
+
 .custom-file-input:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
+
 .custom-file-input {
   width: 200px;
 }
+
 .d-none {
   display: none;
 }
+
 .birth-date-container {
   display: flex;
   justify-content: space-between;
@@ -715,11 +802,13 @@ input::placeholder {
   padding-right: 20%;
   padding-bottom: 0.5rem;
 }
+
 .axis-details {
   font-weight: 600;
   text-align: right;
   margin-top: 10px;
 }
+
 .press-explain-container {
   display: flex;
   justify-content: space-between;
@@ -727,44 +816,53 @@ input::placeholder {
   margin: auto;
   margin-bottom: 40px;
 }
+
 .organisation-name {
   margin-top: 45px;
   width: 100%;
 }
+
 @media screen and (max-width: 1050px) {
   .organisation-name {
     margin: auto;
     width: 90%;
   }
 }
+
 .press-change-container {
   display: flex;
   align-items: center;
   align-content: space-between;
 }
+
 .press-change-1 {
   margin-right: 37%;
   font-size: 18px;
 }
+
 .press-change-2 {
   margin-right: 21%;
   font-size: 18px;
 }
+
 .press-explain-container {
   display: flex;
 }
+
 .press-explain-1 {
   margin-left: 25%;
   font-size: 18px;
   direction: rtl;
   color: #abc9db;
 }
+
 .press-explain-2 {
   font-size: 18px;
   margin-left: 33%;
   direction: rtl;
   color: #abc9db;
 }
+
 .press-explain-3 {
   font-size: 18px;
   direction: rtl;
@@ -774,6 +872,7 @@ input::placeholder {
   justify-content: flex-end;
   margin-left: 46%;
 }
+
 .press-explain-4 {
   font-size: 18px;
   direction: rtl;
@@ -787,14 +886,17 @@ input::placeholder {
   width: 100%;
   height: 100%;
 }
+
 .life-axis-img {
   width: 100%;
   height: 100%;
 }
+
 .page_title {
   font-size: 60px;
   padding-right: 160px;
 }
+
 .back_button {
   cursor: pointer;
   padding-right: 115px;
@@ -813,55 +915,78 @@ input::placeholder {
     font-size: 50px;
     padding: 0 50px;
   }
+
   .back_button {
     cursor: pointer;
     padding-right: 0;
   }
 }
+
 @media screen and (max-width: 576px) {
   .regular_profile_creation .profile-image {
     width: 120px;
     height: 120px;
   }
+
   .regular_profile_creation .custom-file-input-cover,
   .regular_profile_creation .custom-file-input,
   .regular_profile_creation .custom-file-grave {
     width: 180px !important;
   }
+
   .regular_profile_creation .custom-file-input-cover::before,
   .regular_profile_creation .custom-file-input::before,
   .regular_profile_creation .custom-file-grave::before {
     font-size: 20px;
   }
+
   .regular_profile_creation .birth-date-container {
     padding-left: 0;
     padding-right: 0;
     justify-content: space-around;
   }
+
   .regular_profile_creation .profile-creation-box input {
     font-size: 18px;
   }
+
   .regular_profile_creation .nameInput {
     padding-left: 0;
   }
+
   .regular_profile_creation .axis-description {
     width: 100px;
     padding: 0;
   }
+
   .regular_profile_creation .file-label {
     margin-right: 0;
     margin-left: 0;
   }
+
   .regular_profile_creation .delete-btn {
     font-size: 18px;
   }
+
   .regular_profile_creation .profile-creation-names-container {
     flex-wrap: wrap;
   }
+
   .google_input {
     margin: auto;
   }
+
+  #margin_btn_add_grave {
+    margin-right: 0 !important;
+    width: auto !important
+  }
+
+  .regular_profile_creation .file-label {
+    margin-right: 0;
+    margin-left: 0;
+  }
 }
+
 .memory-text-description {
   background-color: #dcecf4;
   color: #6097bf;
@@ -871,6 +996,7 @@ input::placeholder {
   justify-content: center;
   align-items: center;
 }
+
 input[type='date']::-webkit-calendar-picker-indicator {
   cursor: pointer;
   border-radius: 4px;
@@ -885,4 +1011,9 @@ input[type='date']::-webkit-calendar-picker-indicator {
 } */
 .axis-delete-button {
   font-size: 15px;
+}
+
+.title-grave-image {
+  margin-bottom: 20px !important;
+  text-align: center;
 }

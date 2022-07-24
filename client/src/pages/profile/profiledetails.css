@@ -14,12 +14,15 @@
   margin-top: -6px;
   padding: 2.5rem 0;
 }
+
 .list-of-deceased-container {
   margin-bottom: 75px;
 }
+
 .hideBtn {
   display: none;
 }
+
 .profile-details-cover-btns {
   position: absolute;
   top: 50%;
@@ -27,6 +30,7 @@
   display: flex;
   flex-direction: column;
 }
+
 /* .profile-h1 {
     font-size: 60px;
 } */
@@ -58,18 +62,21 @@
   justify-content: space-between;
   font-size: 1.3rem;
 }
+
 .profile-details .btns-container {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   height: 140px;
 }
+
 .qr-modal {
   background-color: initial;
   border: none;
   text-align: center;
   width: 100%;
 }
+
 .big-btns-container,
 .small-btns-container {
   display: flex;
@@ -134,13 +141,16 @@
   flex-direction: column;
   /* align-items: center; */
 }
+
 .memorial-container {
   background: #dcecf4;
 }
+
 .profile-details-title {
   display: flex;
   flex-direction: row-reverse;
 }
+
 .profile-details-title h1 {
   color: #6097bf;
   margin-bottom: 2rem;
@@ -154,15 +164,18 @@
   padding: 12px 1rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
+
 .details-and-icons h3 {
   color: #6097bf;
   margin: 8px 0;
 }
+
 .memorial-details .dash {
   display: none;
 }
+
 .wall-main-container {
   align-self: self-end;
 }
@@ -229,10 +242,12 @@
   transition: ease-in-out 0.5s;
   z-index: 200;
 }
+
 .full-btn:hover {
   background-color: #6097bf;
   color: #fff;
 }
+
 .back-btn {
   width: initial;
   border-color: transparent;
@@ -249,6 +264,7 @@
   align-items: center;
   transition: ease-in-out 0.5s;
 }
+
 .full-btn.back-btn img {
   width: 44px;
   margin: 0 12px;
@@ -269,26 +285,31 @@
   transition: ease-in-out 0.5s;
   z-index: 200;
 }
+
 @media only screen and (max-width: 768px) {
   .full-memory-btn {
     width: 120px;
     font-size: 18px;
   }
+
   .full-btn {
     width: 120px;
     font-size: 18px;
   }
 }
-.full-memory-btn:hover {
+
+/* .full-memory-btn:hover {
   background-color: #6097bf;
   color: #fff;
-}
+} */
+
 .grave-location-container {
   margin-top: 5rem;
   background-color: #dcecf4;
   width: 100%;
   padding-bottom: 3rem;
 }
+
 .grave-location-title {
   text-align: center;
   color: #6097bf;
@@ -296,6 +317,7 @@
   margin-bottom: 2rem;
   padding-top: 2rem;
 }
+
 @media only screen and (max-width: 768px) {
   .profile_details_section_title {
     font-size: 32px !important;
@@ -307,11 +329,13 @@
   width: 300px;
   border-radius: 15px;
 }
+
 .grave-imgs-container {
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
+
 @media screen and (max-width: 480px) {
   .grave-imgs-container {
     flex-direction: column;
@@ -335,6 +359,7 @@
   font-weight: bold;
   z-index: 200;
 }
+
 .navigation-btn img {
   width: 28px;
 }
@@ -454,6 +479,7 @@
   unicode-bidi: embed;
   font-family: 'almoni';
 }
+
 @media screen and (max-width: 768px) {
   .bio-bio {
     font-size: 18px;
@@ -489,6 +515,7 @@
   margin-bottom: 2rem;
   margin-top: 2rem;
 }
+
 .dotted-seperator {
   transform: rotate(90deg);
   display: inline-flex;
@@ -505,56 +532,67 @@
     margin-left: 55%;
   }
 }
+
 @media only screen and (max-width: 1300px) {
   .dotted-seperator {
     margin-left: 54.5%;
   }
 }
+
 @media only screen and (max-width: 1024px) {
   .dotted-seperator {
     margin-left: 54%;
   }
 }
+
 @media only screen and (max-width: 920px) {
   .dotted-seperator {
     margin-left: 53.5%;
   }
 }
+
 @media only screen and (max-width: 800px) {
   .dotted-seperator {
     margin-left: 53%;
   }
 }
+
 @media only screen and (max-width: 767px) {
   .dotted-seperator {
     margin-left: 52%;
   }
 }
+
 @media only screen and (max-width: 670px) {
   .dotted-seperator {
     margin-left: 51.5%;
   }
 }
+
 @media only screen and (max-width: 585px) {
   .dotted-seperator {
     margin-left: 51%;
   }
 }
+
 @media only screen and (max-width: 520px) {
   .dotted-seperator {
     margin-left: 49%;
   }
 }
+
 @media only screen and (max-width: 480px) {
   .dotted-seperator {
     margin-left: 47%;
   }
 }
+
 .axis-sub-container {
   width: 15%;
   display: flex;
   flex-direction: column;
 }
+
 .axis-bubble {
   margin-left: 3rem;
   background: #abc9db;
@@ -590,6 +628,7 @@
   font-weight: 100;
   transition: ease-in-out 500ms;
 }
+
 .last-image:hover {
   color: #fff;
   border: 1px solid #fff;
@@ -629,6 +668,7 @@
     margin-right: 2rem; */
   margin: 0 1rem 3rem;
 }
+
 .full-gallery-img-inner-container {
   position: relative;
 }
@@ -651,6 +691,7 @@
   justify-content: center;
   background: #fff;
 }
+
 .heart-icon {
   height: 20px;
   width: 22px;
@@ -736,12 +777,14 @@ input[type='date']:valid::before {
   .gallery-container {
     padding: 2rem;
   }
+
   .gallery-img {
     /* width: 180px;
         height: 180px; */
     width: 26vw;
     height: 26vw;
   }
+
   .full-gallery-img {
     width: 20vw;
     height: 20vw;
@@ -749,6 +792,7 @@ input[type='date']:valid::before {
     min-height: 104px;
   }
 }
+
 @media only screen and (max-width: 767px) {
   .profile-details .profile-img {
     width: 20vw;
@@ -758,13 +802,16 @@ input[type='date']:valid::before {
     /* margin: 0 2rem 0px 1.5rem; */
     margin: 0 0 20px 0;
   }
+
   .profile-details-first {
     flex-direction: column;
   }
+
   .deceased-details {
     margin: 0;
     text-align: center;
   }
+
   .profile-details-title h1 {
     width: 100%;
     text-align: center;
@@ -772,22 +819,26 @@ input[type='date']:valid::before {
 
   .profile-details .btns-container,
   .details-and-icons {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
+
   /* .details-and-icons {
         flex-direction: column;
     } */
   .memorial-details .separator {
     display: none;
   }
+
   .memorial-details .dash {
     display: initial;
   }
+
   .memorial-container,
   .gallery-container {
     padding: 1rem;
   }
 }
+
 @media only screen and (max-width: 480px) {
   .gallery-img {
     width: 26vw;
@@ -795,10 +846,12 @@ input[type='date']:valid::before {
     border-radius: 8px;
   }
 }
+
 .google_map {
   width: 800px;
   height: 500px;
 }
+
 @media only screen and (max-width: 1200px) {
   .google_map {
     width: 600px;
@@ -812,47 +865,59 @@ input[type='date']:valid::before {
     height: 280px;
   }
 }
+
 @media only screen and (max-width: 768px) {
   .google_map {
     width: 100%;
     height: 350px;
     margin-top: 20px;
   }
+
   .grave-imgs-container {
     flex-direction: column;
   }
+
   .map_container {
     width: 75%;
   }
+
   .profile-icons-container .icon-btn {
     margin-left: 0;
     margin-right: 20px;
     width: 3.5rem;
   }
+
   .memorial-details h3 {
     font-size: 24px;
   }
+
   .profile-h1 {
     font-size: 30px;
   }
+
   .deceased-details p {
     font-size: 18px;
   }
+
   .profile-big-btn {
     padding: 0.8rem 2rem;
     font-size: 1.8rem;
   }
+
   .profile-small-btn {
     padding: 0.5rem 1.5rem;
     font-size: 1.4rem;
   }
 }
+
 .up_down_btn {
   margin-top: 0;
 }
+
 .up_down_btn:first-of-type {
   margin-bottom: 16px;
 }
+
 @media only screen and (max-width: 768px) {
   .up_down_btn {
     height: 38px;
@@ -866,21 +931,25 @@ input[type='date']:valid::before {
     width: 60px;
   }
 }
+
 /* Candle & Flower Css Starts */
 .candle_flower_item {
   position: relative;
 }
+
 .candle_flower {
   z-index: 99;
   top: 16%;
   left: 10%;
   gap: 25px;
 }
+
 .candle_flower img {
   width: 150px;
   height: 150px;
   cursor: pointer;
 }
+
 .candle_flower_count {
   width: 50px;
   height: 50px;
@@ -896,6 +965,7 @@ input[type='date']:valid::before {
   top: -10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
+
 .candle_flower_user_list {
   position: absolute;
   top: -12px;
@@ -912,16 +982,19 @@ input[type='date']:valid::before {
   font-size: 18px;
   z-index: -1;
 }
+
 .candle_flower_user_list ul {
   list-style: none;
   padding-left: 0;
 }
+
 .without_tribute .fc_image_container {
   position: relative;
   /* display: flex;
   justify-content: center;
   align-items: center; */
 }
+
 .without_tribute .fc_image_container::after {
   content: '';
   width: 100%;
@@ -936,6 +1009,7 @@ input[type='date']:valid::before {
   border-radius: 50%;
   cursor: pointer;
 }
+
 .tributeText {
   color: #fff;
   position: absolute;
@@ -944,15 +1018,19 @@ input[type='date']:valid::before {
   transform: translate(-50%, -50%);
   z-index: 999;
 }
+
 .without_tribute .tributeText {
   display: block;
 }
+
 .with_tribute .tributeText {
   display: none;
 }
+
 .with_tribute .candle_flower_count {
   display: flex;
 }
+
 .without_tribute .candle_flower_count {
   display: none;
 }
@@ -965,61 +1043,74 @@ input[type='date']:valid::before {
   margin-left: auto;
   display: block;
 }
+
 .popup-image-text {
   width: 100%;
   position: absolute;
   text-align: center;
   margin-top: 30px;
 }
+
 .popup-image-text h3 {
   font-weight: bold;
 }
+
 .profile_candle_btn {
   position: absolute;
   bottom: 2%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .profile_candle_modal {
   border-radius: 10px;
 }
+
 @media only screen and (max-width: 992px) {
   .candle_flower {
     top: 14%;
   }
+
   .candle_flower img {
     width: 120px;
     height: 120px;
   }
 }
+
 @media only screen and (max-width: 768px) {
   .candle_flower img {
     width: 90px;
     height: 90px;
   }
 }
+
 @media only screen and (max-width: 576px) {
   .candle_flower {
     top: 11%;
   }
+
   .candle_flower img {
     width: 70px;
     height: 70px;
   }
+
   .candle_flower_count {
     width: 30px;
     height: 30px;
   }
 }
+
 @media only screen and (max-width: 400px) {
   .candle_flower {
     top: 9%;
     gap: 15px;
   }
+
   .candle_flower img {
     width: 60px;
     height: 60px;
   }
+
   .tributeText {
     left: 56%;
   }

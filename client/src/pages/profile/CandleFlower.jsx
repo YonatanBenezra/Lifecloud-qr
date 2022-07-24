@@ -5,11 +5,9 @@ import roundFlower from '../../assets/roundFlower.png';
 
 import candle from '../../assets/candle.png';
 import flower from '../../assets/flower.png';
-import axios from 'axios';
-import { useEffect } from 'react';
-import { useCallback } from 'react';
 import LazyLoad from 'react-lazyload';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { MethodsPayment } from '../../components/methodsPayment/methodsPayment';
 const initialState = {
   candle: 0,
   flower: 0,
@@ -57,56 +55,31 @@ const reducer = (state, action) => {
   }
 };
 
-const CandleFlower = ({ profileId, userId, profileName }) => {
+const CandleFlower = ({
+  candleFlower,
+  handleFormSubmit,
+  profileName,
+  setIsNext,
+  isNext,
+  setIsPaid,
+  userId,
+}) => {
+  const { id: profileId } = useParams();
   const history = useHistory();
   const candleRef = useRef();
   const [candleFlowerState, dispatch] = useReducer(reducer, initialState);
-  const [candleFlower, setCandleFlower] = useState([]);
+
   const totalCandles = candleFlower.reduce((acc, curr) => acc + curr.candle, 0);
   const totalFlowers = candleFlower.reduce((acc, curr) => acc + curr.flower, 0);
   const [showCandleList, setShowCandleList] = useState(false);
   const [showFlowerList, setShowFlowerList] = useState(false);
 
-  const getAllCandleFlower = useCallback(async () => {
-    const allCandleFlower = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/candleFlower/${profileId}`
-    );
-    setCandleFlower(allCandleFlower.data);
-  }, [profileId]);
-
-  useEffect(() => {
-    getAllCandleFlower();
-  }, [getAllCandleFlower]);
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    window.location.assign(
-      `https://direct.tranzila.com/icloud/iframenew.php?sum=${
-        (candleFlowerState.flower + candleFlowerState.candle) * 5
-      }&currency=1&cred_type=1&ppnewwin=2&ppnewwin=2`
-    );
-    // currency = 1 for shekel, 2 for dollar
-    // cred-type = 1 for direct, 6 for credit, 8 for payments
-
-    try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
-        flower: candleFlowerState.flower,
-        candle: candleFlowerState.candle,
-        profile: profileId,
-        user: userId,
-      });
-      getAllCandleFlower();
-      dispatch({ type: 'RESET' });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
+  /* useEffect(() => {
     const myTimeout = setTimeout(() => {
       candleRef?.current?.click();
     }, 30000);
     return () => clearTimeout(myTimeout);
-  }, []);
+  }, []); */
   return (
     <React.Fragment>
       <div
@@ -169,7 +142,12 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
 
               {(candleFlowerState.candle > 0 ||
                 candleFlowerState.flower > 0) && (
-                <form className="container" onSubmit={handleFormSubmit}>
+                <form
+                  className="container"
+                  onSubmit={(e) =>
+                    handleFormSubmit(e, candleFlowerState, dispatch)
+                  }
+                >
                   <h4 className="fw-bold mb-3">מוצרים</h4>
                   {candleFlowerState.candle > 0 && (
                     <div className="d-flex justify-content-between align-items-center">
@@ -248,14 +226,28 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
                     </div>
                   )}
                   <button
-                    data-bs-dismiss="modal"
+                    // data-bs-dismiss="modal"
                     aria-label="Close"
                     className={`border-0 w-50 my-4 py-2 fw-bold text-white rounded-3 `}
                     style={{ backgroundColor: '#6097bf', fontSize: '20px' }}
-                    type="submit"
+                    type="button"
+                    onClick={() => setIsNext(true)}
                   >
                     המשך
                   </button>
+                  {isNext && (
+                    <MethodsPayment
+                      setIsPaid={setIsPaid}
+                      isOpen={true}
+                      setIsNext={setIsNext}
+                      dataForPay={{
+                        flower: candleFlowerState.flower,
+                        candle: candleFlowerState.candle,
+                        profile: profileId,
+                        user: userId,
+                      }}
+                    />
+                  )}
                 </form>
               )}
             </div>
@@ -276,8 +268,8 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
           </div>
           <div
             className={`fc_image_container`}
-            data-bs-toggle="modal"
-            data-bs-target="#candleFlower"
+            // data-bs-toggle="modal"
+            // data-bs-target="#candleFlower"
           >
             <LazyLoad>
               <img
@@ -318,8 +310,8 @@ const CandleFlower = ({ profileId, userId, profileName }) => {
           </div>
           <div
             className={`fc_image_container `}
-            data-bs-toggle="modal"
-            data-bs-target="#candleFlower"
+            // data-bs-toggle="modal"
+            // data-bs-target="#candleFlower"
           >
             <LazyLoad>
               <img

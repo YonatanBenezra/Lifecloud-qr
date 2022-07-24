@@ -78,6 +78,7 @@ MemoryRouter.put('/comment/:id', async (req, res) => {
                 userPicture: req.body.comments[0].userPicture,
                 id: Math.ceil(Math.random() * 1000),
                 date: Date.now(),
+                username: req.body.comments[0].username,
               },
             ],
             $position: -1,

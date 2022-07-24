@@ -6,7 +6,7 @@ import LazyLoad from 'react-lazyload';
 const Footer = () => {
   return (
     <div className="footer container overflow-hidden">
-      <div className="row g-4 align-items-center">
+      <div className="row g-4 align-items-center footer-container">
         <div className="col-6 col-lg-4 order-2 order-lg-1">
           <div className="footer-logo-container">
             <Link to="/">

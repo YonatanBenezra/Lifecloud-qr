@@ -108,7 +108,7 @@ export default function Register() {
                     ref={lastName}
                     value={user.lastName}
                     name="lastName"
-                    className="name-input w-100 me-3"
+                    className="name-input w-100"
                   />
                 </div>
                 <input
@@ -254,10 +254,10 @@ export default function Register() {
                   <span style={{ marginBottom: '1rem' }}>
                     אני מאשר את
                     <a href="https://www.lifecloud-qr.com/termsofuse">
-                    תנאי השימוש
+                      תנאי השימוש
                     </a>
                     <a href="https://www.lifecloud-qr.com/privacy">
-                    ומדיניות הפרטיות{' '}
+                      ומדיניות הפרטיות{' '}
                     </a>
                     <input
                       type="checkbox"

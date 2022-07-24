@@ -241,7 +241,11 @@ export default function MainProfile(props) {
         <TopBar />
         <LazyLoad>
           <img
-            src={`${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`}
+            src={
+              profiledata.wallImg?.startsWith('http')
+                ? profiledata.wallImg
+                : `${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`
+            }
             alt=""
             className="profile-cover"
           />
@@ -250,19 +254,26 @@ export default function MainProfile(props) {
         <div className="profile-details-first">
           <LazyLoad>
             <img
-              src={`${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`}
+              src={
+                profiledata.profileImg.startsWith('http')
+                  ? profiledata.profileImg
+                  : `${process.env.REACT_APP_API_URL}/${profiledata.profileImg}`
+              }
               alt=""
               className="profile-img"
             />
           </LazyLoad>
 
           <div className="deceased-details">
-            <h1>{`${profiledata.firstName}`}</h1>
+            <h1>{`${profiledata?.firstName} ${profiledata?.lastName}`}</h1>
           </div>
         </div>
         <div className="btns-container">
           <div className="d-flex">
-            {profiledata.originalUser[0]._id === loggedUser._id && (
+            {(profiledata.originalUser[0]._id === loggedUser._id ||
+              profiledata.addAdmins.find(
+                (admins) => admins.user[0]?._id === user?._id
+              )) && (
               <Link to={`/editprofiles/${id}`} className="profile-small-btn">
                 <span>ערוך פרופיל</span>
               </Link>
@@ -340,7 +351,9 @@ export default function MainProfile(props) {
         >
           <div className="display">
             <div className="bio-content">
-              <h1 className="bio-name">.{profiledata.firstName}</h1>
+              <h1 className="bio-name">
+                .{profiledata.firstName} {profiledata.lastName}
+              </h1>
               <pre className="bio-bio">{profiledata.description}</pre>
             </div>
           </div>
@@ -352,7 +365,9 @@ export default function MainProfile(props) {
             </div>
           </div>
           <div className="profile-details-title">
-            <h1>חללי {profiledata.firstName}</h1>
+            <h1>
+              חללי {profiledata.firstName} {profiledata.lastName}
+            </h1>
           </div>
           <div className="list-of-deceased-container">
             <div className="list-of-deceased">
@@ -371,7 +386,11 @@ export default function MainProfile(props) {
                             <LazyLoad>
                               <img
                                 className="profile-image"
-                                src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                                src={
+                                  userProfiles?.profileImg?.startsWith?.('http')
+                                    ? userProfiles.profileImg
+                                    : `${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`
+                                }
                                 alt=""
                               />
                             </LazyLoad>
@@ -445,7 +464,11 @@ export default function MainProfile(props) {
                   {!img?.endsWith?.('mp4') ? (
                     <LazyLoad>
                       <img
-                        src={`${process.env.REACT_APP_API_URL}/${img}`}
+                        src={
+                          img.startsWith('http')
+                            ? img
+                            : `${process.env.REACT_APP_API_URL}/${img}`
+                        }
                         alt=""
                         className="full-gallery-img"
                       />
@@ -516,7 +539,7 @@ export default function MainProfile(props) {
                           <LazyLoad>
                             <img
                               className="profile-image"
-                              src={`${process.env.REACT_APP_API_URL}/${userProfiles.profileImg}`}
+                              src={`${userProfiles.profileImg}`}
                               alt=""
                             />
                           </LazyLoad>

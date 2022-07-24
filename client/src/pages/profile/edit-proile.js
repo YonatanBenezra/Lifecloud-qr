@@ -17,6 +17,7 @@ export default function ProfileEdit() {
   function isObject(obj) {
     return obj != null && obj.constructor.name === 'Object';
   }
+  const [lifeAxisChangeIndex, setLifeAxisChangeIndex] = useState([]);
   const { user } = useContext(AuthContext);
   const id = useParams().id;
   const [picture, setPicture] = useState(null);
@@ -125,6 +126,7 @@ export default function ProfileEdit() {
     setProfileData(res.data);
     setAxisImagesNames(res.data.axisImages);
     setMultiFiles(res.data.gallery);
+    setInputList(JSON.parse(res.data.lifeAxis));
   };
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
@@ -196,17 +198,17 @@ export default function ProfileEdit() {
         hebDeathDate: profiledata.hebDeathDate,
         gallery: profiledata.gallery,
         lifeAxis:
-          Object.keys(profiledata)?.length &&
-          profiledata.lifeAxis !== 'undefined' &&
-          isObject(profiledata.lifeAxis)
-            ? JSON.parse(profiledata.lifeAxis)
+          Object.keys(profiledata)?.length && profiledata.lifeAxis !== undefined
+            ? //  &&
+              // isObject(profiledata.lifeAxis)
+              JSON.parse(profiledata.lifeAxis)
             : inputList,
       });
       setInputList(
-        Object.keys(profiledata)?.length &&
-          profiledata.lifeAxis !== 'undefined' &&
-          isObject(profiledata.lifeAxis)
-          ? JSON.parse(profiledata.lifeAxis)
+        Object.keys(profiledata)?.length && profiledata.lifeAxis !== undefined
+          ? // &&
+            // isObject(profiledata.lifeAxis)
+            JSON.parse(profiledata.lifeAxis)
           : [{ axisTitle: '', axisDate: '', axisDescription: '' }]
       );
     }
@@ -271,6 +273,10 @@ export default function ProfileEdit() {
       formdata.append('axisImagesNames', axisImagesNames);
       formdata.append('graveImg', graveImage);
       formdata.append('facebookUrl', wallInformation.facebookUrl);
+      formdata.append(
+        'axisImageChangeIndex',
+        JSON.stringify(lifeAxisChangeIndex)
+      );
       formdata.append('instagramUrl', wallInformation.instagramUrl);
       for (let i = 0; i < wallInformation.gallery.length; i++) {
         formdata.append('gallery', wallInformation.gallery[i]);
@@ -325,6 +331,7 @@ export default function ProfileEdit() {
     copyAxisImagesNames[i] = file.name;
 
     setAxisImages([...axisImages, file]);
+    setLifeAxisChangeIndex([...lifeAxisChangeIndex, i]);
     setAxisImagesNames(copyAxisImagesNames);
     setInputList(copyArray);
     event.target.closest('label').style.backgroundColor = '#5ca08e';
@@ -450,7 +457,7 @@ export default function ProfileEdit() {
                     src={
                       imgData
                         ? imgData
-                        : wallInformation?.profileimg?.startsWith?.('http')
+                        : wallInformation?.profileImg?.startsWith?.('http')
                         ? wallInformation?.profileImg
                         : `${process.env.REACT_APP_API_URL}/${wallInformation.profileImg}`
                     }
@@ -472,16 +479,28 @@ export default function ProfileEdit() {
                     src={
                       coverData
                         ? coverData
-                        : wallInformation.wallimg?.startsWith?.('http')
+                        : wallInformation.wallImg?.startsWith?.('http')
                         ? wallInformation.wallImg
                         : `${process.env.REACT_APP_API_URL}/${wallInformation.wallImg}`
                     }
                     alt=""
                   />
                 </LazyLoad>
-
-                {(!profiledata.isMain ||
-                  profiledata?.originalUser?.[0]?._id === user?._id) && (
+                {/* {!profiledata.isMain &&
+                  profiledata.organizationProfile &&
+                  profiledata?.originalUser?.[0]?._id === user?._id && (
+                    <input
+                      className="custom-file-input-cover"
+                      type="file"
+                      onChange={onChangeCover}
+                      name="coverImg"
+                    />
+                  )} */}
+                {((!profiledata.organizationProfile && !profiledata.isMain) ||
+                  (profiledata.isMain &&
+                    profiledata?.originalUser?.[0]?._id === user?._id) ||
+                  (profiledata.organizationProfile &&
+                    profiledata?.originalUser?.[0]?._id === user?._id)) && (
                   <input
                     className="custom-file-input-cover"
                     type="file"
@@ -767,16 +786,15 @@ export default function ProfileEdit() {
                       name="description"
                       onChange={handleChangeValue}
                       className="profile-creation-description"
-                    >
-                      {profiledata.description}
-                    </textarea>
+                      value={wallInformation.description}
+                    ></textarea>
                   </div>
                   <div>
                     <h1 style={{ textAlign: 'center' }}>נקודות ציון בחיים</h1>
                     {inputList?.map((x, i) => {
                       return (
                         <div className="box" key={i}>
-                          {inputList.length !== 1 && (
+                          {x && Object.keys(x).length > 0 && (
                             <div
                               className="middle-axis-btn"
                               onClick={() => addSingleDiv(i)}
@@ -811,7 +829,11 @@ export default function ProfileEdit() {
                               onChange={(e) => handleInputChange(e, i)}
                               className="axis-description"
                             />
-                            <label className="file-label">
+                            <label
+                              className={`file-label ${
+                                x.axisImage && 'bg-success'
+                              }`}
+                            >
                               הוסף תמונה
                               <input
                                 type="file"
@@ -944,6 +966,7 @@ export default function ProfileEdit() {
                       </div>
                     </div>
                     <div className="profile-image-container">
+                      <h1 className="title-grave-image">תמונת הקבר</h1>
                       <LazyLoad>
                         <img
                           className="profile-image"
@@ -955,13 +978,24 @@ export default function ProfileEdit() {
                           alt=""
                         />
                       </LazyLoad>
-
+                      <label
+                        for="margin_btn_add_grave"
+                        style={{
+                          textAlign: 'center',
+                          fontSize: '20px',
+                          marginTop: '15px',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        הוסף תמונה של הקבר +
+                      </label>
                       <input
                         className="custom-file-grave"
+                        id="margin_btn_add_grave"
                         type="file"
                         onChange={onChangeGrave}
                         name="coverImg"
-                        style={{ marginRight: '38%' }}
+                        style={{ marginRight: '38%', visibility: 'hidden' }}
                       />
                     </div>
                   </div>

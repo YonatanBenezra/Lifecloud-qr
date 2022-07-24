@@ -1,0 +1,429 @@
+.temporary {
+  height: 100vh;
+  /* height: 980px; */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+
+  background-image: url('../../assets/overlay.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.temporary:after {
+  pointer-events: none;
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  top: 0;
+  right: 0%;
+  box-shadow: 0px -100px 50px #fff inset, 0px 100px 50px #fff inset;
+}
+@media screen and (min-width: 768px) {
+  .temporary:after {
+    box-shadow: 0px -246px 269px #fff inset, 0px 246px 269px #fff inset;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .temporary:after {
+    width: 100%;
+    box-shadow: 0px -78px 25px #fff inset, 0px 78px 25px #fff inset;
+  }
+}
+
+.temporary .background {
+  height: 102%;
+  position: relative;
+  flex: 1;
+}
+.temporary .background img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  pointer-events: none;
+}
+
+@media screen and (min-width: 1280px) {
+  .temporary .background {
+    z-index: 2;
+  }
+}
+
+.temporary .background:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  right: 0%;
+  background: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
+
+@media screen and (min-width: 1280px) {
+  .temporary .background:before {
+    display: none;
+  }
+
+  .temporary .background:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    right: 0%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.1) 51%,
+      rgba(255, 255, 255, 0.8) 80%,
+      #ffffff 94%
+    );
+    pointer-events: none;
+  }
+}
+
+.temporary .shape {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  pointer-events: none;
+}
+
+.temporary .shape:before,
+.temporary .shape:after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background-color: #dbebf4;
+}
+
+.temporary .shape:before {
+  top: 0;
+  left: 0;
+}
+.temporary .shape::after {
+  bottom: 0;
+  right: 0;
+}
+
+.temporary .shape-top {
+  top: -130px;
+  right: -130px;
+}
+.temporary .shape-bottom {
+  bottom: -130px;
+  left: -130px;
+}
+
+.temporary > .wrapper {
+  overflow-y: auto;
+  position: absolute;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.temporary > .wrapper::-webkit-scrollbar {
+  display: none;
+}
+@media screen and (min-width: 1280px) {
+  .temporary > .wrapper {
+    overflow-y: auto;
+    position: relative;
+    left: 0;
+    transform: none;
+    /* padding-right: 70px; */
+    /* padding-left: 200px; */
+    width: 60%;
+  }
+}
+
+.temporary .memorial {
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: 200px;
+  margin-bottom: 200px;
+  padding: 0 30px;
+  max-width: 800px;
+}
+
+@media screen and (min-width: 1280px) {
+  .temporary .memorial {
+    padding: 0;
+  }
+}
+
+.temporary figure {
+  position: relative;
+  width: 20%;
+  height: 0;
+  padding-top: 20%;
+  transition: transform 0.3s ease;
+  z-index: 1;
+  margin: 0;
+  /* transform: scale(1); */
+}
+/* @media screen and (min-width: 576px) {
+  .temporary figure {
+      transform: scale(1);
+  }
+} */
+
+.temporary figure .img-lg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 3px solid #fff;
+  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+.temporary figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 80%;
+  box-shadow: 0 0 3px #ccc;
+  transform: translateX(-50%) translateY(30%);
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  z-index: 1;
+  padding-left: 20px;
+  padding-right: 0;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.temporary figcaption .comment {
+  margin-right: 5px;
+  font-size: 14px;
+
+  white-space: nowrap;
+  /* overflow: hidden; */
+  text-overflow: ellipsis;
+  text-align: center;
+  flex: 1;
+}
+.temporary figcaption .comment::first-letter {
+  text-transform: uppercase;
+}
+
+.temporary figcaption .img-sm {
+  margin-top: -6px;
+  margin-bottom: -6px;
+  /* transform: translateX(50%); */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.temporary .arrow {
+  position: absolute;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.temporary .arrow-up {
+  top: 50px;
+  right: 10px;
+}
+.temporary .arrow-down {
+  bottom: 50px;
+  left: 10px;
+}
+@media screen and (min-width: 576px) {
+  .temporary .arrow {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .temporary .arrow {
+    right: 444px !important;
+    left: auto !important;
+    transform: none;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .display-none-sm {
+    display: none;
+  }
+}
+
+/* CAROUSEL */
+
+.temporary .layers-group {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 400%;
+}
+
+.temporary .layers-group .spiral {
+  position: absolute;
+  width: auto;
+  height: 50%;
+  object-fit: contain;
+}
+.temporary .layers-group .spiral-top-left {
+  top: 0;
+  left: 15%;
+}
+.temporary .layers-group .spiral-bottom-left {
+  bottom: 0;
+  left: 15%;
+  transform: rotatex(190deg);
+}
+.temporary .layers-group .spiral-top-right {
+  top: 0;
+  right: 15%;
+}
+.temporary .layers-group .spiral-bottom-right {
+  bottom: 0;
+  right: 15%;
+  transform: rotatex(190deg);
+}
+
+.temporary figure {
+  position: absolute;
+}
+.temporary .position-1 {
+  top: 0%;
+  left: 29%;
+}
+.temporary .position-2 {
+  top: 1.7%;
+  left: 64.7%;
+}
+.temporary .position-3 {
+  top: 6.7%;
+  left: 5.7%;
+}
+.temporary .position-4 {
+  top: 9.7%;
+  left: 49.7%;
+}
+.temporary .position-5 {
+  top: 12.7%;
+  left: 20.7%;
+}
+.temporary .position-6 {
+  top: 14.7%;
+  left: 71.7%;
+}
+.temporary .position-7 {
+  top: 19%;
+  left: 33%;
+}
+.temporary .position-8 {
+  top: 23%;
+  left: 59%;
+}
+.temporary .position-9 {
+  top: 25%;
+  left: 9%;
+}
+.temporary .position-10 {
+  top: 29%;
+  left: 48%;
+}
+.temporary .position-11 {
+  top: 32%;
+  left: 15%;
+}
+.temporary .position-12 {
+  top: 35%;
+  left: 72%;
+}
+.temporary .position-13 {
+  top: 39%;
+  left: 31%;
+}
+.temporary .position-14 {
+  top: 44%;
+  left: 53%;
+}
+.temporary .position-15 {
+  top: 45%;
+  left: 8%;
+}
+.temporary .position-16 {
+  top: 50%;
+  left: 49%;
+}
+.temporary .position-17 {
+  top: 54%;
+  left: 25%;
+}
+.temporary .position-18 {
+  top: 57%;
+  left: 74%;
+}
+.temporary .position-19 {
+  top: 61%;
+  left: 26%;
+}
+.temporary .position-20 {
+  top: 68%;
+  left: 47%;
+}
+.temporary .position-21 {
+  top: 72%;
+  left: 16%;
+}
+.temporary .position-22 {
+  top: 74%;
+  left: 67%;
+}
+.temporary .position-23 {
+  top: 78%;
+  left: 32%;
+}
+.temporary .position-24 {
+  top: 82%;
+  left: 65%;
+}
+.temporary .position-25 {
+  top: 85%;
+  left: 7%;
+}
+.temporary .position-26 {
+  top: 88%;
+  left: 47%;
+}
+.temporary .position-27 {
+  top: 92%;
+  left: 17%;
+}
+.temporary .position-28 {
+  top: 94%;
+  left: 67%;
+}
+
+[data-scale] {
+  transition: transform 1s ease !important;
+  will-change: transform;
+}
+[data-scale='small'] {
+  transform: scale(0.4);
+}
+
+[data-scale='large'] {
+  transform: scale(0.8);
+}
