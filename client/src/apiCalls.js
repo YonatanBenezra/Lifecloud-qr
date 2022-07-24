@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import dotenv from 'dotenv';
 import CryptoJS from 'crypto-js';
-// dotenv.config();
 const tranzilaPublicKey = process.env.REACT_APP_TRANZILA_PUBLIC_KEY;
 const tranzilaPrivetKey = process.env.REACT_APP_TRANZILA_PRIVET_KEY;
 const terminalName = process.env.REACT_APP_TERMINAL_NAME;
