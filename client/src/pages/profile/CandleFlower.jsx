@@ -240,6 +240,7 @@ const CandleFlower = ({
                       setIsPaid={setIsPaid}
                       isOpen={true}
                       setIsNext={setIsNext}
+                      paymentType="flowerOrCandle"
                       dataForPay={{
                         flower: candleFlowerState.flower,
                         candle: candleFlowerState.candle,
@@ -268,8 +269,8 @@ const CandleFlower = ({
           </div>
           <div
             className={`fc_image_container`}
-            // data-bs-toggle="modal"
-            // data-bs-target="#candleFlower"
+            data-bs-toggle="modal"
+            data-bs-target="#candleFlower"
           >
             <LazyLoad>
               <img
@@ -287,8 +288,8 @@ const CandleFlower = ({
               <ul>
                 {candleFlower
                   .filter((cf) => cf.candle > 0)
-                  .map((cf) => (
-                    <li>
+                  .map((cf, key) => (
+                    <li key={key}>
                       ה/הדליק {cf.user.firstName} <br />
                       {cf.candle} נרות
                     </li>
@@ -309,7 +310,7 @@ const CandleFlower = ({
             {totalFlowers}
           </div>
           <div
-            className={`fc_image_container `}
+            className={`fc_image_container`}
             // data-bs-toggle="modal"
             // data-bs-target="#candleFlower"
           >
@@ -328,8 +329,8 @@ const CandleFlower = ({
               <ul>
                 {candleFlower
                   .filter((cf) => cf.flower > 0)
-                  .map((cf) => (
-                    <li>
+                  .map((cf, key) => (
+                    <li key={key}>
                       הניח/ה {cf.user.firstName} <br />
                       {cf.flower} פרחים
                     </li>

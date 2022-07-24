@@ -1,6 +1,13 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import dotenv from 'dotenv';
+import CryptoJS from 'crypto-js';
+// dotenv.config();
+const tranzilaPublicKey = process.env.REACT_APP_TRANZILA_PUBLIC_KEY;
+const tranzilaPrivetKey = process.env.REACT_APP_TRANZILA_PRIVET_KEY;
+const terminalName = process.env.REACT_APP_TERMINAL_NAME;
+const urlRedirect = process.env.REACT_APP_URL_REDIRECT;
 export const loginCall = async (userCredential, dispatch) => {
   dispatch({ type: 'LOGIN_START' });
   try {
@@ -68,4 +75,57 @@ export const postPayQr = async (data) => {
   } catch (err) {
     return err;
   }
+};
+
+export const payWithBitReq = async (data) => {
+  try {
+    const body = {
+      terminal_name: terminalName,
+      success_url: `${urlRedirect}/process/success`,
+      failure_url: `${urlRedirect}/process/fail`,
+      txn_currency_code: 'ILS',
+      txn_type: 'debit',
+      items: [...data.cart],
+      client: {
+        id: data.user,
+      },
+    };
+
+    const time = Math.round(new Date().getTime() / 1000);
+    const nonce = makeId(80);
+    const hash = CryptoJS.HmacSHA256(
+      tranzilaPublicKey,
+      tranzilaPrivetKey + time + nonce
+    ).toString(CryptoJS.enc.Hex);
+    const headers = {
+      'X-tranzila-api-app-key': tranzilaPublicKey,
+      'X-tranzila-api-request-time': time,
+      'X-tranzila-api-nonce': nonce,
+      'X-tranzila-api-access-token': hash,
+    };
+    const res = await axios
+      .post(`https://api.tranzila.com/v1/transaction/bit/init`, body, {
+        headers: headers,
+      })
+      .catch((err) => {
+        throw err;
+      });
+    if (res) {
+    } else if (res.error_code === 0) {
+      throw new Error('payment failed');
+    }
+  } catch (err) {
+    return err;
+  }
+};
+
+const makeId = (length) => {
+  let result = '';
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 };

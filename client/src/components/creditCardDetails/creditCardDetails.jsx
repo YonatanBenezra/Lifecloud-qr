@@ -9,6 +9,7 @@ export const CreditCardDetails = ({
   setIsPaid,
   setIsNext,
   dataForPay,
+  paymentType,
 }) => {
   const [creditCard, setCreditCard] = useState({
     cvc: '',
@@ -21,7 +22,6 @@ export const CreditCardDetails = ({
   const [errorPayment, setErrorPayment] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const handleInputFocus = (e) => {
-    console.log(e);
     if (e.target) {
       setCreditCard({ ...creditCard, focus: e.target.name });
     }
@@ -35,11 +35,11 @@ export const CreditCardDetails = ({
   const onClickPay = async () => {
     try {
       let res = null;
-      if (dataForPay.userId) {
+      if (paymentType === 'qr') {
         res = await postPayQr({ ...dataForPay, creditCard }).catch((err) =>
           setErrorMessage(err)
         );
-      } else {
+      } else if (paymentType === 'flowerOrCandle') {
         res = await postPay({ ...dataForPay, creditCard }).catch((err) =>
           setErrorMessage(err)
         );

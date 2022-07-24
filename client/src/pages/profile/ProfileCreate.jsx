@@ -1107,7 +1107,8 @@ export default function ProfileCreate() {
                     <MethodsPayment
                       isOpen={true}
                       setIsPaid={setIsPaid}
-                      dataForPay={{ userId: user._id }}
+                      dataForPay={{ user: user._id }}
+                      paymentType="qr"
                     />
                   )}
                 </form>

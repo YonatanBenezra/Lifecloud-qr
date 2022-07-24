@@ -6,9 +6,10 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CreditCardDetails } from '../creditCardDetails/creditCardDetails';
+import { payWithBitReq } from '../../apiCalls';
 
 export const MethodsPayment = (props) => {
-  const { setIsPaid, setIsNext, dataForPay } = props;
+  const { setIsPaid, setIsNext, dataForPay, paymentType } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [isCreditCard, setIsCreditCard] = useState(false);
   const [style, setStyle] = useState({
@@ -67,6 +68,45 @@ export const MethodsPayment = (props) => {
     }
   };
 
+  const payWithBit = async () => {
+    const cart = [];
+    if (paymentType === 'flowerOrCandle') {
+      if (dataForPay.flower > 0) {
+        cart.push([
+          {
+            name: 'פרח וירטואלי',
+            unit_price: 5,
+            price_type: 'G',
+            vat_percent: 17,
+            units_number: dataForPay.flower,
+          },
+        ]);
+      }
+      if (dataForPay.candle > 0) {
+        cart.push([
+          {
+            name: 'נר וירטואלי',
+            unit_price: 5,
+            price_type: 'G',
+            vat_percent: 17,
+            units_number: dataForPay.candle,
+          },
+        ]);
+      }
+    } else if (paymentType === 'qr') {
+      cart.push([
+        {
+          name: 'qr',
+          unit_price: 50,
+          price_type: 'G',
+          vat_percent: 17,
+          units_number: 1,
+        },
+      ]);
+    }
+    await payWithBitReq({ ...dataForPay, cart });
+  };
+
   return (
     <div className="payments-method-container" style={{ ...style }}>
       <div className="modal-container">
@@ -80,7 +120,10 @@ export const MethodsPayment = (props) => {
           </button>
           <h3 className="title">בחר אמצעי תשלום:</h3>
           <div className="icons-container-payment">
-            <div className="icon-payment-method bit"></div>
+            <div
+              className="icon-payment-method bit"
+              onClick={() => payWithBit()}
+            ></div>
             <div className="icon-payment-method apple-pay-icon"></div>
             <div className="icon-payment-method paypal-icon"></div>
             <div
@@ -112,6 +155,7 @@ export const MethodsPayment = (props) => {
               x
             </button>
             <CreditCardDetails
+              paymentType={paymentType}
               setIsOpen={setIsOpen}
               setIsPaid={setIsPaid}
               setIsNext={setIsNext}
@@ -135,4 +179,5 @@ MethodsPayment.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   setIsPaid: PropTypes.func.isRequired,
   setIsNext: PropTypes.func,
+  paymentType: PropTypes.string.isRequired,
 };
