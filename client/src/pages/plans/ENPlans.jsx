@@ -22,10 +22,10 @@ const ENPlans = () => {
     <>
       <ENTopBar />
       <div className="about-container">
-        <button class="plan-button" type="submit" onClick={handleOnClick}>
+        <button className="plan-button" type="submit" onClick={handleOnClick}>
           buy plan
         </button>
-        <button class="plan-button" type="submit" onClick={handleSwitchBack}>
+        <button className="plan-button" type="submit" onClick={handleSwitchBack}>
           Switch Back
         </button>
       </div>
