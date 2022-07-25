@@ -326,6 +326,7 @@ const CandleFlower = ({
                 className="rounded-circle"
               />
             </LazyLoad>
+
             <p className="tributeText">הנח פרח</p>
           </div>
 
