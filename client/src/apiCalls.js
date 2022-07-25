@@ -108,6 +108,7 @@ export const payWithBitReq = async (data) => {
       .catch((err) => {
         throw err;
       });
+    console.log('res : ', res);
     if (res) {
     } else if (res.error_code === 0) {
       throw new Error('payment failed');

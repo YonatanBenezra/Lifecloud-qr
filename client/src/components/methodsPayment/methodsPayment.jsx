@@ -104,6 +104,7 @@ export const MethodsPayment = (props) => {
         },
       ]);
     }
+    console.log('cart  : ', cart);
     await payWithBitReq({ ...dataForPay, cart });
   };
 
