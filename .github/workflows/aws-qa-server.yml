@@ -1,16 +1,16 @@
-name: App CI/CD
+name: QA CI/CD
 
 on:
   push:
     branches:
-      - master
+      - QA
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: SSH and deploy to Frontend
+    - name: SSH and deploy to QA
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -18,12 +18,14 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
         script: |
-            cd /var/www/lifecloud-qr.com
-            git pull origin master --allow-unrelated-histories
-            cd /var/www/lifecloud-qr.com/server
+            cd /var/www/qa.lifecloud-qr.com
+            git pull origin QA --allow-unrelated-histories
+            cd /var/www/qa.lifecloud-qr.com/server
+            rm -rf package-lock.json
             npm install
             pm2 restart all --update-env
-            cd /var/www/lifecloud-qr.com/client
+            cd /var/www/qa.lifecloud-qr.com/client
+            rm -rf package-lock.json
             npm install && npm run build
-            chown -R www-data:www-data /var/www/lifecloud-qr.com/client/build
+            chown -R www-data:www-data /var/www/qa.lifecloud-qr.com/client/build
             service nginx restart
