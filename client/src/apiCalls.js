@@ -101,6 +101,8 @@ export const payWithBitReq = async (data) => {
       'X-tranzila-api-nonce': nonce,
       'X-tranzila-api-access-token': hash,
     };
+    console.log('body    :  ', body);
+    console.log('headers  : ', headers);
     const res = await axios
       .post(`https://api.tranzila.com/v1/transaction/bit/init`, body, {
         headers: headers,
@@ -109,11 +111,13 @@ export const payWithBitReq = async (data) => {
         throw err;
       });
     console.log('res : ', res);
-    if (res) {
-    } else if (res.error_code === 0) {
-      throw new Error('payment failed');
-    }
+    // if (res) {
+    //   if (res.error_code === 0) {
+    //     throw new Error('payment failed');
+    //   }
+    // }
   } catch (err) {
+    console.log('err:', err);
     return err;
   }
 };
