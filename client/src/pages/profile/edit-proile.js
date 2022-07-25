@@ -966,6 +966,7 @@ export default function ProfileEdit() {
                       </div>
                     </div>
                     <div className="profile-image-container">
+                      <h1 className="title-grave-image">תמונת הקבר</h1>
                       <LazyLoad>
                         <img
                           className="profile-image"

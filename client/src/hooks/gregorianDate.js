@@ -52,13 +52,13 @@ const gregorianToHebDay = (hebDay) => {
       return '14';
     case `טו'`:
     case `טו`:
-    case `י"ו`:
-    case `י״ו`:
+    case `ט"ו`:
+    case `ט״ו`:
       return '15';
     case `טז'`:
     case `טז`:
-    case `י"ז`:
-    case `י״ז`:
+    case `ט"ז`:
+    case `ט״ז`:
       return '16';
     case `יז'`:
     case `יז`:
