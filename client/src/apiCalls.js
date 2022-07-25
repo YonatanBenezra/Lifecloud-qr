@@ -42,15 +42,18 @@ export const fetchuserprofiles = async (id, dispatch) => {
   }
 };
 
-export const postPay = async (data) => {
+export const postPayCandleFlower = async (data) => {
   try {
     const res = await axios
-      .post(`${process.env.REACT_APP_API_URL}/api/payment/pay`, data)
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/payment/pay-candle-flower`,
+        data
+      )
       .catch((err) => {
         throw err;
       });
     if (res.data && res.data.isPaid) {
-      return res.data.isPaid;
+      return res.data;
     } else if (res.data && res.data.error) {
       throw res.data.error;
     }
@@ -68,7 +71,7 @@ export const postPayQr = async (data) => {
     if (res.data && res.data.isPaid) {
       return res.data.isPaid;
     } else if (res.data && res.data.error) {
-      throw res.data.error;
+      throw res.data;
     }
   } catch (err) {
     return err;

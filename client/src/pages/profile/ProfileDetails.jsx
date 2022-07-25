@@ -41,6 +41,7 @@ import {
   gregorianToHebMonth,
 } from '../../hooks/gregorianDate';
 import VirtualMemory from './VirtualMemory';
+import { ToastContainer } from 'react-toastify';
 
 export default function Profile() {
   const { user, myFirebase } = useContext(AuthContext);
@@ -419,31 +420,10 @@ export default function Profile() {
   };
 
   /* Candle Flower Functionality */
-  function shuffle(array) {
-    let currentIndex = array.length,
-      randomIndex;
-
-    // While there remain elements to shuffle.
-    while (currentIndex != 0) {
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-
-    return array;
-  }
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [candleFlower, setCandleFlower] = useState([]);
   const [cf, setCf] = useState([]);
-  const [isNext, setIsNext] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
-
-  useEffect(() => handleFormSubmit(), [isPaid === true]);
 
   const getAllCandleFlower = useCallback(async () => {
     const allCandleFlower = await axios.get(
@@ -467,7 +447,7 @@ export default function Profile() {
       }
     });
 
-    setCf(shuffle(cf));
+    setCf(cf);
     setCandleFlower(allCandleFlower.data);
   }, [profileId]);
 
@@ -476,28 +456,26 @@ export default function Profile() {
   }, [getAllCandleFlower]);
 
   const handleFormSubmit = async (event, candleFlowerState, dispatch) => {
-    if (isPaid) {
-      event.preventDefault();
-      // window.location.assign(
-      //   `https://direct.tranzila.com/icloud/iframenew.php?sum=${
-      //     (candleFlowerState.flower + candleFlowerState.candle) * 5
-      //   }&currency=1&cred_type=1&ppnewwin=2&ppnewwin=2`
-      // );
-      // currency = 1 for shekel, 2 for dollar
-      // cred-type = 1 for direct, 6 for credit, 8 for payments
-      try {
-        await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
-          flower: candleFlowerState.flower,
-          candle: candleFlowerState.candle,
-          profile: profileId,
-          user: user._id,
-        });
-        getAllCandleFlower();
-        dispatch({ type: 'RESET' });
-        setIsPaid(false);
-      } catch (error) {
-        console.log(error);
-      }
+    event?.preventDefault();
+    // window.location.assign(
+    //   `https://direct.tranzila.com/icloud/iframenew.php?sum=${
+    //     (candleFlowerState.flower + candleFlowerState.candle) * 5
+    //   }&currency=1&cred_type=1&ppnewwin=2&ppnewwin=2`
+    // );
+    // currency = 1 for shekel, 2 for dollar
+    // cred-type = 1 for direct, 6 for credit, 8 for payments
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/candleFlower`, {
+        flower: candleFlowerState.flower,
+        candle: candleFlowerState.candle,
+        profile: profileId,
+        user: user._id,
+      });
+      getAllCandleFlower();
+      dispatch({ type: 'RESET' });
+      setIsPaid(false);
+    } catch (error) {
+      console.log(error);
     }
   };
   if (Object.keys(profiledata).length > 0) {
@@ -600,11 +578,11 @@ export default function Profile() {
           <CandleFlower
             candleFlower={candleFlower}
             handleFormSubmit={handleFormSubmit}
-            setIsNext={setIsNext}
-            isNext={isNext}
             setIsPaid={setIsPaid}
             userId={user?._id}
             profileName={profiledata.firstName}
+            showPaymentModal={showPaymentModal}
+            setShowPaymentModal={setShowPaymentModal}
           />
         </div>
         <div className="profile-details-first">
@@ -810,14 +788,14 @@ export default function Profile() {
                   לכל הגלריה +
                 </div>
               </div>
-              {/* <VirtualMemory
+              <VirtualMemory
                 candleFlower={cf}
                 coverImg={
                   profiledata.wallImg?.startsWith?.('http')
                     ? profiledata.wallImg
                     : `${process.env.REACT_APP_API_URL}/${profiledata.wallImg}`
                 }
-              /> */}
+              />
               <div className="grave-location-container">
                 <h1 className="grave-location-title profile_details_section_title">
                   מיקום ותמונת הקבר
