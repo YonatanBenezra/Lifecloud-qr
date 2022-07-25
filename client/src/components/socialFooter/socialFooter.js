@@ -16,7 +16,7 @@ const SocialFooter = ({ backgroundColor, color }) => {
         <div className="facebook-container social-footer-facebook">
           <a
             className="heart-div social-footer-icon"
-            href={'https://www.facebook.com/lifecloud.co.il/'}
+            href={'https://www.facebook.com/lifecloudqr/'}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -28,7 +28,7 @@ const SocialFooter = ({ backgroundColor, color }) => {
         <div className="instagram-container">
           <a
             className="heart-div social-footer-icon"
-            href={'https://www.instagram.com/lifecloud.co.il/'}
+            href={'https://www.instagram.com/lifecloudqr/'}
             target="_blank"
             rel="noopener noreferrer"
           >

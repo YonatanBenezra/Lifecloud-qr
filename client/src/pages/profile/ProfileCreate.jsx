@@ -967,6 +967,7 @@ export default function ProfileCreate() {
                       <Map position={position} setPosition={setPosition} />
                     )}
                     <div className="profile-image-container">
+                      <h1 className="title-grave-image">תמונת הקבר</h1>
                       <LazyLoad>
                         <img
                           className="profile-image"
@@ -1111,6 +1112,7 @@ export default function ProfileCreate() {
                       dataForPay={{ userId: user._id }}
                       setShowPaymentModal={setShowPaymentModal}
                       handleFormSubmit={handleClick}
+
                     />
                   )}
                 </form>

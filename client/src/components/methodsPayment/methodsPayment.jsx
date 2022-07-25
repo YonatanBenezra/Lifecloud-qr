@@ -4,21 +4,69 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { useState } from 'react';
 import { CreditCardDetails } from '../creditCardDetails/creditCardDetails';
+import { payWithBitReq } from '../../apiCalls';
 
 export const MethodsPayment = (props) => {
   const { setIsPaid, dataForPay, setShowPaymentModal, handleFormSubmit } =
     props;
   const [showCreditCardDetails, setShowCreditCardDetails] = useState(false);
 
+  const payWithBit = async () => {
+    const cart = [];
+    console.log('paymentType  :', paymentType);
+    console.log('dataForPay   :', dataForPay);
+    if (
+      paymentType === 'flowerOrCandle' &&
+      Object.keys(dataForPay).length > 0
+    ) {
+      if (dataForPay.flower > 0) {
+        cart.push([
+          {
+            name: 'פרח וירטואלי',
+            unit_price: 5,
+            price_type: 'G',
+            vat_percent: 17,
+            units_number: dataForPay.flower,
+          },
+        ]);
+      }
+      if (dataForPay.candle > 0) {
+        cart.push([
+          {
+            name: 'נר וירטואלי',
+            unit_price: 5,
+            price_type: 'G',
+            vat_percent: 17,
+            units_number: dataForPay.candle,
+          },
+        ]);
+      }
+    } else if (paymentType === 'qr' && Object.keys(dataForPay).length > 0) {
+      cart.push([
+        {
+          name: 'qr',
+          unit_price: 50,
+          price_type: 'G',
+          vat_percent: 17,
+          units_number: 1,
+        },
+      ]);
+    }
+    console.log('cart  : ', cart);
+    await payWithBitReq({ ...dataForPay, cart });
+  };
+
   return (
     <div className="payments-method-container">
       <div className="modal-container">
+
         {!showCreditCardDetails ? (
           <div className="payments-method-modal">
             <button
               onClick={() => setShowPaymentModal(false)}
               className="exit-btn"
               type="button"
+
             >
               x
             </button>
@@ -56,6 +104,7 @@ export const MethodsPayment = (props) => {
               x
             </button>
             <CreditCardDetails
+
               setIsPaid={setIsPaid}
               dataForPay={dataForPay}
               setShowPaymentModal={setShowPaymentModal}
@@ -79,5 +128,6 @@ export const MethodsPayment = (props) => {
   isOpen: PropTypes.bool.isRequired,
   setIsPaid: PropTypes.func.isRequired,
   setIsNext: PropTypes.func,
+  paymentType: PropTypes.string.isRequired,
 };
  */
