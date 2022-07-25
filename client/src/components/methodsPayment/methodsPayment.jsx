@@ -71,6 +71,7 @@ export const MethodsPayment = (props) => {
   const payWithBit = async () => {
     const cart = [];
     console.log('paymentType  :', paymentType);
+    console.log('dataForPay   :', dataForPay);
     if (
       paymentType === 'flowerOrCandle' &&
       Object.keys(dataForPay).length > 0
