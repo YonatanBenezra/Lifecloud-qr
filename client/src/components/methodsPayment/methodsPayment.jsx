@@ -70,7 +70,11 @@ export const MethodsPayment = (props) => {
 
   const payWithBit = async () => {
     const cart = [];
-    if (paymentType === 'flowerOrCandle') {
+    console.log('paymentType  :', paymentType);
+    if (
+      paymentType === 'flowerOrCandle' &&
+      Object.keys(dataForPay).length > 0
+    ) {
       if (dataForPay.flower > 0) {
         cart.push([
           {
@@ -93,7 +97,7 @@ export const MethodsPayment = (props) => {
           },
         ]);
       }
-    } else if (paymentType === 'qr') {
+    } else if (paymentType === 'qr' && Object.keys(dataForPay).length > 0) {
       cart.push([
         {
           name: 'qr',
@@ -123,7 +127,10 @@ export const MethodsPayment = (props) => {
           <div className="icons-container-payment">
             <div
               className="icon-payment-method bit"
-              onClick={() => payWithBit()}
+              onClick={async () => {
+                console.log('onClick');
+                await payWithBit();
+              }}
             ></div>
             <div className="icon-payment-method apple-pay-icon"></div>
             <div className="icon-payment-method paypal-icon"></div>
