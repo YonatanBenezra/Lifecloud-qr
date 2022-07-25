@@ -9,9 +9,11 @@
   z-index: 999;
   box-shadow: rgb(149 157 165 / 10%) 0px 8px 24px;
 }
+
 .searchIcon-topbar-mobile {
   display: none !important;
 }
+
 .menu-icon-topbar-mobile {
   display: none;
 }
@@ -21,6 +23,7 @@
   display: flex;
   align-items: center;
 }
+
 .result-box-main {
   width: 100%;
   border-radius: 8px;
@@ -30,21 +33,25 @@
   overflow: auto;
   z-index: 99;
 }
+
 .result-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 7px;
 }
+
 .result-box span {
   cursor: pointer;
   transition: ease-in-out 500ms;
 }
+
 .result-box:hover span {
   font-weight: 600;
   font-size: 1.05rem;
   color: #6097bf;
 }
+
 .logo {
   height: 35px;
   font-size: 24px;
@@ -69,6 +76,7 @@
   display: flex;
   align-items: center;
 }
+
 .logged-nav {
   display: flex;
   align-items: center;
@@ -76,6 +84,7 @@
   min-width: 200px;
   font-size: 18px;
 }
+
 .searchIcon {
   font-size: 20px !important;
   margin-left: 10px;
@@ -84,6 +93,7 @@
   direction: ltr;
   transform: rotate(90deg);
 }
+
 .top-search {
   border: 0px;
   width: 100% !important;
@@ -98,10 +108,12 @@
 .SearchInput:focus {
   outline: none;
 }
+
 .SearchInput::placeholder {
   color: #6097bf;
   font-weight: bolder;
 }
+
 .topbarRight {
   display: flex;
   align-items: center;
@@ -110,6 +122,7 @@
   /* margin-left: 3rem;
   margin-right: 3rem; */
 }
+
 .topbarCenter-search {
   position: relative;
   text-align: end;
@@ -170,10 +183,12 @@
   .topbarCenter {
     display: none;
   }
+
   .life-cloud-logo-image-topbar-mobile {
     position: absolute;
     margin-left: 30%;
   }
+
   .searchIcon-topbar-mobile {
     display: inline-block !important;
     color: #6097bf;
@@ -183,16 +198,19 @@
     margin-right: 20px;
     margin-left: 20px;
   }
+
   .menu-icon-topbar-mobile {
     display: inline-block;
     color: #6097bf;
     margin-right: 20px;
   }
 }
+
 @media screen and (max-width: 500px) {
   .searchIcon-topbar-mobile {
     display: none !important;
   }
+
   .menu-icon-topbar-mobile {
     display: none !important;
   }
@@ -206,6 +224,7 @@
   .searchbar {
     display: none;
   }
+
   .topbarCenter {
     display: none;
   }
@@ -221,9 +240,11 @@
   top: 0px;
   right: 0px;
 }
+
 .blueBg {
   background-color: #6097bf;
 }
+
 .closeBtn {
   position: absolute;
   right: 0px;
@@ -232,11 +253,13 @@
   background-color: transparent;
   border: none;
 }
+
 .menuList {
   list-style-type: none;
   padding: 5px 2px;
   font-size: 16px;
 }
+
 .srchBox {
   background-color: #dcecf4e6;
   width: 100%;
@@ -245,6 +268,7 @@
   align-items: center;
   text-align: center;
 }
+
 .topBarSearchBox {
   padding: 5px;
   width: 90%;

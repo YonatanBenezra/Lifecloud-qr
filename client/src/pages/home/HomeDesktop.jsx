@@ -18,6 +18,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import FullWidthVideo from '../../components/fullWidthVideo/FullWidthVideo';
 import LazyLoad from 'react-lazyload';
+import { MethodsPayment } from '../../components/methodsPayment/methodsPayment';
 const HomeDesktop = (props) => {
   const user = props.user;
   const testimonialSettings = props.testimonialSettings;
@@ -92,7 +93,11 @@ const HomeDesktop = (props) => {
                                 height: '30px',
                                 borderRadius: '30px',
                               }}
-                              src={`${process.env.REACT_APP_API_URL}/${item.profileImg}`}
+                              src={
+                                item.profileImg?.startsWith('http')
+                                  ? item.profileImg
+                                  : `${process.env.REACT_APP_API_URL}/${item.profileImg}`
+                              }
                               alt=""
                             />
                           </LazyLoad>
@@ -141,7 +146,7 @@ const HomeDesktop = (props) => {
               <br /> ולשמר לעד מי שהם היו?
             </p>
             <Player
-              src="/assets/Lifecloud-video.mp4"
+              src="https://res.cloudinary.com/lifecloud-qr/video/upload/v1658269642/LIFECLOUD_FIX_SUBS_1_1_askdfkjasbhdffn_f_glhqbq.mp4"
               width="60%"
               height="60%"
               fluid={false}

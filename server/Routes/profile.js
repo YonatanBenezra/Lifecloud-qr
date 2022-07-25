@@ -75,6 +75,7 @@ ProfileRouter.post(
         gallery: multiFilesurls.map((url) => {
           return url.res;
         }),
+        organizationProfile: req.body.organizationProfile,
         profileImg: resultProfileImage?.secure_url,
         wallImg: resultWallImage?.secure_url,
         graveImg: resultgraveImage?.secure_url,
@@ -115,6 +116,7 @@ ProfileRouter.post(
           QR: qrUrl,
           'Creation Date': new Date().toLocaleDateString(),
           'Death Date': resp.deathDate,
+          'Physical QR': req.body.email ? 0 : 1,
         });
         if (!req.body.email) {
           return;
@@ -138,11 +140,12 @@ ProfileRouter.put(
   uploadpic.fields([
     { name: 'profileImg', maxCount: 1 },
     { name: 'wallImg', maxCount: 1 },
-    { name: 'multiplefiles', maxCount: 20 },
+    { name: 'multiplefiles', maxCount: 99 },
     { name: 'axisImages', maxCount: 99 },
     { name: 'graveImg', maxCount: 1 },
   ]),
   async (req, res) => {
+    const axisImageChangeIndex = JSON.parse(req.body.axisImageChangeIndex);
     try {
       let resultProfileImage;
       if (req.files.profileImg?.[0]?.path) {
@@ -194,7 +197,6 @@ ProfileRouter.put(
         ? [galleryUrls]
         : [];
 
-      console.log(newGalleryImg);
       if (req.files.profileImg && req.files.wallImg) {
         var dataSource = {
           originalUser: req.body.originalUser,
@@ -214,9 +216,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: axisurls.map((url) => {
-            return url.res;
-          }),
+          // axisImages: axisurls.map((url) => {
+          //   return url.res;
+          // }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -239,9 +241,9 @@ ProfileRouter.put(
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
 
-          axisImages: axisurls.map((url) => {
-            return url.res;
-          }),
+          // axisImages: axisurls.map((url) => {
+          //   return url.res;
+          // }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -263,9 +265,9 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: axisurls.map((url) => {
-            return url.res;
-          }),
+          // axisImages: axisurls.map((url) => {
+          //   return url.res;
+          // }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -288,9 +290,9 @@ ProfileRouter.put(
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
 
-          axisImages: axisurls.map((url) => {
-            return url.res;
-          }),
+          // axisImages: axisurls.map((url) => {
+          //   return url.res;
+          // }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
@@ -311,16 +313,59 @@ ProfileRouter.put(
           googleLocation: req.body.googleLocation,
           lifeAxis: req.body.lifeAxis,
           isMain: req.body.isMain,
-          axisImages: axisurls.map((url) => {
-            return url.res;
-          }),
+          // axisImages: axisurls.map((url) => {
+          //   return url.res;
+          // }),
           facebookUrl: req.body.facebookUrl,
           instagramUrl: req.body.instagramUrl,
         };
       }
+      const updateStr = {
+        ...dataSource,
+        gallery: [...newGalleryImg, ...prevGalleryImg],
+      };
+
+      const userProfile = await profileModel.findById(req.body._id);
+      if (axisurls.length > 0) {
+        const copyAxisImages = [...userProfile.axisImages];
+        axisImageChangeIndex.forEach((index, i) => {
+          copyAxisImages[index] = axisurls[i].res;
+        });
+        updateStr.axisImages = copyAxisImages;
+      }
+
+      // if (axisurls.length > 0) {
+      //   const userProfile = await profileModel.findById(req.body._id);
+      //   if (userProfile.axisImages.length > 0) {
+      //     let count = -1;
+
+      //     updateStr.axisImages = [
+      //       ...userProfile.axisImages.map((axisImage, index) => {
+      //         if (axisImageChangeIndex.includes(index)) {
+      //           count++;
+      //           return axisurls[count].res;
+      //         }
+      //         return axisImage;
+      //       }),
+      //       ...axisurls.slice(count + 1).map((url, i) => {
+      //         return url.res;
+      //       }),
+      //     ];
+      //   } else {
+      //     updateStr.axisImages = [
+      //       ...axisurls.map((url, i) => {
+      //         if (axisImageChangeIndex.includes(index)) {
+      //           return url.res;
+      //         }
+      //         return null;
+      //       }),
+      //     ];
+      //   }
+      // }
+
       profileModel.findOneAndUpdate(
         { _id: req.body._id },
-        { ...dataSource, gallery: [...newGalleryImg, ...prevGalleryImg] },
+        updateStr,
 
         { upsert: true },
         (err, doc) => {

@@ -150,8 +150,10 @@ const AbortPurchase = () => {
           </div>
           <div className="row">
             <div className="col-12 text-center contact-blue">
-          <p>מספר טלפון 0523753750 | כתובת: רחוב השדה 101 כפר חיטים |
-          office@lifecloud-qr.com :כתובת מייל </p>
+              <p>
+                מספר טלפון 0523753750 | כתובת: רחוב השדה 101 כפר חיטים |
+                office@lifecloud-qr.com :כתובת מייל{' '}
+              </p>
             </div>
           </div>
         </div>
