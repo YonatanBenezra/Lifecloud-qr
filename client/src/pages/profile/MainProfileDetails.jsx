@@ -365,7 +365,9 @@ export default function MainProfile(props) {
             </div>
           </div>
           <div className="profile-details-title">
-            <h1>חללי {profiledata.firstName} {profiledata.lastName}</h1>
+            <h1>
+              חללי {profiledata.firstName} {profiledata.lastName}
+            </h1>
           </div>
           <div className="list-of-deceased-container">
             <div className="list-of-deceased">
@@ -462,7 +464,11 @@ export default function MainProfile(props) {
                   {!img?.endsWith?.('mp4') ? (
                     <LazyLoad>
                       <img
-                        src={`${process.env.REACT_APP_API_URL}/${img}`}
+                        src={
+                          img.startsWith('http')
+                            ? img
+                            : `${process.env.REACT_APP_API_URL}/${img}`
+                        }
                         alt=""
                         className="full-gallery-img"
                       />

@@ -314,8 +314,8 @@ const CandleFlower = ({
           </div>
           <div
             className={`fc_image_container `}
-            // data-bs-toggle="modal"
-            // data-bs-target="#candleFlower"
+            data-bs-toggle="modal"
+            data-bs-target="#candleFlower"
           >
             <LazyLoad>
               <img
