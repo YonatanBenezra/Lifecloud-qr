@@ -129,7 +129,7 @@ export const MethodsPayment = (props) => {
             <div
               className="icon-payment-method bit"
               onClick={async () => {
-                console.log('onClick');
+                console.log('onClick...');
                 await payWithBit();
               }}
             ></div>
