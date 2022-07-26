@@ -22,7 +22,7 @@ mongoose
     console.log('DB Connected Successfully');
   });
 
-app.use(cors({ origin: '*' }));
+app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: false,
