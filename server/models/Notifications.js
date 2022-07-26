@@ -13,6 +13,7 @@ const NotificationSchema = new mongoose.Schema({
       'profileAdmin',
       'profileFriend',
       'friendRequest',
+      'candleFlower',
     ],
     default: 'memoryCreation',
   },

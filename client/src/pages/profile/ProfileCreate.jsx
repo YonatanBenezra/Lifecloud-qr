@@ -43,7 +43,7 @@ export default function ProfileCreate() {
   const [isPaid, setIsPaid] = useState(null);
   const facebookUrlRef = useRef(null);
   const instagramUrlRef = useRef(null);
-
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   useEffect(() => {});
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
@@ -193,11 +193,11 @@ export default function ProfileCreate() {
       { axisTitle: '', axisDate: '', axisDescription: '' },
     ]);
   };
-  useEffect(() => {
+  /*   useEffect(() => {
     if (isPaid === true || isPaid == false) {
       handleClick();
     }
-  }, isPaid);
+  }, isPaid); */
 
   const handleClick = async (e) => {
     setLoading(true);
@@ -1084,14 +1084,17 @@ export default function ProfileCreate() {
                           <button
                             onClick={() => setQr(true)}
                             className="logout-btn mt-0"
-                            type="button"
+                            type="submit"
                             data-bs-dismiss="modal"
                             aria-label="Close"
                           >
                             למייל QR לקבלת
                           </button>
                           <button
-                            onClick={() => setQr(false)}
+                            onClick={() => {
+                              setShowPaymentModal(true);
+                              setQr(false);
+                            }}
                             className="logout-btn mt-0"
                             type="button"
                             data-bs-dismiss="modal"
@@ -1103,12 +1106,13 @@ export default function ProfileCreate() {
                       </div>
                     </div>
                   </div>
-                  {qr === false && (
+                  {showPaymentModal && (
                     <MethodsPayment
-                      isOpen={true}
                       setIsPaid={setIsPaid}
-                      dataForPay={{ user: user._id }}
-                      paymentType="qr"
+                      dataForPay={{ userId: user._id }}
+                      setShowPaymentModal={setShowPaymentModal}
+                      handleFormSubmit={handleClick}
+
                     />
                   )}
                 </form>

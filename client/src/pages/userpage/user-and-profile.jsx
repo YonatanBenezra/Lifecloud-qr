@@ -11,6 +11,7 @@ import SocialFooter from '../../components/socialFooter/socialFooter';
 import { useRef } from 'react';
 import LazyLoad from 'react-lazyload';
 import userIcon from '../../assets/userIcon.png';
+import moment from 'moment';
 
 export const UserAndprofiles = () => {
   const LoggedUser = useContext(AuthContext);
@@ -30,6 +31,10 @@ export const UserAndprofiles = () => {
       return `אתה עכשיו אדמין וחבר בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`;
     else if (userNotification.notificationType === 'profileFriend')
       return `אתה עכשיו חבר של הפרופיל ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`;
+    else if (userNotification.notificationType === 'friendRequest')
+      return `${userNotification.logedInUser[0]?.firstName} ${userNotification.logedInUser[0]?.lastName} שלח בקשות חברות בפרופיל ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}.`;
+    else if (userNotification.notificationType === 'candleFlower')
+      return `${userNotification.logedInUser[0]?.firstName} ${userNotification.logedInUser[0]?.lastName} קנה פרחים/נרות לפרופיל ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}.`;
   };
 
   useEffect(() => {
@@ -54,14 +59,14 @@ export const UserAndprofiles = () => {
                   notification.notificationType === 'profileFriend'))
           )
           .map((userNotification) => ({
-            date: new Date(userNotification.createdAt)
-              .toISOString()
-              .slice(0, 10),
-            time: new Date(userNotification.createdAt)
-              .toISOString()
-              .slice(11, 16),
+            date: new Date(userNotification.createdAt).toLocaleDateString(),
+            time: new Date(userNotification.createdAt).toLocaleTimeString(),
             profileImg: userNotification.logedInUser[0]?.mainProfilePicture
-              ? `${process.env.REACT_APP_API_URL}/picUploader/${userNotification.logedInUser[0]?.mainProfilePicture}`
+              ? userNotification.logedInUser[0]?.mainProfilePicture?.startsWith(
+                  'http'
+                )
+                ? userNotification.logedInUser[0]?.mainProfilePicture
+                : `${process.env.REACT_APP_API_URL}/picUploader/${userNotification.logedInUser[0]?.mainProfilePicture}`
               : userNotification.logedInUser[0]?.profilePicture
               ? userNotification.logedInUser[0]?.profilePicture
               : userIcon,
@@ -304,14 +309,15 @@ export const UserAndprofiles = () => {
             התראות חדשות
           </h3>
           <div className="container">
+            {notifications.length === 0 && <h2>Loading...</h2>}
             {notifications.map((n) => {
               return (
                 <div className="row">
                   <div className="col-lg-8 col-12 mx-auto">
                     <div className="notification-line">
                       <div className="notification-text">
-                        <span>{n.date}</span> | <span>{n.time}</span>{' '}
-                        <span>{n.action}</span>
+                        <span>{moment(n.date).utc().format('DD-MM-YYYY')}</span>{' '}
+                        | <span>{n.time}</span> <span>{n.action}</span>
                       </div>
                       <LazyLoad>
                         <img

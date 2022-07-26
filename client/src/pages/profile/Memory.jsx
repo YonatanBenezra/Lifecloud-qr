@@ -140,6 +140,19 @@ const Memory = () => {
         body: JSON.stringify(text),
       })
         .then((res) => {
+          fetch(
+            `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'Application/json',
+              },
+              body: JSON.stringify({
+                profileId: profileId,
+                loggedInId: user._id,
+              }),
+            }
+          );
           return res.json();
         })
         .then((res) => {
