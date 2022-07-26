@@ -195,16 +195,6 @@ const DesktopTopbar = (props) => {
                   אודות
                 </Link>
                 <Link
-                  to={`/plans`}
-                  style={{ textDecoration: 'none', color: '#6097BF' }}
-                  className={`${
-                    clicked === 'plans' && 'topbar-active'
-                  } topbarLink`}
-                  onClick={() => setClicked('plans')}
-                >
-                  תוכניות
-                </Link>
-                <Link
                   to={`/login`}
                   style={{ textDecoration: 'none', color: '#6097BF' }}
                   className={`${
