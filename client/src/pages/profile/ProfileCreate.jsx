@@ -44,7 +44,7 @@ export default function ProfileCreate() {
   const facebookUrlRef = useRef(null);
   const instagramUrlRef = useRef(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  useEffect(() => {});
+
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
       setPicture(e.target.files[0]);
@@ -1106,13 +1106,13 @@ export default function ProfileCreate() {
                       </div>
                     </div>
                   </div>
+                  {console.log('showPaymentModal', showPaymentModal)}
                   {showPaymentModal && (
                     <MethodsPayment
                       setIsPaid={setIsPaid}
                       dataForPay={{ userId: user._id }}
                       setShowPaymentModal={setShowPaymentModal}
                       handleFormSubmit={handleClick}
-
                     />
                   )}
                 </form>
