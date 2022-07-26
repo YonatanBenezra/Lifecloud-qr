@@ -30,6 +30,8 @@ export const UserAndprofiles = () => {
       return `אתה עכשיו אדמין וחבר בפרופיל של ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`;
     else if (userNotification.notificationType === 'profileFriend')
       return `אתה עכשיו חבר של הפרופיל ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName} profile`;
+    else if (userNotification.notificationType === 'friendRequest')
+      return `${userNotification.logedInUser[0]?.firstName} ${userNotification.logedInUser[0]?.lastName} שלח בקשות חברות בפרופיל ${userNotification.memoryCreatorNotification[0]?.firstName} ${userNotification.memoryCreatorNotification[0]?.lastName}.`;
   };
 
   useEffect(() => {
@@ -61,7 +63,11 @@ export const UserAndprofiles = () => {
               .toISOString()
               .slice(11, 16),
             profileImg: userNotification.logedInUser[0]?.mainProfilePicture
-              ? `${process.env.REACT_APP_API_URL}/picUploader/${userNotification.logedInUser[0]?.mainProfilePicture}`
+              ? userNotification.logedInUser[0]?.mainProfilePicture?.startsWith(
+                  'http'
+                )
+                ? userNotification.logedInUser[0]?.mainProfilePicture
+                : `${process.env.REACT_APP_API_URL}/picUploader/${userNotification.logedInUser[0]?.mainProfilePicture}`
               : userNotification.logedInUser[0]?.profilePicture
               ? userNotification.logedInUser[0]?.profilePicture
               : userIcon,
@@ -304,6 +310,7 @@ export const UserAndprofiles = () => {
             התראות חדשות
           </h3>
           <div className="container">
+            {notifications.length === 0 && <h2>Loading...</h2>}
             {notifications.map((n) => {
               return (
                 <div className="row">

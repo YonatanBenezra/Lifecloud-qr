@@ -5,7 +5,7 @@ class Email {
     this.to = user.email;
     this.firstName = user.firstName;
     this.url = url;
-    this.from = `Rupok Koiry <koiry.rupok@gmail.com>`;
+    this.from = `Lifecloud Koiry <office@lifecloud-qr.com>`;
   }
 
   newTransport() {
