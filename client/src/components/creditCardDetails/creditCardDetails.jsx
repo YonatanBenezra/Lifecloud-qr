@@ -11,6 +11,7 @@ export const CreditCardDetails = ({
   dataForPay,
   setShowPaymentModal,
   handleFormSubmit,
+
 }) => {
   const [creditCard, setCreditCard] = useState({
     cvc: '',
@@ -20,6 +21,7 @@ export const CreditCardDetails = ({
     myid: '',
   });
   /*  const [errorMessage, setErrorMessage] = useState(''); */
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,6 +35,7 @@ export const CreditCardDetails = ({
         response = await postPayCandleFlower({ ...dataForPay, creditCard });
       } else {
         response = await postPayQr({ ...dataForPay, creditCard });
+
       }
       console.log(response);
       if (response?.status === 'error') {
