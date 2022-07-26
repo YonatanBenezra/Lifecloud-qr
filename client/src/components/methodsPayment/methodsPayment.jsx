@@ -128,9 +128,9 @@ export const MethodsPayment = (props) => {
           <div className="icons-container-payment">
             <div
               className="icon-payment-method bit"
-              onClick={async () => {
+              onClick={() => {
                 console.log('onClick');
-                await payWithBit();
+                payWithBit();
               }}
             ></div>
             <div className="icon-payment-method apple-pay-icon"></div>
