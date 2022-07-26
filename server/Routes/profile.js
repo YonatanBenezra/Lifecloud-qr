@@ -110,7 +110,7 @@ ProfileRouter.post(
         addRow({
           ID: resp._id,
           'Profile Name': resp.firstName + ' ' + resp.lastName,
-          'User Name': user.firstName + ' ' + user.lastName,
+          'User Name': user?.firstName + ' ' + user?.lastName,
           Email: user.email,
           Phone: user.phone,
           QR: qrUrl,
