@@ -107,10 +107,11 @@ ProfileRouter.post(
         res.send(resp);
         const qrUrl = `https://lifecloud-qr.com/profiledetails/${resp._id}`;
         const user = await User.findById(resp.originalUser[0]);
+
         addRow({
           ID: resp._id,
           'Profile Name': resp.firstName + ' ' + resp.lastName,
-          'User Name': user?.firstName + ' ' + user?.lastName,
+          'User Name': (user?.firstName || '') + ' ' + (user?.lastName || ''),
           Email: user.email,
           Phone: user.phone,
           QR: qrUrl,
