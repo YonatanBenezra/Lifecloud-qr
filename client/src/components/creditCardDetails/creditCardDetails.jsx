@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/es/styles-compiled.css';
+import { useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { postPayCandleFlower, postPayQr } from '../../apiCalls';
+import { AuthContext } from '../../context/AuthContext';
 import toastCreator from '../../hooks/toastifyCreator';
 import './credit-card-details.css';
 
@@ -11,8 +13,10 @@ export const CreditCardDetails = ({
   dataForPay,
   setShowPaymentModal,
   handleFormSubmit,
-
 }) => {
+  const { id: profileId } = useParams();
+  const { user } = useContext(AuthContext);
+
   const [creditCard, setCreditCard] = useState({
     cvc: '',
     expiry: '',
@@ -21,7 +25,6 @@ export const CreditCardDetails = ({
     myid: '',
   });
   /*  const [errorMessage, setErrorMessage] = useState(''); */
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,14 +38,33 @@ export const CreditCardDetails = ({
         response = await postPayCandleFlower({ ...dataForPay, creditCard });
       } else {
         response = await postPayQr({ ...dataForPay, creditCard });
-
       }
-      console.log(response);
       if (response?.status === 'error') {
         toastCreator(response.message, 'error');
         setIsPaid(false);
       } else {
         toastCreator(response.message, 'success');
+        if (dataForPay.candle || dataForPay.flower) {
+          console.log({
+            profileId: profileId,
+            loggedInId: user?._id,
+            notificationType: 'candleFlower',
+          });
+           await fetch(
+            `${process.env.REACT_APP_API_URL}/api/notification/addnotifications`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'Application/json',
+              },
+              body: JSON.stringify({
+                profileId: profileId,
+                loggedInId: user?._id,
+                notificationType: 'candleFlower',
+              }),
+            }
+          );
+        }
         setTimeout(() => {
           setShowPaymentModal(false);
           setIsPaid(true);
