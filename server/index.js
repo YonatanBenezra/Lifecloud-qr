@@ -22,7 +22,7 @@ mongoose
     console.log('DB Connected Successfully');
   });
 
-app.use(cors());
+// app.use(cors());
 // Add headers before the routes are defined
 app.use((req, res, next) => {
   // Website you wish to allow to connect
