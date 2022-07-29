@@ -233,7 +233,7 @@ const HomeMobile = (props) => {
                 </div>
               </div>
               <div className="gridTxt">
-                <h1 className="h1-home-desktop">הדלקת נר והנחת פרח וירטאלי</h1>
+                <h1 className="h1-home-desktop">הדלקת נר והנחת פרח וירטואלי</h1>
                 <p className="gridPlus">+</p>
                 <h1 className="gridTxtP">קרא עוד </h1>
               </div>
@@ -268,7 +268,7 @@ const HomeMobile = (props) => {
                 </LazyLoad>
 
                 <div className="life_book_overlay">
-                  <p>הדלקת נר או הנחת פרח וירטאלי בלחיצת כפתור</p>
+                  <p>הדלקת נר או הנחת פרח וירטואלי בלחיצת כפתור</p>
                 </div>
               </div>
               <div className="gridTxt">
