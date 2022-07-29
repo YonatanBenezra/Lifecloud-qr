@@ -217,7 +217,7 @@ const HomeDesktop = (props) => {
           <div>
             <div className="img-300 twelve">
               <p className="img-300-text">
-                הדלקת נר או הנחת זר וירטאלי בלחיצת כפתור
+                הדלקת נר או הנחת זר וירטואלי בלחיצת כפתור
               </p>
               <div className="read-more-home">
                 <span className="read-more-home-desktop">
